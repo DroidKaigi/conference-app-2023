@@ -69,6 +69,7 @@ function run() {
                 environment,
                 task: 'deploygate',
                 auto_merge: false,
+                required_contexts: [],
                 payload: {
                     runId,
                     ref,
