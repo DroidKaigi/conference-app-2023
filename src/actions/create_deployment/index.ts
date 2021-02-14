@@ -6,6 +6,7 @@ async function run(): Promise<void> {
   try {
     const token = core.getInput('github-token')
     const ref = core.getInput('ref')
+    const sha = core.getInput('sha')
     const environment =
       core.getInput('environment', {required: false}) || 'pull-requests'
     const artifactName = core.getInput('artifact-name')
@@ -45,6 +46,7 @@ async function run(): Promise<void> {
       payload: {
         runId,
         ref,
+        sha,
         artifactId: targetArtifact.containerId
       }
     })

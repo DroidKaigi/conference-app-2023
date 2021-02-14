@@ -44,6 +44,7 @@ function run() {
         try {
             const token = core.getInput('github-token');
             const ref = core.getInput('ref');
+            const sha = core.getInput('sha');
             const environment = core.getInput('environment', { required: false }) || 'pull-requests';
             const artifactName = core.getInput('artifact-name');
             const runId = process.env['GITHUB_RUN_ID'];
@@ -73,6 +74,7 @@ function run() {
                 payload: {
                     runId,
                     ref,
+                    sha,
                     artifactId: targetArtifact.containerId
                 }
             });

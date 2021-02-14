@@ -8,6 +8,9 @@ inputs:
   ref:
     required: true
     description: 'ref to deploy. checkout actions compatible is preferable.'
+  sha:
+    required: true
+    description: 'a sha of the ref'
   environment:
     description: 'a name of this deployment'
   artifact-name:
