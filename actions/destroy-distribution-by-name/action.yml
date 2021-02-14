@@ -1,0 +1,29 @@
+name: 'Destroy a distribution by its name'
+description: 'ditto'
+author: '@jmatsu'
+inputs:
+  api-token:
+    required: true
+    description: 'an api token of DeployGate'
+  app-owner-name:
+    required: true
+    description: 'a name of User or Organization'
+  platform:
+    required: true
+    description: '[enum] android or ios (case-insensitive)'
+  app-id:
+    required: true
+    description: 'the package name for android or the bundle identifier for ios'
+  distribution-name:
+    required: true
+    description: 'a name of a distribution to destroy'
+  test:
+    description: 'specify true iff testing'
+outputs:
+  status:
+    description: 'The http status of the request'
+  response:
+    description: 'The api response from DeployGate'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

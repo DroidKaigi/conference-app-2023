@@ -1,0 +1,13 @@
+name: 'Find files'
+description: 'just find files based on the given glob pattern'
+author: '@jmatsu'
+inputs:
+  pattern:
+    required: true
+    description: 'a glob pattern to find files' # https://github.com/actions/toolkit/tree/main/packages/glob#patterns
+outputs:
+  paths:
+    description: 'An array string of found paths'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

@@ -1,0 +1,25 @@
+name: 'Commit a deployment status'
+description: 'ditto'
+author: '@jmatsu'
+inputs:
+  github-token:
+    required: true
+    description: 'a token of github. it should have write-permission.'
+  deployment-id:
+    required: true
+    description: '[number] deployment id to update.'
+  state:
+    required: true
+    description: '[enum] success or failure'
+  deployment-url:
+    required: true
+    description: 'a deployment url'
+  description:
+    required: true
+    description: 'a description of a status, not of a deployment'
+outputs:
+  deployment-status:
+    description: 'a new deployment status object'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

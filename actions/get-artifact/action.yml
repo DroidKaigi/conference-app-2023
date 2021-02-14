@@ -1,0 +1,19 @@
+name: 'Get an artifact of the specified repository'
+description: 'ditto'
+author: '@jmatsu'
+inputs:
+  github-token:
+    required: true
+    description: 'a token of github. it should have read repo permission.'
+  artifact-id:
+    required: true
+    description: 'an artifact id'
+  path:
+    description: 'Destination path'
+    required: false
+outputs:
+  artifact:
+    description: 'The artifact object'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

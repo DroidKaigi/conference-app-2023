@@ -1,0 +1,21 @@
+name: 'Create a deployment for DeployGate'
+description: 'ditto'
+author: '@jmatsu'
+inputs:
+  github-token:
+    required: true
+    description: 'a token of github. it should have write-permission.'
+  ref:
+    required: true
+    description: 'ref to deploy. checkout actions compatible is preferable.'
+  environment:
+    description: 'a name of this deployment'
+  artifact-name:
+    required: true
+    description: 'an artifact name to deploy'
+outputs:
+  deployment:
+    description: 'a new deployment object'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
