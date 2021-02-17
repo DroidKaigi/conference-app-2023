@@ -32,9 +32,11 @@ async function run(): Promise<void> {
         `Unable to find an artifact with the name: ${artifactName}`
       )
     }
+    core.info(`found an artifact - ${artifactName}`)
 
     const octokit = github.getOctokit(token)
 
+    core.info(`will be creating a new ${environment} deployment`)
     const {data: deployment} = await octokit.repos.createDeployment({
       owner: 'DroidKaigi',
       repo: 'conference-app-2021',
@@ -51,6 +53,8 @@ async function run(): Promise<void> {
       }
     })
 
+    core.info(`created a new deployment (${deployment.id})`)
+    core.debug(JSON.stringify(deployment))
     core.setOutput('deployment', JSON.stringify(deployment))
   } catch (error) {
     core.setFailed(error.message)
