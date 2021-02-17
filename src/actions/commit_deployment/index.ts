@@ -21,6 +21,7 @@ async function run(): Promise<void> {
         repo: 'conference-app-2021',
         deployment_id: deploymentId,
         log_url: deploymentUrl,
+        target_url: deploymentUrl,
         state,
         description
       }
