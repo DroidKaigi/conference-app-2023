@@ -58,8 +58,8 @@ function run() {
             yield io.mkdirP(path_1.dirname(resolvedPath));
             const octokit = github.getOctokit(token);
             const { data: artifact } = yield octokit.actions.getArtifact({
-                owner: 'DroidKaigi',
-                repo: 'conference-app-2021',
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
                 artifact_id: artifactId
             });
             core.setOutput('artifact', JSON.stringify(artifact));

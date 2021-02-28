@@ -17,8 +17,8 @@ async function run(): Promise<void> {
 
     const {data: deploymentStatus} = await octokit.repos.createDeploymentStatus(
       {
-        owner: 'DroidKaigi',
-        repo: 'conference-app-2021',
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
         deployment_id: deploymentId,
         log_url: deploymentUrl,
         target_url: deploymentUrl,

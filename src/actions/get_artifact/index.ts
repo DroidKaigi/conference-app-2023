@@ -22,8 +22,8 @@ async function run(): Promise<void> {
     const octokit = github.getOctokit(token)
 
     const {data: artifact} = await octokit.actions.getArtifact({
-      owner: 'DroidKaigi',
-      repo: 'conference-app-2021',
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
       artifact_id: artifactId
     })
 

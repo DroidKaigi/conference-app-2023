@@ -66,8 +66,8 @@ function run() {
             const octokit = github.getOctokit(token);
             core.info(`will be creating a new ${environment} deployment`);
             const { data: deployment } = yield octokit.repos.createDeployment({
-                owner: 'DroidKaigi',
-                repo: 'conference-app-2021',
+                owner: github.context.repo.owner,
+                repo: github.context.repo.repo,
                 ref,
                 environment,
                 task: 'deploygate',
