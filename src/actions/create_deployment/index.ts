@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import {DownloadHttpClient} from '@actions/artifact/lib/internal/download-http-client'
 
 async function run(): Promise<void> {
   try {
@@ -9,30 +8,10 @@ async function run(): Promise<void> {
     const sha = core.getInput('sha')
     const environment =
       core.getInput('environment', {required: false}) || 'pull-requests'
-    const artifactName = core.getInput('artifact-name')
     const runId = process.env['GITHUB_RUN_ID']
     if (!runId) {
       throw new Error('Unable to get GITHUB_RUN_ID env variable')
     }
-
-    const httpClient = new DownloadHttpClient()
-
-    const artifacts = await httpClient.listArtifacts()
-    if (artifacts.count === 0) {
-      throw new Error(
-        `Unable to find any artifacts for the associated workflow`
-      )
-    }
-
-    const targetArtifact = artifacts.value.find(artifact => {
-      return artifact.name === artifactName
-    })
-    if (!targetArtifact) {
-      throw new Error(
-        `Unable to find an artifact with the name: ${artifactName}`
-      )
-    }
-    core.info(`found an artifact - ${artifactName}`)
 
     const octokit = github.getOctokit(token)
 
@@ -48,8 +27,7 @@ async function run(): Promise<void> {
       payload: {
         runId,
         ref,
-        sha,
-        artifactId: targetArtifact.containerId
+        sha
       }
     })
 
