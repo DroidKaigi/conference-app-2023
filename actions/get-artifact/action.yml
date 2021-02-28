@@ -14,6 +14,8 @@ inputs:
 outputs:
   artifact:
     description: 'The artifact object'
+  archive-path:
+    description: 'The destination path of an archive'
 runs:
   using: 'node12'
   main: 'dist/index.js'

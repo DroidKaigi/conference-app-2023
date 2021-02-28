@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as io from '@actions/io'
-import {DownloadHttpClient} from '@actions/artifact/lib/internal/download-http-client'
 import * as os from 'os'
 import {dirname, resolve} from 'path'
+import * as fs from 'fs'
 
 async function run(): Promise<void> {
   try {
@@ -29,15 +29,17 @@ async function run(): Promise<void> {
 
     core.setOutput('artifact', JSON.stringify(artifact))
 
-    const httpClient = new DownloadHttpClient()
-    await httpClient.downloadSingleArtifact([
-      {
-        sourceLocation: artifact.archive_download_url,
-        targetPath: resolvedPath
-      }
-    ])
+    const {data: zipData} = await octokit.actions.downloadArtifact({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      artifact_id: artifactId,
+      archive_format: 'zip'
+    })
 
-    core.setOutput('destination', resolvedPath)
+    const archivePath = `${resolvedPath}.zip`
+    fs.writeFileSync(`${resolvedPath}.zip`, Buffer.from(zipData as ArrayBuffer))
+
+    core.setOutput('archive-path', archivePath)
   } catch (error) {
     core.setFailed(error.message)
   }
