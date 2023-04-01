@@ -3,7 +3,7 @@ androidGradlePlugin = "7.4.2"
 kotlin = "1.8.10"
 
 androidxCore = "1.8.0"
-androidDesugarJdkLibs = "1.2.3"
+androidDesugarJdkLibs = "2.0.3"
 compose = "1.4.0"
 composeCompiler = "1.4.4"
 androidxLifecycle = "2.5.0"

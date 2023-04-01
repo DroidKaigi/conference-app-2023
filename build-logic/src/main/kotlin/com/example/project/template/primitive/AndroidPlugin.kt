@@ -17,7 +17,7 @@ class AndroidPlugin : Plugin<Project> {
                 namespace?.let {
                     this.namespace = it
                 }
-                compileSdk = 32
+                compileSdk = 33
 
                 defaultConfig {
                     minSdk = 23
