@@ -5,7 +5,7 @@ on:
       - 'gradle/libs.versions.toml'
       - '**/build.gradle.kts'
 concurrency:
-  group: ${{ github.worflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   dependency_diff:
