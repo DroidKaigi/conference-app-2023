@@ -4,6 +4,9 @@ on:
     paths:
       - 'gradle/libs.versions.toml'
       - '**/build.gradle.kts'
+concurrency:
+  group: ${{ github.worflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   dependency_diff:
     runs-on: ubuntu-latest

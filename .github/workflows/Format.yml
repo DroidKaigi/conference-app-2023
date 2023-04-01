@@ -1,9 +1,8 @@
 name: Format
 on: [pull_request]
 concurrency:
-  group: build-${{ github.ref }}
+  group: ${{ github.worflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   format:
     runs-on: ubuntu-latest
