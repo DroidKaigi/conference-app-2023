@@ -2,10 +2,8 @@ package com.example.project.template
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.project.template.ui.theme.Androidprojecttemplate2022Theme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,24 +11,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onErrorResume
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-
-//@Preview(showBackground = true)
-//@Composable
-//fun DefaultPreview() {
+// @Preview(showBackground = true)
+// @Composable
+// fun DefaultPreview() {
 //    Androidprojecttemplate2022Theme {
 //        Greeting("Android")
 //    }
-//}
-
+// }
 
 // Model
 
@@ -112,7 +106,7 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 }
 
 // Test code
-//class SessionsScreenSnapshotTest {
+// class SessionsScreenSnapshotTest {
 //    val composeTestRule = composeTestRule()
 //    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
 //
@@ -123,9 +117,9 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 //            capture()
 //        }
 //    }
-//}
+// }
 //
-//class SessionsScreenTest {
+// class SessionsScreenTest {
 //    val composeTestRule = composeTestRule()
 //    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
 //
@@ -137,10 +131,10 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 //            areAllSessionsFavorite()
 //        }
 //    }
-//}
+// }
 //
-//// ④ Shared Testing Robot
-//class SessionScreenRobot @Inject constructor() {
+// // ④ Shared Testing Robot
+// class SessionScreenRobot @Inject constructor() {
 //    lateinit var composeTestRule: ComposeTestRule
 //    fun invoke(composeTestRule: ComposeTestRule, block: SessionScreenRobot.() -> Unit) {
 //        this.composeTestRule = composeTestRule
@@ -170,7 +164,7 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 //            .onNode(isRoot())
 //            .captureRoboImage()
 //    }
-//}
+// }
 
 class SessionScreenViewModel(
     private val sessionsRepository: SessionsRepository,
@@ -277,7 +271,7 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
 
 // ① Single source of truth of UiState
 // ② Application wide error handling
-// ③ Capture Robolectric image
+// ③ Capture Robolectric image(Robolectric Native Graphics)
 // ④ Shared Testing Robot
 
 // ⑤ Shared element transition with Jetpack Compose
