@@ -1,0 +1,47 @@
+[versions]
+androidGradlePlugin = "7.4.2"
+kotlin = "1.7.0"
+
+androidxCore = "1.8.0"
+androidDesugarJdkLibs = "1.2.0"
+compose = "1.2.0-rc03"
+composeCompiler = "1.2.0"
+androidxLifecycle = "2.5.0"
+androidxActivity = "1.5.0"
+junit = "4.13.2"
+androidxTestExt = "1.1.3"
+androidxTestEspresso = "3.4.0"
+dagger = "2.42"
+spotless = "6.7.0"
+ktlint = "0.45.2"
+
+[libraries]
+androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+spotlessGradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
+
+androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+
+composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+composeMaterial = { module = "androidx.compose.material:material", version.ref = "compose" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+
+daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+
+androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidxTestExtJunit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
+androidxTestEspressoEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspresso" }
+
+[plugins]
+androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+androidGradleLibraryPlugin = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlinPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }

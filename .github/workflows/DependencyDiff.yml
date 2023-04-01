@@ -1,0 +1,46 @@
+name: DependencyDiff
+on:
+  pull_request:
+    paths:
+      - 'gradle/libs.versions.toml'
+      - '**/build.gradle.kts'
+jobs:
+  dependency_diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+      - id: dependency-diff
+        name: Generate dependency diff
+        run: |
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          DIFF=$(scripts/dependency_diff.sh $BASE_BRANCH $BRANCH_NAME app releaseRuntimeClasspath)
+          DIFF="${DIFF//'%'/'%25'}"
+          DIFF="${DIFF//$'\n'/'%0A'}"
+          DIFF="${DIFF//$'\r'/'%0D'}"
+          echo "::set-output name=text-diff::${DIFF}"
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: peter-evans/find-comment@1769778a0c5bd330272d749d12c036d65e70d39d
+        id: find_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body-includes: Dependency diff
+      - uses: peter-evans/create-or-update-comment@b95e16d2859ad843a14218d1028da5b2c4cbc4b4
+        if: ${{ steps.dependency-diff.outputs.text-diff != null || steps.find_comment.outputs.comment-id != null }}
+        with:
+          body: |
+            Dependency diff:
+              ```diff
+              ${{ steps.dependency-diff.outputs.text-diff }}
+              ```
+          edit-mode: replace
+          comment-id: ${{ steps.find_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
