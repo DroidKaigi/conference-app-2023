@@ -11,7 +11,7 @@ androidxActivity = "1.7.0"
 junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
-dagger = "2.42"
+dagger = "2.45"
 spotless = "6.7.0"
 ktlint = "0.45.2"
 
