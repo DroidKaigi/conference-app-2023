@@ -1,11 +1,11 @@
 [versions]
 androidGradlePlugin = "7.4.2"
-kotlin = "1.7.0"
+kotlin = "1.8.10"
 
 androidxCore = "1.8.0"
 androidDesugarJdkLibs = "1.2.0"
-compose = "1.2.0-rc03"
-composeCompiler = "1.2.0"
+compose = "1.4.0"
+composeCompiler = "1.4.4"
 androidxLifecycle = "2.5.0"
 androidxActivity = "1.5.0"
 junit = "4.13.2"
