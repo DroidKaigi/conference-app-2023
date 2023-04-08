@@ -1,11 +1,12 @@
 plugins {
     id("com.example.convention.androidfeature")
+    id("com.example.primitive.android")
 }
 
 android.namespace = "com.example.project.template.feature.home"
 
 dependencies {
-    implementation(projects.coreUi)
+    implementation(projects.core.ui)
 
     implementation(libs.androidxCoreKtx)
     implementation(libs.composeUi)
