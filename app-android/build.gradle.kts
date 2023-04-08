@@ -8,6 +8,6 @@ plugins {
 android.namespace = "com.example.project.template"
 
 dependencies {
-    implementation(projects.featureHome)
-    implementation(projects.coreUi)
+    implementation(projects.feature.home)
+    implementation(projects.core.ui)
 }
