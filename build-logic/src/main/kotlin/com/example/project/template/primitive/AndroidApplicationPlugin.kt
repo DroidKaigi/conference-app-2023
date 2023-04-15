@@ -22,7 +22,6 @@ class AndroidApplicationPlugin : Plugin<Project> {
                     this.namespace = it
                 }
                 compileSdk = 33
-
                 defaultConfig {
                     minSdk = 23
                 }
@@ -42,8 +41,6 @@ class AndroidApplicationPlugin : Plugin<Project> {
                         // Enable experimental coroutines APIs, including Flow
 //              "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     )
-
-                    jvmTarget = org.gradle.api.JavaVersion.VERSION_1_8.toString()
                 }
 
                 dependencies {

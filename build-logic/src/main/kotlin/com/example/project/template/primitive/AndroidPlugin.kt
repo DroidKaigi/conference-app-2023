@@ -41,8 +41,6 @@ class AndroidPlugin : Plugin<Project> {
                         // Enable experimental coroutines APIs, including Flow
 //              "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                     )
-
-                    jvmTarget = org.gradle.api.JavaVersion.VERSION_1_8.toString()
                 }
 
                 dependencies {
