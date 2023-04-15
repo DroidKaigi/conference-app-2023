@@ -2,6 +2,7 @@ package com.example.project.template.primitive
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("unused")
@@ -12,7 +13,9 @@ class AndroidPlugin : Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
             }
-
+            java {
+                toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+            }
             androidLibrary {
                 namespace?.let {
                     this.namespace = it

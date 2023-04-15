@@ -2,6 +2,7 @@ package com.example.project.template.primitive
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("unused")
@@ -11,6 +12,9 @@ class AndroidApplicationPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.application")
                 apply("org.jetbrains.kotlin.android")
+            }
+            java {
+                toolchain.languageVersion.set(JavaLanguageVersion.of(17))
             }
 
             androidApplication {

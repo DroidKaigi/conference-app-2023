@@ -8,6 +8,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.plugins.JavaPlatformExtension
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
@@ -53,6 +55,10 @@ fun DependencyHandlerScope.kapt(
 
 fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
+}
+
+fun Project.java(action: JavaPluginExtension.() -> Unit) {
+    extensions.configure(action)
 }
 
 fun Project.androidApplication(action: BaseAppModuleExtension.() -> Unit) {
