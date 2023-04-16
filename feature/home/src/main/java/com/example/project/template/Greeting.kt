@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun Greeting(name: String) {
-    lateinit var sessionScreenViewModel: SessionScreenViewModel //= hiltViewModel()
+    lateinit var sessionScreenViewModel: SessionScreenViewModel // = hiltViewModel()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
     SnackbarMessageEffect(

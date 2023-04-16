@@ -15,10 +15,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import java.util.UUID
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 
 /**
  * SnackbarMessageEffect shows a snackbar message when a [UserMessage] is emitted by [userMessageStateHolder].
@@ -50,8 +50,7 @@ data class UserMessage(
     val actionLabel: String? = null,
     val id: Long = UUID.randomUUID().mostSignificantBits,
     val userMessageResult: UserMessageResult? = null,
-) {
-}
+)
 
 data class MessageUiState(
     val userMessages: List<UserMessage> = emptyList()
