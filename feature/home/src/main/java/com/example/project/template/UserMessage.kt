@@ -71,6 +71,7 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
     override fun messageShown(messageId: Long, userMessageResult: UserMessageResult) {
         val messages = _messageUiState.userMessages.toMutableList()
         messages.indexOfFirst { it.id == messageId }.let { userMessageIndex ->
+            if (userMessageIndex == -1) return@let
             messages.set(
                 userMessageIndex,
                 messages[userMessageIndex].copy(userMessageResult = userMessageResult)
@@ -101,7 +102,11 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
                 )
             }
             .first()
-        messages.remove(newMessage)
+        val newMessages = _messageUiState.userMessages.toMutableList()
+        newMessages.find { it.id == newMessage.id }?.let { userMessage ->
+            newMessages.remove(userMessage)
+        }
+        _messageUiState = _messageUiState.copy(userMessages = newMessages)
         return messageResult
     }
 }
