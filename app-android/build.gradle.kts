@@ -5,7 +5,7 @@ plugins {
     id("com.example.primitive.spotless")
 }
 
-android.namespace = "com.example.project.template"
+android.namespace = "io.github.droidkaigi.confsched2023"
 
 dependencies {
     implementation(projects.feature.home)

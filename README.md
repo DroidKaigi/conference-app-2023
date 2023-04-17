@@ -1,3 +1,3 @@
-# Project template for 2022 apps
+# DroidKaigi 2023 official app
 
-https://qiita.com/takahirom/items/983f7ee06afe85c78246
+DroidKaigi 2023 official app is an app for DroidKaigi 2023.
