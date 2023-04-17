@@ -1,21 +1,45 @@
 package com.example.project.template
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.project.template.UserMessageStateHolder.UserMessageResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    lateinit var sessionScreenViewModel: SessionScreenViewModel // = hiltViewModel()
+    val uiState by sessionScreenViewModel.uiState.collectAsState()
+    val snackbarHostState = SnackbarHostState()
+    SnackbarMessageEffect(
+        snackbarHostState = snackbarHostState,
+        userMessageStateHolder = sessionScreenViewModel.userMessageStateHolder
+    )
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState
+            )
+        }
+    ) { innerPadding ->
+        Text(text = "Hello $name!", Modifier.padding(innerPadding))
+    }
 }
 
 // @Preview(showBackground = true)
@@ -58,18 +82,6 @@ class SessionsRepository {
 }
 
 class AppError(e: Throwable) : Exception(e)
-
-class ApplicationRepository() {
-    private val appError: MutableStateFlow<AppError?> = MutableStateFlow<AppError?>(null)
-
-    fun handleError() {
-        appError.value = null
-    }
-
-    fun reportError(e: Throwable) {
-        appError.value = AppError(e)
-    }
-}
 
 interface DroidKaigiSessionApi {
     suspend fun getSessions(): List<Session> = listOf()
@@ -168,20 +180,33 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 
 class SessionScreenViewModel(
     private val sessionsRepository: SessionsRepository,
-    private val applicationRepository: ApplicationRepository
-) : ViewModel() {
+    val userMessageStateHolder: UserMessageStateHolder,
+) : ViewModel(),
+    UserMessageStateHolder by userMessageStateHolder {
     private val sessionsStateFlow = sessionsRepository
         .getSessionsStream()
         .catch {
             // ② Application wide error handling
-            applicationRepository.reportError(it)
+            val applicationErrorMessage = it.toApplicationErrorMessage()
+
+            // Shared snackbar message logic
+            val messageResult = showMessage(
+                message = applicationErrorMessage,
+                // TODO: Decide how to write strings in ViewModel
+                actionLabel = "Retry"
+            )
+
+            // Retry
+            if (messageResult == UserMessageResult.ActionPerformed) {
+                emitAll(sessionsRepository.getSessionsStream())
+            }
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
             initialValue = Sessions(listOf())
         )
-    private val filtersStateFlow = MutableStateFlow<Filter>(Filter(false))
+    private val filtersStateFlow = MutableStateFlow(Filter(false))
 
     // ① Single source of truth of UiState
     private val sessionListUiState: StateFlow<SessionListUiState> = buildUiState(
@@ -219,6 +244,10 @@ class SessionScreenViewModel(
             filterFavorites = !filtersStateFlow.value.filterFavorites
         )
     }
+}
+
+private fun Throwable.toApplicationErrorMessage(): String {
+    return message ?: ""
 }
 
 fun <T1, R> ViewModel.buildUiState(
