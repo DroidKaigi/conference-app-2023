@@ -10,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import io.github.droidkaigi.confsched2023.UserMessageStateHolder.UserMessageResult
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -112,12 +111,12 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
 }
 
 interface UserMessageStateHolder {
-    enum class UserMessageResult {
-        Dismissed,
-        ActionPerformed,
-    }
-
     val messageUiState: MessageUiState
     fun messageShown(messageId: Long, userMessageResult: UserMessageResult)
     suspend fun showMessage(message: String, actionLabel: String? = null): UserMessageResult
+}
+
+enum class UserMessageResult {
+    Dismissed,
+    ActionPerformed,
 }
