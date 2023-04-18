@@ -21,11 +21,6 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Greeting("Android")
                 }
-
-
-
-
-
             }
         }
     }
