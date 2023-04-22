@@ -17,7 +17,8 @@ jobs:
       - name: set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          distribution: temurin
+          java-version: 17
       - id: dependency-diff
         name: Generate dependency diff
         run: |
