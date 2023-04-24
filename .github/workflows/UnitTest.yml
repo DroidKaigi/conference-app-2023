@@ -1,0 +1,55 @@
+name: UnitTest
+
+run-name: "UnitTest by ${{ github.actor }}"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+
+      - uses: ./.github/actions/setup-java
+
+      - name: Run local tests
+        run: ./gradlew testDebug --stacktrace
+
+      - name: Upload build reports
+        if: always()
+        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        with:
+          name: build-reports
+          path: app/build/reports
+
+      - id: test-results
+        name: Aggregate test-results into the single directory
+        if: always()
+        run: |
+          echo "path=.test-results" >> $GITHUB_OUTPUT
+
+          mkdir -p .test-results
+
+          while read -r xml_path; do
+            copy_dir=".test-results/$(dirname "$xml_path")"
+            mkdir -p "$copy_dir"
+            cp "$xml_path" "$copy_dir/"
+          done < <(find . -name "*.xml" | grep "/test-results/")
+
+      - name: Upload test-results
+        if: always()
+        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        with:
+          name: test-results
+          path: ${{ steps.test-results.outputs.path }}
