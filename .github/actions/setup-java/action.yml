@@ -12,6 +12,7 @@ runs:
       uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
 
     - name: Copy CI gradle.properties
+      shell: bash
       run: |
         mkdir -p ~/.gradle
         cp .github/ci-gradle.properties ~/.gradle/gradle.properties
