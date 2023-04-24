@@ -26,12 +26,12 @@ jobs:
       - name: Run local tests
         run: ./gradlew testDebug --stacktrace
 
-      - name: Upload build reports
+      - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
         with:
-          name: build-reports
-          path: app/build/reports
+          name: test-reports
+          path: android-app/build/reports
 
       - id: test-results
         name: Aggregate test-results into the single directory
@@ -43,6 +43,9 @@ jobs:
 
           while read -r xml_path; do
             copy_dir=".test-results/$(dirname "$xml_path")"
+
+            echo "Copy $xml_path into $copy_dir"
+
             mkdir -p "$copy_dir"
             cp "$xml_path" "$copy_dir/"
           done < <(find . -name "*.xml" | grep "/test-results/")

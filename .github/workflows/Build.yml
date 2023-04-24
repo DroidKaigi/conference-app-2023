@@ -25,6 +25,13 @@ jobs:
       - name: Check lint
         run: ./gradlew lintDebug --stacktrace
 
+      - name: Upload lint reports
+        if: always()
+        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        with:
+          name: lint-reports
+          path: android-app/build/reports
+
       - name: Build all build type and flavor permutations
         run: ./gradlew assemble --stacktrace
 
