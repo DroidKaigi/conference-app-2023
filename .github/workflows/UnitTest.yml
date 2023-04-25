@@ -28,19 +28,19 @@ jobs:
 
       - id: test-reports
         if: always()
-        uses: ./.github/actions/copy-with-keeping-structures
+        uses: ./.github/actions/upload-distributed-files
         with:
           copy-to: .test-reports
-          file-name: reports
-          file-type: directory
+          name: reports
+          name-type: directory
           artifact-name: 'test-reports'
 
       - id: test-results
         if: always()
-        uses: ./.github/actions/copy-with-keeping-structures
+        uses: ./.github/actions/upload-distributed-files
         with:
           copy-to: .test-results
-          file-name: "*.xml"
-          file-type: file
+          name: "*.xml"
+          name-type: file
           grep-by: /test-results/
           artifact-name: 'test-results'

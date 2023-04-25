@@ -16,8 +16,7 @@ inputs:
     default: '/'
   artifact-name:
     description: "Specify the value if you wanna upload the directory to artifacts"
-    required: false
-    default: ''
+    required: true
 
 outputs:
   destination-path:
@@ -72,8 +71,6 @@ runs:
             cp -r "$path" "$copy_dir/"
           done < <(find . -name "$directory_name" -type d | grep "${{ inputs.grep-by }}")
     - name: Upload ${{ steps.destination.outputs.path }}
-      if: >
-        inputs.artifact-name != ''
       uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
       with:
         name: ${{ inputs.artifact-name }}
