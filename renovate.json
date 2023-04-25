@@ -3,7 +3,25 @@
   "extends": [
     "config:base"
   ],
+  "timezone": "Asia/Tokyo",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 5,
+  "pruneBranchAfterAutomerge": true,
+  "pruneStaleBranches": true,
+  "automergeStrategy": "merge-commit",
+  "labels": ["renovate-update"],
+
   "packageRules": [
+    {
+      "groupName": "gh-actions",
+      "prPriority": -1,
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "platformAutomerge": true,
+      "pinDigests": true,
+      "schedule": ["after 10am before 5pm on tuesday"]
+    },
     {
       "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/",

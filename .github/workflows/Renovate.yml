@@ -1,0 +1,25 @@
+name: Manage Renovate pull requests
+
+on:
+  workflow_dispatch:
+    inputs:
+  schedule:
+    - cron: '0 * * * *' # hourly
+
+run-name: "Manage Renovate PRs by ${{ github.actor }} - ${{ github.event_name }}"
+
+permissions: {}
+
+jobs:
+  # Prune pull requests and branches that have failures
+  prune-pull-requests:
+
+    permissions:
+      issues: read # search pull requests (issues)
+      contents: write # for deleting branches
+      pull-requests: write # for closing pull requests
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: suzuki-shunsuke/renovate-autoclose-action@f018be0c1770e0825d7d0aa7aaec3f6ead33b069
