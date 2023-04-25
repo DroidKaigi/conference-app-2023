@@ -89,7 +89,7 @@ jobs:
     steps:
       - if: >
           needs.on-failure.outputs.pull-request
-        uses: marocchino/sticky-pull-request-comment@ab2e48d202c7f90b66b32abb04df5005a4b29276
+        uses: marocchino/sticky-pull-request-comment@836160460c6323f45890c4b6767d46b8ec6c6858
         with:
           header: ping-format
           number: ${{ fromJSON(needs.on-failure.outputs.pull-request).number }}

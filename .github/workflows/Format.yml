@@ -7,13 +7,13 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
+      - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # v3
         with:
           distribution: temurin
           java-version: 17
       - run: ./gradlew spotlessKotlinApply
-      - uses: reviewdog/action-suggester@v1
+      - uses: reviewdog/action-suggester@8f83d27e749053b2029600995c115026a010408e # v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tool_name: spotless
