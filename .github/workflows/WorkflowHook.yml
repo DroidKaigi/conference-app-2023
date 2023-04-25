@@ -115,9 +115,10 @@ jobs:
       fromJSON(needs.linked-pull-request.outputs.pull-request).number
 
     permissions:
+      actions: read # for downloading artifacts
       contents: read
-      issues: read
-      checks: write
+      issues: read # for EnricoMi/publish-unit-test-result-action
+      checks: write # for EnricoMi/publish-unit-test-result-action
       pull-requests: write # for creating a comment on pull requests
 
     timeout-minutes: 2
@@ -133,5 +134,6 @@ jobs:
           path: .test-results
       - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
         with:
+          commit: ${{ github.workflow_run.head_sha }}
           files: |
             .test-results/**/*.xml
