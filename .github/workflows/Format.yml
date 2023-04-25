@@ -1,8 +1,14 @@
 name: Format
-on: [pull_request]
+
+on:
+  pull_request:
+
+run-name: "Format by ${{ github.actor }}"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
+
 jobs:
   format:
     runs-on: ubuntu-latest

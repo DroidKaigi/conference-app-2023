@@ -19,7 +19,7 @@ run-name: ${{ github.event.workflow_run.name }} - ${{ github.event.workflow_run.
 
 # Restrict the concurrency on a pair of a repository owner and a branch.
 concurrency:
-  group: workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}
+  group: workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.name }}
   cancel-in-progress: true
 
 jobs:
@@ -31,8 +31,8 @@ jobs:
     # Array-literal is not available in Actions so we have to transform a json string into an array.
     if: >
       github.event.workflow_run.conclusion == 'failure' &&
-      contains(fromJSON('["Format"]'), github.event.workflow_run.name) ||
-      contains(fromJSON('["UnitTest"]'), github.event.workflow_run.name)
+      contains(fromJSON('["Format"]'), github.event.workflow.name) ||
+      contains(fromJSON('["UnitTest"]'), github.event.workflow.name)
 
     permissions:
       pull-requests: read # for listing pull requests
@@ -81,7 +81,7 @@ jobs:
       - linked-pull-request
 
     if: >
-      github.event.workflow_run.name == 'Format' &&
+      github.event.workflow.name == 'Format' &&
       needs.linked-pull-request.outputs.pull-request &&
       fromJSON(needs.linked-pull-request.outputs.pull-request).number
 
@@ -93,9 +93,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - if: >
-          needs.linked-pull-request.outputs.pull-request
-        uses: marocchino/sticky-pull-request-comment@ab2e48d202c7f90b66b32abb04df5005a4b29276
+      - uses: marocchino/sticky-pull-request-comment@ab2e48d202c7f90b66b32abb04df5005a4b29276
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
@@ -112,7 +110,7 @@ jobs:
       - linked-pull-request
 
     if: >
-      github.event.workflow_run.name == 'UnitTest' &&
+      github.event.workflow.name == 'UnitTest' &&
       needs.linked-pull-request.outputs.pull-request &&
       fromJSON(needs.linked-pull-request.outputs.pull-request).number
 
@@ -127,9 +125,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - if: >
-          needs.linked-pull-request.outputs.pull-request
-        uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
         with:
           run_id: ${{ github.event.workflow_run.id }}
           pr: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
