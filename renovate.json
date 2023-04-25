@@ -2,7 +2,8 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "github>whitesource/merge-confidence:beta"
+    "github>whitesource/merge-confidence:beta",
+    ":disableDependencyDashboard"
   ],
   "baseBranches": ["main"],
   "timezone": "Asia/Tokyo",
@@ -19,6 +20,8 @@
       "prPriority": -1,
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
+      "matchDatasources": ["github-tags"],
+      "versioning": "semver",
       "automerge": true,
       "platformAutomerge": true,
       "pinDigests": true,
