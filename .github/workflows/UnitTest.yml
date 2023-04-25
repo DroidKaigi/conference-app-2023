@@ -27,49 +27,20 @@ jobs:
         run: ./gradlew testDebug --stacktrace
 
       - id: test-reports
-        name: Aggregate reports directory into the single directory
         if: always()
-        run: |
-          echo "path=.test-reports" >> $GITHUB_OUTPUT
-
-          mkdir -p .test-reports
-
-          while read -r reports_path; do
-            copy_dir=".test-results/$(dirname "$reports_path")"
-
-            echo "Copy $reports_path into $copy_dir"
-
-            mkdir -p "$copy_dir"
-            cp -r "$reports_path" "$copy_dir/"
-          done < <(find . -name "reports" -d | grep "/reports/")
-
-      - name: Upload test reports
-        if: always()
-        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        uses: ./.github/actions/copy-with-keeping-structures
         with:
-          name: test-reports
-          path: ${{ steps.test-reports.outputs.path }}
+          copy-to: .test-reports
+          file-name: reports
+          file-type: directory
+          artifact-name: 'test-reports'
 
       - id: test-results
-        name: Aggregate test-results into the single directory
         if: always()
-        run: |
-          echo "path=.test-results" >> $GITHUB_OUTPUT
-
-          mkdir -p .test-results
-
-          while read -r xml_path; do
-            copy_dir=".test-results/$(dirname "$xml_path")"
-
-            echo "Copy $xml_path into $copy_dir"
-
-            mkdir -p "$copy_dir"
-            cp "$xml_path" "$copy_dir/"
-          done < <(find . -name "*.xml" | grep "/test-results/")
-
-      - name: Upload test-results
-        if: always()
-        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        uses: ./.github/actions/copy-with-keeping-structures
         with:
-          name: test-results
-          path: ${{ steps.test-results.outputs.path }}
+          copy-to: .test-results
+          file-name: "*.xml"
+          file-type: file
+          grep-by: /test-results/
+          artifact-name: 'test-results'
