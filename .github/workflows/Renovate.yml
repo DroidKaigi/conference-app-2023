@@ -3,6 +3,13 @@ name: Manage Renovate pull requests
 on:
   workflow_dispatch:
     inputs:
+      job_name:
+        description: 'A job name'
+        required: true
+        type: choice
+        options:
+        - prune-pull-requests
+        - execute-renovate
   schedule:
     - cron: '0 * * * *' # hourly
 
@@ -13,6 +20,9 @@ permissions: {}
 jobs:
   # Prune pull requests and branches that have failures
   prune-pull-requests:
+    if: >
+      github.event_name == 'schedule' ||
+      inputs.job_name == 'prune-pull-requests'
 
     permissions:
       issues: read # search pull requests (issues)
@@ -23,3 +33,19 @@ jobs:
 
     steps:
     - uses: suzuki-shunsuke/renovate-autoclose-action@f018be0c1770e0825d7d0aa7aaec3f6ead33b069
+
+  execute-renovate:
+    if: >
+      inputs.job_name == 'execute-renovate'
+
+    permissions:
+      contents: read
+    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v36.0.0
+        with:
+          configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_TEST_TOKEN }}
