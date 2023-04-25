@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@1926ccba5eca4623c8eadbf7b91cd828c424e6a5 # tag=v2.6.1
+      - uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
