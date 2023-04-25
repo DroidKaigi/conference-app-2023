@@ -12,7 +12,7 @@ junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
 dagger = "2.45"
-spotless = "6.7.0"
+spotless = "6.18.0"
 ktlint = "0.45.2"
 
 [libraries]
