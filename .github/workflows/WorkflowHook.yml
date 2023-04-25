@@ -116,8 +116,8 @@ jobs:
 
     permissions:
       actions: read # for downloading artifacts
-      contents: read
-      issues: read # for EnricoMi/publish-unit-test-result-action
+      contents: read # for EnricoMi/publish-unit-test-result-action (we can remove this safely after making this repo public)
+      issues: read # for EnricoMi/publish-unit-test-result-action (we can remove this safely after making this repo public)
       checks: write # for EnricoMi/publish-unit-test-result-action
       pull-requests: write # for creating a comment on pull requests
 
@@ -133,6 +133,6 @@ jobs:
           path: .test-results
       - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
         with:
-          commit: ${{ github.workflow_run.head_sha }}
+          commit: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).merge_commit_sha }}
           files: |
             .test-results/**/*.xml
