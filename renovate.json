@@ -4,6 +4,7 @@
     "config:base",
     "github>whitesource/merge-confidence:beta"
   ],
+  "baseBranches": ["main"],
   "timezone": "Asia/Tokyo",
   "prHourlyLimit": 0,
   "prConcurrentLimit": 5,
