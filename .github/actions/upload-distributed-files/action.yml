@@ -30,46 +30,43 @@ runs:
       name: Create ${{ inputs.copy-to }} directory
       shell: bash
       run: |
-        run: |
-          readonly destination_dir="${{ inputs.copy-to }}"
+        readonly destination_dir="${{ inputs.copy-to }}"
 
-          echo "path=$destination_dir" >> $GITHUB_OUTPUT
+        echo "path=$destination_dir" >> $GITHUB_OUTPUT
 
-          mkdir -p "$destination_dir"
+        mkdir -p "$destination_dir"
     - name: Aggregate ${{ inputs.name }} files
       if: >
         inputs.name-type == 'file'
       shell: bash
       run: |
-        run: |
-          readonly destination_dir="${{ steps.destination.outputs.path }}"
-          readonly file_name="${{ inputs.name }}"
+        readonly destination_dir="${{ steps.destination.outputs.path }}"
+        readonly file_name="${{ inputs.name }}"
 
-          while read -r path; do
-            copy_dir="$destination_dir/$(dirname "$path")"
+        while read -r path; do
+          copy_dir="$destination_dir/$(dirname "$path")"
 
-            echo "Copy $path into $copy_dir"
+          echo "Copy $path into $copy_dir"
 
-            mkdir -p "$copy_dir"
-            cp "$path" "$copy_dir/"
-          done < <(find . -name "$file_name" -type f | grep "${{ inputs.grep-by }}")
+          mkdir -p "$copy_dir"
+          cp "$path" "$copy_dir/"
+        done < <(find . -name "$file_name" -type f | grep "${{ inputs.grep-by }}")
     - name: Aggregate ${{ inputs.name }} directories
       if: >
         inputs.name-type == 'directory'
       shell: bash
       run: |
-        run: |
-          readonly destination_dir="${{ steps.destination.outputs.path }}"
-          readonly directory_name="${{ inputs.name }}"
+        readonly destination_dir="${{ steps.destination.outputs.path }}"
+        readonly directory_name="${{ inputs.name }}"
 
-          while read -r path; do
-            copy_dir="$destination_dir/$(dirname "$path")"
+        while read -r path; do
+          copy_dir="$destination_dir/$(dirname "$path")"
 
-            echo "Copy $path into $copy_dir"
+          echo "Copy $path into $copy_dir"
 
-            mkdir -p "$copy_dir"
-            cp -r "$path" "$copy_dir/"
-          done < <(find . -name "$directory_name" -type d | grep "${{ inputs.grep-by }}")
+          mkdir -p "$copy_dir"
+          cp -r "$path" "$copy_dir/"
+        done < <(find . -name "$directory_name" -type d | grep "${{ inputs.grep-by }}")
     - name: Upload ${{ steps.destination.outputs.path }}
       uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
       with:
