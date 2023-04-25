@@ -129,7 +129,6 @@ jobs:
       - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
         with:
           run_id: ${{ github.event.workflow_run.id }}
-          pr: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
           name: test-results
           path: .test-results
       - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
