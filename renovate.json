@@ -26,8 +26,7 @@
       "matchDatasources": ["github-tags"],
       "automerge": true,
       "platformAutomerge": true,
-      "pinDigests": true,
-      "schedule": ["after 10am before 5pm on tuesday"]
+      "pinDigests": true
     },
     {
       "matchUpdateTypes": ["minor", "patch"],
