@@ -9,11 +9,18 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   format:
+    permissions:
+      contents: read
+
+    timeout-minutes: 3
+      
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - uses: ./.github/actions/setup-java
       - name: Check spotless
         run: ./gradlew spotlessCheck --stacktrace

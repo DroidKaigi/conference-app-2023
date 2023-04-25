@@ -1,0 +1,62 @@
+name: Manage Renovate pull requests
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_name:
+        description: 'A job name'
+        required: true
+        type: choice
+        options:
+        - prune-pull-requests
+        - execute-renovate
+
+  # Enable this scheduler when we are ready for merging renovate PRs.
+  # schedule:
+  #   - cron: '0 * * * *' # hourly
+
+run-name: "Manage Renovate PRs by ${{ github.actor }} - ${{ github.event_name }}"
+
+permissions: {}
+
+jobs:
+  # Prune pull requests and branches that have failures
+  prune-pull-requests:
+    if: >
+      github.event_name == 'schedule' ||
+      inputs.job_name == 'prune-pull-requests'
+
+    timeout-minutes: 5
+
+    permissions:
+      issues: read # search pull requests (issues)
+      contents: write # for deleting branches
+      pull-requests: write # for closing pull requests
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: suzuki-shunsuke/renovate-autoclose-action@1d8a5b063ccae0d4cae5bfd5ee92c13552add567 # v0.3.2
+
+  # Just for internal testing of renovate configuration.
+  # You have to set your PAT to secrets.
+  execute-renovate:
+    if: >
+      inputs.job_name == 'execute-renovate'
+    
+    timeout-minutes: 5
+
+    permissions:
+      contents: read
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@81cd2edbb5fd1dc42115b0d1c8854d5a6b74d835 # v36.0.3
+        with:
+          configurationFile: renovate.json5
+          token: ${{ secrets.RENOVATE_TEST_TOKEN }} # workflow, repo, read user:email permissions
+        env:
+          LOG_LEVEL: 'debug'
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
