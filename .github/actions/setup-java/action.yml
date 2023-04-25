@@ -1,0 +1,30 @@
+name: 'Setup JDK'
+
+inputs:
+  java-version:
+    description: "Java version. Just for DRY inside of this file."
+    default: "17"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Validate Gradle Wrapper
+      uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+
+    - name: Copy CI gradle.properties
+      shell: bash
+      run: |
+        mkdir -p ~/.gradle
+        cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+    - name: Set up JDK ${{ inputs.java-version }}
+      uses: actions/setup-java@ddb82ce8a6ecf5ac3e80c3184839e6661546e4aa
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
+
+    # Better than caching and/or extensions of actions/setup-java
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@9cf99034d287025d4ee4838498a346d99521aaa4
+      with:
+        gradle-version: wrapper

@@ -49,6 +49,20 @@ class AndroidPlugin : Plugin<Project> {
                 }
 
                 defaultConfig.targetSdk = 32
+
+                lint {
+                    // shell friendly
+                    val filename = target.getDisplayName().replace(":", "_").replace("[\\s']".toRegex(), "")
+
+                    xmlReport = true
+                    xmlOutput = target.rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.xml").get().asFile
+
+                    htmlReport = true
+                    htmlOutput = target.rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.html").get().asFile
+
+                    // for now
+                    sarifReport = false
+                }
             }
         }
     }

@@ -1,0 +1,74 @@
+name: 'Collect and upload files'
+
+inputs:
+  copy-to:
+    description: "A directory which we would like to copy files into. Variables can be evaluated."
+    required: true
+  name:
+    description: "A file/directory name to search"
+    required: true
+  name-type:
+    description: "A type of an entity. Specify 'file' or 'directory'"
+    default: "file"
+  grep-by:
+    description: "A parameter for grep if required"
+    required: false
+    default: '/'
+  artifact-name:
+    description: "Specify the value if you wanna upload the directory to artifacts"
+    required: true
+
+outputs:
+  destination-path:
+    description: "The path to the directory that contains files/directories."
+    value: ${{ steps.destination.outputs.path }}
+
+runs:
+  using: "composite"
+  steps:
+    - id: destination
+      name: Create ${{ inputs.copy-to }} directory
+      shell: bash
+      run: |
+        readonly destination_dir="${{ inputs.copy-to }}"
+
+        echo "path=$destination_dir" >> $GITHUB_OUTPUT
+
+        mkdir -p "$destination_dir"
+    - name: Aggregate ${{ inputs.name }} files
+      if: >
+        inputs.name-type == 'file'
+      shell: bash
+      run: |
+        readonly destination_dir="${{ steps.destination.outputs.path }}"
+        readonly file_name="${{ inputs.name }}"
+
+        while read -r path; do
+          copy_dir="$destination_dir/$(dirname "$path")"
+
+          echo "Copy $path into $copy_dir"
+
+          mkdir -p "$copy_dir"
+          cp "$path" "$copy_dir/"
+        done < <(find . -name "$file_name" -type f | grep "${{ inputs.grep-by }}")
+    - name: Aggregate ${{ inputs.name }} directories
+      if: >
+        inputs.name-type == 'directory'
+      shell: bash
+      run: |
+        readonly destination_dir="${{ steps.destination.outputs.path }}"
+        readonly directory_name="${{ inputs.name }}"
+
+        while read -r path; do
+          copy_dir="$destination_dir/$(dirname "$path")"
+
+          echo "Copy $path into $copy_dir"
+
+          mkdir -p "$copy_dir"
+          cp -r "$path" "$copy_dir/"
+        done < <(find . -name "$directory_name" -type d | grep "${{ inputs.grep-by }}")
+    - name: Upload ${{ steps.destination.outputs.path }}
+      uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: ${{ steps.destination.outputs.path }}

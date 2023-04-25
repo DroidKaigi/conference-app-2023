@@ -1,12 +1,13 @@
 # Run after-hooks of workflow executions. Changes to this workflow file enables only if it's available on the default branch.
 #
-# Please note that we should not checkout the code because it contains unverified changes.
+# Please note that we should not checkout the target code because it contains unverified changes.
 
 name: Workflow Hook
 
 on:
   workflow_run:
     workflows:
+      - UnitTest
       - Format
     types:
       - completed
@@ -18,15 +19,20 @@ run-name: ${{ github.event.workflow_run.name }} - ${{ github.event.workflow_run.
 
 # Restrict the concurrency on a pair of a repository owner and a branch.
 concurrency:
-  group: workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}
+  group: workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.name }}
   cancel-in-progress: true
 
 jobs:
-  # Run every failure of workflows specified in workflow_run#workflows
+  # Run every executions of workflows specified in workflow_run#workflows
   # This job will expose an associated pull request if exists.
-  on-failure:
+  linked-pull-request:
+
+    # Run this job only when it's required.
+    # Array-literal is not available in Actions so we have to transform a json string into an array.
     if: >
-      github.event.workflow_run.conclusion == 'failure'
+      github.event.workflow_run.conclusion == 'failure' &&
+      contains(fromJSON('["Format"]'), github.event.workflow.name) ||
+      contains(fromJSON('["UnitTest"]'), github.event.workflow.name)
 
     permissions:
       pull-requests: read # for listing pull requests
@@ -69,15 +75,15 @@ jobs:
               core.setOutput('entity', pulls[0]);
             }
 
-  # Run every failure of Format workflow.
-  on-failure-of-Format:
+  # Run every executions of Format workflow. (failure only)
+  after-Format:
     needs:
-      - on-failure
+      - linked-pull-request
 
     if: >
-      github.event.workflow_run.name == 'Format' &&
-      needs.on-failure.outputs.pull-request &&
-      fromJSON(needs.on-failure.outputs.pull-request).number
+      github.event.workflow.name == 'Format' &&
+      needs.linked-pull-request.outputs.pull-request &&
+      fromJSON(needs.linked-pull-request.outputs.pull-request).number
 
     permissions:
       pull-requests: write # for creating a comment on pull requests
@@ -87,14 +93,53 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - if: >
-          needs.on-failure.outputs.pull-request
-        uses: marocchino/sticky-pull-request-comment@ab2e48d202c7f90b66b32abb04df5005a4b29276
+      - uses: marocchino/sticky-pull-request-comment@ab2e48d202c7f90b66b32abb04df5005a4b29276
         with:
           header: ping-format
-          number: ${{ fromJSON(needs.on-failure.outputs.pull-request).number }}
+          number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
           recreate: true
           message: >
             Hi @${{ github.event.workflow_run.actor.login }}!
             Codes seem to be unformatted. Please run `./gradlew spotlessKotlinApply` to fix this issue.
             Thank you for your contribution.
+
+
+  # Run every executions of UnitTest workflow. (always)
+  after-UnitTest:
+    needs:
+      - linked-pull-request
+
+    if: >
+      github.event.workflow.name == 'UnitTest' &&
+      needs.linked-pull-request.outputs.pull-request &&
+      fromJSON(needs.linked-pull-request.outputs.pull-request).number
+
+    permissions:
+      actions: read # for downloading artifacts
+      contents: read # for EnricoMi/publish-unit-test-result-action (we can remove this safely after making this repo public)
+      issues: read # for EnricoMi/publish-unit-test-result-action (we can remove this safely after making this repo public)
+      checks: write # for EnricoMi/publish-unit-test-result-action
+      pull-requests: write # for creating a comment on pull requests
+
+    timeout-minutes: 2
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: test-results
+          path: .test-results
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: event-payload
+          path: .event-payload
+      - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
+        with:
+          commit: ${{ github.event.workflow_run.head_sha }}
+          event_file: .event-payload/event.json
+          event_name: ${{ github.event.workflow_run.event }}
+          files: |
+            .test-results/**/*.xml
