@@ -51,3 +51,4 @@ jobs:
           token: ${{ secrets.RENOVATE_TEST_TOKEN }}
         env:
           LOG_LEVEL: 'debug'
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
