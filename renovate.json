@@ -2,8 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "github>whitesource/merge-confidence:beta",
-    ":disableDependencyDashboard"
+    "github>whitesource/merge-confidence:beta"
   ],
 
   "baseBranches": ["main"],
