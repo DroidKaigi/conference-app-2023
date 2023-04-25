@@ -1,4 +1,4 @@
-name: 'Setup JDK'
+name: 'Collect and upload files'
 
 inputs:
   copy-to:
