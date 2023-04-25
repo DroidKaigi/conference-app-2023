@@ -30,8 +30,9 @@ jobs:
     # Run this job only when it's required.
     # Array-literal is not available in Actions so we have to transform a json string into an array.
     if: >
-      github.event.workflow_run.conclusion == 'failure' &&
+      contains(fromJSON('["failure"]'), github.event.workflow_run.conclusion) &&
       contains(fromJSON('["Format"]'), github.event.workflow.name) ||
+      contains(fromJSON('["success", "failure"]'), github.event.workflow_run.conclusion) &&
       contains(fromJSON('["UnitTest"]'), github.event.workflow.name)
 
     permissions:

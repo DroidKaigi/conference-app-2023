@@ -10,8 +10,8 @@ on:
         options:
         - prune-pull-requests
         - execute-renovate
-  schedule:
-    - cron: '0 * * * *' # hourly
+  # schedule:
+  #   - cron: '0 * * * *' # hourly
 
 run-name: "Manage Renovate PRs by ${{ github.actor }} - ${{ github.event_name }}"
 
@@ -23,6 +23,8 @@ jobs:
     if: >
       github.event_name == 'schedule' ||
       inputs.job_name == 'prune-pull-requests'
+
+    timeout-minutes: 5
 
     permissions:
       issues: read # search pull requests (issues)
@@ -37,10 +39,12 @@ jobs:
   execute-renovate:
     if: >
       inputs.job_name == 'execute-renovate'
+    
+    timeout-minutes: 5
 
     permissions:
       contents: read
-    
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
