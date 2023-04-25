@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - id: linked-pull-request
-        uses: actions/github-script@060d68304cc19ea84d828af10e34b9c6ca7bdb31
+        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         with:
           script: |
             // Get the latest pull request
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@1926ccba5eca4623c8eadbf7b91cd828c424e6a5 # tag=v2.6.1
+      - uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
@@ -127,17 +127,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615 # v2.27.0
         with:
           run_id: ${{ github.event.workflow_run.id }}
           name: test-results
           path: .test-results
-      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615 # v2.27.0
         with:
           run_id: ${{ github.event.workflow_run.id }}
           name: event-payload
           path: .event-payload
-      - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
+      - uses: EnricoMi/publish-unit-test-result-action@4e7013f9576bd22ffdae979dc6e68cb9ec2aeece # v2.7.0
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           event_file: .event-payload/event.json

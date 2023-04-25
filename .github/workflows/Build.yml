@@ -11,6 +11,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +20,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
       - uses: ./.github/actions/setup-java
 
@@ -27,7 +29,7 @@ jobs:
 
       - name: Upload lint reports
         if: always()
-        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: lint-reports
           path: build/lint-reports
@@ -36,7 +38,7 @@ jobs:
         run: ./gradlew assemble --stacktrace
 
       - name: Upload build outputs (APKs)
-        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: build-outputs
           path: app/build/outputs
