@@ -5,7 +5,7 @@
     "github>whitesource/merge-confidence:beta",
     ":disableDependencyDashboard"
   ],
-  "baseBranches": ["main"],
+  "baseBranches": ["jmatsu/chore/configure_renovate"],
   "timezone": "Asia/Tokyo",
   "prHourlyLimit": 0,
   "prConcurrentLimit": 5,
