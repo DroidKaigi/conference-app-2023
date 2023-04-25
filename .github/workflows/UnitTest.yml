@@ -26,12 +26,29 @@ jobs:
       - name: Run local tests
         run: ./gradlew testDebug --stacktrace
 
+      - id: test-reports
+        name: Aggregate reports directory into the single directory
+        if: always()
+        run: |
+          echo "path=.test-reports" >> $GITHUB_OUTPUT
+
+          mkdir -p .test-reports
+
+          while read -r reports_path; do
+            copy_dir=".test-results/$(dirname "$reports_path")"
+
+            echo "Copy $reports_path into $copy_dir"
+
+            mkdir -p "$copy_dir"
+            cp -r "$reports_path" "$copy_dir/"
+          done < <(find . -name "reports" -d | grep "/reports/")
+
       - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
         with:
           name: test-reports
-          path: android-app/build/reports
+          path: ${{ steps.test-reports.outputs.path }}
 
       - id: test-results
         name: Aggregate test-results into the single directory
