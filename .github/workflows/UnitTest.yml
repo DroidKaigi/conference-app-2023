@@ -22,6 +22,12 @@ jobs:
         uses: actions/checkout@f095bcc56b7c2baf48f3ac70d6d6782f4f553222
 
       - uses: ./.github/actions/setup-java
+      
+      - name: Upload an event payload for EnricoMi/publish-unit-test-result-action
+        uses: actions/upload-artifact@65d862660abb392b8c4a3d1195a2108db131dd05
+        with:
+          name: event-payload
+          path: ${{ github.event_path }}
 
       - name: Run local tests
         run: ./gradlew testDebug --stacktrace

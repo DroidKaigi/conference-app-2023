@@ -131,8 +131,15 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: test-results
           path: .test-results
+      - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: event-payload
+          path: .event-payload
       - uses: EnricoMi/publish-unit-test-result-action@2a18f80469032d699d37add8926c002e334edd06
         with:
-          commit: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).merge_commit_sha }}
+          commit: ${{ github.event.workflow_run.head_sha }}
+          event_file: .event-payload/event.json
+          event_name: ${{ github.event.workflow_run.event }}
           files: |
             .test-results/**/*.xml
