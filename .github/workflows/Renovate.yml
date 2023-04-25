@@ -55,7 +55,7 @@ jobs:
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@81cd2edbb5fd1dc42115b0d1c8854d5a6b74d835 # v36.0.3
         with:
-          configurationFile: renovate.json
+          configurationFile: renovate.json5
           token: ${{ secrets.RENOVATE_TEST_TOKEN }} # workflow, repo, read user:email permissions
         env:
           LOG_LEVEL: 'debug'
