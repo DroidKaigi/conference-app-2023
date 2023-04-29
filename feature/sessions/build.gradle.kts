@@ -3,7 +3,7 @@ plugins {
     id("com.example.primitive.android")
 }
 
-android.namespace = "io.github.droidkaigi.confsched2023.feature.home"
+android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 
 dependencies {
     implementation(projects.core.ui)
