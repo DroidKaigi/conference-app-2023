@@ -17,6 +17,6 @@ dependencyResolutionManagement {
 rootProject.name = "conference-app-2023"
 include(
     ":app-android",
-    ":feature:home",
+    ":feature:sessions",
     ":core:ui",
 )
