@@ -14,6 +14,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import java.util.UUID
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -56,7 +57,7 @@ data class MessageUiState(
 )
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 class MessageStateHolderModule {
     @Provides
     fun provideMessageStateHolder(): UserMessageStateHolder {
