@@ -9,8 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,7 +29,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun Greeting(name: String) {
-    lateinit var sessionScreenViewModel: SessionScreenViewModel // = hiltViewModel()
+    val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
     SnackbarMessageEffect(
@@ -76,7 +82,7 @@ data class SessionScreenUiState(
     val filterUiState: FilterUiState,
 )
 
-class SessionsRepository {
+class SessionsRepository @Inject constructor() {
     fun getSessionsStream(): Flow<Sessions> = MutableStateFlow(Sessions(listOf()))
 }
 
@@ -113,6 +119,15 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 
     override suspend fun getSessions(): List<Session> {
         return strategy.getSessions()
+    }
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+class SessionsApiModule {
+    @Inject
+    fun provideDroidKaigiSessionApi(): DroidKaigiSessionApi {
+        return FakeDroidKaigiSessionApi()
     }
 }
 
@@ -177,7 +192,8 @@ class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
 //    }
 // }
 
-class SessionScreenViewModel(
+@HiltViewModel
+class SessionScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
