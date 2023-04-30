@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
@@ -8,16 +8,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.Module
-import dagger.hilt.InstallIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
-import kotlinx.coroutines.flow.Flow
+import io.github.droidkaigi.confsched2023.SessionListUiState.Empty
+import io.github.droidkaigi.confsched2023.SessionListUiState.List
+import io.github.droidkaigi.confsched2023.model.Filter
+import io.github.droidkaigi.confsched2023.model.SessionTimetable
+import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -26,6 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @Composable
 fun Greeting(name: String) {
@@ -43,7 +43,16 @@ fun Greeting(name: String) {
             )
         }
     ) { innerPadding ->
-        Text(text = "Hello $name!", Modifier.padding(innerPadding))
+        Column {
+            when (val listState = uiState.sessionListUiState) {
+                Empty -> Text("empty")
+                is List -> {
+                    listState.sessionTimetable.sessions.forEach { session ->
+                        Text(session.id)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -55,26 +64,11 @@ fun Greeting(name: String) {
 //    }
 // }
 
-// Model
-
-class Session(val isFavorited: Boolean)
-class Sessions(val sessions: List<Session>) {
-    fun filtered(filter: Filter): Sessions {
-        val sessions = sessions
-        if (filter.filterFavorites) {
-            return Sessions(sessions.filter { it.isFavorited })
-        }
-        return Sessions(sessions)
-    }
-}
-
-data class Filter(val filterFavorites: Boolean)
-
 // --
 data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
 sealed interface SessionListUiState {
     object Empty : SessionListUiState
-    data class List(val sessions: Sessions) : SessionListUiState
+    data class List(val sessionTimetable: SessionTimetable) : SessionListUiState
 }
 
 data class SessionScreenUiState(
@@ -82,54 +76,7 @@ data class SessionScreenUiState(
     val filterUiState: FilterUiState,
 )
 
-class SessionsRepository @Inject constructor() {
-    fun getSessionsStream(): Flow<Sessions> = MutableStateFlow(Sessions(listOf()))
-}
-
 class AppError(e: Throwable) : Exception(e)
-
-interface DroidKaigiSessionApi {
-    suspend fun getSessions(): List<Session> = listOf()
-}
-
-class FakeDroidKaigiSessionApi : DroidKaigiSessionApi {
-    sealed class Strategy : DroidKaigiSessionApi {
-        object Operational : Strategy() {
-            override suspend fun getSessions(): List<Session> {
-                return listOf(
-                    Session(isFavorited = true),
-                    Session(isFavorited = true),
-                    Session(isFavorited = true),
-                )
-            }
-        }
-
-        object Error : Strategy() {
-            override suspend fun getSessions(): List<Session> {
-                throw RuntimeException("Error")
-            }
-        }
-    }
-
-    private var strategy: Strategy = Strategy.Operational
-
-    fun setup(strategy: Strategy) {
-        this.strategy = strategy
-    }
-
-    override suspend fun getSessions(): List<Session> {
-        return strategy.getSessions()
-    }
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-class SessionsApiModule {
-    @Inject
-    fun provideDroidKaigiSessionApi(): DroidKaigiSessionApi {
-        return FakeDroidKaigiSessionApi()
-    }
-}
 
 // Test code
 // class SessionsScreenSnapshotTest {
@@ -198,7 +145,7 @@ class SessionScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val sessionsStateFlow = sessionsRepository
+    private val sessionsStateFlow: StateFlow<SessionTimetable> = sessionsRepository
         .getSessionsStream()
         .catch {
             // ② Application wide error handling
@@ -219,7 +166,7 @@ class SessionScreenViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Sessions(listOf())
+            initialValue = SessionTimetable()
         )
     private val filtersStateFlow = MutableStateFlow(Filter(false))
 
@@ -227,10 +174,10 @@ class SessionScreenViewModel @Inject constructor(
     private val sessionListUiState: StateFlow<SessionListUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
-    ) { sessions, filters ->
-        if (sessions.sessions.isEmpty()) return@buildUiState SessionListUiState.Empty
+    ) { sessionTimetable, filters ->
+        if (sessionTimetable.sessions.isEmpty()) return@buildUiState SessionListUiState.Empty
         SessionListUiState.List(
-            sessions = sessions.filtered(filters)
+            sessionTimetable = sessionTimetable.filtered(filters)
         )
     }
 

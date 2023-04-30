@@ -8,7 +8,7 @@ pluginManagement {
 }
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
@@ -19,4 +19,6 @@ include(
     ":app-android",
     ":feature:sessions",
     ":core:ui",
+    ":core:data",
+    ":core:model",
 )
