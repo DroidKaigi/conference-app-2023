@@ -13,7 +13,6 @@ import androidx.compose.runtime.snapshotFlow
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import java.util.UUID
 import kotlinx.coroutines.flow.filter
