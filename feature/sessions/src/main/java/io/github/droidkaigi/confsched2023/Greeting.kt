@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2023.SessionListUiState.List
 import io.github.droidkaigi.confsched2023.model.Filter
 import io.github.droidkaigi.confsched2023.model.SessionTimetable
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,7 +26,6 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @Composable
 fun Greeting(name: String) {
