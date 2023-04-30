@@ -7,6 +7,7 @@ android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 
 dependencies {
     implementation(projects.core.ui)
+    implementation(projects.core.model)
 
     implementation(libs.androidxCoreKtx)
     implementation(libs.composeUi)

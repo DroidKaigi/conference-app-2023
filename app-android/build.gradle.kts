@@ -10,5 +10,6 @@ android.namespace = "io.github.droidkaigi.confsched2023"
 
 dependencies {
     implementation(projects.feature.sessions)
+    implementation(projects.core.data)
     implementation(projects.core.ui)
 }
