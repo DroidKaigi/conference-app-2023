@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
@@ -8,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -43,7 +45,7 @@ fun Greeting(name: String) {
             )
         }
     ) { innerPadding ->
-        Column {
+        Column(Modifier.padding(innerPadding)) {
             when (val listState = uiState.sessionListUiState) {
                 Empty -> Text("empty")
                 is List -> {
