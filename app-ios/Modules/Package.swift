@@ -7,6 +7,7 @@ let package = Package(
     name: "Modules",
     products: [
         .library(name: "Session", targets: ["Session"]),
+        .library(name: "Core", targets: ["Core"])
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
@@ -30,6 +31,7 @@ let package = Package(
         .target(
             name: "Core",
             dependencies: [
+                "shared"
             ]
         ),
         .testTarget(
@@ -39,6 +41,9 @@ let package = Package(
             ]
         ),
         
-        // TODO setup KMM as NativeTarget
+        .binaryTarget(
+            name: "shared",
+            path: "../../app-ios-shared/build/XCFrameworks/release/shared.xcframework"
+        )
     ]
 )
