@@ -17,17 +17,14 @@ class KmpAndroidPlugin : Plugin<Project> {
                 setupAndroid()
                 sourceSets {
                     getByName("main") {
-                        setRoot("src/androidMain")
-                        assets.srcDirs(file("src/androidMain/assets"))
-                        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-                        java.srcDirs(file("src/androidMain/kotlin"))
-                        res.srcDirs(file("src/androidMain/res"))
+                        assets.srcDirs("src/androidMain/assets")
+                        java.srcDirs("src/androidMain/kotlin", "src/commonMain/kotlin")
+                        res.srcDirs("src/androidMain/res")
                     }
-                    // FIXME: Without this, kaptDebugKotlinAndroid can't see commonMain
-                    // If you can run ./gradlew kaptDebugKotlinAndroid without this,
-                    // please delete this
-                    sourceSets.all {
-                        java.srcDir("src/commonMain/kotlin")
+                    getByName("test") {
+                        assets.srcDirs("src/androidUnitTest/assets")
+                        java.srcDirs("src/androidUnitTest/kotlin", "src/commonTest/kotlin")
+                        res.srcDirs("src/androidUnitTest/res")
                     }
                 }
 
