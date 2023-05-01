@@ -1,15 +1,17 @@
 plugins {
-    id("com.example.convention.androidfeature")
-    id("com.example.primitive.android")
+    id("droidkaigi.convention.androidfeature")
+    id("droidkaigi.primitive.android")
 }
 
-android.namespace = "io.github.droidkaigi.confsched2023.feature.home"
+android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 
 dependencies {
     implementation(projects.core.ui)
+    implementation(projects.core.model)
 
     implementation(libs.androidxCoreKtx)
     implementation(libs.composeUi)
+    implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterial)
     implementation(libs.composeUiToolingPreview)
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
