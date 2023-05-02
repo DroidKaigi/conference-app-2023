@@ -16,9 +16,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.SessionListUiState.Empty
 import io.github.droidkaigi.confsched2023.SessionListUiState.List
-import io.github.droidkaigi.confsched2023.model.Filter
-import io.github.droidkaigi.confsched2023.model.SessionTimetable
+import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
+import io.github.droidkaigi.confsched2023.model.Timetable
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -49,8 +49,8 @@ fun Greeting(name: String) {
             when (val listState = uiState.sessionListUiState) {
                 Empty -> Text("empty")
                 is List -> {
-                    listState.sessionTimetable.sessions.forEach { session ->
-                        Text(session.id)
+                    listState.timetable.timetableItems.forEach { session ->
+                        Text(session.title.currentLangTitle)
                     }
                 }
             }
@@ -70,7 +70,7 @@ fun Greeting(name: String) {
 data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
 sealed interface SessionListUiState {
     object Empty : SessionListUiState
-    data class List(val sessionTimetable: SessionTimetable) : SessionListUiState
+    data class List(val timetable: Timetable) : SessionListUiState
 }
 
 data class SessionScreenUiState(
@@ -123,7 +123,7 @@ class AppError(e: Throwable) : Exception(e)
 //
 //    fun areAllSessionsFavorite() {
 //        composeTestRule
-//            .onNodeWithText("All sessions are favorite")
+//            .onNodeWithText("All timetableItems are favorite")
 //            .assertExists()
 //    }
 //
@@ -147,7 +147,7 @@ class SessionScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val sessionsStateFlow: StateFlow<SessionTimetable> = sessionsRepository
+    private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
         .getSessionsStream()
         .catch {
             // ② Application wide error handling
@@ -168,28 +168,28 @@ class SessionScreenViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = SessionTimetable()
+            initialValue = Timetable()
         )
-    private val filtersStateFlow = MutableStateFlow(Filter(false))
+    private val filtersStateFlow = MutableStateFlow(Filters())
 
     // ① Single source of truth of UiState
     private val sessionListUiState: StateFlow<SessionListUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
     ) { sessionTimetable, filters ->
-        if (sessionTimetable.sessions.isEmpty()) return@buildUiState SessionListUiState.Empty
+        if (sessionTimetable.timetableItems.isEmpty()) return@buildUiState SessionListUiState.Empty
         SessionListUiState.List(
-            sessionTimetable = sessionTimetable.filtered(filters)
+            timetable = sessionTimetable.filtered(filters)
         )
     }
 
     private val filterUiState: StateFlow<FilterUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
-    ) { sessions, filters ->
+    ) { timetableItems, filters ->
         FilterUiState(
-            enabled = sessions.sessions.isNotEmpty(),
-            isChecked = filters.filterFavorites
+            enabled = timetableItems.timetableItems.isNotEmpty(),
+            isChecked = filters.filterFavorite
         )
     }
 
@@ -205,7 +205,7 @@ class SessionScreenViewModel @Inject constructor(
 
     fun onFavoriteFilterClicked() {
         filtersStateFlow.value = filtersStateFlow.value.copy(
-            filterFavorites = !filtersStateFlow.value.filterFavorites
+            filterFavorite = !filtersStateFlow.value.filterFavorite
         )
     }
 }
