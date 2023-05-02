@@ -30,7 +30,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun Greeting(name: String) {
+// TODO: Name screen level Composable function
+fun TimetableScreen() {
     val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
