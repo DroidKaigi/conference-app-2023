@@ -14,12 +14,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
-
 dependencies {
     implementation(libs.androidGradlePlugin)
     implementation(libs.kotlinGradlePlugin)
