@@ -1,32 +1,23 @@
 package io.github.droidkaigi.confsched2023.data
 
-import io.github.droidkaigi.confsched2023.model.Session
-import io.github.droidkaigi.confsched2023.model.SessionTimetable
+import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.fake
 
 interface SessionsApi {
-    suspend fun sessions(): SessionTimetable
+    suspend fun sessions(): Timetable
 }
 
 class FakeSessionsApi : SessionsApi {
 
     sealed class Strategy : SessionsApi {
         object Operational : Strategy() {
-            override suspend fun sessions(): SessionTimetable {
-                return SessionTimetable(
-                    listOf(
-                        Session(
-                            id = "1",
-                        ),
-                        Session(
-                            id = "2",
-                        ),
-                    )
-                )
+            override suspend fun sessions(): Timetable {
+                return Timetable.fake()
             }
         }
 
         object Error : Strategy() {
-            override suspend fun sessions(): SessionTimetable {
+            override suspend fun sessions(): Timetable {
                 throw RuntimeException("Error")
             }
         }
@@ -38,7 +29,7 @@ class FakeSessionsApi : SessionsApi {
         this.strategy = strategy
     }
 
-    override suspend fun sessions(): SessionTimetable {
+    override suspend fun sessions(): Timetable {
         return strategy.sessions()
     }
 }
