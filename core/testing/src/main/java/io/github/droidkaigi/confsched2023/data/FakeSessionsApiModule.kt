@@ -1,12 +1,9 @@
-package io.github.droidkaigi.confsched2023.module
+package io.github.droidkaigi.confsched2023.data
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import io.github.droidkaigi.confsched2023.data.FakeSessionsApi
-import io.github.droidkaigi.confsched2023.data.SessionsApi
-import io.github.droidkaigi.confsched2023.data.SessionsApiModule
 
 @Module
 @TestInstallIn(components = [SingletonComponent::class], replaces = [SessionsApiModule::class])
