@@ -1,11 +1,11 @@
 [versions]
-androidGradlePlugin = "8.0.0"
-kotlin = "1.8.10"
+androidGradlePlugin = "7.4.2"
+kotlin = "1.8.20"
 
 androidxCore = "1.10.0"
 androidDesugarJdkLibs = "2.0.3"
 compose = "1.4.2"
-composeCompiler = "1.4.4"
+composeCompiler = "1.4.6"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
 androidxActivity = "1.7.1"
@@ -26,6 +26,7 @@ hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-pl
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
+composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 composeMaterial = { module = "androidx.compose.material:material", version.ref = "compose" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }

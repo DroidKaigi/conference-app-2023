@@ -6,9 +6,9 @@ plugins {
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.data"
-kotlin{
+kotlin {
     sourceSets {
-        commonMain{
+        commonMain {
             dependencies {
                 implementation(projects.core.model)
                 implementation(libs.kotlinxCoroutinesCore)
