@@ -38,6 +38,7 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", versi
 composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigatiaon" }
 
 daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+daggerHiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
