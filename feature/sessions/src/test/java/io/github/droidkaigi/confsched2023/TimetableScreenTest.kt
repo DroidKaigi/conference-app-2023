@@ -21,7 +21,7 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.Pixel6
 )
-class TimetableScreenSnapshotTest {
+class TimetableScreenshotTest {
 
     @get:Rule val robotTestRule = RobotTestRule(this)
 

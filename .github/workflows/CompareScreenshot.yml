@@ -1,0 +1,57 @@
+name: CompareScreenshot
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+run-name: "Compare by ${{ github.actor }}"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+
+      - uses: ./.github/actions/setup-java
+
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          name: screenshots
+          path: app/build/outputs/roborazzi
+          workflow: test.yaml
+          branch: main
+
+      - name: verify unchanged test
+        id: verify-unchanged-test
+        run: |
+          ./gradlew app:compareRoborazziDebug --stacktrace -Pscreenshot
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: screenshot-diff
+          path: app/build/outputs/roborazzi
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: screenshot-diff-reports
+          path: app/build/reports
+          retention-days: 30
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: screenshot-diff-test-results
+          path: app/build/test-results
+          retention-days: 30
