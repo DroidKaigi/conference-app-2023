@@ -23,9 +23,9 @@ class AndroidComposePlugin : Plugin<Project> {
                 implementation(libs.findLibrary("androidxLifecycleLifecycleRuntimeKtx"))
                 implementation(libs.findLibrary("androidxActivityActivityCompose"))
                 testImplementation(libs.findLibrary("junit"))
-                androidTestImplementation(libs.findLibrary("androidxTestExtJunit"))
-                androidTestImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))
-                androidTestImplementation(libs.findLibrary("composeUiTestJunit4"))
+                testImplementation(libs.findLibrary("androidxTestExtJunit"))
+                testImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))
+                testImplementation(libs.findLibrary("composeUiTestJunit4"))
                 debugImplementation(libs.findLibrary("composeUiTooling"))
                 debugImplementation(libs.findLibrary("composeUiTestManifest"))
             }

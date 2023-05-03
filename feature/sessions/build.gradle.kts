@@ -7,6 +7,7 @@ android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 dependencies {
     implementation(projects.core.ui)
     implementation(projects.core.model)
+    testImplementation(projects.core.testing)
 
     implementation(libs.androidxCoreKtx)
     implementation(libs.composeUi)
@@ -16,6 +17,7 @@ dependencies {
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
     androidTestImplementation(libs.androidxTestExtJunit)
     androidTestImplementation(libs.androidxTestEspressoEspressoCore)
     androidTestImplementation(libs.composeUiTestJunit4)
