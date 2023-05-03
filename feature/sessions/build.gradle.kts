@@ -1,6 +1,5 @@
 plugins {
     id("droidkaigi.convention.androidfeature")
-    id("droidkaigi.primitive.android")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
