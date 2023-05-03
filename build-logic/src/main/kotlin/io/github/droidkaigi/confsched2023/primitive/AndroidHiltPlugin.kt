@@ -24,7 +24,11 @@ class AndroidHiltPlugin : Plugin<Project> {
             }
             dependencies {
                 implementation(libs.findLibrary("daggerHiltAndroid"))
+                // https://issuetracker.google.com/issues/237567009
+                implementation(libs.findLibrary("androidxFragment"))
                 kapt(libs.findLibrary("daggerHiltAndroidCompiler"))
+                testImplementation(libs.findLibrary("daggerHiltAndroidTesting"))
+                kaptTest(libs.findLibrary("daggerHiltAndroidTesting"))
             }
             extensions.configure<KaptExtension> {
                 correctErrorTypes = true
