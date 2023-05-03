@@ -98,7 +98,7 @@ jobs:
       - uses: dawidd6/action-download-artifact@246dbf436b23d7c49e21a7ab8204ca9ecd1fe615 # v2.27.0
         with:
           run_id: ${{ github.event.workflow_run.id }}
-          name: screenshot-diff-reports
+          name: screenshot-diff-test-results
           path: .diff-reports
       - id: generate-diff-reports
         name: Generate diff reports
