@@ -26,7 +26,7 @@ jobs:
       - name: verify unchanged test
         id: verify-unchanged-test
         run: |
-          ./gradlew app:recordRoborazziDebug --stacktrace -Pscreenshot
+          ./gradlew recordRoborazziDebug --stacktrace -Pscreenshot
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
