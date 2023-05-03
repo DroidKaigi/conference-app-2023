@@ -10,9 +10,9 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 @InstallIn(SingletonComponent::class)
 class SessionsRepositoryModule {
     @Provides
-    fun provideSessionsRepository(): SessionsRepository {
+    fun provideSessionsRepository(sessionsApi: SessionsApi): SessionsRepository {
         return DefaultSessionsRepository(
-            FakeSessionsApi()
+            sessionsApi = sessionsApi
         )
     }
 }
