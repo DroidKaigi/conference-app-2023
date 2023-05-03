@@ -130,7 +130,11 @@ jobs:
           Unchanged: ${unchanged}
           EOF
           )
-          echo "reports=reports" >> $GITHUB_OUTPUT
+          
+          delimiter="$(openssl rand -hex 8)"
+          echo "reports<<${delimiter}" >> $GITHUB_OUTPUT
+          echo "$reports" >> $GITHUB_OUTPUT
+          echo "${delimiter}" >> $GITHUB_OUTPUT
 
       - name: Add or update comment on PR
         uses: peter-evans/create-or-update-comment@v3
