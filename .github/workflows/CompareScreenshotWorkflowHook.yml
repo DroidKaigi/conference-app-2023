@@ -121,7 +121,7 @@ jobs:
             exit 1
           fi
           
-          comment=$(cat << EOF
+          reports=$(cat << EOF
           Summary of the Screenshot test Compare Report:
           
           Total: ${total}
@@ -130,10 +130,10 @@ jobs:
           Unchanged: ${unchanged}
           EOF
           )
-          echo "::set-output name=comment::$comment"
+          echo "reports=reports" >> $GITHUB_OUTPUT
 
       - name: Add or update comment on PR
         uses: peter-evans/create-or-update-comment@v3
         with:
           issue-number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
-          body: ${{ steps.generate-diff-reports.outputs.comment }}
+          body: ${{ steps.generate-diff-reports.outputs.reports }}
