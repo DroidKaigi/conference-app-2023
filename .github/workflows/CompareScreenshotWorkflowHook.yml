@@ -18,7 +18,7 @@ run-name: ${{ github.event.workflow_run.name }} - ${{ github.event.workflow_run.
 
 # Restrict the concurrency on a pair of a repository owner and a branch.
 concurrency:
-  group: workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.name }}
+  group: compare-screenshot-workflow-hook-${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}-${{ github.event.workflow_run.name }}
   cancel-in-progress: true
 
 jobs:

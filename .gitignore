@@ -44,3 +44,7 @@ _sandbox
 # Android Studio captures folder
 captures/
 Footer
+
+# iOS
+.DS_Store
+xcuserdata
