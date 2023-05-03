@@ -12,7 +12,7 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 apply("io.github.takahirom.roborazzi")
             }
             dependencies {
-                implementation(libs.findLibrary("roborazzi"))
+                testImplementation(libs.findLibrary("roborazzi"))
             }
         }
     }
