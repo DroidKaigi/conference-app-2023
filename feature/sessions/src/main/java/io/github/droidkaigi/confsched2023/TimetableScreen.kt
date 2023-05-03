@@ -59,7 +59,6 @@ fun TimetableScreen() {
     }
 }
 
-
 // --
 data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
 sealed interface SessionListUiState {
