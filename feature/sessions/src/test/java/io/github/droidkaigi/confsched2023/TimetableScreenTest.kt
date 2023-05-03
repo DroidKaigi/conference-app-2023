@@ -30,10 +30,7 @@ class TimetableScreenSnapshotTest {
 
     @Test
     fun startupScreenshot() {
-        println("start")
-        ROBORAZZI_DEBUG = true
         sessionScreenRobot(robotTestRule.composeTestRule) {
-
             capture()
         }
     }
