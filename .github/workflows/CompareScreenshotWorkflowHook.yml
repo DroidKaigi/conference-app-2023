@@ -79,7 +79,7 @@ jobs:
       - linked-pull-request
 
     if: >
-      github.event.workflow.name == 'UnitTest' &&
+      github.event.workflow.name == 'CompareScreenshot' &&
       needs.linked-pull-request.outputs.pull-request &&
       fromJSON(needs.linked-pull-request.outputs.pull-request).number
 
