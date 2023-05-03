@@ -1,4 +1,4 @@
-name: CompareScreenshot
+name: StoreScreenshot
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
 
-run-name: "Compare by ${{ github.actor }}"
+run-name: "Store by ${{ github.actor }}"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
@@ -23,36 +23,28 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - uses: dawidd6/action-download-artifact@v2
-        continue-on-error: true
-        with:
-          name: screenshots
-          path: feature/sessions/build/outputs/roborazzi
-          workflow: StoreScreenshot.yml
-          branch: main
-
       - name: verify unchanged test
         id: verify-unchanged-test
         run: |
-          ./gradlew app:compareRoborazziDebug --stacktrace -Pscreenshot
+          ./gradlew app:recordRoborazziDebug --stacktrace -Pscreenshot
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: screenshot-diff
-          path: app/build/outputs/roborazzi
+          name: screenshot
+          path: feature/sessions/build/outputs/roborazzi
           retention-days: 30
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: screenshot-diff-reports
+          name: screenshot-reports
           path: app/build/reports
           retention-days: 30
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
-          name: screenshot-diff-test-results
+          name: screenshot-test-results
           path: app/build/test-results
           retention-days: 30
