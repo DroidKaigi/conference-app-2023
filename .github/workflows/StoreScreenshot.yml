@@ -39,12 +39,12 @@ jobs:
         if: ${{ always() }}
         with:
           name: screenshot-reports
-          path: app/build/reports
+          path: feature/sessions/build/reports
           retention-days: 30
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: screenshot-test-results
-          path: app/build/test-results
+          path: feature/sessions/build/test-results
           retention-days: 30

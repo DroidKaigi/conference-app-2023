@@ -40,19 +40,19 @@ jobs:
         if: ${{ always() }}
         with:
           name: screenshot-diff
-          path: app/build/outputs/roborazzi
+          path: feature/sessions/build/outputs/roborazzi
           retention-days: 30
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: screenshot-diff-reports
-          path: app/build/reports
+          path: feature/sessions/build/reports
           retention-days: 30
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: screenshot-diff-test-results
-          path: app/build/test-results
+          path: feature/sessions/build/test-results
           retention-days: 30
