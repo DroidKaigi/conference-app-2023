@@ -19,6 +19,7 @@ rootProject.name = "conference-app-2023"
 include(
     ":app-android",
     ":feature:sessions",
+    ":feature:contributors",
     ":core:ui",
     ":core:data",
     ":core:model",
