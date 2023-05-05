@@ -35,13 +35,6 @@ public enum class DroidKaigi2023Day(
             .toInstant(TimeZone.of("UTC+9"))
     );
 
-    public val kaigiPlace: KaigiPlace
-        get() = if (this != Day3) {
-            KaigiPlace.Prism
-        } else {
-            KaigiPlace.Bellesalle
-        }
-
     public companion object {
         public fun ofOrNull(time: Instant): DroidKaigi2023Day? {
             return values().firstOrNull {
@@ -55,7 +48,3 @@ public enum class DroidKaigi2023Day(
     }
 }
 
-public enum class KaigiPlace {
-    Prism,
-    Bellesalle
-}

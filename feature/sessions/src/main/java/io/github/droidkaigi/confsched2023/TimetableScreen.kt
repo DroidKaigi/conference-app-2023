@@ -59,14 +59,6 @@ fun TimetableScreen() {
     }
 }
 
-// @Preview(showBackground = true)
-// @Composable
-// fun DefaultPreview() {
-//    Androidprojecttemplate2022Theme {
-//        Greeting("Android")
-//    }
-// }
-
 // --
 data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
 sealed interface SessionListUiState {
@@ -82,66 +74,7 @@ data class SessionScreenUiState(
 class AppError(e: Throwable) : Exception(e)
 
 // Test code
-// class SessionsScreenSnapshotTest {
-//    val composeTestRule = composeTestRule()
-//    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
-//
-//    @Test
-//    fun favoriteScreenShot() {
-//        sessionScreenRobot(composeTestRule) {
-//            filterFavorite()
-//            capture()
-//        }
-//    }
-// }
-//
-// class SessionsScreenTest {
-//    val composeTestRule = composeTestRule()
-//    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
-//
-//    @Test
-//    fun shouldBeFilteredWhenFavoriteFilterIsEnabled() {
-//        sessionScreenRobot(composeTestRule) {
-//            filterFavorite()
-//            isSessionListNotEmpty()
-//            areAllSessionsFavorite()
-//        }
-//    }
-// }
-//
-// // ④ Shared Testing Robot
-// class SessionScreenRobot @Inject constructor() {
-//    lateinit var composeTestRule: ComposeTestRule
-//    fun invoke(composeTestRule: ComposeTestRule, block: SessionScreenRobot.() -> Unit) {
-//        this.composeTestRule = composeTestRule
-//    }
-//
-//    fun filterFavorite() {
-//        composeTestRule
-//            .onNodeWithTestTag("favorite")
-//            .click()
-//    }
-//
-//    fun areAllSessionsFavorite() {
-//        composeTestRule
-//            .onNodeWithText("All timetableItems are favorite")
-//            .assertExists()
-//    }
-//
-//    fun isSessionListNotEmpty() {
-//        composeTestRule
-//            .onNodeWithText("Session 1")
-//            .assertExists()
-//    }
-//
-//    fun capture() {
-//        // ③ Capture Robolectric image
-//        composeTestRule
-//            .onNode(isRoot())
-//            .captureRoboImage()
-//    }
-// }
-
+// class SessionsSc
 @HiltViewModel
 class SessionScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
