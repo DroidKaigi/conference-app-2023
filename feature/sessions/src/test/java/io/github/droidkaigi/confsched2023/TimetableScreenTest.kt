@@ -25,11 +25,11 @@ class TimetableScreenshotTest {
 
     @get:Rule val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
+    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
     fun startupScreenshot() {
-        sessionScreenRobot(robotTestRule.composeTestRule) {
+        timetableScreenRobot(robotTestRule) {
             capture()
         }
     }
@@ -37,28 +37,28 @@ class TimetableScreenshotTest {
 
 @RunWith(AndroidJUnit4::class)
 @HiltAndroidTest
-class SessionsScreenTest {
+class TimetableScreenTest {
 
     @get:Rule val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
+    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
     fun shouldBeAbleToLaunch() {
-        sessionScreenRobot(robotTestRule.composeTestRule) {
+        timetableScreenRobot(robotTestRule) {
         }
     }
 }
 
 // ④ Shared Testing Robot
-class SessionScreenRobot @Inject constructor() {
+class TimetableScreenRobot @Inject constructor() {
 
     lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        composeTestRule: AndroidComposeTestRule<*, *>,
-        block: SessionScreenRobot.() -> Unit
+        robotTestRule: RobotTestRule,
+        block: TimetableScreenRobot.() -> Unit
     ) {
-        this.composeTestRule = composeTestRule
+        this.composeTestRule = robotTestRule.composeTestRule
         composeTestRule.setContent {
             TimetableScreen()
         }
