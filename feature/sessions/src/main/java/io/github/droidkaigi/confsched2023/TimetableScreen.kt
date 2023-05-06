@@ -189,7 +189,7 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
 fun <T> Flow<T>.handleErrorAndRetry(
     actionLabel: String,
     userMessageStateHolder: UserMessageStateHolder,
-    retryAction: ((Throwable) -> Unit)? = null,
+    retryAction: (suspend (Throwable) -> Unit)? = null,
 ) = retry { throwable ->
     // ② Application wide error handling
     val applicationErrorMessage = throwable.toApplicationErrorMessage()
