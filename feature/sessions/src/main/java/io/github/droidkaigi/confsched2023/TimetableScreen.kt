@@ -16,21 +16,23 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.SessionListUiState.Empty
 import io.github.droidkaigi.confsched2023.SessionListUiState.List
-import io.github.droidkaigi.confsched2023.model.Filter
-import io.github.droidkaigi.confsched2023.model.SessionTimetable
+import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
+import io.github.droidkaigi.confsched2023.model.Timetable
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
-fun Greeting(name: String) {
+// TODO: Name screen level Composable function
+fun TimetableScreen() {
     val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
@@ -49,8 +51,8 @@ fun Greeting(name: String) {
             when (val listState = uiState.sessionListUiState) {
                 Empty -> Text("empty")
                 is List -> {
-                    listState.sessionTimetable.sessions.forEach { session ->
-                        Text(session.id)
+                    listState.timetable.timetableItems.forEach { session ->
+                        Text(session.title.currentLangTitle)
                     }
                 }
             }
@@ -58,19 +60,11 @@ fun Greeting(name: String) {
     }
 }
 
-// @Preview(showBackground = true)
-// @Composable
-// fun DefaultPreview() {
-//    Androidprojecttemplate2022Theme {
-//        Greeting("Android")
-//    }
-// }
-
 // --
 data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
 sealed interface SessionListUiState {
     object Empty : SessionListUiState
-    data class List(val sessionTimetable: SessionTimetable) : SessionListUiState
+    data class List(val timetable: Timetable) : SessionListUiState
 }
 
 data class SessionScreenUiState(
@@ -81,115 +75,45 @@ data class SessionScreenUiState(
 class AppError(e: Throwable) : Exception(e)
 
 // Test code
-// class SessionsScreenSnapshotTest {
-//    val composeTestRule = composeTestRule()
-//    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
-//
-//    @Test
-//    fun favoriteScreenShot() {
-//        sessionScreenRobot(composeTestRule) {
-//            filterFavorite()
-//            capture()
-//        }
-//    }
-// }
-//
-// class SessionsScreenTest {
-//    val composeTestRule = composeTestRule()
-//    @Inject lateinit var sessionScreenRobot: SessionScreenRobot
-//
-//    @Test
-//    fun shouldBeFilteredWhenFavoriteFilterIsEnabled() {
-//        sessionScreenRobot(composeTestRule) {
-//            filterFavorite()
-//            isSessionListNotEmpty()
-//            areAllSessionsFavorite()
-//        }
-//    }
-// }
-//
-// // ④ Shared Testing Robot
-// class SessionScreenRobot @Inject constructor() {
-//    lateinit var composeTestRule: ComposeTestRule
-//    fun invoke(composeTestRule: ComposeTestRule, block: SessionScreenRobot.() -> Unit) {
-//        this.composeTestRule = composeTestRule
-//    }
-//
-//    fun filterFavorite() {
-//        composeTestRule
-//            .onNodeWithTestTag("favorite")
-//            .click()
-//    }
-//
-//    fun areAllSessionsFavorite() {
-//        composeTestRule
-//            .onNodeWithText("All sessions are favorite")
-//            .assertExists()
-//    }
-//
-//    fun isSessionListNotEmpty() {
-//        composeTestRule
-//            .onNodeWithText("Session 1")
-//            .assertExists()
-//    }
-//
-//    fun capture() {
-//        // ③ Capture Robolectric image
-//        composeTestRule
-//            .onNode(isRoot())
-//            .captureRoboImage()
-//    }
-// }
-
+// class SessionsSc
 @HiltViewModel
 class SessionScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val sessionsStateFlow: StateFlow<SessionTimetable> = sessionsRepository
+    private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
         .getSessionsStream()
-        .catch {
-            // ② Application wide error handling
-            val applicationErrorMessage = it.toApplicationErrorMessage()
-
-            // Shared snackbar message logic
-            val messageResult = showMessage(
-                message = applicationErrorMessage,
-                // TODO: Decide how to write strings in ViewModel
-                actionLabel = "Retry"
-            )
-
-            // Retry
-            if (messageResult == UserMessageResult.ActionPerformed) {
-                emitAll(sessionsRepository.getSessionsStream())
-            }
-        }
+        .handleErrorAndRetry(
+            // TODO: Decide how to write strings in ViewModel
+            "Retry",
+            userMessageStateHolder,
+        )
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = SessionTimetable()
+            initialValue = Timetable()
         )
-    private val filtersStateFlow = MutableStateFlow(Filter(false))
+    private val filtersStateFlow = MutableStateFlow(Filters())
 
     // ① Single source of truth of UiState
     private val sessionListUiState: StateFlow<SessionListUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
     ) { sessionTimetable, filters ->
-        if (sessionTimetable.sessions.isEmpty()) return@buildUiState SessionListUiState.Empty
+        if (sessionTimetable.timetableItems.isEmpty()) return@buildUiState SessionListUiState.Empty
         SessionListUiState.List(
-            sessionTimetable = sessionTimetable.filtered(filters)
+            timetable = sessionTimetable.filtered(filters)
         )
     }
 
     private val filterUiState: StateFlow<FilterUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
-    ) { sessions, filters ->
+    ) { timetableItems, filters ->
         FilterUiState(
-            enabled = sessions.sessions.isNotEmpty(),
-            isChecked = filters.filterFavorites
+            enabled = timetableItems.timetableItems.isNotEmpty(),
+            isChecked = filters.filterFavorite
         )
     }
 
@@ -205,7 +129,7 @@ class SessionScreenViewModel @Inject constructor(
 
     fun onFavoriteFilterClicked() {
         filtersStateFlow.value = filtersStateFlow.value.copy(
-            filterFavorites = !filtersStateFlow.value.filterFavorites
+            filterFavorite = !filtersStateFlow.value.filterFavorite
         )
     }
 }
@@ -261,6 +185,35 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
         flow.value, flow2.value, flow3.value, flow4.value
     )
 )
+
+fun <T> Flow<T>.handleErrorAndRetry(
+    actionLabel: String,
+    userMessageStateHolder: UserMessageStateHolder,
+) = retry { throwable ->
+    val messageResult = userMessageStateHolder.showMessage(
+        message = throwable.toApplicationErrorMessage(),
+        actionLabel = actionLabel,
+    )
+
+    val retryPerformed = messageResult == UserMessageResult.ActionPerformed
+
+    retryPerformed
+}.catch { /* Do nothing if the user dose not retry. */ }
+
+fun <T> Flow<T>.handleErrorAndRetryAction(
+    actionLabel: String,
+    userMessageStateHolder: UserMessageStateHolder,
+    retryAction: suspend ((Throwable) -> Unit),
+) = catch { throwable ->
+    val messageResult = userMessageStateHolder.showMessage(
+        message = throwable.toApplicationErrorMessage(),
+        actionLabel = actionLabel,
+    )
+
+    if (messageResult == UserMessageResult.ActionPerformed) {
+        retryAction(throwable)
+    }
+}.catch { /* Do nothing if the user dose not retry. */ }
 
 // ① Single source of truth of UiState
 // ② Application wide error handling

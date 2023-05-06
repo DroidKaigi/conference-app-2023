@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.androidGradlePlugin)
     implementation(libs.kotlinGradlePlugin)
     implementation(libs.spotlessGradlePlugin)
+    implementation(libs.roborazziGradlePlugin)
     implementation(libs.hiltGradlePlugin)
     // https://github.com/google/dagger/issues/3068#issuecomment-1470534930
     implementation(libs.javaPoet)
@@ -46,6 +47,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidHiltPlugin"
         }
+        register("androidRoborazzi") {
+            id = "droidkaigi.primitive.android.roborazzi"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidRoborazziPlugin"
+        }
         register("kotlinMpp") {
             id = "droidkaigi.primitive.kmp"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpPlugin"
@@ -70,7 +75,7 @@ gradlePlugin {
         // Conventions
         register("androidFeature") {
             id = "droidkaigi.convention.androidfeature"
-            implementationClass = "io.github.droidkaigi.confsched2023.convention.AndroidFeature"
+            implementationClass = "io.github.droidkaigi.confsched2023.convention.AndroidFeaturePlugin"
         }
     }
 }
