@@ -45,29 +45,50 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: screenshot-diff
           path: screenshot-diff
+      - id: check-if-there-are-valid-files
+        name: Check if there are valid files
+        shell: bash
+        run: |
+          # Find all the files ending with _compare.png
+          files_to_add=$(find . -type f -name "*_compare.png")
+          
+          # Check for invalid file names and add only valid ones
+          exist_valid_files="false"
+          for file in $files_to_add; do
+            if [[ $file =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+              exist_valid_files="true"
+              break
+            fi
+          done
+          echo "exist_valid_files=$exist_valid_files" >> $GITHUB_OUTPUT
       - id: push-screenshot-diff
+        shell: bash
+        if: steps.check-if-there-are-valid-files.outputs.exist_valid_files == 'true'
         env:
           BRANCH_NAME: companion_${{ github.event.workflow_run.head_branch }}
         run: |
-          git add "*compare.png"
+          # Find all the files ending with _compare.png
+          files_to_add=$(find . -type f -name "*_compare.png")
+          
+          # Check for invalid file names and add only valid ones
+          for file in $files_to_add; do
+            if [[ $file =~ ^[a-zA-Z0-9_./-]+$ ]]; then
+              git add "$file"
+            fi
+          done
           git config --global user.name ScreenshotBot
           git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -m "Add screenshot diff"
           git push origin HEAD:$BRANCH_NAME -f
       - id: generate-diff-reports
         name: Generate diff reports
+        if: steps.check-if-there-are-valid-files.outputs.exist_valid_files == 'true'
         env:
           BRANCH_NAME: companion_${{ github.event.workflow_run.head_branch }}
         shell: bash
         run: |
           # Find all the files ending with _compare.png in roborazzi folder
           files=$(find . -type f -name "*_compare.png" | grep "roborazzi/" | grep -E "^[a-zA-Z0-9_./-]+$")
-          # If there are no files, exit
-          if [ -z "$files" ]; then
-              echo "No files found"
-              exit 0
-          fi
-          
           delimiter="$(openssl rand -hex 8)"
           echo "reports<<${delimiter}" >> $GITHUB_OUTPUT
           
