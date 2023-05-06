@@ -19,8 +19,8 @@ import io.github.droidkaigi.confsched2023.SessionListUiState.List
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -190,27 +190,26 @@ fun <T> Flow<T>.handleErrorAndRetry(
     actionLabel: String,
     userMessageStateHolder: UserMessageStateHolder,
     retryAction: ((Throwable) -> Unit)? = null,
-) {
-    retry { throwable ->
-        // ② Application wide error handling
-        val applicationErrorMessage = throwable.toApplicationErrorMessage()
+) = retry { throwable ->
+    // ② Application wide error handling
+    val applicationErrorMessage = throwable.toApplicationErrorMessage()
 
-        // Shared snackbar message logic
-        val messageResult = userMessageStateHolder.showMessage(
-            message = applicationErrorMessage,
-            actionLabel = actionLabel,
-        )
+    // Shared snackbar message logic
+    val messageResult = userMessageStateHolder.showMessage(
+        message = applicationErrorMessage,
+        actionLabel = actionLabel,
+    )
 
-        val retryPerformed = messageResult == UserMessageResult.ActionPerformed
+    val retryPerformed = messageResult == UserMessageResult.ActionPerformed
 
-        if (retryPerformed && retryAction != null) {
-            retryAction(throwable)
-            return@retry false
-        }
+    if (retryPerformed && retryAction != null) {
+        retryAction(throwable)
+        return@retry false
+    }
 
-        retryPerformed
-    }.catch { /* Do nothing if the user dose not retry. */ }
-}
+    retryPerformed
+}.catch { /* Do nothing if the user dose not retry. */ }
+
 // ① Single source of truth of UiState
 // ② Application wide error handling
 // ③ Capture Robolectric image(Robolectric Native Graphics)
