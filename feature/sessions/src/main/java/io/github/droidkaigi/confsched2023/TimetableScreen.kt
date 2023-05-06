@@ -189,25 +189,30 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
 fun <T> Flow<T>.handleErrorAndRetry(
     actionLabel: String,
     userMessageStateHolder: UserMessageStateHolder,
-    retryAction: ((Throwable) -> Unit)? = null,
 ) = retry { throwable ->
-    // ② Application wide error handling
-    val applicationErrorMessage = throwable.toApplicationErrorMessage()
-
-    // Shared snackbar message logic
     val messageResult = userMessageStateHolder.showMessage(
-        message = applicationErrorMessage,
+        message = throwable.toApplicationErrorMessage(),
         actionLabel = actionLabel,
     )
 
     val retryPerformed = messageResult == UserMessageResult.ActionPerformed
 
-    if (retryPerformed && retryAction != null) {
-        retryAction(throwable)
-        return@retry false
-    }
-
     retryPerformed
+}.catch { /* Do nothing if the user dose not retry. */ }
+
+fun <T> Flow<T>.handleErrorAndRetryAction(
+    actionLabel: String,
+    userMessageStateHolder: UserMessageStateHolder,
+    retryAction: suspend ((Throwable) -> Unit),
+) = catch { throwable ->
+    val messageResult = userMessageStateHolder.showMessage(
+        message = throwable.toApplicationErrorMessage(),
+        actionLabel = actionLabel,
+    )
+
+    if (messageResult == UserMessageResult.ActionPerformed) {
+        retryAction(throwable)
+    }
 }.catch { /* Do nothing if the user dose not retry. */ }
 
 // ① Single source of truth of UiState
