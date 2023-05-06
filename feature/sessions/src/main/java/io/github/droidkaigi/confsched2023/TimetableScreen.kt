@@ -19,14 +19,15 @@ import io.github.droidkaigi.confsched2023.SessionListUiState.List
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
 
 @Composable
@@ -83,22 +84,11 @@ class SessionScreenViewModel @Inject constructor(
     UserMessageStateHolder by userMessageStateHolder {
     private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
         .getSessionsStream()
-        .catch {
-            // ② Application wide error handling
-            val applicationErrorMessage = it.toApplicationErrorMessage()
-
-            // Shared snackbar message logic
-            val messageResult = showMessage(
-                message = applicationErrorMessage,
-                // TODO: Decide how to write strings in ViewModel
-                actionLabel = "Retry"
-            )
-
-            // Retry
-            if (messageResult == UserMessageResult.ActionPerformed) {
-                emitAll(sessionsRepository.getSessionsStream())
-            }
-        }
+        .handleErrorAndRetry(
+            // TODO: Decide how to write strings in ViewModel
+            "Retry",
+            userMessageStateHolder,
+        )
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
@@ -196,6 +186,31 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
     )
 )
 
+fun <T> Flow<T>.handleErrorAndRetry(
+    actionLabel: String,
+    userMessageStateHolder: UserMessageStateHolder,
+    retryAction: ((Throwable) -> Unit)? = null,
+) {
+    retry { throwable ->
+        // ② Application wide error handling
+        val applicationErrorMessage = throwable.toApplicationErrorMessage()
+
+        // Shared snackbar message logic
+        val messageResult = userMessageStateHolder.showMessage(
+            message = applicationErrorMessage,
+            actionLabel = actionLabel,
+        )
+
+        val retryPerformed = messageResult == UserMessageResult.ActionPerformed
+
+        if (retryPerformed && retryAction != null) {
+            retryAction(throwable)
+            return@retry false
+        }
+
+        retryPerformed
+    }.catch { /* Do nothing if the user dose not retry. */ }
+}
 // ① Single source of truth of UiState
 // ② Application wide error handling
 // ③ Capture Robolectric image(Robolectric Native Graphics)
