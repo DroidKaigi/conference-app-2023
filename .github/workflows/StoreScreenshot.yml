@@ -39,7 +39,8 @@ jobs:
       - name: record screenshot
         id: record-test
         run: |
-          ./gradlew recordRoborazziDebug --stacktrace -Pscreenshot
+          # Use --rerun and specify task to disable cache for test task
+          ./gradlew testDebugUnitTest recordRoborazziDebug --stacktrace -Pscreenshot --rerun
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
