@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -10,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,6 +19,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.SessionListUiState.Empty
 import io.github.droidkaigi.confsched2023.SessionListUiState.List
 import io.github.droidkaigi.confsched2023.designsystem.AppLocalizedStrings
+import io.github.droidkaigi.confsched2023.designsystem.SessionsLocalizedStrings
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
@@ -50,6 +53,13 @@ fun TimetableScreen() {
         }
     ) { innerPadding ->
         Column(Modifier.padding(innerPadding)) {
+            Text(
+                text = SessionsLocalizedStrings.Timetable.value(),
+                style = MaterialTheme.typography.displayLarge,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
+            )
             when (val listState = uiState.sessionListUiState) {
                 Empty -> Text("empty")
                 is List -> {
