@@ -43,7 +43,7 @@ class KmpIosPlugin : Plugin<Project> {
                     }
                     iosSourceSets.forEach { iosSourceSet ->
                         maybeCreate(iosSourceSet + "Main")
-                            .dependsOn(getByName("commonMain"))
+                            .dependsOn(getByName("iosMain"))
                     }
 
                     create("iosTest") {
@@ -51,7 +51,7 @@ class KmpIosPlugin : Plugin<Project> {
                     }
                     iosSourceSets.forEach { iosSourceSet ->
                         maybeCreate(iosSourceSet + "Test")
-                            .dependsOn(getByName("commonTest"))
+                            .dependsOn(getByName("iosTest"))
                     }
                 }
 
