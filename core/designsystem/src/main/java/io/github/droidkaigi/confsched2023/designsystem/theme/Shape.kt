@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.ui.theme
+package io.github.droidkaigi.confsched2023.designsystem.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

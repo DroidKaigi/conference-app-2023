@@ -6,7 +6,7 @@ plugins {
     id("droidkaigi.primitive.spotless")
 }
 
-android.namespace = "io.github.droidkaigi.confsched2023.core.ui"
+android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"
 
 dependencies {
 }

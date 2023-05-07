@@ -5,7 +5,7 @@ plugins {
 android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 
 dependencies {
-    implementation(projects.core.ui)
+    implementation(projects.core.designsystem)
     implementation(projects.core.model)
     testImplementation(projects.core.testing)
 

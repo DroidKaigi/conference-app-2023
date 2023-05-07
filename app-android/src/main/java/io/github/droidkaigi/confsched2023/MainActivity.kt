@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.droidkaigi.confsched2023.ui.theme.Androidprojecttemplate2022Theme
+import io.github.droidkaigi.confsched2023.designsystem.theme.Androidprojecttemplate2022Theme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
