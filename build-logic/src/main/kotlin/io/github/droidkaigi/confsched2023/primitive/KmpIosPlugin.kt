@@ -33,18 +33,27 @@ class KmpIosPlugin : Plugin<Project> {
                     }
                 }
                 with(sourceSets) {
+                    val iosSourceSets = listOf(
+                        "iosArm64",
+                        "iosX64",
+                        "iosSimulatorArm64",
+                    )
                     create("iosMain") {
                         dependsOn(getByName("commonMain"))
-                        maybeCreate("iosArm64Main").dependsOn(this)
-                        maybeCreate("iosX64Main").dependsOn(this)
-                        maybeCreate("iosSimulatorArm64Main").dependsOn(this)
+                    }
+                    iosSourceSets.forEach { iosSourceSet ->
+                        maybeCreate(iosSourceSet + "Main") {
+                            dependsOn(getByName("commonMain"))
+                        }
                     }
 
                     create("iosTest") {
                         dependsOn(getByName("commonTest"))
-                        maybeCreate("iosArm64Test").dependsOn(this)
-                        maybeCreate("iosX64Test").dependsOn(this)
-                        maybeCreate("iosSimulatorArm64Test").dependsOn(this)
+                    }
+                    iosSourceSets.forEach { iosSourceSet ->
+                        maybeCreate(iosSourceSet + "Test") {
+                            dependsOn(getByName("commonMain"))
+                        }
                     }
                 }
 
