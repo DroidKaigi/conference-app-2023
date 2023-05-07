@@ -33,7 +33,7 @@ jobs:
       - name: record screenshot
         id: record-test
         run: |
-          ./gradlew recordRoborazziDebug --stacktrace
+          ./gradlew recordRoborazziDebug --stacktrace -Pscreenshot
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
