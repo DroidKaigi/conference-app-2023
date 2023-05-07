@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+permissions: {}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
@@ -13,6 +15,10 @@ jobs:
   store-screenshot-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
+    permissions:
+      contents: read # for clone
+      actions: write # for upload-artifact
 
     steps:
       - name: Checkout
