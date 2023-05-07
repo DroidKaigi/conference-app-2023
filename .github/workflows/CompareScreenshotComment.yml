@@ -39,7 +39,7 @@ jobs:
       - id: switch-companion-branch
         env:
           BRANCH_NAME: companion_${{ github.event.workflow_run.head_branch }}
-        run:
+        run: |
           # orphan means it will create no history branch
           git branch -D $BRANCH_NAME || true
           git checkout --orphan $BRANCH_NAME
