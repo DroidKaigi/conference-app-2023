@@ -21,7 +21,7 @@ include(
     ":app-ios-shared",
     ":feature:sessions",
     ":feature:contributors",
-    ":core:design-system",
+    ":core:designsystem",
     ":core:data",
     ":core:model",
     ":core:testing",

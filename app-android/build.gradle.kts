@@ -12,5 +12,5 @@ dependencies {
     implementation(projects.feature.contributors)
     implementation(projects.feature.sessions)
     implementation(projects.core.data)
-    implementation(projects.core.ui)
+    implementation(projects.core.designsystem)
 }
