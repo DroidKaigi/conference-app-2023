@@ -1,9 +1,9 @@
 package io.github.droidkaigi.confsched2023
 
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.SnackbarResult
-import androidx.compose.material.SnackbarResult.ActionPerformed
-import androidx.compose.material.SnackbarResult.Dismissed
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.SnackbarResult.ActionPerformed
+import androidx.compose.material3.SnackbarResult.Dismissed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
