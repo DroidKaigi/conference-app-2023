@@ -16,6 +16,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.SessionListUiState.Empty
 import io.github.droidkaigi.confsched2023.SessionListUiState.List
+import io.github.droidkaigi.confsched2023.designsystem.AppLocalizedStrings
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
@@ -33,12 +34,13 @@ import kotlinx.coroutines.flow.stateIn
 @Composable
 // TODO: Name screen level Composable function
 fun TimetableScreen() {
-    val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
-    val uiState by sessionScreenViewModel.uiState.collectAsState()
+    val timetableScreenViewModel: TimetableScreenViewModel =
+        hiltViewModel<TimetableScreenViewModel>()
+    val uiState by timetableScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
-        userMessageStateHolder = sessionScreenViewModel.userMessageStateHolder
+        userMessageStateHolder = timetableScreenViewModel.userMessageStateHolder
     )
     Scaffold(
         snackbarHost = {
@@ -77,7 +79,7 @@ class AppError(e: Throwable) : Exception(e)
 // Test code
 // class SessionsSc
 @HiltViewModel
-class SessionScreenViewModel @Inject constructor(
+class TimetableScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
@@ -86,7 +88,7 @@ class SessionScreenViewModel @Inject constructor(
         .getSessionsStream()
         .handleErrorAndRetry(
             // TODO: Decide how to write strings in ViewModel
-            "Retry",
+            AppLocalizedStrings.Retry,
             userMessageStateHolder,
         )
         .stateIn(
@@ -187,12 +189,12 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
 )
 
 fun <T> Flow<T>.handleErrorAndRetry(
-    actionLabel: String,
+    actionLabel: AppLocalizedStrings,
     userMessageStateHolder: UserMessageStateHolder,
 ) = retry { throwable ->
     val messageResult = userMessageStateHolder.showMessage(
         message = throwable.toApplicationErrorMessage(),
-        actionLabel = actionLabel,
+        actionLabel = actionLabel.value(),
     )
 
     val retryPerformed = messageResult == UserMessageResult.ActionPerformed
