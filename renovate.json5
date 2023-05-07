@@ -10,7 +10,7 @@
 
   "timezone": "Asia/Tokyo",
 
-  "prHourlyLimit": 0, // # of PRs will be created but never exceed prConcurrentLimit. 0 means infinite. 
+  "prHourlyLimit": 0, // # of PRs will be created but never exceed prConcurrentLimit. 0 means infinite.
   "prConcurrentLimit": 5, // # of PRs can be open at the time (security updates are not affected)
 
   "pruneBranchAfterAutomerge": true,
@@ -20,6 +20,7 @@
 
   // Add new managers if required
   "enabledManagers": [
+    "swift",
     "github-actions",
     "gradle",
     "gradle-wrapper"
