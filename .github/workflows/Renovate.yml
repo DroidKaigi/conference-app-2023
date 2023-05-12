@@ -53,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@0da8b0cd8bb013041bad4f818c2790fa3253efb1 # v36.1.1
+        uses: renovatebot/github-action@4cc203c40dc0eb6b356306893cabda6ff9d42f33 # v37.0.0
         with:
           configurationFile: renovate.json5
           token: ${{ secrets.RENOVATE_TEST_TOKEN }} # workflow, repo, read user:email permissions
