@@ -17,7 +17,7 @@ androidxTestEspresso = "3.5.1"
 dagger = "2.46"
 spotless = "6.7.0"
 ktlint = "0.45.2"
-kotlinxSerialization = "1.5.0"
+kotlinxSerialization = "1.5.1"
 roborazzi = "1.2.0-alpha-5"
 
 [libraries]
