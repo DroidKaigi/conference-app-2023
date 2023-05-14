@@ -13,5 +13,5 @@ dependencies {
     implementation(project(":core:data"))
 
     implementation(libs.daggerHiltAndroidTesting)
-    implementation(libs.composeUiTestJunit4)
+    api(libs.composeUiTestJunit4)
 }

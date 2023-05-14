@@ -4,6 +4,7 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
@@ -31,8 +32,17 @@ class KaigiScreenshotTest {
     @Inject lateinit var KaigiScreenRobot: KaigiScreenRobot
 
     @Test
-    fun startupScreenshot() {
+    fun startup() {
         KaigiScreenRobot(composeTestRule) {
+            capture()
+        }
+    }
+
+    @Test
+    fun navigateToContributor() {
+        KaigiScreenRobot(composeTestRule) {
+            capture()
+            goToContributor()
             capture()
         }
     }
@@ -53,5 +63,11 @@ class KaigiScreenRobot @Inject constructor() {
         composeTestRule
             .onNode(isRoot())
             .captureRoboImage()
+    }
+
+    fun goToContributor() {
+        composeTestRule
+            .onNodeWithText("Go to ContributorsScreen")
+            .performClick()
     }
 }
