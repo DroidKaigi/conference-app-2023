@@ -60,7 +60,9 @@ class TimetableScreenRobot @Inject constructor() {
     ) {
         this.composeTestRule = robotTestRule.composeTestRule
         composeTestRule.setContent {
-            TimetableScreen()
+            TimetableScreen(
+                onContributorsClick = { }
+            )
         }
         block()
     }

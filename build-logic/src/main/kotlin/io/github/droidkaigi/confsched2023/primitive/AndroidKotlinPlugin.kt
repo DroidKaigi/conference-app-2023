@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.primitive
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
 
 @Suppress("unused")
 class AndroidKotlinPlugin : Plugin<Project> {
@@ -29,6 +30,10 @@ class AndroidKotlinPlugin : Plugin<Project> {
 
                     jvmTarget = JavaVersion.VERSION_11.toString()
                 }
+            }
+            dependencies {
+                implementation(libs.findLibrary("kotlinxCoroutinesCore"))
+                implementation(libs.findLibrary("kotlinxAtomicfu"))
             }
         }
     }

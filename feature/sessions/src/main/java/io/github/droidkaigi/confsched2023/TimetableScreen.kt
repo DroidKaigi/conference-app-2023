@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -32,7 +33,9 @@ import kotlinx.coroutines.flow.stateIn
 
 @Composable
 // TODO: Name screen level Composable function
-fun TimetableScreen() {
+fun TimetableScreen(
+    onContributorsClick: () -> Unit
+) {
     val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
@@ -48,6 +51,13 @@ fun TimetableScreen() {
         }
     ) { innerPadding ->
         Column(Modifier.padding(innerPadding)) {
+            Text(
+                text = "Go to ContributorsScreen",
+                modifier = Modifier.clickable {
+                    onContributorsClick()
+                }
+            )
+
             when (val listState = uiState.sessionListUiState) {
                 Empty -> Text("empty")
                 is List -> {

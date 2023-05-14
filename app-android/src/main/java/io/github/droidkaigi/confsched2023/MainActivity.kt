@@ -7,21 +7,36 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.droidkaigi.confsched2023.designsystem.theme.Androidprojecttemplate2022Theme
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Androidprojecttemplate2022Theme {
+            KaigiTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TimetableScreen()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "timetable") {
+                        composable("timetable") {
+                            TimetableScreen(
+                                onContributorsClick = {
+                                    navController.navigate("contributors")
+                                }
+                            )
+                        }
+                        composable("contributors") {
+                            ContributorsScreen()
+                        }
+                    }
                 }
             }
         }

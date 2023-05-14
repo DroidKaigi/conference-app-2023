@@ -1,16 +1,20 @@
 [versions]
 androidGradlePlugin = "8.0.1"
-kotlin = "1.8.21"
+# For updating Kotlin and Compose Compiler version, see:
+# https://github.com/JetBrains/compose-multiplatform/blob/master/VERSIONING.md#kotlin-compatibility
+# https://developer.android.com/jetpack/androidx/releases/compose-kotlin?#pre-release_kotlin_compatibility
+kotlin = "1.8.20"
 
 androidxCore = "1.10.1"
 androidDesugarJdkLibs = "2.0.3"
 compose = "1.4.3"
-composeCompiler = "1.4.7"
+compose-jb = "1.4.0"
+composeCompiler = "1.4.6"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
 androidxActivity = "1.7.1"
 androidxFragment = "1.5.7"
-kotlinxCoroutines = "1.6.4"
+kotlinxCoroutines = "1.7.1"
 junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
@@ -23,6 +27,7 @@ roborazzi = "1.2.0-alpha-5"
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+composeJbGradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-jb" }
 spotlessGradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
 roborazziGradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
@@ -31,6 +36,7 @@ androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs"
 
 composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.6.0-rc01" }
 composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.0" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -53,6 +59,7 @@ javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.0" }
+kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.20.2" }
 
 kotlinSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
@@ -65,6 +72,16 @@ roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 androidGradleLibraryPlugin = { id = "com.android.library", version.ref = "androidGradlePlugin" }
-kotlinPlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinGradlePlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
-roborazziPlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+
+[bundles]
+plugins = [
+    "androidGradlePlugin",
+    "kotlinGradlePlugin",
+    "hiltGradlePlugin",
+    "composeJbGradlePlugin",
+    "roborazziGradlePlugin",
+    "spotlessGradlePlugin"
+]
