@@ -1,19 +1,21 @@
 package io.github.droidkaigi.confsched2023
 
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
-import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -30,6 +32,17 @@ class TimetableScreenshotTest {
     @Test
     fun startupScreenshot() {
         timetableScreenRobot(robotTestRule) {
+            capture()
+        }
+    }
+
+    @Test
+    fun startupFavoriteScreenshot() {
+        timetableScreenRobot(robotTestRule) {
+            capture()
+            clickFirstSessionFavorite()
+            capture()
+            clickFirstSessionFavorite()
             capture()
         }
     }
@@ -73,16 +86,11 @@ class TimetableScreenRobot @Inject constructor() {
 //            .performClick()
     }
 
-    fun areAllSessionsFavorite() {
+    fun clickFirstSessionFavorite() {
         composeTestRule
-            .onNodeWithText("All timetableItems are favorite")
-            .assertExists()
-    }
-
-    fun isSessionListNotEmpty() {
-        composeTestRule
-            .onNodeWithText("Session 1")
-            .assertExists()
+            .onAllNodes(hasText("☆"))
+            .onFirst()
+            .performClick()
     }
 
     fun capture() {
