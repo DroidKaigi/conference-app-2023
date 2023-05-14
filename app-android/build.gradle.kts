@@ -4,6 +4,7 @@ plugins {
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
     id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.android.roborazzi")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023"
@@ -14,4 +15,5 @@ dependencies {
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
+    testImplementation(projects.core.testing)
 }

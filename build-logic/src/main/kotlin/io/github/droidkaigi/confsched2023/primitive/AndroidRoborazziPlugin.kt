@@ -30,6 +30,10 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 }
             }
             dependencies {
+                testImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))
+                testImplementation(libs.findLibrary("junit"))
+                testImplementation(libs.findLibrary("robolectric"))
+                testImplementation(libs.findLibrary("androidxTestExtJunit"))
                 testImplementation(libs.findLibrary("roborazzi"))
             }
         }
