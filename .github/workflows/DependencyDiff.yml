@@ -29,11 +29,11 @@ jobs:
         name: Generate dependency diff
         run: |
           BRANCH_NAME="${GITHUB_HEAD_REF}"
-          DIFF=$(scripts/dependency_diff.sh $BASE_BRANCH $BRANCH_NAME app releaseRuntimeClasspath)
+          DIFF=$(scripts/dependency_diff.sh "$BASE_BRANCH" "$BRANCH_NAME" app releaseRuntimeClasspath)
           DIFF="${DIFF//'%'/'%25'}"
           DIFF="${DIFF//$'\n'/'%0A'}"
           DIFF="${DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=text-diff::${DIFF}"
+          echo "text-diff=${DIFF}" >> "$GITHUB_OUTPUT"
         env:
           BASE_BRANCH: ${{ github.base_ref }}
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
