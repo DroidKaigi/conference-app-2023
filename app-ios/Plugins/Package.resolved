@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "fastlane",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/fastlane/fastlane.git",
+      "state" : {
+        "branch" : "2.212.2",
+        "revision" : "b8c1a2299521b343b85c37455c7aa7ed7bc08c45"
+      }
+    },
+    {
+      "identity" : "swiftshell",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kareman/SwiftShell",
+      "state" : {
+        "revision" : "99680b2efc7c7dbcace1da0b3979d266f02e213c",
+        "version" : "5.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}
