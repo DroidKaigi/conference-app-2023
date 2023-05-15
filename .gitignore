@@ -48,3 +48,7 @@ Footer
 # iOS
 .DS_Store
 xcuserdata
+DerivedData
+
+# bundler
+.bundle/vendor

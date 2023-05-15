@@ -21,6 +21,8 @@
   // Add new managers if required
   "enabledManagers": [
     "swift",
+    'bundler',
+    'ruby-version',
     "github-actions",
     "gradle",
     "gradle-wrapper"

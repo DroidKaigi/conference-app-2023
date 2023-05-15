@@ -1,0 +1,6 @@
+---
+BUNDLE_PATH: ".bundle/vendor/bundle"
+BUNDLE_BIN: ".bundle/vendor/bin"
+BUNDLE_RETRY: "3"
+BUNDLE_JOBS: "4"
+BUNDLE_CLEAN: "true"
