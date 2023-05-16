@@ -20,6 +20,8 @@ import io.github.droidkaigi.confsched2023.SessionListUiState.List
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +32,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @Composable
 // TODO: Name screen level Composable function
@@ -58,11 +61,41 @@ fun TimetableScreen(
                 }
             )
 
-            when (val listState = uiState.sessionListUiState) {
-                Empty -> Text("empty")
-                is List -> {
-                    listState.timetable.timetableItems.forEach { session ->
-                        Text(session.title.currentLangTitle)
+            TimetableItemListSection(
+                uiState = uiState,
+                onFavoriteClick = { session ->
+                    sessionScreenViewModel.onFavoriteClick(session)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun TimetableItemListSection(
+    uiState: SessionScreenUiState,
+    onFavoriteClick: (TimetableItem.Session) -> Unit
+) {
+    when (val listState = uiState.sessionListUiState) {
+        Empty -> Text("empty")
+        is List -> {
+            listState.timetable.timetableItems.forEach { session ->
+                Text(session.title.currentLangTitle)
+                if (session is Session) {
+                    if (listState.timetable.favorites.contains(session.id)) {
+                        Text(
+                            text = "★",
+                            modifier = Modifier.clickable {
+                                onFavoriteClick(session)
+                            }
+                        )
+                    } else {
+                        Text(
+                            text = "☆",
+                            modifier = Modifier.clickable {
+                                onFavoriteClick(session)
+                            }
+                        )
                     }
                 }
             }
@@ -141,6 +174,12 @@ class SessionScreenViewModel @Inject constructor(
         filtersStateFlow.value = filtersStateFlow.value.copy(
             filterFavorite = !filtersStateFlow.value.filterFavorite
         )
+    }
+
+    fun onFavoriteClick(session: TimetableItem.Session) {
+        viewModelScope.launch {
+            sessionsRepository.toggleFavorite(session.id)
+        }
     }
 }
 
