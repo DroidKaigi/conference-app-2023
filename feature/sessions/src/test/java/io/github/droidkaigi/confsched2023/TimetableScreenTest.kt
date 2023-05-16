@@ -21,7 +21,7 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @HiltAndroidTest
 @Config(
-    qualifiers = RobolectricDeviceQualifiers.Pixel6
+    qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
 class TimetableScreenshotTest {
 
