@@ -28,7 +28,7 @@ private val LightColorPalette = lightColorScheme(
 )
 
 @Composable
-fun Androidprojecttemplate2022Theme(
+fun KaigiTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

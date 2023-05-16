@@ -21,11 +21,7 @@ java {
 }
 
 dependencies {
-    implementation(libs.androidGradlePlugin)
-    implementation(libs.kotlinGradlePlugin)
-    implementation(libs.spotlessGradlePlugin)
-    implementation(libs.roborazziGradlePlugin)
-    implementation(libs.hiltGradlePlugin)
+    implementation(libs.bundles.plugins)
     // https://github.com/google/dagger/issues/3068#issuecomment-1470534930
     implementation(libs.javaPoet)
 }
@@ -68,6 +64,10 @@ gradlePlugin {
         register("kotlinMppAndroid") {
             id = "droidkaigi.primitive.kmp.android"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpAndroidPlugin"
+        }
+        register("kotlinMppCompose") {
+            id = "droidkaigi.primitive.kmp.compose"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpComposePlugin"
         }
         register("kotlinMppAndroidHilt") {
             id = "droidkaigi.primitive.kmp.android.hilt"
