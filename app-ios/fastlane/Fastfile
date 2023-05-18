@@ -15,14 +15,60 @@
 
 default_platform(:ios)
 
-desc "returns project root dir"
-lane :root_dir do
-  sh("git rev-parse --show-toplevel").strip
-end
-
 platform :ios do
   before_all do |lane, options|
     setup_ci if is_ci?
+  end
+
+  derived_data_path = "build/DerivedData"
+  workspace = "app-ios.xcworkspace"
+  scheme = "DroidKaigi2023"
+  project = "App/DroidKaigi2023/DroidKaigi2023.xcodeproj"
+
+  desc "returns project root dir"
+  lane :root_dir do
+    sh("git rev-parse --show-toplevel").strip
+  end
+
+  desc "clean project"
+  lane :clean_project do
+    xcodebuild(
+      clean: true,
+      alltargets: true,
+      project: project
+    )
+    sh("rm -rf #{root_dir}/app-ios/build")
+    sh("rm -rf ~/Library/Developer/Xcode/DerivedData/#{scheme}-*")
+  end
+
+  desc "clean spm"
+  lane :clean_spm do
+    sh("rm -rf ~/Library/Caches/org.swift.swiftpm")
+	  sh("rm -rf ~/Library/org.swift.swiftpm")
+  end
+
+  desc "clean gradle"
+  lane :clean_gradle do
+    Dir.chdir(root_dir) do
+      sh("./gradlew clean")
+    end
+  end
+
+  desc "clean"
+  lane :clean do
+    clean_project
+    clean_spm
+    clean_gradle
+  end
+
+  desc "update Package.resolved"
+  lane :resolved_package do
+    xcodebuild(
+      xcargs: "-resolvePackageDependencies",
+      workspace: workspace,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
+    )
   end
 
   desc "build KMM XCFramework by gradle"
@@ -36,10 +82,10 @@ platform :ios do
   lane :test do
     shared
     scan(
-      workspace: "app-ios.xcworkspace",
+      workspace: workspace,
+      scheme: scheme,
       skip_build: true,
-      scheme: "DroidKaigi2023",
-      derived_data_path: "build/DerivedData",
+      derived_data_path: derived_data_path,
       devices: ["iPhone 14 Pro"]
     )
   end
