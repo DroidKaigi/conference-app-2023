@@ -27,8 +27,7 @@ platform :ios do
 
   desc "build KMM XCFramework by gradle"
   lane :shared do
-    dir = root_dir
-    Dir.chdir(dir) do
+    Dir.chdir(root_dir) do
       sh("./gradlew :app-ios-shared:assembleSharedReleaseXCFramework")
     end
   end
@@ -38,6 +37,7 @@ platform :ios do
     shared
     scan(
       workspace: "app-ios.xcworkspace",
+      skip_build: true,
       scheme: "DroidKaigi2023",
       derived_data_path: "build/DerivedData",
       devices: ["iPhone 14 Pro"]
