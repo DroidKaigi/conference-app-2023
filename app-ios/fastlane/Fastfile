@@ -38,7 +38,7 @@ platform :ios do
     shared
     scan(
       workspace: "app-ios.xcworkspace",
-      sheme: "DroidKaigi2023",
+      scheme: "DroidKaigi2023",
       derived_data_path: "build/DerivedData",
       devices: ["iPhone 14 Pro"]
     )
