@@ -44,7 +44,7 @@ platform :ios do
   desc "clean spm"
   lane :clean_spm do
     sh("rm -rf ~/Library/Caches/org.swift.swiftpm")
-	  sh("rm -rf ~/Library/org.swift.swiftpm")
+    sh("rm -rf ~/Library/org.swift.swiftpm")
   end
 
   desc "clean gradle"
