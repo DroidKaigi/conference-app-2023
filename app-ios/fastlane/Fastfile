@@ -1,0 +1,46 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+desc "returns project root dir"
+lane :root_dir do
+  sh("git rev-parse --show-toplevel").strip
+end
+
+platform :ios do
+  before_all do |lane, options|
+    setup_ci if is_ci?
+  end
+
+  desc "build KMM XCFramework by gradle"
+  lane :shared do
+    dir = root_dir
+    Dir.chdir(dir) do
+      sh("./gradlew :app-ios-shared:assembleSharedReleaseXCFramework")
+    end
+  end
+
+  desc "run test"
+  lane :test do
+    shared
+    scan(
+      workspace: "app-ios.xcworkspace",
+      sheme: "DroidKaigi2023",
+      derived_data_path: "build/DerivedData",
+      devices: ["iPhone 14 Pro"]
+    )
+  end
+end
