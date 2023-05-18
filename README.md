@@ -66,3 +66,17 @@ The Testing Robot Pattern is a method for writing UI tests. It divides the test 
 
 # iOS
 
+## Requirements
+
+1. You need to install the following tools.
+
+- JDK 17
+- Xcode, [.xcode-version](.xcode-version) version
+- Ruby, [.ruby-version](.ruby-version) version
+  - bundler (you can install by `gem install bundler` or `sudo gem install bundler`)
+
+2. Setup
+   1. `bundle install`
+   2. `bundle exec fastlane build-kmm`
+   
+3. open [app-ios.xcworkspace](./app-ios/app-ios.xcworkspace) by Xcode
