@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023
 
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
@@ -53,9 +54,9 @@ class TimetableScreenshotTest {
     @Test
     fun canFavoriteFilter() {
         timetableScreenRobot(robotTestRule) {
-            capture()
             clickFilter()
             capture()
+            clickFilter()
             clickFirstSessionFavorite()
             clickFilter()
             capture()
@@ -106,7 +107,7 @@ class TimetableScreenRobot @Inject constructor() {
 
     fun clickFilter() {
         composeTestRule
-            .onAllNodes(hasText("Filter"))
+            .onAllNodes(hasTestTag("Filter"))
             .onFirst()
             .performClick()
     }

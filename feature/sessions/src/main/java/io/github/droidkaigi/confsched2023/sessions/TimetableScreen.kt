@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.sessions.section.timetableItemListSection
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -63,9 +64,11 @@ private fun TimetableScreen(
             item {
                 Text(
                     text = "Filter " + if (uiState.filterUiState.isChecked) "ON" else "OFF",
-                    modifier = Modifier.clickable {
-                        onFilterClick()
-                    }
+                    modifier = Modifier
+                        .testTag("Filter")
+                        .clickable {
+                            onFilterClick()
+                        }
                 )
             }
 
