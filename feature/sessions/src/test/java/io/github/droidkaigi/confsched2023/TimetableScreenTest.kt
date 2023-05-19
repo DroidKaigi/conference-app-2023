@@ -25,24 +25,38 @@ import org.robolectric.annotation.GraphicsMode
 )
 class TimetableScreenshotTest {
 
-    @get:Rule val robotTestRule = RobotTestRule(this)
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
-    fun startupScreenshot() {
+    fun canLaunch() {
         timetableScreenRobot(robotTestRule) {
             capture()
         }
     }
 
     @Test
-    fun startupFavoriteScreenshot() {
+    fun canFavorite() {
         timetableScreenRobot(robotTestRule) {
             capture()
             clickFirstSessionFavorite()
             capture()
             clickFirstSessionFavorite()
+            capture()
+        }
+    }
+
+    @Test
+    fun canFavoriteFilter() {
+        timetableScreenRobot(robotTestRule) {
+            capture()
+            clickFilter()
+            capture()
+            clickFirstSessionFavorite()
+            clickFilter()
             capture()
         }
     }
@@ -52,9 +66,11 @@ class TimetableScreenshotTest {
 @HiltAndroidTest
 class TimetableScreenTest {
 
-    @get:Rule val robotTestRule = RobotTestRule(this)
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
     fun shouldBeAbleToLaunch() {
@@ -80,15 +96,16 @@ class TimetableScreenRobot @Inject constructor() {
         block()
     }
 
-    fun filterFavorite() {
-//        composeTestRule
-//            .onNodeWithTag("favorite")
-//            .performClick()
-    }
-
     fun clickFirstSessionFavorite() {
         composeTestRule
             .onAllNodes(hasText("☆"))
+            .onFirst()
+            .performClick()
+    }
+
+    fun clickFilter() {
+        composeTestRule
+            .onAllNodes(hasText("Filter"))
             .onFirst()
             .performClick()
     }
