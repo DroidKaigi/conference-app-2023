@@ -24,5 +24,6 @@ include(
     ":core:designsystem",
     ":core:data",
     ":core:model",
+    ":core:ui",
     ":core:testing",
 )

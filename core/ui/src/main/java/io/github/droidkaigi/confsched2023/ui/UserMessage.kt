@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023
+package io.github.droidkaigi.confsched2023.ui
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
