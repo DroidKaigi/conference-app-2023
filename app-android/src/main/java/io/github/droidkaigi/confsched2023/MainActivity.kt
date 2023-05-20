@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                             TimetableScreen(
                                 onContributorsClick = {
                                     navController.navigate("contributors")
-                                }
+                                },
                             )
                         }
                         composable("contributors") {

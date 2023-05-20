@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023
 
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
@@ -26,24 +27,38 @@ import org.robolectric.annotation.GraphicsMode
 )
 class TimetableScreenshotTest {
 
-    @get:Rule val robotTestRule = RobotTestRule(this)
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
-    fun startupScreenshot() {
+    fun canLaunch() {
         timetableScreenRobot(robotTestRule) {
             capture()
         }
     }
 
     @Test
-    fun startupFavoriteScreenshot() {
+    fun canFavorite() {
         timetableScreenRobot(robotTestRule) {
             capture()
             clickFirstSessionFavorite()
             capture()
             clickFirstSessionFavorite()
+            capture()
+        }
+    }
+
+    @Test
+    fun canFavoriteFilter() {
+        timetableScreenRobot(robotTestRule) {
+            clickFilter()
+            capture()
+            clickFilter()
+            clickFirstSessionFavorite()
+            clickFilter()
             capture()
         }
     }
@@ -53,9 +68,11 @@ class TimetableScreenshotTest {
 @HiltAndroidTest
 class TimetableScreenTest {
 
-    @get:Rule val robotTestRule = RobotTestRule(this)
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
 
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
 
     @Test
     fun shouldBeAbleToLaunch() {
@@ -81,15 +98,16 @@ class TimetableScreenRobot @Inject constructor() {
         block()
     }
 
-    fun filterFavorite() {
-//        composeTestRule
-//            .onNodeWithTag("favorite")
-//            .performClick()
-    }
-
     fun clickFirstSessionFavorite() {
         composeTestRule
             .onAllNodes(hasText("☆"))
+            .onFirst()
+            .performClick()
+    }
+
+    fun clickFilter() {
+        composeTestRule
+            .onAllNodes(hasTestTag("Filter"))
             .onFirst()
             .performClick()
     }
