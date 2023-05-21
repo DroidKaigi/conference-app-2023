@@ -19,7 +19,7 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                             it.useJUnit {
                                 if (project.hasProperty("screenshot")) {
                                     project.logger.lifecycle("Screenshot tests are included")
-                                    includeCategories("io.github.droidkaigi.confsched2023.testing.ScreenshotTests")
+                                    includeCategories("io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests")
                                 }
                             }
                         }
