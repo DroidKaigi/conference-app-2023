@@ -13,38 +13,39 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.section.timetableItemListSection
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 @Composable
-// TODO: Name screen level Composable function
 fun TimetableScreen(
     onContributorsClick: () -> Unit,
 ) {
     val sessionScreenViewModel: SessionScreenViewModel = hiltViewModel<SessionScreenViewModel>()
     val uiState by sessionScreenViewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
+
+    SnackbarMessageEffect(
+        snackbarHostState = snackbarHostState,
+        userMessageStateHolder = sessionScreenViewModel.userMessageStateHolder
+    )
     TimetableScreen(
-        snackbarHostState,
-        sessionScreenViewModel,
-        uiState,
-        onContributorsClick,
-        onFilterClick = sessionScreenViewModel::onFavoriteFilterClicked
+        uiState = uiState,
+        snackbarHostState = snackbarHostState,
+        onContributorsClick = onContributorsClick,
+        onFilterClick = sessionScreenViewModel::onFavoriteFilterClick,
+        onFavoriteClick = sessionScreenViewModel::onFavoriteClick,
     )
 }
 
 @Composable
 private fun TimetableScreen(
-    snackbarHostState: SnackbarHostState,
-    sessionScreenViewModel: SessionScreenViewModel,
     uiState: SessionScreenUiState,
+    snackbarHostState: SnackbarHostState,
     onContributorsClick: () -> Unit,
     onFilterClick: () -> Unit,
+    onFavoriteClick: (TimetableItem.Session) -> Unit,
 ) {
-    SnackbarMessageEffect(
-        snackbarHostState = snackbarHostState,
-        userMessageStateHolder = sessionScreenViewModel.userMessageStateHolder
-    )
     Scaffold(
         snackbarHost = {
             SnackbarHost(
@@ -74,8 +75,8 @@ private fun TimetableScreen(
 
             timetableItemListSection(
                 uiState = uiState,
-                onFavoriteClick = { session ->
-                    sessionScreenViewModel.onFavoriteClick(session)
+                onFavoriteClick = {
+                    onFavoriteClick(it)
                 }
             )
         }

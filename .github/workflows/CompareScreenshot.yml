@@ -7,7 +7,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-permissions: {}
+permissions: { }
 
 jobs:
   compare-screenshot-test:
@@ -44,7 +44,7 @@ jobs:
       - name: compare screenshot test
         id: compare-screenshot-test
         run: |
-          ./gradlew compareRoborazziDebug --stacktrace -Pscreenshot --rerun-tasks
+          ./gradlew compareRoborazziDebug --stacktrace --rerun-tasks -Proborazzi.test.compare=true -Proborazzi.test.record=false
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}

@@ -78,7 +78,7 @@ class SessionScreenViewModel @Inject constructor(
         )
     }
 
-    fun onFavoriteFilterClicked() {
+    fun onFavoriteFilterClick() {
         filtersStateFlow.value = filtersStateFlow.value.copy(
             filterFavorite = !filtersStateFlow.value.filterFavorite
         )
