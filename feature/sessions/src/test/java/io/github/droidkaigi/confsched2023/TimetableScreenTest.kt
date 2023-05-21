@@ -25,7 +25,7 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-class TimetableScreenshotTest {
+class TimetableScreenTest {
 
     @get:Rule
     val robotTestRule = RobotTestRule(this)
@@ -64,24 +64,6 @@ class TimetableScreenshotTest {
     }
 }
 
-@RunWith(AndroidJUnit4::class)
-@HiltAndroidTest
-class TimetableScreenTest {
-
-    @get:Rule
-    val robotTestRule = RobotTestRule(this)
-
-    @Inject
-    lateinit var timetableScreenRobot: TimetableScreenRobot
-
-    @Test
-    fun shouldBeAbleToLaunch() {
-        timetableScreenRobot(robotTestRule) {
-        }
-    }
-}
-
-// ④ Shared Testing Robot
 class TimetableScreenRobot @Inject constructor() {
 
     lateinit var composeTestRule: AndroidComposeTestRule<*, *>

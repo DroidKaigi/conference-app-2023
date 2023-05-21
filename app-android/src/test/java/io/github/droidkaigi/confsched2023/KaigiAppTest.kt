@@ -24,23 +24,23 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-class KaigiScreenshotTest {
+class KaigiAppTest {
 
     @get:Rule val hiltAutoInjectrule = HiltAndroidAutoInjectRule(this)
     @get:Rule val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Inject lateinit var KaigiScreenRobot: KaigiScreenRobot
+    @Inject lateinit var KaigiAppRobot: KaigiAppRobot
 
     @Test
     fun startup() {
-        KaigiScreenRobot(composeTestRule) {
+        KaigiAppRobot(composeTestRule) {
             capture()
         }
     }
 
     @Test
     fun navigateToContributor() {
-        KaigiScreenRobot(composeTestRule) {
+        KaigiAppRobot(composeTestRule) {
             capture()
             goToContributor()
             capture()
@@ -48,12 +48,12 @@ class KaigiScreenshotTest {
     }
 }
 
-class KaigiScreenRobot @Inject constructor() {
+class KaigiAppRobot @Inject constructor() {
 
     lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>,
-        block: KaigiScreenRobot.() -> Unit
+        block: KaigiAppRobot.() -> Unit
     ) {
         this.composeTestRule = composeTestRule
         block()
