@@ -15,14 +15,11 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 testOptions {
                     unitTests {
                         all {
-                            // -Pscreenshot to switch screenshot tests
-                            it.filter {
+                            // -Pscreenshot to filter screenshot tests
+                            it.useJUnit {
                                 if (project.hasProperty("screenshot")) {
                                     project.logger.lifecycle("Screenshot tests are included")
-                                    includeTestsMatching("*ScreenshotTest*")
-                                } else {
-                                    project.logger.lifecycle("Screenshot tests are excluded")
-                                    excludeTestsMatching("*ScreenshotTest*")
+                                    includeCategories("io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests")
                                 }
                             }
                         }

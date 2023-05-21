@@ -12,9 +12,11 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
+import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -25,7 +27,8 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-class TimetableScreenshotTest {
+@Category(ScreenshotTests::class)
+class TimetableScreenTest {
 
     @get:Rule
     val robotTestRule = RobotTestRule(this)
@@ -64,27 +67,9 @@ class TimetableScreenshotTest {
     }
 }
 
-@RunWith(AndroidJUnit4::class)
-@HiltAndroidTest
-class TimetableScreenTest {
-
-    @get:Rule
-    val robotTestRule = RobotTestRule(this)
-
-    @Inject
-    lateinit var timetableScreenRobot: TimetableScreenRobot
-
-    @Test
-    fun shouldBeAbleToLaunch() {
-        timetableScreenRobot(robotTestRule) {
-        }
-    }
-}
-
-// ④ Shared Testing Robot
 class TimetableScreenRobot @Inject constructor() {
 
-    lateinit var composeTestRule: AndroidComposeTestRule<*, *>
+    private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         robotTestRule: RobotTestRule,
         block: TimetableScreenRobot.() -> Unit

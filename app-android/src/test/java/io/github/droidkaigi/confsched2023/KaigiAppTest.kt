@@ -11,9 +11,11 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.HiltAndroidAutoInjectRule
+import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
+import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -24,23 +26,26 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-class KaigiScreenshotTest {
+@Category(
+    ScreenshotTests::class
+)
+class KaigiAppTest {
 
     @get:Rule val hiltAutoInjectrule = HiltAndroidAutoInjectRule(this)
     @get:Rule val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Inject lateinit var KaigiScreenRobot: KaigiScreenRobot
+    @Inject lateinit var kaigiAppRobot: KaigiAppRobot
 
     @Test
     fun startup() {
-        KaigiScreenRobot(composeTestRule) {
+        kaigiAppRobot(composeTestRule) {
             capture()
         }
     }
 
     @Test
     fun navigateToContributor() {
-        KaigiScreenRobot(composeTestRule) {
+        kaigiAppRobot(composeTestRule) {
             capture()
             goToContributor()
             capture()
@@ -48,12 +53,12 @@ class KaigiScreenshotTest {
     }
 }
 
-class KaigiScreenRobot @Inject constructor() {
+class KaigiAppRobot @Inject constructor() {
 
     lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>,
-        block: KaigiScreenRobot.() -> Unit
+        block: KaigiAppRobot.() -> Unit
     ) {
         this.composeTestRule = composeTestRule
         block()
