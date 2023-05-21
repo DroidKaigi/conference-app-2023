@@ -32,6 +32,14 @@ jobs:
       - name: Run local tests
         run: ./gradlew testDebug --stacktrace
 
+      - uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: screenshot
+          path: |
+            **/build/outputs/roborazzi
+          retention-days: 30
+
       - id: test-reports
         if: always()
         uses: ./.github/actions/upload-distributed-files

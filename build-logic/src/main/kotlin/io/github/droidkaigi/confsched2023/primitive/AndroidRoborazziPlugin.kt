@@ -12,12 +12,19 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 apply("io.github.takahirom.roborazzi")
             }
             android {
-//                testOptions {
-//                    unitTests {
-//                        all {
-//                        }
-//                    }
-//                }
+                testOptions {
+                    unitTests {
+                        all {
+                            // -Pscreenshot to filter screenshot tests
+                            it.useJUnit {
+                                if (project.hasProperty("screenshot")) {
+                                    project.logger.lifecycle("Screenshot tests are included")
+                                    includeCategories("io.github.droidkaigi.confsched2023.testing.ScreenshotTests")
+                                }
+                            }
+                        }
+                    }
+                }
             }
             dependencies {
                 testImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))

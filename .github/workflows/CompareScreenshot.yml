@@ -38,13 +38,13 @@ jobs:
         continue-on-error: true
         with:
           name: screenshot
-          workflow: StoreScreenshot.yml
+          workflow: UnitTest.yml
           branch: main
 
       - name: compare screenshot test
         id: compare-screenshot-test
         run: |
-          ./gradlew compareRoborazziDebug --stacktrace --rerun-tasks -Proborazzi.test.compare=true -Proborazzi.test.record=false
+          ./gradlew compareRoborazziDebug --stacktrace --rerun-tasks -Proborazzi.test.compare=true -Proborazzi.test.record=false -Pscreenshot
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
