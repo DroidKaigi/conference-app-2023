@@ -12,7 +12,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
-import io.github.droidkaigi.confsched2023.testing.ScreenshotTests
+import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test

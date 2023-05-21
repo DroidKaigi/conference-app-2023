@@ -11,9 +11,11 @@ import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.HiltAndroidAutoInjectRule
+import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
+import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -23,6 +25,9 @@ import org.robolectric.annotation.GraphicsMode
 @HiltAndroidTest
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
+)
+@Category(
+    ScreenshotTests::class
 )
 class KaigiAppTest {
 
