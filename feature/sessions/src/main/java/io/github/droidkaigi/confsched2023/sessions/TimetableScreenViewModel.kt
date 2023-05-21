@@ -19,7 +19,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-
 @HiltViewModel
 class TimetableScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
@@ -44,7 +43,9 @@ class TimetableScreenViewModel @Inject constructor(
         sessionsStateFlow,
         filtersStateFlow
     ) { sessionTimetable, filters ->
-        if (sessionTimetable.timetableItems.isEmpty()) return@buildUiState TimetableSessionListUiState.Empty
+        if (sessionTimetable.timetableItems.isEmpty()) {
+            return@buildUiState TimetableSessionListUiState.Empty
+        }
         TimetableSessionListUiState.ListTimetable(
             timetable = sessionTimetable.filtered(filters)
         )
