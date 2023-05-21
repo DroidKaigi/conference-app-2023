@@ -34,18 +34,18 @@ class KaigiAppTest {
     @get:Rule val hiltAutoInjectrule = HiltAndroidAutoInjectRule(this)
     @get:Rule val composeTestRule = createAndroidComposeRule<MainActivity>()
 
-    @Inject lateinit var KaigiAppRobot: KaigiAppRobot
+    @Inject lateinit var kaigiAppRobot: KaigiAppRobot
 
     @Test
     fun startup() {
-        KaigiAppRobot(composeTestRule) {
+        kaigiAppRobot(composeTestRule) {
             capture()
         }
     }
 
     @Test
     fun navigateToContributor() {
-        KaigiAppRobot(composeTestRule) {
+        kaigiAppRobot(composeTestRule) {
             capture()
             goToContributor()
             capture()

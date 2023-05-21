@@ -69,7 +69,7 @@ class TimetableScreenTest {
 
 class TimetableScreenRobot @Inject constructor() {
 
-    lateinit var composeTestRule: AndroidComposeTestRule<*, *>
+    private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         robotTestRule: RobotTestRule,
         block: TimetableScreenRobot.() -> Unit
