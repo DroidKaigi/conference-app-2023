@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem 'fastlane', '2.212.2'
+gem 'fastlane', '2.213.0'
 gem 'danger', '9.3.0'
 gem 'danger-swiftlint', '0.33.0'
 gem 'danger-xcode_summary', '1.2.0'
