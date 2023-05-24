@@ -1,8 +1,8 @@
 plugins {
-    id("droidkaigi.primitive.android")
-    id("droidkaigi.primitive.android.kotlin")
-    id("droidkaigi.primitive.android.compose")
-    id("droidkaigi.primitive.android.hilt")
+    id("droidkaigi.primitive.kmp")
+    id("droidkaigi.primitive.kmp.android")
+    id("droidkaigi.primitive.kmp.compose")
+    id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
 }
 
