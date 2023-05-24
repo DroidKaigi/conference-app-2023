@@ -7,6 +7,8 @@ import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSessionListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -17,19 +19,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-data class FilterUiState(val enabled: Boolean, val isChecked: Boolean)
-sealed interface SessionListUiState {
-    object Empty : SessionListUiState
-    data class List(val timetable: Timetable) : SessionListUiState
-}
-
-data class SessionScreenUiState(
-    val sessionListUiState: SessionListUiState,
-    val filterUiState: FilterUiState,
-)
-
 @HiltViewModel
-class SessionScreenViewModel @Inject constructor(
+class TimetableScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(),
@@ -48,33 +39,35 @@ class SessionScreenViewModel @Inject constructor(
         )
     private val filtersStateFlow = MutableStateFlow(Filters())
 
-    private val sessionListUiState: StateFlow<SessionListUiState> = buildUiState(
+    private val sessionListUiState: StateFlow<TimetableSessionListUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
     ) { sessionTimetable, filters ->
-        if (sessionTimetable.timetableItems.isEmpty()) return@buildUiState SessionListUiState.Empty
-        SessionListUiState.List(
+        if (sessionTimetable.timetableItems.isEmpty()) {
+            return@buildUiState TimetableSessionListUiState.Empty
+        }
+        TimetableSessionListUiState.ListTimetable(
             timetable = sessionTimetable.filtered(filters)
         )
     }
 
-    private val filterUiState: StateFlow<FilterUiState> = buildUiState(
+    private val timetableFilterUiState: StateFlow<TimetableFilterUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
     ) { timetableItems, filters ->
-        FilterUiState(
+        TimetableFilterUiState(
             enabled = timetableItems.timetableItems.isNotEmpty(),
             isChecked = filters.filterFavorite
         )
     }
 
-    val uiState: StateFlow<SessionScreenUiState> = buildUiState(
-        filterUiState,
+    val uiState: StateFlow<TimetableScreenUiState> = buildUiState(
+        timetableFilterUiState,
         sessionListUiState
     ) { filterUiState, sessionListUiState ->
-        SessionScreenUiState(
-            sessionListUiState = sessionListUiState,
-            filterUiState = filterUiState
+        TimetableScreenUiState(
+            timetableSessionListUiState = sessionListUiState,
+            timetableFilterUiState = filterUiState
         )
     }
 
