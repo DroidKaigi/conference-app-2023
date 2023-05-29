@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.designsystem.string
 
-open class StringsBindings<T : Strings<T>>(
+abstract class StringsBindings<T : Strings<T>>(
     vararg mapPairs: Pair<String, (T, StringsBindings<T>) -> String>,
     val default: String
 ) {
@@ -17,6 +17,7 @@ open class StringsBindings<T : Strings<T>>(
         return binding(item as T, this)
     }
 }
+
 
 abstract class Strings<T : Strings<T>>(
     private val bindings: StringsBindings<T>
