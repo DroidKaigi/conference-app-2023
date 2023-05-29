@@ -1,10 +1,11 @@
 package io.github.droidkaigi.confsched2023.designsystem.string
 
 open class StringsBindings<T : Strings<T>>(
-    private val localeMap: Map<String, (T, StringsBindings<T>) -> String>,
+    vararg mapPairs: Pair<String, (T, StringsBindings<T>) -> String>,
     val default: String
 ) {
-    val defaultBinding = requireNotNull(localeMap[default])
+    private val localeMap: Map<String, (T, StringsBindings<T>) -> String> = mapOf(*mapPairs)
+    val defaultBinding: (T, StringsBindings<T>) -> String = requireNotNull(localeMap[default])
 
     private fun findBinding(): (T, StringsBindings<T>) -> String {
         val lang = "ja"

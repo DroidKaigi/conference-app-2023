@@ -28,23 +28,21 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Binding) {
     object Hoge : SessionsStrings()
     class Time(val hour: Int, val minutes: Int) : SessionsStrings()
     object Binding : StringsBindings<SessionsStrings>(
-        mapOf(
-            Lang.Japanese to { item, _ ->
-                when (item) {
-                    Timetable -> "タイムテーブル"
-                    Hoge -> "ホゲ"
-                    is Time -> "${item.hour}時${item.minutes}分"
-                }
-            },
-            Lang.English to ({ item, bindings ->
-                when (item) {
-                    Timetable -> "Timetable"
-                    // You can use defaultBinding to use default language's string
-                    Hoge -> bindings.defaultBinding(item, bindings)
-                    is Time -> "${item.hour}:${item.minutes}"
-                }
-            })
-        ),
+        Lang.Japanese to { item, _ ->
+            when (item) {
+                Timetable -> "タイムテーブル"
+                Hoge -> "ホゲ"
+                is Time -> "${item.hour}時${item.minutes}分"
+            }
+        },
+        Lang.English to { item, bindings ->
+            when (item) {
+                Timetable -> "Timetable"
+                // You can use defaultBinding to use default language's string
+                Hoge -> bindings.defaultBinding(item, bindings)
+                is Time -> "${item.hour}:${item.minutes}"
+            }
+        },
         default = Lang.Japanese
     )
 }
