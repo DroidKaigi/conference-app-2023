@@ -4,6 +4,51 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 # UI
 
+## Advanced Multilanguage System with Kotlin Multiplatform
+
+Our application leverages Kotlin Multiplatform to create a flexible and type-safe system for handling multiple languages. This system exhibits the following key characteristics:
+
+- **Language separation**: Each language is managed separately within its distinct mapping structure, providing a clean and well-structured layout.
+
+- **Type-safe handling of strings**: We leverage Kotlin's sealed classes and enums to represent strings, which are validated at compile-time.
+
+- **Type-safe arguments**: The system allows adding arguments to strings in a type-safe manner, supporting dynamic data inclusion within strings.
+
+- **Gradual translation support**: Translations can be added gradually, which is beneficial for evolving projects where translations are continuously updated.
+
+- **Assurance of translation completion**: The system helps detect missing translations, ensuring completeness of all language representations.
+
+### Code Example:
+
+```kotlin
+sealed class SessionsStrings : Strings<SessionsStrings>(Binding) {
+    object Timetable : SessionsStrings()
+    object Hoge : SessionsStrings()
+    class Time(val hour: Int, val minutes: Int) : SessionsStrings()
+    object Binding : StringsBindings<SessionsStrings>(
+        mapOf(
+            Lang.Japanese to { item, _ ->
+                when (item) {
+                    Timetable -> "タイムテーブル"
+                    Hoge -> "ホゲ"
+                    is Time -> "${item.hour}時${item.minutes}分"
+                }
+            },
+            Lang.English to ({ item, bindings ->
+                when (item) {
+                    Timetable -> "Timetable"
+                    // You can use defaultBinding to use default language's string
+                    Hoge -> bindings.defaultBinding(item, bindings)
+                    is Time -> "${item.hour}:${item.minutes}"
+                }
+            })
+        ),
+        default = Lang.Japanese
+    )
+}
+```
+In the above example, `SessionsStrings` is a sealed class that represents different strings. Each string is defined as an object within the sealed class, and the translations are provided in `StringsBindings`.
+
 # Build / CI
 
 # Architecture
