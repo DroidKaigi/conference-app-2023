@@ -14,6 +14,8 @@ Our application leverages Kotlin Multiplatform to create a flexible and type-saf
 
 - **Type-safe arguments**: The system allows adding arguments to strings in a type-safe manner, supporting dynamic data inclusion within strings.
 
+- **Module-specific management**: The system allows managing translations on a per-module basis, enhancing modularity and ease of maintenance.
+
 - **Gradual translation support**: Translations can be added gradually, which is beneficial for evolving projects where translations are continuously updated.
 
 - **Assurance of translation completion**: The system helps detect missing translations, ensuring completeness of all language representations.
