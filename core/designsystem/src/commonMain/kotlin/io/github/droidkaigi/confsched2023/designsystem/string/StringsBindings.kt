@@ -8,7 +8,7 @@ abstract class StringsBindings<T : Strings<T>>(
     val defaultBinding: (T, StringsBindings<T>) -> String = requireNotNull(localeMap[default])
 
     private fun findBinding(): (T, StringsBindings<T>) -> String {
-        val lang = "ja"
+        val lang = lang()
         return localeMap[lang] ?: localeMap[default]!!
     }
 
@@ -18,6 +18,10 @@ abstract class StringsBindings<T : Strings<T>>(
     }
 }
 
+// FIXME: Please use expect/actual for multiplatform
+fun lang(): String {
+    return "ja"
+}
 
 abstract class Strings<T : Strings<T>>(
     private val bindings: StringsBindings<T>
