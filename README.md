@@ -49,6 +49,12 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Binding) {
 ```
 In the above example, `SessionsStrings` is a sealed class that represents different strings. Each string is defined as an object within the sealed class, and the translations are provided in `StringsBindings`.
 
+To fetch a string:
+
+```kotlin
+println(SessionsStrings.Timetable.asString())
+```
+
 # Build / CI
 
 # Architecture
