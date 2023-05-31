@@ -12,6 +12,7 @@ kotlin {
             dependencies {
                 implementation(projects.core.model)
                 implementation(libs.kotlinxCoroutinesCore)
+                implementation(libs.androidxDatastoreDatastorePreferences)
             }
         }
     }

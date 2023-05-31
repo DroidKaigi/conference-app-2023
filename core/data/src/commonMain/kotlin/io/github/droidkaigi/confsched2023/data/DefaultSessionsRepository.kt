@@ -1,7 +1,9 @@
 package io.github.droidkaigi.confsched2023.data
 
-import io.github.droidkaigi.confsched2023.model.Timetable
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
+import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentSetOf
@@ -15,12 +17,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DefaultSessionsRepository(
-    private val sessionsApi: SessionsApi
+    private val sessionsApi: SessionsApi,
+    dataStore: DataStore<Preferences>
 ) : SessionsRepository {
     // TODO: Introduce Jetpack DataStore
-    private val favoriteSessionIds: MutableStateFlow<PersistentSet<TimetableItemId>> = MutableStateFlow(
-        persistentSetOf()
-    )
+    private val favoriteSessionIds: MutableStateFlow<PersistentSet<TimetableItemId>> =
+        MutableStateFlow(
+            persistentSetOf()
+        )
 
     override fun getSessionsStream(): Flow<Timetable> {
         return callbackFlow {
