@@ -23,7 +23,8 @@ class SessionsRepositoryModule {
     ): SessionsRepository {
         return DefaultSessionsRepository(
             sessionsApi = sessionsApi,
-            dataStore = dataStore
+            dataStore = dataStore,
+            coroutineScope = CoroutineScope(Dispatchers.IO)
         )
     }
 
