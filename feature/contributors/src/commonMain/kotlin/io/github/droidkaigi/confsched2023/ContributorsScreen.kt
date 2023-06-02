@@ -1,8 +1,7 @@
-package io.github.droidkaigi.confsched2023.contributors
+package io.github.droidkaigi.confsched2023
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import io.github.droidkaigi.confsched2023.contributors.Contributors
 
 @Composable
 fun ContributorsScreen() {
