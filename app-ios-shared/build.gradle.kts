@@ -20,6 +20,7 @@ kotlin {
                     binaryOption("bundleId", "io.github.droidkaigi.confsched2023.shared")
                     binaryOption("bundleVersion", version.toString())
                     xcf.add(this)
+                    export(project(":feature:contributors"))
                 }
             }
         }
@@ -44,6 +45,7 @@ kotlin {
             dependencies {
                 implementation(projects.core.model)
                 implementation(libs.kotlinxCoroutinesCore)
+                api(project(":feature:contributors"))
             }
         }
     }
