@@ -16,7 +16,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilter
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState.ListTimetable
 
-const val TimeTableContentTestTag = "TimetableContent"
+const val TimetableContentTestTag = "TimetableContent"
 
 sealed interface TimetableContentUiState {
     object Empty : TimetableContentUiState
@@ -43,7 +43,7 @@ fun TimetableContent(
         LazyColumn(
             Modifier
                 .padding(innerPadding)
-                .testTag(TimeTableContentTestTag)
+                .testTag(TimetableContentTestTag)
         ) {
             item {
                 Text(

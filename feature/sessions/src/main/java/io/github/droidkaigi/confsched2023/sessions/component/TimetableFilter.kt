@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 
+const val TimetableFilterTestTag = "TimetableFilter"
+
 data class TimetableFilterUiState(val enabled: Boolean, val isChecked: Boolean)
 
 @Composable
@@ -16,7 +18,7 @@ fun TimetableFilter(
     Text(
         text = "Filter " + if (timetableFilterUiState.isChecked) "ON" else "OFF",
         modifier = Modifier
-            .testTag("Filter")
+            .testTag(TimetableFilterTestTag)
             .clickable {
                 onFilterClick()
             }
