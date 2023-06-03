@@ -53,7 +53,7 @@ Through clear delineation of roles and responsibilities of different composables
 
 ## Testing
 
-Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, we're aiming to perfect both using two primary methods.
+Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
 ### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
@@ -61,7 +61,7 @@ Robolectric Native Graphics (RNG) allows us to take app screenshots without need
 
 #### Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
-Hence, for important features, it's essential to supplement these tests with assertion tests. The tests will typically look like this:
+So, for important features, we should add assertion tests to these parts. The tests will typically look like this:
 
 ```kotlin
 @RunWith(AndroidJUnit4::class)
