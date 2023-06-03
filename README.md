@@ -59,6 +59,56 @@ Testing an app involves balancing fidelity, how closely the test resembles actua
 
 Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than older methods. We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
+#### Balancing Screenshot Tests and Assertion Tests
+Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
+Hence, for important features, it's essential to supplement these tests with assertion tests. The tests will typically look like this:
+
+```kotlin
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@HiltAndroidTest
+@Config(
+    qualifiers = RobolectricDeviceQualifiers.NexusOne
+)
+class TimetableScreenTest {
+
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
+
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
+
+    // A screenshot test
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkLaunchShot() {
+        timetableScreenRobot(robotTestRule) {
+            checkCaptureScreen()
+        }
+    }
+
+    // An assertion test for an important feature
+    @Test
+    fun checkLaunch() {
+        timetableScreenRobot(robotTestRule) {
+            checkTimetableItemsDisplayed()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteToggleShot() {
+        timetableScreenRobot(robotTestRule) {
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
+        }
+    }
+    ...
+}
+```
+
 #### The Companion Branch Approach
 
 We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.

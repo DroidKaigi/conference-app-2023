@@ -16,4 +16,3 @@ fun LazyListScope.timetableList(
         TimetableListItem(session, uiState, onFavoriteClick)
     }
 }
-

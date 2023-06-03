@@ -33,4 +33,3 @@ fun TimetableListItem(
         }
     }
 }
-
