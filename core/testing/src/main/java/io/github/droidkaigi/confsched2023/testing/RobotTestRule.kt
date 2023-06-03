@@ -9,11 +9,11 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-inline fun <reified A: ComponentActivity>RobotTestRule(testInstance: Any): RobotTestRule<A> {
+inline fun <reified A : ComponentActivity>RobotTestRule(testInstance: Any): RobotTestRule<A> {
     val composeTestRule = createAndroidComposeRule<A>()
     return RobotTestRule(testInstance, composeTestRule)
 }
-class RobotTestRule<T: ComponentActivity>(
+class RobotTestRule<T : ComponentActivity>(
     private val testInstance: Any,
     val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<T>, T>
 ) : TestRule {

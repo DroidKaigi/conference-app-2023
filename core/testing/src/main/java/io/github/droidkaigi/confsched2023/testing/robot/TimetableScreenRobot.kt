@@ -11,7 +11,6 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentTestTag
-import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import javax.inject.Inject
 

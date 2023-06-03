@@ -25,7 +25,7 @@ class KaigiAppRobot @Inject constructor() {
             .onNode(isRoot())
             .captureRoboImage()
     }
-    
+
     fun goToContributor() {
         composeTestRule
             .onNodeWithText("Go to ContributorsScreen")
