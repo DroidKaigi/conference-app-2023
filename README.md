@@ -44,7 +44,7 @@ Composable functions are categorized into three types: Screen, Section, and Comp
 
 ### Section
 
-`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `Timetable`.
+`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `TimetableList`.
 
 ### Component
 
