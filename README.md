@@ -10,11 +10,10 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 ## Overview of the architecture
 
-TODO: Insert architecture diagram
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/675eb1ba-1d93-4748-ae5a-a8548e8aaef6)
 
 ## Single Source of Truth with buildUiState() {}
-
-The buildUiState() {} function promotes the Single Source of Truth (SSOT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
+The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
 
 By working with StateFlow objects, the function can also compute initial values, further enhancing the SSOT principle.
 
@@ -33,6 +32,24 @@ private val filterUiState: StateFlow<FilterUiState> = buildUiState(
 ```
 
 The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
+
+## Composable Function Categorization
+
+Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
+
+### Screen
+
+`Screen` refers to an entire screen within your application, typically encapsulating a full user interaction.
+
+### Section
+
+`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `Timetable`.
+
+### Component
+
+`Component` refers to the smallest, indivisible units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableItem` and `TimeText`.
+
+Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
 
 ## Testing
 
