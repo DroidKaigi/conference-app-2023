@@ -53,33 +53,25 @@ Through clear delineation of roles and responsibilities of different composables
 
 ## Testing
 
-Striking the right balance between fidelity and reliability when testing an app can be challenging. Fidelity refers to the extent to which a test replicates real-world usage of the app, while reliability represents the test's ability to remain free from defects, such as flaky tests. This year, we aim to achieve both by employing the following approach:
+Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, we're aiming to perfect both using two primary methods.
 
-### Screenshot testing using Robolectric Native Graphics (RNG) with Roborazzi
+### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
-Robolectric Native Graphics (RNG) is a new feature introduced in Robolectric 4.10. It allows us to capture screenshots of the app without needing to run the emulator. This marks a significant improvement over the previous method of using the emulator for screenshot capture, which could be slow and unreliable.
+Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than older methods. We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
-We use Roborazzi to compare app screenshots with those of the previous build. This helps us identify any visual changes in the app and address them accordingly.
+#### The Companion Branch Approach
 
-#### The companion branch approach
-
-[The companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) is a method for storing feature branch screenshots. When a pull request is created, the feature branch's screenshot is saved in the companion branch. Outdated branches are deleted to reduce the Git repository size and ensure that only relevant screenshots are retained.
-
-This approach allows users to view feature branch screenshot changes in pull requests while minimizing the impact on the Git repository size by deleting outdated branch screenshots.
+We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.
 
 <img src="https://user-images.githubusercontent.com/1386930/236188326-ddd617ae-b216-476c-9d92-e36ad02a2670.png" width="600" />
 
-* Why not use GitHub Actions artifacts?
+* Why not GitHub Actions Artifacts, Git LFS, or Feature Branch Commits?
 
-Although GitHub Actions artifacts are a viable option for storing screenshots, they are less convenient for viewing changes in pull requests, as artifacts are stored as zip files. It appears that LFS encounters [similar issues](https://github.com/git-lfs/git-lfs/issues/1342).
-
-* Why not commit the screenshot to the feature branch?
-
-Committing the screenshot to the feature branch is another viable option. However, this approach retains the screenshot in the repository indefinitely, as Git preserves commit history.
+While GitHub Actions Artifacts and Git LFS could be used for storing screenshots, they don't allow for direct image viewing in pull requests. Committing screenshots directly to the feature branch, on the other hand, can lead to an unnecessary increase in the repository size.
 
 ### Testing Robot Pattern
 
-The Testing Robot Pattern is a method for writing UI tests. It divides the test code into two distinct parts: how to test and what to test. The "how to test" aspect is written in the robot class, while the "what to test" portion is covered in the test class. This separation makes the test code easier to read and maintain. Additionally, the robot class proves beneficial for writing screenshot tests.
+The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
 
 # iOS
 
