@@ -57,7 +57,8 @@ Testing an app involves balancing fidelity, how closely the test resembles actua
 
 ### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
-Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than older methods. We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
+Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
+We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
 #### Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
