@@ -10,7 +10,8 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 ## Overview of the architecture
 
-![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/675eb1ba-1d93-4748-ae5a-a8548e8aaef6)
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c9d8ff0f-0f2e-44a5-9631-c785d1565255)
+
 
 ## Single Source of Truth with buildUiState() {}
 The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
