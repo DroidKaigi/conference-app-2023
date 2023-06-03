@@ -48,7 +48,7 @@ Composable functions are categorized into three types: Screen, Section, and Comp
 
 ### Component
 
-`Component` refers to the smallest, indivisible units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableItem` and `TimeText`.
+`Component` refers to the more granular units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableListItem` and `TimeText`.
 
 Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
 
