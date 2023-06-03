@@ -7,7 +7,9 @@ import io.github.droidkaigi.confsched2023.sessions.TimetableScreenUiState
 
 sealed interface TimetableContentUiState {
     object Empty : TimetableContentUiState
-    data class ListTimetable(val timetableListUiState: TimetableListUiState) : TimetableContentUiState
+    data class ListTimetable(
+        val timetableListUiState: TimetableListUiState
+    ) : TimetableContentUiState
 }
 
 fun LazyListScope.timetableContent(
@@ -24,4 +26,3 @@ fun LazyListScope.timetableContent(
         }
     }
 }
-
