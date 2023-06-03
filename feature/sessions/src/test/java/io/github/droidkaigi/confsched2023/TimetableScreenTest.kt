@@ -15,13 +15,13 @@ import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.section.TimeTableContentTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
