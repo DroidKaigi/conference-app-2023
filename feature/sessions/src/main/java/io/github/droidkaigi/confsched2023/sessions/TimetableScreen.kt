@@ -15,8 +15,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilter
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterUiState
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableSessionListUiState
-import io.github.droidkaigi.confsched2023.sessions.section.timetableItemListSection
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.timetableContent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 @Composable
@@ -41,7 +41,7 @@ fun TimetableScreen(
 }
 
 data class TimetableScreenUiState(
-    val timetableSessionListUiState: TimetableSessionListUiState,
+    val timetableSessionListUiState: TimetableContentUiState,
     val timetableFilterUiState: TimetableFilterUiState,
 )
 
@@ -76,7 +76,7 @@ private fun TimetableScreen(
                 )
             }
 
-            timetableItemListSection(
+            timetableContent(
                 uiState = uiState,
                 onFavoriteClick = {
                     onFavoriteClick(it)
