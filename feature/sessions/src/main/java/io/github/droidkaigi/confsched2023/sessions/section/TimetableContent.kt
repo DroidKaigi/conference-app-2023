@@ -1,9 +1,22 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
-import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
-import io.github.droidkaigi.confsched2023.model.TimetableItem
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenUiState
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilter
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState.Empty
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState.ListTimetable
+
+const val TimetableContentTestTag = "TimetableContent"
 
 sealed interface TimetableContentUiState {
     object Empty : TimetableContentUiState
@@ -12,17 +25,49 @@ sealed interface TimetableContentUiState {
     ) : TimetableContentUiState
 }
 
-fun LazyListScope.timetableContent(
+@Composable
+fun TimetableContent(
     uiState: TimetableScreenUiState,
-    onFavoriteClick: (TimetableItem.Session) -> Unit
+    snackbarHostState: SnackbarHostState,
+    onFavoriteClick: (Session) -> Unit,
+    onContributorsClick: () -> Unit,
+    onFilterClick: () -> Unit,
 ) {
-    when (val contentUiState = uiState.timetableSessionListUiState) {
-        TimetableContentUiState.Empty -> item {
-            Text("empty")
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState
+            )
         }
+    ) { innerPadding ->
+        LazyColumn(
+            Modifier
+                .padding(innerPadding)
+                .testTag(TimetableContentTestTag)
+        ) {
+            item {
+                Text(
+                    text = "Go to ContributorsScreen",
+                    modifier = Modifier.clickable {
+                        onContributorsClick()
+                    }
+                )
+            }
+            item {
+                TimetableFilter(
+                    timetableFilterUiState = uiState.timetableFilterUiState,
+                    onFilterClick = onFilterClick
+                )
+            }
+            when (val contentUiState = uiState.timetableSessionListUiState) {
+                Empty -> item {
+                    Text("empty")
+                }
 
-        is TimetableContentUiState.ListTimetable -> {
-            timetableList(contentUiState.timetableListUiState, onFavoriteClick)
+                is ListTimetable -> {
+                    timetableList(contentUiState.timetableListUiState, onFavoriteClick)
+                }
+            }
         }
     }
 }

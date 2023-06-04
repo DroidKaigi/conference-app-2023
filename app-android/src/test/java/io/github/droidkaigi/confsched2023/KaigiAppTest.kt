@@ -1,17 +1,11 @@
 package io.github.droidkaigi.confsched2023
 
-import androidx.compose.ui.test.isRoot
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.github.droidkaigi.confsched2023.testing.HiltAndroidAutoInjectRule
+import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import io.github.droidkaigi.confsched2023.testing.robot.KaigiAppRobot
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
@@ -31,48 +25,32 @@ import org.robolectric.annotation.GraphicsMode
 )
 class KaigiAppTest {
 
-    @get:Rule val hiltAutoInjectrule = HiltAndroidAutoInjectRule(this)
-    @get:Rule val composeTestRule = createAndroidComposeRule<MainActivity>()
+    @get:Rule
+    val robotTestRule = RobotTestRule<MainActivity>(this)
 
     @Inject lateinit var kaigiAppRobot: KaigiAppRobot
 
     @Test
-    fun startup() {
-        kaigiAppRobot(composeTestRule) {
+    fun checkStartupShot() {
+        kaigiAppRobot(robotTestRule) {
             capture()
         }
     }
 
     @Test
-    fun navigateToContributor() {
-        kaigiAppRobot(composeTestRule) {
-            capture()
+    fun checkStartup() {
+        kaigiAppRobot(robotTestRule) {
+            timetableScreenRobot(robotTestRule) {
+                checkTimetableItemsDisplayed()
+            }
+        }
+    }
+
+    @Test
+    fun checkNavigateToContributorShot() {
+        kaigiAppRobot(robotTestRule) {
             goToContributor()
             capture()
         }
-    }
-}
-
-class KaigiAppRobot @Inject constructor() {
-
-    lateinit var composeTestRule: AndroidComposeTestRule<*, *>
-    operator fun invoke(
-        composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<MainActivity>, MainActivity>,
-        block: KaigiAppRobot.() -> Unit
-    ) {
-        this.composeTestRule = composeTestRule
-        block()
-    }
-
-    fun capture() {
-        composeTestRule
-            .onNode(isRoot())
-            .captureRoboImage()
-    }
-
-    fun goToContributor() {
-        composeTestRule
-            .onNodeWithText("Go to ContributorsScreen")
-            .performClick()
     }
 }
