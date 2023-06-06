@@ -52,3 +52,8 @@ DerivedData
 
 # bundler
 .bundle/vendor
+
+# Fastlane
+app-ios/fastlane/test_output
+app-ios/fastlane/README.md
+app-ios/fastlane/report.xml
