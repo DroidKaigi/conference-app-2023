@@ -8,7 +8,8 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterUiState
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableSessionListUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -39,15 +40,17 @@ class TimetableScreenViewModel @Inject constructor(
         )
     private val filtersStateFlow = MutableStateFlow(Filters())
 
-    private val sessionListUiState: StateFlow<TimetableSessionListUiState> = buildUiState(
+    private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildUiState(
         sessionsStateFlow,
         filtersStateFlow
     ) { sessionTimetable, filters ->
         if (sessionTimetable.timetableItems.isEmpty()) {
-            return@buildUiState TimetableSessionListUiState.Empty
+            return@buildUiState TimetableContentUiState.Empty
         }
-        TimetableSessionListUiState.ListTimetable(
-            timetable = sessionTimetable.filtered(filters)
+        TimetableContentUiState.ListTimetable(
+            TimetableListUiState(
+                timetable = sessionTimetable.filtered(filters)
+            )
         )
     }
 
@@ -63,7 +66,7 @@ class TimetableScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<TimetableScreenUiState> = buildUiState(
         timetableFilterUiState,
-        sessionListUiState
+        timetableContentUiState
     ) { filterUiState, sessionListUiState ->
         TimetableScreenUiState(
             timetableSessionListUiState = sessionListUiState,
