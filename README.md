@@ -187,7 +187,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
   - You can install via [SDKMAN](https://sdkman.io/), 
   - `sdk install $(cat .sdkmanrc | sed -e 's/=/ /')`
 - Xcode, [`.xcode-version`](.xcode-version) version
-　- You can install via [Xcodes](https://www.xcodes.app/)
+  - You can install via [Xcodes](https://www.xcodes.app/)
 - Ruby, [`.ruby-version`](.ruby-version) version
   - bundler (you can install by `gem install bundler` or `sudo gem install bundler`)
 
@@ -200,7 +200,15 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 ## Build
 
 - You can filter XCFramework arch by `arch` option at [`local.properties`](./local.properties)
-  - ex), if you need only `x86_64` binary, you can set `arch=x86_64`
+  - e.g. if you need only `x86_64` binary, you can set `arch=x86_64`
+
+## Debug
+
+- You can build and debug on Android Studio with [KMM plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
+- After install KMM plugin, you can see `app-ios` module on Android Studio's run configurations.
+  - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/4f076561-8bf2-4595-a9aa-4fc03ccc09e1)
+- Set configs like below
+  - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/c0051953-fd27-474a-ab61-b3f7e444c2e7)
 
 # Special thanks
 
