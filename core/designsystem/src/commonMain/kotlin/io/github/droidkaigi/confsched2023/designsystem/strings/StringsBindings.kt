@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.designsystem.string
+package io.github.droidkaigi.confsched2023.designsystem.strings
 
 abstract class StringsBindings<T : Strings<T>>(
     vararg mapPairs: Pair<String, (T, StringsBindings<T>) -> String>,

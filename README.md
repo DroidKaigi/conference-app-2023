@@ -12,22 +12,22 @@ Our application leverages Kotlin Multiplatform to create a flexible and type-saf
 
 - **Type-safe handling of strings**: We leverage Kotlin's sealed classes and enums to represent strings, which are validated at compile-time.
 
-- **Type-safe arguments**: The system allows adding arguments to strings in a type-safe manner, supporting dynamic data inclusion within strings.
+- **Type-safe arguments**: The system allows adding arguments to strings in a type-safe manner, supporting dynamic data inclusion within strings like `data class Time(val hours: Int, val minutes: Int)`
 
 - **Module-specific management**: The system allows managing translations on a per-module basis, enhancing modularity and ease of maintenance.
 
 - **Gradual translation support**: Translations can be added gradually, which is beneficial for evolving projects where translations are continuously updated.
 
-- **Assurance of translation completion**: The system helps detect missing translations, ensuring completeness of all language representations.
+- **Assurance of translation completion**: Kotlin's `when` helps detect missing translations, ensuring completeness of all language representations.
 
 ### Code Example:
 
 ```kotlin
-sealed class SessionsStrings : Strings<SessionsStrings>(Binding) {
+sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object Timetable : SessionsStrings()
     object Hoge : SessionsStrings()
-    class Time(val hour: Int, val minutes: Int) : SessionsStrings()
-    object Binding : StringsBindings<SessionsStrings>(
+    data class Time(val hours: Int, val minutes: Int) : SessionsStrings()
+    object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
                 Timetable -> "タイムテーブル"

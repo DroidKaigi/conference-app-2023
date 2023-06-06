@@ -8,5 +8,14 @@ plugins {
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.ui"
 
+kotlin{
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(":core:designsystem"))
+            }
+        }
+    }
+}
 dependencies {
 }
