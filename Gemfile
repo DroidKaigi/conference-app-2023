@@ -2,7 +2,8 @@
 
 source "https://rubygems.org"
 
-File.open(".ruby-version", "r") do |f|
+repo_root = `git rev-parse --show-toplevel`.chop
+File.open("#{repo_root}/.ruby-version", "r") do |f|
     ruby f.read.strip
 end
 
