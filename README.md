@@ -202,6 +202,11 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 - You can filter XCFramework arch by `arch` option at [`local.properties`](./local.properties)
   - ex), if you need only `x86_64` binary, you can set `arch=x86_64`
 
+## Debug
+
+- You can build and debug on Android Studio with [KMM plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
+- After install KMM plugin, you can see `app-ios` module on Android Studio's run configurations.
+
 # Special thanks
 
  - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
