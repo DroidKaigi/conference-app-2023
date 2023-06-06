@@ -206,6 +206,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 - You can build and debug on Android Studio with [KMM plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
 - After install KMM plugin, you can see `app-ios` module on Android Studio's run configurations.
+  - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/4f076561-8bf2-4595-a9aa-4fc03ccc09e1)
 
 # Special thanks
 
