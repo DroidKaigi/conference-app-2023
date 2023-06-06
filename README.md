@@ -71,7 +71,10 @@ The Testing Robot Pattern is a method for writing UI tests. It divides the test 
 1. You need to install the following tools.
 
 - JDK 17
+  - You can install via [SDKMAN](https://sdkman.io/), 
+  - `sdk install $(cat .sdkmanrc | sed -e 's/java=/ /')`
 - Xcode, [`.xcode-version`](.xcode-version) version
+　- You can install via [Xcodes](https://www.xcodes.app/)
 - Ruby, [`.ruby-version`](.ruby-version) version
   - bundler (you can install by `gem install bundler` or `sudo gem install bundler`)
 
