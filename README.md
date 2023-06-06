@@ -4,17 +4,69 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 # UI
 
+## Advanced Multilanguage System with Kotlin Multiplatform
+
+Our application leverages Kotlin Multiplatform to create a flexible and type-safe system for handling multiple languages. This system exhibits the following key characteristics:
+
+- **Language separation**: Each language is managed separately within its distinct mapping structure, providing a clean and well-structured layout.
+
+- **Type-safe handling of strings**: We leverage Kotlin's sealed classes and enums to represent strings, which are validated at compile-time.
+
+- **Type-safe arguments**: The system allows adding arguments to strings in a type-safe manner, supporting dynamic data inclusion within strings like `data class Time(val hours: Int, val minutes: Int)`
+
+- **Module-specific management**: The system allows managing translations on a per-module basis, enhancing modularity and ease of maintenance.
+
+- **Gradual translation support**: Translations can be added gradually, which is beneficial for evolving projects where translations are continuously updated.
+
+- **Assurance of translation completion**: Kotlin's `when` helps detect missing translations, ensuring completeness of all language representations.
+
+### Code Example:
+
+```kotlin
+sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
+    object Timetable : SessionsStrings()
+    object Hoge : SessionsStrings()
+    data class Time(val hours: Int, val minutes: Int) : SessionsStrings()
+    
+    private object Bindings : StringsBindings<SessionsStrings>(
+        Lang.Japanese to { item, _ ->
+            when (item) {
+                Timetable -> "タイムテーブル"
+                Hoge -> "ホゲ"
+                is Time -> "${item.hour}時${item.minutes}分"
+            }
+        },
+        Lang.English to { item, bindings ->
+            when (item) {
+                Timetable -> "Timetable"
+                // You can use defaultBinding to use default language's string
+                Hoge -> bindings.defaultBinding(item, bindings)
+                is Time -> "${item.hour}:${item.minutes}"
+            }
+        },
+        default = Lang.Japanese
+    )
+}
+```
+In the above example, `SessionsStrings` is a sealed class that represents different strings. Each string is defined as an object within the sealed class, and the translations are provided in `StringsBindings`.
+
+To fetch a string:
+
+```kotlin
+println(SessionsStrings.Timetable.asString())
+```
+
 # Build / CI
 
 # Architecture
 
 ## Overview of the architecture
 
-TODO: Insert architecture diagram
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c9d8ff0f-0f2e-44a5-9631-c785d1565255)
+
 
 ## Single Source of Truth with buildUiState() {}
-
-The buildUiState() {} function promotes the Single Source of Truth (SSOT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
+The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
 
 By working with StateFlow objects, the function can also compute initial values, further enhancing the SSOT principle.
 
@@ -34,35 +86,96 @@ private val filterUiState: StateFlow<FilterUiState> = buildUiState(
 
 The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
+## Composable Function Categorization
+
+Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
+
+### Screen
+
+`Screen` refers to an entire screen within your application, typically encapsulating a full user interaction.
+
+### Section
+
+`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `TimetableList`.
+
+### Component
+
+`Component` refers to the more granular units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableListItem` and `TimeText`.
+
+Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
+
 ## Testing
 
-Striking the right balance between fidelity and reliability when testing an app can be challenging. Fidelity refers to the extent to which a test replicates real-world usage of the app, while reliability represents the test's ability to remain free from defects, such as flaky tests. This year, we aim to achieve both by employing the following approach:
+Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
-### Screenshot testing using Robolectric Native Graphics (RNG) with Roborazzi
+### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
-Robolectric Native Graphics (RNG) is a new feature introduced in Robolectric 4.10. It allows us to capture screenshots of the app without needing to run the emulator. This marks a significant improvement over the previous method of using the emulator for screenshot capture, which could be slow and unreliable.
+Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
+We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
-We use Roborazzi to compare app screenshots with those of the previous build. This helps us identify any visual changes in the app and address them accordingly.
+#### Balancing Screenshot Tests and Assertion Tests
+Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
+So, for important features, we should add assertion tests to these parts. The tests will typically look like this:
 
-#### The companion branch approach
+```kotlin
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@HiltAndroidTest
+@Config(
+    qualifiers = RobolectricDeviceQualifiers.NexusOne
+)
+class TimetableScreenTest {
 
-[The companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) is a method for storing feature branch screenshots. When a pull request is created, the feature branch's screenshot is saved in the companion branch. Outdated branches are deleted to reduce the Git repository size and ensure that only relevant screenshots are retained.
+    @get:Rule
+    val robotTestRule = RobotTestRule(this)
 
-This approach allows users to view feature branch screenshot changes in pull requests while minimizing the impact on the Git repository size by deleting outdated branch screenshots.
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
+
+    // A screenshot test
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkLaunchShot() {
+        timetableScreenRobot(robotTestRule) {
+            checkCaptureScreen()
+        }
+    }
+
+    // An assertion test for an important feature
+    @Test
+    fun checkLaunch() {
+        timetableScreenRobot(robotTestRule) {
+            checkTimetableItemsDisplayed()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteToggleShot() {
+        timetableScreenRobot(robotTestRule) {
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
+        }
+    }
+    ...
+}
+```
+
+#### The Companion Branch Approach
+
+We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.
 
 <img src="https://user-images.githubusercontent.com/1386930/236188326-ddd617ae-b216-476c-9d92-e36ad02a2670.png" width="600" />
 
-* Why not use GitHub Actions artifacts?
+* Why not GitHub Actions Artifacts, Git LFS, or Feature Branch Commits?
 
-Although GitHub Actions artifacts are a viable option for storing screenshots, they are less convenient for viewing changes in pull requests, as artifacts are stored as zip files. It appears that LFS encounters [similar issues](https://github.com/git-lfs/git-lfs/issues/1342).
-
-* Why not commit the screenshot to the feature branch?
-
-Committing the screenshot to the feature branch is another viable option. However, this approach retains the screenshot in the repository indefinitely, as Git preserves commit history.
+While GitHub Actions Artifacts and Git LFS could be used for storing screenshots, they don't allow for direct image viewing in pull requests. Committing screenshots directly to the feature branch, on the other hand, can lead to an unnecessary increase in the repository size.
 
 ### Testing Robot Pattern
 
-The Testing Robot Pattern is a method for writing UI tests. It divides the test code into two distinct parts: how to test and what to test. The "how to test" aspect is written in the robot class, while the "what to test" portion is covered in the test class. This separation makes the test code easier to read and maintain. Additionally, the robot class proves beneficial for writing screenshot tests.
+The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
 
 # iOS
 
@@ -88,3 +201,13 @@ The Testing Robot Pattern is a method for writing UI tests. It divides the test 
 
 - You can filter XCFramework arch by `arch` option at [`local.properties`](./local.properties)
   - ex), if you need only `x86_64` binary, you can set `arch=x86_64`
+
+# Special thanks
+
+ - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
+ - UI Lead: [upon0426](https://github.com/upon0426)
+ - Build/CI Lead: [tomoya0x00](https://github.com/tomoya0x00)
+ - Designer: TBD
+ - iOS Lead: [ry-itto](https://github.com/ry-itto)
+ - Server / API Lead: [ryunen344](https://github.com/ryunen344)
+ - DroidKaigi Co-Organizer / Architecture Lead: [takahirom](https://github.com/takahirom)

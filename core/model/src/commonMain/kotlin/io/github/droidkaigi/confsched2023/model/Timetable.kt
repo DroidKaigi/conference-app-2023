@@ -139,7 +139,7 @@ public fun Timetable.Companion.fake(): Timetable {
                 add(
                     fake
                         .copy(
-                            id = TimetableItemId("2$index"),
+                            id = TimetableItemId("$day$index"),
                             title = MultiLangText(
                                 jaTitle = "${fake.title.jaTitle} $day $index",
                                 enTitle = "${fake.title.enTitle} $day $index"

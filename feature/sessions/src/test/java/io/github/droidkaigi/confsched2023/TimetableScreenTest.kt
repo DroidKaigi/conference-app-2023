@@ -1,18 +1,16 @@
 package io.github.droidkaigi.confsched2023
 
-import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isRoot
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onFirst
-import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import io.github.droidkaigi.confsched2023.testing.robot.TimetableScreenRobot
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
+import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -23,80 +21,56 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-class TimetableScreenshotTest {
-
-    @get:Rule val robotTestRule = RobotTestRule(this)
-
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
-
-    @Test
-    fun startupScreenshot() {
-        timetableScreenRobot(robotTestRule) {
-            capture()
-        }
-    }
-
-    @Test
-    fun startupFavoriteScreenshot() {
-        timetableScreenRobot(robotTestRule) {
-            capture()
-            clickFirstSessionFavorite()
-            capture()
-            clickFirstSessionFavorite()
-            capture()
-        }
-    }
-}
-
-@RunWith(AndroidJUnit4::class)
-@HiltAndroidTest
 class TimetableScreenTest {
 
-    @get:Rule val robotTestRule = RobotTestRule(this)
+    @get:Rule
+    val robotTestRule = RobotTestRule<HiltTestActivity>(this)
 
-    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject
+    lateinit var timetableScreenRobot: TimetableScreenRobot
+
+    // A screenshot test
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkLaunchShot() {
+        timetableScreenRobot(robotTestRule) {
+            setTimetableScreenContent()
+            checkCaptureScreen()
+        }
+    }
+
+    // An assertion test for an important feature
+    @Test
+    fun checkLaunch() {
+        timetableScreenRobot(robotTestRule) {
+            setTimetableScreenContent()
+            checkTimetableItemsDisplayed()
+        }
+    }
 
     @Test
-    fun shouldBeAbleToLaunch() {
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteToggleShot() {
         timetableScreenRobot(robotTestRule) {
+            setTimetableScreenContent()
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
+            clickFirstSessionFavorite()
+            checkCaptureTimetableContent()
         }
     }
-}
 
-// ④ Shared Testing Robot
-class TimetableScreenRobot @Inject constructor() {
-
-    lateinit var composeTestRule: AndroidComposeTestRule<*, *>
-    operator fun invoke(
-        robotTestRule: RobotTestRule,
-        block: TimetableScreenRobot.() -> Unit
-    ) {
-        this.composeTestRule = robotTestRule.composeTestRule
-        composeTestRule.setContent {
-            TimetableScreen(
-                onContributorsClick = { }
-            )
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteFilterToggleShot() {
+        timetableScreenRobot(robotTestRule) {
+            setTimetableScreenContent()
+            clickFilter()
+            checkCaptureTimetableContent()
+            clickFilter()
+            clickFirstSessionFavorite()
+            clickFilter()
+            checkCaptureTimetableContent()
         }
-        block()
-    }
-
-    fun filterFavorite() {
-//        composeTestRule
-//            .onNodeWithTag("favorite")
-//            .performClick()
-    }
-
-    fun clickFirstSessionFavorite() {
-        composeTestRule
-            .onAllNodes(hasText("☆"))
-            .onFirst()
-            .performClick()
-    }
-
-    fun capture() {
-        // ③ Capture Robolectric image
-        composeTestRule
-            .onNode(isRoot())
-            .captureRoboImage()
     }
 }
