@@ -208,7 +208,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 - After install KMM plugin, you can see `app-ios` module on Android Studio's run configurations.
   - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/4f076561-8bf2-4595-a9aa-4fc03ccc09e1)
 - Set configs like below
-  - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/c0051953-fd27-474a-ab61-b3f7e444c2e7)
+  - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
 
 # Special thanks
 
