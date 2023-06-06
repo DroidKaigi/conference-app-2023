@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
@@ -29,8 +30,7 @@ class TimetableScreenViewModel @Inject constructor(
     private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
         .getSessionsStream()
         .handleErrorAndRetry(
-            // TODO: Decide how to write strings in ViewModel
-            "Retry",
+            AppStrings.Retry,
             userMessageStateHolder,
         )
         .stateIn(
