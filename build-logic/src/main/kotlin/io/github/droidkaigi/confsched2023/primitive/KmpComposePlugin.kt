@@ -30,6 +30,12 @@ class KmpComposePlugin : Plugin<Project> {
                             implementation(compose.dependencies.components.resources)
                         }
                     }
+                    get("androidMain").apply {
+                        dependencies {
+                            implementation(libs.findLibrary("androidxActivityActivityCompose").get())
+                            implementation(libs.findLibrary("androidxLifecycleLifecycleRuntimeKtx").get())
+                        }
+                    }
                 }
             }
 
