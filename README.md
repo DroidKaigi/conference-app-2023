@@ -179,6 +179,28 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 # iOS
 
+## Requirements
+
+1. You need to install the following tools.
+
+- JDK 17
+  - You can install via [SDKMAN](https://sdkman.io/), 
+  - `sdk install $(cat .sdkmanrc | sed -e 's/=/ /')`
+- Xcode, [`.xcode-version`](.xcode-version) version
+　- You can install via [Xcodes](https://www.xcodes.app/)
+- Ruby, [`.ruby-version`](.ruby-version) version
+  - bundler (you can install by `gem install bundler` or `sudo gem install bundler`)
+
+2. Setup
+   1. `bundle install`
+   2. `bundle exec fastlane build-kmm`
+   
+3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
+
+## Build
+
+- You can filter XCFramework arch by `arch` option at [`local.properties`](./local.properties)
+  - ex), if you need only `x86_64` binary, you can set `arch=x86_64`
 
 # Special thanks
 
