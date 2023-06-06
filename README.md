@@ -27,7 +27,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object Timetable : SessionsStrings()
     object Hoge : SessionsStrings()
     data class Time(val hours: Int, val minutes: Int) : SessionsStrings()
-    object Bindings : StringsBindings<SessionsStrings>(
+    
+    private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
                 Timetable -> "タイムテーブル"
