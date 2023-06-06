@@ -185,7 +185,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 - JDK 17
   - You can install via [SDKMAN](https://sdkman.io/), 
-  - `sdk install $(cat .sdkmanrc | sed -e 's/java=/ /')`
+  - `sdk install $(cat .sdkmanrc | sed -e 's/=/ /')`
 - Xcode, [`.xcode-version`](.xcode-version) version
 　- You can install via [Xcodes](https://www.xcodes.app/)
 - Ruby, [`.ruby-version`](.ruby-version) version
