@@ -24,11 +24,8 @@ class KmpIosPlugin : Plugin<Project> {
                         } ?: System.getenv("arch")
                 )
                 when (activeArch) {
-                    ARM -> {
-                        iosSimulatorArm64()
-                        iosArm64()
-                    }
-                    X86 -> iosX64()
+                    ARM -> iosSimulatorArm64()
+                    X86 -> iosArm64()
                     ALL -> {
                         iosArm64()
                         iosX64()
