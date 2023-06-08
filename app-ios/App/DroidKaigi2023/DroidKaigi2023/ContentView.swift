@@ -10,9 +10,9 @@ import shared
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        let controller = Main_iosKt.MainViewController()
-        controller.overrideUserInterfaceStyle = .light
-        return controller
+        let vc = DarwinContributorsKt.viewController()
+        vc.overrideUserInterfaceStyle = .light
+        return vc
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
