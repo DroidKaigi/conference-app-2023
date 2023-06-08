@@ -25,7 +25,7 @@ class KmpIosPlugin : Plugin<Project> {
                 )
                 when (activeArch) {
                     ARM -> iosSimulatorArm64()
-                    X86 -> iosArm64()
+                    X86 -> iosX64()
                     ALL -> {
                         iosArm64()
                         iosX64()
