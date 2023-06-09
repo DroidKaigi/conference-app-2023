@@ -58,6 +58,20 @@ println(SessionsStrings.Timetable.asString())
 
 # Build / CI
 
+This project runs on GitHub Actions. This year's workflows contain new challenges!
+
+## Provide the same CI experiences for the both of members and contributors(you!)
+
+This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
+
+This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Archtecture > Composable Function Categorization > Testing](#testing) for the visual testing).
+
+## WIP - Automatic dependency updates
+
+> This workflow is disabled now.
+
+We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
+
 # Architecture
 
 ## Overview of the architecture
