@@ -17,7 +17,7 @@ class SpotlessPlugin : Plugin<Project> {
                     targetExclude("**/build/**/*.kt")
                     ktlint(
                         libs.findVersion("ktlint").get().toString()
-                    ).userData(mapOf("android" to "true"))
+                    )
                 }
                 format("kts") {
                     target("**/*.kts")
