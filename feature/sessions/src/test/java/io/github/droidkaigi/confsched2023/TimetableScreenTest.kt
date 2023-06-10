@@ -34,7 +34,7 @@ class TimetableScreenTest {
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
         timetableScreenRobot(robotTestRule) {
-            setTimetableScreenContent()
+            setupTimetableScreenContent()
             checkCaptureScreen()
         }
     }
@@ -43,7 +43,7 @@ class TimetableScreenTest {
     @Test
     fun checkLaunch() {
         timetableScreenRobot(robotTestRule) {
-            setTimetableScreenContent()
+            setupTimetableScreenContent()
             checkTimetableItemsDisplayed()
         }
     }
@@ -52,7 +52,7 @@ class TimetableScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFavoriteToggleShot() {
         timetableScreenRobot(robotTestRule) {
-            setTimetableScreenContent()
+            setupTimetableScreenContent()
             clickFirstSessionFavorite()
             checkCaptureTimetableContent()
             clickFirstSessionFavorite()
@@ -64,7 +64,7 @@ class TimetableScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFavoriteFilterToggleShot() {
         timetableScreenRobot(robotTestRule) {
-            setTimetableScreenContent()
+            setupTimetableScreenContent()
             clickFilter()
             checkCaptureTimetableContent()
             clickFilter()

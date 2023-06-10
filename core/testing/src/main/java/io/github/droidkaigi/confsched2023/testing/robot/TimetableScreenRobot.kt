@@ -25,7 +25,7 @@ class TimetableScreenRobot @Inject constructor() {
         block()
     }
 
-    fun setTimetableScreenContent() {
+    fun setupTimetableScreenContent() {
         composeTestRule.setContent {
             TimetableScreen(
                 onContributorsClick = { }

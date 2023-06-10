@@ -1,15 +1,25 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterUiState
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableContent
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilter
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.timetableContent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+
+const val TimetableScreenListTestTag = "TimetableScreenList"
 
 @Composable
 fun TimetableScreen(
@@ -33,8 +43,9 @@ fun TimetableScreen(
 }
 
 data class TimetableScreenUiState(
-    val timetableSessionListUiState: TimetableContentUiState,
-    val timetableFilterUiState: TimetableFilterUiState,
+    val contentUiState: TimetableContentUiState,
+    val filterEnabled: Boolean,
+    val filterIsChecked: Boolean,
 )
 
 @Composable
@@ -45,11 +56,37 @@ private fun TimetableScreen(
     onFilterClick: () -> Unit,
     onFavoriteClick: (TimetableItem.Session) -> Unit,
 ) {
-    TimetableContent(
-        uiState = uiState,
-        snackbarHostState = snackbarHostState,
-        onContributorsClick = onContributorsClick,
-        onFilterClick = onFilterClick,
-        onFavoriteClick = onFavoriteClick,
-    )
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState
+            )
+        }
+    ) { innerPadding ->
+        LazyColumn(
+            Modifier
+                .padding(innerPadding)
+                .testTag(TimetableScreenListTestTag)
+        ) {
+            item {
+                Text(
+                    text = "Go to ContributorsScreen",
+                    modifier = Modifier.clickable {
+                        onContributorsClick()
+                    }
+                )
+            }
+            item {
+                TimetableFilter(
+                    enabled = uiState.filterEnabled,
+                    isChecked = uiState.filterIsChecked,
+                    onFilterClick = onFilterClick
+                )
+            }
+            timetableContent(
+                timetableContentUiState = uiState.contentUiState,
+                onFavoriteClick = onFavoriteClick,
+            )
+        }
+    }
 }
