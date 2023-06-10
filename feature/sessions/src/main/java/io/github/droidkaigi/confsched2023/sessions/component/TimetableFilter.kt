@@ -8,7 +8,6 @@ import androidx.compose.ui.platform.testTag
 
 const val TimetableFilterTestTag = "TimetableFilter"
 
-
 @Composable
 fun TimetableFilter(
     enabled: Boolean,

@@ -143,7 +143,7 @@ Testing an app involves balancing fidelity, how closely the test resembles actua
 Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
 We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
-#### Balancing Screenshot Tests and Assertion Tests
+### What to test: Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
 So, for important features, we should add assertion tests to these parts. The tests will typically look like this:
 
@@ -193,7 +193,7 @@ class TimetableScreenTest {
 }
 ```
 
-#### The Companion Branch Approach
+### The Companion Branch Approach
 
 We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.
 
