@@ -35,7 +35,7 @@ class TimetableScreenTest {
     fun checkLaunchShot() {
         timetableScreenRobot(robotTestRule) {
             setupTimetableScreenContent()
-            checkCaptureScreen()
+            checkScreenCapture()
         }
     }
 
@@ -54,9 +54,9 @@ class TimetableScreenTest {
         timetableScreenRobot(robotTestRule) {
             setupTimetableScreenContent()
             clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
+            checkTimetableListCapture()
             clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
+            checkTimetableListCapture()
         }
     }
 
@@ -66,11 +66,11 @@ class TimetableScreenTest {
         timetableScreenRobot(robotTestRule) {
             setupTimetableScreenContent()
             clickFilter()
-            checkCaptureTimetableContent()
+            checkTimetableListCapture()
             clickFilter()
             clickFirstSessionFavorite()
             clickFilter()
-            checkCaptureTimetableContent()
+            checkTimetableListCapture()
         }
     }
 }

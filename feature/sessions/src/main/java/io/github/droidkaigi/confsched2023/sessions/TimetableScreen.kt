@@ -19,7 +19,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiSta
 import io.github.droidkaigi.confsched2023.sessions.section.timetableContent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
-const val TimetableScreenListTestTag = "TimetableScreenList"
+const val TimetableScreenTestTag = "TimetableScreen"
 
 @Composable
 fun TimetableScreen(
@@ -66,7 +66,7 @@ private fun TimetableScreen(
         LazyColumn(
             Modifier
                 .padding(innerPadding)
-                .testTag(TimetableScreenListTestTag)
+                .testTag(TimetableScreenTestTag)
         ) {
             item {
                 Text(

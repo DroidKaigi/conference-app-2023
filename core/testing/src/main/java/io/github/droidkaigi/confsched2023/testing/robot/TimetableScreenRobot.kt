@@ -9,8 +9,9 @@ import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
+import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class TimetableScreenRobot @Inject constructor() {
 
     fun clickFilter() {
         composeTestRule
-            .onAllNodes(hasTestTag(TimetableContentTestTag))
+            .onAllNodes(hasTestTag(TimetableFilterTestTag))
             .onFirst()
             .performClick()
     }
@@ -54,15 +55,15 @@ class TimetableScreenRobot @Inject constructor() {
             .assertIsDisplayed()
     }
 
-    fun checkCaptureScreen() {
+    fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())
             .captureRoboImage()
     }
 
-    fun checkCaptureTimetableContent() {
+    fun checkTimetableListCapture() {
         composeTestRule
-            .onNode(hasTestTag(TimetableContentTestTag))
+            .onNode(hasTestTag(TimetableScreenTestTag))
             .captureRoboImage()
     }
 }
