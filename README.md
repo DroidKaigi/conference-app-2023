@@ -16,8 +16,7 @@ Screen and Section are managed with UiState to handle their individual states, w
 ```kotlin
 data class TimetableScreenUiState(
     val contentUiState: TimetableContentUiState,
-    val filterEnabled: Boolean,
-    val filterIsChecked: Boolean,
+    val isFavoriteFilterChecked: Boolean,
 )
 
 @Composable
