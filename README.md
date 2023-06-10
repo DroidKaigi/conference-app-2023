@@ -4,6 +4,40 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 # UI
 
+## Composable Function Categorization
+
+Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
+
+### Screen
+
+`Screen` refers to an entire screen within your application, typically encapsulating a full user interaction.
+Screen and Section are managed with UiState to handle their individual states, which are created by the ViewModel.
+
+```kotlin
+data class TimetableScreenUiState(
+    val contentUiState: TimetableContentUiState,
+    val isFavoriteFilterChecked: Boolean,
+)
+
+@Composable
+private fun TimetableScreen(
+    uiState: TimetableScreenUiState,
+    ...
+)
+```
+
+### Section
+
+`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `TimetableList`.
+
+### Component
+
+`Component` refers to the more granular units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableListItem` and `TimeText`.
+
+Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
+
+A Component should not have its own UiState as it could make things overly complicated.
+
 ## Advanced Multilanguage System with Kotlin Multiplatform
 
 Our application leverages Kotlin Multiplatform to create a flexible and type-safe system for handling multiple languages. This system exhibits the following key characteristics:
@@ -64,7 +98,7 @@ This project runs on GitHub Actions. This year's workflows contain new challenge
 
 This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
 
-This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Archtecture > Composable Function Categorization > Testing](#testing) for the visual testing).
+This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
 
 ## WIP - Automatic dependency updates
 
@@ -100,24 +134,6 @@ private val filterUiState: StateFlow<FilterUiState> = buildUiState(
 
 The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
-## Composable Function Categorization
-
-Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
-
-### Screen
-
-`Screen` refers to an entire screen within your application, typically encapsulating a full user interaction.
-
-### Section
-
-`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `TimetableList`.
-
-### Component
-
-`Component` refers to the more granular units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableListItem` and `TimeText`.
-
-Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
-
 ## Testing
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
@@ -127,7 +143,7 @@ Testing an app involves balancing fidelity, how closely the test resembles actua
 Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
 We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
-#### Balancing Screenshot Tests and Assertion Tests
+### What to test: Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
 So, for important features, we should add assertion tests to these parts. The tests will typically look like this:
 
@@ -177,7 +193,7 @@ class TimetableScreenTest {
 }
 ```
 
-#### The Companion Branch Approach
+### The Companion Branch Approach
 
 We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.
 
