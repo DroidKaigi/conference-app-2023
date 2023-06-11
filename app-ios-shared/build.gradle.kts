@@ -16,10 +16,15 @@ kotlin {
             it.binaries {
                 framework {
                     baseName = frameworkName
+                    // compose for iOS(skiko) needs to be static library
+                    isStatic = true
                     embedBitcode(BitcodeEmbeddingMode.DISABLE)
                     binaryOption("bundleId", "io.github.droidkaigi.confsched2023.shared")
                     binaryOption("bundleVersion", version.toString())
+                    binaryOption("bundleShortVersionString", version.toString())
                     xcf.add(this)
+
+                    export(projects.feature.contributors)
                 }
             }
         }
@@ -43,6 +48,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(projects.core.model)
+                api(projects.feature.contributors)
                 implementation(libs.kotlinxCoroutinesCore)
             }
         }

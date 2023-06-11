@@ -2,6 +2,11 @@
 
 source "https://rubygems.org"
 
+repo_root = `git rev-parse --show-toplevel`.chop
+File.open("#{repo_root}/.ruby-version", "r") do |f|
+    ruby f.read.strip
+end
+
 gem 'fastlane', '2.213.0'
 gem 'danger', '9.3.0'
 gem 'danger-swiftlint', '0.33.0'

@@ -1,18 +1,12 @@
 package io.github.droidkaigi.confsched2023
 
-import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.isRoot
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onFirst
-import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
-import com.github.takahirom.roborazzi.captureRoboImage
 import dagger.hilt.android.testing.HiltAndroidTest
-import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
+import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import io.github.droidkaigi.confsched2023.testing.robot.TimetableScreenRobot
 import javax.inject.Inject
 import org.junit.Rule
 import org.junit.Test
@@ -27,80 +21,56 @@ import org.robolectric.annotation.GraphicsMode
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
-@Category(ScreenshotTests::class)
 class TimetableScreenTest {
 
     @get:Rule
-    val robotTestRule = RobotTestRule(this)
+    val robotTestRule = RobotTestRule<HiltTestActivity>(this)
 
     @Inject
     lateinit var timetableScreenRobot: TimetableScreenRobot
 
+    // A screenshot test
     @Test
-    fun canLaunch() {
+    @Category(ScreenshotTests::class)
+    fun checkLaunchShot() {
         timetableScreenRobot(robotTestRule) {
-            capture()
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    // An assertion test for an important feature
+    @Test
+    fun checkLaunch() {
+        timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
+            checkTimetableItemsDisplayed()
         }
     }
 
     @Test
-    fun canFavorite() {
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteToggleShot() {
         timetableScreenRobot(robotTestRule) {
-            capture()
+            setupTimetableScreenContent()
             clickFirstSessionFavorite()
-            capture()
+            checkTimetableListCapture()
             clickFirstSessionFavorite()
-            capture()
+            checkTimetableListCapture()
         }
     }
 
     @Test
-    fun canFavoriteFilter() {
+    @Category(ScreenshotTests::class)
+    fun checkFavoriteFilterToggleShot() {
         timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
             clickFilter()
-            capture()
+            checkTimetableListCapture()
             clickFilter()
             clickFirstSessionFavorite()
             clickFilter()
-            capture()
+            checkTimetableListCapture()
         }
-    }
-}
-
-class TimetableScreenRobot @Inject constructor() {
-
-    private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
-    operator fun invoke(
-        robotTestRule: RobotTestRule,
-        block: TimetableScreenRobot.() -> Unit
-    ) {
-        this.composeTestRule = robotTestRule.composeTestRule
-        composeTestRule.setContent {
-            TimetableScreen(
-                onContributorsClick = { }
-            )
-        }
-        block()
-    }
-
-    fun clickFirstSessionFavorite() {
-        composeTestRule
-            .onAllNodes(hasText("☆"))
-            .onFirst()
-            .performClick()
-    }
-
-    fun clickFilter() {
-        composeTestRule
-            .onAllNodes(hasTestTag("Filter"))
-            .onFirst()
-            .performClick()
-    }
-
-    fun capture() {
-        // ③ Capture Robolectric image
-        composeTestRule
-            .onNode(isRoot())
-            .captureRoboImage()
     }
 }

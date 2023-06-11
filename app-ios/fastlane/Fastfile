@@ -1,0 +1,92 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  before_all do |lane, options|
+    setup_ci if is_ci?
+  end
+
+  derived_data_path = "build/DerivedData"
+  workspace = "app-ios.xcworkspace"
+  scheme = "DroidKaigi2023"
+  project = "App/DroidKaigi2023/DroidKaigi2023.xcodeproj"
+
+  desc "returns project root dir"
+  lane :root_dir do
+    sh("git rev-parse --show-toplevel").strip
+  end
+
+  desc "clean project"
+  lane :clean_project do
+    xcodebuild(
+      clean: true,
+      alltargets: true,
+      project: project
+    )
+    sh("rm -rf #{root_dir}/app-ios/build")
+    sh("rm -rf ~/Library/Developer/Xcode/DerivedData/#{scheme}-*")
+  end
+
+  desc "clean spm"
+  lane :clean_spm do
+    sh("rm -rf ~/Library/Caches/org.swift.swiftpm")
+    sh("rm -rf ~/Library/org.swift.swiftpm")
+  end
+
+  desc "clean gradle"
+  lane :clean_gradle do
+    Dir.chdir(root_dir) do
+      sh("./gradlew clean")
+    end
+  end
+
+  desc "clean"
+  lane :clean do
+    clean_project
+    clean_spm
+    clean_gradle
+  end
+
+  desc "update Package.resolved"
+  lane :resolved_package do
+    xcodebuild(
+      xcargs: "-resolvePackageDependencies",
+      workspace: workspace,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
+    )
+  end
+
+  desc "build KMM XCFramework by gradle"
+  lane :shared do
+    Dir.chdir(root_dir) do
+      sh("./gradlew :app-ios-shared:assembleSharedReleaseXCFramework")
+    end
+  end
+
+  desc "run test"
+  lane :test do
+    shared
+    scan(
+      workspace: workspace,
+      scheme: scheme,
+      skip_build: true,
+      derived_data_path: derived_data_path,
+      devices: ["iPhone 14 Pro"]
+    )
+  end
+end

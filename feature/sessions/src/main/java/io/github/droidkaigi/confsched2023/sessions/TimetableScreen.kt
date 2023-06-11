@@ -11,13 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilter
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterUiState
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableSessionListUiState
-import io.github.droidkaigi.confsched2023.sessions.section.timetableItemListSection
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.timetableContent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+
+const val TimetableScreenTestTag = "TimetableScreen"
 
 @Composable
 fun TimetableScreen(
@@ -41,8 +43,9 @@ fun TimetableScreen(
 }
 
 data class TimetableScreenUiState(
-    val timetableSessionListUiState: TimetableSessionListUiState,
-    val timetableFilterUiState: TimetableFilterUiState,
+    val contentUiState: TimetableContentUiState,
+    val filterEnabled: Boolean,
+    val filterIsChecked: Boolean,
 )
 
 @Composable
@@ -60,7 +63,11 @@ private fun TimetableScreen(
             )
         }
     ) { innerPadding ->
-        LazyColumn(Modifier.padding(innerPadding)) {
+        LazyColumn(
+            Modifier
+                .padding(innerPadding)
+                .testTag(TimetableScreenTestTag)
+        ) {
             item {
                 Text(
                     text = "Go to ContributorsScreen",
@@ -71,16 +78,14 @@ private fun TimetableScreen(
             }
             item {
                 TimetableFilter(
-                    timetableFilterUiState = uiState.timetableFilterUiState,
+                    enabled = uiState.filterEnabled,
+                    isChecked = uiState.filterIsChecked,
                     onFilterClick = onFilterClick
                 )
             }
-
-            timetableItemListSection(
-                uiState = uiState,
-                onFavoriteClick = {
-                    onFavoriteClick(it)
-                }
+            timetableContent(
+                timetableContentUiState = uiState.contentUiState,
+                onFavoriteClick = onFavoriteClick,
             )
         }
     }

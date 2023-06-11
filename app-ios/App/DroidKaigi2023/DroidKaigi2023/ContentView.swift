@@ -8,6 +8,16 @@
 import SwiftUI
 import shared
 
+struct ComposeView: UIViewControllerRepresentable {
+    func makeUIViewController(context: Context) -> UIViewController {
+        let vc = DarwinContributorsKt.viewController()
+        vc.overrideUserInterfaceStyle = .light
+        return vc
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+}
+
 struct ContentView: View {
     var body: some View {
         VStack {
@@ -16,6 +26,7 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
             Text(EntryPoint().echo())
+            ComposeView()
         }
         .padding()
     }
