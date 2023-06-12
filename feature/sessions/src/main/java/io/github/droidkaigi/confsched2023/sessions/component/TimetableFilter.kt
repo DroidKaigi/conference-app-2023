@@ -20,6 +20,6 @@ fun TimetableFilter(
             .testTag(TimetableFilterTestTag)
             .clickable {
                 onFilterClick()
-            }
+            },
     )
 }

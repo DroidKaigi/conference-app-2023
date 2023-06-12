@@ -20,7 +20,7 @@ fun TimetableListItem(
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier.testTag(TimetableListItemTestTag)
+        modifier.testTag(TimetableListItemTestTag),
     ) {
         Text(session.title.currentLangTitle)
         if (session is Session) {
@@ -29,14 +29,14 @@ fun TimetableListItem(
                     text = "★",
                     modifier = Modifier.clickable {
                         onFavoriteClick(session)
-                    }
+                    },
                 )
             } else {
                 Text(
                     text = "☆",
                     modifier = Modifier.clickable {
                         onFavoriteClick(session)
-                    }
+                    },
                 )
             }
         }

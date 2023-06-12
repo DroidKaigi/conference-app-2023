@@ -13,12 +13,12 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class TimetableScreenViewModel @Inject constructor(
@@ -35,38 +35,38 @@ class TimetableScreenViewModel @Inject constructor(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),
-            initialValue = Timetable()
+            initialValue = Timetable(),
         )
     private val filtersStateFlow = MutableStateFlow(Filters())
 
     private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildUiState(
         sessionsStateFlow,
-        filtersStateFlow
+        filtersStateFlow,
     ) { sessionTimetable, filters ->
         if (sessionTimetable.timetableItems.isEmpty()) {
             return@buildUiState TimetableContentUiState.Empty
         }
         TimetableContentUiState.ListTimetable(
             TimetableListUiState(
-                timetable = sessionTimetable.filtered(filters)
-            )
+                timetable = sessionTimetable.filtered(filters),
+            ),
         )
     }
 
     val uiState: StateFlow<TimetableScreenUiState> = buildUiState(
         filtersStateFlow,
-        timetableContentUiState
+        timetableContentUiState,
     ) { filterUiState, sessionListUiState ->
         TimetableScreenUiState(
             contentUiState = sessionListUiState,
             filterEnabled = sessionListUiState is TimetableContentUiState.ListTimetable,
-            filterIsChecked = filterUiState.filterFavorite
+            filterIsChecked = filterUiState.filterFavorite,
         )
     }
 
     fun onFavoriteFilterClick() {
         filtersStateFlow.value = filtersStateFlow.value.copy(
-            filterFavorite = !filtersStateFlow.value.filterFavorite
+            filterFavorite = !filtersStateFlow.value.filterFavorite,
         )
     }
 

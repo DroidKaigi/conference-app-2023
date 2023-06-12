@@ -15,7 +15,7 @@ inline fun <reified A : ComponentActivity>RobotTestRule(testInstance: Any): Robo
 }
 class RobotTestRule<T : ComponentActivity>(
     private val testInstance: Any,
-    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<T>, T>
+    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<T>, T>,
 ) : TestRule {
 
     override fun apply(base: Statement, description: Description): Statement {

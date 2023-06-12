@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2023.designsystem.strings
 
 abstract class StringsBindings<T : Strings<T>>(
     vararg mapPairs: Pair<String, (T, StringsBindings<T>) -> String>,
-    val default: String
+    val default: String,
 ) {
     private val localeMap: Map<String, (T, StringsBindings<T>) -> String> = mapOf(*mapPairs)
     val defaultBinding: (T, StringsBindings<T>) -> String = requireNotNull(localeMap[default])
@@ -24,7 +24,7 @@ fun lang(): String {
 }
 
 abstract class Strings<T : Strings<T>>(
-    private val bindings: StringsBindings<T>
+    private val bindings: StringsBindings<T>,
 ) {
     fun asString(): String {
         return bindings.getString(this)

@@ -9,7 +9,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiSta
 sealed interface TimetableContentUiState {
     object Empty : TimetableContentUiState
     data class ListTimetable(
-        val timetableListUiState: TimetableListUiState
+        val timetableListUiState: TimetableListUiState,
     ) : TimetableContentUiState
 }
 

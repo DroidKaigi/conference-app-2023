@@ -14,6 +14,6 @@ sealed class AppStrings : Strings<AppStrings>(Bindings) {
                 Retry -> "Retry"
             }
         },
-        default = Lang.Japanese
+        default = Lang.Japanese,
     )
 }
