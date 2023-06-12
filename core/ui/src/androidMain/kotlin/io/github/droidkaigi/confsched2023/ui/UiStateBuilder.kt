@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.stateIn
 
 fun <T1, R> ViewModel.buildUiState(
     flow: StateFlow<T1>,
-    transform: (T1) -> R
+    transform: (T1) -> R,
 ): StateFlow<R> = flow.map(transform = transform)
     .stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = transform(
-            flow.value
-        )
+            flow.value,
+        ),
     )
 
 fun <T1, T2, R> ViewModel.buildUiState(
@@ -27,13 +27,14 @@ fun <T1, T2, R> ViewModel.buildUiState(
 ): StateFlow<R> = combine(
     flow = flow,
     flow2 = flow2,
-    transform = transform
+    transform = transform,
 ).stateIn(
     scope = viewModelScope,
     started = SharingStarted.WhileSubscribed(5_000),
     initialValue = transform(
-        flow.value, flow2.value
-    )
+        flow.value,
+        flow2.value,
+    ),
 )
 
 fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
@@ -47,11 +48,14 @@ fun <T1, T2, T3, T4, R> ViewModel.buildUiState(
     flow2 = flow2,
     flow3 = flow3,
     flow4 = flow4,
-    transform = transform
+    transform = transform,
 ).stateIn(
     scope = viewModelScope,
     started = SharingStarted.WhileSubscribed(5_000),
     initialValue = transform(
-        flow.value, flow2.value, flow3.value, flow4.value
-    )
+        flow.value,
+        flow2.value,
+        flow3.value,
+        flow4.value,
+    ),
 )

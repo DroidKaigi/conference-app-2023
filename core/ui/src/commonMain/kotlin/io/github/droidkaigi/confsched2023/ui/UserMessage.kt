@@ -14,10 +14,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import java.util.UUID
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import java.util.UUID
 
 /**
  * SnackbarMessageEffect shows a snackbar message when a [UserMessage] is emitted by [userMessageStateHolder].
@@ -25,20 +25,20 @@ import kotlinx.coroutines.flow.map
 @Composable
 fun SnackbarMessageEffect(
     snackbarHostState: SnackbarHostState,
-    userMessageStateHolder: UserMessageStateHolder
+    userMessageStateHolder: UserMessageStateHolder,
 ) {
     userMessageStateHolder.messageUiState.userMessages.firstOrNull()?.let { userMessage ->
         LaunchedEffect(userMessage) {
             val snackbarResult: SnackbarResult = snackbarHostState.showSnackbar(
                 message = userMessage.message,
-                actionLabel = userMessage.actionLabel
+                actionLabel = userMessage.actionLabel,
             )
             userMessageStateHolder.messageShown(
                 messageId = userMessage.id,
                 userMessageResult = when (snackbarResult) {
                     Dismissed -> UserMessageResult.Dismissed
                     ActionPerformed -> UserMessageResult.ActionPerformed
-                }
+                },
             )
         }
     }
@@ -52,7 +52,7 @@ data class UserMessage(
 )
 
 data class MessageUiState(
-    val userMessages: List<UserMessage> = emptyList()
+    val userMessages: List<UserMessage> = emptyList(),
 )
 
 @Module
@@ -73,7 +73,7 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
             if (userMessageIndex == -1) return@let
             messages.set(
                 userMessageIndex,
-                messages[userMessageIndex].copy(userMessageResult = userMessageResult)
+                messages[userMessageIndex].copy(userMessageResult = userMessageResult),
             )
         }
         _messageUiState = _messageUiState.copy(userMessages = messages)
@@ -97,7 +97,7 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
                     checkNotNull(messageState.userMessages.find { it.id == newMessage.id })
                 checkNotNull(
                     userMessage
-                        .userMessageResult
+                        .userMessageResult,
                 )
             }
             .first()

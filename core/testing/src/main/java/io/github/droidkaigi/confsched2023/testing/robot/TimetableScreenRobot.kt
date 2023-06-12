@@ -20,7 +20,7 @@ class TimetableScreenRobot @Inject constructor() {
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         robotTestRule: RobotTestRule<*>,
-        block: TimetableScreenRobot.() -> Unit
+        block: TimetableScreenRobot.() -> Unit,
     ) {
         this.composeTestRule = robotTestRule.composeTestRule
         block()
@@ -29,7 +29,7 @@ class TimetableScreenRobot @Inject constructor() {
     fun setupTimetableScreenContent() {
         composeTestRule.setContent {
             TimetableScreen(
-                onContributorsClick = { }
+                onContributorsClick = { },
             )
         }
     }

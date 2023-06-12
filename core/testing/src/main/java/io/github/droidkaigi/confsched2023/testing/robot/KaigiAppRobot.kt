@@ -11,10 +11,11 @@ import javax.inject.Inject
 class KaigiAppRobot @Inject constructor() {
 
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
+
     @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
     operator fun invoke(
         composeTestRule: RobotTestRule<*>,
-        block: KaigiAppRobot.() -> Unit
+        block: KaigiAppRobot.() -> Unit,
     ) {
         this.composeTestRule = composeTestRule.composeTestRule
         block()
