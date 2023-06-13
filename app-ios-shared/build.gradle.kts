@@ -25,6 +25,8 @@ kotlin {
                     xcf.add(this)
 
                     export(projects.feature.contributors)
+                    export(projects.core.model)
+                    export(projects.core.data)
                 }
             }
         }
@@ -47,7 +49,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(projects.core.model)
+                api(projects.core.model)
+                api(projects.core.data)
                 api(projects.feature.contributors)
                 implementation(libs.kotlinxCoroutinesCore)
             }
