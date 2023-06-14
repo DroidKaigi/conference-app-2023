@@ -1,3 +1,6 @@
+import io.github.droidkaigi.confsched2023.primitive.implementation
+import io.github.droidkaigi.confsched2023.primitive.libs
+
 plugins {
     id("droidkaigi.primitive.kmp")
     id("droidkaigi.primitive.kmp.android")
@@ -8,6 +11,17 @@ plugins {
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                // Fix https://youtrack.jetbrains.com/issue/KT-41821
+                implementation(libs.findLibrary("kotlinxAtomicfu").get())
+            }
+        }
+    }
+}
 
 dependencies {
 }
