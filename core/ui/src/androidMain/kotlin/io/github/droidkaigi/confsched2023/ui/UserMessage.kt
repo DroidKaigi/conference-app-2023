@@ -10,10 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -54,16 +50,6 @@ data class UserMessage(
 data class MessageUiState(
     val userMessages: List<UserMessage> = emptyList(),
 )
-
-@Module
-@InstallIn(SingletonComponent::class)
-class MessageStateHolderModule {
-    @Provides
-    fun provideMessageStateHolder(): UserMessageStateHolder {
-        return UserMessageStateHolderImpl()
-    }
-}
-
 class UserMessageStateHolderImpl : UserMessageStateHolder {
     private var _messageUiState by mutableStateOf(MessageUiState())
     override val messageUiState get() = _messageUiState
