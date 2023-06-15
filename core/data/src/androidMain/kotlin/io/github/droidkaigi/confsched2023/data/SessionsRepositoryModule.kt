@@ -10,7 +10,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @Module
@@ -19,12 +18,13 @@ class SessionsRepositoryModule {
     @Provides
     fun provideSessionsRepository(
         sessionsApi: SessionsApi,
-        dataStore: DataStore<Preferences>
+        dataStore: DataStore<Preferences>,
+        @DefaultCoroutineScope defaultCoroutineScope: CoroutineScope,
     ): SessionsRepository {
         return DefaultSessionsRepository(
             sessionsApi = sessionsApi,
             dataStore = dataStore,
-            coroutineScope = CoroutineScope(Dispatchers.IO)
+            coroutineScope = defaultCoroutineScope
         )
     }
 
@@ -32,8 +32,9 @@ class SessionsRepositoryModule {
     @Singleton
     fun provideDataStore(
         @ApplicationContext context: Context,
+        @DefaultCoroutineScope defaultCoroutineScope: CoroutineScope
     ): DataStore<Preferences> = createDataStore(
-        coroutineScope = CoroutineScope(Dispatchers.IO),
+        coroutineScope = defaultCoroutineScope,
         producePath = { context.filesDir.resolve(dataStoreFileName).absolutePath }
     )
 }
