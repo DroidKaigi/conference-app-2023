@@ -31,7 +31,7 @@ fun TimetableScreen(
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
-        userMessageStateHolder = viewModel.userMessageStateHolder
+        userMessageStateHolder = viewModel.userMessageStateHolder,
     )
     TimetableScreen(
         uiState = uiState,
@@ -59,28 +59,28 @@ private fun TimetableScreen(
     Scaffold(
         snackbarHost = {
             SnackbarHost(
-                hostState = snackbarHostState
+                hostState = snackbarHostState,
             )
-        }
+        },
     ) { innerPadding ->
         LazyColumn(
             Modifier
                 .padding(innerPadding)
-                .testTag(TimetableScreenTestTag)
+                .testTag(TimetableScreenTestTag),
         ) {
             item {
                 Text(
                     text = "Go to ContributorsScreen",
                     modifier = Modifier.clickable {
                         onContributorsClick()
-                    }
+                    },
                 )
             }
             item {
                 TimetableFilter(
                     enabled = uiState.filterEnabled,
                     isChecked = uiState.filterIsChecked,
-                    onFilterClick = onFilterClick
+                    onFilterClick = onFilterClick,
                 )
             }
             timetableContent(

@@ -1,6 +1,7 @@
 plugins {
     id("droidkaigi.primitive.kmp")
     id("droidkaigi.primitive.kmp.android")
+    id("droidkaigi.primitive.kmp.ios")
     id("droidkaigi.primitive.kmp.compose")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
@@ -13,6 +14,8 @@ kotlin{
         commonMain {
             dependencies {
                 implementation(project(":core:designsystem"))
+                implementation(project(":core:data"))
+                api(project(":core:common"))
             }
         }
     }

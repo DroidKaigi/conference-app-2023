@@ -10,7 +10,7 @@ data class TimetableListUiState(val timetable: Timetable)
 
 fun LazyListScope.timetableList(
     uiState: TimetableListUiState,
-    onFavoriteClick: (Session) -> Unit
+    onFavoriteClick: (Session) -> Unit,
 ) {
     items(uiState.timetable.timetableItems) { session ->
         TimetableListItem(session, uiState, onFavoriteClick)

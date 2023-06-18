@@ -24,6 +24,6 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 is Time -> "${item.hours}:${item.minutes}"
             }
         },
-        default = Lang.Japanese
+        default = Lang.Japanese,
     )
 }

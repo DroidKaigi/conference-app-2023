@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 private val DarkColorPalette = darkColorScheme(
     primary = Purple200,
     secondary = Purple700,
-    tertiary = Teal200
+    tertiary = Teal200,
 )
 
 private val LightColorPalette = lightColorScheme(
     primary = Purple500,
     secondary = Purple700,
-    tertiary = Teal200
+    tertiary = Teal200,
 
     /* Other default colors to override
       background = Color.White,
@@ -24,13 +24,13 @@ private val LightColorPalette = lightColorScheme(
       onSecondary = Color.Black,
       onBackground = Color.Black,
       onSurface = Color.Black,
-      */
+     */
 )
 
 @Composable
 fun KaigiTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) {
         DarkColorPalette
@@ -42,6 +42,6 @@ fun KaigiTheme(
         colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
-        content = content
+        content = content,
     )
 }
