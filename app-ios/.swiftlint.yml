@@ -1,0 +1,18 @@
+disabled_rules:
+  - line_length
+  - type_name
+  - trailing_comma
+
+opt_in_rules:
+  - file_header
+  - sorted_imports
+
+excluded:
+  - .build
+
+identifier_name:
+  min_length: 2
+
+file_header:
+  severity: warning
+  forbidden_pattern: ^(?!// Workaround:)
