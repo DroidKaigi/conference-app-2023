@@ -19,12 +19,12 @@ class SessionsRepositoryModule {
     fun provideSessionsRepository(
         sessionsApi: SessionsApi,
         dataStore: DataStore<Preferences>,
-        @DefaultCoroutineScope defaultCoroutineScope: CoroutineScope,
+        @IoCoroutineScope ioCoroutineScope: CoroutineScope,
     ): SessionsRepository {
         return DefaultSessionsRepository(
             sessionsApi = sessionsApi,
             dataStore = dataStore,
-            coroutineScope = defaultCoroutineScope
+            coroutineScope = ioCoroutineScope
         )
     }
 
@@ -32,9 +32,9 @@ class SessionsRepositoryModule {
     @Singleton
     fun provideDataStore(
         @ApplicationContext context: Context,
-        @DefaultCoroutineScope defaultCoroutineScope: CoroutineScope
+        @IoCoroutineScope ioCoroutineScope: CoroutineScope,
     ): DataStore<Preferences> = createDataStore(
-        coroutineScope = defaultCoroutineScope,
+        coroutineScope = ioCoroutineScope,
         producePath = { context.filesDir.resolve(dataStoreFileName).absolutePath }
     )
 }
