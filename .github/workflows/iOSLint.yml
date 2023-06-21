@@ -1,0 +1,21 @@
+name: iOS Lint
+
+on:
+  pull_request:
+    paths:
+      - 'app-ios/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/realm/swiftlint:0.52.2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          fetch-depth: 1
+
+      - name: SwiftLint
+        run: swiftlint lint --reporter github-actions-logging app-ios
