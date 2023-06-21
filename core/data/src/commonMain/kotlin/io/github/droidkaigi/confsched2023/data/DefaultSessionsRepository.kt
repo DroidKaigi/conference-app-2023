@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.collections.immutable.PersistentSet
-import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -50,17 +50,14 @@ class DefaultSessionsRepository(
                 }
             }
             .map { preferences ->
-                val favoriteIds = preferences[KEY_FAVORITE_SESSION_IDS] ?: ""
-                persistentSetOf<TimetableItemId>().apply {
-                    favoriteIds.split(",").forEach { id ->
-                        add(TimetableItemId(id))
-                    }
-                }
+                (preferences[KEY_FAVORITE_SESSION_IDS]?.split(",") ?: listOf())
+                    .map { TimetableItemId(it) }
+                    .toPersistentSet()
             }
     }
 
     override suspend fun toggleFavorite(id: TimetableItemId) {
-        val updatedFavorites = getFavoriteSessionStream().first()
+        val updatedFavorites = getFavoriteSessionStream().first().toMutableSet()
 
         if (updatedFavorites.contains(id)) {
             updatedFavorites.remove(id)
@@ -69,7 +66,8 @@ class DefaultSessionsRepository(
         }
         coroutineScope.launch {
             dataStore.edit { preferences ->
-                preferences[KEY_FAVORITE_SESSION_IDS] = updatedFavorites.joinToString(",")
+                preferences[KEY_FAVORITE_SESSION_IDS] =
+                    updatedFavorites.joinToString(",") { it.value }
             }
         }
     }
