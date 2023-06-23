@@ -10,7 +10,7 @@ opt_in_rules:
 excluded:
   - .build
   - Modules/.build
-  - Package.swift
+  - Modules/Package.swift
 
 identifier_name:
   min_length: 2
