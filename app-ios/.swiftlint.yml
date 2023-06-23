@@ -14,7 +14,3 @@ excluded:
 
 identifier_name:
   min_length: 2
-
-file_header:
-  severity: warning
-  forbidden_pattern: ^(?!// Workaround:)
