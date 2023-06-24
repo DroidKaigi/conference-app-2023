@@ -6,7 +6,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import io.github.droidkaigi.confsched2023.testing.robot.KaigiAppRobot
-import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -39,7 +38,7 @@ class KaigiAppTest {
     }
 
     @Test
-    fun checkStartup() = runTest {
+    fun checkStartup() {
         kaigiAppRobot(robotTestRule) {
             timetableScreenRobot(robotTestRule) {
                 checkTimetableItemsDisplayed()

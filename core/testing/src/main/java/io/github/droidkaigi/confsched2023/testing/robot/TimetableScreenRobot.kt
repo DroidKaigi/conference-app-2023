@@ -49,10 +49,12 @@ class TimetableScreenRobot @Inject constructor() {
     }
 
     fun checkTimetableItemsDisplayed() {
-        composeTestRule
-            .onAllNodes(hasTestTag(TimetableListItemTestTag))
-            .onFirst()
-            .assertIsDisplayed()
+        composeTestRule.runOnIdle {
+            composeTestRule
+                .onAllNodes(hasTestTag(TimetableListItemTestTag))
+                .onFirst()
+                .assertIsDisplayed()
+        }
     }
 
     fun checkScreenCapture() {
