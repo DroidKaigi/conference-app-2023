@@ -35,8 +35,7 @@ class TimetableScreenRobot @Inject constructor(
                 onContributorsClick = { },
             )
         }
-        composeTestRule.waitForIdle()
-        testDispatcher.scheduler.advanceUntilIdle()
+        waitUntilIdle()
     }
 
     fun clickFirstSessionFavorite() {
@@ -44,6 +43,7 @@ class TimetableScreenRobot @Inject constructor(
             .onAllNodes(hasText("☆"))
             .onFirst()
             .performClick()
+        waitUntilIdle()
     }
 
     fun clickFilter() {
@@ -70,5 +70,10 @@ class TimetableScreenRobot @Inject constructor(
         composeTestRule
             .onNode(hasTestTag(TimetableScreenTestTag))
             .captureRoboImage()
+    }
+
+    fun waitUntilIdle() {
+        composeTestRule.waitForIdle()
+        testDispatcher.scheduler.advanceUntilIdle()
     }
 }

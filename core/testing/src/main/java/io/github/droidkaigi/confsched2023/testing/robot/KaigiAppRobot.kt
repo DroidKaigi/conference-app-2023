@@ -21,8 +21,7 @@ class KaigiAppRobot @Inject constructor(
         block: KaigiAppRobot.() -> Unit,
     ) {
         this.composeTestRule = composeTestRule.composeTestRule
-        this.composeTestRule.waitForIdle()
-        testDispatcher.scheduler.advanceUntilIdle()
+        waitUntilIdle()
         block()
     }
 
@@ -36,5 +35,10 @@ class KaigiAppRobot @Inject constructor(
         composeTestRule
             .onNodeWithText("Go to ContributorsScreen")
             .performClick()
+    }
+
+    fun waitUntilIdle() {
+        composeTestRule.waitForIdle()
+        testDispatcher.scheduler.advanceUntilIdle()
     }
 }
