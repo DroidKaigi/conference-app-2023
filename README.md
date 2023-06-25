@@ -27,14 +27,14 @@ sessions
 
 ### Dependency rule
 
-Basically, the dependency rule is as follows:
+The basic dependency rule is as follows:
 
 ```
 Screen -> Section -> Component
 ```
 
-For example, `TimetableScreen` depends on `TimetableContent` and `TimetableListItem`.
-Also, Section can depend on other Sections and components can depend on other components.
+For example, `TimetableScreen` depends on `TimetableContent` and `TimetableListItem`. 
+Also, a Section can depend on other Sections, and components can depend on other components.
 
 ### Screen
 
@@ -150,13 +150,17 @@ By working with StateFlow objects, the function can also compute initial values,
 Here's an example of using the buildUiState() function:
 
 ```kotlin
-private val filterUiState: StateFlow<FilterUiState> = buildUiState(
+private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildUiState(
     sessionsStateFlow,
-    filtersStateFlow
-) { sessions, filters ->
-    FilterUiState(
-        enabled = sessions.sessions.isNotEmpty(),
-        isChecked = filters.filterFavorites
+    filtersStateFlow,
+) { sessionTimetable, filters ->
+    if (sessionTimetable.timetableItems.isEmpty()) {
+        return@buildUiState TimetableContentUiState.Empty
+    }
+    TimetableContentUiState.ListTimetable(
+        TimetableListUiState(
+            timetable = sessionTimetable.filtered(filters),
+        ),
     )
 }
 ```
@@ -169,7 +173,7 @@ Testing an app involves balancing fidelity, how closely the test resembles actua
 
 ### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
-Robolectric Native Graphics (RNG) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
+[Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
 We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
 ### What to test: Balancing Screenshot Tests and Assertion Tests
