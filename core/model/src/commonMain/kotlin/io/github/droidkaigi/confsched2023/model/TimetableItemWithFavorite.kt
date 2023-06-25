@@ -4,7 +4,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 
 public data class TimetableItemWithFavorite(
     val timetableItem: TimetableItem,
-    val isFavorited: Boolean
+    val isFavorited: Boolean,
 ) {
     public companion object
 }

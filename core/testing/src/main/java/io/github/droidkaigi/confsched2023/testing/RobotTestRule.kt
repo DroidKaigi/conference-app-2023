@@ -21,6 +21,7 @@ class RobotTestRule<T : ComponentActivity>(
     override fun apply(base: Statement, description: Description): Statement {
         return RuleChain
             .outerRule(HiltAndroidAutoInjectRule(testInstance))
+            .around(CoroutinesTestRule())
             .around(composeTestRule)
             .apply(base, description)
     }

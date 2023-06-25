@@ -10,7 +10,7 @@ public enum class Lang(
 ) {
     MIXED("MIXED", backgroundColor = 0xFF7056BB),
     JAPANESE("JA", backgroundColor = 0xFF48A8DA),
-    ENGLISH("EN", backgroundColor = 0xFF6ACA8F);
+    ENGLISH("EN", backgroundColor = 0xFF6ACA8F),
 }
 
 public fun defaultLang(): Lang = if (getDefaultLocale() == Locale.JAPAN) JAPANESE else ENGLISH

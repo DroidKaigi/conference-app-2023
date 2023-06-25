@@ -19,7 +19,7 @@ import kotlinx.serialization.encoding.Encoder
 @OptIn(ExperimentalSerializationApi::class)
 @Serializer(forClass = PersistentList::class)
 public class PersistentListSerializer(
-    private val dataSerializer: KSerializer<String>
+    private val dataSerializer: KSerializer<String>,
 ) :
     KSerializer<PersistentList<String>> {
     public class PersistentListDescriptor : SerialDescriptor by serialDescriptor<List<String>>() {
@@ -40,7 +40,7 @@ public class PersistentListSerializer(
 @OptIn(ExperimentalSerializationApi::class)
 @Serializer(forClass = PersistentSet::class)
 public class PersistentSetSerializer(
-    private val dataSerializer: KSerializer<String>
+    private val dataSerializer: KSerializer<String>,
 ) :
     KSerializer<PersistentSet<String>> {
     public class PersistentSetDescriptor : SerialDescriptor by serialDescriptor<List<String>>() {
@@ -62,7 +62,7 @@ public class PersistentSetSerializer(
 @Serializer(forClass = PersistentMap::class)
 public class PersistentMapSerializer(
     private val data1Serializer: KSerializer<String>,
-    private val data2Serializer: KSerializer<String>
+    private val data2Serializer: KSerializer<String>,
 ) :
     KSerializer<PersistentMap<String, String>> {
     public class PersistentMapDescriptor :

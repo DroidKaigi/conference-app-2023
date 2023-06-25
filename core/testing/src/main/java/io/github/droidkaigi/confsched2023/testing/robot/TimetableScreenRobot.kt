@@ -13,9 +13,12 @@ import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 
-class TimetableScreenRobot @Inject constructor() {
+class TimetableScreenRobot @Inject constructor(
+    private val testDispatcher: TestDispatcher,
+) {
 
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
@@ -32,6 +35,7 @@ class TimetableScreenRobot @Inject constructor() {
                 onContributorsClick = { },
             )
         }
+        waitUntilIdle()
     }
 
     fun clickFirstSessionFavorite() {
@@ -39,6 +43,7 @@ class TimetableScreenRobot @Inject constructor() {
             .onAllNodes(hasText("☆"))
             .onFirst()
             .performClick()
+        waitUntilIdle()
     }
 
     fun clickFilter() {
@@ -65,5 +70,10 @@ class TimetableScreenRobot @Inject constructor() {
         composeTestRule
             .onNode(hasTestTag(TimetableScreenTestTag))
             .captureRoboImage()
+    }
+
+    fun waitUntilIdle() {
+        composeTestRule.waitForIdle()
+        testDispatcher.scheduler.advanceUntilIdle()
     }
 }

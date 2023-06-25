@@ -1,5 +1,5 @@
 @file:UseSerializers(
-    PersistentSetSerializer::class
+    PersistentSetSerializer::class,
 )
 
 package io.github.droidkaigi.confsched2023.model
@@ -65,7 +65,7 @@ public data class Timetable(
             timetableItems = timetableItems.filter { timetableItem ->
                 timetableItem.title.currentLangTitle.contains(
                     filters.searchWord,
-                    ignoreCase = true
+                    ignoreCase = true,
                 )
             }
         }
@@ -117,22 +117,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     "INTERMEDIATE",
                     "ADVANCED",
                 ),
-            )
+            ),
         )
         (-1..1).forEach { day ->
             (0..20).forEach { index ->
                 val dayOffset = day * 24 * 60 * 60
                 val start = Instant.fromEpochSeconds(
                     LocalDateTime.parse("2022-10-06T10:10:00")
-                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(
-                    TimeZone.of("UTC+9")
+                    TimeZone.of("UTC+9"),
                 )
                 val end = Instant.fromEpochSeconds(
                     LocalDateTime.parse("2022-10-06T10:50:00")
-                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(
-                    TimeZone.of("UTC+9")
+                    TimeZone.of("UTC+9"),
                 )
 
                 val fake = Session.fake()
@@ -142,14 +142,14 @@ public fun Timetable.Companion.fake(): Timetable {
                             id = TimetableItemId("$day$index"),
                             title = MultiLangText(
                                 jaTitle = "${fake.title.jaTitle} $day $index",
-                                enTitle = "${fake.title.enTitle} $day $index"
+                                enTitle = "${fake.title.enTitle} $day $index",
                             ),
                             room = roomsIterator.next(),
                             startsAt = start
                                 .toInstant(TimeZone.of("UTC+9")),
                             endsAt = end
                                 .toInstant(TimeZone.of("UTC+9")),
-                        )
+                        ),
                 )
             }
         }
@@ -177,13 +177,13 @@ public fun Timetable.Companion.fake(): Timetable {
                     "INTERMEDIATE",
                     "ADVANCED",
                 ),
-            )
+            ),
         )
     }
     return Timetable(
         timetableItems = TimetableItemList(
-            timetableItems.toPersistentList()
+            timetableItems.toPersistentList(),
         ),
-        favorites = persistentSetOf()
+        favorites = persistentSetOf(),
     )
 }
