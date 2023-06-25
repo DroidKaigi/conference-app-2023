@@ -25,6 +25,17 @@ sessions
         └── TimetableList
 ```
 
+### Dependency rule
+
+Basically, the dependency rule is as follows:
+
+```
+Screen -> Section -> Component
+```
+
+For example, `TimetableScreen` depends on `TimetableContent` and `TimetableListItem`.
+Also, Section can depend on other Sections and components can depend on other components.
+
 ### Screen
 
 `Screen` refers to an entire screen within your application. 
