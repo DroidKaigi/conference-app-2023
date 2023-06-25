@@ -139,7 +139,7 @@ We continue to use Renovate to update dependencies. [./.github/workflows/Renovat
 
 ## Overview of the architecture
 
-![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c9d8ff0f-0f2e-44a5-9631-c785d1565255)
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
 
 
 ## Single Source of Truth with buildUiState() {}
