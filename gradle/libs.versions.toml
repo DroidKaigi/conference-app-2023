@@ -54,7 +54,7 @@ androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCo
 androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02"}
 androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
-androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-dev01" }
+androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
 javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 
 kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }

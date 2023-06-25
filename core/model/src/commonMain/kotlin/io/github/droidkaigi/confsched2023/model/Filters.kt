@@ -5,5 +5,5 @@ public data class Filters(
     val categories: List<TimetableCategory> = emptyList(),
     val filterFavorite: Boolean = false,
     val filterSession: Boolean = false,
-    val searchWord: String = ""
+    val searchWord: String = "",
 )

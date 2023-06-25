@@ -6,9 +6,12 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 
-class KaigiAppRobot @Inject constructor() {
+class KaigiAppRobot @Inject constructor(
+    private val testDispatcher: TestDispatcher,
+) {
 
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
 
@@ -18,6 +21,8 @@ class KaigiAppRobot @Inject constructor() {
         block: KaigiAppRobot.() -> Unit,
     ) {
         this.composeTestRule = composeTestRule.composeTestRule
+        this.composeTestRule.waitForIdle()
+        testDispatcher.scheduler.advanceUntilIdle()
         block()
     }
 

@@ -94,7 +94,7 @@ public fun Session.Companion.fake(): Session {
         room = TimetableRoom(
             id = 2,
             name = MultiLangText("Room1", "Room2"),
-            sort = 1
+            sort = 1,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(
@@ -111,7 +111,7 @@ public fun Session.Companion.fake(): Session {
                 name = "taka",
                 iconUrl = "https://github.com/takahirom.png",
                 bio = "Likes Android",
-                tagLine = "Android Engineer"
+                tagLine = "Android Engineer",
             ),
             TimetableSpeaker(
                 id = "2",
@@ -124,7 +124,7 @@ public fun Session.Companion.fake(): Session {
         description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。",
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
-            enTitle = "This session has been cancelled due to circumstances."
+            enTitle = "This session has been cancelled due to circumstances.",
         ),
         levels = listOf(
             "INTERMEDIATE",

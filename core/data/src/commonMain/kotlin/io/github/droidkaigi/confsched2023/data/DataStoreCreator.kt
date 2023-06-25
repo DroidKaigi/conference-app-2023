@@ -8,12 +8,10 @@ import okio.Path.Companion.toPath
 
 fun createDataStore(
     coroutineScope: CoroutineScope,
-    producePath: () -> String
+    producePath: () -> String,
 ): DataStore<Preferences> = PreferenceDataStoreFactory.createWithPath(
     corruptionHandler = null,
     migrations = emptyList(),
     scope = coroutineScope,
     produceFile = { producePath().toPath() },
 )
-
-internal const val dataStoreFileName = "confsched2023.preferences_pb"

@@ -18,7 +18,7 @@ public data class TimetableItemList(
         return TimetableItemList(
             timetableItems.filter {
                 it.startsAt in day.start..day.end
-            }.toPersistentList()
+            }.toPersistentList(),
         )
     }
 }

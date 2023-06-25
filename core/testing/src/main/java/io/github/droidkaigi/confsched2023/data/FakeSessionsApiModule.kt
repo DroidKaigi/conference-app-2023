@@ -4,6 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import io.github.droidkaigi.confsched2023.data.session.FakeSessionsApi
+import io.github.droidkaigi.confsched2023.data.session.SessionsApi
+import io.github.droidkaigi.confsched2023.data.session.SessionsApiModule
 
 @Module
 @TestInstallIn(components = [SingletonComponent::class], replaces = [SessionsApiModule::class])
