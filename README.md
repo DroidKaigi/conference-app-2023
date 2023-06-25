@@ -8,10 +8,28 @@ DroidKaigi 2023 official app is an app for DroidKaigi 2023.
 
 Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
 
+```
+sessions
+├── TimetableScreen.kt
+│    ├── TimetableScreenUiState
+│    └── TimetableScreen
+├── TimetableScreenViewModel.kt
+├── component
+│   └── TimetableListItem.kt
+└── section
+    ├── TimetableContent.kt
+    │   ├── TimetableContentUiState
+    │   └── TimetableContent
+    └── TimetableList.kt
+        ├── TimetableListUiState
+        └── TimetableList
+```
+
 ### Screen
 
-`Screen` refers to an entire screen within your application, typically encapsulating a full user interaction.
-Screen and Section are managed with UiState to handle their individual states, which are created by the ViewModel.
+`Screen` refers to an entire screen within your application. 
+Both Screen and Section are managed with UiState to handle their individual states, which are created by the ViewModel. 
+Typically, each ViewModel is directly linked with a single Screen.
 
 ```kotlin
 data class TimetableScreenUiState(
@@ -28,11 +46,11 @@ private fun TimetableScreen(
 
 ### Section
 
-`Section` refers to reusable, dynamic parts of screens, such as lists, which may change significantly based on the app's growth or content variety. An example could be a `TimetableList`.
+`Section` refers to groups of components within screens, like containers including lists, which can dynamically adjust in size or complexity as the needs of the application change. An example could be a TimetableList.
 
 ### Component
 
-`Component` refers to the more granular units of UI that serve specific roles and are less likely to have dynamic content. Examples include `TimetableListItem` and `TimeText`.
+'Component' refers to the finer units of UI, designed to serve specific roles within the application. While they may not be as dynamic as Sections, they can still vary in their content or appearance to fit the specific needs of the app. Examples include TimetableListItem and TimeText.
 
 Through clear delineation of roles and responsibilities of different composables, this classification assists in enhancing code organization and maintainability.
 
