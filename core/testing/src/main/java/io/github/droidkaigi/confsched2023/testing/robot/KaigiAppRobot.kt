@@ -35,6 +35,7 @@ class KaigiAppRobot @Inject constructor(
         composeTestRule
             .onNodeWithText("Go to ContributorsScreen")
             .performClick()
+        waitUntilIdle()
     }
 
     fun waitUntilIdle() {
