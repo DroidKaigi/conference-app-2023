@@ -16,10 +16,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val MainScreenTestTag = "MainScreen"
@@ -43,6 +45,23 @@ fun MainScreen(
     )
 }
 
+enum class MainScreenTab(
+    val icon: ImageVector,
+    val contentDescription: String,
+    val route: String,
+) {
+    Timetable(
+        icon = Icons.Filled.DateRange,
+        contentDescription = MainStrings.Timetable.asString(),
+        route = "timetable",
+    ),
+    Play(
+        icon = Icons.Filled.PlayArrow,
+        contentDescription = MainStrings.Play.asString(),
+        route = "play",
+    ),
+}
+
 class MainScreenUiState()
 
 @Composable
@@ -56,34 +75,33 @@ private fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomAppBar {
-                IconButton(onClick = {
-                    bottomBarNavController.navigate("timetable")
-                }) {
-                    Icon(
-                        Icons.Filled.DateRange,
-                        contentDescription = "",
-                        tint = Color.White,
-                    )
-                }
-                IconButton(onClick = {
-                    bottomBarNavController.navigate("play")
-                }) {
-                    Icon(
-                        Icons.Filled.PlayArrow,
-                        contentDescription = "",
-                        tint = Color.White,
-                    )
+                MainScreenTab.values().forEach { tab ->
+                    IconButton(
+                        onClick = {
+                            bottomBarNavController.navigate(tab.route)
+                        },
+                    ) {
+                        Icon(
+                            imageVector = tab.icon,
+                            contentDescription = tab.contentDescription,
+                            tint = if (bottomBarNavController.currentBackStackEntry?.destination?.route == tab.route) {
+                                Color.Blue
+                            } else {
+                                Color.Unspecified
+                            },
+                        )
+                    }
                 }
             }
         },
     ) { padding ->
         NavHost(navController = bottomBarNavController, startDestination = "timetable") {
-            composable("timetable") {
+            composable(MainScreenTab.Timetable.route) {
                 Box(Modifier.padding(padding)) {
                     timetableScreen()
                 }
             }
-            composable("play") {
+            composable(MainScreenTab.Play.route) {
                 Text("play")
             }
         }

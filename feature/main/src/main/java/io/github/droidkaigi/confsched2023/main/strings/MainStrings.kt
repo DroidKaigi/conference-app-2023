@@ -5,25 +5,25 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.Strings
 import io.github.droidkaigi.confsched2023.designsystem.strings.StringsBindings
 
 sealed class MainStrings : Strings<MainStrings>(Bindings) {
-    object Main : MainStrings()
-    object Hoge : MainStrings()
+    object Timetable : MainStrings()
+    object Play : MainStrings()
     class Time(val hours: Int, val minutes: Int) : MainStrings()
 
     private object Bindings : StringsBindings<MainStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
-                Main -> "タイムテーブル"
-                Hoge -> "ホゲ"
+                Timetable -> "タイムテーブル"
+                Play -> "Play"
                 is Time -> "${item.hours}時${item.minutes}分"
             }
         },
         Lang.English to { item, bindings ->
             when (item) {
-                Main -> "Main"
-                Hoge -> bindings.defaultBinding(item, bindings)
+                Timetable -> "Timetable"
+                Play -> "Play"
                 is Time -> "${item.hours}:${item.minutes}"
             }
         },
-        default = Lang.Japanese,
+        default = Lang.English,
     )
 }
