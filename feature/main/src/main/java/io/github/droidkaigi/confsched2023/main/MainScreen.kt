@@ -23,7 +23,7 @@ const val MainScreenTestTag = "MainScreen"
 
 @Composable
 fun MainScreen(
-    timetableScreen: @Composable () -> Unit
+    timetableScreen: @Composable () -> Unit,
 ) {
     val viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>()
     val uiState by viewModel.uiState.collectAsState()
@@ -36,18 +36,17 @@ fun MainScreen(
     MainScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        timetableScreen = timetableScreen
+        timetableScreen = timetableScreen,
     )
 }
 
-class MainScreenUiState(
-)
+class MainScreenUiState()
 
 @Composable
 private fun MainScreen(
     uiState: MainScreenUiState,
     snackbarHostState: SnackbarHostState,
-    timetableScreen: @Composable () -> Unit
+    timetableScreen: @Composable () -> Unit,
 ) {
     val bottomBarNavController = rememberNavController()
 
@@ -58,18 +57,22 @@ private fun MainScreen(
                     bottomBarNavController.navigate("timetable")
                 }) {
                     Icon(
-                        Icons.Filled.DateRange, contentDescription = "", tint = Color.White
+                        Icons.Filled.DateRange,
+                        contentDescription = "",
+                        tint = Color.White,
                     )
                 }
                 IconButton(onClick = {
                     bottomBarNavController.navigate("play")
                 }) {
                     Icon(
-                        Icons.Filled.PlayArrow, contentDescription = "", tint = Color.White
+                        Icons.Filled.PlayArrow,
+                        contentDescription = "",
+                        tint = Color.White,
                     )
                 }
             }
-        }
+        },
     ) { padding ->
         padding
         NavHost(navController = bottomBarNavController, startDestination = "timetable") {

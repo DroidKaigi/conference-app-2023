@@ -13,7 +13,6 @@ class MainScreenViewModel @Inject constructor(
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
     val uiState: StateFlow<MainScreenUiState> = MutableStateFlow(
-        MainScreenUiState()
+        MainScreenUiState(),
     )
-
 }

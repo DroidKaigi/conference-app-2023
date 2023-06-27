@@ -39,9 +39,8 @@ class MainActivity : ComponentActivity() {
                                             navController.navigate("contributors")
                                         },
                                     )
-                                }
+                                },
                             )
-
                         }
                         composable("contributors") {
                             ContributorsScreen(hiltViewModel<ContributorsViewModel>())
