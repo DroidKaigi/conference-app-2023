@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.main.MainScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 
 @AndroidEntryPoint
@@ -31,11 +32,16 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "timetable") {
                         composable("timetable") {
-                            TimetableScreen(
-                                onContributorsClick = {
-                                    navController.navigate("contributors")
-                                },
+                            MainScreen(
+                                timetableScreen = {
+                                    TimetableScreen(
+                                        onContributorsClick = {
+                                            navController.navigate("contributors")
+                                        },
+                                    )
+                                }
                             )
+
                         }
                         composable("contributors") {
                             ContributorsScreen(hiltViewModel<ContributorsViewModel>())
