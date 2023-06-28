@@ -3,7 +3,7 @@
 
 import PackageDescription
 
-let package = Package(
+var package = Package(
     name: "Modules",
     products: [
         .library(name: "Session", targets: ["Session"]),
@@ -13,6 +13,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
+        .package(url: "https://github.com/realm/SwiftLint", from: "0.52.2"),
     ],
     targets: [
         .target(
@@ -47,3 +48,15 @@ let package = Package(
         )
     ]
 )
+
+// Append common plugins
+package.targets = package.targets.map { target -> Target in
+    if target.type == .regular || target.type == .test {
+        if target.plugins == nil {
+            target.plugins = []
+        }
+        target.plugins?.append(.plugin(name: "SwiftLintPlugin", package: "SwiftLint"))
+    }
+
+    return target
+}

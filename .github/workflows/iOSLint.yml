@@ -18,4 +18,4 @@ jobs:
           fetch-depth: 1
 
       - name: SwiftLint
-        run: swiftlint lint --reporter github-actions-logging app-ios
+        run: cd app-ios && swiftlint lint --reporter github-actions-logging
