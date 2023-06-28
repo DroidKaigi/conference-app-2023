@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  DroidKaigi2023
-//
-//  Created by RyuNen344 on 2023/04/27.
-//
-
 import shared
 import SwiftUI
 
