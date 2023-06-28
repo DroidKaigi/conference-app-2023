@@ -13,5 +13,4 @@ class MainActivity : ComponentActivity() {
             KaigiApp()
         }
     }
-
 }
