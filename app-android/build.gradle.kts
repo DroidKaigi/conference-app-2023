@@ -10,6 +10,7 @@ plugins {
 android.namespace = "io.github.droidkaigi.confsched2023"
 
 dependencies {
+    implementation(projects.feature.main)
     implementation(projects.feature.contributors)
     implementation(projects.feature.sessions)
     implementation(projects.core.data)
