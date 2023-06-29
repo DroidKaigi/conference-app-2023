@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -16,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -93,6 +95,7 @@ private fun MainScreen(
                 }
             }
         },
+        contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         NavHost(navController = bottomBarNavController, startDestination = "timetable") {
             composable(MainScreenTab.Timetable.route) {
