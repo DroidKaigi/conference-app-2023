@@ -15,6 +15,7 @@ androidxLifecycle = "2.6.1"
 androidxActivity = "1.7.2"
 androidxFragment = "1.6.0"
 kotlinxCoroutines = "1.7.1"
+accompanist = "0.30.1"
 junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
@@ -45,13 +46,15 @@ composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "c
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigatiaon" }
 
+accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+
 daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 daggerHiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
-androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02"}
+androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02" }
 androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }

@@ -1,7 +1,9 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -62,6 +64,7 @@ private fun TimetableScreen(
                 hostState = snackbarHostState,
             )
         },
+        contentWindowInsets = WindowInsets.statusBars,
     ) { innerPadding ->
         LazyColumn(
             Modifier

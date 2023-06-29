@@ -17,5 +17,6 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
+    implementation(libs.accompanistSystemUiController)
     testImplementation(projects.core.testing)
 }
