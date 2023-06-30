@@ -10,6 +10,7 @@ class AndroidRoborazziPlugin : Plugin<Project> {
         with(project) {
             with(pluginManager) {
                 apply("io.github.takahirom.roborazzi")
+                apply("com.google.devtools.ksp")
             }
             android {
                 testOptions {
@@ -32,6 +33,10 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 testImplementation(libs.findLibrary("robolectric"))
                 testImplementation(libs.findLibrary("androidxTestExtJunit"))
                 testImplementation(libs.findLibrary("roborazzi"))
+                testImplementation(libs.findLibrary("roborazziCompose"))
+                // For preview screenshot tests
+                implementation(libs.findLibrary("showkaseRuntime"))
+                ksp(libs.findLibrary("showkaseProcessor"))
             }
         }
     }

@@ -24,6 +24,8 @@ spotless = "6.19.0"
 ktlint = "0.49.1"
 kotlinxSerialization = "1.5.1"
 roborazzi = "1.4.0-alpha-2"
+showkase = "1.0.0-beta17"
+ksp = "1.8.20-1.0.11"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -32,6 +34,7 @@ composeJbGradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradl
 spotlessGradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
 roborazziGradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
+kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -72,6 +75,9 @@ androidxTestExtJunit = { module = "androidx.test.ext:junit", version.ref = "andr
 androidxTestEspressoEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspresso" }
 robolectric = { module = "org.robolectric:robolectric", version = "4.10.3" }
 roborazzi = { module = "io.github.takahirom.roborazzi:roborazzi", version.ref = "roborazzi" }
+roborazziCompose = { module = "io.github.takahirom.roborazzi:roborazzi-compose", version.ref = "roborazzi" }
+showkaseRuntime = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
+showkaseProcessor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -79,6 +85,7 @@ androidGradleLibraryPlugin = { id = "com.android.library", version.ref = "androi
 kotlinGradlePlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
+kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 plugins = [
@@ -87,5 +94,6 @@ plugins = [
     "hiltGradlePlugin",
     "composeJbGradlePlugin",
     "roborazziGradlePlugin",
-    "spotlessGradlePlugin"
+    "spotlessGradlePlugin",
+    "kspGradlePlugin"
 ]

@@ -31,7 +31,8 @@ fun TimetableList(
             )
         }
         items(uiState.timetable.timetableItems) { session ->
-            TimetableListItem(session, uiState, onFavoriteClick)
+            val isBookmarked = uiState.timetable.favorites.contains(session.id)
+            TimetableListItem(session, isBookmarked, onFavoriteClick)
         }
     }
 }
