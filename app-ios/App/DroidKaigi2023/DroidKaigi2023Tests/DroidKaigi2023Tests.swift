@@ -1,10 +1,3 @@
-//
-//  DroidKaigi2023Tests.swift
-//  DroidKaigi2023Tests
-//
-//  Created by RyuNen344 on 2023/04/27.
-//
-
 import XCTest
 
 final class DroidKaigi2023Tests: XCTestCase {

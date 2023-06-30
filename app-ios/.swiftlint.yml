@@ -9,10 +9,14 @@ opt_in_rules:
 
 excluded:
   - .build
+  - Modules/.build
+  - Modules/Package.swift
 
 identifier_name:
   min_length: 2
 
+# Why is this rule needed?
+# please refer to https://github.com/DroidKaigi/conference-app-2020/pull/447#discussion_r368300240
 file_header:
   severity: warning
   forbidden_pattern: ^(?!// Workaround:)

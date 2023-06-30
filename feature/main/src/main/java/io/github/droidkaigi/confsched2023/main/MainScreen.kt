@@ -1,13 +1,14 @@
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -15,11 +16,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -71,29 +73,29 @@ private fun MainScreen(
     timetableScreen: @Composable () -> Unit,
 ) {
     val bottomBarNavController = rememberNavController()
-
+    val navBackStackEntry by bottomBarNavController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
         bottomBar = {
-            BottomAppBar {
+            NavigationBar {
                 MainScreenTab.values().forEach { tab ->
-                    IconButton(
+                    val selected = currentRoute == tab.route
+                    NavigationBarItem(
+                        selected = selected,
                         onClick = {
                             bottomBarNavController.navigate(tab.route)
                         },
-                    ) {
-                        Icon(
-                            imageVector = tab.icon,
-                            contentDescription = tab.contentDescription,
-                            tint = if (bottomBarNavController.currentBackStackEntry?.destination?.route == tab.route) {
-                                Color.Blue
-                            } else {
-                                Color.Unspecified
-                            },
-                        )
-                    }
+                        icon = {
+                            Icon(
+                                imageVector = tab.icon,
+                                contentDescription = tab.contentDescription,
+                            )
+                        },
+                    )
                 }
             }
         },
+        contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         NavHost(navController = bottomBarNavController, startDestination = "timetable") {
             composable(MainScreenTab.Timetable.route) {
