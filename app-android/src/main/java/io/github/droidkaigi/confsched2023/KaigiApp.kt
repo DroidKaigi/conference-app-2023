@@ -35,8 +35,8 @@ fun KaigiApp() {
             color = MaterialTheme.colorScheme.background,
         ) {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "timetable") {
-                composable("timetable") {
+            NavHost(navController = navController, startDestination = "main") {
+                composable("main") {
                     MainScreen(
                         timetableScreen = {
                             TimetableScreen(
