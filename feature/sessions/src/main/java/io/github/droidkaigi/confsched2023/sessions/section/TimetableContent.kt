@@ -16,7 +16,7 @@ sealed interface TimetableContentUiState {
     ) : TimetableContentUiState
 
     data class GridTimetable(
-        val timetableListUiState: TimetableListUiState,
+        val timetableGridUiState: TimetableGridUiState,
     ) : TimetableContentUiState
 }
 
@@ -45,13 +45,11 @@ fun TimetableContent(
         }
 
         is GridTimetable -> {
-            // TODO
-//            TimetableGrid(
-//                modifier = modifier,
-//                uiState = uiState.timetableListUiState,
-//                onContributorsClick = onContributorsClick,
-//                onFavoriteClick = onFavoriteClick,
-//            )
+            TimetableGrid(
+                modifier = modifier,
+                uiState = uiState.timetableGridUiState,
+                onBookmarked = {},
+            )
         }
     }
 }

@@ -24,7 +24,7 @@ class DefaultSessionsRepository(
         }
     }
 
-    override suspend fun toggleFavorite(id: TimetableItemId) {
+    override suspend fun toggleBookmark(id: TimetableItemId) {
         userDataStore.toggleFavorite(id)
     }
 }
