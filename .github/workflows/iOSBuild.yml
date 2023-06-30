@@ -17,7 +17,7 @@ jobs:
   build-ios:
     runs-on: macos-13
 
-  steps:
+    steps:
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
@@ -27,7 +27,9 @@ jobs:
       - uses: ./.github/actions/setup-java
 
       - name: Setup bundle
-        run: bundle install %% cd app-ios
+        run: |
+          bundle install
+          cd app-ios
 
       - name: Build KMM Module
         run: bundle exec fastlane shared
