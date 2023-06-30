@@ -10,7 +10,6 @@ import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableFilterTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import kotlinx.coroutines.test.TestDispatcher
@@ -44,13 +43,6 @@ class TimetableScreenRobot @Inject constructor(
             .onFirst()
             .performClick()
         waitUntilIdle()
-    }
-
-    fun clickFilter() {
-        composeTestRule
-            .onAllNodes(hasTestTag(TimetableFilterTestTag))
-            .onFirst()
-            .performClick()
     }
 
     fun checkTimetableItemsDisplayed() {
