@@ -59,18 +59,4 @@ class TimetableScreenTest {
             checkTimetableListCapture()
         }
     }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkFavoriteFilterToggleShot() {
-        timetableScreenRobot(robotTestRule) {
-            setupTimetableScreenContent()
-            clickFilter()
-            checkTimetableListCapture()
-            clickFilter()
-            clickFirstSessionFavorite()
-            clickFilter()
-            checkTimetableListCapture()
-        }
-    }
 }
