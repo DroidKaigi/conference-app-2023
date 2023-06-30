@@ -36,7 +36,7 @@ jobs:
       contains(fromJSON('["success", "failure"]'), github.event.workflow_run.conclusion) &&
       contains(fromJSON('["UnitTest"]'), github.event.workflow.name) ||
       contains(fromJSON('["failure"]'), github.event.workflow_run.conclusion) &&
-      contains(fromJSON('["iOS Lint"]'), github.event.workflow.name) ||
+      contains(fromJSON('["iOS Lint"]'), github.event.workflow.name)
 
     permissions:
       pull-requests: read # for listing pull requests
