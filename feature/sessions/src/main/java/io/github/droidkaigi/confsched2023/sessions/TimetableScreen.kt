@@ -35,7 +35,7 @@ fun TimetableScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onContributorsClick = onContributorsClick,
-        onFavoriteClick = viewModel::onFavoriteClick,
+        onFavoriteClick = viewModel::onBookmarkClick,
     )
 }
 

@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableUiType
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableGridUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -55,7 +56,7 @@ class TimetableScreenViewModel @Inject constructor(
             )
         } else {
             return@buildUiState TimetableContentUiState.GridTimetable(
-                TimetableListUiState(
+                TimetableGridUiState(
                     timetable = sessionTimetable,
                 ),
             )
@@ -70,9 +71,13 @@ class TimetableScreenViewModel @Inject constructor(
         )
     }
 
-    fun onFavoriteClick(session: TimetableItem.Session) {
+    fun onUiTypeChange(uiType: TimetableUiType) {
+        timetableUiTypeStateFlow.value = uiType
+    }
+
+    fun onBookmarkClick(session: TimetableItem.Session) {
         viewModelScope.launch {
-            sessionsRepository.toggleFavorite(session.id)
+            sessionsRepository.toggleBookmark(session.id)
         }
     }
 }
