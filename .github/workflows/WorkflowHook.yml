@@ -173,5 +173,5 @@ jobs:
           recreate: true
           message: >
             Hi @${{ github.event.workflow_run.actor.login }}!
-            Codes seem to have violations. Please run `app-ios && swiftlint --fix` to fix this issue.
+            Codes seem to have violations. Please run `cd app-ios && swiftlint --fix` to fix this issue.
             Thank you for your contribution.
