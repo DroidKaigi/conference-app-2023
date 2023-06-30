@@ -3,4 +3,6 @@ public struct Core {
 
     public init() {
     }
+
+    let foo: (start: Int, end: Int, value: String, hoge: String)
 }
