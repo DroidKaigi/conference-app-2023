@@ -26,7 +26,7 @@ class TimetableScreenScrollState(
     initialSheetScrollOffset: Float = 0f,
 ) {
     // This value will be like -418.0
-    var sheetScrollOffsetLimit by mutableStateOf(initialSheetOffsetLimit)
+    private var sheetScrollOffsetLimit by mutableStateOf(initialSheetOffsetLimit)
 
     val isScreenLayoutCalculating get() = sheetScrollOffsetLimit == 0f
 
