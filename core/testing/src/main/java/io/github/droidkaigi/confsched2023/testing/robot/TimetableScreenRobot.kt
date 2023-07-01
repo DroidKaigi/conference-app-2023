@@ -8,6 +8,7 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
@@ -30,9 +31,11 @@ class TimetableScreenRobot @Inject constructor(
 
     fun setupTimetableScreenContent() {
         composeTestRule.setContent {
-            TimetableScreen(
-                onContributorsClick = { },
-            )
+            KaigiTheme {
+                TimetableScreen(
+                    onContributorsClick = { },
+                )
+            }
         }
         waitUntilIdle()
     }
