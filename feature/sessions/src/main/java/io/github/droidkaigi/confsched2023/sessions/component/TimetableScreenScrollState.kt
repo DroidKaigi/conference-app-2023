@@ -97,8 +97,8 @@ class TimetableScreenScrollState(
         }
     }
 
-    fun onLargeTopBarPositioned(largeAppBarHeight: Float, statusBarHeight: Float) {
-        sheetScrollOffsetLimit = 0f - abs(largeAppBarHeight - statusBarHeight)
+    fun onHeaderPositioned(headerHeight: Float) {
+        sheetScrollOffsetLimit = 0f - abs(headerHeight)
     }
 
     companion object {

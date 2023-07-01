@@ -1,16 +1,20 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,10 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
@@ -77,22 +79,27 @@ private fun TimetableScreen(
             )
         },
         topBar = {
-            // TODO: Implement design
-            val insetPadding = TopAppBarDefaults.windowInsets.asPaddingValues()
-            val statusBarHeight = with(LocalDensity.current) {
-                insetPadding.calculateTopPadding().toPx()
+            Column {
+                // TODO: Implement TopAppBar design
+                TopAppBar(
+                    title = {
+                        Text(text = "KaigiApp")
+                    },
+                    colors = TopAppBarDefaults.largeTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                    ),
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onGloballyPositioned { coordinates ->
+                            state.onHeaderPositioned(coordinates.size.height.toFloat())
+                        },
+                ) {
+                    // TODO: Implement header desing(title and image etc..)
+                    Spacer(modifier = Modifier.height(130.dp))
+                }
             }
-            LargeTopAppBar(
-                title = {
-                    Text(text = "KaigiApp")
-                },
-                colors = TopAppBarDefaults.largeTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
-                ),
-                modifier = Modifier.onGloballyPositioned { coordinates ->
-                    state.onLargeTopBarPositioned(coordinates.size.height.toFloat(), statusBarHeight)
-                },
-            )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentWindowInsets = WindowInsets(0.dp),
@@ -100,7 +107,6 @@ private fun TimetableScreen(
         TimetableSheet(
             modifier = Modifier
                 .fillMaxSize()
-                .zIndex(2f) // display above TopAppBar
                 .padding(innerPadding)
                 .layout { measurable, constraints ->
                     val placeable = measurable.measure(
