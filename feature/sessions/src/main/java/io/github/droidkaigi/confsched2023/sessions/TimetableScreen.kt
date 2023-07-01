@@ -97,4 +97,3 @@ private fun TimetableScreen(
         )
     }
 }
-

@@ -35,7 +35,7 @@ fun TimetableTopAppBar(state: TimetableScreenScrollState, onTimetableUiChangeCli
             actions = {
                 IconButton(
                     modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
-                    onClick = { onTimetableUiChangeClick() }
+                    onClick = { onTimetableUiChangeClick() },
                 ) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
