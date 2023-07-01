@@ -14,10 +14,10 @@ data class TimetableListUiState(val timetable: Timetable)
 
 @Composable
 fun TimetableList(
-    modifier: Modifier,
     uiState: TimetableListUiState,
     onFavoriteClick: (Session) -> Unit,
     onContributorsClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier,
