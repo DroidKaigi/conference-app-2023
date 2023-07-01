@@ -26,21 +26,22 @@ class TimetableScrollState(
     initialScrollOffset: Float = 0f,
 ) {
     var scrollOffsetLimit by mutableStateOf(initialOffsetLimit)
+        private set
 
     private val _scrollOffset = mutableStateOf(initialScrollOffset)
     var scrollOffset: Float
         get() = _scrollOffset.value
-        set(newOffset) {
+        internal set(newOffset) {
             _scrollOffset.value = newOffset.coerceIn(
                 minimumValue = scrollOffsetLimit,
                 maximumValue = 0f,
             )
         }
 
-    val enableCollapsing: Boolean
+    val enableExpandTimetable: Boolean
         get() = scrollOffset > scrollOffsetLimit
 
-    val enableExpand: Boolean
+    val isExpandedTimetable: Boolean
         get() = scrollOffset != 0f
 
     fun updateScrollOffsetLimit(offsetLimit: Float) {
@@ -67,7 +68,7 @@ class TimetableNestedScrollConnection(
     override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
         if (available.y >= 0) return Offset.Zero
         // When scrolled upward
-        return if (state.enableCollapsing) {
+        return if (state.enableExpandTimetable && state.scrollOffsetLimit != 0f) {
             // Add offset up to the height of TopAppBar and consume all
             val prevHeightOffset: Float = state.scrollOffset
             state.scrollOffset += available.y
@@ -83,7 +84,7 @@ class TimetableNestedScrollConnection(
         source: NestedScrollSource,
     ): Offset {
         if (available.y < 0f) return Offset.Zero
-        return if (state.enableExpand && available.y > 0) {
+        return if (state.isExpandedTimetable && available.y > 0) {
             // When scrolling downward and overscroll
             val prevHeightOffset = state.scrollOffset
             state.scrollOffset += available.y

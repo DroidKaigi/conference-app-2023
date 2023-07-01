@@ -117,6 +117,7 @@ private fun TimetableScreen(
                 },
             onContributorsClick = onContributorsClick,
             uiState = uiState.contentUiState,
+            timetableScrollState = state,
             onFavoriteClick = onFavoriteClick,
         )
     }
