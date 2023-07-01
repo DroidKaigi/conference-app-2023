@@ -59,4 +59,14 @@ class TimetableScreenTest {
             checkTimetableListCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
+            scrollTimetable()
+            checkTimetableListCapture()
+        }
+    }
 }
