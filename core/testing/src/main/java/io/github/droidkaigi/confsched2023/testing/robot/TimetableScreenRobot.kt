@@ -7,7 +7,6 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
@@ -15,7 +14,6 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableListTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
