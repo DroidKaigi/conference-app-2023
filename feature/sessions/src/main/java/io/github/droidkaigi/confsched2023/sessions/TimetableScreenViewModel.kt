@@ -71,8 +71,13 @@ class TimetableScreenViewModel @Inject constructor(
         )
     }
 
-    fun onUiTypeChange(uiType: TimetableUiType) {
-        timetableUiTypeStateFlow.value = uiType
+    fun onUiTypeChange() {
+        timetableUiTypeStateFlow.value =
+            if (timetableUiTypeStateFlow.value == TimetableUiType.List) {
+                TimetableUiType.Grid
+            } else {
+                TimetableUiType.List
+            }
     }
 
     fun onBookmarkClick(session: TimetableItem.Session) {

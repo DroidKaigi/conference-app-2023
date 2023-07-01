@@ -72,10 +72,10 @@ fun TimetableGrid(
     onBookmarked: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val timetableState = rememberTimetableState()
+    val timetableGridState = rememberTimetableGridState()
     TimetableGrid(
         timetable = uiState.timetable,
-        timetableState = timetableState,
+        timetableState = timetableGridState,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
     ) { timetableItem, isBookmarked ->
@@ -245,7 +245,7 @@ fun TimetableGrid(
 @Preview
 @Composable
 fun TimetablePreview() {
-    val timetableState = rememberTimetableState()
+    val timetableState = rememberTimetableGridState()
     TimetableGrid(
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
@@ -358,7 +358,7 @@ private data class TimetableLayout(
 }
 
 @Composable
-fun rememberTimetableState(
+fun rememberTimetableGridState(
     screenScrollState: ScreenScrollState = rememberScreenScrollState(),
     screenScaleState: ScreenScaleState = rememberScreenScaleState(),
     density: Density = LocalDensity.current,

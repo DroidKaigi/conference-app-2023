@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
@@ -42,12 +43,18 @@ class TimetableScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun clickFirstSessionFavorite() {
+    fun clickFirstSessionBookmark() {
         composeTestRule
             .onAllNodes(hasText("☆"))
             .onFirst()
             .performClick()
         waitUntilIdle()
+    }
+
+    fun clickTimetableUiTypeChangeButton() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableUiTypeChangeButtonTestTag))
+            .performClick()
     }
 
     fun scrollTimetable() {
