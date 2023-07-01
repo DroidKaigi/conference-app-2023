@@ -434,7 +434,6 @@ class ScreenScrollState(
         }
     }
 
-
     fun updateBounds(maxX: Float, maxY: Float) {
         _scrollX.updateBounds(maxX, 0f)
         _scrollY.updateBounds(maxY, 0f)
