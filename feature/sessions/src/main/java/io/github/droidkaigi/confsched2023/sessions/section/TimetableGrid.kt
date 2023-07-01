@@ -119,9 +119,6 @@ fun TimetableGrid(
     val linePxSize = with(timetableState.density) { TimetableSizes.lineStrokeSize.toPx() }
     val layoutDirection = LocalLayoutDirection.current
 
-    val currentTimeLineColor = MaterialTheme.colorScheme.primary
-    val currentTimeCircleRadius =
-        with(timetableState.density) { TimetableSizes.currentTimeCircleRadius.toPx() }
     LazyLayout(
         modifier = modifier
             .padding(
@@ -437,25 +434,6 @@ class ScreenScrollState(
         }
     }
 
-    suspend fun flingYIfPossible() = coroutineScope {
-        val velocity = velocityTracker.calculateVelocity()
-        launch {
-            _scrollY.animateDecay(
-                velocity.y / 2f,
-                exponentialDecay(),
-            )
-        }
-    }
-
-    suspend fun flingXIfPossible() = coroutineScope {
-        val velocity = velocityTracker.calculateVelocity()
-        launch {
-            _scrollX.animateDecay(
-                velocity.x / 2f,
-                exponentialDecay(),
-            )
-        }
-    }
 
     fun updateBounds(maxX: Float, maxY: Float) {
         _scrollX.updateBounds(maxX, 0f)

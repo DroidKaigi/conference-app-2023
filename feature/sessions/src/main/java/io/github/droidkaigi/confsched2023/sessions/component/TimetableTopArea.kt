@@ -25,7 +25,7 @@ const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun TimetableTopAppBar(state: TimetableScreenScrollState, onTimetableUiChangeClick: () -> Unit) {
+fun TimetableTopArea(state: TimetableScreenScrollState, onTimetableUiChangeClick: () -> Unit) {
     Column {
         // TODO: Implement TopAppBar design
         TopAppBar(
