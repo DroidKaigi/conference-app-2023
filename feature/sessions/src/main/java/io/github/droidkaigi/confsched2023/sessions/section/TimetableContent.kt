@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -60,9 +61,9 @@ fun TimetableContent(
 
             is GridTimetable -> {
                 TimetableGrid(
-                    modifier = modifier,
                     uiState = uiState.timetableGridUiState,
                     onBookmarked = {},
+                    modifier = Modifier.fillMaxSize(),
                 )
             }
         }

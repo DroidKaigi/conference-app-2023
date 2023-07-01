@@ -68,9 +68,9 @@ data class TimetableGridUiState(val timetable: Timetable)
 
 @Composable
 fun TimetableGrid(
-    modifier: Modifier,
     uiState: TimetableGridUiState,
     onBookmarked: (TimetableItem) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val timetableState = rememberTimetableState()
     TimetableGrid(
