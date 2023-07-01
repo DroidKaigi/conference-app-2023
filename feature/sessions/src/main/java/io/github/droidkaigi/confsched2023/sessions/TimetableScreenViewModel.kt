@@ -8,7 +8,7 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableUiType
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableGridUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
@@ -41,21 +41,21 @@ class TimetableScreenViewModel @Inject constructor(
     private val timetableUiTypeStateFlow: MutableStateFlow<TimetableUiType> =
         MutableStateFlow(TimetableUiType.List)
 
-    private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildUiState(
+    private val timetableSheetUiState: StateFlow<TimetableSheetUiState> = buildUiState(
         sessionsStateFlow,
         timetableUiTypeStateFlow,
     ) { sessionTimetable, uiType ->
         if (sessionTimetable.timetableItems.isEmpty()) {
-            return@buildUiState TimetableContentUiState.Empty
+            return@buildUiState TimetableSheetUiState.Empty
         }
         if (uiType == TimetableUiType.List) {
-            return@buildUiState TimetableContentUiState.ListTimetable(
+            return@buildUiState TimetableSheetUiState.ListTimetable(
                 TimetableListUiState(
                     timetable = sessionTimetable,
                 ),
             )
         } else {
-            return@buildUiState TimetableContentUiState.GridTimetable(
+            return@buildUiState TimetableSheetUiState.GridTimetable(
                 TimetableGridUiState(
                     timetable = sessionTimetable,
                 ),
@@ -64,7 +64,7 @@ class TimetableScreenViewModel @Inject constructor(
     }
 
     val uiState: StateFlow<TimetableScreenUiState> = buildUiState(
-        timetableContentUiState,
+        timetableSheetUiState,
     ) { sessionListUiState ->
         TimetableScreenUiState(
             contentUiState = sessionListUiState,

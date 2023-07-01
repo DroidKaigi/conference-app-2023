@@ -14,45 +14,91 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import kotlin.math.abs
 
 @Composable
-fun rememberTimetableScrollState(): TimetableScrollState {
-    return rememberSaveable(saver = TimetableScrollState.Saver) {
-        TimetableScrollState()
+fun rememberTimetableScreenScrollState(): TimetableScreenScrollState {
+    return rememberSaveable(saver = TimetableScreenScrollState.Saver) {
+        TimetableScreenScrollState()
     }
 }
 
 @Stable
-class TimetableScrollState(
+class TimetableScreenScrollState(
     initialOffsetLimit: Float = 0f,
     initialScrollOffset: Float = 0f,
 ) {
-    var scrollOffsetLimit by mutableStateOf(initialOffsetLimit)
+    var sheetScrollOffsetLimit by mutableStateOf(initialOffsetLimit)
         private set
 
-    private val _scrollOffset = mutableStateOf(initialScrollOffset)
-    var scrollOffset: Float
-        get() = _scrollOffset.value
+    private val _sheetScrollOffset = mutableStateOf(initialScrollOffset)
+    var sheetScrollOffset: Float
+        get() = _sheetScrollOffset.value
         internal set(newOffset) {
-            _scrollOffset.value = newOffset.coerceIn(
-                minimumValue = scrollOffsetLimit,
+            _sheetScrollOffset.value = newOffset.coerceIn(
+                minimumValue = sheetScrollOffsetLimit,
                 maximumValue = 0f,
             )
         }
 
-    val enableExpandTimetable: Boolean
-        get() = scrollOffset > scrollOffsetLimit
+    val isSheetExpandable: Boolean
+        get() = sheetScrollOffset > sheetScrollOffsetLimit
 
-    val isExpandedTimetable: Boolean
-        get() = scrollOffset != 0f
+    private val isSheetScrolled: Boolean
+        get() = sheetScrollOffset != 0f
 
-    fun updateScrollOffsetLimit(offsetLimit: Float) {
-        scrollOffsetLimit = 0f - abs(offsetLimit)
+    val screenNestedScrollConnection: NestedScrollConnection
+        get() = object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                return onPreScrollScreen(available)
+            }
+
+            override fun onPostScroll(
+                consumed: Offset,
+                available: Offset,
+                source: NestedScrollSource,
+            ): Offset {
+                return onPostScrollScreen(available)
+            }
+        }
+
+    /**
+     * This function returns the consumed offset.
+     */
+    private fun onPreScrollScreen(availableScrollOffset: Offset): Offset {
+        if (availableScrollOffset.y >= 0) return Offset.Zero
+        // When scrolled upward
+        return if (isSheetExpandable && sheetScrollOffsetLimit != 0f) {
+            // Add offset up to the height of TopAppBar and consume all
+            val prevHeightOffset: Float = sheetScrollOffset
+            sheetScrollOffset += availableScrollOffset.y
+            availableScrollOffset.copy(x = 0f, y = sheetScrollOffset - prevHeightOffset)
+        } else {
+            Offset.Zero
+        }
+    }
+
+    /**
+     * This function returns the consumed offset.
+     */
+    private fun onPostScrollScreen(availableScrollOffset: Offset): Offset {
+        if (availableScrollOffset.y < 0f) return Offset.Zero
+        return if (isSheetScrolled && availableScrollOffset.y > 0) {
+            // When scrolling downward and overscroll
+            val prevHeightOffset = sheetScrollOffset
+            sheetScrollOffset += availableScrollOffset.y
+            availableScrollOffset.copy(x = 0f, y = sheetScrollOffset - prevHeightOffset)
+        } else {
+            Offset.Zero
+        }
+    }
+
+    fun onLargeTopBarPositioned(largeAppBarHeight: Float, statusBarHeight: Float) {
+        sheetScrollOffsetLimit = 0f - abs(largeAppBarHeight - statusBarHeight)
     }
 
     companion object {
-        val Saver: Saver<TimetableScrollState, *> = listSaver(
-            save = { listOf(it.scrollOffsetLimit, it.scrollOffset) },
+        val Saver: Saver<TimetableScreenScrollState, *> = listSaver(
+            save = { listOf(it.sheetScrollOffsetLimit, it.sheetScrollOffset) },
             restore = {
-                TimetableScrollState(
+                TimetableScreenScrollState(
                     initialOffsetLimit = it[0],
                     initialScrollOffset = it[1],
                 )
@@ -61,36 +107,3 @@ class TimetableScrollState(
     }
 }
 
-class TimetableNestedScrollConnection(
-    private val state: TimetableScrollState,
-) : NestedScrollConnection {
-
-    override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-        if (available.y >= 0) return Offset.Zero
-        // When scrolled upward
-        return if (state.enableExpandTimetable && state.scrollOffsetLimit != 0f) {
-            // Add offset up to the height of TopAppBar and consume all
-            val prevHeightOffset: Float = state.scrollOffset
-            state.scrollOffset += available.y
-            available.copy(x = 0f, y = state.scrollOffset - prevHeightOffset)
-        } else {
-            Offset.Zero
-        }
-    }
-
-    override fun onPostScroll(
-        consumed: Offset,
-        available: Offset,
-        source: NestedScrollSource,
-    ): Offset {
-        if (available.y < 0f) return Offset.Zero
-        return if (state.isExpandedTimetable && available.y > 0) {
-            // When scrolling downward and overscroll
-            val prevHeightOffset = state.scrollOffset
-            state.scrollOffset += available.y
-            available.copy(x = 0f, y = state.scrollOffset - prevHeightOffset)
-        } else {
-            Offset.Zero
-        }
-    }
-}

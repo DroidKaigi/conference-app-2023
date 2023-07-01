@@ -15,7 +15,6 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
@@ -26,10 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableNestedScrollConnection
-import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScrollState
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableContent
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableContentUiState
+import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlin.math.roundToInt
 
@@ -56,7 +54,7 @@ fun TimetableScreen(
 }
 
 data class TimetableScreenUiState(
-    val contentUiState: TimetableContentUiState,
+    val contentUiState: TimetableSheetUiState,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,15 +65,12 @@ private fun TimetableScreen(
     onContributorsClick: () -> Unit,
     onFavoriteClick: (TimetableItem.Session) -> Unit,
 ) {
-    val state = rememberTimetableScrollState()
-    val nestedScrollConnection = remember(state) {
-        TimetableNestedScrollConnection(state)
-    }
+    val state = rememberTimetableScreenScrollState()
 
     Scaffold(
         modifier = Modifier
             .testTag(TimetableScreenTestTag)
-            .nestedScroll(nestedScrollConnection),
+            .nestedScroll(state.screenNestedScrollConnection),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
@@ -95,29 +90,29 @@ private fun TimetableScreen(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 ),
                 modifier = Modifier.onGloballyPositioned { coordinates ->
-                    state.updateScrollOffsetLimit(coordinates.size.height.toFloat() - statusBarHeight)
+                    state.onLargeTopBarPositioned(coordinates.size.height.toFloat(), statusBarHeight)
                 },
             )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
-        TimetableContent(
+        TimetableSheet(
             modifier = Modifier
                 .fillMaxSize()
                 .zIndex(2f) // display above TopAppBar
                 .padding(innerPadding)
                 .layout { measurable, constraints ->
                     val placeable = measurable.measure(
-                        constraints.copy(maxHeight = constraints.maxHeight - state.scrollOffset.roundToInt()),
+                        constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
                     )
                     layout(placeable.width, placeable.height) {
-                        placeable.placeRelative(0, 0 + (state.scrollOffset / 2).roundToInt())
+                        placeable.placeRelative(0, 0 + (state.sheetScrollOffset / 2).roundToInt())
                     }
                 },
             onContributorsClick = onContributorsClick,
             uiState = uiState.contentUiState,
-            timetableScrollState = state,
+            timetableScreenScrollState = state,
             onFavoriteClick = onFavoriteClick,
         )
     }
