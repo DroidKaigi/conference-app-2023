@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     `kotlin-dsl`
 }
@@ -9,11 +11,9 @@ repositories {
     mavenCentral()
 }
 
-kotlin {
-    jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
-}
+// If we use jvmToolchain, we need to install JDK 11
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions.jvmTarget = "11"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
