@@ -6,9 +6,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
+
+const val TimetableListTestTag = "TimetableList"
 
 data class TimetableListUiState(val timetable: Timetable)
 
@@ -20,7 +23,7 @@ fun TimetableList(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = modifier.testTag(TimetableListTestTag),
     ) {
         item {
             Text(
