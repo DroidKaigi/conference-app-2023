@@ -22,13 +22,12 @@ fun rememberTimetableScreenScrollState(): TimetableScreenScrollState {
 
 @Stable
 class TimetableScreenScrollState(
-    initialOffsetLimit: Float = 0f,
-    initialScrollOffset: Float = 0f,
+    initialSheetOffsetLimit: Float = 0f,
+    initialSheetScrollOffset: Float = 0f,
 ) {
-    var sheetScrollOffsetLimit by mutableStateOf(initialOffsetLimit)
-        private set
+    var sheetScrollOffsetLimit by mutableStateOf(initialSheetOffsetLimit)
 
-    private val _sheetScrollOffset = mutableStateOf(initialScrollOffset)
+    private val _sheetScrollOffset = mutableStateOf(initialSheetScrollOffset)
     var sheetScrollOffset: Float
         get() = _sheetScrollOffset.value
         internal set(newOffset) {
@@ -99,8 +98,8 @@ class TimetableScreenScrollState(
             save = { listOf(it.sheetScrollOffsetLimit, it.sheetScrollOffset) },
             restore = {
                 TimetableScreenScrollState(
-                    initialOffsetLimit = it[0],
-                    initialScrollOffset = it[1],
+                    initialSheetOffsetLimit = it[0],
+                    initialSheetScrollOffset = it[1],
                 )
             },
         )
