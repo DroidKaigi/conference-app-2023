@@ -72,10 +72,10 @@ fun TimetableGrid(
     onBookmarked: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val timetableState = rememberTimetableState()
+    val timetableGridState = rememberTimetableGridState()
     TimetableGrid(
         timetable = uiState.timetable,
-        timetableState = timetableState,
+        timetableState = timetableGridState,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
     ) { timetableItem, isBookmarked ->
@@ -119,9 +119,6 @@ fun TimetableGrid(
     val linePxSize = with(timetableState.density) { TimetableSizes.lineStrokeSize.toPx() }
     val layoutDirection = LocalLayoutDirection.current
 
-    val currentTimeLineColor = MaterialTheme.colorScheme.primary
-    val currentTimeCircleRadius =
-        with(timetableState.density) { TimetableSizes.currentTimeCircleRadius.toPx() }
     LazyLayout(
         modifier = modifier
             .padding(
@@ -245,7 +242,7 @@ fun TimetableGrid(
 @Preview
 @Composable
 fun TimetablePreview() {
-    val timetableState = rememberTimetableState()
+    val timetableState = rememberTimetableGridState()
     TimetableGrid(
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
@@ -358,7 +355,7 @@ private data class TimetableLayout(
 }
 
 @Composable
-fun rememberTimetableState(
+fun rememberTimetableGridState(
     screenScrollState: ScreenScrollState = rememberScreenScrollState(),
     screenScaleState: ScreenScaleState = rememberScreenScaleState(),
     density: Density = LocalDensity.current,
@@ -432,26 +429,6 @@ class ScreenScrollState(
         launch {
             _scrollY.animateDecay(
                 velocity.y / 2f,
-                exponentialDecay(),
-            )
-        }
-    }
-
-    suspend fun flingYIfPossible() = coroutineScope {
-        val velocity = velocityTracker.calculateVelocity()
-        launch {
-            _scrollY.animateDecay(
-                velocity.y / 2f,
-                exponentialDecay(),
-            )
-        }
-    }
-
-    suspend fun flingXIfPossible() = coroutineScope {
-        val velocity = velocityTracker.calculateVelocity()
-        launch {
-            _scrollX.animateDecay(
-                velocity.x / 2f,
                 exponentialDecay(),
             )
         }
