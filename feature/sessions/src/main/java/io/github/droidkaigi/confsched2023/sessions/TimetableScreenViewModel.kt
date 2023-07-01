@@ -8,9 +8,9 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableUiType
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableGridUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
