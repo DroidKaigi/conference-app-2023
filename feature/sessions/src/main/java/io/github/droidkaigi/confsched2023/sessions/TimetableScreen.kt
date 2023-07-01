@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
@@ -93,11 +92,11 @@ private fun TimetableScreen(
                     Text(text = "KaigiApp")
                 },
                 colors = TopAppBarDefaults.largeTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant,
                 ),
                 modifier = Modifier.onGloballyPositioned { coordinates ->
                     state.updateScrollOffsetLimit(coordinates.size.height.toFloat() - statusBarHeight)
-                }
+                },
             )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
@@ -110,7 +109,7 @@ private fun TimetableScreen(
                 .padding(innerPadding)
                 .layout { measurable, constraints ->
                     val placeable = measurable.measure(
-                        constraints.copy(maxHeight = constraints.maxHeight - state.scrollOffset.roundToInt())
+                        constraints.copy(maxHeight = constraints.maxHeight - state.scrollOffset.roundToInt()),
                     )
                     layout(placeable.width, placeable.height) {
                         placeable.placeRelative(0, 0 + (state.scrollOffset / 2).roundToInt())

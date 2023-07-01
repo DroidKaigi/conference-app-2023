@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +32,7 @@ fun TimetableContent(
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp)
+        shape = RoundedCornerShape(topStart = 40.dp, topEnd = 40.dp),
     ) {
         when (uiState) {
             is Empty -> {

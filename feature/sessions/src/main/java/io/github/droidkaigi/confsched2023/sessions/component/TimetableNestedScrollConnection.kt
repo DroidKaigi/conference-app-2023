@@ -33,7 +33,7 @@ class TimetableScrollState(
         set(newOffset) {
             _scrollOffset.value = newOffset.coerceIn(
                 minimumValue = scrollOffsetLimit,
-                maximumValue = 0f
+                maximumValue = 0f,
             )
         }
 
@@ -55,7 +55,7 @@ class TimetableScrollState(
                     initialOffsetLimit = it[0],
                     initialScrollOffset = it[1],
                 )
-            }
+            },
         )
     }
 }
@@ -80,7 +80,7 @@ class TimetableNestedScrollConnection(
     override fun onPostScroll(
         consumed: Offset,
         available: Offset,
-        source: NestedScrollSource
+        source: NestedScrollSource,
     ): Offset {
         if (available.y < 0f) return Offset.Zero
         return if (state.enableExpand && available.y > 0) {
