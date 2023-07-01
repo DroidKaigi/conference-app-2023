@@ -36,7 +36,7 @@ fun TimetableSheet(
     modifier: Modifier = Modifier,
 ) {
     val corner by animateIntAsState(
-        if (timetableScreenScrollState.sheetScrollOffsetLimit == 0f || timetableScreenScrollState.isSheetExpandable) 40 else 0,
+        if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
     )
     Surface(

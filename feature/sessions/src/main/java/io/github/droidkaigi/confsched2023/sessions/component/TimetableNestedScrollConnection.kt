@@ -25,9 +25,17 @@ class TimetableScreenScrollState(
     initialSheetOffsetLimit: Float = 0f,
     initialSheetScrollOffset: Float = 0f,
 ) {
+    // This value will be like -418.0
     var sheetScrollOffsetLimit by mutableStateOf(initialSheetOffsetLimit)
 
+    val isScreenLayoutCalculating = sheetScrollOffsetLimit == 0f
+
     private val _sheetScrollOffset = mutableStateOf(initialSheetScrollOffset)
+
+    /**
+     * If sheetScrollOffset is 0f, the sheet is fully collapsed.
+     * If sheetScrollOffset is sheetScrollOffsetLimit, the sheet is fully expanded.
+     */
     var sheetScrollOffset: Float
         get() = _sheetScrollOffset.value
         internal set(newOffset) {
@@ -64,7 +72,7 @@ class TimetableScreenScrollState(
     private fun onPreScrollScreen(availableScrollOffset: Offset): Offset {
         if (availableScrollOffset.y >= 0) return Offset.Zero
         // When scrolled upward
-        return if (isSheetExpandable && sheetScrollOffsetLimit != 0f) {
+        return if (isSheetExpandable && !isScreenLayoutCalculating) {
             // Add offset up to the height of TopAppBar and consume all
             val prevHeightOffset: Float = sheetScrollOffset
             sheetScrollOffset += availableScrollOffset.y
