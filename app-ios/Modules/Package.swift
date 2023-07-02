@@ -10,6 +10,7 @@ var package = Package(
     ],
     products: [
         .library(name: "Session", targets: ["Session"]),
+        .library(name: "Timetable", targets: ["Timetable"]),
         .library(name: "Navigation", targets: ["Navigation"]),
     ],
     dependencies: [
@@ -30,23 +31,25 @@ var package = Package(
                 "Session"
             ]
         ),
+
         .target(
-            name: "Timeline",
+            name: "Timetable",
             dependencies: [
                 "shared"
             ]
         ),
         .testTarget(
-            name: "TimelineTests",
+            name: "TimetableTests",
             dependencies: [
-                "Timeline"
+                "Timetable"
             ]
         ),
+
         .target(
             name: "Navigation",
             dependencies: [
                 "Session",
-                "Timeline",
+                "Timetable",
             ]
         ),
         .binaryTarget(
