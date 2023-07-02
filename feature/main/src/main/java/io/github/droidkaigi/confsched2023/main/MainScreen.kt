@@ -31,8 +31,8 @@ const val MainScreenTestTag = "MainScreen"
 @Composable
 fun MainScreen(
     timetableScreen: @Composable () -> Unit,
+    viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>(),
 ) {
-    val viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>()
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
 

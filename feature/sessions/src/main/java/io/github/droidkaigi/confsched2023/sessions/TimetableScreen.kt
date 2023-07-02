@@ -30,8 +30,8 @@ const val TimetableScreenTestTag = "TimetableScreen"
 @Composable
 fun TimetableScreen(
     onContributorsClick: () -> Unit,
+    viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
-    val viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>()
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
 
