@@ -28,6 +28,7 @@ class AndroidComposePlugin : Plugin<Project> {
                 testImplementation(libs.findLibrary("composeUiTestJunit4"))
                 debugImplementation(libs.findLibrary("composeUiTooling"))
                 debugImplementation(libs.findLibrary("composeUiTestManifest"))
+                lintChecks(libs.findLibrary("composeLintCheck"))
             }
         }
     }
