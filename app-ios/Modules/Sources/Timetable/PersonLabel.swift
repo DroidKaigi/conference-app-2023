@@ -21,9 +21,9 @@ struct PersonLabel: View {
 // Waiting for '#Preview is only available in iOS 17 or newer' bug fixes
 // https://developer.apple.com/forums/thread/731182
 //
-//#Preview {
-//    PersonLabel(
-//        name: "speaker name",
-//        iconUrl: "https://placehold.jp/24x24.png"
-//    )
-//}
+// #Preview {
+//     PersonLabel(
+//         name: "speaker name",
+//         iconUrl: "https://placehold.jp/24x24.png"
+//     )
+// }
