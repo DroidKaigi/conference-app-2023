@@ -23,6 +23,7 @@ var package = Package(
         .target(
             name: "Session",
             dependencies: [
+                "shared",
             ]
         ),
         .testTarget(
@@ -35,7 +36,8 @@ var package = Package(
         .target(
             name: "Timetable",
             dependencies: [
-                "shared"
+                "shared",
+                "Model",
             ]
         ),
         .testTarget(
@@ -52,6 +54,14 @@ var package = Package(
                 "Timetable",
             ]
         ),
+
+        .target(
+            name: "Model",
+            dependencies: [
+                "shared",
+            ]
+        ),
+
         .binaryTarget(
             name: "shared",
             path: "../../app-ios-shared/build/XCFrameworks/release/shared.xcframework"
@@ -66,6 +76,17 @@ package.targets = package.targets.map { target -> Target in
             target.plugins = []
         }
         target.plugins?.append(.plugin(name: "SwiftLintPlugin", package: "SwiftLint"))
+    }
+
+    return target
+}
+
+// Enable experimental features for each targets
+package.targets = package.targets.map { target in
+    if target.type == .regular || target.type == .test {
+        target.swiftSettings = [
+            .enableExperimentalFeature("VariadicGenerics")
+        ]
     }
 
     return target

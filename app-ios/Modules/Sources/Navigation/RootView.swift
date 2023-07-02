@@ -12,20 +12,16 @@ public struct RootView: View {
     public init() {}
 
     public var body: some View {
-        NavigationStack {
-            TabView(selection: $selection) {
-                TimetableView()
-                    .tag(Tab.timeline)
-                    .tabItem {
-                        Label("Timeline", systemImage: "circle")
-                    }
-            }
-            .navigationDestination(for: String.self) { title in
-                SessionView()
-            }
-//            .fullScreenCover(item: Binding<Identifiable?>) { title in
-//                SessionView()
-//            }
+        TabView(selection: $selection) {
+            TimetableView(
+                sessionViewBuilder: { _ in
+                    SessionView()
+                }
+            )
+                .tag(Tab.timeline)
+                .tabItem {
+                    Label("Timeline", systemImage: "circle")
+                }
         }
     }
 }
