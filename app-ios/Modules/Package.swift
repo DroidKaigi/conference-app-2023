@@ -1,13 +1,16 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 var package = Package(
     name: "Modules",
+    platforms: [
+        .iOS(.v16),
+    ],
     products: [
         .library(name: "Session", targets: ["Session"]),
-        .library(name: "Core", targets: ["Core"])
+        .library(name: "Navigation", targets: ["Navigation"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
@@ -19,7 +22,6 @@ var package = Package(
         .target(
             name: "Session",
             dependencies: [
-                "Core"
             ]
         ),
         .testTarget(
@@ -28,20 +30,25 @@ var package = Package(
                 "Session"
             ]
         ),
-
         .target(
-            name: "Core",
+            name: "Timeline",
             dependencies: [
                 "shared"
             ]
         ),
         .testTarget(
-            name: "CoreTests",
+            name: "TimelineTests",
             dependencies: [
-                "Core"
+                "Timeline"
             ]
         ),
-        
+        .target(
+            name: "Navigation",
+            dependencies: [
+                "Session",
+                "Timeline",
+            ]
+        ),
         .binaryTarget(
             name: "shared",
             path: "../../app-ios-shared/build/XCFrameworks/release/shared.xcframework"
