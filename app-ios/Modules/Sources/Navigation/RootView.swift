@@ -1,6 +1,6 @@
 import Session
 import SwiftUI
-import Timeline
+import Timetable
 
 enum Tab {
     case timeline
@@ -14,7 +14,7 @@ public struct RootView: View {
     public var body: some View {
         NavigationStack {
             TabView(selection: $selection) {
-                TimelineView()
+                TimetableView()
                     .tag(Tab.timeline)
                     .tabItem {
                         Label("Timeline", systemImage: "circle")
