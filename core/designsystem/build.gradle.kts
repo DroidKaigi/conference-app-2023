@@ -24,4 +24,5 @@ kotlin {
 }
 
 dependencies {
+    lintChecks(libs.findLibrary("composeLintCheck").get())
 }
