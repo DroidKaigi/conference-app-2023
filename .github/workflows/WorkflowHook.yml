@@ -104,7 +104,7 @@ jobs:
           recreate: true
           message: >
             Hi @${{ github.event.workflow_run.actor.login }}!
-            Codes seem to be unformatted. Please run `./gradlew spotlessKotlinApply` to fix this issue.
+            Codes seem to be unformatted. To resolve this issue, please run `./gradlew spotlessKotlinApply` and fix the results of ./gradlew lintDebug..
             Thank you for your contribution.
 
 
