@@ -20,7 +20,7 @@ import io.github.droidkaigi.confsched2023.main.MainScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 
 @Composable
-fun KaigiApp() {
+fun KaigiApp(modifier: Modifier = Modifier) {
     KaigiTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
@@ -31,7 +31,7 @@ fun KaigiApp() {
         }
 
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             val navController = rememberNavController()
