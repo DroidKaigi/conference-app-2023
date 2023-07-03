@@ -24,10 +24,7 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
@@ -39,7 +36,7 @@ fun TimetableTab(
     day: Int,
     selected: Boolean,
     onClick: () -> Unit,
-    scrollState: TimetableTabScrollState,
+    scrollState: TimetableTabState,
     modifier: Modifier = Modifier,
 ) {
     Tab(
@@ -62,13 +59,13 @@ fun TimetableTab(
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
                         .graphicsLayer {
-                            alpha = (1 - scrollState.progress * 2).coerceAtLeast(0f)
+                            alpha = (1 - scrollState.tabCollapseProgress * 2).coerceAtLeast(0f)
                         }
                         .layout { measurable, constraints ->
                             val placeable = measurable.measure(constraints)
                             layout(
                                 placeable.width,
-                                placeable.height - (placeable.height * scrollState.progress).roundToInt(),
+                                placeable.height - (placeable.height * scrollState.tabCollapseProgress).roundToInt(),
                             ) {
                                 placeable.placeRelative(0, 0)
                             }
@@ -100,7 +97,7 @@ fun TimetableTabIndicator(
 
 @Composable
 fun TimetableTabRow(
-    scrollState: TimetableTabScrollState,
+    tabState: TimetableTabState,
     selectedTabIndex: Int,
     modifier: Modifier = Modifier,
     indicator: @Composable (tabPositions: List<TabPosition>) -> Unit = @Composable { tabPositions ->
@@ -114,7 +111,7 @@ fun TimetableTabRow(
 ) {
     TabRow(
         selectedTabIndex = selectedTabIndex,
-        modifier = modifier.height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * scrollState.progress)),
+        modifier = modifier.height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * tabState.tabCollapseProgress)),
         divider = {},
         indicator = indicator,
         tabs = tabs,
@@ -122,98 +119,54 @@ fun TimetableTabRow(
 }
 
 @Composable
-fun rememberTimetableTabScrollState(): TimetableTabScrollState {
+fun rememberTimetableTabState(): TimetableTabState {
     val offsetLimit = LocalDensity.current.run {
         (maxTabRowHeight - minTabRowHeight).toPx()
     }
-    return rememberSaveable(saver = TimetableTabScrollState.Saver) {
-        TimetableTabScrollState(
+    return rememberSaveable(saver = TimetableTabState.Saver) {
+        TimetableTabState(
             initialOffsetLimit = -offsetLimit,
         )
     }
 }
 
 @Stable
-class TimetableTabScrollState(
+class TimetableTabState(
     initialOffsetLimit: Float = 0f,
     initialScrollOffset: Float = 0f,
 ) {
-    // This value will be like -418.0
+
     private val scrollOffsetLimit by mutableStateOf(initialOffsetLimit)
 
-    /**
-     * If progress is 0f, the tabs is fully expanded.
-     * If progress is scrollOffsetLimit, the tabs is fully expanded.
-     */
-    val progress: Float
+    val tabCollapseProgress: Float
         get() = scrollOffset / scrollOffsetLimit
 
     private val _scrollOffset = mutableStateOf(initialScrollOffset)
 
-    private var scrollOffset: Float
+    var scrollOffset: Float
         get() = _scrollOffset.value
-        set(newOffset) {
+        private set(newOffset) {
             _scrollOffset.value = newOffset.coerceIn(
                 minimumValue = scrollOffsetLimit,
                 maximumValue = 0f,
             )
         }
 
-    private val isTabExpandable: Boolean
+    val isTabExpandable: Boolean
         get() = scrollOffset > scrollOffsetLimit
 
-    private val isTabCollapsing: Boolean
+    val isTabCollapsing: Boolean
         get() = scrollOffset != 0f
 
-    val nestedScrollConnection = object : NestedScrollConnection {
-        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-            return onPreScrollScreen(available)
-        }
-
-        override fun onPostScroll(
-            consumed: Offset,
-            available: Offset,
-            source: NestedScrollSource,
-        ): Offset {
-            return onPostScrollScreen(available)
-        }
-    }
-
-    /**
-     * This function returns the consumed offset.
-     */
-    private fun onPreScrollScreen(availableScrollOffset: Offset): Offset {
-        if (availableScrollOffset.y >= 0) return Offset.Zero
-        // When scrolled upward
-        return if (isTabExpandable) {
-            val prevHeightOffset: Float = scrollOffset
-            scrollOffset += availableScrollOffset.y
-            availableScrollOffset.copy(x = 0f, y = scrollOffset - prevHeightOffset)
-        } else {
-            Offset.Zero
-        }
-    }
-
-    /**
-     * This function returns the consumed offset.
-     */
-    private fun onPostScrollScreen(availableScrollOffset: Offset): Offset {
-        if (availableScrollOffset.y < 0f) return Offset.Zero
-        return if (isTabCollapsing && availableScrollOffset.y > 0) {
-            // When scrolling downward and overscroll
-            val prevHeightOffset = scrollOffset
-            scrollOffset += availableScrollOffset.y
-            availableScrollOffset.copy(x = 0f, y = scrollOffset - prevHeightOffset)
-        } else {
-            Offset.Zero
-        }
+    fun onScroll(y: Float) {
+        scrollOffset += y
     }
 
     companion object {
-        val Saver: Saver<TimetableTabScrollState, *> = listSaver(
+        val Saver: Saver<TimetableTabState, *> = listSaver(
             save = { listOf(it.scrollOffsetLimit, it.scrollOffset) },
             restore = {
-                TimetableTabScrollState(
+                TimetableTabState(
                     initialOffsetLimit = it[0],
                     initialScrollOffset = it[1],
                 )
