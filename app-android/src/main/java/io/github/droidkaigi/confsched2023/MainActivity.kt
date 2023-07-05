@@ -14,6 +14,7 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
+            // This is a test comment
             KaigiApp()
         }
     }
