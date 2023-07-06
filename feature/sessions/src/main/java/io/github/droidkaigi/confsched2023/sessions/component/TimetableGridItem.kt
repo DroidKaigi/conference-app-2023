@@ -18,8 +18,9 @@ const val TimetableGridItemTestTag = "TimetableGridItem"
 @Composable
 fun TimetableGridItem(
     timetableItem: TimetableItem,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     isBookmarked: Boolean,
-    onBookmarked: (Session) -> Unit,
+    onBookmarkClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -31,14 +32,14 @@ fun TimetableGridItem(
                 Text(
                     text = "★",
                     modifier = Modifier.clickable {
-                        onBookmarked(timetableItem)
+                        onBookmarkClick(timetableItem)
                     },
                 )
             } else {
                 Text(
                     text = "☆",
                     modifier = Modifier.clickable {
-                        onBookmarked(timetableItem)
+                        onBookmarkClick(timetableItem)
                     },
                 )
             }
@@ -54,7 +55,8 @@ fun PreviewTimetableGridItem() {
             TimetableGridItem(
                 timetableItem = Session.fake(),
                 isBookmarked = false,
-                onBookmarked = {},
+                onTimetableItemClick = {},
+                onBookmarkClick = {},
             )
         }
     }

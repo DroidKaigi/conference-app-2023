@@ -37,9 +37,18 @@ class TimetableScreenRobot @Inject constructor(
             KaigiTheme {
                 TimetableScreen(
                     onContributorsClick = { },
+                    onTimetableItemClick = { },
                 )
             }
         }
+        waitUntilIdle()
+    }
+
+    fun clickFirstSession() {
+        composeTestRule
+            .onAllNodes(hasTestTag(TimetableListItemTestTag))
+            .onFirst()
+            .performClick()
         waitUntilIdle()
     }
 

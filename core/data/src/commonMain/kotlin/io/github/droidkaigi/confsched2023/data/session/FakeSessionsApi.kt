@@ -4,20 +4,20 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.fake
 
 interface SessionsApi {
-    suspend fun sessions(): Timetable
+    suspend fun timetable(): Timetable
 }
 
 class FakeSessionsApi : SessionsApi {
 
     sealed class Strategy : SessionsApi {
         object Operational : Strategy() {
-            override suspend fun sessions(): Timetable {
+            override suspend fun timetable(): Timetable {
                 return Timetable.fake()
             }
         }
 
         object Error : Strategy() {
-            override suspend fun sessions(): Timetable {
+            override suspend fun timetable(): Timetable {
                 throw RuntimeException("Error")
             }
         }
@@ -29,7 +29,7 @@ class FakeSessionsApi : SessionsApi {
         this.strategy = strategy
     }
 
-    override suspend fun sessions(): Timetable {
-        return strategy.sessions()
+    override suspend fun timetable(): Timetable {
+        return strategy.timetable()
     }
 }

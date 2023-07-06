@@ -19,11 +19,14 @@ const val TimetableListItemTestTag = "TimetableListItem"
 fun TimetableListItem(
     session: TimetableItem,
     isBookmarked: Boolean,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onFavoriteClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier.testTag(TimetableListItemTestTag),
+        modifier
+            .testTag(TimetableListItemTestTag)
+            .clickable { onTimetableItemClick(session) },
     ) {
         Text(session.title.currentLangTitle)
         if (session is Session) {
@@ -54,6 +57,7 @@ fun PreviewTimetableListItem() {
             TimetableListItem(
                 session = Session.fake(),
                 isBookmarked = false,
+                onTimetableItemClick = {},
                 onFavoriteClick = {},
             )
         }

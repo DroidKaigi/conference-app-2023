@@ -69,6 +69,7 @@ data class TimetableGridUiState(val timetable: Timetable)
 @Composable
 fun TimetableGrid(
     uiState: TimetableGridUiState,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarked: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -81,8 +82,9 @@ fun TimetableGrid(
     ) { timetableItem, isBookmarked ->
         TimetableGridItem(
             timetableItem = timetableItem,
+            onTimetableItemClick = onTimetableItemClick,
             isBookmarked = isBookmarked,
-            onBookmarked = { onBookmarked(timetableItem) },
+            onBookmarkClick = { onBookmarked(timetableItem) },
         )
     }
 }
@@ -248,7 +250,12 @@ fun TimetablePreview() {
         timetable = Timetable.fake(),
         timetableState = timetableState,
     ) { timetableItem, isBookmarked ->
-        TimetableGridItem(timetableItem, isBookmarked, {})
+        TimetableGridItem(
+            timetableItem = timetableItem,
+            isBookmarked = isBookmarked,
+            onBookmarkClick = {},
+            onTimetableItemClick = {},
+        )
     }
 }
 

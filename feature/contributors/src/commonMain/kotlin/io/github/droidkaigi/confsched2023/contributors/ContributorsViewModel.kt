@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 class ContributorsViewModel @KmpInject constructor(val sessionRepository: SessionsRepository) :
     KmpViewModel() {
     // FIXME
-    val sessions = sessionRepository.getSessionsStream()
+    val sessions = sessionRepository.getTimetableStream()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Timetable())
 
     fun greet(): String {
