@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2023.sessions
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -30,6 +29,7 @@ const val TimetableScreenTestTag = "TimetableScreen"
 @Composable
 fun TimetableScreen(
     onContributorsClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -42,6 +42,7 @@ fun TimetableScreen(
     TimetableScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
+        onTimetableItemClick = onTimetableItemClick,
         onContributorsClick = onContributorsClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
@@ -52,13 +53,13 @@ data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     snackbarHostState: SnackbarHostState,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onContributorsClick: () -> Unit,
-    onBookmarkClick: (TimetableItem.Session) -> Unit,
+    onBookmarkClick: (TimetableItem) -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
     val state = rememberTimetableScreenScrollState()
@@ -90,6 +91,7 @@ private fun TimetableScreen(
                         placeable.placeRelative(0, 0 + (state.sheetScrollOffset / 2).roundToInt())
                     }
                 },
+            onTimetableItemClick = onTimetableItemClick,
             onContributorsClick = onContributorsClick,
             uiState = uiState.contentUiState,
             timetableScreenScrollState = state,

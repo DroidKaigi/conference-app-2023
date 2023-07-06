@@ -17,6 +17,7 @@ import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.main.MainScreen
+import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 
 @Composable
@@ -40,6 +41,9 @@ fun KaigiApp(modifier: Modifier = Modifier) {
                     MainScreen(
                         timetableScreen = {
                             TimetableScreen(
+                                onTimetableItemClick = {
+                                    navController.navigate("timetable/${it.id.value}")
+                                },
                                 onContributorsClick = {
                                     navController.navigate("contributors")
                                 },
@@ -49,6 +53,13 @@ fun KaigiApp(modifier: Modifier = Modifier) {
                 }
                 composable("contributors") {
                     ContributorsScreen(hiltViewModel<ContributorsViewModel>())
+                }
+                composable("timetable/{timetableItemId}") {
+                    TimetableItemDetailScreen(
+                        onNavigationIconClick = {
+                            navController.popBackStack()
+                        },
+                    )
                 }
             }
         }

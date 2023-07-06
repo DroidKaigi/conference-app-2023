@@ -28,7 +28,7 @@ class TimetableScreenViewModel @Inject constructor(
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
     private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
-        .getSessionsStream()
+        .getTimetableStream()
         .handleErrorAndRetry(
             AppStrings.Retry,
             userMessageStateHolder,
@@ -80,7 +80,7 @@ class TimetableScreenViewModel @Inject constructor(
             }
     }
 
-    fun onBookmarkClick(session: TimetableItem.Session) {
+    fun onBookmarkClick(session: TimetableItem) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(session.id)
         }

@@ -9,6 +9,8 @@ fun <T> Flow<T>.handleErrorAndRetry(
     actionLabel: Strings<*>,
     userMessageStateHolder: UserMessageStateHolder,
 ) = retry { throwable ->
+    // TODO: Introduce logger
+    throwable.printStackTrace()
     val messageResult = userMessageStateHolder.showMessage(
         message = throwable.toApplicationErrorMessage(),
         actionLabel = actionLabel.asString(),

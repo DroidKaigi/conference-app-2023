@@ -19,7 +19,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTab
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTabRow
@@ -42,10 +42,11 @@ sealed interface TimetableSheetUiState {
 
 @Composable
 fun TimetableSheet(
-    onContributorsClick: () -> Unit,
     uiState: TimetableSheetUiState,
     timetableScreenScrollState: TimetableScreenScrollState,
-    onFavoriteClick: (Session) -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+    onContributorsClick: () -> Unit,
+    onFavoriteClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedTabIndex by remember { mutableStateOf(0) }
@@ -90,8 +91,9 @@ fun TimetableSheet(
                 is ListTimetable -> {
                     TimetableList(
                         uiState = uiState.timetableListUiState,
+                        onTimetableItemClick = onTimetableItemClick,
                         onContributorsClick = onContributorsClick,
-                        onFavoriteClick = onFavoriteClick,
+                        onBookmarkClick = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
@@ -101,7 +103,8 @@ fun TimetableSheet(
                 is GridTimetable -> {
                     TimetableGrid(
                         uiState = uiState.timetableGridUiState,
-                        onBookmarked = {},
+                        onTimetableItemClick = onTimetableItemClick,
+                        onBookmarked = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),

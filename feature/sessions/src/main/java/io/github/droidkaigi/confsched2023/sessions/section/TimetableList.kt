@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.model.Timetable
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 
 const val TimetableListTestTag = "TimetableList"
@@ -18,7 +18,8 @@ data class TimetableListUiState(val timetable: Timetable)
 @Composable
 fun TimetableList(
     uiState: TimetableListUiState,
-    onFavoriteClick: (Session) -> Unit,
+    onBookmarkClick: (TimetableItem) -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onContributorsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -34,8 +35,13 @@ fun TimetableList(
             )
         }
         items(uiState.timetable.timetableItems) { session ->
-            val isBookmarked = uiState.timetable.favorites.contains(session.id)
-            TimetableListItem(session, isBookmarked, onFavoriteClick)
+            val isBookmarked = uiState.timetable.bookmarks.contains(session.id)
+            TimetableListItem(
+                session,
+                isBookmarked = isBookmarked,
+                onTimetableItemClick = onTimetableItemClick,
+                onFavoriteClick = onBookmarkClick,
+            )
         }
     }
 }
