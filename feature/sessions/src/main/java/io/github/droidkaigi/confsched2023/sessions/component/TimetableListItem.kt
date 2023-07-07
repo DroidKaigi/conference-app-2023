@@ -11,16 +11,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.model.Locale
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableLanguage
-import io.github.droidkaigi.confsched2023.model.TimetableRoom
 import io.github.droidkaigi.confsched2023.model.fake
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.TimeZone.Companion
-import kotlinx.datetime.toLocalDateTime
 
 const val TimetableListItemTestTag = "TimetableListItem"
 
@@ -36,32 +29,33 @@ fun TimetableListItem(
     ) {
         SessionTime(session.startsTimeString, session.endsTimeString)
         SessionDescription(session)
-        SessionBookmark()
-
-        Text(session.title.currentLangTitle)
-        if (session is Session) {
-            if (isBookmarked) {
-                Text(
-                    text = "★",
-                    modifier = Modifier.clickable {
-                        onFavoriteClick(session)
-                    },
-                )
-            } else {
-                Text(
-                    text = "☆",
-                    modifier = Modifier.clickable {
-                        onFavoriteClick(session)
-                    },
-                )
-            }
-        }
+        SessionBookmark(session, isBookmarked, onFavoriteClick)
     }
 }
 
 @Composable
-fun SessionBookmark() {
-    // TODO
+fun SessionBookmark(
+    session: TimetableItem,
+    isBookmarked: Boolean,
+    onFavoriteClick: (Session) -> Unit,
+    ) {
+    if (session is Session) {
+        if (isBookmarked) {
+            Text(
+                text = "★",
+                modifier = Modifier.clickable {
+                    onFavoriteClick(session)
+                },
+            )
+        } else {
+            Text(
+                text = "☆",
+                modifier = Modifier.clickable {
+                    onFavoriteClick(session)
+                },
+            )
+        }
+    }
 }
 
 @Composable
@@ -70,33 +64,34 @@ fun SessionDescription(
 ) {
 
     Column {
-        // For Chips
+        // Chips
         Row {
             Text(session.room.name.currentLangTitle)
             Text(session.language.langOfSpeaker)
         }
 
+        // Title
         Text(session.title.currentLangTitle)
 
+        // Message
         if (session is Session) {
+            session.message?.let {
+                Text(it.currentLangTitle)
+            }
+        }
+
+        // Speaker
+        Row {
+            // TODO: Use Compose-image-loader to show image
+            // https://github.com/DroidKaigi/conference-app-2023/issues/239
+
             Text(
                 text = session.speakerString,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2
             )
         }
-
-
     }
-}
-
-@Composable
-fun Chips(
-    room: TimetableRoom
-) {
-
-
-
 }
 
 @Composable
@@ -118,7 +113,7 @@ fun PreviewTimetableListItem() {
         Surface {
             TimetableListItem(
                 session = Session.fake(),
-                isBookmarked = false,
+                isBookmarked = true,
                 onFavoriteClick = {},
             )
         }
