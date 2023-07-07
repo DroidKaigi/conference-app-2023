@@ -28,6 +28,7 @@ public sealed class TimetableItem {
     public abstract val language: TimetableLanguage
     public abstract val asset: TimetableAsset
     public abstract val levels: PersistentList<String>
+    public abstract val speakers: PersistentList<TimetableSpeaker>
     public val day: DroidKaigi2023Day? get() = DroidKaigi2023Day.ofOrNull(startsAt)
 
     @Serializable
@@ -42,8 +43,8 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
+        override val speakers: PersistentList<TimetableSpeaker>,
         val description: String,
-        val speakers: PersistentList<TimetableSpeaker>,
         val message: MultiLangText?,
     ) : TimetableItem() {
         public companion object
@@ -61,7 +62,7 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
-        val speakers: PersistentList<TimetableSpeaker> = persistentListOf(),
+        override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
     public val startsTimeString: String by lazy {
@@ -69,10 +70,23 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
+    public val endsTimeString: String by lazy {
+        val localDate = endsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
+    }
+
     public val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
+    }
+
+    public val speakerString: String by lazy {
+        val sb = StringBuilder()
+        speakers.forEach {
+            sb.append(it.name + ", ")
+        }
+        sb.toString().dropLast(2)
     }
 }
 

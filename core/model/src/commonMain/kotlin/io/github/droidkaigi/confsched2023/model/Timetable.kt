@@ -112,6 +112,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     isInterpretationTarget = true,
                 ),
                 asset = TimetableAsset(null, null),
+                speakers = listOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
+                ).toPersistentList(),
                 levels = persistentListOf(
                     "BEGINNER",
                     "INTERMEDIATE",
@@ -172,6 +188,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     isInterpretationTarget = true,
                 ),
                 asset = TimetableAsset(null, null),
+                speakers = listOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
+                ).toPersistentList(),
                 levels = persistentListOf(
                     "BEGINNER",
                     "INTERMEDIATE",
