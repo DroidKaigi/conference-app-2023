@@ -26,37 +26,48 @@ fun TimetableListItem(
     onFavoriteClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
+
+    Column(
         modifier
             .testTag(TimetableListItemTestTag)
-            .clickable { onTimetableItemClick(session) },
+            .clickable { onTimetableItemClick(session) }
     ) {
-        SessionTime(session.startsTimeString, session.endsTimeString)
-        SessionDescription(session)
-        SessionBookmark(session, isBookmarked, onFavoriteClick)
-    }
+        Row {
+            SessionTime(
+                startAt = session.startsTimeString,
+                endAt = session.endsTimeString
+            )
+            SessionDescription(session = session)
+            SessionBookmark(
+                session = session,
+                isBookmarked = isBookmarked,
+                onFavoriteClick = onFavoriteClick
+            )
+        }
 
-    Divider()
+        Divider()
+    }
 }
 
 @Composable
 fun SessionBookmark(
     session: TimetableItem,
     isBookmarked: Boolean,
+    modifier: Modifier = Modifier,
     onFavoriteClick: (Session) -> Unit,
-    ) {
+) {
     if (session is Session) {
         if (isBookmarked) {
             Text(
                 text = "★",
-                modifier = Modifier.clickable {
+                modifier = modifier.clickable {
                     onFavoriteClick(session)
                 },
             )
         } else {
             Text(
                 text = "☆",
-                modifier = Modifier.clickable {
+                modifier = modifier.clickable {
                     onFavoriteClick(session)
                 },
             )
@@ -66,9 +77,9 @@ fun SessionBookmark(
 
 @Composable
 fun SessionDescription(
-    session: TimetableItem
+    session: TimetableItem,
+    modifier: Modifier = Modifier,
 ) {
-
     Column {
         // Chips
         Row {
@@ -94,7 +105,7 @@ fun SessionDescription(
             Text(
                 text = session.speakerString,
                 overflow = TextOverflow.Ellipsis,
-                maxLines = 2
+                maxLines = 2,
             )
         }
     }
@@ -104,6 +115,7 @@ fun SessionDescription(
 fun SessionTime(
     startAt: String,
     endAt: String,
+    modifier: Modifier = Modifier,
 ) {
     Column {
         Text(startAt)
