@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Locale
@@ -78,7 +79,11 @@ fun SessionDescription(
         Text(session.title.currentLangTitle)
 
         if (session is Session) {
-            Text(session.speakerString)
+            Text(
+                text = session.speakerString,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
+            )
         }
 
 
