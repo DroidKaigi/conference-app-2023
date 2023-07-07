@@ -53,4 +53,14 @@ class KaigiAppTest {
             capture()
         }
     }
+
+    @Test
+    fun checkNavigateToTimetableItemDetailShot() {
+        kaigiAppRobot(robotTestRule) {
+            timetableScreenRobot(robotTestRule) {
+                clickFirstSession()
+            }
+            capture()
+        }
+    }
 }

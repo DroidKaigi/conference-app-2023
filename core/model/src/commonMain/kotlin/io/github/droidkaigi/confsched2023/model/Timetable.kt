@@ -21,11 +21,11 @@ import kotlinx.serialization.UseSerializers
 @Immutable
 public data class Timetable(
     val timetableItems: TimetableItemList = TimetableItemList(),
-    val favorites: PersistentSet<TimetableItemId> = persistentSetOf(),
+    val bookmarks: PersistentSet<TimetableItemId> = persistentSetOf(),
 ) {
     val contents: List<TimetableItemWithFavorite> by lazy {
         timetableItems.map {
-            TimetableItemWithFavorite(it, favorites.contains(it.id))
+            TimetableItemWithFavorite(it, bookmarks.contains(it.id))
         }
     }
 
@@ -55,7 +55,7 @@ public data class Timetable(
         }
         if (filters.filterFavorite) {
             timetableItems = timetableItems.filter { timetableItem ->
-                favorites.contains(timetableItem.id)
+                bookmarks.contains(timetableItem.id)
             }
         }
         if (filters.filterSession) {
@@ -216,6 +216,6 @@ public fun Timetable.Companion.fake(): Timetable {
         timetableItems = TimetableItemList(
             timetableItems.toPersistentList(),
         ),
-        favorites = persistentSetOf(),
+        bookmarks = persistentSetOf(),
     )
 }

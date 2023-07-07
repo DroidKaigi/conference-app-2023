@@ -37,6 +37,12 @@ fun DependencyHandlerScope.testImplementation(
     add("testImplementation", artifact.get())
 }
 
+fun DependencyHandlerScope.lintChecks(
+    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+) {
+    add("lintChecks", artifact.get())
+}
+
 private fun DependencyHandlerScope.api(
     artifact: Optional<Provider<MinimalExternalModuleDependency>>
 ) {

@@ -9,6 +9,7 @@ on:
     workflows:
       - UnitTest
       - Format
+      - iOS Lint
     types:
       - completed
 
@@ -33,7 +34,9 @@ jobs:
       contains(fromJSON('["failure"]'), github.event.workflow_run.conclusion) &&
       contains(fromJSON('["Format"]'), github.event.workflow.name) ||
       contains(fromJSON('["success", "failure"]'), github.event.workflow_run.conclusion) &&
-      contains(fromJSON('["UnitTest"]'), github.event.workflow.name)
+      contains(fromJSON('["UnitTest"]'), github.event.workflow.name) ||
+      contains(fromJSON('["failure"]'), github.event.workflow_run.conclusion) &&
+      contains(fromJSON('["iOS Lint"]'), github.event.workflow.name)
 
     permissions:
       pull-requests: read # for listing pull requests
@@ -101,7 +104,7 @@ jobs:
           recreate: true
           message: >
             Hi @${{ github.event.workflow_run.actor.login }}!
-            Codes seem to be unformatted. Please run `./gradlew spotlessKotlinApply` to fix this issue.
+            Codes seem to be unformatted. To resolve this issue, please run `./gradlew spotlessKotlinApply` and fix the results of ./gradlew lintDebug..
             Thank you for your contribution.
 
 
@@ -144,3 +147,31 @@ jobs:
           event_name: ${{ github.event.workflow_run.event }}
           files: |
             .test-results/**/*.xml
+
+  # Run every executions of iOS Lint workflow. (failure only)
+  after-iOSLint:
+    needs:
+      - linked-pull-request
+
+    if: >
+      github.event.workflow.name == 'iOS Lint' &&
+      needs.linked-pull-request.outputs.pull-request &&
+      fromJSON(needs.linked-pull-request.outputs.pull-request).number
+
+    permissions:
+      pull-requests: write # for creating a comment on pull requests
+
+    timeout-minutes: 2
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
+        with:
+          header: ping-format
+          number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
+          recreate: true
+          message: >
+            Hi @${{ github.event.workflow_run.actor.login }}!
+            Codes seem to have violations. Please run `cd app-ios && swiftlint --fix` to fix this issue.
+            Thank you for your contribution.

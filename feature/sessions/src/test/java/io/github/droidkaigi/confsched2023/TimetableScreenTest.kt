@@ -53,9 +53,40 @@ class TimetableScreenTest {
     fun checkFavoriteToggleShot() {
         timetableScreenRobot(robotTestRule) {
             setupTimetableScreenContent()
-            clickFirstSessionFavorite()
+            clickFirstSessionBookmark()
             checkTimetableListCapture()
-            clickFirstSessionFavorite()
+            clickFirstSessionBookmark()
+            checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
+            scrollTimetable()
+            checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkGridShot() {
+        timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
+            clickTimetableUiTypeChangeButton()
+            checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkGridScrollShot() {
+        timetableScreenRobot(robotTestRule) {
+            setupTimetableScreenContent()
+            clickTimetableUiTypeChangeButton()
+            scrollTimetable()
             checkTimetableListCapture()
         }
     }

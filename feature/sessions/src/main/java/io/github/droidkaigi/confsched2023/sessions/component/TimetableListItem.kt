@@ -22,11 +22,14 @@ const val TimetableListItemTestTag = "TimetableListItem"
 fun TimetableListItem(
     session: TimetableItem,
     isBookmarked: Boolean,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onFavoriteClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier.testTag(TimetableListItemTestTag),
+        modifier
+            .testTag(TimetableListItemTestTag)
+            .clickable { onTimetableItemClick(session) },
     ) {
         SessionTime(session.startsTimeString, session.endsTimeString)
         SessionDescription(session)
@@ -116,7 +119,8 @@ fun PreviewTimetableListItem() {
         Surface {
             TimetableListItem(
                 session = Session.fake(),
-                isBookmarked = true,
+                isBookmarked = false,
+                onTimetableItemClick = {},
                 onFavoriteClick = {},
             )
         }

@@ -17,10 +17,11 @@ import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.main.MainScreen
+import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 
 @Composable
-fun KaigiApp() {
+fun KaigiApp(modifier: Modifier = Modifier) {
     KaigiTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
@@ -31,15 +32,18 @@ fun KaigiApp() {
         }
 
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
             val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "timetable") {
-                composable("timetable") {
+            NavHost(navController = navController, startDestination = "main") {
+                composable("main") {
                     MainScreen(
                         timetableScreen = {
                             TimetableScreen(
+                                onTimetableItemClick = {
+                                    navController.navigate("timetable/${it.id.value}")
+                                },
                                 onContributorsClick = {
                                     navController.navigate("contributors")
                                 },
@@ -49,6 +53,13 @@ fun KaigiApp() {
                 }
                 composable("contributors") {
                     ContributorsScreen(hiltViewModel<ContributorsViewModel>())
+                }
+                composable("timetable/{timetableItemId}") {
+                    TimetableItemDetailScreen(
+                        onNavigationIconClick = {
+                            navController.popBackStack()
+                        },
+                    )
                 }
             }
         }
