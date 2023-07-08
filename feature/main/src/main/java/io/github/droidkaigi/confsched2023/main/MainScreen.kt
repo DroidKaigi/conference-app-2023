@@ -26,15 +26,14 @@ import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val mainScreenRoute = "main"
-fun NavGraphBuilder.mainScreens(
-    onTabSelected: (mainNestedNavController: NavController, MainScreenTab) -> Unit,
-    routeToTab: String.() -> MainScreenTab?,
+
+fun NavGraphBuilder.mainScreen(
+    mainNestedGraphStateHolder: MainScreenStateHolder,
     mainNestedGraph: NavGraphBuilder.(mainNestedNavController: NavController, PaddingValues) -> Unit
 ) {
     composable(mainScreenRoute) {
         MainScreen(
-            onTabSelected = onTabSelected,
-            routeToTab = routeToTab,
+            mainScreenStateHolder = mainNestedGraphStateHolder,
             mainNestedNavGraph = mainNestedGraph,
         )
     }
@@ -42,12 +41,17 @@ fun NavGraphBuilder.mainScreens(
 
 const val MainScreenTestTag = "MainScreen"
 
+interface MainScreenStateHolder {
+    val startDestination: String
+    fun routeToTab(route: String): MainScreenTab?
+    fun onTabSelected(mainNestedNavController: NavController, tab: MainScreenTab)
+}
+
 @Composable
 fun MainScreen(
-    onTabSelected: (NavController, MainScreenTab) -> Unit,
-    routeToTab: String.() -> MainScreenTab?,
-    mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
+    mainScreenStateHolder: MainScreenStateHolder,
     viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>(),
+    mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
@@ -59,8 +63,8 @@ fun MainScreen(
     MainScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        routeToTab = routeToTab,
-        onTabSelected = onTabSelected,
+        routeToTab = mainScreenStateHolder::routeToTab,
+        onTabSelected = mainScreenStateHolder::onTabSelected,
         mainNestedNavGraph = mainNestedNavGraph,
     )
 }
@@ -114,9 +118,11 @@ private fun MainScreen(
         },
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
-        NavHost(navController = mainNestedNavController, startDestination = "timetable") {
+        NavHost(
+            navController = mainNestedNavController,
+            startDestination = "timetable"
+        ) {
             mainNestedNavGraph(mainNestedNavController, padding)
-
         }
     }
 }
