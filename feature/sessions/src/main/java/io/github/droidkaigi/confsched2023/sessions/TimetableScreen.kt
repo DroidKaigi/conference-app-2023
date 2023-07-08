@@ -16,6 +16,9 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
@@ -23,6 +26,23 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlin.math.roundToInt
+
+const val timetableScreenRoute = "timetable"
+fun NavGraphBuilder.nestedSessionScreens(
+    onContributorsClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+) {
+    composable(timetableScreenRoute) {
+        TimetableScreen(
+            onContributorsClick = onContributorsClick,
+            onTimetableItemClick = onTimetableItemClick,
+        )
+    }
+}
+
+fun NavController.navigateTimetableScreen() {
+    navigate(timetableScreenRoute)
+}
 
 const val TimetableScreenTestTag = "TimetableScreen"
 

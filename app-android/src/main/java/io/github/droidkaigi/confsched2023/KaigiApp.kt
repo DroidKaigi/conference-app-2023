@@ -9,16 +9,25 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
+import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.main.MainScreen
-import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
-import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
+import io.github.droidkaigi.confsched2023.main.mainScreenRoute
+import io.github.droidkaigi.confsched2023.main.mainScreens
+import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
+import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
+import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
+import io.github.droidkaigi.confsched2023.sessions.sessionScreens
+import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -35,33 +44,55 @@ fun KaigiApp(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
-            val navController = rememberNavController()
-            NavHost(navController = navController, startDestination = "main") {
-                composable("main") {
-                    MainScreen(
-                        timetableScreen = {
-                            TimetableScreen(
-                                onTimetableItemClick = {
-                                    navController.navigate("timetable/${it.id.value}")
-                                },
-                                onContributorsClick = {
-                                    navController.navigate("contributors")
-                                },
-                            )
-                        },
-                    )
-                }
-                composable("contributors") {
-                    ContributorsScreen(hiltViewModel<ContributorsViewModel>())
-                }
-                composable("timetable/{timetableItemId}") {
-                    TimetableItemDetailScreen(
-                        onNavigationIconClick = {
-                            navController.popBackStack()
-                        },
-                    )
-                }
-            }
+            KaigiNavHost()
         }
     }
+}
+
+@Composable
+private fun KaigiNavHost(navController: NavHostController = rememberNavController()) {
+
+    NavHost(navController = navController, startDestination = mainScreenRoute) {
+        mainScreen(navController)
+        sessionScreens(
+            onNavigationIconClick = {
+                navController.popBackStack()
+            }
+        )
+    }
+}
+
+private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
+    mainScreens(
+        onTabSelected = { mainNestedNavController, tab ->
+            when (tab) {
+                Timetable -> mainNestedNavController.navigateTimetableScreen()
+                Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
+            }
+        },
+        routeToTab = {
+            when (this) {
+                timetableScreenRoute -> Timetable
+                contributorsScreenRoute -> Contributor
+                else -> null
+            }
+        },
+        mainNestedGraph = { mainNestedNavController, padding ->
+            nestedSessionScreens(
+                onTimetableItemClick = { timetableitem ->
+                    navController.navigateToTimetableItemDetailScreen(
+                        timetableitem.id
+                    )
+                },
+                onContributorsClick = {
+                    // We don't abstract this logic because this screen is using Compose Multiplatform and
+                    // Compose Navigation doesn't support Multiplatform yet
+                    mainNestedNavController.navigate(contributorsScreenRoute)
+                },
+            )
+            composable(contributorsScreenRoute) {
+                ContributorsScreen(hiltViewModel<ContributorsViewModel>())
+            }
+        }
+    )
 }
