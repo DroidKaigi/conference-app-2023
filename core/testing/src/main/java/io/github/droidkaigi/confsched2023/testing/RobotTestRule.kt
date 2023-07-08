@@ -35,15 +35,15 @@ class RobotTestRule<T : ComponentActivity>(
                         roborazziOptions = RoborazziOptions(
                             compareOptions = CompareOptions(
                                 // Detect small changes
-                                changeThreshold = 0.000001F
+                                changeThreshold = 0.000001F,
                             ),
                             recordOptions = RecordOptions(
                                 // For saving money
-                                pixelBitConfig = PixelBitConfig.Rgb565
-                            )
-                        )
-                    )
-                )
+                                pixelBitConfig = PixelBitConfig.Rgb565,
+                            ),
+                        ),
+                    ),
+                ),
             )
             .around(composeTestRule)
             .apply(base, description)
