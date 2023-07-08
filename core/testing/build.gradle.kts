@@ -13,6 +13,7 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:data"))
     implementation(project(":app-android"))
+    implementation(project(":feature:main"))
     implementation(project(":feature:sessions"))
 
     implementation(libs.daggerHiltAndroidTesting)
