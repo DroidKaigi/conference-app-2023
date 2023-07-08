@@ -69,6 +69,11 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
+    public val endsTimeString: String by lazy {
+        val localDate = endsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
+    }
+
     public val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }

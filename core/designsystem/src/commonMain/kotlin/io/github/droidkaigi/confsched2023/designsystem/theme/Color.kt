@@ -1,4 +1,5 @@
 package io.github.droidkaigi.confsched2023.designsystem.theme
+
 import androidx.compose.ui.graphics.Color
 
 // Generated code from https://m3.material.io/theme-builder#/custom
@@ -66,3 +67,9 @@ val md_theme_dark_outlineVariant = Color(0xFF404944)
 val md_theme_dark_scrim = Color(0xFF000000)
 
 val seed = Color(0xFF006C50)
+
+val room_theme_hall_a = Color(0xFF483382)
+val room_theme_hall_b = Color(0xFF005085)
+val room_theme_hall_c = Color(0xFF16525A)
+val room_theme_room_1 = Color(0xFF5E5504)
+val room_theme_room_2 = Color(0xFF78085F)
