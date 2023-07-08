@@ -36,7 +36,7 @@ fun NavController.navigateToTimetableItemDetailScreen(
         timetableItemDetailScreenRoute.replace(
             "{$timetableItemDetailScreenRouteItemIdParameterName}",
             timetableItemId.value,
-        )
+        ),
     )
 }
 
