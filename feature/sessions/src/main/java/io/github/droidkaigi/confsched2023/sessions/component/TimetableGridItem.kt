@@ -46,8 +46,6 @@ const val TimetableGridItemTestTag = "TimetableGridItem"
 fun TimetableGridItem(
     timetableItem: TimetableItem,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    isBookmarked: Boolean,
-    onBookmarkClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when (timetableItem.room.type) {
@@ -121,9 +119,7 @@ fun PreviewTimetableGridItem() {
         Surface {
             TimetableGridItem(
                 timetableItem = Session.fake(),
-                isBookmarked = false,
                 onTimetableItemClick = {},
-                onBookmarkClick = {},
             )
         }
     }
