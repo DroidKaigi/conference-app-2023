@@ -20,20 +20,11 @@ fun TimetableList(
     uiState: TimetableListUiState,
     onBookmarkClick: (TimetableItem) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onContributorsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier.testTag(TimetableListTestTag),
     ) {
-        item {
-            Text(
-                text = "Go to ContributorsScreen",
-                modifier = Modifier.clickable {
-                    onContributorsClick()
-                },
-            )
-        }
         items(uiState.timetable.timetableItems) { session ->
             val isBookmarked = uiState.timetable.bookmarks.contains(session.id)
             TimetableListItem(

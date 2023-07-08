@@ -29,12 +29,10 @@ import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
 fun NavGraphBuilder.nestedSessionScreens(
-    onContributorsClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
-            onContributorsClick = onContributorsClick,
             onTimetableItemClick = onTimetableItemClick,
         )
     }
@@ -48,7 +46,6 @@ const val TimetableScreenTestTag = "TimetableScreen"
 
 @Composable
 fun TimetableScreen(
-    onContributorsClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
@@ -63,7 +60,6 @@ fun TimetableScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
-        onContributorsClick = onContributorsClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
@@ -78,7 +74,6 @@ private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onContributorsClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
@@ -112,7 +107,6 @@ private fun TimetableScreen(
                     }
                 },
             onTimetableItemClick = onTimetableItemClick,
-            onContributorsClick = onContributorsClick,
             uiState = uiState.contentUiState,
             timetableScreenScrollState = state,
             onFavoriteClick = onBookmarkClick,

@@ -26,6 +26,8 @@ import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val mainScreenRoute = "main"
+const val MainScreenTestTag = "MainScreen"
+
 
 fun NavGraphBuilder.mainScreen(
     mainNestedGraphStateHolder: MainScreenStateHolder,
@@ -38,8 +40,6 @@ fun NavGraphBuilder.mainScreen(
         )
     }
 }
-
-const val MainScreenTestTag = "MainScreen"
 
 interface MainScreenStateHolder {
     val startDestination: String

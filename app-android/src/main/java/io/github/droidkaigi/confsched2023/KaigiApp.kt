@@ -76,11 +76,6 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                         timetableitem.id
                     )
                 },
-                onContributorsClick = {
-                    // We don't abstract this logic because this screen is using Compose Multiplatform and
-                    // Compose Navigation doesn't support Multiplatform yet
-                    mainNestedNavController.navigate(contributorsScreenRoute)
-                },
             )
             composable(contributorsScreenRoute) {
                 ContributorsScreen(hiltViewModel<ContributorsViewModel>())
