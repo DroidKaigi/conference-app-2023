@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,6 +23,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
@@ -58,13 +58,14 @@ fun TimetableGridItem(
         ROOM_HALL_E -> room_hall_e
         else -> Color.White
     }
+    val speaker = timetableItem.speakers[0]
     if (timetableItem is Session) {
         Box(
             modifier = modifier
                 .testTag(TimetableGridItemTestTag)
                 .background(
                     color = backgroundColor,
-                    shape = RoundedCornerShape(4.dp)
+                    shape = RoundedCornerShape(4.dp),
                 )
                 .width(192.dp)
                 .clickable {
@@ -75,36 +76,36 @@ fun TimetableGridItem(
             Column {
                 Text(
                     text = timetableItem.title.currentLangTitle,
-                    style = MaterialTheme.typography.labelLarge.copy(Color.White)
+                    style = MaterialTheme.typography.labelLarge.copy(Color.White),
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.height(16.dp)) {
                     Icon(
                         painter = painterResource(id = R.drawable.icon_schedule),
                         tint = Color.White,
-                        contentDescription = null
+                        contentDescription = "Icon schedule",
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall.copy(Color.White)
+                        style = MaterialTheme.typography.bodySmall.copy(Color.White),
                     )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Row(
                     modifier = Modifier.height(32.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Image(
+                    AsyncImage(
+                        model = speaker.iconUrl,
                         modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                        painter = painterResource(id = R.drawable.person_image),
-                        contentDescription = null
+                        contentDescription = "User icon",
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Hoge Fuga",
-                        style = MaterialTheme.typography.labelMedium.copy(Color.White)
+                        text = speaker.name,
+                        style = MaterialTheme.typography.labelMedium.copy(Color.White),
                     )
                 }
             }
