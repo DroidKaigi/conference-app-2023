@@ -58,6 +58,7 @@ fun TimetableGridItem(
         ROOM_HALL_E -> room_hall_e
         else -> Color.White
     }
+    // TODO: Dealing with more than one speaker
     val speaker = timetableItem.speakers[0]
     if (timetableItem is Session) {
         Box(
