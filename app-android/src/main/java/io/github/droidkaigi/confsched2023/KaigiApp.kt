@@ -20,15 +20,15 @@ import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.main.MainScreenStateHolder
+import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
-import io.github.droidkaigi.confsched2023.main.mainScreenRoute
 import io.github.droidkaigi.confsched2023.main.mainScreen
-import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
+import io.github.droidkaigi.confsched2023.main.mainScreenRoute
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
+import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 
@@ -54,37 +54,37 @@ fun KaigiApp(modifier: Modifier = Modifier) {
 
 @Composable
 private fun KaigiNavHost(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
 ) {
     NavHost(navController = navController, startDestination = mainScreenRoute) {
         mainScreen(navController)
         sessionScreens(
             onNavigationIconClick = {
                 navController.popBackStack()
-            }
+            },
         )
     }
 }
 
 private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
     mainScreen(
-        mainNestedGraphStateHolder = KaigiAppMainScreenStateHolder(),
+        mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
         mainNestedGraph = { mainNestedNavController, padding ->
             nestedSessionScreens(
                 onTimetableItemClick = { timetableitem ->
                     navController.navigateToTimetableItemDetailScreen(
-                        timetableitem.id
+                        timetableitem.id,
                     )
                 },
             )
             composable(contributorsScreenRoute) {
                 ContributorsScreen(hiltViewModel<ContributorsViewModel>())
             }
-        }
+        },
     )
 }
 
-class KaigiAppMainScreenStateHolder : MainScreenStateHolder {
+class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     override val startDestination: String = timetableScreenRoute
 
     override fun routeToTab(route: String): MainScreenTab? {
@@ -97,7 +97,7 @@ class KaigiAppMainScreenStateHolder : MainScreenStateHolder {
 
     override fun onTabSelected(
         mainNestedNavController: NavController,
-        tab: MainScreenTab
+        tab: MainScreenTab,
     ) {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()

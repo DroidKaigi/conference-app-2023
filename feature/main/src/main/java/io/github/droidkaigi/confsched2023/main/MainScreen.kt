@@ -28,20 +28,19 @@ import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
 
-
 fun NavGraphBuilder.mainScreen(
-    mainNestedGraphStateHolder: MainScreenStateHolder,
-    mainNestedGraph: NavGraphBuilder.(mainNestedNavController: NavController, PaddingValues) -> Unit
+    mainNestedGraphStateHolder: MainNestedGraphStateHolder,
+    mainNestedGraph: NavGraphBuilder.(mainNestedNavController: NavController, PaddingValues) -> Unit,
 ) {
     composable(mainScreenRoute) {
         MainScreen(
-            mainScreenStateHolder = mainNestedGraphStateHolder,
+            mainNestedGraphStateHolder = mainNestedGraphStateHolder,
             mainNestedNavGraph = mainNestedGraph,
         )
     }
 }
 
-interface MainScreenStateHolder {
+interface MainNestedGraphStateHolder {
     val startDestination: String
     fun routeToTab(route: String): MainScreenTab?
     fun onTabSelected(mainNestedNavController: NavController, tab: MainScreenTab)
@@ -49,7 +48,7 @@ interface MainScreenStateHolder {
 
 @Composable
 fun MainScreen(
-    mainScreenStateHolder: MainScreenStateHolder,
+    mainNestedGraphStateHolder: MainNestedGraphStateHolder,
     viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>(),
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
@@ -63,8 +62,8 @@ fun MainScreen(
     MainScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        routeToTab = mainScreenStateHolder::routeToTab,
-        onTabSelected = mainScreenStateHolder::onTabSelected,
+        routeToTab = mainNestedGraphStateHolder::routeToTab,
+        onTabSelected = mainNestedGraphStateHolder::onTabSelected,
         mainNestedNavGraph = mainNestedNavGraph,
     )
 }
@@ -91,7 +90,7 @@ private fun MainScreen(
     snackbarHostState: SnackbarHostState,
     routeToTab: String.() -> MainScreenTab?,
     onTabSelected: (NavController, MainScreenTab) -> Unit,
-    mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit
+    mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val mainNestedNavController = rememberNavController()
     val navBackStackEntry by mainNestedNavController.currentBackStackEntryAsState()
@@ -120,7 +119,7 @@ private fun MainScreen(
     ) { padding ->
         NavHost(
             navController = mainNestedNavController,
-            startDestination = "timetable"
+            startDestination = "timetable",
         ) {
             mainNestedNavGraph(mainNestedNavController, padding)
         }
