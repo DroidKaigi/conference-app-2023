@@ -25,12 +25,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_theme_hall_a
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_theme_hall_b
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_theme_hall_c
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_theme_room_1
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_theme_room_2
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
 import io.github.droidkaigi.confsched2023.feature.sessions.R
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_A
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_B
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_C
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_D
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_E
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -45,12 +50,12 @@ fun TimetableGridItem(
     onBookmarkClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val backgroundColor = when (timetableItem.room.id) {
-        0 -> room_theme_hall_a
-        1 -> room_theme_hall_b
-        2 -> room_theme_hall_c
-        3 -> room_theme_room_1
-        4 -> room_theme_room_2
+    val backgroundColor = when (timetableItem.room.type) {
+        ROOM_HALL_A -> room_hall_a
+        ROOM_HALL_B -> room_hall_b
+        ROOM_HALL_C -> room_hall_c
+        ROOM_HALL_D -> room_hall_d
+        ROOM_HALL_E -> room_hall_e
         else -> Color.White
     }
     if (timetableItem is Session) {
@@ -67,7 +72,7 @@ fun TimetableGridItem(
                 }
                 .padding(12.dp),
         ) {
-            Column() {
+            Column {
                 Text(
                     text = timetableItem.title.currentLangTitle,
                     style = MaterialTheme.typography.labelLarge.copy(Color.White)

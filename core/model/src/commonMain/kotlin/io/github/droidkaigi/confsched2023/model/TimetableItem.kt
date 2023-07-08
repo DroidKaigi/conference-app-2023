@@ -4,6 +4,7 @@
 
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_B
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -97,7 +98,7 @@ public fun Session.Companion.fake(): Session {
             ),
         ),
         room = TimetableRoom(
-            id = 2,
+            type = ROOM_HALL_B,
             name = MultiLangText("Room1", "Room2"),
             sort = 1,
         ),

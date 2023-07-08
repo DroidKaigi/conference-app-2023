@@ -4,6 +4,10 @@
 
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_A
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_B
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_C
+import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_D
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
@@ -83,10 +87,10 @@ public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
     var rooms = listOf(
-        TimetableRoom(0, MultiLangText("App Bar", "App Bar"), 0),
-        TimetableRoom(1, MultiLangText("Backdrop", "Backdrop"), 1),
-        TimetableRoom(2, MultiLangText("Cards", "Cards"), 2),
-        TimetableRoom(3, MultiLangText("Dialogs", "Dialogs"), 3),
+        TimetableRoom(ROOM_HALL_A, MultiLangText("App Bar", "App Bar"), 0),
+        TimetableRoom(ROOM_HALL_B, MultiLangText("Backdrop", "Backdrop"), 1),
+        TimetableRoom(ROOM_HALL_C, MultiLangText("Cards", "Cards"), 2),
+        TimetableRoom(ROOM_HALL_D, MultiLangText("Dialogs", "Dialogs"), 3),
     )
     (0..10).forEach { _ ->
         rooms += rooms
