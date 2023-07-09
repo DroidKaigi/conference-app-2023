@@ -31,15 +31,16 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
 import io.github.droidkaigi.confsched2023.feature.sessions.R
-import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_A
-import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_B
-import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_C
-import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_D
-import io.github.droidkaigi.confsched2023.model.RoomType.ROOM_HALL_E
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallE
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
 
@@ -50,67 +51,63 @@ fun TimetableGridItem(
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when (timetableItem.room.type) {
-        ROOM_HALL_A -> room_hall_a
-        ROOM_HALL_B -> room_hall_b
-        ROOM_HALL_C -> room_hall_c
-        ROOM_HALL_D -> room_hall_d
-        ROOM_HALL_E -> room_hall_e
+        RoomHallA -> room_hall_a
+        RoomHallB -> room_hall_b
+        RoomHallC -> room_hall_c
+        RoomHallD -> room_hall_d
+        RoomHallE -> room_hall_e
         else -> Color.White
     }
     // TODO: Dealing with more than one speaker
     val speaker = timetableItem.speakers[0]
     Box(modifier.testTag(TimetableGridItemTestTag)) {
-        when (timetableItem) {
-            is Session, is Special -> {
-                Box(
-                    modifier = Modifier
-                        .testTag(TimetableGridItemTestTag)
-                        .background(
-                            color = backgroundColor,
-                            shape = RoundedCornerShape(4.dp),
-                        )
-                        .width(192.dp)
-                        .clickable {
-                            onTimetableItemClick(timetableItem)
-                        }
-                        .padding(12.dp),
-                ) {
-                    Column {
-                        Text(
-                            text = timetableItem.title.currentLangTitle,
-                            style = MaterialTheme.typography.labelLarge.copy(Color.White),
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Row(modifier = Modifier.height(16.dp)) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.icon_schedule),
-                                tint = Color.White,
-                                contentDescription = "Icon schedule",
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                                style = MaterialTheme.typography.bodySmall.copy(Color.White),
-                            )
-                        }
+        Box(
+            modifier = Modifier
+                .testTag(TimetableGridItemTestTag)
+                .background(
+                    color = backgroundColor,
+                    shape = RoundedCornerShape(4.dp),
+                )
+                .width(192.dp)
+                .clickable {
+                    onTimetableItemClick(timetableItem)
+                }
+                .padding(12.dp),
+        ) {
+            Column {
+                Text(
+                    text = timetableItem.title.currentLangTitle,
+                    style = MaterialTheme.typography.labelLarge.copy(Color.White),
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Row(modifier = Modifier.height(16.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.icon_schedule),
+                        tint = Color.White,
+                        contentDescription = ScheduleIcon.asString(),
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
+                        style = MaterialTheme.typography.bodySmall.copy(Color.White),
+                    )
+                }
 
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Row(
-                            modifier = Modifier.height(32.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            AsyncImage(
-                                model = speaker.iconUrl,
-                                modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                                contentDescription = "User icon",
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = speaker.name,
-                                style = MaterialTheme.typography.labelMedium.copy(Color.White),
-                            )
-                        }
-                    }
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier.height(32.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AsyncImage(
+                        model = speaker.iconUrl,
+                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
+                        contentDescription = UserIcon.asString(),
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = speaker.name,
+                        style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                    )
                 }
             }
         }
