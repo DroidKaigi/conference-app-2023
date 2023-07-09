@@ -67,7 +67,7 @@ javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.0" }
-kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.20.2" }
+kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.21.0" }
 
 kotlinSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
