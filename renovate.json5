@@ -11,7 +11,7 @@
   "timezone": "Asia/Tokyo",
 
   "prHourlyLimit": 0, // # of PRs will be created but never exceed prConcurrentLimit. 0 means infinite.
-  "prConcurrentLimit": 5, // # of PRs can be open at the time (security updates are not affected)
+  "prConcurrentLimit": 10, // # of PRs can be open at the time (security updates are not affected)
 
   "pruneBranchAfterAutomerge": true,
   "pruneStaleBranches": true,
