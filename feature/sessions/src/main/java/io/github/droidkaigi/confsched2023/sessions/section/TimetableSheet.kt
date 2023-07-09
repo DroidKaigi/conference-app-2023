@@ -102,7 +102,6 @@ fun TimetableSheet(
                     TimetableGrid(
                         uiState = uiState.timetableGridUiState,
                         onTimetableItemClick = onTimetableItemClick,
-                        onBookmarked = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
