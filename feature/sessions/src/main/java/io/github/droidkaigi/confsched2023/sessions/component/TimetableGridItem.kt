@@ -101,8 +101,8 @@ fun TimetableGridItem(
                 ) {
                     Image(
                         painter = rememberImagePainter(speaker.iconUrl),
+                        contentDescription = UserIcon.asString(),
                         modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                        contentDescription = UserIcon.asString()
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
