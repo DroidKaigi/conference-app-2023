@@ -42,7 +42,7 @@ composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref =
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.6.0" }
 composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
-composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.0" }
+composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.1" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
