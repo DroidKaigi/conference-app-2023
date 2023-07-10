@@ -26,22 +26,21 @@ fun TimetableListItem(
     onFavoriteClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Column(
         modifier
             .testTag(TimetableListItemTestTag)
-            .clickable { onTimetableItemClick(session) }
+            .clickable { onTimetableItemClick(session) },
     ) {
         Row {
             SessionTime(
                 startAt = session.startsTimeString,
-                endAt = session.endsTimeString
+                endAt = session.endsTimeString,
             )
             SessionDescription(session = session)
             SessionBookmark(
                 session = session,
                 isBookmarked = isBookmarked,
-                onFavoriteClick = onFavoriteClick
+                onFavoriteClick = onFavoriteClick,
             )
         }
 
