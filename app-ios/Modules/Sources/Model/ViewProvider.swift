@@ -1,3 +1,3 @@
 import SwiftUI
 
-public typealias ViewBuilder<each Params, V: View> = (_ params: repeat each Params) -> V
+public typealias ViewProvider<each Params, V: View> = (_ params: repeat each Params) -> V
