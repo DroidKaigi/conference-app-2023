@@ -1,13 +1,12 @@
+import Model
 import shared
 import SwiftUI
 
-public typealias ViewBuilder<each Params, V: View> = (_ params: repeat each Params) -> V
-
 public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
-    private let sessionViewBuilder: ViewBuilder<TimetableItem, SessionView>
+    private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
 
-    public init(sessionViewBuilder: @escaping ViewBuilder<TimetableItem, SessionView>) {
+    public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {
         self.sessionViewBuilder = sessionViewBuilder
     }
 
