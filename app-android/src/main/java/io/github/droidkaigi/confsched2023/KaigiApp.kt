@@ -79,7 +79,7 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                 },
                 onClickBookMarkIcon = {
                     navController.navigateToBookMarkScreen()
-                }
+                },
             )
             composable(contributorsScreenRoute) {
                 ContributorsScreen(hiltViewModel<ContributorsViewModel>())
