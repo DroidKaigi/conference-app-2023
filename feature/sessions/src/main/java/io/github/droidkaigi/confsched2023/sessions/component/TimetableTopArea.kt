@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
 
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
-const val BookMarkIconTestTag = "BookMarkIconTestTag"
+const val TimetableBookmarkIconTestTag = "TimetableBookmarkIconTestTag"
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +51,7 @@ fun TimetableTopArea(
                 }
 
                 IconButton(
-                    modifier = Modifier.testTag(BookMarkIconTestTag),
+                    modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
                     onClick = { onClickTopAreaBookMarkIcon() },
                 ) {
                     Icon(
