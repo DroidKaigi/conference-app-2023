@@ -6,7 +6,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,12 +25,14 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
 
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
+const val BookMarkIconTestTag = "BookMarkIconTestTag"
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TimetableTopArea(
     state: TimetableScreenScrollState,
     onTimetableUiChangeClick: () -> Unit,
+    onClickTopAreaBookMarkIcon: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -43,6 +48,16 @@ fun TimetableTopArea(
                 ) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
+                        contentDescription = Timetable.asString(),
+                    )
+                }
+
+                IconButton(
+                    modifier = Modifier.testTag(BookMarkIconTestTag),
+                    onClick = { onClickTopAreaBookMarkIcon() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Favorite,
                         contentDescription = Timetable.asString(),
                     )
                 }

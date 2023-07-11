@@ -30,10 +30,12 @@ import kotlin.math.roundToInt
 const val timetableScreenRoute = "timetable"
 fun NavGraphBuilder.nestedSessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
+    onClickBookMarkIcon: () -> Unit,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
             onTimetableItemClick = onTimetableItemClick,
+            onClickBookMarkIcon = onClickBookMarkIcon,
         )
     }
 }
@@ -47,6 +49,7 @@ const val TimetableScreenTestTag = "TimetableScreen"
 @Composable
 fun TimetableScreen(
     onTimetableItemClick: (TimetableItem) -> Unit,
+    onClickBookMarkIcon: () -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -61,6 +64,7 @@ fun TimetableScreen(
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = viewModel::onBookmarkClick,
+        onClickBookMarkIcon = onClickBookMarkIcon,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
 }
@@ -75,6 +79,7 @@ private fun TimetableScreen(
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
+    onClickBookMarkIcon: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
     val state = rememberTimetableScreenScrollState()
@@ -89,7 +94,7 @@ private fun TimetableScreen(
             )
         },
         topBar = {
-            TimetableTopArea(state, onTimetableUiChangeClick)
+            TimetableTopArea(state, onTimetableUiChangeClick, onClickBookMarkIcon)
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentWindowInsets = WindowInsets(0.dp),

@@ -37,6 +37,7 @@ class TimetableScreenRobot @Inject constructor(
             KaigiTheme {
                 TimetableScreen(
                     onTimetableItemClick = { },
+                    onClickBookMarkIcon = { },
                 )
             }
         }

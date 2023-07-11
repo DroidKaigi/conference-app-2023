@@ -27,6 +27,7 @@ import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
+import io.github.droidkaigi.confsched2023.sessions.navigateToBookMarkScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
@@ -76,6 +77,9 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                         timetableitem.id,
                     )
                 },
+                onClickBookMarkIcon = {
+                    navController.navigateToBookMarkScreen()
+                }
             )
             composable(contributorsScreenRoute) {
                 ContributorsScreen(hiltViewModel<ContributorsViewModel>())
