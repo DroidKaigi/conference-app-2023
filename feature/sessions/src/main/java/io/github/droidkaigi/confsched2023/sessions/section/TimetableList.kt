@@ -1,9 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -20,20 +18,11 @@ fun TimetableList(
     uiState: TimetableListUiState,
     onBookmarkClick: (TimetableItem) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onContributorsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
         modifier = modifier.testTag(TimetableListTestTag),
     ) {
-        item {
-            Text(
-                text = "Go to ContributorsScreen",
-                modifier = Modifier.clickable {
-                    onContributorsClick()
-                },
-            )
-        }
         items(uiState.timetable.timetableItems) { session ->
             val isBookmarked = uiState.timetable.bookmarks.contains(session.id)
             TimetableListItem(

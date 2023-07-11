@@ -45,7 +45,6 @@ fun TimetableSheet(
     uiState: TimetableSheetUiState,
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onContributorsClick: () -> Unit,
     onFavoriteClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -92,7 +91,6 @@ fun TimetableSheet(
                     TimetableList(
                         uiState = uiState.timetableListUiState,
                         onTimetableItemClick = onTimetableItemClick,
-                        onContributorsClick = onContributorsClick,
                         onBookmarkClick = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
@@ -104,7 +102,6 @@ fun TimetableSheet(
                     TimetableGrid(
                         uiState = uiState.timetableGridUiState,
                         onTimetableItemClick = onTimetableItemClick,
-                        onBookmarked = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),

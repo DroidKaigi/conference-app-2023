@@ -70,7 +70,6 @@ data class TimetableGridUiState(val timetable: Timetable)
 fun TimetableGrid(
     uiState: TimetableGridUiState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarked: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val timetableGridState = rememberTimetableGridState()
@@ -79,12 +78,10 @@ fun TimetableGrid(
         timetableState = timetableGridState,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
-    ) { timetableItem, isBookmarked ->
+    ) { timetableItem ->
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = onTimetableItemClick,
-            isBookmarked = isBookmarked,
-            onBookmarkClick = { onBookmarked(timetableItem) },
         )
     }
 }
@@ -96,12 +93,12 @@ fun TimetableGrid(
     timetableState: TimetableState,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    content: @Composable (TimetableItem, Boolean) -> Unit,
+    content: @Composable (TimetableItem) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
         val timetableItemWithFavorite = timetable.contents[index]
-        content(timetableItemWithFavorite.timetableItem, timetableItemWithFavorite.isFavorited)
+        content(timetableItemWithFavorite.timetableItem)
     }
     val density = timetableState.density
     val verticalScale = timetableState.screenScaleState.verticalScale
@@ -249,11 +246,9 @@ fun TimetablePreview() {
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
         timetableState = timetableState,
-    ) { timetableItem, isBookmarked ->
+    ) { timetableItem ->
         TimetableGridItem(
             timetableItem = timetableItem,
-            isBookmarked = isBookmarked,
-            onBookmarkClick = {},
             onTimetableItemClick = {},
         )
     }

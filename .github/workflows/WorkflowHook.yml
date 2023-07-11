@@ -55,11 +55,7 @@ jobs:
           script: |
             // Get the latest pull request
 
-            // We have to use different branch format for fork repos.
-            // fork repo = <author-repo>:<branch-name>
-            // original repo = <branch-name>
-
-            const headBranch = '${{ github.event.workflow_run.head_repository.fork && format('{0}:{1}', github.event.workflow_run.head_repository.owner.login, github.event.workflow_run.head_branch) || github.event.workflow_run.head_branch }}';
+            const headBranch = '${{ format('{0}:{1}', github.event.workflow_run.head_repository.owner.login, github.event.workflow_run.head_branch) }}';
 
             const { data: pulls } = await github.rest.pulls.list({
               owner: context.repo.owner,

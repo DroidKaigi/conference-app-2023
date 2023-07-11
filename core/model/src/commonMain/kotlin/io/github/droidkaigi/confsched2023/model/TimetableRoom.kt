@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public data class TimetableRoom(
-    val id: Int,
+    val type: RoomType,
     val name: MultiLangText,
     val sort: Int,
 )

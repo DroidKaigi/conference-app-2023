@@ -6,21 +6,21 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.StringsBindings
 
 sealed class MainStrings : Strings<MainStrings>(Bindings) {
     object Timetable : MainStrings()
-    object Play : MainStrings()
+    object Contributors : MainStrings()
     class Time(val hours: Int, val minutes: Int) : MainStrings()
 
     private object Bindings : StringsBindings<MainStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
                 Timetable -> "タイムテーブル"
-                Play -> "Play"
+                Contributors -> "Contributors"
                 is Time -> "${item.hours}時${item.minutes}分"
             }
         },
         Lang.English to { item, bindings ->
             when (item) {
                 Timetable -> "Timetable"
-                Play -> "Play"
+                Contributors -> "Contributors"
                 is Time -> "${item.hours}:${item.minutes}"
             }
         },

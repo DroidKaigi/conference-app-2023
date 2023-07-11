@@ -16,6 +16,9 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
@@ -24,11 +27,25 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlin.math.roundToInt
 
+const val timetableScreenRoute = "timetable"
+fun NavGraphBuilder.nestedSessionScreens(
+    onTimetableItemClick: (TimetableItem) -> Unit,
+) {
+    composable(timetableScreenRoute) {
+        TimetableScreen(
+            onTimetableItemClick = onTimetableItemClick,
+        )
+    }
+}
+
+fun NavController.navigateTimetableScreen() {
+    navigate(timetableScreenRoute)
+}
+
 const val TimetableScreenTestTag = "TimetableScreen"
 
 @Composable
 fun TimetableScreen(
-    onContributorsClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
@@ -43,7 +60,6 @@ fun TimetableScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
-        onContributorsClick = onContributorsClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
@@ -58,7 +74,6 @@ private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onContributorsClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
@@ -92,7 +107,6 @@ private fun TimetableScreen(
                     }
                 },
             onTimetableItemClick = onTimetableItemClick,
-            onContributorsClick = onContributorsClick,
             uiState = uiState.contentUiState,
             timetableScreenScrollState = state,
             onFavoriteClick = onBookmarkClick,
