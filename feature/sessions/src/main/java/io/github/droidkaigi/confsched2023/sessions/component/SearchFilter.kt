@@ -38,7 +38,7 @@ fun SearchFilter(
 ) {
     Row(
         modifier = modifier.padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         FilterDayChip(
             isSelected = searchFilterUiState.isDaySelected,

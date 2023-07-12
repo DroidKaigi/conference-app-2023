@@ -43,11 +43,12 @@ class SearchScreenViewModel @Inject constructor(
         val selectedDays = searchFilterUiState.value.selectedDays.toMutableList()
         searchFilterUiState.value = searchFilterUiState.value.copy(
             selectedDays = selectedDays.apply {
-                if (isSelected)
+                if (isSelected) {
                     add(day)
-                else
+                } else {
                     remove(day)
-            }.sortedBy(DroidKaigi2023Day::start)
+                }
+            }.sortedBy(DroidKaigi2023Day::start),
         )
     }
 
@@ -55,11 +56,12 @@ class SearchScreenViewModel @Inject constructor(
         viewModelScope.launch {
             // TODO: Implement SessionsRepository.getCategories()
             val categories = emptyList<TimetableCategory>()
-            if (categories.isEmpty())
+            if (categories.isEmpty()) {
                 return@launch
+            }
 
             searchFilterUiState.value = SearchFilterUiState(
-                categories = categories
+                categories = categories,
             )
         }
     }
@@ -68,11 +70,12 @@ class SearchScreenViewModel @Inject constructor(
         val selectedCategories = searchFilterUiState.value.selectedCategories.toMutableList()
         searchFilterUiState.value = searchFilterUiState.value.copy(
             selectedCategories = selectedCategories.apply {
-                if (isSelected)
+                if (isSelected) {
                     add(category)
-                else
+                } else {
                     remove(category)
-            }
+                }
+            },
         )
     }
 }

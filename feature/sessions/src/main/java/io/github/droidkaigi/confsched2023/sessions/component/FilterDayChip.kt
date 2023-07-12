@@ -39,7 +39,7 @@ fun FilterDayChip(
     val onDaySelectedUpdated by rememberUpdatedState(newValue = onDaySelected)
 
     Box(
-        modifier = modifier
+        modifier = modifier,
     ) {
         FilterChip(
             selected = isSelected,
@@ -51,11 +51,11 @@ fun FilterDayChip(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null,
                 )
-            }
+            },
         )
         DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
         ) {
             kaigiDays.forEach { kaigiDay ->
                 val japanese = "ja"
@@ -85,7 +85,7 @@ fun FilterDayChip(
                         Text(
                             text = "${kaigiDay.name} ($year $month $day)",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     },
                     leadingIcon = {
@@ -103,7 +103,7 @@ fun FilterDayChip(
                             kaigiDay,
                             selectedDays
                                 .contains(kaigiDay)
-                                .not()
+                                .not(),
                         )
                         expanded = false
                     },

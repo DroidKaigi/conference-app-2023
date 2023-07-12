@@ -37,7 +37,7 @@ fun FilterCategoryChip(
     val onCategoriesSelectedUpdated by rememberUpdatedState(newValue = onCategoriesSelected)
 
     Box(
-        modifier = modifier
+        modifier = modifier,
     ) {
         FilterChip(
             selected = isSelected,
@@ -52,11 +52,11 @@ fun FilterCategoryChip(
                     imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null,
                 )
-            }
+            },
         )
         DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
         ) {
             categories.forEach { category ->
                 DropdownMenuItem(
@@ -64,7 +64,7 @@ fun FilterCategoryChip(
                         Text(
                             text = category.title.currentLangTitle,
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
                     },
                     leadingIcon = {
@@ -82,7 +82,7 @@ fun FilterCategoryChip(
                             category,
                             selectedCategories
                                 .contains(category)
-                                .not()
+                                .not(),
                         )
                         expanded = false
                     },

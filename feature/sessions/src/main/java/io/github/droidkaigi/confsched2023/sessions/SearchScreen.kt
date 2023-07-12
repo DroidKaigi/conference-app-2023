@@ -81,14 +81,14 @@ private fun SearchScreen(
                 onSearchQueryChanged = onSearchQueryChanged,
                 onBackClick = onBackClick,
             )
-        }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding),
         ) {
             Divider(
                 thickness = 1.dp,
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
             )
             SearchFilter(
                 searchFilterUiState = searchFilterUiState,

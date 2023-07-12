@@ -119,6 +119,6 @@ private fun SearchTextField(
                 contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(0.dp),
                 container = {},
             )
-        }
+        },
     )
 }
