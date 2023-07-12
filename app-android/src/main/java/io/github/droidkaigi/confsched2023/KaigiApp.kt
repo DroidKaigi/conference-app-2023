@@ -30,7 +30,7 @@ import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
-import io.github.droidkaigi.confsched2023.sessions.searchScreens
+import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 
@@ -65,7 +65,7 @@ private fun KaigiNavHost(
                 navController.popBackStack()
             },
         )
-        searchScreens(
+        searchScreen(
             onNavigationIconClick = {
                 navController.popBackStack()
             },

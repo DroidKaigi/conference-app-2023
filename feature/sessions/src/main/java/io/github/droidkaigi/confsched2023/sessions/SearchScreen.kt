@@ -25,7 +25,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppB
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
 
-fun NavGraphBuilder.searchScreens(onNavigationIconClick: () -> Unit) {
+fun NavGraphBuilder.searchScreen(onNavigationIconClick: () -> Unit) {
     composable(searchScreenRoute) {
         SearchScreen(
             onBackClick = onNavigationIconClick,
