@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
 
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
@@ -27,6 +29,7 @@ const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
 @OptIn(ExperimentalMaterial3Api::class)
 fun TimetableTopArea(
     state: TimetableScreenScrollState,
+    onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -37,6 +40,15 @@ fun TimetableTopArea(
                 Text(text = "KaigiApp")
             },
             actions = {
+                IconButton(
+                    modifier = Modifier,
+                    onClick = { onSearchClick() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = Search.asString(),
+                    )
+                }
                 IconButton(
                     modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
                     onClick = { onTimetableUiChangeClick() },
