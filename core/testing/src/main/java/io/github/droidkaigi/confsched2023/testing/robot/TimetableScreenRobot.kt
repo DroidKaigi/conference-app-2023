@@ -36,6 +36,7 @@ class TimetableScreenRobot @Inject constructor(
         composeTestRule.setContent {
             KaigiTheme {
                 TimetableScreen(
+                    onSearchClick = { },
                     onTimetableItemClick = { },
                 )
             }
