@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
 
+const val SearchButtonTestTag = "SearchButton"
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
 
 @Composable
@@ -41,7 +42,7 @@ fun TimetableTopArea(
             },
             actions = {
                 IconButton(
-                    modifier = Modifier,
+                    modifier = Modifier.testTag(SearchButtonTestTag),
                     onClick = { onSearchClick() },
                 ) {
                     Icon(
