@@ -11,6 +11,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     class Time(val hours: Int, val minutes: Int) : SessionsStrings()
     object ScheduleIcon : SessionsStrings()
     object UserIcon : SessionsStrings()
+    object EventDay : SessionsStrings()
+    object Category : SessionsStrings()
 
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
@@ -21,6 +23,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 is Time -> "${item.hours}時${item.minutes}分"
                 ScheduleIcon -> "スケジュールアイコン"
                 UserIcon -> "ユーザーアイコン"
+                EventDay -> "開催日"
+                Category -> "カテゴリー"
             }
         },
         Lang.English to { item, bindings ->
@@ -31,6 +35,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 is Time -> "${item.hours}:${item.minutes}"
                 ScheduleIcon -> "Schedule icon"
                 UserIcon -> "User icon"
+                EventDay -> "Day"
+                Category -> "Category"
             }
         },
         default = Lang.Japanese,

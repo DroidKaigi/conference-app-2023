@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
@@ -44,8 +45,7 @@ fun FilterDayChip(
         FilterChip(
             selected = isSelected,
             onClick = { expanded = true },
-            // TODO: Use string resource
-            label = { Text(text = selectedDaysValues.ifEmpty { "開催日" }) },
+            label = { Text(text = selectedDaysValues.ifEmpty { SessionsStrings.EventDay.asString() }) },
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Default.ArrowDropDown,
