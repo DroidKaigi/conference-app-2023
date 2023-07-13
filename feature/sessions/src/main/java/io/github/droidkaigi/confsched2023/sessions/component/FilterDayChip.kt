@@ -22,8 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,32 +56,10 @@ fun FilterDayChip(
             onDismissRequest = { expanded = false },
         ) {
             kaigiDays.forEach { kaigiDay ->
-                val japanese = "ja"
-
-                val date = kaigiDay.start.toLocalDateTime(TimeZone.currentSystemDefault())
-
-                val year = if (Locale.getDefault().language == japanese) {
-                    "${date.year}年"
-                } else {
-                    "${date.year}"
-                }
-
-                val month = if (Locale.getDefault().language == japanese) {
-                    "${date.monthNumber}月"
-                } else {
-                    date.month.name.lowercase().replaceFirstChar { it.uppercase() }
-                }
-
-                val day = if (Locale.getDefault().language == japanese) {
-                    "${date.dayOfMonth}日"
-                } else {
-                    "${date.dayOfMonth}th"
-                }
-
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = "${kaigiDay.name} ($year $month $day)",
+                            text = kaigiDay.getDropDownText(Locale.getDefault().language),
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
