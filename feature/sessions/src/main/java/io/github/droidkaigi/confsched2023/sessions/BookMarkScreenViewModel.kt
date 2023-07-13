@@ -34,7 +34,7 @@ class BookMarkScreenViewModel @Inject constructor(
         )
 
     val uiState: StateFlow<BookMarkScreenUiState> = buildUiState(sessionsStateFlow) {
-        val bookMarkedTimetable = it.filtered(Filters(filterFavorite = true))
+        val bookMarkedTimetable = it.filtered(Filters(filterFavorite = false))
         if (bookMarkedTimetable.isEmpty()) {
             BookMarkScreenUiState.Empty
         } else {
