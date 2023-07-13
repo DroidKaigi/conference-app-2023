@@ -13,6 +13,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object UserIcon : SessionsStrings()
     object EventDay : SessionsStrings()
     object Category : SessionsStrings()
+    object SearchResultNotFound : SessionsStrings()
 
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
@@ -25,6 +26,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 UserIcon -> "ユーザーアイコン"
                 EventDay -> "開催日"
                 Category -> "カテゴリー"
+                SearchResultNotFound -> "この検索条件に一致する結果はありません"
             }
         },
         Lang.English to { item, bindings ->
@@ -37,6 +39,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 UserIcon -> "User icon"
                 EventDay -> "Day"
                 Category -> "Category"
+                SearchResultNotFound -> "Nothing matched your search criteria"
             }
         },
         default = Lang.Japanese,

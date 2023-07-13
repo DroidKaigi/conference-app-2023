@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
 
 @Composable
 fun EmptySearchResultBody(
@@ -37,8 +38,7 @@ fun EmptySearchResultBody(
             )
             Spacer(modifier = Modifier.height(28.dp))
             Text(
-                // TODO: Use string resource
-                text = "この検索条件に一致する結果はありません",
+                text = SessionsStrings.SearchResultNotFound.asString(),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
