@@ -21,6 +21,32 @@ var package = Package(
     ],
     targets: [
         .target(
+            name: "About",
+            dependencies: [
+                "shared",
+            ]
+        ),
+        .testTarget(
+            name: "AboutTests",
+            dependencies: [
+                "About",
+            ]
+        ),
+
+        .target(
+            name: "FloorMap",
+            dependencies: [
+                "shared",
+            ]
+        ),
+        .testTarget(
+            name: "FloorMapTests",
+            dependencies: [
+                "FloorMap",
+            ]
+        ),
+
+        .target(
             name: "Session",
             dependencies: [
                 "shared",
@@ -30,6 +56,19 @@ var package = Package(
             name: "SessionTests",
             dependencies: [
                 "Session"
+            ]
+        ),
+
+        .target(
+            name: "Stamps",
+            dependencies: [
+                "shared",
+            ]
+        ),
+        .testTarget(
+            name: "StampsTests",
+            dependencies: [
+                "Stamps"
             ]
         ),
 
@@ -50,7 +89,10 @@ var package = Package(
         .target(
             name: "Navigation",
             dependencies: [
+                "About",
+                "FloorMap",
                 "Session",
+                "Stamps",
                 "Timetable",
             ]
         ),
