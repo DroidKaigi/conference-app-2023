@@ -13,26 +13,26 @@ public enum class DroidKaigi2023Day(
 ) {
     Day1(
         start = LocalDateTime
-            .parse("2023-09-14T00:00:00")
+            .parse("2022-10-05T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
         end = LocalDateTime
-            .parse("2023-09-15T00:00:00")
+            .parse("2022-10-06T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day2(
         start = LocalDateTime
-            .parse("2023-09-15T00:00:00")
+            .parse("2022-10-06T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
         end = LocalDateTime
-            .parse("2023-09-16T00:00:00")
+            .parse("2022-10-07T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day3(
         start = LocalDateTime
-            .parse("2023-09-16T00:00:00")
+            .parse("2022-10-07T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
         end = LocalDateTime
-            .parse("2023-09-17T00:00:00")
+            .parse("2022-10-08T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
     ),
     ;
