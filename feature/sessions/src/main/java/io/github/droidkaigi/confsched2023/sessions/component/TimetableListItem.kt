@@ -79,7 +79,9 @@ fun SessionDescription(
     session: TimetableItem,
     modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(
+        modifier
+    ) {
         // Chips
         Row {
             Text(session.room.name.currentLangTitle)
