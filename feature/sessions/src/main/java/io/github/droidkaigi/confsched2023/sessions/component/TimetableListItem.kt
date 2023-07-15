@@ -118,7 +118,9 @@ fun SessionTime(
     endAt: String,
     modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(
+        modifier
+    ) {
         Text(startAt)
         Text("    |")
         Text(endAt)
