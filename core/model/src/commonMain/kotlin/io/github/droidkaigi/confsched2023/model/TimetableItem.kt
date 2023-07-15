@@ -82,11 +82,7 @@ public sealed class TimetableItem {
     }
 
     public val speakerString: String by lazy {
-        val sb = StringBuilder()
-        speakers.forEach {
-            sb.append(it.name + ", ")
-        }
-        sb.toString().dropLast(2)
+        speakers.joinToString(", ") { it.name }
     }
 }
 
