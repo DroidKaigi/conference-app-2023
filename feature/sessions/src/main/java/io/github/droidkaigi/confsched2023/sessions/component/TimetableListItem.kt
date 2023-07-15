@@ -80,7 +80,7 @@ fun SessionDescription(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier
+        modifier,
     ) {
         // Chips
         Row {
@@ -119,7 +119,7 @@ fun SessionTime(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier
+        modifier,
     ) {
         Text(startAt)
         Text("    |")
