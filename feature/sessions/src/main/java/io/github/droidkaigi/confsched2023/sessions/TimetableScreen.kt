@@ -29,10 +29,12 @@ import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
 fun NavGraphBuilder.nestedSessionScreens(
+    onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
+            onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
         )
     }
@@ -46,6 +48,7 @@ const val TimetableScreenTestTag = "TimetableScreen"
 
 @Composable
 fun TimetableScreen(
+    onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
@@ -61,6 +64,7 @@ fun TimetableScreen(
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = viewModel::onBookmarkClick,
+        onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
 }
@@ -75,6 +79,7 @@ private fun TimetableScreen(
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
+    onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
     val state = rememberTimetableScreenScrollState()
@@ -89,7 +94,7 @@ private fun TimetableScreen(
             )
         },
         topBar = {
-            TimetableTopArea(state, onTimetableUiChangeClick)
+            TimetableTopArea(state, onSearchClick, onTimetableUiChangeClick)
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentWindowInsets = WindowInsets(0.dp),

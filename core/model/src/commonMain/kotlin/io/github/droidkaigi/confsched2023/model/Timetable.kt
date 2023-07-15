@@ -4,6 +4,10 @@
 
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallD
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
@@ -83,10 +87,10 @@ public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
     var rooms = listOf(
-        TimetableRoom(0, MultiLangText("App Bar", "App Bar"), 0),
-        TimetableRoom(1, MultiLangText("Backdrop", "Backdrop"), 1),
-        TimetableRoom(2, MultiLangText("Cards", "Cards"), 2),
-        TimetableRoom(3, MultiLangText("Dialogs", "Dialogs"), 3),
+        TimetableRoom(RoomHallA, MultiLangText("App Bar", "App Bar"), 0),
+        TimetableRoom(RoomHallB, MultiLangText("Backdrop", "Backdrop"), 1),
+        TimetableRoom(RoomHallC, MultiLangText("Cards", "Cards"), 2),
+        TimetableRoom(RoomHallD, MultiLangText("Dialogs", "Dialogs"), 3),
     )
     (0..10).forEach { _ ->
         rooms += rooms
@@ -116,6 +120,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     "BEGINNER",
                     "INTERMEDIATE",
                     "ADVANCED",
+                ),
+                speakers = persistentListOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
                 ),
             ),
         )
@@ -176,6 +196,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     "BEGINNER",
                     "INTERMEDIATE",
                     "ADVANCED",
+                ),
+                speakers = persistentListOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
                 ),
             ),
         )

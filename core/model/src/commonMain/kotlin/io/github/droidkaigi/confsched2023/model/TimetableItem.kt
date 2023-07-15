@@ -4,9 +4,9 @@
 
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
@@ -28,6 +28,7 @@ public sealed class TimetableItem {
     public abstract val language: TimetableLanguage
     public abstract val asset: TimetableAsset
     public abstract val levels: PersistentList<String>
+    public abstract val speakers: PersistentList<TimetableSpeaker>
     public val day: DroidKaigi2023Day? get() = DroidKaigi2023Day.ofOrNull(startsAt)
 
     @Serializable
@@ -42,8 +43,8 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
+        override val speakers: PersistentList<TimetableSpeaker>,
         val description: String,
-        val speakers: PersistentList<TimetableSpeaker>,
         val message: MultiLangText?,
     ) : TimetableItem() {
         public companion object
@@ -61,11 +62,16 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
-        val speakers: PersistentList<TimetableSpeaker> = persistentListOf(),
+        override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
     public val startsTimeString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
+    }
+
+    public val endsTimeString: String by lazy {
+        val localDate = endsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
@@ -92,7 +98,7 @@ public fun Session.Companion.fake(): Session {
             ),
         ),
         room = TimetableRoom(
-            id = 2,
+            type = RoomHallB,
             name = MultiLangText("Room1", "Room2"),
             sort = 1,
         ),
