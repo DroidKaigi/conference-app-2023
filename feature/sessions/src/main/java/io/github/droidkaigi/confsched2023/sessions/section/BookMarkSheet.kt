@@ -59,7 +59,7 @@ fun BookMarkSheet(
                 BookMarkList(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
-                    timetableItems = uiState.timetableItemList,
+                    timetableItemMap = uiState.timetableItemMap,
                     onClickBooMarkIcon = onClickBookMarkIcon,
                     modifier = Modifier.padding(start = 16.dp),
                 )
