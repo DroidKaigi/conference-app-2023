@@ -4,15 +4,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,12 +36,46 @@ class BookMarkScreenViewModel @Inject constructor(
             initialValue = Timetable(),
         )
 
-    val uiState: StateFlow<BookMarkScreenUiState> = buildUiState(sessionsStateFlow) {
-        val bookMarkedTimetable = it.filtered(Filters(filterFavorite = false))
-        if (bookMarkedTimetable.isEmpty()) {
-            BookMarkScreenUiState.Empty
-        } else {
-            BookMarkScreenUiState.ListBookMark(bookMarkedTimetable)
+    private val currentDayFilter = MutableStateFlow(
+        DroidKaigi2023Day.values().map { it },
+    )
+
+    val uiState: StateFlow<BookMarkScreenUiState> =
+        buildUiState(sessionsStateFlow, currentDayFilter) { sessionsStateFlow, currentDayFilter ->
+            val bookMarkedTimetable = sessionsStateFlow.filtered(
+                Filters(
+                    days = currentDayFilter,
+                    filterFavorite = false,
+                ),
+            )
+            if (bookMarkedTimetable.isEmpty()) {
+                BookMarkScreenUiState.Empty
+            } else {
+                BookMarkScreenUiState.ListBookMark(bookMarkedTimetable, currentDayFilter)
+            }
+        }
+
+    fun onClickAllFilterChip() {
+        currentDayFilter.update {
+            DroidKaigi2023Day.values().toList()
+        }
+    }
+
+    fun onClickDayFirstChip() {
+        currentDayFilter.update {
+            listOf(DroidKaigi2023Day.Day1)
+        }
+    }
+
+    fun onClickDaySecondChip() {
+        currentDayFilter.update {
+            listOf(DroidKaigi2023Day.Day2)
+        }
+    }
+
+    fun onClickDayThirdChip() {
+        currentDayFilter.update {
+            listOf(DroidKaigi2023Day.Day3)
         }
     }
 }

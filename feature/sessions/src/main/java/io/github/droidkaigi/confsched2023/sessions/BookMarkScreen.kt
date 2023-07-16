@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkTopArea
 import io.github.droidkaigi.confsched2023.sessions.section.BookMarkSheet
@@ -27,6 +28,7 @@ sealed interface BookMarkScreenUiState {
 
     data class ListBookMark(
         val bookMarkedTimeline: Timetable,
+        val currentDayFilter: List<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 }
 
@@ -38,6 +40,10 @@ fun BookMarkScreen(
 
     BookMarkScreen(
         uiState = uiState,
+        onClickAllFilterChip = { viewModel.onClickAllFilterChip() },
+        onClickDayFirstChip = { viewModel.onClickDayFirstChip() },
+        onClickDaySecondChip = { viewModel.onClickDaySecondChip() },
+        onClickDayThirdChip = { viewModel.onClickDayThirdChip() },
     )
 }
 
@@ -46,6 +52,10 @@ const val BookScreenTestTag = "TimetableScreenTestTag"
 @Composable
 private fun BookMarkScreen(
     uiState: BookMarkScreenUiState,
+    onClickAllFilterChip: () -> Unit,
+    onClickDayFirstChip: () -> Unit,
+    onClickDaySecondChip: () -> Unit,
+    onClickDayThirdChip: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.testTag(BookScreenTestTag),
@@ -57,6 +67,10 @@ private fun BookMarkScreen(
     ) { padding ->
         BookMarkSheet(
             modifier = Modifier.padding(padding),
+            onClickAllFilterChip = onClickAllFilterChip,
+            onClickDayFirstChip = onClickDayFirstChip,
+            onClickDaySecondChip = onClickDaySecondChip,
+            onClickDayThirdChip = onClickDayThirdChip,
             uiState = uiState,
         )
     }

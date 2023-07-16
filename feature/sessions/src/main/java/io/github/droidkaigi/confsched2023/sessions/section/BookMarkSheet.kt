@@ -28,6 +28,10 @@ import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.ListBoo
 @Composable
 fun BookMarkSheet(
     uiState: BookMarkScreenUiState,
+    onClickAllFilterChip: () -> Unit,
+    onClickDayFirstChip: () -> Unit,
+    onClickDaySecondChip: () -> Unit,
+    onClickDayThirdChip: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -40,10 +44,20 @@ fun BookMarkSheet(
             }
 
             is ListBookMark -> {
-                BookMarkList(
-                    timetable = uiState.bookMarkedTimeline,
-                    modifier = Modifier.padding(start = 16.dp),
-                )
+                Column {
+                    BookMarkFilter(
+                        currentDayFilter = uiState.currentDayFilter,
+                        onClickAllFilterChip = onClickAllFilterChip,
+                        onClickDayFirstChip = onClickDayFirstChip,
+                        onClickDaySecondChip = onClickDaySecondChip,
+                        onClickDayThirdChip = onClickDayThirdChip,
+                        modifier = Modifier.padding(start = 16.dp),
+                    )
+                    BookMarkList(
+                        timetable = uiState.bookMarkedTimeline,
+                        modifier = Modifier.padding(start = 16.dp),
+                    )
+                }
             }
         }
     }
