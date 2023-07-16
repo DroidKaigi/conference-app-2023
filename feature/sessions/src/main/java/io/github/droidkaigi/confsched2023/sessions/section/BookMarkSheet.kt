@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,38 +29,35 @@ import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.ListBoo
 @Composable
 fun BookMarkSheet(
     uiState: BookMarkScreenUiState,
-    onClickBooMarkIcon: (TimetableItemId) -> Unit,
+    onClickBookMarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
     onClickDayThirdChip: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
+    Column(
         modifier = modifier.fillMaxSize(),
     ) {
+        BookMarkFilter(
+            currentDayFilter = uiState.currentDayFilter,
+            onClickAllFilterChip = onClickAllFilterChip,
+            onClickDayFirstChip = onClickDayFirstChip,
+            onClickDaySecondChip = onClickDaySecondChip,
+            onClickDayThirdChip = onClickDayThirdChip,
+            modifier = Modifier.padding(start = 16.dp),
+        )
         when (uiState) {
             is Empty -> {
                 EmptyView()
             }
 
             is ListBookMark -> {
-                Column {
-                    BookMarkFilter(
-                        currentDayFilter = uiState.currentDayFilter,
-                        onClickAllFilterChip = onClickAllFilterChip,
-                        onClickDayFirstChip = onClickDayFirstChip,
-                        onClickDaySecondChip = onClickDaySecondChip,
-                        onClickDayThirdChip = onClickDayThirdChip,
-                        modifier = Modifier.padding(start = 16.dp),
-                    )
-                    BookMarkList(
-                        timetable = uiState.bookMarkedTimeline,
-                        onClickBooMarkIcon = onClickBooMarkIcon,
-                        modifier = Modifier.padding(start = 16.dp),
-                    )
-                }
+                BookMarkList(
+                    timetable = uiState.bookMarkedTimeline,
+                    onClickBooMarkIcon = onClickBookMarkIcon,
+                    modifier = Modifier.padding(start = 16.dp),
+                )
             }
         }
     }
@@ -68,13 +65,15 @@ fun BookMarkSheet(
 
 @Composable
 private fun EmptyView() {
-    ConstraintLayout {
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize()
+    ) {
         val (emptyText, icon) = createRefs()
         Box(
             modifier = Modifier
                 .size(84.dp)
                 .background(
-                    color = MaterialTheme.colorScheme.secondaryContainer,
+                    color = Color(0xFFCEE9DB),
                     shape = RoundedCornerShape(24.dp),
                 )
                 .constrainAs(icon) {
@@ -85,7 +84,7 @@ private fun EmptyView() {
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = Icons.Default.Favorite,
+                imageVector = Icons.Default.Bookmark,
                 contentDescription = null,
             )
         }
@@ -103,6 +102,7 @@ private fun EmptyView() {
                 fontSize = 16.sp,
                 fontWeight = FontWeight(500),
                 lineHeight = 24.sp,
+                color = Color(0xFF191C1A),
             )
             Spacer(modifier = Modifier.size(8.dp))
             Text(
@@ -111,6 +111,7 @@ private fun EmptyView() {
                 lineHeight = 20.sp,
                 letterSpacing = 0.25.sp,
                 textAlign = TextAlign.Center,
+                color = Color(0xFF404944),
             )
         }
     }

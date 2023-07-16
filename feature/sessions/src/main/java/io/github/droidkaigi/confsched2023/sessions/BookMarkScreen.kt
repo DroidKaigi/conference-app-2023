@@ -25,22 +25,28 @@ fun NavController.navigateToBookMarkScreen() {
 }
 
 sealed interface BookMarkScreenUiState {
-    object Empty : BookMarkScreenUiState
+
+    val currentDayFilter: List<DroidKaigi2023Day>
+
+    data class Empty(
+        override val currentDayFilter: List<DroidKaigi2023Day>
+    ) : BookMarkScreenUiState
 
     data class ListBookMark(
         val bookMarkedTimeline: Timetable,
-        val currentDayFilter: List<DroidKaigi2023Day>,
+        override val currentDayFilter: List<DroidKaigi2023Day>
     ) : BookMarkScreenUiState
 }
 
 @Composable
 fun BookMarkScreen(
+    onClickBackPress: () -> Unit,
     viewModel: BookMarkScreenViewModel = hiltViewModel<BookMarkScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-
     BookMarkScreen(
         uiState = uiState,
+        onClickBackPress = onClickBackPress,
         onClickBooMarkIcon = { viewModel.updateBookmark(it) },
         onClickAllFilterChip = { viewModel.onClickAllFilterChip() },
         onClickDayFirstChip = { viewModel.onClickDayFirstChip() },
@@ -54,6 +60,7 @@ const val BookScreenTestTag = "TimetableScreenTestTag"
 @Composable
 private fun BookMarkScreen(
     uiState: BookMarkScreenUiState,
+    onClickBackPress: () -> Unit,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
@@ -63,14 +70,14 @@ private fun BookMarkScreen(
     Scaffold(
         modifier = Modifier.testTag(BookScreenTestTag),
         topBar = {
-            BookMarkTopArea()
+            BookMarkTopArea(onClickBackPress = onClickBackPress)
         },
         containerColor = Color(0xFFECEEEB),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookMarkSheet(
             modifier = Modifier.padding(padding),
-            onClickBooMarkIcon = onClickBooMarkIcon,
+            onClickBookMarkIcon = onClickBooMarkIcon,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
             onClickDaySecondChip = onClickDaySecondChip,

@@ -50,11 +50,13 @@ class BookMarkScreenViewModel @Inject constructor(
             val bookMarkedTimetable = sessionsStateFlow.filtered(
                 Filters(
                     days = currentDayFilter,
-                    filterFavorite = false,
+                    filterFavorite = true,
                 ),
             )
             if (bookMarkedTimetable.isEmpty()) {
-                BookMarkScreenUiState.Empty
+                BookMarkScreenUiState.Empty(
+                    currentDayFilter,
+                )
             } else {
                 BookMarkScreenUiState.ListBookMark(
                     bookMarkedTimetable,
