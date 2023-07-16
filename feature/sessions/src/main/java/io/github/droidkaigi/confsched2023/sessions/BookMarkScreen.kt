@@ -2,18 +2,19 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkTopArea
 import io.github.droidkaigi.confsched2023.sessions.section.BookMarkSheet
 
@@ -40,6 +41,7 @@ fun BookMarkScreen(
 
     BookMarkScreen(
         uiState = uiState,
+        onClickBooMarkIcon = { viewModel.updateBookmark(it) },
         onClickAllFilterChip = { viewModel.onClickAllFilterChip() },
         onClickDayFirstChip = { viewModel.onClickDayFirstChip() },
         onClickDaySecondChip = { viewModel.onClickDaySecondChip() },
@@ -52,6 +54,7 @@ const val BookScreenTestTag = "TimetableScreenTestTag"
 @Composable
 private fun BookMarkScreen(
     uiState: BookMarkScreenUiState,
+    onClickBooMarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -62,11 +65,12 @@ private fun BookMarkScreen(
         topBar = {
             BookMarkTopArea()
         },
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = Color(0xFFECEEEB),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookMarkSheet(
             modifier = Modifier.padding(padding),
+            onClickBooMarkIcon = onClickBooMarkIcon,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
             onClickDaySecondChip = onClickDaySecondChip,

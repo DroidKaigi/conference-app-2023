@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.ListBookMark
@@ -28,6 +29,7 @@ import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.ListBoo
 @Composable
 fun BookMarkSheet(
     uiState: BookMarkScreenUiState,
+    onClickBooMarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -55,6 +57,7 @@ fun BookMarkSheet(
                     )
                     BookMarkList(
                         timetable = uiState.bookMarkedTimeline,
+                        onClickBooMarkIcon = onClickBooMarkIcon,
                         modifier = Modifier.padding(start = 16.dp),
                     )
                 }

@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -16,11 +17,12 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class BookMarkScreenViewModel @Inject constructor(
-    sessionsRepository: SessionsRepository,
+    private val sessionsRepository: SessionsRepository,
     userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel() {
 
@@ -41,7 +43,10 @@ class BookMarkScreenViewModel @Inject constructor(
     )
 
     val uiState: StateFlow<BookMarkScreenUiState> =
-        buildUiState(sessionsStateFlow, currentDayFilter) { sessionsStateFlow, currentDayFilter ->
+        buildUiState(
+            sessionsStateFlow,
+            currentDayFilter,
+        ) { sessionsStateFlow, currentDayFilter ->
             val bookMarkedTimetable = sessionsStateFlow.filtered(
                 Filters(
                     days = currentDayFilter,
@@ -51,7 +56,10 @@ class BookMarkScreenViewModel @Inject constructor(
             if (bookMarkedTimetable.isEmpty()) {
                 BookMarkScreenUiState.Empty
             } else {
-                BookMarkScreenUiState.ListBookMark(bookMarkedTimetable, currentDayFilter)
+                BookMarkScreenUiState.ListBookMark(
+                    bookMarkedTimetable,
+                    currentDayFilter,
+                )
             }
         }
 
@@ -76,6 +84,12 @@ class BookMarkScreenViewModel @Inject constructor(
     fun onClickDayThirdChip() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day3)
+        }
+    }
+
+    fun updateBookmark(timetableItem: TimetableItemId) {
+        viewModelScope.launch {
+            sessionsRepository.toggleBookmark(timetableItem)
         }
     }
 }
