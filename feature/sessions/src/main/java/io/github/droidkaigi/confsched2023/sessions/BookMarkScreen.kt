@@ -19,6 +19,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkTopArea
 import io.github.droidkaigi.confsched2023.sessions.section.BookMarkSheet
 import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
 const val bookMarkScreenRoute = "bookMark"
@@ -37,7 +38,7 @@ sealed interface BookMarkScreenUiState {
 
     data class ListBookMark(
         val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
-        val timetableItemList: PersistentList<TimetableItem>,
+        val timetableItemMap: PersistentMap<String, List<TimetableItem>>,
         override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 }

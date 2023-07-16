@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 
-@OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun BookMarkTopArea(
     scrollState: LazyListState,
@@ -105,9 +104,9 @@ fun BookMarkTopArea(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height(topBarHeight)
-            .background(backgroundColor)
+            .background(backgroundColor),
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.Start,
@@ -131,8 +130,8 @@ fun BookMarkTopArea(
                 style = titleTextStyle,
                 modifier = Modifier.padding(
                     start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
-                    top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp
-                )
+                    top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp,
+                ),
             )
         }
     }

@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkItem
-import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
 @Composable
 fun BookMarkList(
     scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
-    timetableItems: PersistentList<TimetableItem>,
+    timetableItemMap: PersistentMap<String, List<TimetableItem>>,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -34,32 +34,36 @@ fun BookMarkList(
         state = scrollState,
         modifier = modifier.padding(end = 16.dp),
     ) {
-        items(timetableItems) { timetableItem ->
-            Row(modifier = Modifier.padding(top = 10.dp)) {
-                Column(
-                    modifier = Modifier.width(58.dp),
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Spacer(modifier = Modifier.size(6.dp))
+        timetableItemMap.forEach { (_, values) ->
+            itemsIndexed(values) { index, timetableItem ->
+                Row(modifier = Modifier.padding(top = 10.dp)) {
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.width(58.dp),
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Text(
-                            text = timetableItem.startsTimeString,
-                            fontWeight = FontWeight.Medium,
-                        )
-                        Text(text = "|")
-                        Text(
-                            text = timetableItem.endsTimeString,
-                        )
+                        if (index == 0) {
+                            Spacer(modifier = Modifier.size(6.dp))
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                Text(
+                                    text = timetableItem.startsTimeString,
+                                    fontWeight = FontWeight.Medium,
+                                )
+                                Text(text = "|")
+                                Text(
+                                    text = timetableItem.endsTimeString,
+                                )
+                            }
+                        }
                     }
+                    BookMarkItem(
+                        bookmarkedTimetableItemIds = bookmarkedTimetableItemIds,
+                        timetableItem = timetableItem,
+                        onClickBooMarkIcon = onClickBooMarkIcon,
+                    )
                 }
-                BookMarkItem(
-                    bookmarkedTimetableItemIds = bookmarkedTimetableItemIds,
-                    timetableItem = timetableItem,
-                    onClickBooMarkIcon = onClickBooMarkIcon,
-                )
             }
         }
     }
