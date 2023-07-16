@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,8 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
 
+const val SearchButtonTestTag = "SearchButton"
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
 const val TimetableBookmarkIconTestTag = "TimetableBookmarkIconTestTag"
 
@@ -30,6 +33,7 @@ const val TimetableBookmarkIconTestTag = "TimetableBookmarkIconTestTag"
 fun TimetableTopArea(
     state: TimetableScreenScrollState,
     onTimetableUiChangeClick: () -> Unit,
+    onSearchClick: () -> Unit,
     onClickTopAreaBookMarkIcon: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -41,6 +45,15 @@ fun TimetableTopArea(
             },
             actions = {
                 IconButton(
+                    modifier = Modifier.testTag(SearchButtonTestTag),
+                    onClick = { onSearchClick() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = Search.asString(),
+                    )
+                }
+                IconButton(
                     modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
                     onClick = { onTimetableUiChangeClick() },
                 ) {
@@ -49,7 +62,6 @@ fun TimetableTopArea(
                         contentDescription = Timetable.asString(),
                     )
                 }
-
                 IconButton(
                     modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
                     onClick = { onClickTopAreaBookMarkIcon() },

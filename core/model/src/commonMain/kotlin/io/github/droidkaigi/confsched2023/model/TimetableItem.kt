@@ -80,6 +80,10 @@ public sealed class TimetableItem {
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
     }
+
+    public val speakerString: String by lazy {
+        speakers.joinToString(", ") { it.name }
+    }
 }
 
 public fun Session.Companion.fake(): Session {
