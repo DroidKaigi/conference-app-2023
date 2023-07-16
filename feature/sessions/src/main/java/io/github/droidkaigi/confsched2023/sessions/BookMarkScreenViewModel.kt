@@ -59,13 +59,13 @@ class BookMarkScreenViewModel @Inject constructor(
 
             if (sortedBookmarkedTimetableItems.isEmpty()) {
                 BookMarkScreenUiState.Empty(
-                    currentDayFilter,
+                    currentDayFilter.toPersistentList(),
                 )
             } else {
                 BookMarkScreenUiState.ListBookMark(
                     sessionsStateFlow.bookmarks,
                     sortedBookmarkedTimetableItems,
-                    currentDayFilter,
+                    currentDayFilter.toPersistentList(),
                 )
             }
         }

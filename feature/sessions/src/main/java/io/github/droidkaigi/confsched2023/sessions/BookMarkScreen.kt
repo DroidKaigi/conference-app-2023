@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,16 +29,16 @@ fun NavController.navigateToBookMarkScreen() {
 
 sealed interface BookMarkScreenUiState {
 
-    val currentDayFilter: List<DroidKaigi2023Day>
+    val currentDayFilter: PersistentList<DroidKaigi2023Day>
 
     data class Empty(
-        override val currentDayFilter: List<DroidKaigi2023Day>,
+        override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 
     data class ListBookMark(
         val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
         val timetableItemList: PersistentList<TimetableItem>,
-        override val currentDayFilter: List<DroidKaigi2023Day>,
+        override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 }
 
@@ -70,16 +71,21 @@ private fun BookMarkScreen(
     onClickDaySecondChip: () -> Unit,
     onClickDayThirdChip: () -> Unit,
 ) {
+    val scrollState = rememberLazyListState()
     Scaffold(
         modifier = Modifier.testTag(BookScreenTestTag),
         topBar = {
-            BookMarkTopArea(onClickBackPress = onClickBackPress)
+            BookMarkTopArea(
+                scrollState = scrollState,
+                onClickBackPress = onClickBackPress,
+            )
         },
-        containerColor = Color(0xFFECEEEB),
+        containerColor = Color(0xFFF8FAF6),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookMarkSheet(
             modifier = Modifier.padding(padding),
+            scrollState = scrollState,
             onClickBookMarkIcon = onClickBooMarkIcon,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,

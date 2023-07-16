@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.sessions.section
+package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer

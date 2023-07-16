@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,12 +24,16 @@ import kotlinx.collections.immutable.PersistentSet
 
 @Composable
 fun BookMarkList(
+    scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItems: PersistentList<TimetableItem>,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier.padding(end = 16.dp)) {
+    LazyColumn(
+        state = scrollState,
+        modifier = modifier.padding(end = 16.dp),
+    ) {
         items(timetableItems) { timetableItem ->
             Row(modifier = Modifier.padding(top = 10.dp)) {
                 Column(
