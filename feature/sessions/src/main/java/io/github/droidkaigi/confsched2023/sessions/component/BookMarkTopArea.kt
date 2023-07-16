@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookMarkTopArea(
+    onClickBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -36,7 +38,11 @@ fun BookMarkTopArea(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = null,
-                    modifier = Modifier.size(24.dp),
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable {
+                            onClickBackPress()
+                        },
                 )
             }
         },
