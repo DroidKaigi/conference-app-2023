@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,19 +48,23 @@ class BookMarkScreenViewModel @Inject constructor(
             sessionsStateFlow,
             currentDayFilter,
         ) { sessionsStateFlow, currentDayFilter ->
-            val bookMarkedTimetable = sessionsStateFlow.filtered(
+            val sortedBookmarkedTimetableItems = sessionsStateFlow.filtered(
                 Filters(
                     days = currentDayFilter,
                     filterFavorite = true,
                 ),
-            )
-            if (bookMarkedTimetable.isEmpty()) {
+            ).timetableItems.sortedWith(
+                compareBy({ it.day?.name.orEmpty() }, { it.startsTimeString }),
+            ).toPersistentList()
+
+            if (sortedBookmarkedTimetableItems.isEmpty()) {
                 BookMarkScreenUiState.Empty(
                     currentDayFilter,
                 )
             } else {
                 BookMarkScreenUiState.ListBookMark(
-                    bookMarkedTimetable,
+                    sessionsStateFlow.bookmarks,
+                    sortedBookmarkedTimetableItems,
                     currentDayFilter,
                 )
             }

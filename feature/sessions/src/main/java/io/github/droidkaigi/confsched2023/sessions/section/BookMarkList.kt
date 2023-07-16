@@ -15,18 +15,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkItem
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.PersistentSet
 
 @Composable
 fun BookMarkList(
-    timetable: Timetable,
+    bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
+    timetableItems: PersistentList<TimetableItem>,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier.padding(end = 16.dp)) {
-        items(timetable.timetableItems.timetableItems.sortedBy { it.day }) { timetableItem ->
+        items(timetableItems) { timetableItem ->
             Row(modifier = Modifier.padding(top = 10.dp)) {
                 Column(
                     modifier = Modifier.width(58.dp),
@@ -48,7 +51,7 @@ fun BookMarkList(
                     }
                 }
                 BookMarkItem(
-                    timetable = timetable,
+                    bookmarkedTimetableItemIds = bookmarkedTimetableItemIds,
                     timetableItem = timetableItem,
                     onClickBooMarkIcon = onClickBooMarkIcon,
                 )

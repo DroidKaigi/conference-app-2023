@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
-import io.github.droidkaigi.confsched2023.model.Timetable
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookMarkTopArea
 import io.github.droidkaigi.confsched2023.sessions.section.BookMarkSheet
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.PersistentSet
 
 const val bookMarkScreenRoute = "bookMark"
 
@@ -29,12 +31,13 @@ sealed interface BookMarkScreenUiState {
     val currentDayFilter: List<DroidKaigi2023Day>
 
     data class Empty(
-        override val currentDayFilter: List<DroidKaigi2023Day>
+        override val currentDayFilter: List<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 
     data class ListBookMark(
-        val bookMarkedTimeline: Timetable,
-        override val currentDayFilter: List<DroidKaigi2023Day>
+        val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
+        val timetableItemList: PersistentList<TimetableItem>,
+        override val currentDayFilter: List<DroidKaigi2023Day>,
     ) : BookMarkScreenUiState
 }
 

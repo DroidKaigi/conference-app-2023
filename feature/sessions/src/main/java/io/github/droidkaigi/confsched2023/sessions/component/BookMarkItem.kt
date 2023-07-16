@@ -26,13 +26,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import kotlinx.collections.immutable.PersistentSet
 
 @Composable
 fun BookMarkItem(
-    timetable: Timetable,
+    bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItem: TimetableItem,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
@@ -51,7 +51,7 @@ fun BookMarkItem(
                 )
             }
             Icon(
-                imageVector = if (timetable.bookmarks.contains(timetableItem.id)) {
+                imageVector = if (bookmarkedTimetableItemIds.contains(timetableItem.id)) {
                     Filled.Bookmark
                 } else {
                     Outlined.Bookmark

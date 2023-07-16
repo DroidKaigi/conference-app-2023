@@ -54,7 +54,8 @@ fun BookMarkSheet(
 
             is ListBookMark -> {
                 BookMarkList(
-                    timetable = uiState.bookMarkedTimeline,
+                    bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
+                    timetableItems = uiState.timetableItemList,
                     onClickBooMarkIcon = onClickBookMarkIcon,
                     modifier = Modifier.padding(start = 16.dp),
                 )
@@ -66,7 +67,7 @@ fun BookMarkSheet(
 @Composable
 private fun EmptyView() {
     ConstraintLayout(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         val (emptyText, icon) = createRefs()
         Box(
