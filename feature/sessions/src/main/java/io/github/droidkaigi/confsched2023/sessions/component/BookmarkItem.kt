@@ -13,6 +13,8 @@ import androidx.compose.material.icons.Icons.Outlined
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ChipBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +32,18 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallE
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Session.Companion
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.fake
 import kotlinx.collections.immutable.PersistentSet
@@ -45,12 +56,35 @@ fun BookmarkItem(
     onClickBoomarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val roomChipBackgroundColor = when (timetableItem.room.type) {
+        RoomHallA -> room_hall_a
+        RoomHallB -> room_hall_b
+        RoomHallC -> room_hall_c
+        RoomHallD -> room_hall_d
+        RoomHallE -> room_hall_e
+        else -> Color.White
+    }
     Column(modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1F)) {
                 AssistChip(
                     onClick = { /*Do Nothing*/ },
-                    label = { Text(timetableItem.room.name.currentLangTitle) },
+                    label = {
+                        Text(
+                            timetableItem.room.name.currentLangTitle,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp,
+                            color = Color.White
+                        )
+                    },
+                    colors = AssistChipDefaults.assistChipColors(
+                        containerColor = roomChipBackgroundColor
+                    ),
+                    border = AssistChipDefaults.assistChipBorder(
+                        borderColor = Color.Transparent,
+                        disabledBorderColor = Color.Transparent,
+                        borderWidth = 0.dp,
+                    ),
                 )
                 Spacer(modifier = Modifier.size(5.dp))
                 AssistChip(
@@ -88,7 +122,10 @@ fun BookmarkItem(
                         modifier = Modifier
                             .size(40.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .border(BorderStroke(1.dp, md_theme_light_outline),RoundedCornerShape(12.dp)),
+                            .border(
+                                BorderStroke(1.dp, md_theme_light_outline),
+                                RoundedCornerShape(12.dp)
+                            ),
                     )
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
