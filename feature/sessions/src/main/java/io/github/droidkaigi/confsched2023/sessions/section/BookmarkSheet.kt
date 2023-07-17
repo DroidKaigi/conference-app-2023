@@ -27,6 +27,8 @@ import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.BookmarkedItemNotFound
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.BookmarkedItemNotFoundSideNote
 
 @Composable
 fun BookmarkSheet(
@@ -103,15 +105,15 @@ private fun EmptyView() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "登録されたセッションがありません",
+                text = BookmarkedItemNotFound.asString(),
                 fontSize = 16.sp,
-                fontWeight = FontWeight(500),
+                fontWeight = FontWeight.Medium,
                 lineHeight = 24.sp,
                 color = Color(0xFF191C1A),
             )
             Spacer(modifier = Modifier.size(8.dp))
             Text(
-                text = "気になるセッションをブックマークに追加して\n集めてみましょう！",
+                text = BookmarkedItemNotFoundSideNote.asString(),
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 letterSpacing = 0.25.sp,

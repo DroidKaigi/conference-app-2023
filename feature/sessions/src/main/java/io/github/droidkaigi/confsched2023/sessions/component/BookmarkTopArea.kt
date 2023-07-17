@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -31,6 +29,7 @@ import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -98,11 +97,6 @@ fun BookmarkTopArea(
         fraction,
     )
 
-    SideEffect {
-        Log.d("test", titlePaddingTop.value.toString())
-        Log.d("test", titlePaddingStart.value.toString())
-    }
-
     Box(
         modifier = modifier
             .height(topBarHeight)
@@ -126,7 +120,7 @@ fun BookmarkTopArea(
                     },
             )
             Text(
-                text = "Bookmark",
+                text = SessionsStrings.Bookmark.asString(),
                 style = titleTextStyle,
                 modifier = Modifier.padding(
                     start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
