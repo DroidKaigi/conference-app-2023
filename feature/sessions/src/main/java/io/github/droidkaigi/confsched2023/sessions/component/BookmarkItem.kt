@@ -16,6 +16,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,12 +24,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session.Companion
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.fake
 import kotlinx.collections.immutable.PersistentSet
+import kotlinx.collections.immutable.toPersistentSet
 
 @Composable
 fun BookmarkItem(
@@ -80,7 +88,7 @@ fun BookmarkItem(
                         modifier = Modifier
                             .size(40.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .border(BorderStroke(1.dp, Color.Black)),
+                            .border(BorderStroke(1.dp, md_theme_light_outline),RoundedCornerShape(12.dp)),
                     )
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
@@ -97,5 +105,19 @@ fun BookmarkItem(
         }
         Spacer(modifier = Modifier.size(15.dp))
         Divider()
+    }
+}
+
+@Preview
+@Composable
+fun BookmarkItemPreview() {
+    KaigiTheme {
+        Surface {
+            BookmarkItem(
+                bookmarkedTimetableItemIds = emptyList<TimetableItemId>().toPersistentSet(),
+                timetableItem = Session.fake(),
+                onClickBoomarkIcon = {},
+            )
+        }
     }
 }

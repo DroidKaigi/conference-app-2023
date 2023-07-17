@@ -5,18 +5,24 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
-fun BookmarkFilter(
-    currentDayFilter: List<DroidKaigi2023Day>,
+fun BookmarkFilters(
+    currentDayFilter: PersistentList<DroidKaigi2023Day>,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -27,7 +33,7 @@ fun BookmarkFilter(
         containerColor = Color(0xFFCEE9DB),
     )
     val selectedChipBoarderColor = AssistChipDefaults.assistChipBorder(
-        borderColor = Color(0xFF707974),
+        borderColor = md_theme_light_outline,
         borderWidth = 0.dp,
     )
     val isAll = currentDayFilter.size == DroidKaigi2023Day.values().size
@@ -121,5 +127,21 @@ fun BookmarkFilter(
                 AssistChipDefaults.assistChipBorder()
             },
         )
+    }
+}
+
+@Preview
+@Composable
+fun BookmarkFiltersPreview() {
+    KaigiTheme {
+        Surface {
+            BookmarkFilters(
+                currentDayFilter = DroidKaigi2023Day.values().toList().toPersistentList(),
+                onClickAllFilterChip = {},
+                onClickDayFirstChip = {},
+                onClickDaySecondChip = {},
+                onClickDayThirdChip = {},
+            )
+        }
     }
 }

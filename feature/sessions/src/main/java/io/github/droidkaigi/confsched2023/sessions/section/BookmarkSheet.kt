@@ -26,7 +26,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
-import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilter
+import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
 
 @Composable
 fun BookmarkSheet(
@@ -42,7 +42,7 @@ fun BookmarkSheet(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        BookmarkFilter(
+        BookmarkFilters(
             currentDayFilter = uiState.currentDayFilter,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
