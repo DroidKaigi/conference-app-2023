@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
@@ -47,7 +48,7 @@ fun BookmarkFilters(
         AssistChip(
             onClick = onClickAllFilterChip,
             label = {
-                ChipInnerText("全て")
+                ChipInnerText(SessionsStrings.BookmarkFilterAllChip.asString())
             },
             colors = if (isAll) {
                 selectedChipColor
