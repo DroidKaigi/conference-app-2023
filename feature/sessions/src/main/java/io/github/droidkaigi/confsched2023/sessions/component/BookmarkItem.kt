@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.ChipBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -74,11 +73,11 @@ fun BookmarkItem(
                             timetableItem.room.name.currentLangTitle,
                             fontWeight = FontWeight.Medium,
                             fontSize = 12.sp,
-                            color = Color.White
+                            color = Color.White,
                         )
                     },
                     colors = AssistChipDefaults.assistChipColors(
-                        containerColor = roomChipBackgroundColor
+                        containerColor = roomChipBackgroundColor,
                     ),
                     border = AssistChipDefaults.assistChipBorder(
                         borderColor = Color.Transparent,
@@ -124,7 +123,7 @@ fun BookmarkItem(
                             .clip(RoundedCornerShape(12.dp))
                             .border(
                                 BorderStroke(1.dp, md_theme_light_outline),
-                                RoundedCornerShape(12.dp)
+                                RoundedCornerShape(12.dp),
                             ),
                     )
                     Spacer(modifier = Modifier.size(10.dp))

@@ -40,7 +40,9 @@ fun BookmarkSheet(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(start = 16.dp),
     ) {
         BookmarkFilters(
             currentDayFilter = uiState.currentDayFilter,
@@ -48,7 +50,6 @@ fun BookmarkSheet(
             onClickDayFirstChip = onClickDayFirstChip,
             onClickDaySecondChip = onClickDaySecondChip,
             onClickDayThirdChip = onClickDayThirdChip,
-            modifier = Modifier.padding(start = 16.dp),
         )
         when (uiState) {
             is Empty -> {
@@ -61,7 +62,6 @@ fun BookmarkSheet(
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
                     onClickBooMarkIcon = onClickBookmarkIcon,
-                    modifier = Modifier.padding(start = 16.dp),
                 )
             }
         }
