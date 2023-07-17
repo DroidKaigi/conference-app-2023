@@ -47,11 +47,7 @@ fun BookmarkFilters(
         AssistChip(
             onClick = onClickAllFilterChip,
             label = {
-                Text(
-                    text = "全て",
-                    fontWeight = FontWeight(500),
-                    fontSize = 17.sp,
-                )
+                ChipInnerText("全て")
             },
             colors = if (isAll) {
                 selectedChipColor
@@ -68,11 +64,7 @@ fun BookmarkFilters(
         AssistChip(
             onClick = onClickDayFirstChip,
             label = {
-                Text(
-                    text = DroidKaigi2023Day.Day1.name,
-                    fontWeight = FontWeight(500),
-                    fontSize = 17.sp,
-                )
+                ChipInnerText(DroidKaigi2023Day.Day1.name)
             },
             colors = if (isDayFirst) {
                 selectedChipColor
@@ -89,11 +81,7 @@ fun BookmarkFilters(
         AssistChip(
             onClick = onClickDaySecondChip,
             label = {
-                Text(
-                    text = DroidKaigi2023Day.Day2.name,
-                    fontWeight = FontWeight(500),
-                    fontSize = 17.sp,
-                )
+                ChipInnerText(DroidKaigi2023Day.Day2.name)
             },
             colors = if (isDaySecond) {
                 selectedChipColor
@@ -110,11 +98,7 @@ fun BookmarkFilters(
         AssistChip(
             onClick = onClickDayThirdChip,
             label = {
-                Text(
-                    text = DroidKaigi2023Day.Day3.name,
-                    fontWeight = FontWeight(500),
-                    fontSize = 17.sp,
-                )
+                ChipInnerText(DroidKaigi2023Day.Day3.name)
             },
             colors = if (isDayThird) {
                 selectedChipColor
@@ -128,6 +112,15 @@ fun BookmarkFilters(
             },
         )
     }
+}
+
+@Composable
+private fun ChipInnerText(name: String) {
+    Text(
+        text = name,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp,
+    )
 }
 
 @Preview
