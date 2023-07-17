@@ -27,8 +27,8 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
             onNavigationIconClick = onNavigationIconClick,
         )
     }
-    composable(bookMarkScreenRoute) {
-        BookMarkScreen(
+    composable(bookmarkScreenRoute) {
+        BookmarkScreen(
             onClickBackPress = onNavigationIconClick,
         )
     }

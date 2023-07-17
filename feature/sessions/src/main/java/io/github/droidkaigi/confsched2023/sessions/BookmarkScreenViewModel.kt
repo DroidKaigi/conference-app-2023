@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BookMarkScreenViewModel @Inject constructor(
+class BookmarkScreenViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
     userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel() {
@@ -44,7 +44,7 @@ class BookMarkScreenViewModel @Inject constructor(
         DroidKaigi2023Day.values().map { it },
     )
 
-    val uiState: StateFlow<BookMarkScreenUiState> =
+    val uiState: StateFlow<BookmarkScreenUiState> =
         buildUiState(
             sessionsStateFlow,
             currentDayFilter,
@@ -63,11 +63,11 @@ class BookMarkScreenViewModel @Inject constructor(
             }.toPersistentMap()
 
             if (sortAndGroupedBookmarkedTimetableItems.isEmpty()) {
-                BookMarkScreenUiState.Empty(
+                BookmarkScreenUiState.Empty(
                     currentDayFilter.toPersistentList(),
                 )
             } else {
-                BookMarkScreenUiState.ListBookMark(
+                BookmarkScreenUiState.ListBookmark(
                     sessionsStateFlow.bookmarks,
                     sortAndGroupedBookmarkedTimetableItems,
                     currentDayFilter.toPersistentList(),

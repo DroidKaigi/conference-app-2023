@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BookMarkTopArea(
+fun BookmarkTopArea(
     scrollState: LazyListState,
     onClickBackPress: () -> Unit,
     modifier: Modifier = Modifier,

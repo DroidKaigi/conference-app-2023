@@ -18,12 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.sessions.component.BookMarkItem
+import io.github.droidkaigi.confsched2023.sessions.component.BookmarkItem
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
 @Composable
-fun BookMarkList(
+fun BookmarkList(
     scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
@@ -58,10 +58,10 @@ fun BookMarkList(
                             }
                         }
                     }
-                    BookMarkItem(
+                    BookmarkItem(
                         bookmarkedTimetableItemIds = bookmarkedTimetableItemIds,
                         timetableItem = timetableItem,
-                        onClickBooMarkIcon = onClickBooMarkIcon,
+                        onClickBoomarkIcon = onClickBooMarkIcon,
                     )
                 }
             }

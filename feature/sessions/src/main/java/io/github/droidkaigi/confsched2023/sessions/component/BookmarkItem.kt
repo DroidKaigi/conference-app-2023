@@ -31,10 +31,10 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.collections.immutable.PersistentSet
 
 @Composable
-fun BookMarkItem(
+fun BookmarkItem(
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItem: TimetableItem,
-    onClickBooMarkIcon: (TimetableItemId) -> Unit,
+    onClickBoomarkIcon: (TimetableItemId) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
@@ -58,7 +58,7 @@ fun BookMarkItem(
                 },
                 contentDescription = null,
                 modifier = Modifier.clickable {
-                    onClickBooMarkIcon(timetableItem.id)
+                    onClickBoomarkIcon(timetableItem.id)
                 },
             )
         }

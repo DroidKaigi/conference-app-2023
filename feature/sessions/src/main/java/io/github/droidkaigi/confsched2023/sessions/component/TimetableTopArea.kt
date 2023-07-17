@@ -34,7 +34,7 @@ fun TimetableTopArea(
     state: TimetableScreenScrollState,
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onClickTopAreaBookMarkIcon: () -> Unit,
+    onClickTopAreaBookmarkIcon: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -64,7 +64,7 @@ fun TimetableTopArea(
                 }
                 IconButton(
                     modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
-                    onClick = { onClickTopAreaBookMarkIcon() },
+                    onClick = { onClickTopAreaBookmarkIcon() },
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Bookmark,

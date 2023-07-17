@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 
 @Composable
-fun BookMarkFilter(
+fun BookmarkFilter(
     currentDayFilter: List<DroidKaigi2023Day>,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,

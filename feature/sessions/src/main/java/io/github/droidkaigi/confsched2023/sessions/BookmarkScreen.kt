@@ -16,40 +16,40 @@ import androidx.navigation.NavController
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.sessions.component.BookMarkTopArea
-import io.github.droidkaigi.confsched2023.sessions.section.BookMarkSheet
+import io.github.droidkaigi.confsched2023.sessions.component.BookmarkTopArea
+import io.github.droidkaigi.confsched2023.sessions.section.BookmarkSheet
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
-const val bookMarkScreenRoute = "bookMark"
+const val bookmarkScreenRoute = "bookmark"
 
-fun NavController.navigateToBookMarkScreen() {
-    navigate(bookMarkScreenRoute)
+fun NavController.navigateToBookmarkScreen() {
+    navigate(bookmarkScreenRoute)
 }
 
-sealed interface BookMarkScreenUiState {
+sealed interface BookmarkScreenUiState {
 
     val currentDayFilter: PersistentList<DroidKaigi2023Day>
 
     data class Empty(
         override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
-    ) : BookMarkScreenUiState
+    ) : BookmarkScreenUiState
 
-    data class ListBookMark(
+    data class ListBookmark(
         val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
         val timetableItemMap: PersistentMap<String, List<TimetableItem>>,
         override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
-    ) : BookMarkScreenUiState
+    ) : BookmarkScreenUiState
 }
 
 @Composable
-fun BookMarkScreen(
+fun BookmarkScreen(
     onClickBackPress: () -> Unit,
-    viewModel: BookMarkScreenViewModel = hiltViewModel<BookMarkScreenViewModel>(),
+    viewModel: BookmarkScreenViewModel = hiltViewModel<BookmarkScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    BookMarkScreen(
+    BookmarkScreen(
         uiState = uiState,
         onClickBackPress = onClickBackPress,
         onClickBooMarkIcon = { viewModel.updateBookmark(it) },
@@ -60,11 +60,11 @@ fun BookMarkScreen(
     )
 }
 
-const val BookScreenTestTag = "TimetableScreenTestTag"
+const val BookmarkScreenTestTag = "BookmarkScreenTestTag"
 
 @Composable
-private fun BookMarkScreen(
-    uiState: BookMarkScreenUiState,
+private fun BookmarkScreen(
+    uiState: BookmarkScreenUiState,
     onClickBackPress: () -> Unit,
     onClickBooMarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
@@ -74,9 +74,9 @@ private fun BookMarkScreen(
 ) {
     val scrollState = rememberLazyListState()
     Scaffold(
-        modifier = Modifier.testTag(BookScreenTestTag),
+        modifier = Modifier.testTag(BookmarkScreenTestTag),
         topBar = {
-            BookMarkTopArea(
+            BookmarkTopArea(
                 scrollState = scrollState,
                 onClickBackPress = onClickBackPress,
             )
@@ -84,10 +84,10 @@ private fun BookMarkScreen(
         containerColor = Color(0xFFF8FAF6),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
-        BookMarkSheet(
+        BookmarkSheet(
             modifier = Modifier.padding(padding),
             scrollState = scrollState,
-            onClickBookMarkIcon = onClickBooMarkIcon,
+            onClickBookmarkIcon = onClickBooMarkIcon,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
             onClickDaySecondChip = onClickDaySecondChip,

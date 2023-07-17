@@ -23,16 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState
-import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.Empty
-import io.github.droidkaigi.confsched2023.sessions.BookMarkScreenUiState.ListBookMark
-import io.github.droidkaigi.confsched2023.sessions.component.BookMarkFilter
+import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
+import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
+import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
+import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilter
 
 @Composable
-fun BookMarkSheet(
-    uiState: BookMarkScreenUiState,
+fun BookmarkSheet(
+    uiState: BookmarkScreenUiState,
     scrollState: LazyListState,
-    onClickBookMarkIcon: (TimetableItemId) -> Unit,
+    onClickBookmarkIcon: (TimetableItemId) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -42,7 +42,7 @@ fun BookMarkSheet(
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
-        BookMarkFilter(
+        BookmarkFilter(
             currentDayFilter = uiState.currentDayFilter,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
@@ -55,12 +55,12 @@ fun BookMarkSheet(
                 EmptyView()
             }
 
-            is ListBookMark -> {
-                BookMarkList(
+            is ListBookmark -> {
+                BookmarkList(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
-                    onClickBooMarkIcon = onClickBookMarkIcon,
+                    onClickBooMarkIcon = onClickBookmarkIcon,
                     modifier = Modifier.padding(start = 16.dp),
                 )
             }

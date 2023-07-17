@@ -31,13 +31,13 @@ const val timetableScreenRoute = "timetable"
 fun NavGraphBuilder.nestedSessionScreens(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onClickBookMarkIcon: () -> Unit,
+    onClickBookmarkIcon: () -> Unit,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
-            onClickBookMarkIcon = onClickBookMarkIcon,
+            onClickBookmarkIcon = onClickBookmarkIcon,
         )
     }
 }
@@ -52,7 +52,7 @@ const val TimetableScreenTestTag = "TimetableScreen"
 fun TimetableScreen(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onClickBookMarkIcon: () -> Unit,
+    onClickBookmarkIcon: () -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -67,7 +67,7 @@ fun TimetableScreen(
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = viewModel::onBookmarkClick,
-        onClickBookMarkIcon = onClickBookMarkIcon,
+        onClickBookmarkIcon = onClickBookmarkIcon,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
@@ -83,7 +83,7 @@ private fun TimetableScreen(
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
-    onClickBookMarkIcon: () -> Unit,
+    onClickBookmarkIcon: () -> Unit,
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
 ) {
@@ -103,7 +103,7 @@ private fun TimetableScreen(
                 state,
                 onTimetableUiChangeClick,
                 onSearchClick,
-                onClickBookMarkIcon,
+                onClickBookmarkIcon,
             )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
