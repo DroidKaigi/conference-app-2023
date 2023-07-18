@@ -27,6 +27,11 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
             onNavigationIconClick = onNavigationIconClick,
         )
     }
+    composable(bookmarkScreenRoute) {
+        BookmarkScreen(
+            onClickBackPress = onNavigationIconClick,
+        )
+    }
 }
 
 fun NavController.navigateToTimetableItemDetailScreen(

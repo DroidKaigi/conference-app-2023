@@ -26,9 +26,12 @@ import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
+import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
+import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
+import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 
@@ -63,6 +66,11 @@ private fun KaigiNavHost(
                 navController.popBackStack()
             },
         )
+        searchScreen(
+            onNavigationIconClick = {
+                navController.popBackStack()
+            },
+        )
     }
 }
 
@@ -71,10 +79,16 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
         mainNestedGraph = { mainNestedNavController, padding ->
             nestedSessionScreens(
+                onSearchClick = {
+                    navController.navigateSearchScreen()
+                },
                 onTimetableItemClick = { timetableitem ->
                     navController.navigateToTimetableItemDetailScreen(
                         timetableitem.id,
                     )
+                },
+                onClickBookmarkIcon = {
+                    navController.navigateToBookmarkScreen()
                 },
             )
             composable(contributorsScreenRoute) {

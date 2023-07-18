@@ -7,7 +7,13 @@ plugins {
     id("droidkaigi.primitive.android.roborazzi")
 }
 
-android.namespace = "io.github.droidkaigi.confsched2023"
+android{
+    namespace = "io.github.droidkaigi.confsched2023"
+    defaultConfig {
+        versionCode = 1
+        versionName = "0.0.1"
+    }
+}
 
 dependencies {
     implementation(projects.feature.main)

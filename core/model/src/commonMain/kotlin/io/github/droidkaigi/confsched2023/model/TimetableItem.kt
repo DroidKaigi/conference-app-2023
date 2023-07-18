@@ -80,15 +80,19 @@ public sealed class TimetableItem {
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
     }
+
+    public val speakerString: String by lazy {
+        speakers.joinToString(", ") { it.name }
+    }
 }
 
 public fun Session.Companion.fake(): Session {
     return Session(
         id = TimetableItemId("2"),
         title = MultiLangText("DroidKaigiのアプリのアーキテクチャ", "DroidKaigi App Architecture"),
-        startsAt = LocalDateTime.parse("2021-10-20T10:30:00")
+        startsAt = LocalDateTime.parse("2023-09-15T10:30:00")
             .toInstant(TimeZone.of("UTC+9")),
-        endsAt = LocalDateTime.parse("2021-10-20T10:50:00")
+        endsAt = LocalDateTime.parse("2023-09-15T10:50:00")
             .toInstant(TimeZone.of("UTC+9")),
         category = TimetableCategory(
             id = 28654,

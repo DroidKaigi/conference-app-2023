@@ -13,6 +13,8 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -36,7 +38,9 @@ class TimetableScreenRobot @Inject constructor(
         composeTestRule.setContent {
             KaigiTheme {
                 TimetableScreen(
+                    onSearchClick = { },
                     onTimetableItemClick = { },
+                    onClickBookmarkIcon = { },
                 )
             }
         }
@@ -59,9 +63,21 @@ class TimetableScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
+    fun clickSearchButton() {
+        composeTestRule
+            .onNode(hasTestTag(SearchButtonTestTag))
+            .performClick()
+    }
+
     fun clickTimetableUiTypeChangeButton() {
         composeTestRule
             .onNode(hasTestTag(TimetableUiTypeChangeButtonTestTag))
+            .performClick()
+    }
+
+    fun clickBookmarkButton() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableBookmarkIconTestTag))
             .performClick()
     }
 

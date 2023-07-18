@@ -63,4 +63,24 @@ class KaigiAppTest {
             capture()
         }
     }
+
+    @Test
+    fun checkNavigateToSearchShot() {
+        kaigiAppRobot(robotTestRule) {
+            timetableScreenRobot(robotTestRule) {
+                clickSearchButton()
+            }
+            capture()
+        }
+    }
+
+    @Test
+    fun checkNavigateToBookmarkShot() {
+        kaigiAppRobot(robotTestRule) {
+            timetableScreenRobot(robotTestRule) {
+                clickBookmarkButton()
+            }
+            capture()
+        }
+    }
 }
