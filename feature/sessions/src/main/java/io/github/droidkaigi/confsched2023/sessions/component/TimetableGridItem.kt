@@ -24,7 +24,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.seiko.imageloader.rememberImagePainter
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
@@ -42,6 +41,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
 
@@ -100,7 +100,7 @@ fun TimetableGridItem(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
-                        painter = rememberImagePainter(speaker.iconUrl),
+                        painter = rememberAsyncImagePainter(speaker.iconUrl),
                         contentDescription = UserIcon.asString(),
                         modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                     )
