@@ -67,6 +67,7 @@ fun TimetableTopArea(
                     onClick = { onClickTopAreaBookmarkIcon() },
                 ) {
                     Icon(
+                        // FIXME: We would like to use Filled Icon here
                         imageVector = Icons.Outlined.Bookmark,
                         contentDescription = Timetable.asString(),
                     )
