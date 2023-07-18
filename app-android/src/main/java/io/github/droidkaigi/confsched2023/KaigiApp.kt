@@ -28,6 +28,7 @@ import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
+import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToTimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.searchScreen
@@ -85,6 +86,9 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                     navController.navigateToTimetableItemDetailScreen(
                         timetableitem.id,
                     )
+                },
+                onClickBookmarkIcon = {
+                    navController.navigateToBookmarkScreen()
                 },
             )
             composable(contributorsScreenRoute) {

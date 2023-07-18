@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,13 +26,15 @@ import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timet
 
 const val SearchButtonTestTag = "SearchButton"
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"
+const val TimetableBookmarkIconTestTag = "TimetableBookmarkIconTestTag"
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TimetableTopArea(
     state: TimetableScreenScrollState,
-    onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
+    onSearchClick: () -> Unit,
+    onClickTopAreaBookmarkIcon: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -56,6 +59,16 @@ fun TimetableTopArea(
                 ) {
                     Icon(
                         imageVector = Icons.Default.DateRange,
+                        contentDescription = Timetable.asString(),
+                    )
+                }
+                IconButton(
+                    modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
+                    onClick = { onClickTopAreaBookmarkIcon() },
+                ) {
+                    Icon(
+                        // FIXME: We would like to use Filled Icon here
+                        imageVector = Icons.Outlined.Bookmark,
                         contentDescription = Timetable.asString(),
                     )
                 }

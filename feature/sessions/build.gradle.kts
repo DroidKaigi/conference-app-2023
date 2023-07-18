@@ -18,6 +18,8 @@ dependencies {
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
     implementation(libs.composeCoil)
+    implementation(libs.composeConstraintLayout)
+    implementation(libs.composeMaterialIcon)
     androidTestImplementation(libs.composeUiTestJunit4)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
