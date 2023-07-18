@@ -123,6 +123,7 @@ fun BookmarkTopArea(
                 text = SessionsStrings.Bookmark.asString(),
                 style = titleTextStyle,
                 modifier = Modifier.padding(
+                    // FIXME: If we don't use this `if` expresson, a crash happen
                     start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
                     top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp,
                 ),
