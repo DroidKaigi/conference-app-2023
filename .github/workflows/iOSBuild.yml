@@ -26,17 +26,17 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - name: Setup bundle
-        run: |
-          bundle install
-          cd app-ios
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
+        with:
+          bundler-cache: true
 
       - name: Build KMM Module
-        run: bundle exec fastlane shared
+        run: cd app-ios && bundle exec fastlane shared
 
       - name: Build App
         working-directory: app-ios
         run: |
-          xcodebuild build -workspace app-ios.xcworkspace \
+          cd app-ios && xcodebuild build -workspace app-ios.xcworkspace \
               -scheme DroidKaigi2023 \
               -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.4'
