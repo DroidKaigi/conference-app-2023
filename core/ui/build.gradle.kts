@@ -16,6 +16,7 @@ kotlin{
                 implementation(project(":core:designsystem"))
                 implementation(project(":core:data"))
                 api(project(":core:common"))
+                api(libs.composeImageLoader)
             }
         }
     }

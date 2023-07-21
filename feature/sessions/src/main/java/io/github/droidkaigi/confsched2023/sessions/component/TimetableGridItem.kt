@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -23,7 +24,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
@@ -41,6 +41,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
 
@@ -98,10 +99,10 @@ fun TimetableGridItem(
                     modifier = Modifier.height(32.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    AsyncImage(
-                        model = speaker.iconUrl,
-                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
+                    Image(
+                        painter = rememberAsyncImagePainter(speaker.iconUrl),
                         contentDescription = UserIcon.asString(),
+                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
