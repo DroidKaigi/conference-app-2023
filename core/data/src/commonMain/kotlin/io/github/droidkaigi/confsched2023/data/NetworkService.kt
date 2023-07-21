@@ -17,7 +17,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 public class NetworkService(public val httpClient: HttpClient, public val authApi: AuthApi) {
 
     public suspend inline fun <reified T : Any> get(
-        url: String
+        url: String,
     ): T = try {
         authApi.authIfNeeded()
         httpClient.get(url)
@@ -58,7 +58,8 @@ public fun Throwable.toAppError(): AppError {
             return AppError.ApiException.NetworkException(this)
         is TimeoutCancellationException,
         is HttpRequestTimeoutException,
-        is SocketTimeoutException -> {
+        is SocketTimeoutException,
+        -> {
             AppError.ApiException
                 .TimeoutException(this)
         }

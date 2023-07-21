@@ -29,7 +29,7 @@ public class ApiModule {
     @Singleton
     public fun provideNetworkService(
         httpClient: HttpClient,
-        authApi: AuthApi
+        authApi: AuthApi,
     ): NetworkService {
         return NetworkService(httpClient, authApi)
     }
@@ -39,7 +39,7 @@ public class ApiModule {
     public fun provideAuthApi(
         httpClient: HttpClient,
         userDataStore: UserDataStore,
-        authenticator: Authenticator
+        authenticator: Authenticator,
     ): AuthApi {
         return AuthApi(httpClient, userDataStore, authenticator)
     }
@@ -48,7 +48,7 @@ public class ApiModule {
     @Singleton
     public fun provideHttpClient(
         okHttpClient: OkHttpClient,
-        settingsDatastore: UserDataStore
+        settingsDatastore: UserDataStore,
     ): HttpClient {
         val httpClient = HttpClient(OkHttp) {
             engine {
@@ -62,7 +62,7 @@ public class ApiModule {
                             } else {
                                 HttpLoggingInterceptor.Level.NONE
                             }
-                        }
+                        },
                     )
                 }
             }
@@ -84,7 +84,7 @@ public class ApiModule {
                     prettyPrint = false
                     useArrayPolymorphism = false
                     ignoreUnknownKeys = true
-                }
+                },
             )
         }
 

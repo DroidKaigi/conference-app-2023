@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.auth
 public data class User(
-    val idToken: String
+    val idToken: String,
 )
 
 public interface Authenticator {

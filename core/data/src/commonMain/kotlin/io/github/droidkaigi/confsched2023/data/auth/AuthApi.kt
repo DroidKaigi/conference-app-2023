@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.first
 public class AuthApi(
     private val httpClient: HttpClient,
     private val userDataStore: UserDataStore,
-    private val authenticator: Authenticator
+    private val authenticator: Authenticator,
 ) {
     public suspend fun authIfNeeded() {
         var idToken = authenticator.currentUser()?.idToken
