@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data
+package io.github.droidkaigi.confsched2023.testing.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import io.github.droidkaigi.confsched2023.data.createDataStore
 import io.github.droidkaigi.confsched2023.data.user.DataStoreModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

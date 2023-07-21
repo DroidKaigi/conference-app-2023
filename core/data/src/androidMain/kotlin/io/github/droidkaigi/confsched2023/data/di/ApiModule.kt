@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.data.NetworkService
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthenticatorImpl
+import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -32,16 +33,6 @@ public class ApiModule {
         authApi: AuthApi,
     ): NetworkService {
         return NetworkService(httpClient, authApi)
-    }
-
-    @Provides
-    @Singleton
-    public fun provideAuthApi(
-        httpClient: HttpClient,
-        userDataStore: UserDataStore,
-        authenticator: Authenticator,
-    ): AuthApi {
-        return AuthApi(httpClient, userDataStore, authenticator)
     }
 
     @Provides
@@ -109,10 +100,28 @@ public class ApiModule {
         }
         return builder.build()
     }
+}
 
+@InstallIn(SingletonComponent::class)
+@Module
+class AuthApiModule {
     @Provides
     @Singleton
-    public fun provideAuthenticator(): Authenticator {
+    fun provideAuthApi(
+        httpClient: HttpClient,
+        userDataStore: UserDataStore,
+        authenticator: Authenticator,
+    ): AuthApi {
+        return DefaultAuthApi(httpClient, userDataStore, authenticator)
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+class AuthenticatorModule {
+    @Provides
+    @Singleton
+    fun provideAuthenticator(): Authenticator {
         return AuthenticatorImpl()
     }
 }
