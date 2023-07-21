@@ -3,15 +3,32 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallE
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -80,12 +97,56 @@ fun SessionDescription(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier,
+        modifier.padding(start = 16.dp),
     ) {
-        // Chips
         Row {
-            Text(session.room.name.currentLangTitle)
-            Text(session.language.langOfSpeaker)
+            // Chips
+            val infoChip = mutableListOf<String>()
+
+            infoChip.add(session.language.langOfSpeaker.substring(0, 2))
+            if (session.language.isInterpretationTarget) {
+                if (session.language.langOfSpeaker == "ENGLISH") {
+                    infoChip.add("JA")
+                } else if (session.language.langOfSpeaker == "JAPANESE") {
+                    infoChip.add("EN")
+                }
+            }
+
+            SuggestionChip(
+                colors = SuggestionChipDefaults.suggestionChipColors(
+                    containerColor = when (session.room.type) {
+                        RoomHallA -> room_hall_a
+                        RoomHallB -> room_hall_b
+                        RoomHallC -> room_hall_c
+                        RoomHallD -> room_hall_d
+                        RoomHallE -> room_hall_e
+                        else -> Color.White
+                    },
+                ),
+                onClick = { /* Do nothing */ },
+                label = {
+                    Text(
+                        session.room.name.currentLangTitle,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp,
+                        color = Color.White,
+                    )
+                },
+            )
+
+            infoChip.forEach {
+                SuggestionChip(
+                    modifier = Modifier.padding(start = 4.dp),
+                    onClick = { /* Do nothing */ },
+                    label = {
+                        Text(
+                            text = it,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 12.sp,
+                        )
+                    },
+                )
+            }
         }
 
         // Title
