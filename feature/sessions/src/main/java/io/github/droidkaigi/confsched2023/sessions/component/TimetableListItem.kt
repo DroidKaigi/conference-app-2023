@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Surface
@@ -126,9 +127,8 @@ fun SessionDescription(
                 onClick = { /* Do nothing */ },
                 label = {
                     Text(
-                        session.room.name.currentLangTitle,
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
+                        text = session.room.name.currentLangTitle,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = Color.White,
                     )
                 },
@@ -141,8 +141,7 @@ fun SessionDescription(
                     label = {
                         Text(
                             text = it,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 12.sp,
+                            style = MaterialTheme.typography.bodyMedium,
                         )
                     },
                 )
@@ -150,7 +149,10 @@ fun SessionDescription(
         }
 
         // Title
-        Text(session.title.currentLangTitle)
+        Text(
+            text = session.title.currentLangTitle,
+
+        )
 
         // Message
         if (session is Session) {
