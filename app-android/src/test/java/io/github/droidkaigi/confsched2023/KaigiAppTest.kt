@@ -73,4 +73,14 @@ class KaigiAppTest {
             capture()
         }
     }
+
+    @Test
+    fun checkNavigateToBookmarkShot() {
+        kaigiAppRobot(robotTestRule) {
+            timetableScreenRobot(robotTestRule) {
+                clickBookmarkButton()
+            }
+            capture()
+        }
+    }
 }
