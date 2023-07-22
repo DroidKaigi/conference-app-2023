@@ -30,7 +30,7 @@ jobs:
           path: ${{ github.event_path }}
 
       - name: Run local tests
-        run: ./gradlew testDevDebugUnitTest --stacktrace --rerun-tasks
+        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace --rerun-tasks
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
