@@ -79,6 +79,7 @@ enum class MainScreenTab(
     val selectedIcon: ImageVector,
     val label: String,
     val contentDescription: String,
+    val testTag: String = "mainScreenTab:$label",
 ) {
     Timetable(
         icon = Icons.Outlined.CalendarMonth,

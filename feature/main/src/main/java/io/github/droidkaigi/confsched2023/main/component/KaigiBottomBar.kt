@@ -6,6 +6,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 
@@ -22,6 +23,7 @@ fun KaigiBottomBar(
         mainScreenTabs.forEach { tab ->
             val selected = currentTab == tab
             NavigationBarItem(
+                modifier = Modifier.testTag(tab.testTag),
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
