@@ -5,10 +5,12 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Approval
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
@@ -101,6 +103,12 @@ enum class MainScreenTab(
         selectedIcon = Icons.Filled.Info,
         label = MainStrings.About.asString(),
         contentDescription = MainStrings.About.asString(),
+    ),
+    Contributor(
+        icon = Icons.Outlined.Group,
+        selectedIcon = Icons.Filled.Group,
+        label = MainStrings.Contributors.asString(),
+        contentDescription = MainStrings.Contributors.asString(),
     ),
 }
 
