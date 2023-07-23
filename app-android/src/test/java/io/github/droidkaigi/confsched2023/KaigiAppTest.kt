@@ -46,13 +46,13 @@ class KaigiAppTest {
         }
     }
 
-    @Test
-    fun checkNavigateToContributorShot() {
-        kaigiAppRobot(robotTestRule) {
-            goToContributor()
-            capture()
-        }
-    }
+    //  @Test
+    //  fun checkNavigateToContributorShot() {
+    //      kaigiAppRobot(robotTestRule) {
+    //          goToContributor()
+    //          capture()
+    //      }
+    //  }
 
     @Test
     fun checkNavigateToTimetableItemDetailShot() {

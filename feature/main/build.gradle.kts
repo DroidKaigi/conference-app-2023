@@ -14,6 +14,7 @@ dependencies {
     implementation(libs.composeUi)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterial)
+    implementation(libs.composeMaterialIcon)
     implementation(libs.composeUiToolingPreview)
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)

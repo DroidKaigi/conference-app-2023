@@ -22,7 +22,6 @@ import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
@@ -104,7 +103,6 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     override fun routeToTab(route: String): MainScreenTab? {
         return when (route) {
             timetableScreenRoute -> Timetable
-            contributorsScreenRoute -> Contributor
             else -> null
         }
     }
@@ -115,7 +113,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     ) {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
-            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
+            else -> null
         }
     }
 }
