@@ -36,7 +36,7 @@ class KaigiAppRobot @Inject constructor(
         composeTestRule
             .onNodeWithContentDescription(
                 MainScreenTab.Contributor.contentDescription,
-                useUnmergedTree = true
+                useUnmergedTree = true,
             )
             .performClick()
         waitUntilIdle()
