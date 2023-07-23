@@ -18,6 +18,10 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object BookmarkFilterAllChip : SessionsStrings()
     object BookmarkedItemNotFound : SessionsStrings()
     object BookmarkedItemNotFoundSideNote : SessionsStrings()
+    object Share : SessionsStrings()
+    object AddToCalendar : SessionsStrings()
+    object AddToFavorites : SessionsStrings()
+    object RemoveFromFavorites : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -34,6 +38,10 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 SearchResultNotFound -> "この検索条件に一致する結果はありません"
                 BookmarkedItemNotFound -> "登録されたセッションがありません"
                 BookmarkedItemNotFoundSideNote -> "気になるセッションをブックマークに追加して\n集めてみましょう！"
+                Share -> "共有"
+                AddToCalendar -> "カレンダーに追加"
+                AddToFavorites -> "お気に入りに追加"
+                RemoveFromFavorites -> "お気に入りから削除"
             }
         },
         Lang.English to { item, bindings ->
@@ -51,6 +59,10 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 BookmarkFilterAllChip -> "All"
                 BookmarkedItemNotFound -> "No sessions registered"
                 BookmarkedItemNotFoundSideNote -> "Add the sessions you are interested in to your bookmarks \n and collect them!"
+                Share -> "Share"
+                AddToCalendar -> "Add to calendar"
+                AddToFavorites -> "Add to favorites"
+                RemoveFromFavorites -> "Remove from favorites"
             }
         },
         default = Lang.Japanese,

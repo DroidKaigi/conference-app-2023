@@ -49,6 +49,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidHiltPlugin"
         }
+        register("androidFirebase") {
+            id = "droidkaigi.primitive.android.firebase"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidFirebasePlugin"
+        }
         register("androidRoborazzi") {
             id = "droidkaigi.primitive.android.roborazzi"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidRoborazziPlugin"

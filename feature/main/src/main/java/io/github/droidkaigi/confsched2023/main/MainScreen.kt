@@ -3,11 +3,16 @@ package io.github.droidkaigi.confsched2023.main
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material.icons.filled.Approval
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Group
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Map
+import androidx.compose.material.icons.outlined.Approval
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Group
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -22,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
@@ -70,14 +76,39 @@ fun MainScreen(
 
 enum class MainScreenTab(
     val icon: ImageVector,
+    val selectedIcon: ImageVector,
+    val label: String,
     val contentDescription: String,
+    val testTag: String = "mainScreenTab:$label",
 ) {
     Timetable(
-        icon = Icons.Filled.DateRange,
+        icon = Icons.Outlined.CalendarMonth,
+        selectedIcon = Icons.Filled.CalendarMonth,
+        label = MainStrings.Timetable.asString(),
         contentDescription = MainStrings.Timetable.asString(),
     ),
+    FloorMap(
+        icon = Icons.Outlined.Map,
+        selectedIcon = Icons.Filled.Map,
+        label = MainStrings.FloorMap.asString(),
+        contentDescription = MainStrings.FloorMap.asString(),
+    ),
+    Stamps(
+        icon = Icons.Outlined.Approval,
+        selectedIcon = Icons.Filled.Approval,
+        label = MainStrings.Stamps.asString(),
+        contentDescription = MainStrings.Stamps.asString(),
+    ),
+    About(
+        icon = Icons.Outlined.Info,
+        selectedIcon = Icons.Filled.Info,
+        label = MainStrings.About.asString(),
+        contentDescription = MainStrings.About.asString(),
+    ),
     Contributor(
-        icon = Icons.Filled.List,
+        icon = Icons.Outlined.Group,
+        selectedIcon = Icons.Filled.Group,
+        label = MainStrings.Contributors.asString(),
         contentDescription = MainStrings.Contributors.asString(),
     ),
 }
@@ -97,23 +128,13 @@ private fun MainScreen(
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                MainScreenTab.values().forEach { tab ->
-                    val selected = currentTab == tab
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = {
-                            onTabSelected(mainNestedNavController, tab)
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = tab.icon,
-                                contentDescription = tab.contentDescription,
-                            )
-                        },
-                    )
-                }
-            }
+            KaigiBottomBar(
+                mainScreenTabs = MainScreenTab.values().toList(),
+                onTabSelected = { tab ->
+                    onTabSelected(mainNestedNavController, tab)
+                },
+                currentTab = currentTab ?: MainScreenTab.Timetable,
+            )
         },
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->

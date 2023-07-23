@@ -10,6 +10,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -45,7 +47,53 @@ class UserDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    public fun isAuthenticated(): Flow<Boolean?> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences: Preferences ->
+                preferences[KEY_AUTHENTICATED]?.toBoolean()
+            }
+    }
+
+    public suspend fun setAuthenticated(authenticated: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[KEY_AUTHENTICATED] = authenticated.toString()
+        }
+    }
+
+    private val mutableIdToken = MutableStateFlow<String?>(null)
+    public val idToken: StateFlow<String?> = mutableIdToken
+    public suspend fun setIdToken(token: String): Unit = mutableIdToken.emit(token)
+
+    public fun deviceId(): Flow<String?> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences: Preferences ->
+                preferences[KEY_DEVICE_ID]
+            }
+    }
+
+    public suspend fun setDeviceId(deviceId: String) {
+        dataStore.edit { preferences ->
+            preferences[KEY_DEVICE_ID] = deviceId
+        }
+    }
+
     companion object {
-        private val KEY_FAVORITE_SESSION_IDS = stringPreferencesKey("favorite_session_ids")
+        private val KEY_FAVORITE_SESSION_IDS = stringPreferencesKey("KEY_FAVORITE_SESSION_IDS")
+        private val KEY_DEVICE_ID = stringPreferencesKey("KEY_DEVICE_ID")
+        private val KEY_AUTHENTICATED = stringPreferencesKey("KEY_AUTHENTICATED")
     }
 }

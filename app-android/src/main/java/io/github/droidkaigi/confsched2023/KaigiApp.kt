@@ -116,6 +116,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
+            else -> null
         }
     }
 }

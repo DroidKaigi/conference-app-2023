@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.session
 
+import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.onStart
 
 class DefaultSessionsRepository(
     private val sessionsApi: SessionsApi,
+    private val authApi: AuthApi,
     private val userDataStore: UserDataStore,
 ) : SessionsRepository {
 
@@ -26,6 +28,8 @@ class DefaultSessionsRepository(
             timetable.copy(bookmarks = favorites)
         }
             .onStart {
+                // TODO: Remove after introducing network service
+                authApi.authIfNeeded()
                 if (timetableStateFlow.value.isEmpty()) {
                     timetableStateFlow.value = sessionsApi.timetable()
                 }
