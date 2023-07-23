@@ -1,12 +1,62 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
 
 @Composable
 fun TimetableItemDetailFooter(
+    timetableItem: TimetableItem,
+    isBookmarked: Boolean,
+    onBookmarkClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Text(text = "this is TimetableItemDetailFooter")
+    BottomAppBar(
+        modifier = modifier,
+        actions = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Filled.Share,
+                    contentDescription = SessionsStrings.Share.toString(),
+                )
+            }
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    imageVector = Icons.Outlined.CalendarToday,
+                    contentDescription = SessionsStrings.AddToCalendar.toString(),
+                )
+            }
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { onBookmarkClick(timetableItem) },
+                containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
+                elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
+            ) {
+                if (isBookmarked) {
+                    Icon(
+                        imageVector = Icons.Filled.Bookmark,
+                        contentDescription = SessionsStrings.RemoveFromFavorites.toString(),
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Filled.BookmarkBorder,
+                        contentDescription = SessionsStrings.AddToFavorites.asString(),
+                    )
+                }
+            }
+        },
+    )
 }

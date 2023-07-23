@@ -1,10 +1,13 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -72,17 +75,30 @@ private fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
 ) {
-    when (uiState) {
-        TimetableItemDetailScreenUiState.Loading -> {
-            Text(text = "Loading")
-        }
+    Scaffold(
+        bottomBar = {
+            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+                TimetableItemDetailFooter(
+                    timetableItem = uiState.timetableItem,
+                    isBookmarked = uiState.isBookmarked,
+                    onBookmarkClick = onBookmarkClick,
+                )
+            }
+        },
+    ) { innerPadding ->
+        when (uiState) {
+            TimetableItemDetailScreenUiState.Loading -> {
+                Text(text = "Loading")
+            }
 
-        is TimetableItemDetailScreenUiState.Loaded -> {
-            Column {
-                TimetableItemDetailHeader()
-                TimetableItemDetailSummary()
-                TimetableItemDetailContent()
-                TimetableItemDetailFooter()
+            is TimetableItemDetailScreenUiState.Loaded -> {
+                Column(
+                    modifier = Modifier.padding(innerPadding),
+                ) {
+                    TimetableItemDetailHeader()
+                    TimetableItemDetailSummary()
+                    TimetableItemDetailContent()
+                }
             }
         }
     }
