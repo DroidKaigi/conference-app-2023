@@ -37,7 +37,7 @@ jobs:
           path: ${{ github.event_path }}
 
       - name: Run local tests
-        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace
+        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace --info
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
