@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -20,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +44,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
@@ -100,7 +104,10 @@ fun TimetableGridItem(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
-                        painter = rememberAsyncImagePainter(speaker.iconUrl),
+                        painter = rememberAsyncImagePainter(speaker.iconUrl)
+                            .overridePreviewWith {
+                                rememberVectorPainter(image = Icons.Default.Person)
+                            },
                         contentDescription = UserIcon.asString(),
                         modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                     )
