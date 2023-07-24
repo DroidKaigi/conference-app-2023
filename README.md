@@ -256,7 +256,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 2. Setup
    1. `bundle install`
-   2. `bundle exec fastlane build-kmm`
+   2. `bundle exec fastlane shared`
    
 3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
 
