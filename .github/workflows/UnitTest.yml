@@ -22,7 +22,14 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - uses: ./.github/actions/setup-java
-      
+
+      - uses: dawidd6/action-download-artifact@v2
+        continue-on-error: true
+        with:
+          name: screenshot
+          workflow: UnitTest.yml
+          branch: main
+
       - name: Upload an event payload for EnricoMi/publish-unit-test-result-action
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
