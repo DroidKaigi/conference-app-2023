@@ -12,10 +12,16 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+permissions: { }
+
 jobs:
   unit-test:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
+    permissions:
+      contents: read # for clone
+      actions: write # for upload-artifact
 
     steps:
       - name: Checkout
