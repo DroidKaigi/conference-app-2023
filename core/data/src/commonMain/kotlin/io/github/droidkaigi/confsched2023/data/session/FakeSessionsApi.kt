@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.data.session
 
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.fake
+import okio.IOException
 
 interface SessionsApi {
     suspend fun timetable(): Timetable
@@ -9,27 +10,27 @@ interface SessionsApi {
 
 class FakeSessionsApi : SessionsApi {
 
-    sealed class Strategy : SessionsApi {
-        object Operational : Strategy() {
+    sealed class Behavior : SessionsApi {
+        object Operational : Behavior() {
             override suspend fun timetable(): Timetable {
                 return Timetable.fake()
             }
         }
 
-        object Error : Strategy() {
+        object Error : Behavior() {
             override suspend fun timetable(): Timetable {
-                throw RuntimeException("Error")
+                throw IOException("Fake IO Exception")
             }
         }
     }
 
-    private var strategy: Strategy = Strategy.Operational
+    private var behavor: Behavior = Behavior.Operational
 
-    fun setup(strategy: Strategy) {
-        this.strategy = strategy
+    fun setup(behavior: Behavior) {
+        this.behavor = behavior
     }
 
     override suspend fun timetable(): Timetable {
-        return strategy.timetable()
+        return behavor.timetable()
     }
 }

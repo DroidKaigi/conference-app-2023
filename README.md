@@ -240,6 +240,60 @@ While GitHub Actions Artifacts and Git LFS could be used for storing screenshots
 
 The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
 
+### Fake API Server
+
+To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual repositories. 
+We have also designed our API to manage its own state and to allow us to change its behavior as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Behavior` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
+
+```kotlin
+interface SessionsApi {
+    suspend fun timetable(): Timetable
+}
+
+class FakeSessionsApi : SessionsApi {
+
+    sealed class Behavior : SessionsApi {
+        object Operational : Behavior() {
+            override suspend fun timetable(): Timetable {
+                return Timetable.fake()
+            }
+        }
+
+        object Error : Behavior() {
+            override suspend fun timetable(): Timetable {
+                throw IOException("Fake IO Exception")
+            }
+        }
+    }
+
+    private var behavior: Behavior = Behavior.Operational
+
+    fun setup(behavior: Behavior) {
+        this.behavior = behavior
+    }
+
+    override suspend fun timetable(): Timetable {
+        return behavior.timetable()
+    }
+}
+```
+
+We use the `FakeSessionsApi` throughout our tests. It's provided by the `FakeSessionsApiModule`, which replaces the original `SessionsApiModule` during testing.
+
+```kotlin
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class], 
+    replaces = [SessionsApiModule::class]
+)
+class FakeSessionsApiModule {
+    @Provides
+    fun provideSessionsApi(): SessionsApi {
+        return FakeSessionsApi()
+    }
+}
+```
+
 # iOS
 
 ## Requirements

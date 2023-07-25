@@ -9,7 +9,10 @@ import io.github.droidkaigi.confsched2023.data.session.SessionsApi
 import io.github.droidkaigi.confsched2023.data.session.SessionsApiModule
 
 @Module
-@TestInstallIn(components = [SingletonComponent::class], replaces = [SessionsApiModule::class])
+@TestInstallIn(
+    components = [SingletonComponent::class],
+    replaces = [SessionsApiModule::class]
+)
 class FakeSessionsApiModule {
     @Provides
     fun provideSessionsApi(): SessionsApi {
