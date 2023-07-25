@@ -171,6 +171,9 @@ The buildUiState() function combines the data from sessionsStateFlow and filters
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
+![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a79bccbb-7486-4be9-865f-0655280af656)
+
+
 ### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
 [Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
