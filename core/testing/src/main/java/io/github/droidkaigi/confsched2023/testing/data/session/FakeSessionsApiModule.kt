@@ -5,7 +5,7 @@ import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import io.github.droidkaigi.confsched2023.data.session.FakeSessionsApi
-import io.github.droidkaigi.confsched2023.data.session.SessionsApi
+import io.github.droidkaigi.confsched2023.data.session.SessionsApiClient
 import io.github.droidkaigi.confsched2023.data.session.SessionsApiModule
 
 @Module
@@ -15,7 +15,7 @@ import io.github.droidkaigi.confsched2023.data.session.SessionsApiModule
 )
 class FakeSessionsApiModule {
     @Provides
-    fun provideSessionsApi(): SessionsApi {
+    fun provideSessionsApi(): SessionsApiClient {
         return FakeSessionsApi()
     }
 }

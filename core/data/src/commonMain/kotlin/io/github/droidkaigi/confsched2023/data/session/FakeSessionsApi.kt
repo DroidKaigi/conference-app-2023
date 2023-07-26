@@ -4,13 +4,9 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.fake
 import okio.IOException
 
-interface SessionsApi {
-    suspend fun timetable(): Timetable
-}
+class FakeSessionsApi : SessionsApiClient {
 
-class FakeSessionsApi : SessionsApi {
-
-    sealed class Behavior : SessionsApi {
+    sealed class Behavior : SessionsApiClient {
         object Operational : Behavior() {
             override suspend fun timetable(): Timetable {
                 return Timetable.fake()

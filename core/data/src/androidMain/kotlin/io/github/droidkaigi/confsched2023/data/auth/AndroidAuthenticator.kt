@@ -5,7 +5,7 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import javax.inject.Inject
 
-public class AuthenticatorImpl @Inject constructor() : Authenticator {
+public class AndroidAuthenticator @Inject constructor() : Authenticator {
     override suspend fun currentUser(): User? {
         Logger.d("currentUser")
         val firebaseUser = Firebase.auth.currentUser ?: return run {

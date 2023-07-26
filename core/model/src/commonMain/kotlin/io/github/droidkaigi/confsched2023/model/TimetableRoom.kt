@@ -4,7 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 public data class TimetableRoom(
-    val type: RoomType,
+    val id: Int,
     val name: MultiLangText,
     val sort: Int,
 )
+
+val TimetableRoom.type: ConferenceRoom
+    get() = ConferenceRoom.values().first { it.id == id }

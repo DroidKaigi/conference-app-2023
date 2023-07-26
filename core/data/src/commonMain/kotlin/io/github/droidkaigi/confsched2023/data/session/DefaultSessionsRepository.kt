@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 class DefaultSessionsRepository(
-    private val sessionsApi: SessionsApi,
+    private val sessionsApi: SessionsApiClient,
     private val authApi: AuthApi,
     private val userDataStore: UserDataStore,
 ) : SessionsRepository {
