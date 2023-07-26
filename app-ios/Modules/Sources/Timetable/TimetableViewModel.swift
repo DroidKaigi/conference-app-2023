@@ -15,7 +15,7 @@ final class TimetableViewModel: ObservableObject {
             state = .loading
         }
         do {
-            let timetable = try await FakeSessionsApi().sessions()
+            let timetable = try await FakeSessionsApi().timetable()
             let timetableTimeGroupItems = timetable.timetableItems.map {
                     TimetableTimeGroupItems.Duration(startsAt: $0.startsAt, endsAt: $0.endsAt)
                 }
