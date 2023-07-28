@@ -40,5 +40,5 @@ jobs:
         run: |
           xcodebuild build -workspace app-ios.xcworkspace \
               -scheme DroidKaigi2023 \
-              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.4' \
+              -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=17.0' \
               -skipPackagePluginValidation
