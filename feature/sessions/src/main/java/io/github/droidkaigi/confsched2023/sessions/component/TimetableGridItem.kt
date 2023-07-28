@@ -34,11 +34,11 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
 import io.github.droidkaigi.confsched2023.feature.sessions.R
-import io.github.droidkaigi.confsched2023.model.ConferenceRoom.RoomHallA
-import io.github.droidkaigi.confsched2023.model.ConferenceRoom.RoomHallB
-import io.github.droidkaigi.confsched2023.model.ConferenceRoom.RoomHallC
-import io.github.droidkaigi.confsched2023.model.ConferenceRoom.RoomHallD
-import io.github.droidkaigi.confsched2023.model.ConferenceRoom.RoomHallE
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -57,11 +57,11 @@ fun TimetableGridItem(
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when (timetableItem.room.type) {
-        RoomHallA -> room_hall_a
-        RoomHallB -> room_hall_b
-        RoomHallC -> room_hall_c
-        RoomHallD -> room_hall_d
-        RoomHallE -> room_hall_e
+        Room1 -> room_hall_a
+        Room2 -> room_hall_b
+        Room3 -> room_hall_c
+        Room4 -> room_hall_d
+        Room5 -> room_hall_e
         else -> Color.White
     }
     // TODO: Dealing with more than one speaker

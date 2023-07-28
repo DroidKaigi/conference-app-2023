@@ -68,10 +68,12 @@ internal fun SessionAllResponse.toTimetable(): Timetable {
         .groupBy { it.id }
         .mapValues { (_, apiRooms) ->
             apiRooms.map { apiRoom ->
+                val roomSorts = apiRooms.map { it.sort }.sorted()
                 TimetableRoom(
                     id = apiRoom.id,
                     name = apiRoom.name.toMultiLangText(),
                     sort = apiRoom.sort,
+                    sortIndex = roomSorts.indexOf(apiRoom.sort),
                 )
             }.first()
         }

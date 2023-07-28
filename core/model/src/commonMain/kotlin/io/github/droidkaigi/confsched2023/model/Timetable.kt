@@ -83,10 +83,10 @@ public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
     var rooms = listOf(
-        TimetableRoom(1, MultiLangText("App Bar", "App Bar"), 0),
-        TimetableRoom(2, MultiLangText("Backdrop", "Backdrop"), 1),
-        TimetableRoom(3, MultiLangText("Cards", "Cards"), 2),
-        TimetableRoom(4, MultiLangText("Dialogs", "Dialogs"), 3),
+        TimetableRoom(1, MultiLangText("App Bar", "App Bar"), 0, 0),
+        TimetableRoom(2, MultiLangText("Backdrop", "Backdrop"), 1, 1),
+        TimetableRoom(3, MultiLangText("Cards", "Cards"), 2, 2),
+        TimetableRoom(4, MultiLangText("Dialogs", "Dialogs"), 3, 3),
     )
     (0..10).forEach { _ ->
         rooms += rooms
