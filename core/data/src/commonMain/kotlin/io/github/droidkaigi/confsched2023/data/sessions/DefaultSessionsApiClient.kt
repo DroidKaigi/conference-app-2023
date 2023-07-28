@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.session
+package io.github.droidkaigi.confsched2023.data.sessions
 
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.http.GET

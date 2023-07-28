@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.session
+package io.github.droidkaigi.confsched2023.data.sessions
 
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.fake
