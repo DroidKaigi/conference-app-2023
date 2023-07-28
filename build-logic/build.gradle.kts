@@ -9,6 +9,9 @@ group = "io.github.droidkaigi.confsched2023.buildlogic"
 repositories {
     google()
     mavenCentral()
+    maven {
+        url = uri("https://plugins.gradle.org/m2/")
+    }
 }
 
 // If we use jvmToolchain, we need to install JDK 11
@@ -73,9 +76,17 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.compose"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpComposePlugin"
         }
+        register("kotlinMppKtorfit") {
+            id = "droidkaigi.primitive.kmp.ktorfit"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpKtorfitPlugin"
+        }
         register("kotlinMppAndroidHilt") {
             id = "droidkaigi.primitive.kmp.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpAndroidHiltPlugin"
+        }
+        register("kotlinMppKotlinSerialization") {
+            id = "droidkaigi.primitive.kmp.serialization"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KotlinSerializationPlugin"
         }
         register("spotless") {
             id = "droidkaigi.primitive.spotless"

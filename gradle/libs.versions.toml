@@ -26,10 +26,11 @@ kotlinxSerialization = "1.5.1"
 ktor = "2.1.2"
 roborazzi = "1.5.0-alpha-2"
 showkase = "1.0.0-beta17"
-ksp = "1.8.22-1.0.11"
+ksp = "1.8.20-1.0.11"
 multiplatformFirebaseAuth = "1.6.2"
 kermit = "1.1.3"
 okHttp = "4.10.0"
+ktorfit = "1.4.1"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -40,6 +41,8 @@ hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-pl
 roborazziGradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
 kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 firebaseGradlePlugin = { module = "com.google.gms:google-services", version = "4.3.15" }
+ktorfitGradlePlugin = { module = "de.jensklingenberg.ktorfit:gradle-plugin", version = "1.0.0" }
+kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -99,6 +102,8 @@ multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref 
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 
+ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+
 # Debug
 
 # Test
@@ -130,5 +135,7 @@ plugins = [
     "roborazziGradlePlugin",
     "spotlessGradlePlugin",
     "kspGradlePlugin",
-    "firebaseGradlePlugin"
+    "firebaseGradlePlugin",
+    "ktorfitGradlePlugin",
+    "kotlinxSerializationGradlePlugin"
 ]

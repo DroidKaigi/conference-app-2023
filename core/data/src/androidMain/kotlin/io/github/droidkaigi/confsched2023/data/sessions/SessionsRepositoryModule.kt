@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.session
+package io.github.droidkaigi.confsched2023.data.sessions
 
 import dagger.Module
 import dagger.Provides
@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 class SessionsRepositoryModule {
     @Provides
     fun provideSessionsRepository(
-        sessionsApi: SessionsApi,
+        sessionsApi: SessionsApiClient,
         authApi: AuthApi,
         userDataStore: UserDataStore,
     ): SessionsRepository {

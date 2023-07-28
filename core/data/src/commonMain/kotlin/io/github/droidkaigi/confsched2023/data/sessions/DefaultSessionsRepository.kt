@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.session
+package io.github.droidkaigi.confsched2023.data.sessions
 
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
 class DefaultSessionsRepository(
-    private val sessionsApi: SessionsApi,
+    private val sessionsApi: SessionsApiClient,
     private val authApi: AuthApi,
     private val userDataStore: UserDataStore,
 ) : SessionsRepository {

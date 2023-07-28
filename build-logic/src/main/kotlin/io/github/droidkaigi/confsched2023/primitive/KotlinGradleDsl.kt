@@ -6,6 +6,8 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
+import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
+import java.awt.AWTEventMulticaster.add
 import java.util.Optional
 
 fun DependencyHandlerScope.kapt(
