@@ -92,7 +92,12 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                 },
             )
             composable(contributorsScreenRoute) {
-                ContributorsScreen(hiltViewModel<ContributorsViewModel>())
+                ContributorsScreen(
+                    viewModel = hiltViewModel<ContributorsViewModel>(),
+                    onNavigationIconClick = {
+                        navController.popBackStack()
+                    }
+                )
             }
         },
     )

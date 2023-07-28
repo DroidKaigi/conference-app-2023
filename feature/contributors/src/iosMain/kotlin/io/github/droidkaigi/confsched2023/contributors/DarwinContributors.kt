@@ -16,5 +16,5 @@ fun viewController(): UIViewController = ComposeUIViewController {
 //        viewModel.viewModelScope.cancel()
     }
 
-    ContributorsScreen(viewModel)
+    ContributorsScreen(viewModel, onNavigationIconClick = {})
 }
