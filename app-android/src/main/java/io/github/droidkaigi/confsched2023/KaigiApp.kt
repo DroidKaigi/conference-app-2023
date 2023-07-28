@@ -96,7 +96,7 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                     viewModel = hiltViewModel<ContributorsViewModel>(),
                     onNavigationIconClick = {
                         navController.popBackStack()
-                    }
+                    },
                 )
             }
         },
