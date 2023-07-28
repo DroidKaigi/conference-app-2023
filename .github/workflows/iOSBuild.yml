@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - name: Select Xcode
-        run: sudo xcode-select -s '/Applications/Xcode_14.3.1.app'
+        run: sudo xcode-select -s '/Applications/Xcode_15.0.app'
 
       - uses: ./.github/actions/setup-java
 
