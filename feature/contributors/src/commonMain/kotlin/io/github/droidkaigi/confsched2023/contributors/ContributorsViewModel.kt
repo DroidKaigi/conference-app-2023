@@ -1,19 +1,19 @@
 package io.github.droidkaigi.confsched2023.contributors
 
-import io.github.droidkaigi.confsched2023.model.Timetable
-import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.model.Contributor
+import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.ui.KmpHiltViewModel
 import io.github.droidkaigi.confsched2023.ui.KmpInject
 import io.github.droidkaigi.confsched2023.ui.KmpViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 @KmpHiltViewModel
-class ContributorsViewModel @KmpInject constructor() :
-    KmpViewModel() {
-    // FIXME
-    val sessions = MutableStateFlow(Timetable.fake())
+class ContributorsViewModel @KmpInject constructor(
+) : KmpViewModel() {
 
-    fun greet(): String {
-        return "Hello, ${Contributors().greet()}"
-    }
+    // TODO: Pass data from repository
+    val uiState: StateFlow<ContributorsUiState> =
+        MutableStateFlow(ContributorsUiState(Contributor.fakes())).asStateFlow()
 }
