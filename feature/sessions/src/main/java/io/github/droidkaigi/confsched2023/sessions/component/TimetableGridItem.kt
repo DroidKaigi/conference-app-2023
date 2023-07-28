@@ -64,8 +64,6 @@ fun TimetableGridItem(
         Room5 -> room_hall_e
         else -> Color.White
     }
-    // TODO: Dealing with more than one speaker
-    val speaker = timetableItem.speakers[0]
     Box(modifier.testTag(TimetableGridItemTestTag)) {
         Box(
             modifier = Modifier
@@ -100,23 +98,28 @@ fun TimetableGridItem(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier.height(32.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(speaker.iconUrl)
-                            .overridePreviewWith {
-                                rememberVectorPainter(image = Icons.Default.Person)
-                            },
-                        contentDescription = UserIcon.asString(),
-                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = speaker.name,
-                        style = MaterialTheme.typography.labelMedium.copy(Color.White),
-                    )
+
+                // TODO: Dealing with more than one speaker
+                val speaker = timetableItem.speakers.firstOrNull()
+                if (speaker != null) {
+                    Row(
+                        modifier = Modifier.height(32.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Image(
+                            painter = rememberAsyncImagePainter(speaker.iconUrl)
+                                .overridePreviewWith {
+                                    rememberVectorPainter(image = Icons.Default.Person)
+                                },
+                            contentDescription = UserIcon.asString(),
+                            modifier = Modifier.clip(RoundedCornerShape(8.dp)),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = speaker.name,
+                            style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                        )
+                    }
                 }
             }
         }
