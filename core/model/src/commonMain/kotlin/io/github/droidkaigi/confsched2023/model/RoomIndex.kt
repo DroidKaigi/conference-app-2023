@@ -8,5 +8,5 @@ enum class RoomIndex {
     Room2,
     Room3,
     Room4,
-    Room5;
+    Room5,
 }
