@@ -14,14 +14,13 @@ class KaigiAppRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
 
-    private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
-
+    @Inject lateinit var robotTestRule: RobotTestRule
     @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        composeTestRule: RobotTestRule<*>,
         block: KaigiAppRobot.() -> Unit,
     ) {
-        this.composeTestRule = composeTestRule.composeTestRule
+        this.composeTestRule = robotTestRule.composeTestRule
         waitUntilIdle()
         block()
     }

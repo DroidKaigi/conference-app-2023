@@ -15,14 +15,14 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-inline fun <reified A : ComponentActivity> RobotTestRule(testInstance: Any): RobotTestRule<A> {
+inline fun <reified A : ComponentActivity> RobotTestRule(testInstance: Any): RobotTestRule {
     val composeTestRule = createAndroidComposeRule<A>()
-    return RobotTestRule(testInstance, composeTestRule)
+    return RobotTestRule(testInstance, composeTestRule as AndroidComposeTestRule<ActivityScenarioRule<*>, *>)
 }
 
-class RobotTestRule<T : ComponentActivity>(
+class RobotTestRule(
     private val testInstance: Any,
-    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<T>, T>,
+    val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<*>, *>,
 ) : TestRule {
 
     override fun apply(base: Statement, description: Description): Statement {

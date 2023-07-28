@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -24,7 +25,7 @@ import javax.inject.Inject
 class TimetableScreenTest {
 
     @get:Rule
-    val robotTestRule = RobotTestRule<HiltTestActivity>(this)
+    @BindValue val robotTestRule: RobotTestRule = RobotTestRule<HiltTestActivity>(this)
 
     @Inject
     lateinit var timetableScreenRobot: TimetableScreenRobot
@@ -33,7 +34,7 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             checkScreenCapture()
         }
@@ -42,7 +43,7 @@ class TimetableScreenTest {
     // An assertion test for an important feature
     @Test
     fun checkLaunch() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             checkTimetableItemsDisplayed()
         }
@@ -51,7 +52,7 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkFavoriteToggleShot() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             clickFirstSessionBookmark()
             checkTimetableListCapture()
@@ -63,7 +64,7 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkScrollShot() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             scrollTimetable()
             checkTimetableListCapture()
@@ -73,7 +74,7 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkGridShot() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             clickTimetableUiTypeChangeButton()
             checkTimetableListCapture()
@@ -83,7 +84,7 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkGridScrollShot() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
             setupTimetableScreenContent()
             clickTimetableUiTypeChangeButton()
             scrollTimetable()
