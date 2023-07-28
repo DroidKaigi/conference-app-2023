@@ -3,21 +3,17 @@ package io.github.droidkaigi.confsched2023.data
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.model.AppError
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.network.sockets.SocketTimeoutException
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.plugins.ResponseException
-import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
-import io.ktor.client.request.post
-import io.ktor.client.request.put
 import io.ktor.util.cio.ChannelReadException
 import kotlinx.coroutines.TimeoutCancellationException
 
 public class NetworkService(public val httpClient: HttpClient, public val authApi: AuthApi) {
 
     public suspend inline operator fun <reified T : Any> invoke(
-        block: suspend () -> T
+        block: suspend () -> T,
     ): T = try {
         authApi.authIfNeeded()
         block()

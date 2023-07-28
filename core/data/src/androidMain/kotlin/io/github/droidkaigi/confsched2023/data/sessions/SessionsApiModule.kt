@@ -13,11 +13,11 @@ class SessionsApiModule {
     @Provides
     fun provideSessionsApi(
         networkService: NetworkService,
-        ktorfit: Ktorfit
+        ktorfit: Ktorfit,
     ): SessionsApiClient {
         return DefaultSessionsApiClient(
             networkService = networkService,
-            ktorfit = ktorfit
+            ktorfit = ktorfit,
         )
     }
 }

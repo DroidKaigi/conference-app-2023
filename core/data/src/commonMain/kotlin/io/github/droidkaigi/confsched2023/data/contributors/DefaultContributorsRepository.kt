@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.data.contributors
 
-import io.github.droidkaigi.confsched2023.data.NetworkService
 import io.github.droidkaigi.confsched2023.model.Contributor
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

@@ -15,7 +15,7 @@ internal interface ContributorApi {
 
 public class DefaultContributorsApiClient(
     val networkService: NetworkService,
-    ktorfit: Ktorfit
+    ktorfit: Ktorfit,
 ) : ContributorsApiClient {
 
     private val contributorApi = ktorfit.create<ContributorApi>()
@@ -37,7 +37,7 @@ private fun ContributorsResponse.toContributorList(): PersistentList<Contributor
             id = it.id,
             username = it.username,
             profileUrl = "https://github.com/${it.username}",
-            iconUrl = it.iconUrl
+            iconUrl = it.iconUrl,
         )
     }.toPersistentList()
 }

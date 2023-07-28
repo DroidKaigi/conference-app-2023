@@ -32,7 +32,7 @@ internal interface SessionApi {
 
 class DefaultSessionsApiClient(
     val networkService: NetworkService,
-    ktorfit: Ktorfit
+    ktorfit: Ktorfit,
 ) : SessionsApiClient {
 
     private val sessionApi = ktorfit.create<SessionApi>()

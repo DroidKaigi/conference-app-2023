@@ -13,11 +13,11 @@ class ContributorsApiModule {
     @Provides
     fun provideContributorsApi(
         networkService: NetworkService,
-        ktorfit: Ktorfit
+        ktorfit: Ktorfit,
     ): ContributorsApiClient {
         return DefaultContributorsApiClient(
             networkService = networkService,
-            ktorfit = ktorfit
+            ktorfit = ktorfit,
         )
     }
 }
