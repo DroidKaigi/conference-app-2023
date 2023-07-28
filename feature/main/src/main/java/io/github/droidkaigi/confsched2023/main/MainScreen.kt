@@ -27,6 +27,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
@@ -127,13 +128,13 @@ private fun MainScreen(
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
     Scaffold(
         bottomBar = {
-//            KaigiBottomBar(
-//                mainScreenTabs = MainScreenTab.values().toList(),
-//                onTabSelected = { tab ->
-//                    onTabSelected(mainNestedNavController, tab)
-//                },
-//                currentTab = currentTab ?: MainScreenTab.Timetable,
-//            )
+            KaigiBottomBar(
+                mainScreenTabs = MainScreenTab.values().toList(),
+                onTabSelected = { tab ->
+                    onTabSelected(mainNestedNavController, tab)
+                },
+                currentTab = currentTab ?: MainScreenTab.Timetable,
+            )
         },
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
