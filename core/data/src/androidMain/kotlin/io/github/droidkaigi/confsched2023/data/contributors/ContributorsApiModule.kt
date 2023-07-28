@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.sessions
+package io.github.droidkaigi.confsched2023.data.contributors
 
 import dagger.Module
 import dagger.Provides
@@ -9,13 +9,13 @@ import io.github.droidkaigi.confsched2023.data.NetworkService
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SessionsApiModule {
+class ContributorsApiModule {
     @Provides
-    fun provideSessionsApi(
+    fun provideContributorsApi(
         networkService: NetworkService,
         ktorfit: Ktorfit,
-    ): SessionsApiClient {
-        return DefaultSessionsApiClient(
+    ): ContributorsApiClient {
+        return DefaultContributorsApiClient(
             networkService = networkService,
             ktorfit = ktorfit,
         )

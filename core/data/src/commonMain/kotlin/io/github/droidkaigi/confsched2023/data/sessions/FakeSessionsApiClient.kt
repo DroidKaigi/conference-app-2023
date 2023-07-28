@@ -4,7 +4,7 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.fake
 import okio.IOException
 
-class FakeSessionsApi : SessionsApiClient {
+class FakeSessionsApiClient : SessionsApiClient {
 
     sealed class Behavior : SessionsApiClient {
         object Operational : Behavior() {

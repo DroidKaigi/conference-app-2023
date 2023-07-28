@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.data.sessions
 
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.http.GET
+import io.github.droidkaigi.confsched2023.data.NetworkService
 import io.github.droidkaigi.confsched2023.data.sessions.response.LocaledResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAllResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAssetResponse
@@ -29,12 +30,17 @@ internal interface SessionApi {
     suspend fun getTimetable(): SessionAllResponse
 }
 
-class DefaultSessionsApiClient(ktorfit: Ktorfit) : SessionsApiClient {
+class DefaultSessionsApiClient(
+    val networkService: NetworkService,
+    ktorfit: Ktorfit,
+) : SessionsApiClient {
 
     private val sessionApi = ktorfit.create<SessionApi>()
 
     override suspend fun timetable(): Timetable {
-        return sessionApi.getTimetable().toTimetable()
+        return networkService {
+            sessionApi.getTimetable().toTimetable()
+        }
     }
 }
 

@@ -24,10 +24,9 @@ import javax.inject.Inject
 class TimetableScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
-
+    @Inject lateinit var robotTestRule: RobotTestRule
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        robotTestRule: RobotTestRule<*>,
         block: TimetableScreenRobot.() -> Unit,
     ) {
         this.composeTestRule = robotTestRule.composeTestRule
