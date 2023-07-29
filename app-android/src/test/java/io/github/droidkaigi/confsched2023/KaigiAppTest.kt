@@ -48,6 +48,14 @@ class KaigiAppTest {
     }
 
     @Test
+    fun checkNavigateToAboutShot() {
+        kaigiAppRobot {
+            goToAbout()
+            capture()
+        }
+    }
+
+    @Test
     fun checkNavigateToContributorShot() {
         kaigiAppRobot {
             goToContributor()

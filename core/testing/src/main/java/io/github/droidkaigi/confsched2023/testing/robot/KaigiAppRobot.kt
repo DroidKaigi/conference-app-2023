@@ -17,6 +17,7 @@ class KaigiAppRobot @Inject constructor(
     @Inject lateinit var robotTestRule: RobotTestRule
 
     @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject lateinit var aboutScreenRobot: AboutScreenRobot
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
         block: KaigiAppRobot.() -> Unit,
@@ -30,6 +31,13 @@ class KaigiAppRobot @Inject constructor(
         composeTestRule
             .onNode(isRoot())
             .captureRoboImage()
+    }
+
+    fun goToAbout() {
+        composeTestRule
+            .onNode(hasTestTag(MainScreenTab.About.testTag))
+            .performClick()
+        waitUntilIdle()
     }
 
     fun goToContributor() {
