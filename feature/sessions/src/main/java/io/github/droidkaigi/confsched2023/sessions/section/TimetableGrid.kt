@@ -4,12 +4,11 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.drag
-import androidx.compose.foundation.gestures.forEachGesture
 import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -169,9 +168,10 @@ fun TimetableGrid(
                     },
                 )
             }
-            .transformable(
-                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
-            )
+                // FIXME: This disables timetable scroll
+//            .transformable(
+//                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
+//            )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
                     value = { -scrollState.scrollX },
@@ -634,28 +634,26 @@ internal suspend fun PointerInputScope.detectDragGestures(
     onDragCancel: () -> Unit = { },
     onDrag: (change: PointerInputChange, dragAmount: Offset) -> Unit,
 ) {
-    forEachGesture {
-        awaitPointerEventScope {
-            val down = awaitFirstDown(requireUnconsumed = false)
-            var drag: PointerInputChange?
-            val overSlop = Offset.Zero
-            do {
-                drag = awaitTouchSlopOrCancellation(down.id, onDrag)
-                // ! EVERY Default movable GESTURE HAS THIS CHECK
-            } while (drag != null && !drag.isConsumed)
-            if (drag != null) {
-                onDragStart.invoke(drag.position)
-                onDrag(drag, overSlop)
-                if (
-                    !drag(drag.id) {
-                        onDrag(it, it.positionChange())
-                        it.consume()
-                    }
-                ) {
-                    onDragCancel()
-                } else {
-                    onDragEnd()
+    awaitEachGesture {
+        val down = awaitFirstDown(requireUnconsumed = false)
+        var drag: PointerInputChange?
+        val overSlop = Offset.Zero
+        do {
+            drag = awaitTouchSlopOrCancellation(down.id, onDrag)
+            // ! EVERY Default movable GESTURE HAS THIS CHECK
+        } while (drag != null && !drag.isConsumed)
+        if (drag != null) {
+            onDragStart.invoke(drag.position)
+            onDrag(drag, overSlop)
+            if (
+                !drag(drag.id) {
+                    onDrag(it, it.positionChange())
+                    it.consume()
                 }
+            ) {
+                onDragCancel()
+            } else {
+                onDragEnd()
             }
         }
     }
