@@ -71,7 +71,7 @@ private fun AboutScreen(
         content = { padding ->
             Column(
                 Modifier
-                    .padding(padding)
+                    .padding(padding),
             ) {
                 Text(
                     text = "Please implement this page!!!",
@@ -81,5 +81,6 @@ private fun AboutScreen(
                     Text(it.toString())
                 }
             }
-        })
+        },
+    )
 }

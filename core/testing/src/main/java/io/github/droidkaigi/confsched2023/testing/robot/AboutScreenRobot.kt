@@ -32,7 +32,6 @@ class AboutScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
-
     fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())

@@ -16,6 +16,6 @@ class AboutScreenViewModel @Inject constructor(
     val uiState = MutableStateFlow(
         AboutScreenUiState(
             items = emptyList(),
-        )
+        ),
     ).asStateFlow()
 }
