@@ -168,7 +168,7 @@ fun TimetableGrid(
                     },
                 )
             }
-                // FIXME: This disables timetable scroll
+            // FIXME: This disables timetable scroll
 //            .transformable(
 //                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
 //            )
