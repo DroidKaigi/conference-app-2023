@@ -38,42 +38,12 @@ public struct TimetableView<SessionView: View>: View {
                     ScrollView(.vertical) {
                         Spacer().frame(height: 130)
                         LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
-                            Section(header: HStack(spacing: 8) {
-                                ForEach(
-                                    [DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values()),
-                                    id: \.ordinal
-                                ) { day in
-                                    let startDay = Calendar.current.component(.day, from: day.start.toDate())
-                                    Button {
-                                        viewModel.selectDay(day: day)
-                                    } label: {
-                                        VStack(spacing: 0) {
-                                            Text(day.name)
-                                                .font(Font.system(size: 12, weight: .semibold))
-    //                                        if viewStore.showDate {
-                                                Text("\(startDay)")
-                                                    .font(Font.system(size: 24, weight: .semibold))
-                                                    .frame(height: 32)
-    //                                        }
-                                        }
-                                        .padding(4)
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundStyle(
-                                            viewModel.state.selectedDay == day
-                                            ? AssetColors.Primary.onPrimary.swiftUIColor
-                                            : AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-                                        .background(
-                                            viewModel.state.selectedDay == day
-                                            ? AssetColors.Primary.primary.swiftUIColor
-                                            : Color.clear
-                                        )
-                                        .clipShape(Capsule())
-                                    }
+                            Section(
+                                header: TimetableDayHeader(
+                                    selectedDay: viewModel.state.selectedDay
+                                ) {
+                                        viewModel.selectDay(day: $0)
                                 }
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                            .background(AssetColors.Surface.surface.swiftUIColor)
                             ) {
                                 TimetableListView(timeGroupTimetableItems: state)
                             }
@@ -89,7 +59,7 @@ public struct TimetableView<SessionView: View>: View {
                 .toolbar {
                     Group {
                         ToolbarItem(placement: .topBarLeading) {
-                            Assets.Icons.search.swiftUIImage
+                            Assets.Icons.droidkaigi.swiftUIImage
                         }
                         ToolbarItem {
                             Assets.Icons.search.swiftUIImage
