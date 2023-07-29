@@ -27,7 +27,7 @@ class TimetableItemDetailViewModel @Inject constructor(
     UserMessageStateHolder by userMessageStateHolder {
 
     private val timetableItemIdFlow = savedStateHandle.getStateFlow<String>(
-        "timetableItemId",
+        timetableItemDetailScreenRouteItemIdParameterName,
         "",
     )
     private val timetableItemStateFlow: StateFlow<Pair<TimetableItem, Boolean>?> =
