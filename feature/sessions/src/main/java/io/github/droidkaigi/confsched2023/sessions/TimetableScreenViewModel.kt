@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -49,16 +50,20 @@ class TimetableScreenViewModel @Inject constructor(
             return@buildUiState TimetableSheetUiState.Empty
         }
         if (uiType == TimetableUiType.List) {
-            return@buildUiState TimetableSheetUiState.ListTimetable(
-                TimetableListUiState(
-                    timetable = sessionTimetable,
-                ),
+            TimetableSheetUiState.ListTimetable(
+                DroidKaigi2023Day.values().associateWith { day ->
+                    TimetableListUiState(
+                        timetable = sessionTimetable.dayTimetable(day),
+                    )
+                },
             )
         } else {
-            return@buildUiState TimetableSheetUiState.GridTimetable(
-                TimetableGridUiState(
-                    timetable = sessionTimetable,
-                ),
+            TimetableSheetUiState.GridTimetable(
+                DroidKaigi2023Day.values().associateWith { day ->
+                    TimetableGridUiState(
+                        timetable = sessionTimetable.dayTimetable(day),
+                    )
+                },
             )
         }
     }
