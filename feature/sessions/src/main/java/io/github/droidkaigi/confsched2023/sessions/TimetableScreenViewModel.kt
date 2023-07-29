@@ -55,7 +55,7 @@ class TimetableScreenViewModel @Inject constructor(
                     TimetableListUiState(
                         timetable = sessionTimetable.dayTimetable(day),
                     )
-                }
+                },
             )
         } else {
             TimetableSheetUiState.GridTimetable(
@@ -63,7 +63,7 @@ class TimetableScreenViewModel @Inject constructor(
                     TimetableGridUiState(
                         timetable = sessionTimetable.dayTimetable(day),
                     )
-                }
+                },
             )
         }
     }
