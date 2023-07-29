@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.sessions.strings
+package io.github.droidkaigi.confsched2023.sessions
 
 import io.github.droidkaigi.confsched2023.designsystem.strings.Lang
 import io.github.droidkaigi.confsched2023.designsystem.strings.Strings

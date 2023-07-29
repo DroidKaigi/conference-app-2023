@@ -27,8 +27,8 @@ import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.BookmarkedItemNotFound
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.BookmarkedItemNotFoundSideNote
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.BookmarkedItemNotFound
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.BookmarkedItemNotFoundSideNote
 
 @Composable
 fun BookmarkSheet(

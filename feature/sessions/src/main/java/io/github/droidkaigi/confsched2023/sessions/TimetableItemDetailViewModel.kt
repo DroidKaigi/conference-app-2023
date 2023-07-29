@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.sessions.strings
+package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

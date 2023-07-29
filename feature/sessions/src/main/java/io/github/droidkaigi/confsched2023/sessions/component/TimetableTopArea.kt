@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Search
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.Timetable
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
 
 const val SearchButtonTestTag = "SearchButton"
 const val TimetableUiTypeChangeButtonTestTag = "TimetableUiTypeChangeButton"

@@ -18,7 +18,6 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailHeader
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummary
-import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailViewModel
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
