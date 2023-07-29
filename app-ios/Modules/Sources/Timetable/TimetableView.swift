@@ -1,6 +1,8 @@
+import Assets
 import Model
 import shared
 import SwiftUI
+import Theme
 
 public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
@@ -11,50 +13,102 @@ public struct TimetableView<SessionView: View>: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            switch viewModel.state {
-            case .initial, .loading:
-                ProgressView()
-            case .failed:
-                EmptyView()
-            case .loaded(let state):
-                ScrollView(.vertical) {
-                    LazyVStack(spacing: 32) {
-                        ForEach(state.timeGroupTimetableItems) { timetableTimeGroupItems in
-                            HStack(alignment: .top, spacing: 28) {
-                                VStack(alignment: .center, spacing: 0) {
-                                    SessionTimeView(
-                                        startsAt: timetableTimeGroupItems.startsAt,
-                                        endsAt: timetableTimeGroupItems.endsAt
-                                    )
-                                }
-                                .foregroundColor(.secondary)
-                                VStack(spacing: 32) {
-                                    ForEach(timetableTimeGroupItems.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
-                                        NavigationLink(value: timetableItemWithFavorite.timetableItem) {
-                                            TimetableListItemView(
-                                                timetableItemWithFavorite: timetableItemWithFavorite
-                                            )
+        switch viewModel.state.timeGroupTimetableItems {
+        case .initial, .loading:
+            ProgressView()
+                .task {
+                    await viewModel.load()
+                }
+        case .failed:
+            EmptyView()
+        case .loaded(let state):
+            NavigationStack {
+                ZStack(alignment: .topLeading) {
+                    HStack(alignment: .top) {
+                        VStack {
+                            Text("DroidKaigi\n2023")
+                                .font(Font.system(size: 36))
+                            Text("at Bellesalle Shibuya Garden")
+                                .font(Font.system(size: 12, weight: .semibold))
+                        }
+                        .padding(.horizontal, 16)
+                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                        Assets.Images.droidHotSpring.swiftUIImage
+                    }
+                    ScrollView(.vertical) {
+                        Spacer().frame(height: 130)
+                        LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                            Section(header: HStack(spacing: 8) {
+                                ForEach(
+                                    [DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values()),
+                                    id: \.ordinal
+                                ) { day in
+                                    let startDay = Calendar.current.component(.day, from: day.start.toDate())
+                                    Button {
+                                        viewModel.selectDay(day: day)
+                                    } label: {
+                                        VStack(spacing: 0) {
+                                            Text(day.name)
+                                                .font(Font.system(size: 12, weight: .semibold))
+    //                                        if viewStore.showDate {
+                                                Text("\(startDay)")
+                                                    .font(Font.system(size: 24, weight: .semibold))
+                                                    .frame(height: 32)
+    //                                        }
                                         }
+                                        .padding(4)
+                                        .frame(maxWidth: .infinity)
+                                        .foregroundStyle(
+                                            viewModel.state.selectedDay == day
+                                            ? AssetColors.Primary.onPrimary.swiftUIColor
+                                            : AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                                        .background(
+                                            viewModel.state.selectedDay == day
+                                            ? AssetColors.Primary.primary.swiftUIColor
+                                            : Color.clear
+                                        )
+                                        .clipShape(Capsule())
                                     }
                                 }
                             }
                             .padding(.horizontal, 16)
+                            .padding(.vertical, 12)
+                            .background(AssetColors.Surface.surface.swiftUIColor)
+                            ) {
+                                TimetableListView(timeGroupTimetableItems: state)
+                            }
+                        }
+                        .background(AssetColors.Surface.surface.swiftUIColor)
+                    }
+                    .navigationDestination(for: TimetableItem.self) { item in
+                        sessionViewBuilder(item)
+                    }
+                }
+                .background(AssetColors.Surface.surfaceVariant.swiftUIColor)
+                .toolbarBackground(AssetColors.Surface.surfaceVariant.swiftUIColor, for: .navigationBar)
+                .toolbar {
+                    Group {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Assets.Icons.search.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.search.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.bookmarkBorder.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.gridView.swiftUIImage
                         }
                     }
-                    .padding(.vertical, 24)
-                }
-                .navigationDestination(for: TimetableItem.self) { item in
-                    sessionViewBuilder(item)
                 }
             }
-        }
-        .task {
-            await viewModel.load()
         }
     }
 }
 
-// #Preview {
-//     TimetableView()
-// }
+ #Preview {
+     TimetableView<EmptyView> { _ in
+         EmptyView()
+     }
+ }

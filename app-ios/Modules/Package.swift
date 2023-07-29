@@ -18,6 +18,7 @@ var package = Package(
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.2"),
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.0"),
     ],
     targets: [
         .target(
@@ -30,6 +31,17 @@ var package = Package(
             name: "AboutTests",
             dependencies: [
                 "About",
+            ]
+        ),
+
+        .target(
+            name: "Assets",
+            resources: [
+                .process("Resources"),
+                .process("swiftgen.yml"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]
         ),
 
@@ -75,8 +87,10 @@ var package = Package(
         .target(
             name: "Timetable",
             dependencies: [
+                "Assets",
                 "shared",
                 "Model",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -90,9 +104,11 @@ var package = Package(
             name: "Navigation",
             dependencies: [
                 "About",
+                "Assets",
                 "FloorMap",
                 "Session",
                 "Stamps",
+                "Theme",
                 "Timetable",
             ]
         ),
@@ -101,6 +117,17 @@ var package = Package(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+
+        .target(
+            name: "Theme",
+            resources: [
+                .process("Resources"),
+                .process("swiftgen.yml"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]
         ),
 
