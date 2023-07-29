@@ -16,12 +16,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
+import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
+import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -91,6 +95,12 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                     navController.navigateToBookmarkScreen()
                 },
             )
+            nestedAboutScreen(
+                onAboutItemClick = { aboutItem ->
+                    TODO()
+                },
+            )
+            // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
                 ContributorsScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
@@ -110,6 +120,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
         return when (route) {
             timetableScreenRoute -> Timetable
             contributorsScreenRoute -> Contributor
+            aboutScreenRoute -> About
             else -> null
         }
     }
@@ -120,6 +131,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     ) {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
+            About -> mainNestedNavController.navigateAboutScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
             else -> null
         }

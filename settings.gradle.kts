@@ -20,6 +20,7 @@ include(
     ":app-android",
     ":app-ios-shared",
     ":feature:main",
+    ":feature:about",
     ":feature:sessions",
     ":feature:contributors",
     ":core:designsystem",
