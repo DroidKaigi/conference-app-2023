@@ -1,0 +1,14 @@
+input_dir: Resources/
+output_dir: ${DERIVED_SOURCES_DIR}/
+
+xcassets:
+  inputs: 
+    - Icons.xcassets
+    - Images.xcassets
+  outputs:
+    templateName: swift5
+    output: Assets.generated.swift
+    params:
+      enumName: Assets
+      publicAccess: true
+      bundle: Bundle.myModule

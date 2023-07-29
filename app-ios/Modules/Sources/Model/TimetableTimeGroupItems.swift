@@ -19,7 +19,7 @@ public struct TimetableTimeGroupItems: Identifiable, Equatable, Hashable {
     }
 
     public var id: String {
-        items.first?.timetableItem.id.value ?? UUID().uuidString
+        UUID().uuidString
     }
 
     public var startsAt: Date
