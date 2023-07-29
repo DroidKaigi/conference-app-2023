@@ -43,8 +43,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.model.type
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
 import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 

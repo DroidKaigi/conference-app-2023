@@ -21,7 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
