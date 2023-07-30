@@ -1,8 +1,10 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -32,6 +34,7 @@ fun NavGraphBuilder.nestedSessionScreens(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onClickBookmarkIcon: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
@@ -53,6 +56,7 @@ fun TimetableScreen(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onClickBookmarkIcon: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -86,16 +90,20 @@ private fun TimetableScreen(
     onClickBookmarkIcon: () -> Unit,
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val state = rememberTimetableScreenScrollState()
 
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .testTag(TimetableScreenTestTag)
             .nestedScroll(state.screenNestedScrollConnection),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
+                modifier = Modifier.padding(
+                    WindowInsets.safeContent.asPaddingValues(),
+                ),
             )
         },
         topBar = {

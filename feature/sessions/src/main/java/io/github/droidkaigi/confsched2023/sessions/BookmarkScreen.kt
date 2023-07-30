@@ -52,7 +52,7 @@ fun BookmarkScreen(
     BookmarkScreen(
         uiState = uiState,
         onClickBackPress = onClickBackPress,
-        onClickBooMarkIcon = { viewModel.updateBookmark(it) },
+        onBookmarkClick = { viewModel.updateBookmark(it) },
         onClickAllFilterChip = { viewModel.onClickAllFilterChip() },
         onClickDayFirstChip = { viewModel.onClickDayFirstChip() },
         onClickDaySecondChip = { viewModel.onClickDaySecondChip() },
@@ -66,7 +66,7 @@ const val BookmarkScreenTestTag = "BookmarkScreenTestTag"
 private fun BookmarkScreen(
     uiState: BookmarkScreenUiState,
     onClickBackPress: () -> Unit,
-    onClickBooMarkIcon: (TimetableItemId) -> Unit,
+    onBookmarkClick: (TimetableItem) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -87,7 +87,7 @@ private fun BookmarkScreen(
         BookmarkSheet(
             modifier = Modifier.padding(padding),
             scrollState = scrollState,
-            onClickBookmarkIcon = onClickBooMarkIcon,
+            onBookmarkClick = onBookmarkClick,
             onClickAllFilterChip = onClickAllFilterChip,
             onClickDayFirstChip = onClickDayFirstChip,
             onClickDaySecondChip = onClickDaySecondChip,
