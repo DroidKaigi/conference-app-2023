@@ -35,10 +35,10 @@ fun BookmarkSheet(
     uiState: BookmarkScreenUiState,
     scrollState: LazyListState,
     onBookmarkClick: (TimetableItem) -> Unit,
-    onClickAllFilterChip: () -> Unit,
-    onClickDayFirstChip: () -> Unit,
-    onClickDaySecondChip: () -> Unit,
-    onClickDayThirdChip: () -> Unit,
+    onAllFilterChipClick: () -> Unit,
+    onDayFirstChipClick: () -> Unit,
+    onDaySecondChipClick: () -> Unit,
+    onDayThirdChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -48,10 +48,10 @@ fun BookmarkSheet(
     ) {
         BookmarkFilters(
             currentDayFilter = uiState.currentDayFilter,
-            onClickAllFilterChip = onClickAllFilterChip,
-            onClickDayFirstChip = onClickDayFirstChip,
-            onClickDaySecondChip = onClickDaySecondChip,
-            onClickDayThirdChip = onClickDayThirdChip,
+            onAllFilterChipClick = onAllFilterChipClick,
+            onDayFirstChipClick = onDayFirstChipClick,
+            onDaySecondChipClick = onDaySecondChipClick,
+            onDayThirdChipClick = onDayThirdChipClick,
         )
         when (uiState) {
             is Empty -> {
@@ -63,7 +63,7 @@ fun BookmarkSheet(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
-                    onClickBooMarkIcon = onBookmarkClick,
+                    onBookmarkIconClick = onBookmarkClick,
                 )
             }
         }

@@ -75,25 +75,25 @@ class BookmarkScreenViewModel @Inject constructor(
             }
         }
 
-    fun onClickAllFilterChip() {
+    fun onAllFilterChipClick() {
         currentDayFilter.update {
             DroidKaigi2023Day.values().toList()
         }
     }
 
-    fun onClickDayFirstChip() {
+    fun onDayFirstChipClick() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day1)
         }
     }
 
-    fun onClickDaySecondChip() {
+    fun onDaySecondChipClick() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day2)
         }
     }
 
-    fun onClickDayThirdChip() {
+    fun onDayThirdChipClick() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day3)
         }

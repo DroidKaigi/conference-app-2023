@@ -34,7 +34,7 @@ fun TimetableTopArea(
     state: TimetableScreenScrollState,
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onClickTopAreaBookmarkIcon: () -> Unit,
+    onTopAreaBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -64,7 +64,7 @@ fun TimetableTopArea(
                 }
                 IconButton(
                     modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
-                    onClick = { onClickTopAreaBookmarkIcon() },
+                    onClick = { onTopAreaBookmarkIconClick() },
                 ) {
                     Icon(
                         // FIXME: We would like to use Filled Icon here
