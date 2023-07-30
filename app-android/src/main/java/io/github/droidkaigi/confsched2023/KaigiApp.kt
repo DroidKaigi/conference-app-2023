@@ -93,7 +93,7 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                         timetableItem.id,
                     )
                 },
-                onClickBookmarkIcon = {
+                onBookmarkIconClick = {
                     navController.navigateToBookmarkScreen()
                 },
             )

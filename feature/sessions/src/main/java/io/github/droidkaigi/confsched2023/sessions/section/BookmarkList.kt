@@ -42,7 +42,7 @@ fun BookmarkList(
     scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
-    onClickBooMarkIcon: (TimetableItem) -> Unit,
+    onBookmarkIconClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -111,7 +111,7 @@ fun BookmarkList(
                             )
                         },
                         onClick = { TODO() },
-                        onBoomarkClick = onClickBooMarkIcon,
+                        onBoomarkClick = onBookmarkIconClick,
                     )
                 }
             }

@@ -39,7 +39,7 @@ class TimetableScreenRobot @Inject constructor(
                 TimetableScreen(
                     onSearchClick = { },
                     onTimetableItemClick = { },
-                    onClickBookmarkIcon = { },
+                    onBookmarkIconClick = { },
                 )
             }
         }
