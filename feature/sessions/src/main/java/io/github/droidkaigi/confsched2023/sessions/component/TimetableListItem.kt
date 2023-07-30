@@ -11,11 +11,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.Icons.Filled
-import androidx.compose.material.icons.Icons.Outlined
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Bookmark
+import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.sharp.Bookmark
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -69,9 +71,9 @@ fun TimetableListItem(
             ) {
                 Icon(
                     imageVector = if (isBookmarked) {
-                        Filled.Bookmark
+                        Icons.Filled.Bookmark
                     } else {
-                        Outlined.Bookmark
+                        Icons.Outlined.BookmarkBorder
                     },
                     contentDescription = null,
                 )
@@ -128,7 +130,7 @@ fun TimetableListItemPreview() {
         Surface {
             TimetableListItem(
                 timetableItem = Session.fake(),
-                isBookmarked = true,
+                isBookmarked = false,
                 onClick = {},
                 onBoomarkClick = {},
                 chipContent = {

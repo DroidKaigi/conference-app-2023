@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Bookmark
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -68,7 +69,7 @@ fun TimetableTopArea(
                 ) {
                     Icon(
                         // FIXME: We would like to use Filled Icon here
-                        imageVector = Icons.Outlined.Bookmark,
+                        imageVector = Icons.Outlined.Bookmarks,
                         contentDescription = Timetable.asString(),
                     )
                 }
