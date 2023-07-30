@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableListItemTestTag = "TimetableListItem"
+const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
 
 @Composable
 fun TimetableListItem(
@@ -49,22 +52,29 @@ fun TimetableListItem(
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier.clickable { onClick(timetableItem) }) {
+    Column(
+        modifier
+            .testTag(TimetableListItemTestTag)
+            .clickable { onClick(timetableItem) }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1F)) {
                 chipContent()
             }
-            Icon(
-                imageVector = if (isBookmarked) {
-                    Filled.Bookmark
-                } else {
-                    Outlined.Bookmark
-                },
-                contentDescription = null,
-                modifier = Modifier.clickable {
+            IconButton(
+                modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
+                onClick = {
                     onBoomarkClick(timetableItem)
-                },
-            )
+                }
+            ) {
+                Icon(
+                    imageVector = if (isBookmarked) {
+                        Filled.Bookmark
+                    } else {
+                        Outlined.Bookmark
+                    },
+                    contentDescription = null,
+                )
+            }
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
@@ -112,7 +122,7 @@ fun TimetableListItem(
 
 @Preview
 @Composable
-fun BookmarkItemPreview() {
+fun TimetableListItemPreview() {
     KaigiTheme {
         Surface {
             TimetableListItem(

@@ -90,7 +90,6 @@ fun TimetableList(
                             // Chips
                             val infoChip = mutableListOf<String>()
 
-                            println(timetableItem.language.langOfSpeaker)
                             infoChip.add(
                                 timetableItem.language.langOfSpeaker.let {
                                     when (it) {
