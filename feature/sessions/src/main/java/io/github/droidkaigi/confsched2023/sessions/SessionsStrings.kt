@@ -22,6 +22,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object AddToCalendar : SessionsStrings()
     object AddToFavorites : SessionsStrings()
     object RemoveFromFavorites : SessionsStrings()
+    object InterpretationTarget : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -42,6 +43,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 AddToCalendar -> "カレンダーに追加"
                 AddToFavorites -> "お気に入りに追加"
                 RemoveFromFavorites -> "お気に入りから削除"
+                InterpretationTarget -> "同時通訳対象"
             }
         },
         Lang.English to { item, bindings ->
@@ -63,6 +65,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 AddToCalendar -> "Add to calendar"
                 AddToFavorites -> "Add to favorites"
                 RemoveFromFavorites -> "Remove from favorites"
+                InterpretationTarget -> "Interpretation target"
             }
         },
         default = Lang.Japanese,

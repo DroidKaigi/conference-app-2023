@@ -8,7 +8,7 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -48,8 +48,8 @@ class BookmarkScreenViewModel @Inject constructor(
         buildUiState(
             sessionsStateFlow,
             currentDayFilter,
-        ) { sessionsStateFlow, currentDayFilter ->
-            val sortAndGroupedBookmarkedTimetableItems = sessionsStateFlow.filtered(
+        ) { sessions, currentDayFilter ->
+            val sortAndGroupedBookmarkedTimetableItems = sessions.filtered(
                 Filters(
                     days = currentDayFilter,
                     filterFavorite = true,
@@ -68,7 +68,7 @@ class BookmarkScreenViewModel @Inject constructor(
                 )
             } else {
                 BookmarkScreenUiState.ListBookmark(
-                    sessionsStateFlow.bookmarks,
+                    sessions.bookmarks,
                     sortAndGroupedBookmarkedTimetableItems,
                     currentDayFilter.toPersistentList(),
                 )
@@ -99,9 +99,9 @@ class BookmarkScreenViewModel @Inject constructor(
         }
     }
 
-    fun updateBookmark(timetableItem: TimetableItemId) {
+    fun updateBookmark(timetableItem: TimetableItem) {
         viewModelScope.launch {
-            sessionsRepository.toggleBookmark(timetableItem)
+            sessionsRepository.toggleBookmark(timetableItem.id)
         }
     }
 }

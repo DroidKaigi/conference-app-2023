@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
@@ -34,7 +34,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
 fun BookmarkSheet(
     uiState: BookmarkScreenUiState,
     scrollState: LazyListState,
-    onClickBookmarkIcon: (TimetableItemId) -> Unit,
+    onBookmarkClick: (TimetableItem) -> Unit,
     onClickAllFilterChip: () -> Unit,
     onClickDayFirstChip: () -> Unit,
     onClickDaySecondChip: () -> Unit,
@@ -63,7 +63,7 @@ fun BookmarkSheet(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
-                    onClickBooMarkIcon = onClickBookmarkIcon,
+                    onClickBooMarkIcon = onBookmarkClick,
                 )
             }
         }
