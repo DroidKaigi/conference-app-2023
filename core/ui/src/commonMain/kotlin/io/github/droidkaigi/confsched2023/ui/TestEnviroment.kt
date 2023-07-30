@@ -8,6 +8,8 @@ import androidx.compose.ui.platform.LocalInspectionMode
 @Composable
 fun Painter.overridePreviewWith(previewPainter: @Composable () -> Painter): Painter {
     if (LocalInspectionMode.current) return previewPainter()
-    if ("robolectric" == Build.FINGERPRINT) return previewPainter()
+    if (isTest()) return previewPainter()
     return this
 }
+
+expect fun isTest(): Boolean
