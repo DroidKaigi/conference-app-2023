@@ -55,7 +55,8 @@ fun TimetableListItem(
     Column(
         modifier
             .testTag(TimetableListItemTestTag)
-            .clickable { onClick(timetableItem) }) {
+            .clickable { onClick(timetableItem) },
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1F)) {
                 chipContent()
@@ -64,7 +65,7 @@ fun TimetableListItem(
                 modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
                 onClick = {
                     onBoomarkClick(timetableItem)
-                }
+                },
             ) {
                 Icon(
                     imageVector = if (isBookmarked) {
