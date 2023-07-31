@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBo
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.runTest
 import javax.inject.Inject
@@ -31,7 +32,7 @@ class TimetableScreenRobot @Inject constructor(
     operator fun invoke(
         block: TimetableScreenRobot.() -> Unit,
     ) {
-        runTest(timeout = 30.seconds) {
+        runTestWithLogging(timeout = 30.seconds) {
             this@TimetableScreenRobot.composeTestRule = robotTestRule.composeTestRule
             block()
         }
