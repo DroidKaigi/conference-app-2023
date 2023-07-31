@@ -25,6 +25,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object Date : SessionsStrings()
     object Place : SessionsStrings()
     object SupportedLanguages : SessionsStrings()
+    object InterpretationTarget : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -48,6 +49,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Date -> "日付"
                 Place -> "場所"
                 SupportedLanguages -> "対応言語"
+                InterpretationTarget -> "同時通訳対象"
             }
         },
         Lang.English to { item, bindings ->
@@ -72,6 +74,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Date -> "Date"
                 Place -> "Place"
                 SupportedLanguages -> "Supported languages"
+                InterpretationTarget -> "Interpretation target"
             }
         },
         default = Lang.Japanese,

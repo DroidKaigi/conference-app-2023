@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -83,15 +84,16 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
         mainNestedGraph = { mainNestedNavController, padding ->
             nestedSessionScreens(
+                modifier = Modifier.padding(padding),
                 onSearchClick = {
                     navController.navigateSearchScreen()
                 },
-                onTimetableItemClick = { timetableitem ->
+                onTimetableItemClick = { timetableItem ->
                     navController.navigateToTimetableItemDetailScreen(
-                        timetableitem.id,
+                        timetableItem.id,
                     )
                 },
-                onClickBookmarkIcon = {
+                onBookmarkIconClick = {
                     navController.navigateToBookmarkScreen()
                 },
             )

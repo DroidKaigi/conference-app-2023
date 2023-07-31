@@ -2,7 +2,6 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
@@ -15,6 +14,7 @@ import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarkIconTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -39,7 +39,7 @@ class TimetableScreenRobot @Inject constructor(
                 TimetableScreen(
                     onSearchClick = { },
                     onTimetableItemClick = { },
-                    onClickBookmarkIcon = { },
+                    onBookmarkIconClick = { },
                 )
             }
         }
@@ -56,7 +56,7 @@ class TimetableScreenRobot @Inject constructor(
 
     fun clickFirstSessionBookmark() {
         composeTestRule
-            .onAllNodes(hasText("☆"))
+            .onAllNodes(hasTestTag(TimetableListItemBookmarkIconTestTag))
             .onFirst()
             .performClick()
         waitUntilIdle()

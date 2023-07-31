@@ -33,7 +33,7 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
     }
     composable(bookmarkScreenRoute) {
         BookmarkScreen(
-            onClickBackPress = onNavigationIconClick,
+            onBackPressClick = onNavigationIconClick,
         )
     }
 }
