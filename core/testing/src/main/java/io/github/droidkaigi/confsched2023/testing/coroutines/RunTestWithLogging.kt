@@ -9,20 +9,20 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 fun runTestWithLogging(
-  context: CoroutineContext = EmptyCoroutineContext,
-  timeout: Duration = 30.seconds,
-  testBody: suspend TestScope.() -> Unit
+    context: CoroutineContext = EmptyCoroutineContext,
+    timeout: Duration = 30.seconds,
+    testBody: suspend TestScope.() -> Unit,
 ) = runTest(context, timeout) {
-  runCatching {
-    coroutineScope {
-      testBody()
+    runCatching {
+        coroutineScope {
+            testBody()
+        }
+    }.let {
+        if (it.isFailure) {
+            it.exceptionOrNull()?.let { exception ->
+                exception.printStackTrace()
+                throw exception
+            }
+        }
     }
-  }.let {
-    if (it.isFailure) {
-      it.exceptionOrNull()?.let { exception ->
-        exception.printStackTrace()
-        throw exception
-      }
-    }
-  }
 }

@@ -20,7 +20,6 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChan
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.runTest
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
