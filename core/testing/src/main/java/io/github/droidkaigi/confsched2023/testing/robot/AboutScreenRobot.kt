@@ -7,7 +7,9 @@ import io.github.droidkaigi.confsched2023.about.AboutScreen
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import kotlinx.coroutines.test.TestDispatcher
+import kotlinx.coroutines.test.runTest
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 class AboutScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
@@ -17,8 +19,10 @@ class AboutScreenRobot @Inject constructor(
     operator fun invoke(
         block: AboutScreenRobot.() -> Unit,
     ) {
-        this.composeTestRule = robotTestRule.composeTestRule
-        block()
+        runTest(timeout = 30.seconds) {
+            this@AboutScreenRobot.composeTestRule = robotTestRule.composeTestRule
+            block()
+        }
     }
 
     fun setupAboutScreenContent() {
