@@ -13,9 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
-import androidx.compose.material.icons.sharp.Bookmark
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -37,7 +35,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outl
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
-import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
+import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableListItemTestTag = "TimetableListItem"
@@ -90,10 +88,11 @@ fun TimetableListItem(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
-                        painter = rememberAsyncImagePainter(url = speaker.iconUrl)
-                            .overridePreviewWith {
-                                rememberVectorPainter(image = Icons.Default.Person)
-                            },
+                        painter = previewOverride(previewPainter = {
+                            rememberVectorPainter(image = Icons.Default.Person)
+                        }) {
+                            rememberAsyncImagePainter(url = speaker.iconUrl)
+                        },
                         contentDescription = null,
                         modifier = Modifier
                             .size(40.dp)

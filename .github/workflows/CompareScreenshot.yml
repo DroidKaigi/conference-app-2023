@@ -12,7 +12,7 @@ permissions: { }
 jobs:
   compare-screenshot-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     permissions:
       contents: read # for clone

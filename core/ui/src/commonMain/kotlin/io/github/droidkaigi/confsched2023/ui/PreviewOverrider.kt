@@ -5,8 +5,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalInspectionMode
 
 @Composable
-fun Painter.overridePreviewWith(previewPainter: @Composable () -> Painter): Painter {
+inline fun previewOverride(
+    previewPainter: @Composable () -> Painter,
+    crossinline painter: @Composable () -> Painter,
+): Painter {
     if (LocalInspectionMode.current) return previewPainter()
     if (isTest()) return previewPainter()
-    return this
+    return painter()
 }
