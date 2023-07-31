@@ -7,8 +7,8 @@ import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.runTest
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,7 +25,7 @@ class KaigiAppRobot @Inject constructor(
     operator fun invoke(
         block: KaigiAppRobot.() -> Unit,
     ) {
-        runTest(timeout = 30.seconds) {
+        runTestWithLogging(timeout = 30.seconds) {
             this@KaigiAppRobot.composeTestRule = robotTestRule.composeTestRule
             waitUntilIdle()
             block()
