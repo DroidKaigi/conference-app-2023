@@ -7,6 +7,7 @@ import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.onStart
 
 public class DefaultContributorsRepository(
     private val contributorsApi: ContributorsApiClient,
@@ -15,9 +16,9 @@ public class DefaultContributorsRepository(
         MutableStateFlow<PersistentList<Contributor>>(persistentListOf())
 
     override fun contributors(): Flow<PersistentList<Contributor>> {
-        return callbackFlow {
-            contributorsStateFlow.collect {
-                send(it)
+        return contributorsStateFlow.onStart {
+            if (contributorsStateFlow.value.isEmpty()) {
+                refresh()
             }
         }
     }
