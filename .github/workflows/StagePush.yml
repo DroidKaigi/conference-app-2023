@@ -28,7 +28,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const { data: resp } = await github.actions.listWorkflowRunArtifacts({
+            const { data: resp } = await github.rest.actions.listWorkflowRunArtifacts({
               owner: context.repo.owner,
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }}
