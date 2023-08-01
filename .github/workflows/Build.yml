@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - tomoya0x00/add_stage_push_workflow
   pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
