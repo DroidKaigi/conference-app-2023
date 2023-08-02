@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -101,15 +103,22 @@ private fun TimetableItemDetailScreen(
             }
 
             is TimetableItemDetailScreenUiState.Loaded -> {
+                val scrollState = rememberScrollState()
                 Column(
-                    modifier = Modifier.padding(innerPadding),
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
+                        .padding(innerPadding)
                 ) {
                     TimetableItemDetailHeader(title = uiState.timetableItem.title)
                     TimetableItemDetailSummaryCard(
                         timetableItem = uiState.timetableItem,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
                     )
-                    TimetableItemDetailContent()
+                    TimetableItemDetailContent(
+                        uiState = uiState.timetableItem,
+                        onViewDocumentClick = {/*TODO*/ },
+                        onWatchVideoClick = {/*TODO*/ }
+                    )
                 }
             }
         }
