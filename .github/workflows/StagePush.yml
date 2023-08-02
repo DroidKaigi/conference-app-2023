@@ -70,4 +70,3 @@ jobs:
           distribution_id: ${{ format('staging/{0}', github.ref) }}
           release_note: ${{ format('[main] Workflow {0}/{1} based on {2}', github.run_id , github.run_number , github.sha) }}
           pin: false
-
