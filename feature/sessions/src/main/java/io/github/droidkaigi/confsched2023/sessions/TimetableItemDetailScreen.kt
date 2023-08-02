@@ -2,12 +2,15 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -75,6 +78,14 @@ private fun TimetableItemDetailScreen(
     onBookmarkClick: (TimetableItem) -> Unit,
 ) {
     Scaffold(
+        topBar = {
+            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+                TimetableItemDetailHeader(
+                    headerTitle = uiState.timetableItem.title.currentLangTitle,
+                    onClickBackPress = onNavigationIconClick
+                )
+            }
+        },
         bottomBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
                 TimetableItemDetailFooter(
@@ -84,19 +95,29 @@ private fun TimetableItemDetailScreen(
                 )
             }
         },
-    ) { innerPadding ->
+
+        ) { innerPadding ->
         when (uiState) {
             TimetableItemDetailScreenUiState.Loading -> {
                 Text(text = "Loading")
             }
 
             is TimetableItemDetailScreenUiState.Loaded -> {
+                val scrollState = rememberScrollState()
                 Column(
-                    modifier = Modifier.padding(innerPadding),
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
+                        .padding(innerPadding)
                 ) {
-                    TimetableItemDetailHeader()
-                    TimetableItemDetailSummary()
-                    TimetableItemDetailContent()
+                    TimetableItemDetailSummary(
+                        uiState = uiState.timetableItem,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+                    )
+                    TimetableItemDetailContent(
+                        uiState = uiState.timetableItem,
+                        onViewDocumentClick = {},
+                        onWatchVideoClick = {},
+                    )
                 }
             }
         }
