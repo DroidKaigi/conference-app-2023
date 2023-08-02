@@ -8,10 +8,14 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
 public enum class DroidKaigi2023Day(
+    public val day: Int,
+    public val dayOfMonth: Int,
     public val start: Instant,
     public val end: Instant,
 ) {
     Day1(
+        day = 1,
+        dayOfMonth = 14,
         start = LocalDateTime
             .parse("2023-09-14T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
@@ -20,6 +24,8 @@ public enum class DroidKaigi2023Day(
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day2(
+        day = 1,
+        dayOfMonth = 15,
         start = LocalDateTime
             .parse("2023-09-15T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),
@@ -28,6 +34,8 @@ public enum class DroidKaigi2023Day(
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day3(
+        day = 1,
+        dayOfMonth = 16,
         start = LocalDateTime
             .parse("2023-09-16T00:00:00")
             .toInstant(TimeZone.of("UTC+9")),

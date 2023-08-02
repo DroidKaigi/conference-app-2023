@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
 @Composable
 fun EmptySearchResultBody(

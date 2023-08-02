@@ -29,13 +29,13 @@ import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun BookmarkTopArea(
     scrollState: LazyListState,
-    onClickBackPress: () -> Unit,
+    onBackPressClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val bigText = TextStyle(
@@ -116,7 +116,7 @@ fun BookmarkTopArea(
                 modifier = Modifier
                     .size(24.dp)
                     .clickable {
-                        onClickBackPress()
+                        onBackPressClick()
                     },
             )
             Text(

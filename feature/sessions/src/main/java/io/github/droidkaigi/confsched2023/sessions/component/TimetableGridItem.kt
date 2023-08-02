@@ -34,17 +34,18 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
 import io.github.droidkaigi.confsched2023.feature.sessions.R
-import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallA
-import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallB
-import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallC
-import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallD
-import io.github.droidkaigi.confsched2023.model.RoomType.RoomHallE
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
-import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
+import io.github.droidkaigi.confsched2023.model.type
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
@@ -56,15 +57,13 @@ fun TimetableGridItem(
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when (timetableItem.room.type) {
-        RoomHallA -> room_hall_a
-        RoomHallB -> room_hall_b
-        RoomHallC -> room_hall_c
-        RoomHallD -> room_hall_d
-        RoomHallE -> room_hall_e
+        Room1 -> room_hall_a
+        Room2 -> room_hall_b
+        Room3 -> room_hall_c
+        Room4 -> room_hall_d
+        Room5 -> room_hall_e
         else -> Color.White
     }
-    // TODO: Dealing with more than one speaker
-    val speaker = timetableItem.speakers[0]
     Box(modifier.testTag(TimetableGridItemTestTag)) {
         Box(
             modifier = Modifier
@@ -99,23 +98,27 @@ fun TimetableGridItem(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    modifier = Modifier.height(32.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Image(
-                        painter = rememberAsyncImagePainter(speaker.iconUrl)
-                            .overridePreviewWith {
-                                rememberVectorPainter(image = Icons.Default.Person)
+
+                // TODO: Dealing with more than one speaker
+                val speaker = timetableItem.speakers.firstOrNull()
+                if (speaker != null) {
+                    Row(
+                        modifier = Modifier.height(32.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Image(
+                            painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
+                                rememberAsyncImagePainter(speaker.iconUrl)
                             },
-                        contentDescription = UserIcon.asString(),
-                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = speaker.name,
-                        style = MaterialTheme.typography.labelMedium.copy(Color.White),
-                    )
+                            contentDescription = UserIcon.asString(),
+                            modifier = Modifier.clip(RoundedCornerShape(8.dp)),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = speaker.name,
+                            style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                        )
+                    }
                 }
             }
         }

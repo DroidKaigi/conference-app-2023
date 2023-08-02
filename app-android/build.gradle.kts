@@ -82,6 +82,7 @@ dependencies {
     implementation(projects.feature.main)
     implementation(projects.feature.contributors)
     implementation(projects.feature.sessions)
+    implementation(projects.feature.about)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)

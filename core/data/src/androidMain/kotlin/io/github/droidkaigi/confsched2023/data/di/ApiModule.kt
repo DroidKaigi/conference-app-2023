@@ -4,10 +4,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.droidkaigi.confsched2023.data.NetworkService
+import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
-import io.github.droidkaigi.confsched2023.data.auth.AuthenticatorImpl
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.ktor.client.HttpClient
@@ -20,7 +21,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
+import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -95,10 +96,26 @@ public class ApiModule {
         // TODO use BuildConfig.DEBUG
         if (true) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = BASIC
+            httpLoggingInterceptor.level = HEADERS
             builder.addNetworkInterceptor(httpLoggingInterceptor)
         }
         return builder.build()
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+public class KtorfitModule {
+    @Provides
+    @Singleton
+    public fun provideKtorfit(
+        httpClient: HttpClient,
+    ): Ktorfit {
+        return Ktorfit
+            .Builder()
+            .httpClient(httpClient)
+            .baseUrl("https://ssot-api-staging.an.r.appspot.com/")
+            .build()
     }
 }
 
@@ -122,6 +139,6 @@ class AuthenticatorModule {
     @Provides
     @Singleton
     fun provideAuthenticator(): Authenticator {
-        return AuthenticatorImpl()
+        return AndroidAuthenticator()
     }
 }

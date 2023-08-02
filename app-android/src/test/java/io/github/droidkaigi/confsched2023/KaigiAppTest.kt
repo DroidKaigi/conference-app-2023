@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
@@ -26,29 +27,37 @@ import javax.inject.Inject
 class KaigiAppTest {
 
     @get:Rule
-    val robotTestRule = RobotTestRule<MainActivity>(this)
+    @BindValue val robotTestRule: RobotTestRule = RobotTestRule<MainActivity>(this)
 
     @Inject lateinit var kaigiAppRobot: KaigiAppRobot
 
     @Test
     fun checkStartupShot() {
-        kaigiAppRobot(robotTestRule) {
+        kaigiAppRobot {
             capture()
         }
     }
 
     @Test
     fun checkStartup() {
-        kaigiAppRobot(robotTestRule) {
-            timetableScreenRobot(robotTestRule) {
+        kaigiAppRobot {
+            timetableScreenRobot {
                 checkTimetableItemsDisplayed()
             }
         }
     }
 
     @Test
+    fun checkNavigateToAboutShot() {
+        kaigiAppRobot {
+            goToAbout()
+            capture()
+        }
+    }
+
+    @Test
     fun checkNavigateToContributorShot() {
-        kaigiAppRobot(robotTestRule) {
+        kaigiAppRobot {
             goToContributor()
             capture()
         }
@@ -56,8 +65,8 @@ class KaigiAppTest {
 
     @Test
     fun checkNavigateToTimetableItemDetailShot() {
-        kaigiAppRobot(robotTestRule) {
-            timetableScreenRobot(robotTestRule) {
+        kaigiAppRobot {
+            timetableScreenRobot {
                 clickFirstSession()
             }
             capture()
@@ -66,8 +75,8 @@ class KaigiAppTest {
 
     @Test
     fun checkNavigateToSearchShot() {
-        kaigiAppRobot(robotTestRule) {
-            timetableScreenRobot(robotTestRule) {
+        kaigiAppRobot {
+            timetableScreenRobot {
                 clickSearchButton()
             }
             capture()
@@ -76,8 +85,8 @@ class KaigiAppTest {
 
     @Test
     fun checkNavigateToBookmarkShot() {
-        kaigiAppRobot(robotTestRule) {
-            timetableScreenRobot(robotTestRule) {
+        kaigiAppRobot {
+            timetableScreenRobot {
                 clickBookmarkButton()
             }
             capture()
