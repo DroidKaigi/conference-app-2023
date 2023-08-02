@@ -24,10 +24,10 @@ import kotlinx.collections.immutable.toPersistentList
 @Composable
 fun BookmarkFilters(
     currentDayFilter: PersistentList<DroidKaigi2023Day>,
-    onClickAllFilterChip: () -> Unit,
-    onClickDayFirstChip: () -> Unit,
-    onClickDaySecondChip: () -> Unit,
-    onClickDayThirdChip: () -> Unit,
+    onAllFilterChipClick: () -> Unit,
+    onDayFirstChipClick: () -> Unit,
+    onDaySecondChipClick: () -> Unit,
+    onDayThirdChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val selectedChipColor = AssistChipDefaults.assistChipColors(
@@ -46,7 +46,7 @@ fun BookmarkFilters(
         currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day3
     Row(modifier) {
         AssistChip(
-            onClick = onClickAllFilterChip,
+            onClick = onAllFilterChipClick,
             label = {
                 ChipInnerText(SessionsStrings.BookmarkFilterAllChip.asString())
             },
@@ -63,7 +63,7 @@ fun BookmarkFilters(
         )
         Spacer(modifier = Modifier.size(8.dp))
         AssistChip(
-            onClick = onClickDayFirstChip,
+            onClick = onDayFirstChipClick,
             label = {
                 ChipInnerText(DroidKaigi2023Day.Day1.name)
             },
@@ -80,7 +80,7 @@ fun BookmarkFilters(
         )
         Spacer(modifier = Modifier.size(8.dp))
         AssistChip(
-            onClick = onClickDaySecondChip,
+            onClick = onDaySecondChipClick,
             label = {
                 ChipInnerText(DroidKaigi2023Day.Day2.name)
             },
@@ -97,7 +97,7 @@ fun BookmarkFilters(
         )
         Spacer(modifier = Modifier.size(8.dp))
         AssistChip(
-            onClick = onClickDayThirdChip,
+            onClick = onDayThirdChipClick,
             label = {
                 ChipInnerText(DroidKaigi2023Day.Day3.name)
             },
@@ -131,10 +131,10 @@ fun BookmarkFiltersPreview() {
         Surface {
             BookmarkFilters(
                 currentDayFilter = DroidKaigi2023Day.values().toList().toPersistentList(),
-                onClickAllFilterChip = {},
-                onClickDayFirstChip = {},
-                onClickDaySecondChip = {},
-                onClickDayThirdChip = {},
+                onAllFilterChipClick = {},
+                onDayFirstChipClick = {},
+                onDaySecondChipClick = {},
+                onDayThirdChipClick = {},
             )
         }
     }

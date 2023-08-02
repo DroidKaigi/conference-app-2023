@@ -17,7 +17,7 @@ permissions: { }
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     permissions:
       contents: read # for clone
@@ -43,7 +43,7 @@ jobs:
           path: ${{ github.event_path }}
 
       - name: Run local tests
-        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace --info
+        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}
