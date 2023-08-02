@@ -2,18 +2,18 @@ import Model
 import SwiftUI
 
 struct TimetableListView: View {
-    let timeGroupTimetableItems: [TimetableTimeGroupItems]
+    let timetableTimeGroupItems: [TimetableTimeGroupItems]
 
     var body: some View {
         VStack(spacing: 0) {
-            ForEach(timeGroupTimetableItems) { timetableTimeGroupItems in
+            ForEach(timetableTimeGroupItems) { timetableTimeGroupItem in
                 HStack(alignment: .top, spacing: 16) {
                     SessionTimeView(
-                        startsAt: timetableTimeGroupItems.startsAt,
-                        endsAt: timetableTimeGroupItems.endsAt
+                        startsAt: timetableTimeGroupItem.startsAt,
+                        endsAt: timetableTimeGroupItem.endsAt
                     )
                     VStack(spacing: 0) {
-                        ForEach(timetableTimeGroupItems.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
+                        ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
                             NavigationLink(value: timetableItemWithFavorite.timetableItem) {
                                 TimetableListItemView(
                                     timetableItemWithFavorite: timetableItemWithFavorite
@@ -22,8 +22,7 @@ struct TimetableListView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 8)
+                .padding(8)
                 Divider()
             }
         }
@@ -36,7 +35,7 @@ import shared
 
 #Preview {
     TimetableListView(
-        timeGroupTimetableItems: [
+        timetableTimeGroupItems: [
             TimetableTimeGroupItems(
                 duration: .init(
                     startsAt: Timetable.companion.fake().contents.first!.timetableItem.startsAt,
