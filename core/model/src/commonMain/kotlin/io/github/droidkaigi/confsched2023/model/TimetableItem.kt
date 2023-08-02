@@ -64,6 +64,19 @@ public sealed class TimetableItem {
         override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
+    public val sessionDateDetailString: MultiLangText by lazy {
+        val jaTitle =
+            "$sessionDateString/$startsTimeString ~ $endsTimeString (${minutesJapaneseString})"
+        val enTitle =
+            "$sessionDateString/$startsTimeString ~ $endsTimeString (${minutesEnglishString})"
+        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
+    }
+
+    private val sessionDateString: String by lazy {
+        val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.year}.${localDate.monthNumber}.${localDate.dayOfMonth}"
+    }
+
     public val startsTimeString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
@@ -74,7 +87,13 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
-    public val minutesString: String by lazy {
+    public val minutesJapaneseString: String by lazy {
+        val minutes = (endsAt - startsAt)
+            .toComponents { minutes, _, _ -> minutes }
+        "${minutes}分"
+    }
+
+    public val minutesEnglishString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
@@ -82,6 +101,20 @@ public sealed class TimetableItem {
 
     public val speakerString: String by lazy {
         speakers.joinToString(", ") { it.name }
+    }
+
+    public val roomString: MultiLangText by lazy {
+        val jaTitle = "${room.name.jaTitle} (地下一階)"
+        val enTitle = "${room.name.enTitle} (B1F)"
+        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
+    }
+
+    public val languageString: MultiLangText by lazy {
+        val jaTitle =
+            if (language.isInterpretationTarget) "日本語(英語通訳あり)" else "日本語"
+        val enTitle =
+            if (language.isInterpretationTarget) "${language.langOfSpeaker}(English interpretation available)" else language.langOfSpeaker
+        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
     }
 }
 
