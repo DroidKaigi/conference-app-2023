@@ -7,11 +7,16 @@ on:
     types:
       - completed
 
+# Disable all permissions. We have to enable required permissions at job-level.
+permissions: {}
+
 jobs:
   stage-default:
     if: >
       github.event.workflow_run.event == 'push' &&
       github.event.workflow_run.conclusion == 'success'
+    permissions:
+      actions: read # for listing workflow run artifacts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
