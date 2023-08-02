@@ -32,13 +32,13 @@ fun TimetableTopArea(
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
-        modifier = modifier,
         title = {
             Image(
                 painter = painterResource(id = drawable.icon_droidkaigi_logo),
                 contentDescription = null,
             )
         },
+        modifier = modifier,
         actions = {
             IconButton(
                 modifier = Modifier.testTag(SearchButtonTestTag),
