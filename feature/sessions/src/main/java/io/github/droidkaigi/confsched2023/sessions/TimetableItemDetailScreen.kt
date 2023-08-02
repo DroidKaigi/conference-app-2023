@@ -20,7 +20,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailHeader
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummary
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
@@ -34,7 +35,7 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
     }
     composable(bookmarkScreenRoute) {
         BookmarkScreen(
-            onClickBackPress = onNavigationIconClick,
+            onBackPressClick = onNavigationIconClick,
         )
     }
 }
@@ -80,9 +81,9 @@ private fun TimetableItemDetailScreen(
     Scaffold(
         topBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
-                TimetableItemDetailHeader(
-                    headerTitle = uiState.timetableItem.title.currentLangTitle,
-                    onClickBackPress = onNavigationIconClick
+                TimetableItemDetailScreenTopAppBar(
+                    title = uiState.timetableItem.title,
+                    onNavigationIconClick = onNavigationIconClick,
                 )
             }
         },
@@ -95,8 +96,7 @@ private fun TimetableItemDetailScreen(
                 )
             }
         },
-
-        ) { innerPadding ->
+    ) { innerPadding ->
         when (uiState) {
             TimetableItemDetailScreenUiState.Loading -> {
                 Text(text = "Loading")
@@ -109,14 +109,15 @@ private fun TimetableItemDetailScreen(
                         .verticalScroll(scrollState)
                         .padding(innerPadding)
                 ) {
-                    TimetableItemDetailSummary(
-                        uiState = uiState.timetableItem,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+                    TimetableItemDetailHeader(title = uiState.timetableItem.title)
+                    TimetableItemDetailSummaryCard(
+                        timetableItem = uiState.timetableItem,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
                     )
                     TimetableItemDetailContent(
                         uiState = uiState.timetableItem,
-                        onViewDocumentClick = {},
-                        onWatchVideoClick = {},
+                        onViewDocumentClick = {/*TODO*/ },
+                        onWatchVideoClick = {/*TODO*/ }
                     )
                 }
             }

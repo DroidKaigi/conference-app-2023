@@ -24,18 +24,13 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object RemoveFromFavorites : SessionsStrings()
     object Date : SessionsStrings()
     object Place : SessionsStrings()
-    object SupportLanguage : SessionsStrings()
-
+    object SupportedLanguages : SessionsStrings()
+    object InterpretationTarget : SessionsStrings()
     object TargetAudience : SessionsStrings()
-
     object Speaker : SessionsStrings()
-
     object Archive : SessionsStrings()
-
     object ViewDocument : SessionsStrings()
-
     object WatchVideo : SessionsStrings()
-
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -58,7 +53,11 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "お気に入りから削除"
                 Date -> "日付"
                 Place -> "場所"
-                SupportLanguage -> "対応言語"
+                SupportedLanguages -> "対応言語"
+                InterpretationTarget -> "同時通訳対象"
+                Date -> "日付"
+                Place -> "場所"
+                SupportedLanguages -> "対応言語"
                 TargetAudience -> "対象者"
                 Speaker -> "スピーカー"
                 Archive -> "アーカイブ"
@@ -87,7 +86,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "Remove from favorites"
                 Date -> "Date"
                 Place -> "Place"
-                SupportLanguage -> "Language"
+                SupportedLanguages -> "Supported languages"
+                InterpretationTarget -> "Interpretation target"
                 TargetAudience -> "Target"
                 Speaker -> "Speaker"
                 Archive -> "Archive"

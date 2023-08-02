@@ -64,17 +64,9 @@ public sealed class TimetableItem {
         override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
-    public val sessionDateDetailString: MultiLangText by lazy {
-        val jaTitle =
-            "$sessionDateString/$startsTimeString ~ $endsTimeString (${minutesJapaneseString})"
-        val enTitle =
-            "$sessionDateString/$startsTimeString ~ $endsTimeString (${minutesEnglishString})"
-        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
-    }
-
-    private val sessionDateString: String by lazy {
+    public val startsDateString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
-        "${localDate.year}.${localDate.monthNumber}.${localDate.dayOfMonth}"
+        "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(2, '0') + "." + "${localDate.dayOfMonth}".padStart(2, '0')
     }
 
     public val startsTimeString: String by lazy {
@@ -87,13 +79,7 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
-    public val minutesJapaneseString: String by lazy {
-        val minutes = (endsAt - startsAt)
-            .toComponents { minutes, _, _ -> minutes }
-        "${minutes}分"
-    }
-
-    public val minutesEnglishString: String by lazy {
+    public val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
@@ -103,18 +89,19 @@ public sealed class TimetableItem {
         speakers.joinToString(", ") { it.name }
     }
 
-    public val roomString: MultiLangText by lazy {
-        val jaTitle = "${room.name.jaTitle} (地下一階)"
-        val enTitle = "${room.name.enTitle} (B1F)"
-        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
-    }
+    fun getSupportedLangString(isJapaneseLocale: Boolean): String {
+        val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
+        val english = if (isJapaneseLocale) "英語" else "English"
+        val japaneseWithInterpretation =
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+        val englishWithInterpretation =
+            if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
 
-    public val languageString: MultiLangText by lazy {
-        val jaTitle =
-            if (language.isInterpretationTarget) "日本語(英語通訳あり)" else "日本語"
-        val enTitle =
-            if (language.isInterpretationTarget) "${language.langOfSpeaker}(English interpretation available)" else language.langOfSpeaker
-        MultiLangText(jaTitle = jaTitle, enTitle = enTitle)
+        return when (language.langOfSpeaker) {
+            "JAPANESE" -> if (language.isInterpretationTarget) japaneseWithInterpretation else japanese
+            "ENGLISH" -> if (language.isInterpretationTarget) englishWithInterpretation else english
+            else -> language.langOfSpeaker
+        }
     }
 }
 

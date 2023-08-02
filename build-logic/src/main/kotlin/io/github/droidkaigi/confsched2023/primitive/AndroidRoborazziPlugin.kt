@@ -16,6 +16,7 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 testOptions {
                     unitTests {
                         all {
+                            it.maxParallelForks = Runtime.getRuntime().availableProcessors()
                             // -Pscreenshot to filter screenshot tests
                             it.useJUnit {
                                 if (project.hasProperty("screenshot")) {

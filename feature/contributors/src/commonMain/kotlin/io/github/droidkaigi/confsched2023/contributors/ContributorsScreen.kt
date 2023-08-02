@@ -39,8 +39,8 @@ fun ContributorsScreen(
     val uiState by viewModel.uiState.collectAsState()
     ContributorsScreen(
         uiState = uiState,
-        onClickBack = onNavigationIconClick,
-        onClickContributorItem = {
+        onBackClick = onNavigationIconClick,
+        onContributorItemClick = {
             // TODO: Implement navigation
         }
     )
@@ -50,8 +50,8 @@ fun ContributorsScreen(
 @Composable
 private fun ContributorsScreen(
     uiState: ContributorsUiState,
-    onClickBack: () -> Unit,
-    onClickContributorItem: (url: String) -> Unit,
+    onBackClick: () -> Unit,
+    onContributorItemClick: (url: String) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
@@ -63,7 +63,7 @@ private fun ContributorsScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = onClickBack,
+                        onClick = onBackClick,
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -78,7 +78,7 @@ private fun ContributorsScreen(
     ) { padding ->
         Contributors(
             contributors = uiState.contributors,
-            onClickContributorItem = onClickContributorItem,
+            onContributorItemClick = onContributorItemClick,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
@@ -90,7 +90,7 @@ private fun ContributorsScreen(
 @Composable
 private fun Contributors(
     contributors: PersistentList<Contributor>,
-    onClickContributorItem: (url: String) -> Unit,
+    onContributorItemClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     // FIXME: Bottom Inset not implemented
@@ -100,7 +100,7 @@ private fun Contributors(
         items(contributors) {
             ContributorListItem(
                 contributor = it,
-                onClick = onClickContributorItem,
+                onClick = onContributorItemClick,
                 modifier = Modifier.fillMaxWidth()
             )
         }
