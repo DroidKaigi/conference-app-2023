@@ -20,19 +20,19 @@ fun TimeTableHeader(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .height(168.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Column(Modifier.padding(start = 16.dp)) {
             Text(text = "DroidKaigi\n2023", style = MaterialTheme.typography.displaySmall)
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = "at Bellesalle Shibuya Garden",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
         }
         Image(
             painter = painterResource(id = drawable.img_keyvisual),
-            contentDescription = null
+            contentDescription = null,
         )
     }
 }

@@ -121,7 +121,7 @@ private fun TimetableScreen(
         contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
         Box(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) {
             TimeTableHeader(
                 modifier = Modifier
@@ -141,7 +141,7 @@ private fun TimetableScreen(
                         layout(placeable.width, placeable.height) {
                             placeable.placeRelative(
                                 0,
-                                0 + (state.sheetScrollOffset / 2).roundToInt()
+                                0 + (state.sheetScrollOffset / 2).roundToInt(),
                             )
                         }
                     },

@@ -37,7 +37,7 @@ fun TimetableTopArea(
             title = {
                 Image(
                     painter = painterResource(id = drawable.ic_android_notification_icon___fills),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             },
             actions = {
@@ -68,7 +68,6 @@ fun TimetableTopArea(
                         contentDescription = Timetable.asString(),
                     )
                 }
-
             },
             colors = TopAppBarDefaults.largeTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
