@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.GridView
@@ -32,46 +31,45 @@ fun TimetableTopArea(
     onTopAreaBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier = modifier) {
-        TopAppBar(
-            title = {
-                Image(
-                    painter = painterResource(id = drawable.icon_droidkaigi_logo),
-                    contentDescription = null,
+    TopAppBar(
+        modifier = modifier,
+        title = {
+            Image(
+                painter = painterResource(id = drawable.icon_droidkaigi_logo),
+                contentDescription = null,
+            )
+        },
+        actions = {
+            IconButton(
+                modifier = Modifier.testTag(SearchButtonTestTag),
+                onClick = { onSearchClick() },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = Search.asString(),
                 )
-            },
-            actions = {
-                IconButton(
-                    modifier = Modifier.testTag(SearchButtonTestTag),
-                    onClick = { onSearchClick() },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Search,
-                        contentDescription = Search.asString(),
-                    )
-                }
-                IconButton(
-                    modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
-                    onClick = { onTopAreaBookmarkIconClick() },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.BookmarkBorder,
-                        contentDescription = Timetable.asString(),
-                    )
-                }
-                IconButton(
-                    modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
-                    onClick = { onTimetableUiChangeClick() },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.GridView,
-                        contentDescription = Timetable.asString(),
-                    )
-                }
-            },
-            colors = TopAppBarDefaults.largeTopAppBarColors(
-                containerColor = MaterialTheme.colorScheme.surfaceVariant,
-            ),
-        )
-    }
+            }
+            IconButton(
+                modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
+                onClick = { onTopAreaBookmarkIconClick() },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.BookmarkBorder,
+                    contentDescription = Timetable.asString(),
+                )
+            }
+            IconButton(
+                modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
+                onClick = { onTimetableUiChangeClick() },
+            ) {
+                Icon(
+                    imageVector = Icons.Default.GridView,
+                    contentDescription = Timetable.asString(),
+                )
+            }
+        },
+        colors = TopAppBarDefaults.largeTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        ),
+    )
 }
