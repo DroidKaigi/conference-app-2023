@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -61,24 +61,24 @@ fun TimetableTopArea(
                     )
                 }
                 IconButton(
-                    modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
-                    onClick = { onTimetableUiChangeClick() },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = Timetable.asString(),
-                    )
-                }
-                IconButton(
                     modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
                     onClick = { onTopAreaBookmarkIconClick() },
                 ) {
                     Icon(
-                        // FIXME: We would like to use Filled Icon here
-                        imageVector = Icons.Outlined.Bookmarks,
+                        imageVector = Icons.Default.BookmarkBorder,
                         contentDescription = Timetable.asString(),
                     )
                 }
+                IconButton(
+                    modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
+                    onClick = { onTimetableUiChangeClick() },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.GridView,
+                        contentDescription = Timetable.asString(),
+                    )
+                }
+
             },
             colors = TopAppBarDefaults.largeTopAppBarColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant,
