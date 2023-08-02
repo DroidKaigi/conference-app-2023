@@ -1,10 +1,13 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
@@ -20,7 +23,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.feature.sessions.R.drawable
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
 
@@ -82,10 +87,22 @@ fun TimetableTopArea(
                 .fillMaxWidth()
                 .onGloballyPositioned { coordinates ->
                     state.onHeaderPositioned(coordinates.size.height.toFloat())
-                },
+                }
+                .height(168.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // TODO: Implement header desing(title and image etc..)
-            Spacer(modifier = Modifier.height(130.dp))
+            Column(Modifier.padding(start = 16.dp)) {
+                Text(text = "DroidKaigi\n2023", style = MaterialTheme.typography.displaySmall)
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "at Bellesalle Shibuya Garden",
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            Image(
+                painter = painterResource(id = drawable.img_keyvisual),
+                contentDescription = null
+            )
         }
     }
 }
