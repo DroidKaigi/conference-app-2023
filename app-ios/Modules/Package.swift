@@ -25,7 +25,10 @@ var package = Package(
         .target(
             name: "About",
             dependencies: [
+                "Assets",
                 "shared",
+                "Model",
+                "Theme",
             ]
         ),
         .testTarget(
