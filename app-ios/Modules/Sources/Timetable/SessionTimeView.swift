@@ -13,7 +13,7 @@ struct SessionTimeView: View {
     var endsAt: Date
 
     var body: some View {
-        VStack {
+        VStack(spacing: 4) {
             Text(formatter.string(from: startsAt))
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 .font(Font(UIFont.systemFont(ofSize: 16, weight: .bold)))

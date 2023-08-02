@@ -1,3 +1,4 @@
+import Assets
 import shared
 import SwiftUI
 import Theme
@@ -33,7 +34,8 @@ struct TimetableListItemView: View {
                     if let message = session.message {
                         Spacer().frame(height: 8)
                         HStack(spacing: 4) {
-                            Image(systemName: "exclamationmark.circle.fill")
+                            Assets.Icons.error.swiftUIImage
+                                .renderingMode(.template)
                             Text(message.currentLangTitle)
                                 .font(Font.system(size: 12, weight: .regular, design: .default))
                         }
@@ -55,9 +57,9 @@ struct TimetableListItemView: View {
                 },
                 label: {
                     if timetableItemWithFavorite.isFavorited {
-                        Image(systemName: "bookmark.fill")
+                        Assets.Icons.bookmark.swiftUIImage
                     } else {
-                        Image(systemName: "bookmark")
+                        Assets.Icons.bookmarkBorder.swiftUIImage
                     }
                 }
             )
