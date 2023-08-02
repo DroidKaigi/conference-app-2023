@@ -127,7 +127,9 @@ private fun TimetableScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
-                        state.onHeaderPositioned(coordinates.size.height.toFloat())
+                        state.onHeaderPositioned(
+                            coordinates.size.height.toFloat() - innerPadding.calculateTopPadding().value
+                        )
                     },
             )
             TimetableSheet(
