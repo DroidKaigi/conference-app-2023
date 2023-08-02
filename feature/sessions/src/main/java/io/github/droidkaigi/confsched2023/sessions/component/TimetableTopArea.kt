@@ -43,10 +43,12 @@ fun TimetableTopArea(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        // TODO: Implement TopAppBar design
         TopAppBar(
             title = {
-                Text(text = "KaigiApp")
+                Image(
+                    painter = painterResource(id = drawable.ic_android_notification_icon___fills),
+                    contentDescription = null
+                )
             },
             actions = {
                 IconButton(
