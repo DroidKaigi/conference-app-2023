@@ -18,6 +18,7 @@ jobs:
 
     permissions:
       actions: read # for listing workflow run artifacts
+      contents: read # for checkout
 
     runs-on: ubuntu-latest
 
