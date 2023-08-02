@@ -36,7 +36,7 @@ fun TimetableTopArea(
         TopAppBar(
             title = {
                 Image(
-                    painter = painterResource(id = drawable.ic_android_notification_icon___fills),
+                    painter = painterResource(id = drawable.icon_droidkaigi_logo),
                     contentDescription = null,
                 )
             },
