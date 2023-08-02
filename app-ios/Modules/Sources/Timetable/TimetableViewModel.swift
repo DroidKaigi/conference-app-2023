@@ -2,14 +2,14 @@ import Foundation
 import Model
 import shared
 
-struct TimetableState: Equatable {
+struct TimetableState: ViewModelState {
     var selectedDay: DroidKaigi2023Day = .day1
     var timeGroupTimetableItems: LoadingState<[TimetableTimeGroupItems]> = .initial
 }
 
 @MainActor
 final class TimetableViewModel: ObservableObject {
-    @Published var state: TimetableState = .init()
+    @Published private(set) var state: TimetableState = .init()
     private var cachedTimeGroupTimetableItems: [TimetableTimeGroupItems]?
 
     func load() async {
