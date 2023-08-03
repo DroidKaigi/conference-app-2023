@@ -335,7 +335,7 @@ class FakeSessionsApiModule {
  - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
  - UI Lead: [upon0426](https://github.com/upon0426)
  - Build/CI Lead: [tomoya0x00](https://github.com/tomoya0x00)
- - Designer: TBD
+ - Designer: [nobonobopurin](https://github.com/nobonobopurin)
  - iOS Lead: [ry-itto](https://github.com/ry-itto)
  - Server / API Lead: [ryunen344](https://github.com/ryunen344)
  - DroidKaigi Co-Organizer / Architecture Lead: [takahirom](https://github.com/takahirom)
