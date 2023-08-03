@@ -28,12 +28,12 @@ fun TimeTableHeader(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = "at Bellesalle Shibuya Garden",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.labelMedium,
             )
         }
         Image(
-            modifier = Modifier.size(width = 148.dp, height = 168.dp),
-            painter = painterResource(id = drawable.img_keyvisual),
+            modifier = Modifier.size(width = 212.dp, height = 168.dp),
+            painter = painterResource(id = drawable.img_droid_kun_in_bath),
             contentDescription = null,
         )
     }
