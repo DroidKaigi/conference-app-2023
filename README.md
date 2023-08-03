@@ -336,6 +336,7 @@ class FakeSessionsApiModule {
  - UI Lead: [upon0426](https://github.com/upon0426)
  - Build/CI Lead: [tomoya0x00](https://github.com/tomoya0x00)
  - Designer: [nobonobopurin](https://github.com/nobonobopurin)
+ - Material3 Lead: [Nabe](https://twitter.com/NabeCott)
  - iOS Lead: [ry-itto](https://github.com/ry-itto)
  - Server / API Lead: [ryunen344](https://github.com/ryunen344)
  - DroidKaigi Co-Organizer / Architecture Lead: [takahirom](https://github.com/takahirom)
