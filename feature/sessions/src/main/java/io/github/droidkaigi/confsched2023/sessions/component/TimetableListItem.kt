@@ -88,7 +88,7 @@ fun TimetableListItem(
             timetableItem.message?.let {
                 Text(
                     text = it.currentLangTitle,
-                    color = MaterialTheme.colorScheme.error
+                    color = MaterialTheme.colorScheme.error,
                 )
             }
         }
