@@ -330,6 +330,12 @@ class FakeSessionsApiModule {
 - Set configs like below
   - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
 
+# Contributing
+
+We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
+
 # Special thanks
 
  - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
