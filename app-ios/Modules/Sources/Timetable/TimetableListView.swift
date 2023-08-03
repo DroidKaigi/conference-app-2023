@@ -14,7 +14,7 @@ struct TimetableListView: View {
                     )
                     VStack(spacing: 0) {
                         ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
-                            NavigationLink(value: timetableItemWithFavorite.timetableItem) {
+                            NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
                                 TimetableListItemView(
                                     timetableItemWithFavorite: timetableItemWithFavorite
                                 )
