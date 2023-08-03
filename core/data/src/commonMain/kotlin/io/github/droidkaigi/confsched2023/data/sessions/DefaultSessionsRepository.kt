@@ -28,6 +28,8 @@ class DefaultSessionsRepository(
             timetable.copy(bookmarks = favorites)
         }
             .onStart {
+                // TODO: Remove after introducing network service
+                authApi.authIfNeeded()
                 if (timetableStateFlow.value.isEmpty()) {
                     timetableStateFlow.value = sessionsApi.timetable()
                 }

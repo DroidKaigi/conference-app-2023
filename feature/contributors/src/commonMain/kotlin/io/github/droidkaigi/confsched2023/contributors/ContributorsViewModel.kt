@@ -25,6 +25,11 @@ class ContributorsViewModel @KmpInject constructor(
 ) : KmpViewModel() {
     private val contributors = contributorsRepository
         .contributors()
+        .onStart {
+            viewModelScope.launch {
+                contributorsRepository.refresh()
+            }
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

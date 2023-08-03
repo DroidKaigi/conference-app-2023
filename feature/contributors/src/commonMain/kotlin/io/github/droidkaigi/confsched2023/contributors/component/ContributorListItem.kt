@@ -8,19 +8,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.Contributor
-import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 private val contributorIconShape = RoundedCornerShape(20.dp)
@@ -41,9 +37,7 @@ fun ContributorListItem(
         horizontalArrangement = Arrangement.spacedBy(23.dp),
     ) {
         Image(
-            painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
-                rememberAsyncImagePainter(contributor.iconUrl)
-            },
+            painter = rememberAsyncImagePainter(contributor.iconUrl),
             contentDescription = null,
             modifier = Modifier
                 .size(60.dp)

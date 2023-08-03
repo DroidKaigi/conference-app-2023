@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.ListBookmark
@@ -34,11 +34,11 @@ import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
 fun BookmarkSheet(
     uiState: BookmarkScreenUiState,
     scrollState: LazyListState,
-    onBookmarkClick: (TimetableItem) -> Unit,
-    onAllFilterChipClick: () -> Unit,
-    onDayFirstChipClick: () -> Unit,
-    onDaySecondChipClick: () -> Unit,
-    onDayThirdChipClick: () -> Unit,
+    onClickBookmarkIcon: (TimetableItemId) -> Unit,
+    onClickAllFilterChip: () -> Unit,
+    onClickDayFirstChip: () -> Unit,
+    onClickDaySecondChip: () -> Unit,
+    onClickDayThirdChip: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -48,10 +48,10 @@ fun BookmarkSheet(
     ) {
         BookmarkFilters(
             currentDayFilter = uiState.currentDayFilter,
-            onAllFilterChipClick = onAllFilterChipClick,
-            onDayFirstChipClick = onDayFirstChipClick,
-            onDaySecondChipClick = onDaySecondChipClick,
-            onDayThirdChipClick = onDayThirdChipClick,
+            onClickAllFilterChip = onClickAllFilterChip,
+            onClickDayFirstChip = onClickDayFirstChip,
+            onClickDaySecondChip = onClickDaySecondChip,
+            onClickDayThirdChip = onClickDayThirdChip,
         )
         when (uiState) {
             is Empty -> {
@@ -63,7 +63,7 @@ fun BookmarkSheet(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
-                    onBookmarkIconClick = onBookmarkClick,
+                    onClickBooMarkIcon = onClickBookmarkIcon,
                 )
             }
         }

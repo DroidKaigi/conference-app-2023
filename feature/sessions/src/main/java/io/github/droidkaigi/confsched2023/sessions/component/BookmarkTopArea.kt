@@ -35,7 +35,7 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 @Composable
 fun BookmarkTopArea(
     scrollState: LazyListState,
-    onBackPressClick: () -> Unit,
+    onClickBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val bigText = TextStyle(
@@ -116,7 +116,7 @@ fun BookmarkTopArea(
                 modifier = Modifier
                     .size(24.dp)
                     .clickable {
-                        onBackPressClick()
+                        onClickBackPress()
                     },
             )
             Text(

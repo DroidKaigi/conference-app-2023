@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Bookmarks
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -34,7 +34,7 @@ fun TimetableTopArea(
     state: TimetableScreenScrollState,
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
-    onTopAreaBookmarkIconClick: () -> Unit,
+    onClickTopAreaBookmarkIcon: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -64,11 +64,11 @@ fun TimetableTopArea(
                 }
                 IconButton(
                     modifier = Modifier.testTag(TimetableBookmarkIconTestTag),
-                    onClick = { onTopAreaBookmarkIconClick() },
+                    onClick = { onClickTopAreaBookmarkIcon() },
                 ) {
                     Icon(
                         // FIXME: We would like to use Filled Icon here
-                        imageVector = Icons.Outlined.Bookmarks,
+                        imageVector = Icons.Outlined.Bookmark,
                         contentDescription = Timetable.asString(),
                     )
                 }

@@ -1,10 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -33,14 +31,13 @@ const val timetableScreenRoute = "timetable"
 fun NavGraphBuilder.nestedSessionScreens(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    onClickBookmarkIcon: () -> Unit,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
-            onBookmarkIconClick = onBookmarkIconClick,
+            onClickBookmarkIcon = onClickBookmarkIcon,
         )
     }
 }
@@ -55,8 +52,7 @@ const val TimetableScreenTestTag = "TimetableScreen"
 fun TimetableScreen(
     onSearchClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    onClickBookmarkIcon: () -> Unit,
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -71,7 +67,7 @@ fun TimetableScreen(
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = viewModel::onBookmarkClick,
-        onBookmarkIconClick = onBookmarkIconClick,
+        onClickBookmarkIcon = onClickBookmarkIcon,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
     )
@@ -87,23 +83,19 @@ private fun TimetableScreen(
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: () -> Unit,
+    onClickBookmarkIcon: () -> Unit,
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     val state = rememberTimetableScreenScrollState()
 
     Scaffold(
-        modifier = modifier
+        modifier = Modifier
             .testTag(TimetableScreenTestTag)
             .nestedScroll(state.screenNestedScrollConnection),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
-                modifier = Modifier.padding(
-                    WindowInsets.safeContent.asPaddingValues(),
-                ),
             )
         },
         topBar = {
@@ -111,7 +103,7 @@ private fun TimetableScreen(
                 state,
                 onTimetableUiChangeClick,
                 onSearchClick,
-                onBookmarkIconClick,
+                onClickBookmarkIcon,
             )
         },
         containerColor = MaterialTheme.colorScheme.surfaceVariant,

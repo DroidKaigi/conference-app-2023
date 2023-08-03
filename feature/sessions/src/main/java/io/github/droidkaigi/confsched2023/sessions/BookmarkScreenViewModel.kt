@@ -8,7 +8,7 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
-import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -48,8 +48,8 @@ class BookmarkScreenViewModel @Inject constructor(
         buildUiState(
             sessionsStateFlow,
             currentDayFilter,
-        ) { sessions, currentDayFilter ->
-            val sortAndGroupedBookmarkedTimetableItems = sessions.filtered(
+        ) { sessionsStateFlow, currentDayFilter ->
+            val sortAndGroupedBookmarkedTimetableItems = sessionsStateFlow.filtered(
                 Filters(
                     days = currentDayFilter,
                     filterFavorite = true,
@@ -68,40 +68,40 @@ class BookmarkScreenViewModel @Inject constructor(
                 )
             } else {
                 BookmarkScreenUiState.ListBookmark(
-                    sessions.bookmarks,
+                    sessionsStateFlow.bookmarks,
                     sortAndGroupedBookmarkedTimetableItems,
                     currentDayFilter.toPersistentList(),
                 )
             }
         }
 
-    fun onAllFilterChipClick() {
+    fun onClickAllFilterChip() {
         currentDayFilter.update {
             DroidKaigi2023Day.values().toList()
         }
     }
 
-    fun onDayFirstChipClick() {
+    fun onClickDayFirstChip() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day1)
         }
     }
 
-    fun onDaySecondChipClick() {
+    fun onClickDaySecondChip() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day2)
         }
     }
 
-    fun onDayThirdChipClick() {
+    fun onClickDayThirdChip() {
         currentDayFilter.update {
             listOf(DroidKaigi2023Day.Day3)
         }
     }
 
-    fun updateBookmark(timetableItem: TimetableItem) {
+    fun updateBookmark(timetableItem: TimetableItemId) {
         viewModelScope.launch {
-            sessionsRepository.toggleBookmark(timetableItem.id)
+            sessionsRepository.toggleBookmark(timetableItem)
         }
     }
 }
