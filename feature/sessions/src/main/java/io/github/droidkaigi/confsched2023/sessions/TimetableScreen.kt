@@ -1,8 +1,10 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +27,7 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
+import io.github.droidkaigi.confsched2023.sessions.section.TimeTableHeader
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -108,7 +112,6 @@ private fun TimetableScreen(
         },
         topBar = {
             TimetableTopArea(
-                state,
                 onTimetableUiChangeClick,
                 onSearchClick,
                 onBookmarkIconClick,
@@ -117,22 +120,38 @@ private fun TimetableScreen(
         containerColor = MaterialTheme.colorScheme.surfaceVariant,
         contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
-        TimetableSheet(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .layout { measurable, constraints ->
-                    val placeable = measurable.measure(
-                        constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
-                    )
-                    layout(placeable.width, placeable.height) {
-                        placeable.placeRelative(0, 0 + (state.sheetScrollOffset / 2).roundToInt())
-                    }
-                },
-            onTimetableItemClick = onTimetableItemClick,
-            uiState = uiState.contentUiState,
-            timetableScreenScrollState = state,
-            onFavoriteClick = onBookmarkClick,
-        )
+        Box(
+            modifier = Modifier.padding(innerPadding),
+        ) {
+            TimeTableHeader(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onGloballyPositioned { coordinates ->
+                        state.onHeaderPositioned(
+                            coordinates.size.height.toFloat() - innerPadding.calculateTopPadding().value,
+                        )
+                    },
+            )
+            TimetableSheet(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 130.dp)
+                    .layout { measurable, constraints ->
+                        val placeable = measurable.measure(
+                            constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
+                        )
+                        layout(placeable.width, placeable.height) {
+                            placeable.placeRelative(
+                                0,
+                                0 + (state.sheetScrollOffset / 2).roundToInt(),
+                            )
+                        }
+                    },
+                onTimetableItemClick = onTimetableItemClick,
+                uiState = uiState.contentUiState,
+                timetableScreenScrollState = state,
+                onFavoriteClick = onBookmarkClick,
+            )
+        }
     }
 }
