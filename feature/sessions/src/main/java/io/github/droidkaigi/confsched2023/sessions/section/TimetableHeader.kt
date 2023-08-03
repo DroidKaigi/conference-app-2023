@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.feature.sessions.R.drawable
 
 @Composable
-fun TimeTableHeader(modifier: Modifier = Modifier) {
+fun TimetableHeader(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .height(168.dp),
