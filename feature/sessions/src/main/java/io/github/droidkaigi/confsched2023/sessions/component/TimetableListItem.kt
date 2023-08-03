@@ -1,137 +1,204 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SuggestionChip
+import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
+import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
+import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
-import io.github.droidkaigi.confsched2023.ui.previewOverride
-import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import io.github.droidkaigi.confsched2023.model.type
 
 const val TimetableListItemTestTag = "TimetableListItem"
-const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
 
 @Composable
 fun TimetableListItem(
-    timetableItem: TimetableItem,
+    session: TimetableItem,
     isBookmarked: Boolean,
-    onClick: (TimetableItem) -> Unit,
-    onBoomarkClick: (TimetableItem) -> Unit,
-    chipContent: @Composable RowScope.() -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+    onFavoriteClick: (Session) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier
             .testTag(TimetableListItemTestTag)
-            .clickable { onClick(timetableItem) },
+            .clickable { onTimetableItemClick(session) },
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Row(modifier = Modifier.weight(1F)) {
-                chipContent()
-            }
-            IconButton(
-                modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
-                onClick = {
-                    onBoomarkClick(timetableItem)
+        Row {
+            SessionTime(
+                startAt = session.startsTimeString,
+                endAt = session.endsTimeString,
+            )
+            SessionDescription(session = session)
+            SessionBookmark(
+                session = session,
+                isBookmarked = isBookmarked,
+                onFavoriteClick = onFavoriteClick,
+            )
+        }
+
+        Divider()
+    }
+}
+
+@Composable
+fun SessionBookmark(
+    session: TimetableItem,
+    isBookmarked: Boolean,
+    modifier: Modifier = Modifier,
+    onFavoriteClick: (Session) -> Unit,
+) {
+    if (session is Session) {
+        if (isBookmarked) {
+            Text(
+                text = "★",
+                modifier = modifier.clickable {
+                    onFavoriteClick(session)
                 },
-            ) {
-                Icon(
-                    imageVector = if (isBookmarked) {
-                        Icons.Filled.Bookmark
-                    } else {
-                        Icons.Outlined.BookmarkBorder
+            )
+        } else {
+            Text(
+                text = "☆",
+                modifier = modifier.clickable {
+                    onFavoriteClick(session)
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun SessionDescription(
+    session: TimetableItem,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier.padding(start = 16.dp),
+    ) {
+        Row {
+            // Chips
+            val infoChip = mutableListOf<String>()
+
+            infoChip.add(session.language.langOfSpeaker.substring(0, 2))
+            if (session.language.isInterpretationTarget) {
+                if (session.language.langOfSpeaker == "ENGLISH") {
+                    infoChip.add("JA")
+                } else if (session.language.langOfSpeaker == "JAPANESE") {
+                    infoChip.add("EN")
+                }
+            }
+
+            SuggestionChip(
+                colors = SuggestionChipDefaults.suggestionChipColors(
+                    containerColor = when (session.room.type) {
+                        Room1 -> room_hall_a
+                        Room2 -> room_hall_b
+                        Room3 -> room_hall_c
+                        Room4 -> room_hall_d
+                        Room5 -> room_hall_e
+                        else -> Color.White
                     },
-                    contentDescription = null,
+                ),
+                onClick = { /* Do nothing */ },
+                label = {
+                    Text(
+                        text = session.room.name.currentLangTitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = Color.White,
+                    )
+                },
+            )
+
+            infoChip.forEach {
+                SuggestionChip(
+                    modifier = Modifier.padding(start = 4.dp),
+                    onClick = { /* Do nothing */ },
+                    label = {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    },
                 )
             }
         }
-        Spacer(modifier = Modifier.size(5.dp))
+
+        // Title
         Text(
-            text = timetableItem.title.currentLangTitle,
-            fontSize = 22.sp,
-            lineHeight = 28.sp,
+            text = session.title.currentLangTitle,
+
         )
-        Spacer(modifier = Modifier.size(8.dp))
-        Column {
-            timetableItem.speakers.forEachIndexed { index, speaker ->
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Image(
-                        painter = previewOverride(previewPainter = {
-                            rememberVectorPainter(image = Icons.Default.Person)
-                        }) {
-                            rememberAsyncImagePainter(url = speaker.iconUrl)
-                        },
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(RoundedCornerShape(12.dp))
-                            .border(
-                                BorderStroke(1.dp, md_theme_light_outline),
-                                RoundedCornerShape(12.dp),
-                            ),
-                    )
-                    Spacer(modifier = Modifier.size(10.dp))
-                    Text(
-                        text = speaker.name,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
-                }
-                if (timetableItem.speakers.lastIndex != index) {
-                    Spacer(modifier = Modifier.size(8.dp))
-                }
+
+        // Message
+        if (session is Session) {
+            session.message?.let {
+                Text(it.currentLangTitle)
             }
         }
-        Spacer(modifier = Modifier.size(15.dp))
-        Divider()
+
+        // Speaker
+        Row {
+            // TODO: Use Compose-image-loader to show image
+            // https://github.com/DroidKaigi/conference-app-2023/issues/239
+
+            Text(
+                text = session.speakerString,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2,
+            )
+        }
+    }
+}
+
+@Composable
+fun SessionTime(
+    startAt: String,
+    endAt: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier,
+    ) {
+        Text(startAt)
+        Text("    |")
+        Text(endAt)
     }
 }
 
 @Preview
 @Composable
-fun TimetableListItemPreview() {
+fun PreviewTimetableListItem() {
     KaigiTheme {
         Surface {
             TimetableListItem(
-                timetableItem = Session.fake(),
+                session = Session.fake(),
                 isBookmarked = false,
-                onClick = {},
-                onBoomarkClick = {},
-                chipContent = {
-                },
+                onTimetableItemClick = {},
+                onFavoriteClick = {},
             )
         }
     }

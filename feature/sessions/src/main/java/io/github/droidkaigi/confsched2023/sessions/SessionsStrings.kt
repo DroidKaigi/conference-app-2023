@@ -24,8 +24,18 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object RemoveFromFavorites : SessionsStrings()
     object Date : SessionsStrings()
     object Place : SessionsStrings()
-    object SupportedLanguages : SessionsStrings()
-    object InterpretationTarget : SessionsStrings()
+    object SupportLanguage : SessionsStrings()
+
+    object TargetAudience : SessionsStrings()
+
+    object Speaker : SessionsStrings()
+
+    object Archive : SessionsStrings()
+
+    object ViewDocument : SessionsStrings()
+
+    object WatchVideo : SessionsStrings()
+
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -36,7 +46,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 ScheduleIcon -> "スケジュールアイコン"
                 UserIcon -> "ユーザーアイコン"
                 EventDay -> "開催日"
-                Category -> "カテゴリー"
+                Category -> "カテゴリ"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "全て"
                 SearchResultNotFound -> "この検索条件に一致する結果はありません"
@@ -48,8 +58,12 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "お気に入りから削除"
                 Date -> "日付"
                 Place -> "場所"
-                SupportedLanguages -> "対応言語"
-                InterpretationTarget -> "同時通訳対象"
+                SupportLanguage -> "対応言語"
+                TargetAudience -> "対象者"
+                Speaker -> "スピーカー"
+                Archive -> "アーカイブ"
+                ViewDocument -> "資料を見る"
+                WatchVideo -> "動画を見る"
             }
         },
         Lang.English to { item, bindings ->
@@ -73,8 +87,12 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "Remove from favorites"
                 Date -> "Date"
                 Place -> "Place"
-                SupportedLanguages -> "Supported languages"
-                InterpretationTarget -> "Interpretation target"
+                SupportLanguage -> "Language"
+                TargetAudience -> "Target"
+                Speaker -> "Speaker"
+                Archive -> "Archive"
+                ViewDocument -> "View Document"
+                WatchVideo -> "Watch Movie"
             }
         },
         default = Lang.Japanese,

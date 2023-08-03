@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,8 +20,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailHeader
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummary
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
@@ -33,7 +34,7 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
     }
     composable(bookmarkScreenRoute) {
         BookmarkScreen(
-            onBackPressClick = onNavigationIconClick,
+            onClickBackPress = onNavigationIconClick,
         )
     }
 }
@@ -79,9 +80,9 @@ private fun TimetableItemDetailScreen(
     Scaffold(
         topBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
-                TimetableItemDetailScreenTopAppBar(
-                    title = uiState.timetableItem.title,
-                    onNavigationIconClick = onNavigationIconClick,
+                TimetableItemDetailHeader(
+                    headerTitle = uiState.timetableItem.title.currentLangTitle,
+                    onClickBackPress = onNavigationIconClick
                 )
             }
         },
@@ -94,22 +95,29 @@ private fun TimetableItemDetailScreen(
                 )
             }
         },
-    ) { innerPadding ->
+
+        ) { innerPadding ->
         when (uiState) {
             TimetableItemDetailScreenUiState.Loading -> {
                 Text(text = "Loading")
             }
 
             is TimetableItemDetailScreenUiState.Loaded -> {
+                val scrollState = rememberScrollState()
                 Column(
-                    modifier = Modifier.padding(innerPadding),
+                    modifier = Modifier
+                        .verticalScroll(scrollState)
+                        .padding(innerPadding)
                 ) {
-                    TimetableItemDetailHeader(title = uiState.timetableItem.title)
-                    TimetableItemDetailSummaryCard(
-                        timetableItem = uiState.timetableItem,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+                    TimetableItemDetailSummary(
+                        uiState = uiState.timetableItem,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
                     )
-                    TimetableItemDetailContent()
+                    TimetableItemDetailContent(
+                        uiState = uiState.timetableItem,
+                        onViewDocumentClick = {},
+                        onWatchVideoClick = {},
+                    )
                 }
             }
         }

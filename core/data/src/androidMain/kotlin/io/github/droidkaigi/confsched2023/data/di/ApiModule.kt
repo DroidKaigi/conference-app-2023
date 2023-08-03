@@ -21,7 +21,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
+import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -96,7 +96,7 @@ public class ApiModule {
         // TODO use BuildConfig.DEBUG
         if (true) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HEADERS
+            httpLoggingInterceptor.level = BASIC
             builder.addNetworkInterceptor(httpLoggingInterceptor)
         }
         return builder.build()

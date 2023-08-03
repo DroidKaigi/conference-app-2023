@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.sessions
+package io.github.droidkaigi.confsched2023
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
