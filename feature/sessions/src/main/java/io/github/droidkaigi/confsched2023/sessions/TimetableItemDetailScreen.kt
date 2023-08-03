@@ -27,7 +27,10 @@ const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
     "timetableItemDetail/{$timetableItemDetailScreenRouteItemIdParameterName}"
 
-fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
+fun NavGraphBuilder.sessionScreens(
+    onNavigationIconClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
@@ -36,6 +39,7 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
     composable(bookmarkScreenRoute) {
         BookmarkScreen(
             onBackPressClick = onNavigationIconClick,
+            onTimetableItemClick = onTimetableItemClick,
         )
     }
 }

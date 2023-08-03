@@ -34,6 +34,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilters
 fun BookmarkSheet(
     uiState: BookmarkScreenUiState,
     scrollState: LazyListState,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
@@ -63,6 +64,7 @@ fun BookmarkSheet(
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
+                    onTimetableItemClick = onTimetableItemClick,
                     onBookmarkIconClick = onBookmarkClick,
                 )
             }

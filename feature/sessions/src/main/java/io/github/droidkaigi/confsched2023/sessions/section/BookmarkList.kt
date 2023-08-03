@@ -42,6 +42,7 @@ fun BookmarkList(
     scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -110,7 +111,7 @@ fun BookmarkList(
                                 label = { Text(timetableItem.day?.name.orEmpty()) },
                             )
                         },
-                        onClick = { TODO() },
+                        onClick = onTimetableItemClick,
                         onBoomarkClick = onBookmarkIconClick,
                     )
                 }

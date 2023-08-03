@@ -70,6 +70,11 @@ private fun KaigiNavHost(
             onNavigationIconClick = {
                 navController.popBackStack()
             },
+            onTimetableItemClick = { timetableItem ->
+                navController.navigateToTimetableItemDetailScreen(
+                    timetableItem.id,
+                )
+            },
         )
         searchScreen(
             onNavigationIconClick = {

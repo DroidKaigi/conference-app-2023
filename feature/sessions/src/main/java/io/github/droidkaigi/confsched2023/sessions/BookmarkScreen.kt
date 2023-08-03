@@ -46,12 +46,14 @@ sealed interface BookmarkScreenUiState {
 @Composable
 fun BookmarkScreen(
     onBackPressClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: BookmarkScreenViewModel = hiltViewModel<BookmarkScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     BookmarkScreen(
         uiState = uiState,
         onBackPressClick = onBackPressClick,
+        onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = { viewModel.updateBookmark(it) },
         onAllFilterChipClick = { viewModel.onAllFilterChipClick() },
         onDayFirstChipClick = { viewModel.onDayFirstChipClick() },
@@ -66,6 +68,7 @@ const val BookmarkScreenTestTag = "BookmarkScreenTestTag"
 private fun BookmarkScreen(
     uiState: BookmarkScreenUiState,
     onBackPressClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
@@ -87,6 +90,7 @@ private fun BookmarkScreen(
         BookmarkSheet(
             modifier = Modifier.padding(padding),
             scrollState = scrollState,
+            onTimetableItemClick = onTimetableItemClick,
             onBookmarkClick = onBookmarkClick,
             onAllFilterChipClick = onAllFilterChipClick,
             onDayFirstChipClick = onDayFirstChipClick,
