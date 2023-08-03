@@ -240,6 +240,6 @@ private fun BorderLine(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant)
+            .background(MaterialTheme.colorScheme.outlineVariant),
     )
 }
