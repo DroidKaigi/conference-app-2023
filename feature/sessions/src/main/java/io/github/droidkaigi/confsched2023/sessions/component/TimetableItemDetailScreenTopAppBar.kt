@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,9 +30,6 @@ fun TimetableItemDetailScreenTopAppBar(
             //  )
         },
         navigationIcon = {
-            Column {
-                
-            }
             IconButton(onClick = onNavigationIconClick) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
