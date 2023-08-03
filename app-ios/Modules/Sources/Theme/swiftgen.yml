@@ -1,0 +1,12 @@
+input_dir: Resources/
+output_dir: ${DERIVED_SOURCES_DIR}/
+
+xcassets:
+  inputs: Colors.xcassets
+  outputs:
+    templateName: swift5
+    output: AssetColors.generated.swift
+    params:
+      enumName: AssetColors
+      publicAccess: true
+      bundle: Bundle.myModule
