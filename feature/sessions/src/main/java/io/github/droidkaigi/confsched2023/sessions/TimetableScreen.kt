@@ -27,7 +27,7 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
-import io.github.droidkaigi.confsched2023.sessions.section.TimeTableHeader
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableHeader
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -123,7 +123,7 @@ private fun TimetableScreen(
         Box(
             modifier = Modifier.padding(innerPadding),
         ) {
-            TimeTableHeader(
+            TimetableHeader(
                 modifier = Modifier
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
