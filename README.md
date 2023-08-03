@@ -1,6 +1,6 @@
-# DroidKaigi 2023 official app
+<img width="1024" alt="readme-banner" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/e588ade5-84a1-4960-b0c7-74dcc94aae19">
 
-DroidKaigi 2023 official app is an app for DroidKaigi 2023.
+# DroidKaigi 2023 official app
 
 # UI
 
