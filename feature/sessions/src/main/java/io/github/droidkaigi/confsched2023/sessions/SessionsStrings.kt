@@ -26,6 +26,11 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     object Place : SessionsStrings()
     object SupportedLanguages : SessionsStrings()
     object InterpretationTarget : SessionsStrings()
+    object Archive : SessionsStrings()
+    object ViewDocument : SessionsStrings()
+    object WatchVideo : SessionsStrings()
+    object Speaker : SessionsStrings()
+    object TargetAudience : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -50,6 +55,11 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Place -> "場所"
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
+                Archive -> "アーカイブ"
+                ViewDocument -> "ドキュメントを見る"
+                TargetAudience -> "対象者"
+                WatchVideo -> "動画を見る"
+                Speaker -> "スピーカー"
             }
         },
         Lang.English to { item, bindings ->
@@ -75,6 +85,11 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Place -> "Place"
                 SupportedLanguages -> "Supported languages"
                 InterpretationTarget -> "Interpretation target"
+                Archive -> "Archive"
+                ViewDocument -> "View Document"
+                WatchVideo -> "Watch Video"
+                Speaker -> "Speaker"
+                TargetAudience -> "Target Audience"
             }
         },
         default = Lang.Japanese,
