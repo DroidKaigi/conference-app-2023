@@ -32,7 +32,6 @@ fun TimetableItemDetailScreenTopAppBar(
         },
         navigationIcon = {
             Column {
-                
             }
             IconButton(onClick = onNavigationIconClick) {
                 Icon(

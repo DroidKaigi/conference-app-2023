@@ -89,13 +89,13 @@ private fun TargetAudienceSection(targetAudienceString: String, modifier: Modifi
             text = SessionsStrings.TargetAudience.asString(),
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
         )
         Text(
             text = targetAudienceString,
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
         )
         BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
@@ -111,7 +111,7 @@ private fun SpeakerSection(
             text = SessionsStrings.Speaker.asString(),
             fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
         )
         Spacer(modifier = Modifier.height(8.dp))
         speakers.forEach { speaker ->
@@ -141,7 +141,7 @@ private fun SpeakerSection(
                         text = speaker.name,
                         fontSize = 16.sp,
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                     Text(
                         text = speaker.tagLine,
@@ -191,11 +191,11 @@ private fun ArchiveSection(
                         )
                     },
                     colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.primary
+                        containerColor = MaterialTheme.colorScheme.primary,
                     ),
                     shape = RoundedCornerShape(100.dp),
                     border = AssistChipDefaults.assistChipBorder(
-                        borderColor = MaterialTheme.colorScheme.primary
+                        borderColor = MaterialTheme.colorScheme.primary,
                     ),
                     modifier = Modifier.align(Alignment.Center),
                 )
@@ -208,7 +208,7 @@ private fun ArchiveSection(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center,
 
-                            ) {
+                        ) {
                             Icon(
                                 imageVector = Icons.Default.PlayCircle,
                                 contentDescription = null,
@@ -223,11 +223,11 @@ private fun ArchiveSection(
                         }
                     },
                     colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.primary
+                        containerColor = MaterialTheme.colorScheme.primary,
                     ),
                     shape = RoundedCornerShape(100.dp),
                     border = AssistChipDefaults.assistChipBorder(
-                        borderColor = MaterialTheme.colorScheme.primary
+                        borderColor = MaterialTheme.colorScheme.primary,
                     ),
                     modifier = Modifier.align(Alignment.Center),
                 )
@@ -243,6 +243,6 @@ private fun BorderLine(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .height(1.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant)
+            .background(MaterialTheme.colorScheme.outlineVariant),
     )
 }

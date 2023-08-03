@@ -107,7 +107,7 @@ private fun TimetableItemDetailScreen(
                 Column(
                     modifier = Modifier
                         .verticalScroll(scrollState)
-                        .padding(innerPadding)
+                        .padding(innerPadding),
                 ) {
                     TimetableItemDetailHeader(title = uiState.timetableItem.title)
                     TimetableItemDetailSummaryCard(
@@ -116,8 +116,8 @@ private fun TimetableItemDetailScreen(
                     )
                     TimetableItemDetailContent(
                         uiState = uiState.timetableItem,
-                        onViewDocumentClick = {/*TODO*/ },
-                        onWatchVideoClick = {/*TODO*/ }
+                        onViewDocumentClick = { /*TODO*/ },
+                        onWatchVideoClick = { /*TODO*/ },
                     )
                 }
             }
