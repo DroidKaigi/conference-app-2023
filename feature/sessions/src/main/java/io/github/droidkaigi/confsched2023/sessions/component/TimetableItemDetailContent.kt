@@ -220,11 +220,11 @@ private fun ArchiveSection(
                         }
                     },
                     colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.primary
+                        containerColor = MaterialTheme.colorScheme.primary,
                     ),
                     shape = RoundedCornerShape(100.dp),
                     border = AssistChipDefaults.assistChipBorder(
-                        borderColor = MaterialTheme.colorScheme.primary
+                        borderColor = MaterialTheme.colorScheme.primary,
                     ),
                     modifier = Modifier.align(Alignment.Center),
                 )
