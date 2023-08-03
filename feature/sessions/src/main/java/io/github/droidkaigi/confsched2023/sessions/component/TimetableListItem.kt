@@ -81,7 +81,19 @@ fun TimetableListItem(
             fontSize = 22.sp,
             lineHeight = 28.sp,
         )
+
         Spacer(modifier = Modifier.size(8.dp))
+
+        if (timetableItem is Session) {
+            timetableItem.message?.let {
+                Text(
+                    text = it.currentLangTitle,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.size(12.dp))
         Column {
             timetableItem.speakers.forEachIndexed { index, speaker ->
                 Row(
