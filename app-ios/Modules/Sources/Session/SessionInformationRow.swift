@@ -9,10 +9,12 @@ struct SessionInformationRow: View {
     var body: some View {
         HStack {
             icon
-            Text(title)
-                .font(Font.system(size: 14, weight: .semibold))
-            Text(content)
-                .font(Font.system(size: 14, weight: .semibold))
+            HStack(spacing: 12) {
+                Text(title)
+                    .font(Font.system(size: 14, weight: .semibold))
+                Text(content)
+                    .font(Font.system(size: 14, weight: .semibold))
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundStyle(

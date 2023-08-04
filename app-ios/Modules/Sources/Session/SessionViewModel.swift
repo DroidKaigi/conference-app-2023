@@ -1,7 +1,7 @@
 import Foundation
 import shared
 
-final class SessionViewModel: ObservableObject {
+final class SessionViewModel {
     let timetableItem: TimetableItem
 
     init(timetableItem: TimetableItem) {
