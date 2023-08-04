@@ -1,4 +1,5 @@
-<img width="1024" alt="readme-banner" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/e588ade5-84a1-4960-b0c7-74dcc94aae19">
+![readme-banner](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/4e58e869-806d-4e10-a5be-0e3b3aae2305)
+
 
 # DroidKaigi 2023 official app
 
