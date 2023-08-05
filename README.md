@@ -185,7 +185,7 @@ private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildU
 }
 ```
 
-The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
+The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single timetableContentUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
 # Build / CI
 
@@ -219,7 +219,7 @@ Detailed Diagram
 ## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
 [Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
-We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
+We use [Roborazzi](https://github.com/takahirom/roborazzi) to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
 ### What to test: Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
