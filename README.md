@@ -191,11 +191,11 @@ The buildUiState() function combines the data from sessionsStateFlow and filters
 
 This project runs on GitHub Actions. This year's workflows contain new challenges!
 
-## Provide the same CI experiences for the both of members and contributors(you!)
+## Provide the same CI experiences for both members and contributors(you!)
 
-This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
+This project is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
 
-This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
+This achieves to post comments on forked PRs safely. For example, you can see the results of the visual testing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
 
 ## WIP - Automatic dependency updates
 
@@ -287,7 +287,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 ## Fake API Server
 
-To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual repositories. 
+To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual API. 
 We have also designed our API to manage its own state and to allow us to change its behavior as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Behavior` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
 
 ```kotlin
