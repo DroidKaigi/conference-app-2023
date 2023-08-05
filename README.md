@@ -233,12 +233,10 @@ So, for important features, we should add assertion tests to these parts. The te
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
 class TimetableScreenTest {
-
     @get:Rule
-    val robotTestRule = RobotTestRule(this)
+    @BindValue val robotTestRule: RobotTestRule = RobotTestRule<MainActivity>(this)
 
-    @Inject
-    lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
 
     // A screenshot test
     @Test
