@@ -28,6 +28,8 @@ This is a video of an app in development, and it will be updated as needed.
 
 Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
 
+<img width="401" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d600dc70-e0e8-45ee-afd4-b90bc5b2517b">
+
 ```
 sessions
 ├── TimetableScreen.kt
@@ -157,23 +159,10 @@ To fetch a string:
 println(SessionsStrings.Timetable.asString())
 ```
 
-# Build / CI
-
-This project runs on GitHub Actions. This year's workflows contain new challenges!
-
-## Provide the same CI experiences for the both of members and contributors(you!)
-
-This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
-
-This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
-
-## WIP - Automatic dependency updates
-
-> This workflow is disabled now.
-
-We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
-
 ## Single Source of Truth with buildUiState() {}
+
+<img width="351" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/9d0ebc3b-1e5e-46fd-8a0c-1ad4a0980476">
+
 The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
 
 By working with StateFlow objects, the function can also compute initial values, further enhancing the SSOT principle.
@@ -198,11 +187,33 @@ private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildU
 
 The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
+# Build / CI
+
+This project runs on GitHub Actions. This year's workflows contain new challenges!
+
+## Provide the same CI experiences for the both of members and contributors(you!)
+
+This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
+
+This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
+
+## WIP - Automatic dependency updates
+
+> This workflow is disabled now.
+
+We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
+
 # Testing
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
+Overview Diagram
+
 ![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a79bccbb-7486-4be9-865f-0655280af656)
+
+Detailed Diagram
+
+<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/34d9d0d6-2bea-4311-a20c-64f2c2b3e0bd">
 
 
 ## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
