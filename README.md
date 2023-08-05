@@ -1,18 +1,19 @@
 ![readme-banner](https://github.com/DroidKaigi/conference-app-2023/assets/136104152/b24bf87d-7af0-4224-9321-bfc101d541fb)
 
 
-
 # DroidKaigi 2023 official app
 
 [DroidKaigi 2023](https://2023.droidkaigi.jp/) will be held from September 14 to September 16, 2023. We are developing its application. Let's develop the app together and make it exciting.
 
 # Features
 
-WIP
-
-We are going to update this video.
+This is a video of an app in development, and it will be updated as needed.
 
 [Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/b30d8912-387c-48cc-8eb3-a4ea4b8ccb21)
+
+# Try it out!
+
+[<img src="https://dply.me/l3yo7p/button/large" alt="Try it on your device via DeployGate">](https://dply.me/l3yo7p#install)
 
 # Architecture
 
