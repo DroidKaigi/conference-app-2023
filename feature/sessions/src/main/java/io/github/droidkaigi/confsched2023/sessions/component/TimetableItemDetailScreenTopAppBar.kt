@@ -54,7 +54,7 @@ fun TimetableItemDetailScreenTopAppBar(
                         MaterialTheme.typography.titleLarge,
                         MaterialTheme.typography.titleMedium,
                         MaterialTheme.typography.titleSmall,
-                    )
+                    ),
                 )
             }
         },
