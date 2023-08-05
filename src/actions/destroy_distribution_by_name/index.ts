@@ -46,7 +46,11 @@ async function run(): Promise<void> {
       core.setOutput('response', JSON.stringify(json))
     }
   } catch (error) {
-    core.setFailed(error.message)
+    if(error instanceof Error) {
+      core.setFailed(error.message)
+    } else {
+      core.setFailed('An unknown error occurred')
+    }
   }
 }
 

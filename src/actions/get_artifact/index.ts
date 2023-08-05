@@ -21,7 +21,7 @@ async function run(): Promise<void> {
 
     const octokit = github.getOctokit(token)
 
-    const {data: artifact} = await octokit.actions.getArtifact({
+    const {data: artifact} = await octokit.rest.actions.getArtifact({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       artifact_id: artifactId
@@ -29,7 +29,7 @@ async function run(): Promise<void> {
 
     core.setOutput('artifact', JSON.stringify(artifact))
 
-    const {data: zipData} = await octokit.actions.downloadArtifact({
+    const {data: zipData} = await octokit.rest.actions.downloadArtifact({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       artifact_id: artifactId,
@@ -41,7 +41,11 @@ async function run(): Promise<void> {
 
     core.setOutput('archive-path', archivePath)
   } catch (error) {
-    core.setFailed(error.message)
+    if(error instanceof Error) {
+      core.setFailed(error.message)
+    } else {
+      core.setFailed('An unknown error occurred')
+    }
   }
 }
 

@@ -15,7 +15,7 @@ async function run(): Promise<void> {
 
     const octokit = github.getOctokit(token)
 
-    const {data: deploymentStatus} = await octokit.repos.createDeploymentStatus(
+    const {data: deploymentStatus} = await octokit.rest.repos.createDeploymentStatus(
       {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
@@ -29,7 +29,11 @@ async function run(): Promise<void> {
 
     core.setOutput('deployment-status', JSON.stringify(deploymentStatus))
   } catch (error) {
-    core.setFailed(error.message)
+    if(error instanceof Error) {
+      core.setFailed(error.message)
+    } else {
+      core.setFailed('An unknown error occurred')
+    }
   }
 }
 

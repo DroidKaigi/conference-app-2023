@@ -16,7 +16,7 @@ async function run(): Promise<void> {
     const octokit = github.getOctokit(token)
 
     core.info(`will be creating a new ${environment} deployment`)
-    const {data: deployment} = await octokit.repos.createDeployment({
+    const {data: deployment} = await octokit.rest.repos.createDeployment({
       owner: github.context.repo.owner,
       repo: github.context.repo.repo,
       ref,
@@ -31,11 +31,15 @@ async function run(): Promise<void> {
       }
     })
 
-    core.info(`created a new deployment (${deployment.id})`)
+    core.info(`created a new deployment`)
     core.debug(JSON.stringify(deployment))
     core.setOutput('deployment', JSON.stringify(deployment))
   } catch (error) {
-    core.setFailed(error.message)
+    if(error instanceof Error) {
+      core.setFailed(error.message)
+    } else {
+      core.setFailed('An unknown error occurred')
+    }
   }
 }
 
