@@ -4,6 +4,10 @@ import shared
 import SwiftUI
 import Theme
 
+enum TimetableRouting: Hashable {
+    case session(TimetableItem)
+}
+
 public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
@@ -42,7 +46,7 @@ public struct TimetableView<SessionView: View>: View {
                                 header: TimetableDayHeader(
                                     selectedDay: viewModel.state.selectedDay
                                 ) {
-                                        viewModel.selectDay(day: $0)
+                                    viewModel.selectDay(day: $0)
                                 }
                             ) {
                                 TimetableListView(timetableTimeGroupItems: state)
@@ -50,8 +54,11 @@ public struct TimetableView<SessionView: View>: View {
                         }
                         .background(AssetColors.Surface.surface.swiftUIColor)
                     }
-                    .navigationDestination(for: TimetableItem.self) { item in
-                        sessionViewBuilder(item)
+                    .navigationDestination(for: TimetableRouting.self) { routing in
+                        switch routing {
+                        case .session(let item):
+                            sessionViewBuilder(item)
+                        }
                     }
                 }
                 .background(AssetColors.Surface.surfaceVariant.swiftUIColor)

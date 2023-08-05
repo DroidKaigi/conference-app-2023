@@ -64,7 +64,10 @@ var package = Package(
         .target(
             name: "Session",
             dependencies: [
+                "Assets",
+                "Model",
                 "shared",
+                "Theme",
             ]
         ),
         .testTarget(

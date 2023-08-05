@@ -22,8 +22,8 @@ public struct RootView: View {
     public var body: some View {
         TabView(selection: $selection) {
             TimetableView(
-                sessionViewBuilder: { _ in
-                    SessionView()
+                sessionViewBuilder: { timetableItem in
+                    SessionView(timetableItem: timetableItem)
                 }
             )
                 .tag(Tab.timeline)
