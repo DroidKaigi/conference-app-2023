@@ -19,6 +19,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTab
@@ -32,11 +33,11 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 sealed interface TimetableSheetUiState {
     object Empty : TimetableSheetUiState
     data class ListTimetable(
-        val timetableListUiState: TimetableListUiState,
+        val timetableListUiStates: Map<DroidKaigi2023Day, TimetableListUiState>,
     ) : TimetableSheetUiState
 
     data class GridTimetable(
-        val timetableGridUiState: TimetableGridUiState,
+        val timetableGridUiState: Map<DroidKaigi2023Day, TimetableGridUiState>,
     ) : TimetableSheetUiState
 }
 
@@ -48,7 +49,7 @@ fun TimetableSheet(
     onFavoriteClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+    var selectedDay by remember { mutableStateOf(DroidKaigi2023Day.Day1) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
@@ -65,15 +66,14 @@ fun TimetableSheet(
         ) {
             TimetableTabRow(
                 tabState = timetableSheetContentScrollState.tabScrollState,
-                selectedTabIndex = selectedTabIndex,
+                selectedTabIndex = DroidKaigi2023Day.values().indexOf(selectedDay),
             ) {
-                // TODO: Mapping tab data
-                (0..2).forEach {
+                DroidKaigi2023Day.values().forEach { day ->
                     TimetableTab(
-                        day = it,
-                        selected = it == selectedTabIndex,
+                        day = day,
+                        selected = day == selectedDay,
                         onClick = {
-                            selectedTabIndex = it
+                            selectedDay = day
                         },
                         scrollState = timetableSheetContentScrollState.tabScrollState,
                     )
@@ -89,7 +89,7 @@ fun TimetableSheet(
 
                 is ListTimetable -> {
                     TimetableList(
-                        uiState = uiState.timetableListUiState,
+                        uiState = requireNotNull(uiState.timetableListUiStates[selectedDay]),
                         onTimetableItemClick = onTimetableItemClick,
                         onBookmarkClick = onFavoriteClick,
                         modifier = Modifier
@@ -100,9 +100,8 @@ fun TimetableSheet(
 
                 is GridTimetable -> {
                     TimetableGrid(
-                        uiState = uiState.timetableGridUiState,
+                        uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
                         onTimetableItemClick = onTimetableItemClick,
-                        onBookmarked = onFavoriteClick,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),

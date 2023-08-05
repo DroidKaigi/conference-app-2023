@@ -6,7 +6,6 @@ package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
@@ -28,6 +27,7 @@ public sealed class TimetableItem {
     public abstract val language: TimetableLanguage
     public abstract val asset: TimetableAsset
     public abstract val levels: PersistentList<String>
+    public abstract val speakers: PersistentList<TimetableSpeaker>
     public val day: DroidKaigi2023Day? get() = DroidKaigi2023Day.ofOrNull(startsAt)
 
     @Serializable
@@ -42,8 +42,8 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
+        override val speakers: PersistentList<TimetableSpeaker>,
         val description: String,
-        val speakers: PersistentList<TimetableSpeaker>,
         val message: MultiLangText?,
     ) : TimetableItem() {
         public companion object
@@ -61,11 +61,21 @@ public sealed class TimetableItem {
         override val language: TimetableLanguage,
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
-        val speakers: PersistentList<TimetableSpeaker> = persistentListOf(),
+        override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
+
+    public val startsDateString: String by lazy {
+        val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(2, '0') + "." + "${localDate.dayOfMonth}".padStart(2, '0')
+    }
 
     public val startsTimeString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
+    }
+
+    public val endsTimeString: String by lazy {
+        val localDate = endsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
@@ -74,15 +84,34 @@ public sealed class TimetableItem {
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
     }
+
+    public val speakerString: String by lazy {
+        speakers.joinToString(", ") { it.name }
+    }
+
+    fun getSupportedLangString(isJapaneseLocale: Boolean): String {
+        val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
+        val english = if (isJapaneseLocale) "英語" else "English"
+        val japaneseWithInterpretation =
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+        val englishWithInterpretation =
+            if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
+
+        return when (language.langOfSpeaker) {
+            "JAPANESE" -> if (language.isInterpretationTarget) japaneseWithInterpretation else japanese
+            "ENGLISH" -> if (language.isInterpretationTarget) englishWithInterpretation else english
+            else -> language.langOfSpeaker
+        }
+    }
 }
 
 public fun Session.Companion.fake(): Session {
     return Session(
         id = TimetableItemId("2"),
         title = MultiLangText("DroidKaigiのアプリのアーキテクチャ", "DroidKaigi App Architecture"),
-        startsAt = LocalDateTime.parse("2021-10-20T10:30:00")
+        startsAt = LocalDateTime.parse("2023-09-15T10:30:00")
             .toInstant(TimeZone.of("UTC+9")),
-        endsAt = LocalDateTime.parse("2021-10-20T10:50:00")
+        endsAt = LocalDateTime.parse("2023-09-15T10:50:00")
             .toInstant(TimeZone.of("UTC+9")),
         category = TimetableCategory(
             id = 28654,
@@ -92,9 +121,10 @@ public fun Session.Companion.fake(): Session {
             ),
         ),
         room = TimetableRoom(
-            id = 2,
+            id = 1,
             name = MultiLangText("Room1", "Room2"),
             sort = 1,
+            sortIndex = 1,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(

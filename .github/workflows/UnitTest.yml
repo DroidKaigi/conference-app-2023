@@ -12,17 +12,30 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
+permissions: { }
+
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
+
+    permissions:
+      contents: read # for clone
+      actions: write # for upload-artifact
 
     steps:
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - uses: ./.github/actions/setup-java
-      
+
+      - uses: dawidd6/action-download-artifact@v2
+        continue-on-error: true
+        with:
+          name: screenshot
+          workflow: UnitTest.yml
+          branch: main
+
       - name: Upload an event payload for EnricoMi/publish-unit-test-result-action
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
@@ -30,7 +43,7 @@ jobs:
           path: ${{ github.event_path }}
 
       - name: Run local tests
-        run: ./gradlew testDebug --stacktrace --rerun-tasks
+        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}

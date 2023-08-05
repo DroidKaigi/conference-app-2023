@@ -2,7 +2,6 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
@@ -13,30 +12,38 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarkIconTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
+import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 class TimetableScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
-
+    @Inject lateinit var robotTestRule: RobotTestRule
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        robotTestRule: RobotTestRule<*>,
         block: TimetableScreenRobot.() -> Unit,
     ) {
-        this.composeTestRule = robotTestRule.composeTestRule
-        block()
+        runTestWithLogging(timeout = 30.seconds) {
+            this@TimetableScreenRobot.composeTestRule = robotTestRule.composeTestRule
+            block()
+        }
     }
 
     fun setupTimetableScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
                 TimetableScreen(
+                    onSearchClick = { },
                     onTimetableItemClick = { },
+                    onBookmarkIconClick = { },
                 )
             }
         }
@@ -53,15 +60,27 @@ class TimetableScreenRobot @Inject constructor(
 
     fun clickFirstSessionBookmark() {
         composeTestRule
-            .onAllNodes(hasText("☆"))
+            .onAllNodes(hasTestTag(TimetableListItemBookmarkIconTestTag))
             .onFirst()
             .performClick()
         waitUntilIdle()
     }
 
+    fun clickSearchButton() {
+        composeTestRule
+            .onNode(hasTestTag(SearchButtonTestTag))
+            .performClick()
+    }
+
     fun clickTimetableUiTypeChangeButton() {
         composeTestRule
             .onNode(hasTestTag(TimetableUiTypeChangeButtonTestTag))
+            .performClick()
+    }
+
+    fun clickBookmarkButton() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableBookmarkIconTestTag))
             .performClick()
     }
 

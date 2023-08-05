@@ -8,6 +8,10 @@
 
   "baseBranches": ["main"],
 
+  // for saving GitHub Actions minutes
+  // We are going to remove this when we migrate to public repository
+  "rebaseWhen": "never",
+
   "timezone": "Asia/Tokyo",
 
   "prHourlyLimit": 0, // # of PRs will be created but never exceed prConcurrentLimit. 0 means infinite.

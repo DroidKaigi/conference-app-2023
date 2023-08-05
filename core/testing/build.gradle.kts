@@ -12,9 +12,9 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:designsystem"))
     implementation(project(":core:data"))
-    implementation(project(":app-android"))
     implementation(project(":feature:main"))
     implementation(project(":feature:sessions"))
+    implementation(project(":feature:about"))
 
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)

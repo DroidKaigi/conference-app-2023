@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D71E9A7E29FAB09800888B02 /* Session in Frameworks */ = {isa = PBXBuildFile; productRef = D71E9A7D29FAB09800888B02 /* Session */; };
-		D77DAF7129FAA148007195DB /* DroidKaigi2023App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF7029FAA148007195DB /* DroidKaigi2023App.swift */; };
-		D77DAF7329FAA148007195DB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF7229FAA148007195DB /* ContentView.swift */; };
+		D77DAF7129FAA148007195DB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF7029FAA148007195DB /* App.swift */; };
 		D77DAF7529FAA149007195DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77DAF7429FAA149007195DB /* Assets.xcassets */; };
 		D77DAF7929FAA149007195DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77DAF7829FAA149007195DB /* Preview Assets.xcassets */; };
 		D77DAF8329FAA14A007195DB /* DroidKaigi2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8229FAA14A007195DB /* DroidKaigi2023Tests.swift */; };
 		D77DAF8D29FAA14A007195DB /* DroidKaigi2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */; };
 		D77DAF8F29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */; };
+		E847EB8B2A379C620051EF1A /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = E847EB8A2A379C620051EF1A /* Navigation */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +35,7 @@
 
 /* Begin PBXFileReference section */
 		D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroidKaigi2023.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D77DAF7029FAA148007195DB /* DroidKaigi2023App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023App.swift; sourceTree = "<group>"; };
-		D77DAF7229FAA148007195DB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D77DAF7029FAA148007195DB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D77DAF7429FAA149007195DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DroidKaigi2023.entitlements; sourceTree = "<group>"; };
 		D77DAF7829FAA149007195DB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -53,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71E9A7E29FAB09800888B02 /* Session in Frameworks */,
+				E847EB8B2A379C620051EF1A /* Navigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,8 +103,7 @@
 		D77DAF6F29FAA148007195DB /* DroidKaigi2023 */ = {
 			isa = PBXGroup;
 			children = (
-				D77DAF7029FAA148007195DB /* DroidKaigi2023App.swift */,
-				D77DAF7229FAA148007195DB /* ContentView.swift */,
+				D77DAF7029FAA148007195DB /* App.swift */,
 				D77DAF7429FAA149007195DB /* Assets.xcassets */,
 				D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */,
 				D77DAF7729FAA149007195DB /* Preview Content */,
@@ -156,7 +153,7 @@
 			);
 			name = DroidKaigi2023;
 			packageProductDependencies = (
-				D71E9A7D29FAB09800888B02 /* Session */,
+				E847EB8A2A379C620051EF1A /* Navigation */,
 			);
 			productName = DroidKaigi2023;
 			productReference = D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */;
@@ -272,8 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D77DAF7329FAA148007195DB /* ContentView.swift in Sources */,
-				D77DAF7129FAA148007195DB /* DroidKaigi2023App.swift in Sources */,
+				D77DAF7129FAA148007195DB /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +362,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Debug;
 		};
@@ -418,6 +415,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
 			};
 			name = Release;
 		};
@@ -443,7 +441,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -483,7 +481,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -629,9 +627,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D71E9A7D29FAB09800888B02 /* Session */ = {
+		E847EB8A2A379C620051EF1A /* Navigation */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Session;
+			productName = Navigation;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

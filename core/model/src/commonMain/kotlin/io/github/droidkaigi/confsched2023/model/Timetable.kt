@@ -83,10 +83,10 @@ public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
     var rooms = listOf(
-        TimetableRoom(0, MultiLangText("App Bar", "App Bar"), 0),
-        TimetableRoom(1, MultiLangText("Backdrop", "Backdrop"), 1),
-        TimetableRoom(2, MultiLangText("Cards", "Cards"), 2),
-        TimetableRoom(3, MultiLangText("Dialogs", "Dialogs"), 3),
+        TimetableRoom(1, MultiLangText("App Bar", "App Bar"), 0, 0),
+        TimetableRoom(2, MultiLangText("Backdrop", "Backdrop"), 1, 1),
+        TimetableRoom(3, MultiLangText("Cards", "Cards"), 2, 2),
+        TimetableRoom(4, MultiLangText("Dialogs", "Dialogs"), 3, 3),
     )
     (0..10).forEach { _ ->
         rooms += rooms
@@ -97,9 +97,9 @@ public fun Timetable.Companion.fake(): Timetable {
             TimetableItem.Special(
                 id = TimetableItemId("1"),
                 title = MultiLangText("ウェルカムトーク", "Welcome Talk"),
-                startsAt = LocalDateTime.parse("2022-10-06T10:00:00")
+                startsAt = LocalDateTime.parse("2023-09-15T10:00:00")
                     .toInstant(TimeZone.of("UTC+9")),
-                endsAt = LocalDateTime.parse("2022-10-06T10:20:00")
+                endsAt = LocalDateTime.parse("2023-09-15T10:20:00")
                     .toInstant(TimeZone.of("UTC+9")),
                 category = TimetableCategory(
                     id = 28657,
@@ -117,19 +117,35 @@ public fun Timetable.Companion.fake(): Timetable {
                     "INTERMEDIATE",
                     "ADVANCED",
                 ),
+                speakers = persistentListOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
+                ),
             ),
         )
         (-1..1).forEach { day ->
             (0..20).forEach { index ->
                 val dayOffset = day * 24 * 60 * 60
                 val start = Instant.fromEpochSeconds(
-                    LocalDateTime.parse("2022-10-06T10:10:00")
+                    LocalDateTime.parse("2023-09-15T10:10:00")
                         .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(
                     TimeZone.of("UTC+9"),
                 )
                 val end = Instant.fromEpochSeconds(
-                    LocalDateTime.parse("2022-10-06T10:50:00")
+                    LocalDateTime.parse("2023-09-15T10:50:00")
                         .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(
                     TimeZone.of("UTC+9"),
@@ -157,9 +173,9 @@ public fun Timetable.Companion.fake(): Timetable {
             TimetableItem.Special(
                 id = TimetableItemId("3"),
                 title = MultiLangText("Closing", "Closing"),
-                startsAt = LocalDateTime.parse("2022-10-06T10:40:00")
+                startsAt = LocalDateTime.parse("2023-09-15T10:40:00")
                     .toInstant(TimeZone.of("UTC+9")),
-                endsAt = LocalDateTime.parse("2022-10-06T11:00:00")
+                endsAt = LocalDateTime.parse("2023-09-15T11:00:00")
                     .toInstant(TimeZone.of("UTC+9")),
                 category = TimetableCategory(
                     id = 28657,
@@ -176,6 +192,22 @@ public fun Timetable.Companion.fake(): Timetable {
                     "BEGINNER",
                     "INTERMEDIATE",
                     "ADVANCED",
+                ),
+                speakers = persistentListOf(
+                    TimetableSpeaker(
+                        id = "1",
+                        name = "taka",
+                        iconUrl = "https://github.com/takahirom.png",
+                        bio = "Likes Android",
+                        tagLine = "Android Engineer",
+                    ),
+                    TimetableSpeaker(
+                        id = "2",
+                        name = "ry",
+                        iconUrl = "https://github.com/ry-itto.png",
+                        bio = "Likes iOS",
+                        tagLine = "iOS Engineer",
+                    ),
                 ),
             ),
         )

@@ -1,6 +1,8 @@
-# DroidKaigi 2023 official app
+![readme-banner](https://github.com/DroidKaigi/conference-app-2023/assets/136104152/b24bf87d-7af0-4224-9321-bfc101d541fb)
 
-DroidKaigi 2023 official app is an app for DroidKaigi 2023.
+
+
+# DroidKaigi 2023 official app
 
 # UI
 
@@ -171,6 +173,9 @@ The buildUiState() function combines the data from sessionsStateFlow and filters
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
+![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a79bccbb-7486-4be9-865f-0655280af656)
+
+
 ### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
 [Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
@@ -240,6 +245,60 @@ While GitHub Actions Artifacts and Git LFS could be used for storing screenshots
 
 The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
 
+### Fake API Server
+
+To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual repositories. 
+We have also designed our API to manage its own state and to allow us to change its behavior as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Behavior` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
+
+```kotlin
+interface SessionsApi {
+    suspend fun timetable(): Timetable
+}
+
+class FakeSessionsApi : SessionsApi {
+
+    sealed class Behavior : SessionsApi {
+        object Operational : Behavior() {
+            override suspend fun timetable(): Timetable {
+                return Timetable.fake()
+            }
+        }
+
+        object Error : Behavior() {
+            override suspend fun timetable(): Timetable {
+                throw IOException("Fake IO Exception")
+            }
+        }
+    }
+
+    private var behavior: Behavior = Behavior.Operational
+
+    fun setup(behavior: Behavior) {
+        this.behavior = behavior
+    }
+
+    override suspend fun timetable(): Timetable {
+        return behavior.timetable()
+    }
+}
+```
+
+We use the `FakeSessionsApi` throughout our tests. It's provided by the `FakeSessionsApiModule`, which replaces the original `SessionsApiModule` during testing.
+
+```kotlin
+@Module
+@TestInstallIn(
+    components = [SingletonComponent::class], 
+    replaces = [SessionsApiModule::class]
+)
+class FakeSessionsApiModule {
+    @Provides
+    fun provideSessionsApi(): SessionsApi {
+        return FakeSessionsApi()
+    }
+}
+```
+
 # iOS
 
 ## Requirements
@@ -256,7 +315,7 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 
 2. Setup
    1. `bundle install`
-   2. `bundle exec fastlane build-kmm`
+   2. `bundle exec fastlane shared`
    
 3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
 
@@ -273,12 +332,19 @@ The Testing Robot Pattern simplifies writing UI tests. It splits the test code i
 - Set configs like below
   - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
 
+# Contributing
+
+We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
+
 # Special thanks
 
  - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
  - UI Lead: [upon0426](https://github.com/upon0426)
  - Build/CI Lead: [tomoya0x00](https://github.com/tomoya0x00)
- - Designer: TBD
+ - Designer: [nobonobopurin](https://github.com/nobonobopurin)
+ - Material3 Lead: [Nabe](https://twitter.com/NabeCott)
  - iOS Lead: [ry-itto](https://github.com/ry-itto)
  - Server / API Lead: [ryunen344](https://github.com/ryunen344)
  - DroidKaigi Co-Organizer / Architecture Lead: [takahirom](https://github.com/takahirom)

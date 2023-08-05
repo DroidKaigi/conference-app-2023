@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/realm/swiftlint:0.52.2
+      image: ghcr.io/realm/swiftlint:0.52.4
 
     steps:
       - name: Checkout

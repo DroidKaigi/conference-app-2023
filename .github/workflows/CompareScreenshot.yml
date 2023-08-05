@@ -12,7 +12,7 @@ permissions: { }
 jobs:
   compare-screenshot-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
 
     permissions:
       contents: read # for clone
@@ -44,7 +44,7 @@ jobs:
       - name: compare screenshot test
         id: compare-screenshot-test
         run: |
-          ./gradlew compareRoborazziDebug --stacktrace --rerun-tasks -Proborazzi.test.compare=true -Proborazzi.test.record=false -Pscreenshot
+          ./gradlew compareRoborazziDebug compareRoborazziDevDebug --stacktrace -Pscreenshot
 
       - uses: actions/upload-artifact@v3
         if: ${{ always() }}

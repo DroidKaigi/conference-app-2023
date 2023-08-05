@@ -4,12 +4,11 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusGroup
+import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.drag
-import androidx.compose.foundation.gestures.forEachGesture
 import androidx.compose.foundation.gestures.rememberTransformableState
-import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
@@ -70,7 +69,6 @@ data class TimetableGridUiState(val timetable: Timetable)
 fun TimetableGrid(
     uiState: TimetableGridUiState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarked: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val timetableGridState = rememberTimetableGridState()
@@ -79,12 +77,10 @@ fun TimetableGrid(
         timetableState = timetableGridState,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
-    ) { timetableItem, isBookmarked ->
+    ) { timetableItem ->
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = onTimetableItemClick,
-            isBookmarked = isBookmarked,
-            onBookmarkClick = { onBookmarked(timetableItem) },
         )
     }
 }
@@ -96,12 +92,12 @@ fun TimetableGrid(
     timetableState: TimetableState,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    content: @Composable (TimetableItem, Boolean) -> Unit,
+    content: @Composable (TimetableItem) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
         val timetableItemWithFavorite = timetable.contents[index]
-        content(timetableItemWithFavorite.timetableItem, timetableItemWithFavorite.isFavorited)
+        content(timetableItemWithFavorite.timetableItem)
     }
     val density = timetableState.density
     val verticalScale = timetableState.screenScaleState.verticalScale
@@ -172,9 +168,10 @@ fun TimetableGrid(
                     },
                 )
             }
-            .transformable(
-                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
-            )
+            // FIXME: This disables timetable scroll
+//            .transformable(
+//                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
+//            )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
                     value = { -scrollState.scrollX },
@@ -249,11 +246,9 @@ fun TimetablePreview() {
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
         timetableState = timetableState,
-    ) { timetableItem, isBookmarked ->
+    ) { timetableItem ->
         TimetableGridItem(
             timetableItem = timetableItem,
-            isBookmarked = isBookmarked,
-            onBookmarkClick = {},
             onTimetableItemClick = {},
         )
     }
@@ -639,28 +634,26 @@ internal suspend fun PointerInputScope.detectDragGestures(
     onDragCancel: () -> Unit = { },
     onDrag: (change: PointerInputChange, dragAmount: Offset) -> Unit,
 ) {
-    forEachGesture {
-        awaitPointerEventScope {
-            val down = awaitFirstDown(requireUnconsumed = false)
-            var drag: PointerInputChange?
-            val overSlop = Offset.Zero
-            do {
-                drag = awaitTouchSlopOrCancellation(down.id, onDrag)
-                // ! EVERY Default movable GESTURE HAS THIS CHECK
-            } while (drag != null && !drag.isConsumed)
-            if (drag != null) {
-                onDragStart.invoke(drag.position)
-                onDrag(drag, overSlop)
-                if (
-                    !drag(drag.id) {
-                        onDrag(it, it.positionChange())
-                        it.consume()
-                    }
-                ) {
-                    onDragCancel()
-                } else {
-                    onDragEnd()
+    awaitEachGesture {
+        val down = awaitFirstDown(requireUnconsumed = false)
+        var drag: PointerInputChange?
+        val overSlop = Offset.Zero
+        do {
+            drag = awaitTouchSlopOrCancellation(down.id, onDrag)
+            // ! EVERY Default movable GESTURE HAS THIS CHECK
+        } while (drag != null && !drag.isConsumed)
+        if (drag != null) {
+            onDragStart.invoke(drag.position)
+            onDrag(drag, overSlop)
+            if (
+                !drag(drag.id) {
+                    onDrag(it, it.positionChange())
+                    it.consume()
                 }
+            ) {
+                onDragCancel()
+            } else {
+                onDragEnd()
             }
         }
     }
