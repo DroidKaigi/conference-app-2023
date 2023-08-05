@@ -26,6 +26,7 @@ var package = Package(
             name: "About",
             dependencies: [
                 "Assets",
+                "Component",
                 "shared",
                 "Model",
                 "Theme",
@@ -50,6 +51,13 @@ var package = Package(
         ),
 
         .target(
+            name: "Component",
+            dependencies: [
+                "Theme",
+            ]
+        ),
+
+        .target(
             name: "FloorMap",
             dependencies: [
                 "Assets",
@@ -68,6 +76,7 @@ var package = Package(
             name: "Session",
             dependencies: [
                 "Assets",
+                "Component",
                 "Model",
                 "shared",
                 "Theme",

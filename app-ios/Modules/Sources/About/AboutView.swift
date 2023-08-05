@@ -1,4 +1,5 @@
 import Assets
+import Component
 import SwiftUI
 import Theme
 
@@ -14,46 +15,26 @@ public struct AboutView: View {
                         .font(Font.system(size: 16))
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 0) {
-                            Assets.Icons.info.swiftUIImage
-                            Spacer().frame(width: 8)
-                            Text("日時")
-                                .font(Font.system(size: 14, weight: .semibold))
-                            Spacer().frame(width: 12)
-                            Text("2023.09.14(木) 〜 16(土) 3日間")
-                                .font(Font.system(size: 14, weight: .semibold))
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(
-                            AssetColors.Surface.onSurfaceVariant.swiftUIColor
+                        InformationRow(
+                            icon: Assets.Icons.info.swiftUIImage,
+                            title: "日時",
+                            content: "2023.09.14(木) 〜 16(土) 3日間"
                         )
-                        HStack(spacing: 0) {
-                            Assets.Icons.info.swiftUIImage
-                            Spacer().frame(width: 8)
-                            Text("場所")
-                                .font(Font.system(size: 14, weight: .semibold))
-                            Spacer().frame(width: 12)
-                            Text("ベルサール渋谷ガーデン")
-                                .font(Font.system(size: 14, weight: .semibold))
-                            Spacer().frame(width: 8)
-                            Button {
-                                // TODO: Open map
-                            } label: {
-                                Text("地図を見る")
-                                    .font(Font.system(size: 14, weight: .semibold))
-                                    .underline()
-                                    .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundStyle(
-                            AssetColors.Surface.onSurfaceVariant.swiftUIColor
+                        InformationRow(
+                            icon: Assets.Icons.info.swiftUIImage,
+                            title: "場所",
+                            content: "ベルサール渋谷ガーデン",
+                            action: .init(
+                                label: "地図を見る",
+                                action: {
+                                    // TODO: Open map
+                                }
+                            )
                         )
                     }
                     .padding(.vertical, 20)
                     .padding(.horizontal, 16)
-                    // TODO: Use SurfaceContainerLow
-                    .background(AssetColors.Surface.surfaceContainer.swiftUIColor)
+                    .background(AssetColors.Surface.surfaceContainerLow.swiftUIColor)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     Spacer().frame(height: 32)
                     SectionTitle(title: "Credits")
