@@ -86,7 +86,7 @@ public sealed class TimetableItem {
     }
 
     public val formattedDateTimeString: String by lazy {
-        "$startsDateString / $startsTimeString ~ $endsTimeString (${minutesString})"
+        "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
     }
 
     public val speakerString: String by lazy {
