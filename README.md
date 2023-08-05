@@ -4,7 +4,14 @@
 
 # DroidKaigi 2023 official app
 
+[DroidKaigi 2023](https://2023.droidkaigi.jp/) will be held from September 14 to September 16, 2023. We are developing its application. Let's develop the app together and make it exciting.
+
 # UI
+
+WIP
+
+[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/b30d8912-387c-48cc-8eb3-a4ea4b8ccb21)
+
 
 ## Composable Function Categorization
 
