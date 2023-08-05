@@ -51,7 +51,7 @@ fun TimetableItemDetailSummaryCard(
             TimetableItemDetailSummaryCardRow(
                 leadingIcon = Icons.Filled.Schedule,
                 label = SessionsStrings.Date.asString(),
-                content = "${timetableItem.startsDateString} / ${timetableItem.startsTimeString} ~ ${timetableItem.endsTimeString} (${timetableItem.minutesString})",
+                content = timetableItem.formattedDateTimeString,
             )
             TimetableItemDetailSummaryCardRow(
                 leadingIcon = Icons.Filled.Place,
