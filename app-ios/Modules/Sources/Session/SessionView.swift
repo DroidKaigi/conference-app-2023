@@ -12,7 +12,7 @@ private let startDateFormatter: DateFormatter = {
 }()
 
 public struct SessionView: View {
-    @ObservedObject var viewModel: SessionViewModel
+    let viewModel: SessionViewModel
     @State var isDescriptionExpanded: Bool = false
 
     private var dateString: String {
