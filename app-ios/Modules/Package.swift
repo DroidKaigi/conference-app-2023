@@ -9,6 +9,7 @@ var package = Package(
         .iOS(.v16),
     ],
     products: [
+        .library(name: "Component", targets: ["Component"]),
         .library(name: "FloorMap", targets: ["FloorMap"]),
         .library(name: "Session", targets: ["Session"]),
         .library(name: "Timetable", targets: ["Timetable"]),
@@ -90,6 +91,17 @@ var package = Package(
         ),
 
         .target(
+            name: "Contributor",
+            dependencies: [
+                "Assets",
+                "Component",
+                "Model",
+                "shared",
+                "Theme",
+            ]
+        ),
+
+        .target(
             name: "Stamps",
             dependencies: [
                 "shared",
@@ -126,6 +138,7 @@ var package = Package(
                 "FloorMap",
                 "Session",
                 "Stamps",
+                "Contributor",
                 "Theme",
                 "Timetable",
             ]
