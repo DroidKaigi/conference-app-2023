@@ -9,5 +9,5 @@ outputs:
   paths:
     description: 'An array string of found paths'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

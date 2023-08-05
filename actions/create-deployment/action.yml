@@ -20,5 +20,5 @@ outputs:
   deployment:
     description: 'a new deployment object'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

@@ -25,5 +25,5 @@ outputs:
   response:
     description: 'The api response from DeployGate'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'

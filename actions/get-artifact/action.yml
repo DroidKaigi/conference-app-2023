@@ -17,5 +17,5 @@ outputs:
   archive-path:
     description: 'The destination path of an archive'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
