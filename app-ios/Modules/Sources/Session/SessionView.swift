@@ -15,16 +15,6 @@ public struct SessionView: View {
     let viewModel: SessionViewModel
     @State var isDescriptionExpanded: Bool = false
 
-    private var dateString: String {
-        let startString = startDateFormatter.string(
-            from: viewModel.timetableItem.startsAt.toDate()
-        )
-        let endTimeString = viewModel.timetableItem.endsTimeString
-        let minutesString = viewModel.timetableItem.minutesString
-
-        return "\(startString) ~ \(endTimeString) (\(minutesString))"
-    }
-
     public init(timetableItem: TimetableItem) {
         self.viewModel = .init(timetableItem: timetableItem)
     }
@@ -43,7 +33,7 @@ public struct SessionView: View {
                     SessionInformationRow(
                         icon: Assets.Icons.schedule.swiftUIImage,
                         title: "日付",
-                        content: dateString
+                        content: viewModel.timetableItem.formattedDateTimeString
                     )
                     SessionInformationRow(
                         icon: Assets.Icons.locationOn.swiftUIImage,

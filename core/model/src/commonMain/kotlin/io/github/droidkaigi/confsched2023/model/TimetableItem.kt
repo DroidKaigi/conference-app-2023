@@ -64,7 +64,7 @@ public sealed class TimetableItem {
         override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
-    public val startsDateString: String by lazy {
+    private val startsDateString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(2, '0') + "." + "${localDate.dayOfMonth}".padStart(2, '0')
     }
@@ -79,10 +79,14 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
-    public val minutesString: String by lazy {
+    private val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
+    }
+
+    public val formattedDateTimeString: String by lazy {
+        "$startsDateString / $startsTimeString ~ $endsTimeString (${minutesString})"
     }
 
     public val speakerString: String by lazy {
