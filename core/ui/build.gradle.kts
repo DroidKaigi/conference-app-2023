@@ -15,6 +15,7 @@ kotlin{
             dependencies {
                 implementation(project(":core:designsystem"))
                 implementation(project(":core:data"))
+                implementation(libs.kermit)
                 api(project(":core:common"))
                 api(libs.composeImageLoader)
             }
