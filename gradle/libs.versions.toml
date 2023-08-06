@@ -77,6 +77,7 @@ composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.1" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.0" }
 accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+androidxLifecycleViewModelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.6.1" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -117,6 +118,7 @@ roborazziCompose = { module = "io.github.takahirom.roborazzi:roborazzi-compose",
 roborazziRule = { module = "io.github.takahirom.roborazzi:roborazzi-junit-rule", version.ref = "roborazzi" }
 showkaseRuntime = { group = "com.airbnb.android", name = "showkase", version.ref = "showkase" }
 showkaseProcessor = { group = "com.airbnb.android", name = "showkase-processor", version.ref = "showkase" }
+lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version = "2.6.1" }
 
 [plugins]
 androidGradlePlugin = { id = "com.android.application", version.ref = "androidGradlePlugin" }
