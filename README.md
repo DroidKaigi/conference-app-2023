@@ -19,8 +19,16 @@ This is a video of an app in development, and it will be updated as needed.
 
 ## Overview of the architecture
 
+In addition to general Android practices, we are exploring and implementing various concepts. Details for each are discussed further in this README.
+
 ![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
 
+## Module structure
+
+We are adopting the module separation approach used in 'Now in Android', such as splitting into 'feature' and 'core' modules.
+We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
+
+<img width="637" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c6d1d107-7dae-43f3-81b4-111c94fe89d9">
 
 # UI
 
