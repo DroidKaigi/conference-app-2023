@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - tomoya0x00/make_use_of_gh-actions_2023
   pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
