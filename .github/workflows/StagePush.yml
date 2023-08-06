@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
-          repository: droidkaigi/conference-app-2021
+          repository: droidkaigi/conference-app-2023
           ref: gh-actions
           path: gh-actions
       - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
