@@ -21,5 +21,4 @@ dependencies {
     implementation(libs.kermit)
     api(libs.roborazziRule)
     api(libs.composeUiTestJunit4)
-    implementation(libs.androidxLifecycleViewModelCompose)
 }
