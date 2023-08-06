@@ -9,14 +9,12 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.VIEW_MODEL_KEY
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBookmarkIconTestTag
-import io.github.droidkaigi.confsched2023.sessions.timetableItemDetailScreenRouteItemIdParameterName
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -41,8 +39,10 @@ class TimetableItemDetailScreenRobot @Inject constructor(
         composeTestRule.activityRule
         composeTestRule.setContent {
             KaigiTheme {
-                ((LocalViewModelStoreOwner.current?.viewModelStore as? HasDefaultViewModelProviderFactory)
-                    ?.defaultViewModelCreationExtras as? MutableCreationExtras)
+                (
+                    (LocalViewModelStoreOwner.current?.viewModelStore as? HasDefaultViewModelProviderFactory)
+                        ?.defaultViewModelCreationExtras as? MutableCreationExtras
+                    )
                     ?.set(VIEW_MODEL_KEY, "")
                 TimetableItemDetailScreen(
                     onNavigationIconClick = { },

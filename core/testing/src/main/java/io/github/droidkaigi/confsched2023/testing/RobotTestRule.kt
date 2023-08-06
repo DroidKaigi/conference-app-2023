@@ -28,13 +28,13 @@ inline fun <reified A : ComponentActivity> RobotTestRule(
         activityRule = ActivityScenarioRule(
             Intent(
                 ApplicationProvider.getApplicationContext(),
-                A::class.java
+                A::class.java,
             ).apply {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 if (bundle != null) {
                     putExtras(bundle)
                 }
-            }
+            },
         ),
         activityProvider = { rule ->
             var activity: A? = null
@@ -43,11 +43,11 @@ inline fun <reified A : ComponentActivity> RobotTestRule(
                 throw IllegalStateException("Activity was not set in the ActivityScenarioRule!")
             }
             return@AndroidComposeTestRule activity!!
-        }
+        },
     )
     return RobotTestRule(
         testInstance,
-        composeTestRule as AndroidComposeTestRule<ActivityScenarioRule<*>, *>
+        composeTestRule as AndroidComposeTestRule<ActivityScenarioRule<*>, *>,
     )
 }
 

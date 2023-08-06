@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.sessions
 
 import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Logger.Companion
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.github.droidkaigi.confsched2023.model.SessionsRepository

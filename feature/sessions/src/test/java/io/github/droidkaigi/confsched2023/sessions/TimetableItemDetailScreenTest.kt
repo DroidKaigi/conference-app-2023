@@ -35,9 +35,9 @@ class TimetableItemDetailScreenTest {
             putString(
                 timetableItemDetailScreenRouteItemIdParameterName,
                 Timetable.fake().timetableItems.timetableItems
-                    .first { it is TimetableItem.Session }.id.value
+                    .first { it is TimetableItem.Session }.id.value,
             )
-        }
+        },
     )
 
     @Inject
