@@ -7,10 +7,6 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory.Companion.VIEW_MODEL_KEY
-import androidx.lifecycle.viewmodel.MutableCreationExtras
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
@@ -36,14 +32,8 @@ class TimetableItemDetailScreenRobot @Inject constructor(
     }
 
     fun setupScreenContent() {
-        composeTestRule.activityRule
         composeTestRule.setContent {
             KaigiTheme {
-                (
-                    (LocalViewModelStoreOwner.current?.viewModelStore as? HasDefaultViewModelProviderFactory)
-                        ?.defaultViewModelCreationExtras as? MutableCreationExtras
-                    )
-                    ?.set(VIEW_MODEL_KEY, "")
                 TimetableItemDetailScreen(
                     onNavigationIconClick = { },
                 )
