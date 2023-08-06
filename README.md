@@ -25,7 +25,7 @@ In addition to general Android practices, we are exploring and implementing vari
 
 ## Module structure
 
-We are adopting the module separation approach used in 'Now in Android', such as splitting into 'feature' and 'core' modules.
+We are adopting the module separation approach used in [Now in Android](https://github.com/android/nowinandroid), such as splitting into 'feature' and 'core' modules.
 We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
 
 <img width="637" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c6d1d107-7dae-43f3-81b4-111c94fe89d9">
@@ -250,27 +250,18 @@ class TimetableScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
-        timetableScreenRobot(robotTestRule) {
-            checkCaptureScreen()
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
         }
     }
 
     // An assertion test for an important feature
     @Test
     fun checkLaunch() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
             checkTimetableItemsDisplayed()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkFavoriteToggleShot() {
-        timetableScreenRobot(robotTestRule) {
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
         }
     }
     ...
@@ -289,7 +280,68 @@ While GitHub Actions Artifacts and Git LFS could be used for storing screenshots
 
 ## Testing Robot Pattern
 
-The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
+The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two main parts: the 'how to test' portion, handled by the robot class, and the 'what to test' portion, managed by the test class. This separation provides benefits when writing screenshot tests, making the test code more maintainable and easier to understand.
+
+### Testing Section: 'What to Test'
+
+File: `TimetableScreenTest.kt`
+
+```kotlin
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        timetableScreenRobot {
+            // Define what functionalities of the screen to test
+            setupTimetableScreenContent() // Setup the screen with the content
+            scrollTimetable()             // Perform a scrolling action
+            checkTimetableListCapture()   // Validate the visual state by capturing a screenshot
+        }
+    }
+```
+
+### Robot Section: 'How to Test'
+
+File: `TimetableScreenRobot.kt`
+
+```kotlin
+    // Sets up the content for the Timetable screen
+    fun setupTimetableScreenContent() {
+        composeTestRule.setContent {
+            KaigiTheme {
+                TimetableScreen(
+                    onSearchClick = { },
+                    onTimetableItemClick = { },
+                    onBookmarkIconClick = { },
+                )
+            }
+        }
+        waitUntilIdle()
+    }
+
+    // Performs a scrolling action on the Timetable screen
+    fun scrollTimetable() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 2F,
+                )
+            }
+    }
+
+    // Validates the Timetable screen by capturing a screenshot
+    fun checkTimetableListCapture() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .captureRoboImage()
+    }
+```
+
+And now, you can check the scrolled screenshot!
+
+![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d9e006d3-009b-4780-80fb-064c1526fbb3)
+
 
 ## Fake API Server
 
