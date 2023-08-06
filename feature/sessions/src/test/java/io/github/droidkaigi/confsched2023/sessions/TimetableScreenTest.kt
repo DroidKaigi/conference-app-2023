@@ -51,7 +51,7 @@ class TimetableScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
-    fun checkFavoriteToggleShot() {
+    fun checkBookmarkToggleShot() {
         timetableScreenRobot {
             setupTimetableScreenContent()
             clickFirstSessionBookmark()

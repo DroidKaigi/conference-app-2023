@@ -19,7 +19,16 @@ This is a video of an app in development, and it will be updated as needed.
 
 ## Overview of the architecture
 
+In addition to general Android practices, we are exploring and implementing various concepts. Details for each are discussed further in this README.
+
 ![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
+
+## Module structure
+
+We are adopting the module separation approach used in [Now in Android](https://github.com/android/nowinandroid), such as splitting into 'feature' and 'core' modules.
+We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
+
+<img width="798" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/378fb263-79af-4158-9c49-d5df92bd70f0">
 
 
 # UI
@@ -185,7 +194,7 @@ private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildU
 }
 ```
 
-The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
+The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single timetableContentUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
 # Build / CI
 
@@ -219,7 +228,7 @@ Detailed Diagram
 ## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
 [Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
-We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
+We use [Roborazzi](https://github.com/takahirom/roborazzi) to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
 ### What to test: Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
@@ -233,38 +242,27 @@ So, for important features, we should add assertion tests to these parts. The te
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
 class TimetableScreenTest {
-
     @get:Rule
-    val robotTestRule = RobotTestRule(this)
+    @BindValue val robotTestRule: RobotTestRule = RobotTestRule<MainActivity>(this)
 
-    @Inject
-    lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
 
     // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
-        timetableScreenRobot(robotTestRule) {
-            checkCaptureScreen()
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
         }
     }
 
     // An assertion test for an important feature
     @Test
     fun checkLaunch() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
             checkTimetableItemsDisplayed()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkFavoriteToggleShot() {
-        timetableScreenRobot(robotTestRule) {
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
         }
     }
     ...
@@ -283,7 +281,68 @@ While GitHub Actions Artifacts and Git LFS could be used for storing screenshots
 
 ## Testing Robot Pattern
 
-The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
+The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two main parts: the 'how to test' portion, handled by the robot class, and the 'what to test' portion, managed by the test class. This separation provides benefits when writing screenshot tests, making the test code more maintainable and easier to understand.
+
+### Testing Section: 'What to Test'
+
+File: `TimetableScreenTest.kt`
+
+```kotlin
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        timetableScreenRobot {
+            // Define what functionalities of the screen to test
+            setupTimetableScreenContent() // Setup the screen with the content
+            scrollTimetable()             // Perform a scrolling action
+            checkTimetableListCapture()   // Validate the visual state by capturing a screenshot
+        }
+    }
+```
+
+### Robot Section: 'How to Test'
+
+File: `TimetableScreenRobot.kt`
+
+```kotlin
+    // Sets up the content for the Timetable screen
+    fun setupTimetableScreenContent() {
+        composeTestRule.setContent {
+            KaigiTheme {
+                TimetableScreen(
+                    onSearchClick = { },
+                    onTimetableItemClick = { },
+                    onBookmarkIconClick = { },
+                )
+            }
+        }
+        waitUntilIdle()
+    }
+
+    // Performs a scrolling action on the Timetable screen
+    fun scrollTimetable() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 2F,
+                )
+            }
+    }
+
+    // Validates the Timetable screen by capturing a screenshot
+    fun checkTimetableListCapture() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .captureRoboImage()
+    }
+```
+
+And now, you can check the scrolled screenshot!
+
+![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d9e006d3-009b-4780-80fb-064c1526fbb3)
+
 
 ## Fake API Server
 
