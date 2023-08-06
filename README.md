@@ -28,7 +28,8 @@ In addition to general Android practices, we are exploring and implementing vari
 We are adopting the module separation approach used in [Now in Android](https://github.com/android/nowinandroid), such as splitting into 'feature' and 'core' modules.
 We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
 
-<img width="637" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c6d1d107-7dae-43f3-81b4-111c94fe89d9">
+<img width="798" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/378fb263-79af-4158-9c49-d5df92bd70f0">
+
 
 # UI
 
