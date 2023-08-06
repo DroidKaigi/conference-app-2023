@@ -44,6 +44,8 @@
 		D77DAF8829FAA14A007195DB /* DroidKaigi2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DroidKaigi2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E8BCCCDF2A7F7676004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		E8BCCCE02A7F76AA004010F7 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		D77DAF6F29FAA148007195DB /* DroidKaigi2023 */ = {
 			isa = PBXGroup;
 			children = (
+				E8BCCCDE2A7F7667004010F7 /* ci_scripts */,
 				D77DAF7029FAA148007195DB /* App.swift */,
 				D77DAF7429FAA149007195DB /* Assets.xcassets */,
 				D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */,
@@ -134,6 +137,15 @@
 				D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */,
 			);
 			path = DroidKaigi2023UITests;
+			sourceTree = "<group>";
+		};
+		E8BCCCDE2A7F7667004010F7 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				E8BCCCDF2A7F7676004010F7 /* ci_post_clone.sh */,
+				E8BCCCE02A7F76AA004010F7 /* ci_pre_xcodebuild.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
