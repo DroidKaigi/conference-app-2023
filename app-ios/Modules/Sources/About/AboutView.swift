@@ -1,10 +1,20 @@
 import Assets
 import Component
+import Model
 import SwiftUI
 import Theme
 
-public struct AboutView: View {
-    public init() {}
+enum AboutRouting: Hashable {
+    case contributors
+}
+
+public struct AboutView<ContributorView: View>: View {
+    private let contributorViewProvider: ViewProvider<Void, ContributorView>
+
+    public init(contributorViewProvider: @escaping ViewProvider<Void, ContributorView>) {
+        self.contributorViewProvider = contributorViewProvider
+    }
+
     public var body: some View {
         NavigationStack {
             ScrollView {
@@ -43,10 +53,12 @@ public struct AboutView: View {
                         title: "スタッフ"
                     )
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.diversity.swiftUIImage,
-                        title: "コントリビューター"
-                    )
+                    NavigationLink(value: AboutRouting.contributors) {
+                        ListTile(
+                            icon: Assets.Icons.diversity.swiftUIImage,
+                            title: "コントリビューター"
+                        )
+                    }
                     Divider()
                     ListTile(
                         icon: Assets.Icons.apartment.swiftUIImage,
@@ -97,10 +109,18 @@ public struct AboutView: View {
                 .padding(.horizontal, 16)
             }
             .navigationTitle("About")
+            .navigationDestination(for: AboutRouting.self) { routing in
+                switch routing {
+                case .contributors:
+                    contributorViewProvider(())
+                }
+            }
         }
     }
 }
 
  #Preview {
-     AboutView()
+     AboutView(
+        contributorViewProvider: {_ in EmptyView()}
+     )
  }
