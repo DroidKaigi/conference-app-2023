@@ -80,7 +80,9 @@ var package = Package(
         .target(
             name: "Stamps",
             dependencies: [
+                "Assets",
                 "shared",
+                "Theme",
             ]
         ),
         .testTarget(
