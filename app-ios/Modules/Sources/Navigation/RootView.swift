@@ -1,5 +1,6 @@
 import About
 import Assets
+import Contributor
 import FloorMap
 import Session
 import Stamps
@@ -55,7 +56,11 @@ public struct RootView: View {
                             .renderingMode(.template)
                     }
                 }
-            AboutView()
+            AboutView(
+                contributorViewProvider: { _ in
+                    ContributorView()
+                }
+            )
                 .tag(Tab.about)
                 .tabItem {
                     Label {
