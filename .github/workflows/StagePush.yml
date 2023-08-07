@@ -59,7 +59,7 @@ jobs:
         id: find-dev-debug-apk
         with:
           pattern: "~/build-outputs/**/app-android-dev-debug.apk"
-      - uses: jmatsu/dg-upload-app-action@08daaa236f4b04b1af93aa288c2e2bbe8bf40fcb # v0.2.2
+      - uses: tomoya0x00/dg-upload-app-action@eb9f76ba60198daa17c583705ebf527216e2def7
         id: upload
         with:
           app_owner_name: droidkaigi
