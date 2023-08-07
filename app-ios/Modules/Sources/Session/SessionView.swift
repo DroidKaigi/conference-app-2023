@@ -1,4 +1,5 @@
 import Assets
+import Component
 import Model
 import shared
 import SwiftUI
@@ -30,22 +31,22 @@ public struct SessionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .background(AssetColors.Surface.surfaceVariant.swiftUIColor)
                 VStack(alignment: .leading) {
-                    SessionInformationRow(
+                    InformationRow(
                         icon: Assets.Icons.schedule.swiftUIImage,
                         title: "日付",
                         content: viewModel.timetableItem.formattedDateTimeString
                     )
-                    SessionInformationRow(
+                    InformationRow(
                         icon: Assets.Icons.locationOn.swiftUIImage,
                         title: "場所",
                         content: viewModel.timetableItem.room.name.currentLangTitle
                     )
-                    SessionInformationRow(
+                    InformationRow(
                         icon: Assets.Icons.language.swiftUIImage,
                         title: "対応言語",
                         content: viewModel.timetableItem.language.langOfSpeaker
                     )
-                    SessionInformationRow(
+                    InformationRow(
                         icon: Assets.Icons.category.swiftUIImage,
                         title: "カテゴリ",
                         content: viewModel.timetableItem.category.title.currentLangTitle

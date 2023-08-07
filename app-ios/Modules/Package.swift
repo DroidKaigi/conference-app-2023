@@ -9,6 +9,7 @@ var package = Package(
         .iOS(.v16),
     ],
     products: [
+        .library(name: "Component", targets: ["Component"]),
         .library(name: "FloorMap", targets: ["FloorMap"]),
         .library(name: "Session", targets: ["Session"]),
         .library(name: "Timetable", targets: ["Timetable"]),
@@ -25,7 +26,11 @@ var package = Package(
         .target(
             name: "About",
             dependencies: [
+                "Assets",
+                "Component",
                 "shared",
+                "Model",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -43,6 +48,13 @@ var package = Package(
             ],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]
+        ),
+
+        .target(
+            name: "Component",
+            dependencies: [
+                "Theme",
             ]
         ),
 
@@ -65,6 +77,7 @@ var package = Package(
             name: "Session",
             dependencies: [
                 "Assets",
+                "Component",
                 "Model",
                 "shared",
                 "Theme",
@@ -74,6 +87,17 @@ var package = Package(
             name: "SessionTests",
             dependencies: [
                 "Session"
+            ]
+        ),
+
+        .target(
+            name: "Contributor",
+            dependencies: [
+                "Assets",
+                "Component",
+                "Model",
+                "shared",
+                "Theme",
             ]
         ),
 
@@ -116,6 +140,7 @@ var package = Package(
                 "FloorMap",
                 "Session",
                 "Stamps",
+                "Contributor",
                 "Theme",
                 "Timetable",
             ]
