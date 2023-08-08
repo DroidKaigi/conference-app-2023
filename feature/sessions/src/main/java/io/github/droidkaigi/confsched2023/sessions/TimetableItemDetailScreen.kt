@@ -1,15 +1,17 @@
 package io.github.droidkaigi.confsched2023.sessions
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -19,7 +21,6 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailHeader
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 
@@ -76,18 +77,22 @@ sealed class TimetableItemDetailScreenUiState() {
     ) : TimetableItemDetailScreenUiState()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimetableItemDetailScreen(
     uiState: TimetableItemDetailScreenUiState,
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
                 TimetableItemDetailScreenTopAppBar(
                     title = uiState.timetableItem.title,
                     onNavigationIconClick = onNavigationIconClick,
+                    scrollBehavior = scrollBehavior,
                 )
             }
         },
@@ -107,18 +112,19 @@ private fun TimetableItemDetailScreen(
             }
 
             is TimetableItemDetailScreenUiState.Loaded -> {
-                val scrollState = rememberScrollState()
-                Column(
-                    modifier = Modifier
-                        .padding(innerPadding)
-                        .verticalScroll(scrollState),
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = innerPadding,
                 ) {
-                    TimetableItemDetailHeader(title = uiState.timetableItem.title)
-                    TimetableItemDetailSummaryCard(
-                        timetableItem = uiState.timetableItem,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
-                    )
-                    TimetableItemDetailContent(uiState = uiState.timetableItem)
+                    item {
+                        TimetableItemDetailSummaryCard(
+                            timetableItem = uiState.timetableItem,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+                        )
+                    }
+                    item {
+                        TimetableItemDetailContent(uiState = uiState.timetableItem)
+                    }
                 }
             }
         }
