@@ -1,0 +1,123 @@
+name: stage-app-pull-request
+
+on:
+  workflow_run:
+    workflows:
+      - Build
+    types:
+      - completed
+
+# Disable all permissions. We have to enable required permissions at job-level.
+permissions: {}
+
+jobs:
+  stage-epic:
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+
+    permissions:
+      actions: read # for listJobsForWorkflowRun and listWorkflowRunArtifacts
+      contents: read # for checkout
+      deployments: write # for create-deployment
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          repository: droidkaigi/conference-app-2023
+          ref: gh-actions
+          path: gh-actions
+      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        id: get-pr
+        with:
+          script: |
+            const { data: resp } = await github.rest.actions.listJobsForWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }}
+            })
+            const job = resp.jobs.find((j) => j.name === "get-pr-number")
+
+            if (job) {
+              const { data: pull } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: job.steps[1].name
+              })
+              return pull
+            } else {
+              return '[halt]'
+            }
+      - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
+        id: get-artifact-id
+        if: steps.get-pr.outputs.result != '[halt]'
+        with:
+          result-encoding: string
+          script: |
+            const { data: resp } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }}
+            })
+            const artifact = resp.artifacts.find((a) => a.name === "assemble-output")
+
+            if (artifact) {
+              return artifact.id
+            } else {
+              return '[halt]'
+            }
+      - uses: ./gh-actions/actions/get-artifact
+        id: get-artifact
+        if: steps.get-artifact-id.outputs.result != '[halt]'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          artifact-id: ${{ steps.get-artifact-id.outputs.result }}
+          path: ~/assemble-output
+      - run: >
+          unzip ${{ steps.get-artifact.outputs.archive-path }} -d ~/assemble-output &&
+          rm -f ${{ steps.get-artifact.outputs.archive-path }}
+      - uses: ./gh-actions/actions/find-files
+        id: find-dev-debug-apk
+        with:
+          pattern: "~/assemble-output/**/app-android-dev-debug.apk"
+      - uses: ./gh-actions/actions/create-deployment
+        id: create-deployment
+        with:
+          github-token: ${{ github.token }}
+          ref: refs/pull/${{ fromJSON(steps.get-pr.outputs.result).number }}/head
+          sha: ${{ fromJSON(steps.get-pr.outputs.result).head.sha }}
+          artifact-name: assemble-output
+          environment: deploygate-distribution
+      - uses: tomoya0x00/dg-upload-app-action@eb9f76ba60198daa17c583705ebf527216e2def7
+        id: upload
+        continue-on-error: true
+        with:
+          app_owner_name: droidkaigi
+          api_token: ${{ secrets.DEPLOYGATE_API_TOKEN }}
+          app_file_path: ${{ fromJSON(steps.find-dev-debug-apk.outputs.paths)[0] }}
+          message: GitHub Actions have staged an artifact of ${{ fromJSON(steps.get-pr.outputs.result).number }}/head / ${{ fromJSON(steps.get-pr.outputs.result).head.sha }}
+          distribution_find_by: name
+          distribution_id: ${{ format('debug/refs/pull/{0}/head', fromJSON(steps.get-pr.outputs.result).number) }}
+          release_note: ${{ format('Workflow {0}/{1} based on {2}', github.run_id , github.run_number , fromJSON(steps.get-pr.outputs.result).head.sha) }}
+          pin: false
+      - name: generate properties based on upload step's status
+        id: deployment-properties
+        if: steps.upload.conclusion == 'success'
+        run: |
+            if [[ "${{ steps.upload.outcome }}" == "success" ]]; then
+              echo "deployment-url=${{ steps.upload.outputs.distribution_url }}" >> $GITHUB_OUTPUT
+              echo "description=Deployed an app successfully. Please try it through DeployGate!" >> $GITHUB_OUTPUT
+            else
+              echo "deployment-url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_OUTPUT
+              echo "description=Staging an app failed. Please check the workflow." >> $GITHUB_OUTPUT
+            fi
+      - uses: ./gh-actions/actions/commit-deployment
+        if: steps.upload.conclusion == 'success'
+        with:
+          github-token: ${{ github.token }}
+          deployment-id: ${{ fromJSON(steps.create-deployment.outputs.deployment).id }}
+          state: ${{ steps.upload.outcome }}
+          deployment-url: ${{ steps.deployment-properties.outputs.deployment-url }}
+          description: ${{ steps.deployment-properties.outputs.description }}
