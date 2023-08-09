@@ -33,22 +33,24 @@ jobs:
         id: get-pr
         with:
           script: |
-            const { data: resp } = await github.rest.actions.listJobsForWorkflowRun({
+            const headBranch = '${{ format('{0}:{1}', github.event.workflow_run.head_repository.owner.login, github.event.workflow_run.head_branch) }}'
+            
+            const { data: pulls } = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: ${{ github.event.workflow_run.id }}
+              state: 'open',
+              
+              head: headBranch,
+              
+              direction: 'desc',
+              sort: 'updated',
+              per_page: 1
             })
-            const job = resp.jobs.find((j) => j.name === "get-pr-number")
 
-            if (job) {
-              const { data: pull } = await github.rest.pulls.get({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: job.steps[1].name
-              })
-              return pull
-            } else {
+            if (pulls.length === 0) {
               return '[halt]'
+            } else {
+              return pulls[0]
             }
       - uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1
         id: get-artifact-id
