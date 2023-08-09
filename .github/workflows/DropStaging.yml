@@ -1,14 +1,8 @@
 name: drop-staging
 
 on:
-  workflow_run:
-    workflows:
-      - pull-request-closed-hook
-    branches-ignore:
-      - main
-      - release*
-    types:
-      - completed
+  pull_request:
+    types: [closed]
 
 # Disable all permissions. We have to enable required permissions at job-level.
 permissions: {}
