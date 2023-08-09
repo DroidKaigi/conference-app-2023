@@ -61,7 +61,7 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }}
             })
-            const artifact = resp.artifacts.find((a) => a.name === "assemble-output")
+            const artifact = resp.artifacts.find((a) => a.name === "build-outputs")
 
             if (artifact) {
               return artifact.id
@@ -74,21 +74,21 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           artifact-id: ${{ steps.get-artifact-id.outputs.result }}
-          path: ~/assemble-output
+          path: ~/build-outputs
       - run: >
-          unzip ${{ steps.get-artifact.outputs.archive-path }} -d ~/assemble-output &&
+          unzip ${{ steps.get-artifact.outputs.archive-path }} -d ~/build-outputs &&
           rm -f ${{ steps.get-artifact.outputs.archive-path }}
       - uses: ./gh-actions/actions/find-files
         id: find-dev-debug-apk
         with:
-          pattern: "~/assemble-output/**/app-android-dev-debug.apk"
+          pattern: "~/build-outputs/**/app-android-dev-debug.apk"
       - uses: ./gh-actions/actions/create-deployment
         id: create-deployment
         with:
           github-token: ${{ github.token }}
           ref: refs/pull/${{ fromJSON(steps.get-pr.outputs.result).number }}/head
           sha: ${{ fromJSON(steps.get-pr.outputs.result).head.sha }}
-          artifact-name: assemble-output
+          artifact-name: build-outputs
           environment: deploygate-distribution
       - uses: tomoya0x00/dg-upload-app-action@eb9f76ba60198daa17c583705ebf527216e2def7
         id: upload
