@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      actions: read # for listJobsForWorkflowRun
       contents: read # for checkout
 
     steps:
