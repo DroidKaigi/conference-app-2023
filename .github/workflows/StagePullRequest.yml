@@ -20,6 +20,7 @@ jobs:
       actions: read # for listJobsForWorkflowRun and listWorkflowRunArtifacts
       contents: read # for checkout
       deployments: write # for create-deployment
+      pull-requests: read # for listing pull requests
 
     runs-on: ubuntu-latest
 
