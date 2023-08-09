@@ -29,3 +29,4 @@ jobs:
           platform: android
           app-id: io.github.droidkaigi.confsched2023.dev
           distribution-name: ${{ format('debug/refs/pull/{0}/head', github.event.pull_request.number) }}
+
