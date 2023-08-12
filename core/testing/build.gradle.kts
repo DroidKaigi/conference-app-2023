@@ -18,6 +18,7 @@ dependencies {
 
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)
+    implementation(libs.kermit)
     api(libs.roborazziRule)
     api(libs.composeUiTestJunit4)
 }

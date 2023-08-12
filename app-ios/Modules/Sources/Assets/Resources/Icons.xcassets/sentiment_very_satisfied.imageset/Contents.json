@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "ic_sentiment_very_satisfied.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarkIconTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarksIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
@@ -80,7 +80,7 @@ class TimetableScreenRobot @Inject constructor(
 
     fun clickBookmarkButton() {
         composeTestRule
-            .onNode(hasTestTag(TimetableBookmarkIconTestTag))
+            .onNode(hasTestTag(TimetableBookmarksIconTestTag))
             .performClick()
     }
 

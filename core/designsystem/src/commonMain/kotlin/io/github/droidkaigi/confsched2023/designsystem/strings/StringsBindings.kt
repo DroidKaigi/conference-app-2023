@@ -18,10 +18,7 @@ abstract class StringsBindings<T : Strings<T>>(
     }
 }
 
-// FIXME: Please use expect/actual for multiplatform
-fun lang(): String {
-    return "ja"
-}
+expect fun lang(): String
 
 abstract class Strings<T : Strings<T>>(
     private val bindings: StringsBindings<T>,
