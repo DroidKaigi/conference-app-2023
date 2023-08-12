@@ -6,7 +6,16 @@ import kotlinx.serialization.Serializable
 public data class SideEvent(
     val title: MultiLangText,
     val description: MultiLangText,
-    val link: String,
+    val timeText: MultiLangText,
+    val floorLevel: FloorLevel,
+    val mark: Mark,
+    val link: String?,
 ) {
+
+    enum class Mark {
+        Mark1,
+        ;
+    }
+
     public companion object
 }

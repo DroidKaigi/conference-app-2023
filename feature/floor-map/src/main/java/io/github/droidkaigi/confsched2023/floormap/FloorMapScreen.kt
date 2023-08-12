@@ -16,6 +16,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.floormap.component.FloorMap
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
+import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
@@ -56,7 +60,8 @@ fun FloorMapScreen(
 }
 
 data class FloorMapScreenUiState(
-    val sideEvents: List<SideEvent>,
+    val floorLevel: FloorLevel,
+    val floorMapSideEventListUiState: FloorMapSideEventListUiState,
 )
 
 @Composable
@@ -77,9 +82,12 @@ private fun FloorMapScreen(
                     text = "Please implement FloorMapScreen!!!",
                     style = MaterialTheme.typography.titleLarge,
                 )
-                uiState.sideEvents.forEach {
-                    Text(it.toString())
-                }
+                FloorMap(floorLevel = uiState.floorLevel)
+                FloorMapSideEventList(
+                    uiState = uiState.floorMapSideEventListUiState,
+                    onSideEventClick = onSideEventClick,
+                    modifier = Modifier.weight(1f),
+                )
             }
         },
     )
