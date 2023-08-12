@@ -87,7 +87,7 @@ private fun AboutScreen(
                     modifier = Modifier
                         .testTag(AboutScreenSponsorsScreenItemTestTag)
                         .clickable { onAboutItemClick(AboutItem.Sponsors) },
-                    text = "Go Sponsor screen",
+                    text = "Go to SponsorScreen",
                 )
             }
         },
