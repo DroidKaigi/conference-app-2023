@@ -24,13 +24,18 @@ import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.floormap.floorMapScreenRoute
+import io.github.droidkaigi.confsched2023.floormap.navigateFloorMapScreen
+import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
+import io.github.droidkaigi.confsched2023.model.AboutItem.Sponsors
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
@@ -39,6 +44,8 @@ import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
+import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
+import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -81,6 +88,11 @@ private fun KaigiNavHost(
                 navController.popBackStack()
             },
         )
+        sponsorsScreen(
+            onSponsorClick = { sponsor ->
+                TODO()
+            },
+        )
     }
 }
 
@@ -104,6 +116,13 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
+                    when (aboutItem) {
+                        Sponsors -> navController.navigateSponsorsScreen()
+                    }
+                },
+            )
+            nestedFloorMapScreen(
+                onSideEventClick = {
                     TODO()
                 },
             )
@@ -128,6 +147,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             timetableScreenRoute -> Timetable
             contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
+            floorMapScreenRoute -> FloorMap
             else -> null
         }
     }
@@ -139,6 +159,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
+            FloorMap -> mainNestedNavController.navigateFloorMapScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
             else -> null
         }

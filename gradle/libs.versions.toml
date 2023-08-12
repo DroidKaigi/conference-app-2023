@@ -8,13 +8,13 @@ kotlin = "1.8.20"
 androidxCore = "1.10.1"
 androidDesugarJdkLibs = "2.0.3"
 compose = "1.4.3"
-compose-jb = "1.4.1"
+compose-jb = "1.4.3"
 composeCompiler = "1.4.6"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
 androidxActivity = "1.7.2"
 androidxFragment = "1.6.1"
-kotlinxCoroutines = "1.7.2"
+kotlinxCoroutines = "1.7.3"
 accompanist = "0.30.1"
 junit = "4.13.2"
 androidxTestExt = "1.1.5"
@@ -24,13 +24,13 @@ spotless = "6.19.0"
 ktlint = "0.49.1"
 kotlinxSerialization = "1.5.1"
 ktor = "2.1.2"
-roborazzi = "1.5.0-alpha-3"
+roborazzi = "1.6.0-alpha-2"
 showkase = "1.0.0-beta17"
 ksp = "1.8.20-1.0.11"
 multiplatformFirebaseAuth = "1.6.2"
 kermit = "1.1.3"
 okHttp = "4.10.0"
-ktorfit = "1.4.1"
+ktorfit = "1.4.4"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -75,7 +75,7 @@ composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", ver
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.1" }
-composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.0" }
+composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }

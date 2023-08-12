@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.about
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -59,6 +60,8 @@ data class AboutScreenUiState(
     val items: List<AboutItem>,
 )
 
+const val AboutScreenSponsorsScreenItemTestTag = "AboutScreenSponsorsScreenItem"
+
 @Composable
 private fun AboutScreen(
     uiState: AboutScreenUiState,
@@ -74,12 +77,18 @@ private fun AboutScreen(
                     .padding(padding),
             ) {
                 Text(
-                    text = "Please implement this page!!!",
+                    text = "Please implement AboutScreen!!!",
                     style = MaterialTheme.typography.titleLarge,
                 )
                 uiState.items.forEach {
                     Text(it.toString())
                 }
+                Text(
+                    modifier = Modifier
+                        .testTag(AboutScreenSponsorsScreenItemTestTag)
+                        .clickable { onAboutItemClick(AboutItem.Sponsors) },
+                    text = "Go to SponsorScreen",
+                )
             }
         },
     )

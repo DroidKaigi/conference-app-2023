@@ -45,6 +45,13 @@ class KaigiAppRobot @Inject constructor(
         waitUntilIdle()
     }
 
+    fun goToFloorMap() {
+        composeTestRule
+            .onNode(hasTestTag(MainScreenTab.FloorMap.testTag))
+            .performClick()
+        waitUntilIdle()
+    }
+
     fun goToContributor() {
         composeTestRule
             .onNode(hasTestTag(MainScreenTab.Contributor.testTag))
