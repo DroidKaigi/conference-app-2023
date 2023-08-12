@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import FormData from 'form-data';
 import fetch from 'node-fetch'
 
 async function run(): Promise<void> {
@@ -25,6 +26,14 @@ async function run(): Promise<void> {
       body: form,
       method: 'DELETE'
     }
+    const response = await fetch(
+      url,
+      options,
+    )
+    const json = await response.json()
+
+    core.setOutput('status', response.status)
+    core.setOutput('response', JSON.stringify(json))
   } catch (error) {
     if(error instanceof Error) {
       core.setFailed(error.message)
