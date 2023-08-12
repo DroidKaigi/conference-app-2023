@@ -3,8 +3,8 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import com.github.takahirom.roborazzi.captureRoboImage
-import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreen
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher

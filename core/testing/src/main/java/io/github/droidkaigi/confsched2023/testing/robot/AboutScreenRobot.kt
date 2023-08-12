@@ -3,10 +3,7 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.printToLog
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.about.AboutScreen
 import io.github.droidkaigi.confsched2023.about.AboutScreenSponsorsScreenItemTestTag

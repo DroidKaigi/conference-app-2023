@@ -9,7 +9,7 @@ public data class Sponsor(
     val name: String,
     val logo: String,
     val plan: Plan,
-    val link: String
+    val link: String,
 ) {
     public companion object
 }
@@ -18,7 +18,8 @@ public data class Sponsor(
 public enum class Plan {
     PLATINUM,
     GOLD,
-    SUPPORTER;
+    SUPPORTER,
+    ;
 
     public companion object {
         public fun ofOrNull(plan: String): Plan? {
@@ -36,21 +37,21 @@ public fun Sponsor.Companion.fakes(): PersistentList<Sponsor> = (
             name = "DroidKaigi",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.PLATINUM,
-            link = "https://developer.android.com/"
+            link = "https://developer.android.com/",
         )
     } + List(5) {
         Sponsor(
             name = "DroidKaigi",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.GOLD,
-            link = "https://developer.android.com/"
+            link = "https://developer.android.com/",
         )
     } + List(12) {
         Sponsor(
             name = "DroidKaigi",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.SUPPORTER,
-            link = "https://developer.android.com/"
+            link = "https://developer.android.com/",
         )
     }
     ).toPersistentList()

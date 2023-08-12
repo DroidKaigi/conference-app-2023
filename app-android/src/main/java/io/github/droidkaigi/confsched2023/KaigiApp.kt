@@ -87,7 +87,7 @@ private fun KaigiNavHost(
         sponsorsScreen(
             onSponsorClick = { sponsor ->
                 TODO()
-            }
+            },
         )
     }
 }
