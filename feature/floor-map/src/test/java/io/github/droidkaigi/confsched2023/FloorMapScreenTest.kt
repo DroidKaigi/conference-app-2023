@@ -30,7 +30,6 @@ class FloorMapScreenTest {
     @Inject
     lateinit var floorMapScreenRobot: FloorMapScreenRobot
 
-    // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
