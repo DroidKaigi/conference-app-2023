@@ -28,7 +28,7 @@ class MainScreenViewModel @Inject constructor(
         val remoteConfig = firebaseRemoteConfig
         remoteConfig.fetchAndActivate().addOnCompleteListener {
             _uiState.value = uiState.value.copy(
-                isEnableStamps = remoteConfig.getBoolean("is_enable_stamps")
+                isEnableStamps = remoteConfig.getBoolean("is_enable_stamps"),
             )
         }
     }
