@@ -14,14 +14,13 @@ struct TimetableDayHeader: View {
                 [DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values()),
                 id: \.ordinal
             ) { (day: DroidKaigi2023Day) in
-                let startDay = Calendar.current.component(.day, from: day.start.toDate())
                 Button {
                     onSelect(day)
                 } label: {
                     VStack(spacing: 0) {
                         Text(day.name)
                             .font(Font.system(size: 12, weight: .semibold))
-                        Text("\(startDay)")
+                        Text("\(day.dayOfMonth)")
                             .font(Font.system(size: 24, weight: .semibold))
                             .frame(height: 32)
                     }
