@@ -56,6 +56,14 @@ class KaigiAppTest {
     }
 
     @Test
+    fun checkNavigateToFloorMapShot() {
+        kaigiAppRobot {
+            goToFloorMap()
+            capture()
+        }
+    }
+
+    @Test
     fun checkNavigateToSponsorsShot() {
         kaigiAppRobot {
             goToAbout()

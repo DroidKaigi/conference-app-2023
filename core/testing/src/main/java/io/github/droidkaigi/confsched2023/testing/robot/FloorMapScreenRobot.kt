@@ -4,23 +4,23 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreen
+import io.github.droidkaigi.confsched2023.floormap.FloorMapScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
-class SponsorsScreenRobot @Inject constructor(
+class FloorMapScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
     @Inject lateinit var robotTestRule: RobotTestRule
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        block: SponsorsScreenRobot.() -> Unit,
+        block: FloorMapScreenRobot.() -> Unit,
     ) {
         runTestWithLogging(timeout = 30.seconds) {
-            this@SponsorsScreenRobot.composeTestRule = robotTestRule.composeTestRule
+            this@FloorMapScreenRobot.composeTestRule = robotTestRule.composeTestRule
             block()
         }
     }
@@ -28,8 +28,8 @@ class SponsorsScreenRobot @Inject constructor(
     fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-                SponsorsScreen(
-                    onSponsorClick = { },
+                FloorMapScreen(
+                    onSideEventClick = { },
                 )
             }
         }

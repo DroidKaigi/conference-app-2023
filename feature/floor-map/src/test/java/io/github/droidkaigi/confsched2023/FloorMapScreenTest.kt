@@ -7,7 +7,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
-import io.github.droidkaigi.confsched2023.testing.robot.SponsorsScreenRobot
+import io.github.droidkaigi.confsched2023.testing.robot.FloorMapScreenRobot
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -22,19 +22,19 @@ import javax.inject.Inject
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne,
 )
-class SponsorsScreenTest {
+class FloorMapScreenTest {
 
     @get:Rule
     @BindValue val robotTestRule: RobotTestRule = RobotTestRule<HiltTestActivity>(this)
 
     @Inject
-    lateinit var sponsorsScreenRobot: SponsorsScreenRobot
+    lateinit var floorMapScreenRobot: FloorMapScreenRobot
 
     // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
-        sponsorsScreenRobot {
+        floorMapScreenRobot {
             setupScreenContent()
             checkScreenCapture()
         }
