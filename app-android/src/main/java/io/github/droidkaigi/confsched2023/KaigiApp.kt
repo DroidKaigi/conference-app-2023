@@ -24,10 +24,14 @@ import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.floormap.floorMapScreenRoute
+import io.github.droidkaigi.confsched2023.floormap.navigateFloorMapScreen
+import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
@@ -117,6 +121,11 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                     }
                 },
             )
+            nestedFloorMapScreen(
+                onSideEventClick = {
+                    TODO()
+                },
+            )
             // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
                 ContributorsScreen(
@@ -138,6 +147,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             timetableScreenRoute -> Timetable
             contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
+            floorMapScreenRoute -> FloorMap
             else -> null
         }
     }
@@ -149,6 +159,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
         when (tab) {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
+            FloorMap -> mainNestedNavController.navigateFloorMapScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
             else -> null
         }

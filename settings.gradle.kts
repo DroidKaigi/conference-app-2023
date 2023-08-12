@@ -23,6 +23,7 @@ include(
     ":feature:sessions",
     ":feature:about",
     ":feature:sponsors",
+    ":feature:floor-map",
     ":feature:contributors",
     ":core:designsystem",
     ":core:data",

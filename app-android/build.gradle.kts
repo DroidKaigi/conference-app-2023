@@ -84,6 +84,7 @@ dependencies {
     implementation(projects.feature.sessions)
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
+    implementation(projects.feature.floorMap)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
