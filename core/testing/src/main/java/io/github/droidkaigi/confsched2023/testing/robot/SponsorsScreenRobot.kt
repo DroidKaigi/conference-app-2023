@@ -2,46 +2,37 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
-import io.github.droidkaigi.confsched2023.about.AboutScreen
-import io.github.droidkaigi.confsched2023.about.AboutScreenSponsorsScreenItemTestTag
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
-class AboutScreenRobot @Inject constructor(
+class SponsorsScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
     @Inject lateinit var robotTestRule: RobotTestRule
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        block: AboutScreenRobot.() -> Unit,
+        block: SponsorsScreenRobot.() -> Unit,
     ) {
         runTestWithLogging(timeout = 30.seconds) {
-            this@AboutScreenRobot.composeTestRule = robotTestRule.composeTestRule
+            this@SponsorsScreenRobot.composeTestRule = robotTestRule.composeTestRule
             block()
         }
     }
 
-    fun setupAboutScreenContent() {
+    fun setupSponsorsScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-                AboutScreen(
-                    onAboutItemClick = { },
+                SponsorsScreen(
+                    onSponsorClick = { },
                 )
             }
         }
-        waitUntilIdle()
-    }
-
-    fun clickSponsors() {
-        composeTestRule.onNodeWithTag(AboutScreenSponsorsScreenItemTestTag)
-            .performClick()
         waitUntilIdle()
     }
 

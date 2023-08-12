@@ -31,6 +31,7 @@ import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
+import io.github.droidkaigi.confsched2023.model.AboutItem.Sponsors
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
@@ -39,6 +40,8 @@ import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
+import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
+import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -81,6 +84,11 @@ private fun KaigiNavHost(
                 navController.popBackStack()
             },
         )
+        sponsorsScreen(
+            onSponsorClick = { sponsor ->
+                TODO()
+            },
+        )
     }
 }
 
@@ -104,7 +112,9 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
-                    TODO()
+                    when (aboutItem) {
+                        Sponsors -> navController.navigateSponsorsScreen()
+                    }
                 },
             )
             // For KMP, we are not using navigation abstraction for contributors screen
