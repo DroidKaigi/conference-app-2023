@@ -1,6 +1,5 @@
-package io.github.droidkaigi.confsched2023.about
+package io.github.droidkaigi.confsched2023.sponsors
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -17,30 +16,30 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.model.AboutItem
+import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
-const val aboutScreenRoute = "about"
-fun NavGraphBuilder.nestedAboutScreen(
-    onAboutItemClick: (AboutItem) -> Unit,
+const val sponsorsScreenRoute = "sponsors"
+fun NavGraphBuilder.sponsorsScreen(
+    onSponsorClick: (Sponsor) -> Unit,
 ) {
-    composable(aboutScreenRoute) {
-        AboutScreen(
-            onAboutItemClick = onAboutItemClick,
+    composable(sponsorsScreenRoute) {
+        SponsorsScreen(
+            onSponsorClick = onSponsorClick,
         )
     }
 }
 
-fun NavController.navigateAboutScreen() {
-    navigate(aboutScreenRoute)
+fun NavController.navigateSponsorsScreen() {
+    navigate(sponsorsScreenRoute)
 }
 
-const val AboutScreenTestTag = "AboutScreen"
+const val SponsorsScreenTestTag = "SponsorsScreen"
 
 @Composable
-fun AboutScreen(
-    onAboutItemClick: (AboutItem) -> Unit,
-    viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
+fun SponsorsScreen(
+    onSponsorClick: (Sponsor) -> Unit,
+    viewModel: SponsorsScreenViewModel = hiltViewModel<SponsorsScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
@@ -49,27 +48,25 @@ fun AboutScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
-    AboutScreen(
+    SponsorsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        onAboutItemClick = onAboutItemClick,
+        onSponsorClick = onSponsorClick,
     )
 }
 
-data class AboutScreenUiState(
-    val items: List<AboutItem>,
+data class SponsorsScreenUiState(
+    val sponsors: List<Sponsor>,
 )
 
-const val AboutScreenSponsorsScreenItemTestTag = "AboutScreenSponsorsScreenItem"
-
 @Composable
-private fun AboutScreen(
-    uiState: AboutScreenUiState,
+private fun SponsorsScreen(
+    uiState: SponsorsScreenUiState,
     snackbarHostState: SnackbarHostState,
-    onAboutItemClick: (AboutItem) -> Unit,
+    onSponsorClick: (Sponsor) -> Unit,
 ) {
     Scaffold(
-        modifier = Modifier.testTag(AboutScreenTestTag),
+        modifier = Modifier.testTag(SponsorsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
             Column(
@@ -77,18 +74,12 @@ private fun AboutScreen(
                     .padding(padding),
             ) {
                 Text(
-                    text = "Please implement AboutScreen!!!",
+                    text = "Please implement SponsorsScreen!!!",
                     style = MaterialTheme.typography.titleLarge,
                 )
-                uiState.items.forEach {
+                uiState.sponsors.forEach {
                     Text(it.toString())
                 }
-                Text(
-                    modifier = Modifier
-                        .testTag(AboutScreenSponsorsScreenItemTestTag)
-                        .clickable { onAboutItemClick(AboutItem.Sponsors) },
-                    text = "Go Sponsor screen"
-                )
             }
         },
     )
