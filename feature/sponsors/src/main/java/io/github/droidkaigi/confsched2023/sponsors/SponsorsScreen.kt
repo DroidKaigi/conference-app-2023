@@ -49,7 +49,6 @@ fun SponsorsScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
-    println("mylog:" + uiState)
     SponsorsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
