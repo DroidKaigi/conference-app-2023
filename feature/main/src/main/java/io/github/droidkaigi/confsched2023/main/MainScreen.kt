@@ -115,7 +115,9 @@ enum class MainScreenTab(
     ),
 }
 
-class MainScreenUiState()
+data class MainScreenUiState(
+    val isEnableStamps: Boolean = false,
+)
 
 @Composable
 private fun MainScreen(
@@ -136,6 +138,7 @@ private fun MainScreen(
                     onTabSelected(mainNestedNavController, tab)
                 },
                 currentTab = currentTab ?: MainScreenTab.Timetable,
+                isEnableStamps = uiState.isEnableStamps,
             )
         },
         contentWindowInsets = WindowInsets(0.dp),
