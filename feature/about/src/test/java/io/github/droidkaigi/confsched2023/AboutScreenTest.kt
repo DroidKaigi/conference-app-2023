@@ -30,7 +30,6 @@ class AboutScreenTest {
     @Inject
     lateinit var aboutScreenRobot: AboutScreenRobot
 
-    // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {

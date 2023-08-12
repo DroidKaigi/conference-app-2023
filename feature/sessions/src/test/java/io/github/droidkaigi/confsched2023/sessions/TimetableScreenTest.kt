@@ -30,7 +30,6 @@ class TimetableScreenTest {
     @Inject
     lateinit var timetableScreenRobot: TimetableScreenRobot
 
-    // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
@@ -40,7 +39,6 @@ class TimetableScreenTest {
         }
     }
 
-    // An assertion test for an important feature
     @Test
     fun checkLaunch() {
         timetableScreenRobot {

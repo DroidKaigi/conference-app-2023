@@ -43,7 +43,6 @@ class TimetableItemDetailScreenTest {
     @Inject
     lateinit var timetableItemDetailScreenRobot: TimetableItemDetailScreenRobot
 
-    // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
