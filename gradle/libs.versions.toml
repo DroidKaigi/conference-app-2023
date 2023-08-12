@@ -101,6 +101,7 @@ okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor"
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebaseAuth" }
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
+firebaseRemoteConfig = { module = "com.google.firebase:firebase-config-ktx", version = "21.4.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 

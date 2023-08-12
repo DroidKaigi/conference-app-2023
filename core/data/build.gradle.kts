@@ -30,6 +30,7 @@ kotlin {
                 implementation(libs.ktorClientOkHttp)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
+                implementation(libs.firebaseRemoteConfig)
             }
         }
         val iosMain by getting {

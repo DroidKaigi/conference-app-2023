@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.composeUiToolingPreview)
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
+    implementation(libs.firebaseRemoteConfig)
     androidTestImplementation(libs.composeUiTestJunit4)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
