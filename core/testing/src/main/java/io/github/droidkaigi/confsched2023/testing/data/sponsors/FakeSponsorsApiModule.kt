@@ -4,14 +4,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiModule
 import io.github.droidkaigi.confsched2023.data.sponsors.FakeSponsorsApiClient
 import io.github.droidkaigi.confsched2023.data.sponsors.SponsorsApiClient
+import io.github.droidkaigi.confsched2023.data.sponsors.SponsorsApiModule
 
 @Module
 @TestInstallIn(
     components = [SingletonComponent::class],
-    replaces = [SessionsApiModule::class],
+    replaces = [SponsorsApiModule::class],
 )
 class FakeSponsorsApiModule {
     @Provides
