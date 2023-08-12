@@ -18,6 +18,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.ImmutableList
 
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(
@@ -48,6 +49,7 @@ fun SponsorsScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
+    println("mylog:" + uiState)
     SponsorsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
@@ -56,7 +58,7 @@ fun SponsorsScreen(
 }
 
 data class SponsorsScreenUiState(
-    val sponsors: List<Sponsor>,
+    val sponsors: ImmutableList<Sponsor>,
 )
 
 @Composable
