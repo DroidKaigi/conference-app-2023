@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,7 @@ class MainScreenViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<MainScreenUiState> = MutableStateFlow(
         MainScreenUiState(),
     )
-    val uiState: StateFlow<MainScreenUiState> = _uiState
+    val uiState: StateFlow<MainScreenUiState> = _uiState.asStateFlow()
 
     init {
         fetchAndApplyRemoteConfig()
