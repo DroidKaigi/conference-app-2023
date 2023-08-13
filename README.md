@@ -21,7 +21,8 @@ This is a video of an app in development, and it will be updated as needed.
 
 In addition to general Android practices, we are exploring and implementing various concepts. Details for each are discussed further in this README.
 
-![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/756add6b-5a6a-4c3a-9bfc-a88cabce79bf)
+
 
 ## Module structure
 
@@ -37,7 +38,8 @@ We've added experimental support for Compose Multiplatform on certain screens, m
 
 Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
 
-<img width="401" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d600dc70-e0e8-45ee-afd4-b90bc5b2517b">
+<img width="200" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c775f5d6-acd5-4224-a925-5507189fcded">
+
 
 ```
 sessions
