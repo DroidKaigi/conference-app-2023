@@ -35,7 +35,15 @@ import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
+import io.github.droidkaigi.confsched2023.model.AboutItem.CodeOfConduct
+import io.github.droidkaigi.confsched2023.model.AboutItem.Contributors
+import io.github.droidkaigi.confsched2023.model.AboutItem.License
+import io.github.droidkaigi.confsched2023.model.AboutItem.Medium
+import io.github.droidkaigi.confsched2023.model.AboutItem.PrivacyPolicy
 import io.github.droidkaigi.confsched2023.model.AboutItem.Sponsors
+import io.github.droidkaigi.confsched2023.model.AboutItem.Staff
+import io.github.droidkaigi.confsched2023.model.AboutItem.X
+import io.github.droidkaigi.confsched2023.model.AboutItem.YouTube
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
@@ -118,6 +126,14 @@ private fun NavGraphBuilder.mainScreen(navController: NavHostController) {
                 onAboutItemClick = { aboutItem ->
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
+                        CodeOfConduct -> TODO()
+                        Contributors -> TODO()
+                        License -> TODO()
+                        Medium -> TODO()
+                        PrivacyPolicy -> TODO()
+                        Staff -> TODO()
+                        X -> TODO()
+                        YouTube -> TODO()
                     }
                 },
             )
