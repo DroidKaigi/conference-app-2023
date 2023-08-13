@@ -1,8 +1,7 @@
 package io.github.droidkaigi.confsched2023.about
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -17,6 +16,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.about.component.aboutCredits
+import io.github.droidkaigi.confsched2023.about.component.AboutDroidKaigiDetail
+import io.github.droidkaigi.confsched2023.about.component.AboutFooterLinks
+import io.github.droidkaigi.confsched2023.about.component.aboutOthers
 import io.github.droidkaigi.confsched2023.model.AboutItem
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
@@ -56,11 +59,7 @@ fun AboutScreen(
     )
 }
 
-data class AboutScreenUiState(
-    val items: List<AboutItem>,
-)
-
-const val AboutScreenSponsorsScreenItemTestTag = "AboutScreenSponsorsScreenItem"
+class AboutScreenUiState()
 
 @Composable
 private fun AboutScreen(
@@ -72,24 +71,56 @@ private fun AboutScreen(
         modifier = Modifier.testTag(AboutScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
-            Column(
+            LazyColumn(
                 Modifier
                     .padding(padding),
             ) {
-                Text(
-                    text = "Please implement AboutScreen!!!",
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                uiState.items.forEach {
-                    Text(it.toString())
+                item {
+                    Text(
+                        text = "Please implement AboutScreen!!!",
+                        style = MaterialTheme.typography.titleLarge,
+                    )
                 }
-                Text(
-                    modifier = Modifier
-                        .testTag(AboutScreenSponsorsScreenItemTestTag)
-                        .clickable { onAboutItemClick(AboutItem.Sponsors) },
-                    text = "Go to SponsorScreen",
+                item {
+                    AboutDroidKaigiDetail()
+                }
+                aboutCredits(
+                    onSponsorsItemClick = {
+                        onAboutItemClick(AboutItem.Sponsors)
+                    },
+                    onContributorsItemClick = {
+                        onAboutItemClick(AboutItem.Contributors)
+                    },
+                    onStaffItemClick = {
+                        onAboutItemClick(AboutItem.Staff)
+                    },
                 )
+                aboutOthers(
+                    onCodeOfConductItemClick = {
+                        onAboutItemClick(AboutItem.CodeOfConduct)
+                    },
+                    onLicenseItemClick = {
+                        onAboutItemClick(AboutItem.License)
+                    },
+                    onPrivacyPolicyItemClick = {
+                        onAboutItemClick(AboutItem.PrivacyPolicy)
+                    },
+                )
+                item {
+                    AboutFooterLinks(
+                        onYouTubeClick = {
+                            onAboutItemClick(AboutItem.YouTube)
+                        },
+                        onXClick = {
+                            onAboutItemClick(AboutItem.X)
+                        },
+                        onMediumClick = {
+                            onAboutItemClick(AboutItem.Medium)
+                        },
+                    )
+                }
             }
         },
     )
 }
+
