@@ -18,6 +18,7 @@ kotlin {
                 // We use api for test
                 api(libs.androidxDatastoreDatastorePreferences)
                 implementation(libs.multiplatformFirebaseAuth)
+                implementation(libs.okIo)
                 implementation(libs.ktorClientCore)
                 implementation(libs.ktorKotlinxSerialization)
                 implementation(libs.ktorContentNegotiation)
