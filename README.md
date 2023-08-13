@@ -349,7 +349,7 @@ And now, you can check the scrolled screenshot!
 ## Fake API Server
 
 To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual API. 
-We have also designed our API to manage its own state and to allow us to change its behavior as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Behavior` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
+We have also designed our API to manage its own state and to allow us to change its status as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Status` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
 
 ```kotlin
 interface SessionsApi {
@@ -358,28 +358,28 @@ interface SessionsApi {
 
 class FakeSessionsApi : SessionsApi {
 
-    sealed class Behavior : SessionsApi {
-        object Operational : Behavior() {
+    sealed class Status : SessionsApi {
+        object Operational : Status() {
             override suspend fun timetable(): Timetable {
                 return Timetable.fake()
             }
         }
 
-        object Error : Behavior() {
+        object Error : Status() {
             override suspend fun timetable(): Timetable {
                 throw IOException("Fake IO Exception")
             }
         }
     }
 
-    private var behavior: Behavior = Behavior.Operational
+    private var status: Status = Status.Operational
 
-    fun setup(behavior: Behavior) {
-        this.behavior = behavior
+    fun setup(status: Status) {
+        this.status = status
     }
 
     override suspend fun timetable(): Timetable {
-        return behavior.timetable()
+        return status.timetable()
     }
 }
 ```

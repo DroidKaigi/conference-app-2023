@@ -7,6 +7,7 @@ import dagger.hilt.testing.TestInstallIn
 import io.github.droidkaigi.confsched2023.data.sponsors.FakeSponsorsApiClient
 import io.github.droidkaigi.confsched2023.data.sponsors.SponsorsApiClient
 import io.github.droidkaigi.confsched2023.data.sponsors.SponsorsApiModule
+import javax.inject.Singleton
 
 @Module
 @TestInstallIn(
@@ -15,6 +16,7 @@ import io.github.droidkaigi.confsched2023.data.sponsors.SponsorsApiModule
 )
 class FakeSponsorsApiModule {
     @Provides
+    @Singleton
     fun provideSponsorsApi(): SponsorsApiClient {
         return FakeSponsorsApiClient()
     }

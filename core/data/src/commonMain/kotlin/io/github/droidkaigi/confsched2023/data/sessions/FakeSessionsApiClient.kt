@@ -6,27 +6,27 @@ import okio.IOException
 
 class FakeSessionsApiClient : SessionsApiClient {
 
-    sealed class Behavior : SessionsApiClient {
-        object Operational : Behavior() {
+    sealed class Status : SessionsApiClient {
+        object Operational : Status() {
             override suspend fun timetable(): Timetable {
                 return Timetable.fake()
             }
         }
 
-        object Error : Behavior() {
+        object Error : Status() {
             override suspend fun timetable(): Timetable {
                 throw IOException("Fake IO Exception")
             }
         }
     }
 
-    private var behavor: Behavior = Behavior.Operational
+    private var status: Status = Status.Operational
 
-    fun setup(behavior: Behavior) {
-        this.behavor = behavior
+    fun setup(status: Status) {
+        this.status = status
     }
 
     override suspend fun timetable(): Timetable {
-        return behavor.timetable()
+        return status.timetable()
     }
 }

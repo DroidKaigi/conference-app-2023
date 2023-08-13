@@ -7,27 +7,27 @@ import okio.IOException
 
 class FakeSponsorsApiClient : SponsorsApiClient {
 
-    sealed class Behavior : SponsorsApiClient {
-        object Operational : Behavior() {
+    sealed class Status : SponsorsApiClient {
+        object Operational : Status() {
             override suspend fun sponsors(): PersistentList<Sponsor> {
                 return Sponsor.fakes()
             }
         }
 
-        object Error : Behavior() {
+        object Error : Status() {
             override suspend fun sponsors(): PersistentList<Sponsor> {
                 throw IOException("Fake IO Exception")
             }
         }
     }
 
-    private var behavor: Behavior = Behavior.Operational
+    private var status: Status = Status.Operational
 
-    fun setup(behavior: Behavior) {
-        this.behavor = behavior
+    fun setup(status: Status) {
+        this.status = status
     }
 
     override suspend fun sponsors(): PersistentList<Sponsor> {
-        return behavor.sponsors()
+        return status.sponsors()
     }
 }
