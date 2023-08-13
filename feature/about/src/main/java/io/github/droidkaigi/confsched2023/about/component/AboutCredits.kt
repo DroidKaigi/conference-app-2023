@@ -23,7 +23,7 @@ fun LazyListScope.aboutCredits(
             modifier = Modifier
                 .testTag(AboutCreditsContributorsItemTestTag)
                 .clickable { onContributorsItemClick() },
-            text = "Go to contributors screen"
+            text = "Go to contributors screen",
         )
     }
     item {
@@ -31,7 +31,7 @@ fun LazyListScope.aboutCredits(
             modifier = Modifier
                 .testTag(AboutCreditsStaffItemTestTag)
                 .clickable { onStaffItemClick() },
-            text = "Go to staff screen"
+            text = "Go to staff screen",
         )
     }
     item {
@@ -39,7 +39,7 @@ fun LazyListScope.aboutCredits(
             modifier = Modifier
                 .testTag(AboutCreditsSponsorsItemTestTag)
                 .clickable { onSponsorsItemClick() },
-            text = "Go to sponsors screen"
+            text = "Go to sponsors screen",
         )
     }
 }

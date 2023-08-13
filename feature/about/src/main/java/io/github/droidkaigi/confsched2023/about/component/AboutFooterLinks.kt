@@ -24,19 +24,19 @@ fun AboutFooterLinks(
             text = "Go to YouTube",
             modifier = Modifier
                 .testTag(AboutFooterLinksYouTubeItemTestTag)
-                .clickable { onYouTubeClick() }
+                .clickable { onYouTubeClick() },
         )
         Text(
             text = "Go to X",
             modifier = Modifier
                 .testTag(AboutFooterLinksXItemTestTag)
-                .clickable { onXClick() }
+                .clickable { onXClick() },
         )
         Text(
             text = "Go to Medium",
             modifier = Modifier
                 .testTag(AboutFooterLinksMediumItemTestTag)
-                .clickable { onMediumClick() }
+                .clickable { onMediumClick() },
         )
     }
 }

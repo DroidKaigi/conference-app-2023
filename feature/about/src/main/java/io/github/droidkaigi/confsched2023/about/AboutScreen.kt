@@ -16,9 +16,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.about.component.aboutCredits
 import io.github.droidkaigi.confsched2023.about.component.AboutDroidKaigiDetail
 import io.github.droidkaigi.confsched2023.about.component.AboutFooterLinks
+import io.github.droidkaigi.confsched2023.about.component.aboutCredits
 import io.github.droidkaigi.confsched2023.about.component.aboutOthers
 import io.github.droidkaigi.confsched2023.model.AboutItem
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -123,4 +123,3 @@ private fun AboutScreen(
         },
     )
 }
-

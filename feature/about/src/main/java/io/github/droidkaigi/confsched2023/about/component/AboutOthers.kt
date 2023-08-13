@@ -12,7 +12,7 @@ const val AboutOthersPrivacyPolicyItemTestTag = "AboutOthersPrivacyPolicyItem"
 fun LazyListScope.aboutOthers(
     onCodeOfConductItemClick: () -> Unit,
     onLicenseItemClick: () -> Unit,
-    onPrivacyPolicyItemClick: () -> Unit
+    onPrivacyPolicyItemClick: () -> Unit,
 ) {
     item {
         Text("Others")
@@ -25,7 +25,7 @@ fun LazyListScope.aboutOthers(
             text = "Go to Code of Conduct screen",
             modifier = androidx.compose.ui.Modifier
                 .testTag(AboutOthersCodeOfConductItemTestTag)
-                .clickable { onCodeOfConductItemClick() }
+                .clickable { onCodeOfConductItemClick() },
         )
     }
     item {
@@ -33,7 +33,7 @@ fun LazyListScope.aboutOthers(
             text = "Go to License screen",
             modifier = androidx.compose.ui.Modifier
                 .testTag(AboutOthersLicenseItemTestTag)
-                .clickable { onLicenseItemClick() }
+                .clickable { onLicenseItemClick() },
         )
     }
     item {
@@ -41,7 +41,7 @@ fun LazyListScope.aboutOthers(
             text = "Go to Privacy Policy screen",
             modifier = androidx.compose.ui.Modifier
                 .testTag(AboutOthersPrivacyPolicyItemTestTag)
-                .clickable { onPrivacyPolicyItemClick() }
+                .clickable { onPrivacyPolicyItemClick() },
         )
     }
 }

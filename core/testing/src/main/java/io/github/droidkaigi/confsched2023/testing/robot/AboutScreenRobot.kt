@@ -6,7 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.about.AboutScreen
-import io.github.droidkaigi.confsched2023.about.AboutScreenSponsorsScreenItemTestTag
+import io.github.droidkaigi.confsched2023.about.component.AboutCreditsSponsorsItemTestTag
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
@@ -40,7 +40,7 @@ class AboutScreenRobot @Inject constructor(
     }
 
     fun clickSponsors() {
-        composeTestRule.onNodeWithTag(AboutScreenSponsorsScreenItemTestTag)
+        composeTestRule.onNodeWithTag(AboutCreditsSponsorsItemTestTag)
             .performClick()
         waitUntilIdle()
     }
