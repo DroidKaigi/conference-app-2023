@@ -31,26 +31,12 @@ kotlin {
             }
         }
 
-    // workaround https://youtrack.jetbrains.com/issue/KT-55751
-    // when apply arch filter, need to use this attribute
-    val archAttribute = Attribute.of("arch-filter-attribute", String::class.java)
-    configurations.named("releaseFrameworkIosFat").configure {
-        attributes {
-            attribute(archAttribute, "release-all")
-        }
-    }
-
-    configurations.named("debugFrameworkIosFat").configure {
-        attributes {
-            attribute(archAttribute, "debug-all")
-        }
-    }
-
     sourceSets {
         commonMain {
             dependencies {
                 api(projects.core.model)
                 api(projects.core.data)
+                api(projects.core.ui)
                 api(projects.feature.contributors)
                 implementation(libs.kotlinxCoroutinesCore)
             }

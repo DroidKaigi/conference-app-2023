@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
@@ -104,7 +103,7 @@ fun BookmarkTopArea(
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.Center,
             maxItemsInEachRow = rowNum,
             modifier = Modifier
                 .padding(start = 16.dp, top = 46.dp)

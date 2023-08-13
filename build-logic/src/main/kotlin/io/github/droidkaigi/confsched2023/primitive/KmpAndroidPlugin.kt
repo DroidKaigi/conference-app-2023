@@ -11,7 +11,13 @@ class KmpAndroidPlugin : Plugin<Project> {
                 apply("com.android.library")
             }
             kotlin {
-                android()
+                androidTarget {
+                    compilations.all {
+                        kotlinOptions {
+                            jvmTarget = "11"
+                        }
+                    }
+                }
             }
             android {
                 setupAndroid()
@@ -26,10 +32,6 @@ class KmpAndroidPlugin : Plugin<Project> {
                         java.srcDirs("src/androidUnitTest/kotlin", "src/commonTest/kotlin")
                         res.srcDirs("src/androidUnitTest/res")
                     }
-                }
-
-                kotlinOptions {
-                    jvmTarget = "11"
                 }
             }
         }
