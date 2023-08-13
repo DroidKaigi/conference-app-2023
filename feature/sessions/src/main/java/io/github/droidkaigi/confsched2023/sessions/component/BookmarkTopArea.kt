@@ -104,7 +104,7 @@ fun BookmarkTopArea(
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalArrangement = Arrangement.Center,
             maxItemsInEachRow = rowNum,
             modifier = Modifier
                 .padding(start = 16.dp, top = 46.dp)

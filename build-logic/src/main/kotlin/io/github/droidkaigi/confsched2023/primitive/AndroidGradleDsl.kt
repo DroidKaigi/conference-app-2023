@@ -26,7 +26,7 @@ fun Project.setupAndroid() {
         namespace?.let {
             this.namespace = it
         }
-        compileSdkVersion(33)
+        compileSdkVersion(34)
 
         defaultConfig {
             minSdk = 23

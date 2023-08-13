@@ -261,7 +261,7 @@ private fun itemProvider(
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
         @Composable
-        override fun Item(index: Int) {
+        override fun Item(index: Int, key: Any) {
             itemContent(index)
         }
 
