@@ -41,7 +41,8 @@ class TimetableScreenTest {
     }
 
     @Test
-    fun checkStartupErrorShot() {
+    @Category(ScreenshotTests::class)
+    fun checkLaunchServerErrorShot() {
         timetableScreenRobot {
             setupServer(ServerStatus.Error)
             setupTimetableScreenContent()
