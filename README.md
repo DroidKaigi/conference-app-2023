@@ -13,7 +13,7 @@ This is a video of an app in development, and it will be updated as needed.
 
 # Try it out!
 
-[<img src="https://dply.me/l3yo7p/button/large" alt="Try it on your device via DeployGate">](https://dply.me/l3yo7p#install)
+[<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
 
 # Architecture
 
