@@ -46,7 +46,7 @@ fun Project.setupAndroid() {
             }
         }
 
-        (this as CommonExtension<*,*,*,*>).lint {
+        (this as CommonExtension<*,*,*,*,*>).lint {
             // shell friendly
             val filename = displayName.replace(":", "_").replace("[\\s']".toRegex(), "")
 
