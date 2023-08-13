@@ -98,7 +98,7 @@ ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", v
 
 okHttpCore = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
 okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
-okIo = { module = "com.squareup.okio:okio", version = "3.2.0" }
+okIo = { module = "com.squareup.okio:okio", version = "3.5.0" }
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebaseAuth" }
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
