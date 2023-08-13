@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import io.github.droidkaigi.confsched2023.testing.robot.TimetableScreenRobot
+import io.github.droidkaigi.confsched2023.testing.robot.TimetableScreenRobot.ServerStatus
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -34,6 +35,15 @@ class TimetableScreenTest {
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
         timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    fun checkStartupErrorShot() {
+        timetableScreenRobot {
+            setupServer(ServerStatus.Error)
             setupTimetableScreenContent()
             checkScreenCapture()
         }

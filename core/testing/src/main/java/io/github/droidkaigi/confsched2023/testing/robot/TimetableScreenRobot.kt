@@ -9,6 +9,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
+import io.github.droidkaigi.confsched2023.data.sessions.FakeSessionsApiClient
+import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
@@ -27,7 +29,12 @@ class TimetableScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
     @Inject lateinit var robotTestRule: RobotTestRule
+
+    @Inject lateinit var sessionsApiClient: SessionsApiClient
+    val fakeSessionsApiClient: FakeSessionsApiClient
+        get() = sessionsApiClient as FakeSessionsApiClient
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
+
     operator fun invoke(
         block: TimetableScreenRobot.() -> Unit,
     ) {
@@ -48,6 +55,20 @@ class TimetableScreenRobot @Inject constructor(
             }
         }
         waitUntilIdle()
+    }
+
+    enum class ServerStatus {
+        Operational,
+        Error,
+    }
+
+    fun setupServer(serverStatus: ServerStatus) {
+        fakeSessionsApiClient.setup(
+            when (serverStatus) {
+                ServerStatus.Operational -> FakeSessionsApiClient.Status.Operational
+                ServerStatus.Error -> FakeSessionsApiClient.Status.Error
+            },
+        )
     }
 
     fun clickFirstSession() {
