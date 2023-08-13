@@ -29,11 +29,12 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import kotlin.math.roundToInt
 
 @Composable
 fun TimetableTab(
-    day: Int,
+    day: DroidKaigi2023Day,
     selected: Boolean,
     onClick: () -> Unit,
     scrollState: TimetableTabState,
@@ -49,13 +50,11 @@ fun TimetableTab(
                 modifier = Modifier.padding(vertical = 4.dp),
             ) {
                 Text(
-                    // TODO: Fix to reflect the date from the data
-                    text = "Day$day",
+                    text = "Day${day.day}",
                     style = MaterialTheme.typography.labelMedium,
                 )
                 Text(
-                    // TODO: Fix to reflect the date from the data
-                    text = "${day + 13}",
+                    text = "${day.dayOfMonth}",
                     style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
                         .graphicsLayer {

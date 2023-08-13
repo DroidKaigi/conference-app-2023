@@ -64,6 +64,11 @@ public sealed class TimetableItem {
         override val speakers: PersistentList<TimetableSpeaker>,
     ) : TimetableItem()
 
+    private val startsDateString: String by lazy {
+        val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(2, '0') + "." + "${localDate.dayOfMonth}".padStart(2, '0')
+    }
+
     public val startsTimeString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
@@ -74,14 +79,33 @@ public sealed class TimetableItem {
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
-    public val minutesString: String by lazy {
+    private val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
         "${minutes}min"
     }
 
+    public val formattedDateTimeString: String by lazy {
+        "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
+    }
+
     public val speakerString: String by lazy {
         speakers.joinToString(", ") { it.name }
+    }
+
+    fun getSupportedLangString(isJapaneseLocale: Boolean): String {
+        val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
+        val english = if (isJapaneseLocale) "英語" else "English"
+        val japaneseWithInterpretation =
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+        val englishWithInterpretation =
+            if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
+
+        return when (language.langOfSpeaker) {
+            "JAPANESE" -> if (language.isInterpretationTarget) japaneseWithInterpretation else japanese
+            "ENGLISH" -> if (language.isInterpretationTarget) englishWithInterpretation else english
+            else -> language.langOfSpeaker
+        }
     }
 }
 

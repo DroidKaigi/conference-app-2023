@@ -9,6 +9,8 @@ var package = Package(
         .iOS(.v16),
     ],
     products: [
+        .library(name: "Component", targets: ["Component"]),
+        .library(name: "FloorMap", targets: ["FloorMap"]),
         .library(name: "Session", targets: ["Session"]),
         .library(name: "Timetable", targets: ["Timetable"]),
         .library(name: "Navigation", targets: ["Navigation"]),
@@ -17,13 +19,18 @@ var package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
-        .package(url: "https://github.com/realm/SwiftLint", from: "0.52.2"),
+        .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
+        .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
     ],
     targets: [
         .target(
             name: "About",
             dependencies: [
+                "Assets",
+                "Component",
                 "shared",
+                "Model",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -34,9 +41,29 @@ var package = Package(
         ),
 
         .target(
+            name: "Assets",
+            resources: [
+                .process("Resources"),
+                .process("swiftgen.yml"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]
+        ),
+
+        .target(
+            name: "Component",
+            dependencies: [
+                "Theme",
+            ]
+        ),
+
+        .target(
             name: "FloorMap",
             dependencies: [
+                "Assets",
                 "shared",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -49,7 +76,11 @@ var package = Package(
         .target(
             name: "Session",
             dependencies: [
+                "Assets",
+                "Component",
+                "Model",
                 "shared",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -60,9 +91,22 @@ var package = Package(
         ),
 
         .target(
+            name: "Contributor",
+            dependencies: [
+                "Assets",
+                "Component",
+                "Model",
+                "shared",
+                "Theme",
+            ]
+        ),
+
+        .target(
             name: "Stamps",
             dependencies: [
+                "Assets",
                 "shared",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -75,8 +119,10 @@ var package = Package(
         .target(
             name: "Timetable",
             dependencies: [
+                "Assets",
                 "shared",
                 "Model",
+                "Theme",
             ]
         ),
         .testTarget(
@@ -90,9 +136,12 @@ var package = Package(
             name: "Navigation",
             dependencies: [
                 "About",
+                "Assets",
                 "FloorMap",
                 "Session",
                 "Stamps",
+                "Contributor",
+                "Theme",
                 "Timetable",
             ]
         ),
@@ -101,6 +150,17 @@ var package = Package(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+
+        .target(
+            name: "Theme",
+            resources: [
+                .process("Resources"),
+                .process("swiftgen.yml"),
+            ],
+            plugins: [
+                .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
             ]
         ),
 

@@ -43,9 +43,9 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.model.type
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.ScheduleIcon
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings.UserIcon
-import io.github.droidkaigi.confsched2023.ui.overridePreviewWith
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
@@ -107,10 +107,9 @@ fun TimetableGridItem(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
-                            painter = rememberAsyncImagePainter(speaker.iconUrl)
-                                .overridePreviewWith {
-                                    rememberVectorPainter(image = Icons.Default.Person)
-                                },
+                            painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
+                                rememberAsyncImagePainter(speaker.iconUrl)
+                            },
                             contentDescription = UserIcon.asString(),
                             modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                         )

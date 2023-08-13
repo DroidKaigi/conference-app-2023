@@ -1,6 +1,12 @@
+import Assets
 import Model
 import shared
 import SwiftUI
+import Theme
+
+enum TimetableRouting: Hashable {
+    case session(TimetableItem)
+}
 
 public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
@@ -11,50 +17,75 @@ public struct TimetableView<SessionView: View>: View {
     }
 
     public var body: some View {
-        NavigationStack {
-            switch viewModel.state {
-            case .initial, .loading:
-                ProgressView()
-            case .failed:
-                EmptyView()
-            case .loaded(let state):
-                ScrollView(.vertical) {
-                    LazyVStack(spacing: 32) {
-                        ForEach(state.timeGroupTimetableItems) { timetableTimeGroupItems in
-                            HStack(alignment: .top, spacing: 28) {
-                                VStack(alignment: .center, spacing: 0) {
-                                    SessionTimeView(
-                                        startsAt: timetableTimeGroupItems.startsAt,
-                                        endsAt: timetableTimeGroupItems.endsAt
-                                    )
+        switch viewModel.state.timeGroupTimetableItems {
+        case .initial, .loading:
+            ProgressView()
+                .task {
+                    await viewModel.load()
+                }
+        case .failed:
+            EmptyView()
+        case .loaded(let state):
+            NavigationStack {
+                ZStack(alignment: .topLeading) {
+                    HStack(alignment: .top) {
+                        VStack {
+                            Text("DroidKaigi\n2023")
+                                .font(Font.system(size: 36))
+                            Text("at Bellesalle Shibuya Garden")
+                                .font(Font.system(size: 12, weight: .semibold))
+                        }
+                        .padding(.horizontal, 16)
+                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                        Assets.Images.droidHotSpring.swiftUIImage
+                    }
+                    ScrollView(.vertical) {
+                        Spacer().frame(height: 130)
+                        LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                            Section(
+                                header: TimetableDayHeader(
+                                    selectedDay: viewModel.state.selectedDay
+                                ) {
+                                    viewModel.selectDay(day: $0)
                                 }
-                                .foregroundColor(.secondary)
-                                VStack(spacing: 32) {
-                                    ForEach(timetableTimeGroupItems.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
-                                        NavigationLink(value: timetableItemWithFavorite.timetableItem) {
-                                            TimetableListItemView(
-                                                timetableItemWithFavorite: timetableItemWithFavorite
-                                            )
-                                        }
-                                    }
-                                }
+                            ) {
+                                TimetableListView(timetableTimeGroupItems: state)
                             }
-                            .padding(.horizontal, 16)
+                        }
+                        .background(AssetColors.Surface.surface.swiftUIColor)
+                    }
+                    .navigationDestination(for: TimetableRouting.self) { routing in
+                        switch routing {
+                        case .session(let item):
+                            sessionViewBuilder(item)
                         }
                     }
-                    .padding(.vertical, 24)
                 }
-                .navigationDestination(for: TimetableItem.self) { item in
-                    sessionViewBuilder(item)
+                .background(AssetColors.Surface.surfaceVariant.swiftUIColor)
+                .toolbarBackground(AssetColors.Surface.surfaceVariant.swiftUIColor, for: .navigationBar)
+                .toolbar {
+                    Group {
+                        ToolbarItem(placement: .topBarLeading) {
+                            Assets.Icons.droidkaigi.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.search.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.bookmarkBorder.swiftUIImage
+                        }
+                        ToolbarItem {
+                            Assets.Icons.gridView.swiftUIImage
+                        }
+                    }
                 }
             }
-        }
-        .task {
-            await viewModel.load()
         }
     }
 }
 
-// #Preview {
-//     TimetableView()
-// }
+ #Preview {
+     TimetableView<EmptyView> { _ in
+         EmptyView()
+     }
+ }

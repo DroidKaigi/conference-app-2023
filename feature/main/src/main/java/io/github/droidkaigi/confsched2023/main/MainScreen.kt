@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.main
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Approval
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -18,6 +19,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -141,6 +143,7 @@ private fun MainScreen(
         NavHost(
             navController = mainNestedNavController,
             startDestination = "timetable",
+            modifier = Modifier.padding(padding),
         ) {
             mainNestedNavGraph(mainNestedNavController, padding)
         }

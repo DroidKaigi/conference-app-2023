@@ -13,8 +13,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.sessions.strings.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+
+const val TimetableItemDetailBookmarkIconTestTag = "TimetableItemDetailBookmarkIcon"
 
 @Composable
 fun TimetableItemDetailFooter(
@@ -42,6 +45,7 @@ fun TimetableItemDetailFooter(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onBookmarkClick(timetableItem) },
+                modifier = Modifier.testTag(TimetableItemDetailBookmarkIconTestTag),
                 containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                 elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
             ) {

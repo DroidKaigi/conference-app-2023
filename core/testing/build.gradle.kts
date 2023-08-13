@@ -14,9 +14,13 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":feature:main"))
     implementation(project(":feature:sessions"))
+    implementation(project(":feature:about"))
+    implementation(project(":feature:sponsors"))
+    implementation(project(":feature:floor-map"))
 
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)
+    implementation(libs.kermit)
     api(libs.roborazziRule)
     api(libs.composeUiTestJunit4)
 }

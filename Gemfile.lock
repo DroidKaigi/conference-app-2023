@@ -271,6 +271,7 @@ GEM
     xcresult (0.2.1)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-darwin-22
   x86_64-linux
 

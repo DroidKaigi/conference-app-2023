@@ -1,13 +1,18 @@
 package io.github.droidkaigi.confsched2023.sessions
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -16,15 +21,17 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailHeader
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummary
-import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailViewModel
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
     "timetableItemDetail/{$timetableItemDetailScreenRouteItemIdParameterName}"
 
-fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
+fun NavGraphBuilder.sessionScreens(
+    onNavigationIconClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
@@ -32,7 +39,8 @@ fun NavGraphBuilder.sessionScreens(onNavigationIconClick: () -> Unit) {
     }
     composable(bookmarkScreenRoute) {
         BookmarkScreen(
-            onClickBackPress = onNavigationIconClick,
+            onBackPressClick = onNavigationIconClick,
+            onTimetableItemClick = onTimetableItemClick,
         )
     }
 }
@@ -69,13 +77,25 @@ sealed class TimetableItemDetailScreenUiState() {
     ) : TimetableItemDetailScreenUiState()
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TimetableItemDetailScreen(
     uiState: TimetableItemDetailScreenUiState,
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+                TimetableItemDetailScreenTopAppBar(
+                    title = uiState.timetableItem.title,
+                    onNavigationIconClick = onNavigationIconClick,
+                    scrollBehavior = scrollBehavior,
+                )
+            }
+        },
         bottomBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
                 TimetableItemDetailFooter(
@@ -92,12 +112,19 @@ private fun TimetableItemDetailScreen(
             }
 
             is TimetableItemDetailScreenUiState.Loaded -> {
-                Column(
-                    modifier = Modifier.padding(innerPadding),
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = innerPadding,
                 ) {
-                    TimetableItemDetailHeader()
-                    TimetableItemDetailSummary()
-                    TimetableItemDetailContent()
+                    item {
+                        TimetableItemDetailSummaryCard(
+                            timetableItem = uiState.timetableItem,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+                        )
+                    }
+                    item {
+                        TimetableItemDetailContent(uiState = uiState.timetableItem)
+                    }
                 }
             }
         }

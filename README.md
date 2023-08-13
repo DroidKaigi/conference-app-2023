@@ -1,12 +1,43 @@
+![readme-banner](https://github.com/DroidKaigi/conference-app-2023/assets/136104152/b24bf87d-7af0-4224-9321-bfc101d541fb)
+
+
 # DroidKaigi 2023 official app
 
-DroidKaigi 2023 official app is an app for DroidKaigi 2023.
+[DroidKaigi 2023](https://2023.droidkaigi.jp/) will be held from September 14 to September 16, 2023. We are developing its application. Let's develop the app together and make it exciting.
+
+# Features
+
+This is a video of an app in development, and it will be updated as needed.
+
+[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/b30d8912-387c-48cc-8eb3-a4ea4b8ccb21)
+
+# Try it out!
+
+[<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
+
+# Architecture
+
+## Overview of the architecture
+
+In addition to general Android practices, we are exploring and implementing various concepts. Details for each are discussed further in this README.
+
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
+
+## Module structure
+
+We are adopting the module separation approach used in [Now in Android](https://github.com/android/nowinandroid), such as splitting into 'feature' and 'core' modules.
+We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
+
+<img width="798" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/378fb263-79af-4158-9c49-d5df92bd70f0">
+
 
 # UI
 
 ## Composable Function Categorization
 
 Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
+
+<img width="401" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d600dc70-e0e8-45ee-afd4-b90bc5b2517b">
 
 ```
 sessions
@@ -52,12 +83,30 @@ data class TimetableScreenUiState(
 private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     ...
-)
+) {
+...
 ```
 
 ### Section
 
 `Section` refers to groups of components within screens, like containers including lists, which can dynamically adjust in size or complexity as the needs of the application change. An example could be a TimetableList.
+Both Screen and Section are managed with UiState to handle their individual states, which are created by the ViewModel. 
+
+```kotlin
+data class TimetableListUiState(
+    val timetableItemMap: PersistentMap<String, List<TimetableItem>>,
+    val timetable: Timetable,
+)
+
+@Composable
+fun TimetableList(
+    uiState: TimetableListUiState,
+    onBookmarkClick: (TimetableItem) -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+...
+```
 
 ### Component
 
@@ -119,30 +168,10 @@ To fetch a string:
 println(SessionsStrings.Timetable.asString())
 ```
 
-# Build / CI
-
-This project runs on GitHub Actions. This year's workflows contain new challenges!
-
-## Provide the same CI experiences for the both of members and contributors(you!)
-
-This projects is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
-
-This achieves to post comments on forked PRs safely. For example, you can see the results of the visual tesing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
-
-## WIP - Automatic dependency updates
-
-> This workflow is disabled now.
-
-We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
-
-# Architecture
-
-## Overview of the architecture
-
-![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/03582926-5ff6-4375-87b1-3ec91efb120d)
-
-
 ## Single Source of Truth with buildUiState() {}
+
+<img width="351" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/9d0ebc3b-1e5e-46fd-8a0c-1ad4a0980476">
+
 The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
 
 By working with StateFlow objects, the function can also compute initial values, further enhancing the SSOT principle.
@@ -165,19 +194,41 @@ private val timetableContentUiState: StateFlow<TimetableContentUiState> = buildU
 }
 ```
 
-The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single filterUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
+The buildUiState() function combines the data from sessionsStateFlow and filtersStateFlow into a single timetableContentUiState instance. This simplifies state management and ensures that the UI always displays consistent and up-to-date information.
 
-## Testing
+# Build / CI
+
+This project runs on GitHub Actions. This year's workflows contain new challenges!
+
+## Provide the same CI experiences for both members and contributors(you!)
+
+This project is an OSS so we cannot assign write-able tokens to workflow-runs that need the codes of the forked repos. To solve this problem, this project shares artifacts with multiple workflows via artifacts API and use them in *safe* workflows that have more-powerful permission but consist of safe actions.
+
+This achieves to post comments on forked PRs safely. For example, you can see the results of the visual testing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
+
+## WIP - Automatic dependency updates
+
+> This workflow is disabled now.
+
+We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
+
+# Testing
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
+Overview Diagram
+
 ![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a79bccbb-7486-4be9-865f-0655280af656)
 
+Detailed Diagram
 
-### Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
+<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/34d9d0d6-2bea-4311-a20c-64f2c2b3e0bd">
+
+
+## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
 
 [Robolectric Native Graphics (RNG)](https://github.com/robolectric/robolectric/releases/tag/robolectric-4.10) allows us to take app screenshots without needing an emulator or a device. This approach is faster and more reliable than taking device screenshots. While device screenshots may replicate real-world usage slightly more accurately, we believe the benefits of RNG's speed and reliability outweigh this. 
-We use Roborazzi to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
+We use [Roborazzi](https://github.com/takahirom/roborazzi) to compare the current app's screenshots to the old ones, allowing us to spot and fix any visual changes.
 
 ### What to test: Balancing Screenshot Tests and Assertion Tests
 Screenshot tests are extremely effective as they allow us to spot visual changes without writing many assertions. However, there is a risk of mistakenly using incorrect baseline images.  
@@ -191,45 +242,34 @@ So, for important features, we should add assertion tests to these parts. The te
     qualifiers = RobolectricDeviceQualifiers.NexusOne
 )
 class TimetableScreenTest {
-
     @get:Rule
-    val robotTestRule = RobotTestRule(this)
+    @BindValue val robotTestRule: RobotTestRule = RobotTestRule<MainActivity>(this)
 
-    @Inject
-    lateinit var timetableScreenRobot: TimetableScreenRobot
+    @Inject lateinit var timetableScreenRobot: TimetableScreenRobot
 
     // A screenshot test
     @Test
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
-        timetableScreenRobot(robotTestRule) {
-            checkCaptureScreen()
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
         }
     }
 
     // An assertion test for an important feature
     @Test
     fun checkLaunch() {
-        timetableScreenRobot(robotTestRule) {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
             checkTimetableItemsDisplayed()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkFavoriteToggleShot() {
-        timetableScreenRobot(robotTestRule) {
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
-            clickFirstSessionFavorite()
-            checkCaptureTimetableContent()
         }
     }
     ...
 }
 ```
 
-### The Companion Branch Approach
+## The Companion Branch Approach
 
 We use the [companion branch approach](https://github.com/DroidKaigi/conference-app-2022/pull/616) to store screenshots of feature branches. This method involves saving screenshots to a companion branch whenever a pull request is made, ensuring that we keep only relevant images and reduce the repository size.
 
@@ -239,13 +279,74 @@ We use the [companion branch approach](https://github.com/DroidKaigi/conference-
 
 While GitHub Actions Artifacts and Git LFS could be used for storing screenshots, they don't allow for direct image viewing in pull requests. Committing screenshots directly to the feature branch, on the other hand, can lead to an unnecessary increase in the repository size.
 
-### Testing Robot Pattern
+## Testing Robot Pattern
 
-The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two parts: 'how to test', handled by the robot class, and 'what to test', managed by the test class. This separation is beneficial for writing screenshot tests and makes the test code more maintainable and easier to read.
+The Testing Robot Pattern simplifies writing UI tests. It splits the test code into two main parts: the 'how to test' portion, handled by the robot class, and the 'what to test' portion, managed by the test class. This separation provides benefits when writing screenshot tests, making the test code more maintainable and easier to understand.
 
-### Fake API Server
+### Testing Section: 'What to Test'
 
-To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual repositories. 
+File: `TimetableScreenTest.kt`
+
+```kotlin
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        timetableScreenRobot {
+            // Define what functionalities of the screen to test
+            setupTimetableScreenContent() // Setup the screen with the content
+            scrollTimetable()             // Perform a scrolling action
+            checkTimetableListCapture()   // Validate the visual state by capturing a screenshot
+        }
+    }
+```
+
+### Robot Section: 'How to Test'
+
+File: `TimetableScreenRobot.kt`
+
+```kotlin
+    // Sets up the content for the Timetable screen
+    fun setupTimetableScreenContent() {
+        composeTestRule.setContent {
+            KaigiTheme {
+                TimetableScreen(
+                    onSearchClick = { },
+                    onTimetableItemClick = { },
+                    onBookmarkIconClick = { },
+                )
+            }
+        }
+        waitUntilIdle()
+    }
+
+    // Performs a scrolling action on the Timetable screen
+    fun scrollTimetable() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 2F,
+                )
+            }
+    }
+
+    // Validates the Timetable screen by capturing a screenshot
+    fun checkTimetableListCapture() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableScreenTestTag))
+            .captureRoboImage()
+    }
+```
+
+And now, you can check the scrolled screenshot!
+
+![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d9e006d3-009b-4780-80fb-064c1526fbb3)
+
+
+## Fake API Server
+
+To ensure stable and comprehensive testing of our app, we opt to fake our API rather than use actual API. 
 We have also designed our API to manage its own state and to allow us to change its behavior as needed. For instance, although we're not using it here, we could place an `AccessCounter` field inside the `Behavior` class to keep track of how many times the API has been hit. By managing our fake API in this way with Kotlin, we can adapt to changes in the response without having to rewrite the entire application.
 
 ```kotlin
@@ -330,12 +431,19 @@ class FakeSessionsApiModule {
 - Set configs like below
   - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
 
+# Contributing
+
+We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
+
 # Special thanks
 
  - Contributors of [DroidKaigi 2023 official app](https://github.com/DroidKaigi/conference-app-2023/graphs/contributors)
  - UI Lead: [upon0426](https://github.com/upon0426)
  - Build/CI Lead: [tomoya0x00](https://github.com/tomoya0x00)
- - Designer: TBD
+ - Designer: [nobonobopurin](https://github.com/nobonobopurin)
+ - Material3 Lead: [Nabe](https://twitter.com/NabeCott)
  - iOS Lead: [ry-itto](https://github.com/ry-itto)
  - Server / API Lead: [ryunen344](https://github.com/ryunen344)
  - DroidKaigi Co-Organizer / Architecture Lead: [takahirom](https://github.com/takahirom)

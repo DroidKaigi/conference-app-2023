@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.sessions
 
+import co.touchlab.kermit.Logger
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
@@ -28,10 +29,10 @@ class DefaultSessionsRepository(
             timetable.copy(bookmarks = favorites)
         }
             .onStart {
-                // TODO: Remove after introducing network service
-                authApi.authIfNeeded()
                 if (timetableStateFlow.value.isEmpty()) {
+                    Logger.d("DefaultSessionsRepository onStart getTimetableStream()")
                     timetableStateFlow.value = sessionsApi.timetable()
+                    Logger.d("DefaultSessionsRepository onStart fetched")
                 }
             }
     }

@@ -1,9 +1,10 @@
 import Foundation
+import shared
 
-final class SessionViewModel: ObservableObject {
-    @Published var titles: [String] = ["Hoge", "Fuga", "Piyo"]
+final class SessionViewModel {
+    let timetableItem: TimetableItem
 
-    func addSession() {
-        titles.append(UUID().uuidString)
+    init(timetableItem: TimetableItem) {
+        self.timetableItem = timetableItem
     }
 }

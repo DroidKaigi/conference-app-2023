@@ -45,18 +45,20 @@ sealed interface BookmarkScreenUiState {
 
 @Composable
 fun BookmarkScreen(
-    onClickBackPress: () -> Unit,
+    onBackPressClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     viewModel: BookmarkScreenViewModel = hiltViewModel<BookmarkScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     BookmarkScreen(
         uiState = uiState,
-        onClickBackPress = onClickBackPress,
-        onClickBooMarkIcon = { viewModel.updateBookmark(it) },
-        onClickAllFilterChip = { viewModel.onClickAllFilterChip() },
-        onClickDayFirstChip = { viewModel.onClickDayFirstChip() },
-        onClickDaySecondChip = { viewModel.onClickDaySecondChip() },
-        onClickDayThirdChip = { viewModel.onClickDayThirdChip() },
+        onBackPressClick = onBackPressClick,
+        onTimetableItemClick = onTimetableItemClick,
+        onBookmarkClick = { viewModel.updateBookmark(it) },
+        onAllFilterChipClick = { viewModel.onAllFilterChipClick() },
+        onDayFirstChipClick = { viewModel.onDayFirstChipClick() },
+        onDaySecondChipClick = { viewModel.onDaySecondChipClick() },
+        onDayThirdChipClick = { viewModel.onDayThirdChipClick() },
     )
 }
 
@@ -65,12 +67,13 @@ const val BookmarkScreenTestTag = "BookmarkScreenTestTag"
 @Composable
 private fun BookmarkScreen(
     uiState: BookmarkScreenUiState,
-    onClickBackPress: () -> Unit,
-    onClickBooMarkIcon: (TimetableItemId) -> Unit,
-    onClickAllFilterChip: () -> Unit,
-    onClickDayFirstChip: () -> Unit,
-    onClickDaySecondChip: () -> Unit,
-    onClickDayThirdChip: () -> Unit,
+    onBackPressClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem) -> Unit,
+    onAllFilterChipClick: () -> Unit,
+    onDayFirstChipClick: () -> Unit,
+    onDaySecondChipClick: () -> Unit,
+    onDayThirdChipClick: () -> Unit,
 ) {
     val scrollState = rememberLazyListState()
     Scaffold(
@@ -78,7 +81,7 @@ private fun BookmarkScreen(
         topBar = {
             BookmarkTopArea(
                 scrollState = scrollState,
-                onClickBackPress = onClickBackPress,
+                onBackPressClick = onBackPressClick,
             )
         },
         containerColor = Color(0xFFF8FAF6),
@@ -87,11 +90,12 @@ private fun BookmarkScreen(
         BookmarkSheet(
             modifier = Modifier.padding(padding),
             scrollState = scrollState,
-            onClickBookmarkIcon = onClickBooMarkIcon,
-            onClickAllFilterChip = onClickAllFilterChip,
-            onClickDayFirstChip = onClickDayFirstChip,
-            onClickDaySecondChip = onClickDaySecondChip,
-            onClickDayThirdChip = onClickDayThirdChip,
+            onTimetableItemClick = onTimetableItemClick,
+            onBookmarkClick = onBookmarkClick,
+            onAllFilterChipClick = onAllFilterChipClick,
+            onDayFirstChipClick = onDayFirstChipClick,
+            onDaySecondChipClick = onDaySecondChipClick,
+            onDayThirdChipClick = onDayThirdChipClick,
             uiState = uiState,
         )
     }

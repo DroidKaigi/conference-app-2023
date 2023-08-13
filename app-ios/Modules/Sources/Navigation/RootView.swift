@@ -1,8 +1,11 @@
 import About
+import Assets
+import Contributor
 import FloorMap
 import Session
 import Stamps
 import SwiftUI
+import Theme
 import Timetable
 
 enum Tab {
@@ -20,30 +23,55 @@ public struct RootView: View {
     public var body: some View {
         TabView(selection: $selection) {
             TimetableView(
-                sessionViewBuilder: { _ in
-                    SessionView()
+                sessionViewBuilder: { timetableItem in
+                    SessionView(timetableItem: timetableItem)
                 }
             )
                 .tag(Tab.timeline)
                 .tabItem {
-                    Label("Timeline", systemImage: "circle")
+                    Label {
+                        Text("Timetable")
+                    } icon: {
+                        Assets.Icons.timetable.swiftUIImage
+                            .renderingMode(.template)
+                    }
                 }
             FloorMapView()
                 .tag(Tab.floorMap)
                 .tabItem {
-                    Label("FloorMap", systemImage: "circle")
+                    Label {
+                        Text("FloorMap")
+                    } icon: {
+                        Assets.Icons.map.swiftUIImage
+                            .renderingMode(.template)
+                    }
                 }
             StampsView()
                 .tag(Tab.stamps)
                 .tabItem {
-                    Label("Stamps", systemImage: "circle")
+                    Label {
+                        Text("Stamps")
+                    } icon: {
+                        Assets.Icons.badge.swiftUIImage
+                            .renderingMode(.template)
+                    }
                 }
-            AboutView()
+            AboutView(
+                contributorViewProvider: { _ in
+                    ContributorView()
+                }
+            )
                 .tag(Tab.about)
                 .tabItem {
-                    Label("About", systemImage: "circle")
+                    Label {
+                        Text("About")
+                    } icon: {
+                        Assets.Icons.info.swiftUIImage
+                            .renderingMode(.template)
+                    }
                 }
         }
+        .tint(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
     }
 }
 
