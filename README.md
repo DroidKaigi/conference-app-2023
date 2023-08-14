@@ -229,12 +229,10 @@ This achieves to post comments on forked PRs safely. For example, you can see th
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
 Overview Diagram
-
-![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a79bccbb-7486-4be9-865f-0655280af656)
+![image](https://github.com/DroidKaigi/conference-app-2023/assets/45708639/2dc4fbc3-7070-484a-8f9f-3f1e1f576ed7)
 
 Detailed Diagram
-
-<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/2c927141-4dbb-4260-b063-5ea53448a810">
+<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/b00857c2-c22e-4f6c-9a48-416312b75636">
 
 
 ## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
@@ -353,12 +351,11 @@ File: `TimetableScreenRobot.kt`
 
 And now, you can check the scrolled screenshot!
 
-![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d9e006d3-009b-4780-80fb-064c1526fbb3)
+![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/e283bc64-0b12-44cf-80ac-96d180d0a627)
 
 This screenshot testing has been useful in that we can find bugs. For example, we found a bug where the tab was hidden when scrolling.
 
-![screenshot-diff](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a478b040-985c-4efe-a230-caf7a972d14e)
-
+![screenshot-diff](https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/70ae4a4f-9098-40ad-8e33-a32f4e715266)
 
 ## Fake API Server
 
@@ -443,9 +440,10 @@ class FakeSessionsApiModule {
 
 - You can build and debug on Android Studio with [KMM plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
 - After install KMM plugin, you can see `app-ios` module on Android Studio's run configurations.
-  - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/4f076561-8bf2-4595-a9aa-4fc03ccc09e1)
+  - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/68ad1899-021c-4475-992a-13f3596a4973)
 - Set configs like below
-  - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
+  - ![config](https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/449e362c-4999-4c93-8ae6-3b9583519ddb)
+
 
 # Special thanks
 
