@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import java.lang.Float.min
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -49,7 +50,7 @@ fun BookmarkTopArea(
     val fraction by remember {
         derivedStateOf {
             if (scrollState.firstVisibleItemIndex == 0) {
-                scrollState.firstVisibleItemScrollOffset / 520F
+                min(scrollState.firstVisibleItemScrollOffset / 520F, 1F)
             } else {
                 1F
             }
@@ -122,9 +123,8 @@ fun BookmarkTopArea(
                 text = SessionsStrings.Bookmark.asString(),
                 style = titleTextStyle,
                 modifier = Modifier.padding(
-                    // FIXME: If we don't use this `if` expresson, a crash happen
-                    start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
-                    top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp,
+                    start = titlePaddingStart,
+                    top = titlePaddingTop,
                 ),
             )
         }
