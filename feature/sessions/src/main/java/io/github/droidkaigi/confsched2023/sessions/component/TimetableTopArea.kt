@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import io.github.droidkaigi.confsched2023.feature.sessions.R.drawable
+import io.github.droidkaigi.confsched2023.feature.sessions.R
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
 
@@ -34,7 +34,7 @@ fun TimetableTopArea(
     TopAppBar(
         title = {
             Image(
-                painter = painterResource(id = drawable.icon_droidkaigi_logo),
+                painter = painterResource(id = R.drawable.icon_droidkaigi_logo),
                 contentDescription = null,
             )
         },

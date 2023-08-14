@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.feature.sessions.R.drawable
+import io.github.droidkaigi.confsched2023.feature.sessions.R
 
 @Composable
 fun TimetableHeader(modifier: Modifier = Modifier) {
@@ -33,7 +33,7 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
         }
         Image(
             modifier = Modifier.size(width = 212.dp, height = 168.dp),
-            painter = painterResource(id = drawable.img_droid_kun_in_bath),
+            painter = painterResource(id = R.drawable.img_droid_kun_in_bath),
             contentDescription = null,
         )
     }
