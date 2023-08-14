@@ -18,12 +18,13 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun BookmarkFilters(
-    currentDayFilter: PersistentList<DroidKaigi2023Day>,
+    isAll: Boolean,
+    isDayFirst: Boolean,
+    isDaySecond: Boolean,
+    isDayThird: Boolean,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,
@@ -37,13 +38,6 @@ fun BookmarkFilters(
         borderColor = md_theme_light_outline,
         borderWidth = 0.dp,
     )
-    val isAll = currentDayFilter.size == DroidKaigi2023Day.values().size
-    val isDayFirst =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
-    val isDaySecond =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day2
-    val isDayThird =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day3
     Row(modifier) {
         AssistChip(
             onClick = onAllFilterChipClick,
@@ -130,7 +124,10 @@ fun BookmarkFiltersPreview() {
     KaigiTheme {
         Surface {
             BookmarkFilters(
-                currentDayFilter = DroidKaigi2023Day.values().toList().toPersistentList(),
+                isAll = false,
+                isDayFirst = true,
+                isDaySecond = false,
+                isDayThird = false,
                 onAllFilterChipClick = {},
                 onDayFirstChipClick = {},
                 onDaySecondChipClick = {},
