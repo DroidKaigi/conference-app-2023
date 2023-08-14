@@ -16,7 +16,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -35,6 +35,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outl
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
@@ -59,11 +60,10 @@ fun TimetableListItem(
             Row(modifier = Modifier.weight(1F)) {
                 chipContent()
             }
-            IconButton(
+            IconToggleButton(
                 modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
-                onClick = {
-                    onBoomarkClick(timetableItem)
-                },
+                checked = isBookmarked,
+                onCheckedChange = { onBoomarkClick(timetableItem) },
             ) {
                 Icon(
                     imageVector = if (isBookmarked) {
@@ -71,7 +71,11 @@ fun TimetableListItem(
                     } else {
                         Icons.Outlined.BookmarkBorder
                     },
-                    contentDescription = null,
+                    contentDescription = if (isBookmarked) {
+                        SessionsStrings.RemoveFromFavorites.asString()
+                    } else {
+                        SessionsStrings.AddToFavorites.asString()
+                    },
                 )
             }
         }
