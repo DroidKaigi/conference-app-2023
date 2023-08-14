@@ -27,7 +27,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
         Lang.English to { item, bindings ->
             when (item) {
                 Title -> "About"
-                Description -> "DroidKaigi is an engineer-driven Android conference held to share and communicate Android technical information."
+                Description -> "DroidKaigi is a conference tailored for Android developers."
                 DateTitle -> "Date & Time"
                 DateDescription -> "2023.09.14(Thu) - 16(Sat) 3days"
                 PlaceTitle -> "Location"
