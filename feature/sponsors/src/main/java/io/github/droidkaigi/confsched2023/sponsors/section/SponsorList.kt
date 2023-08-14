@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
+import io.github.droidkaigi.confsched2023.sponsors.component.SponsorHeader
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
@@ -21,10 +22,7 @@ fun SponsorList(
         modifier = modifier
     ) {
         item {
-            Text(
-                text = "PLATINUM SPONSORS",
-                style = MaterialTheme.typography.titleMedium,
-            )
+            SponsorHeader(title = "PLATINUM SPONSORS")
         }
         items(sponsors) { sponsor ->
             Text(
@@ -37,7 +35,7 @@ fun SponsorList(
 
 @Preview
 @Composable
-private fun SponsorListPreview() {
+fun SponsorListPreview() {
     SponsorList(
         sponsors = Sponsor.fakes(),
     )
