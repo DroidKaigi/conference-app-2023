@@ -91,5 +91,6 @@ dependencies {
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.accompanistSystemUiController)
+    implementation(libs.androidxBrowser)
     testImplementation(projects.core.testing)
 }
