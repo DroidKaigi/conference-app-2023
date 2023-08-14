@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
-import java.lang.Float.min
+import kotlin.math.min
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
