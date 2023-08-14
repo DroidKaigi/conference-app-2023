@@ -12,11 +12,10 @@ import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
@@ -36,11 +35,7 @@ fun TimetableItemDetailSummaryCard(
     Card(
         shape = RoundedCornerShape(12.dp),
         modifier = modifier,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(
-                1.dp,
-            ),
-        ),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF2F4F1))
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
