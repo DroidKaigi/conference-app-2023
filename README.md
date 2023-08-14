@@ -428,7 +428,7 @@ class FakeSessionsApiModule {
 
 2. Setup
    1. `bundle install`
-   2. `bundle exec fastlane shared`
+   2. `cd app-ios && bundle exec fastlane shared`
    
 3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
 
