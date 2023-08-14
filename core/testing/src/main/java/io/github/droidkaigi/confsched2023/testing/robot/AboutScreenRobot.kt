@@ -1,11 +1,15 @@
 package io.github.droidkaigi.confsched2023.testing.robot
 
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.about.AboutScreen
+import io.github.droidkaigi.confsched2023.about.AboutScreenTestTag
 import io.github.droidkaigi.confsched2023.about.component.AboutCreditsSponsorsItemTestTag
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -40,6 +44,7 @@ class AboutScreenRobot @Inject constructor(
     }
 
     fun clickSponsors() {
+        scrollAboutScreen()
         composeTestRule.onNodeWithTag(AboutCreditsSponsorsItemTestTag)
             .performClick()
         waitUntilIdle()
@@ -54,5 +59,16 @@ class AboutScreenRobot @Inject constructor(
     fun waitUntilIdle() {
         composeTestRule.waitForIdle()
         testDispatcher.scheduler.advanceUntilIdle()
+    }
+
+    fun scrollAboutScreen() {
+        composeTestRule
+            .onNode(hasTestTag(AboutScreenTestTag))
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 3F,
+                )
+            }
     }
 }
