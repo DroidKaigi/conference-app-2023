@@ -5,17 +5,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import kotlinx.collections.immutable.PersistentList
@@ -31,10 +30,11 @@ fun BookmarkFilters(
     modifier: Modifier = Modifier,
 ) {
     val selectedChipColor = AssistChipDefaults.assistChipColors(
-        containerColor = Color(0xFFCEE9DB),
+        containerColor = MaterialTheme.colorScheme.primary,
+        labelColor = MaterialTheme.colorScheme.onPrimary
     )
     val selectedChipBoarderColor = AssistChipDefaults.assistChipBorder(
-        borderColor = md_theme_light_outline,
+        borderColor = MaterialTheme.colorScheme.outline,
         borderWidth = 0.dp,
     )
     val isAll = currentDayFilter.size == DroidKaigi2023Day.values().size
