@@ -77,7 +77,7 @@ fun TimetableListItem(
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
-            text = timetableItem.title.currentLangTitle,
+            text = "test:"+timetableItem.title.currentLangTitle,
             fontSize = 22.sp,
             lineHeight = 28.sp,
         )
