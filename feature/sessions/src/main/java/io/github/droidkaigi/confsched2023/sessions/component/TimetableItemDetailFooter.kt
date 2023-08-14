@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -14,6 +13,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import io.github.droidkaigi.confsched2023.feature.sessions.R
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
@@ -37,7 +38,7 @@ fun TimetableItemDetailFooter(
             }
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
-                    imageVector = Icons.Outlined.CalendarToday,
+                    painter = painterResource(id = R.drawable.calendar_add_on),
                     contentDescription = SessionsStrings.AddToCalendar.toString(),
                 )
             }
