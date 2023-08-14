@@ -79,7 +79,7 @@ accompanistSystemUiController = { module = "com.google.accompanist:accompanist-s
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
-androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha02" }
+androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha03" }
 androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
