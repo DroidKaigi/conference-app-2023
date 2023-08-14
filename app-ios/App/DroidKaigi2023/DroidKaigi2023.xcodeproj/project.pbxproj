@@ -13,7 +13,9 @@
 		D77DAF8329FAA14A007195DB /* DroidKaigi2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8229FAA14A007195DB /* DroidKaigi2023Tests.swift */; };
 		D77DAF8D29FAA14A007195DB /* DroidKaigi2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */; };
 		D77DAF8F29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */; };
-		E847EB8B2A379C620051EF1A /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = E847EB8A2A379C620051EF1A /* Navigation */; };
+		E8BCCCE72A8011E8004010F7 /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCE62A8011E8004010F7 /* Modules */; };
+		E8BCCCEC2A80123E004010F7 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = E8BCCCEB2A80123E004010F7 /* Navigation */; };
+		E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		D77DAF8829FAA14A007195DB /* DroidKaigi2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DroidKaigi2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E8BCCCE62A8011E8004010F7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = ../../Modules; sourceTree = "<group>"; };
+		E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E847EB8B2A379C620051EF1A /* Navigation in Frameworks */,
+				E8BCCCEC2A80123E004010F7 /* Navigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +86,8 @@
 		D77DAF6429FAA148007195DB = {
 			isa = PBXGroup;
 			children = (
+				E8BCCCED2A801257004010F7 /* ci_scripts */,
+				E8BCCCE62A8011E8004010F7 /* Modules */,
 				D77DAF6F29FAA148007195DB /* DroidKaigi2023 */,
 				D77DAF8129FAA14A007195DB /* DroidKaigi2023Tests */,
 				D77DAF8B29FAA14A007195DB /* DroidKaigi2023UITests */,
@@ -136,6 +142,14 @@
 			path = DroidKaigi2023UITests;
 			sourceTree = "<group>";
 		};
+		E8BCCCED2A801257004010F7 /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,7 +167,7 @@
 			);
 			name = DroidKaigi2023;
 			packageProductDependencies = (
-				E847EB8A2A379C620051EF1A /* Navigation */,
+				E8BCCCEB2A80123E004010F7 /* Navigation */,
 			);
 			productName = DroidKaigi2023;
 			productReference = D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */;
@@ -227,6 +241,8 @@
 				Base,
 			);
 			mainGroup = D77DAF6429FAA148007195DB;
+			packageReferences = (
+			);
 			productRefGroup = D77DAF6E29FAA148007195DB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -243,8 +259,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8BCCCE72A8011E8004010F7 /* Modules in Resources */,
 				D77DAF7929FAA149007195DB /* Preview Assets.xcassets in Resources */,
 				D77DAF7529FAA149007195DB /* Assets.xcassets in Resources */,
+				E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,7 +645,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E847EB8A2A379C620051EF1A /* Navigation */ = {
+		E8BCCCEB2A80123E004010F7 /* Navigation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Navigation;
 		};
