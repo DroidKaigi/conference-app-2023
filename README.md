@@ -23,6 +23,9 @@ We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.
 
 For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
 
+# Requirements
+Stable Android Studio Giraffe or higher. You can download it from [this page](https://developer.android.com/studio).
+
 # Design
 
 You can check out the design on Figma.
