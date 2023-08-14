@@ -170,7 +170,7 @@ private fun ArchiveSection(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
         ) {
-            TimeTableIconButton(
+            ArchiveSectionIconButton(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.Description,
@@ -191,7 +191,7 @@ private fun ArchiveSection(
                     .weight(1F)
             )
 
-            TimeTableIconButton(
+            ArchiveSectionIconButton(
                 icon = {
                     Icon(
                         imageVector = Icons.Outlined.PlayCircle,
@@ -217,7 +217,7 @@ private fun ArchiveSection(
 }
 
 @Composable
-private fun TimeTableIconButton(
+private fun ArchiveSectionIconButton(
     icon: @Composable () -> Unit,
     label: @Composable () -> Unit,
     onClick: () -> Unit,
