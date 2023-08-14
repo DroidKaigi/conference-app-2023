@@ -430,7 +430,7 @@ class FakeSessionsApiModule {
    1. `bundle install`
    2. `bundle exec fastlane shared`
    
-3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
+3. open [`DroidKaigi2023.xcodeproj`](./app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj) by Xcode
 
 ## Build
 
