@@ -10,6 +10,8 @@ import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
+import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
+import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -140,5 +142,15 @@ class AuthenticatorModule {
     @Singleton
     fun provideAuthenticator(): Authenticator {
         return AndroidAuthenticator()
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+class RemoteConfigModule {
+    @Provides
+    @Singleton
+    fun provideFirebaseRemoteConfig(): RemoteConfigApi {
+        return DefaultRemoteConfigApi()
     }
 }

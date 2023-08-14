@@ -1,35 +1,33 @@
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.lifecycle.ViewModel
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
-import kotlinx.coroutines.flow.MutableStateFlow
+import io.github.droidkaigi.confsched2023.ui.buildUiState
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    private val firebaseRemoteConfig: FirebaseRemoteConfig,
+    stampRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val _uiState: MutableStateFlow<MainScreenUiState> = MutableStateFlow(
-        MainScreenUiState(),
+    private val isStampsEnabledStateFlow: StateFlow<Boolean> = stampRepository.getStampEnabledStream().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = false,
     )
-    val uiState: StateFlow<MainScreenUiState> = _uiState.asStateFlow()
 
-    init {
-        fetchAndApplyRemoteConfig()
-    }
-
-    private fun fetchAndApplyRemoteConfig() {
-        val remoteConfig = firebaseRemoteConfig
-        remoteConfig.fetchAndActivate().addOnCompleteListener {
-            _uiState.value = uiState.value.copy(
-                isEnableStamps = remoteConfig.getBoolean("is_enable_stamps"),
-            )
-        }
+    val uiState: StateFlow<MainScreenUiState> = buildUiState(
+        isStampsEnabledStateFlow,
+    ) { isStampsEnabled ->
+        MainScreenUiState(
+            isStampsEnabled = isStampsEnabled,
+        )
     }
 }
