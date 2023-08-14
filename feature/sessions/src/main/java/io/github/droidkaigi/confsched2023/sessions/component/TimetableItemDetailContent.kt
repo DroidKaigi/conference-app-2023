@@ -168,7 +168,7 @@ private fun ArchiveSection(
             modifier = Modifier
                 .padding(top = 16.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
+            horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         ) {
             ArchiveSectionIconButton(
                 icon = {
@@ -182,13 +182,13 @@ private fun ArchiveSection(
                     Text(
                         text = SessionsStrings.ViewDocument.asString(),
                         fontSize = 14.sp,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 },
                 onClick = { onViewDocumentClick() },
                 modifier = Modifier
                     .width(0.dp)
-                    .weight(1F)
+                    .weight(1F),
             )
 
             ArchiveSectionIconButton(
@@ -203,13 +203,13 @@ private fun ArchiveSection(
                     Text(
                         text = SessionsStrings.WatchVideo.asString(),
                         fontSize = 14.sp,
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
                     )
                 },
                 onClick = { onWatchVideoClick() },
                 modifier = Modifier
                     .width(0.dp)
-                    .weight(1F)
+                    .weight(1F),
             )
         }
         Spacer(modifier = Modifier.height(24.dp))
@@ -222,14 +222,14 @@ private fun ArchiveSectionIconButton(
     label: @Composable () -> Unit,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    iconSpacing: Dp = 8.dp
+    iconSpacing: Dp = 8.dp,
 ) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
         shape = RoundedCornerShape(100.dp),
-        onClick = { onClick() }
+        onClick = { onClick() },
     ) {
         Row(
             modifier = Modifier
@@ -238,8 +238,8 @@ private fun ArchiveSectionIconButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(
                 space = iconSpacing,
-                alignment = Alignment.CenterHorizontally
-            )
+                alignment = Alignment.CenterHorizontally,
+            ),
         ) {
             icon()
             label()
