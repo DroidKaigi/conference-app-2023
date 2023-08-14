@@ -229,9 +229,11 @@ This achieves to post comments on forked PRs safely. For example, you can see th
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
 
 Overview Diagram
-![image](https://github.com/DroidKaigi/conference-app-2023/assets/45708639/2dc4fbc3-7070-484a-8f9f-3f1e1f576ed7)
+
+![image](https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/4b2fc66c-1e6d-40b7-84cc-bc6f742ffc6d)
 
 Detailed Diagram
+
 <img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/45708639/b00857c2-c22e-4f6c-9a48-416312b75636">
 
 
