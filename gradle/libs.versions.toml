@@ -83,6 +83,7 @@ androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-
 androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
+androidxBrowser = { module = "androidx.browser:browser", version = "1.6.0" }
 javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 
 # Data
