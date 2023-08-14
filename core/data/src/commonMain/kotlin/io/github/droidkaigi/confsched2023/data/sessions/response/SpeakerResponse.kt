@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.data.sessions.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class SpeakerResponse(
+data class SpeakerResponse(
     val profilePicture: String? = null,
     val sessions: List<Int> = emptyList(),
     val tagLine: String? = null,

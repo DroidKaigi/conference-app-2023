@@ -1,6 +1,5 @@
-package io.github.droidkaigi.confsched2023.data.contributors
+package io.github.droidkaigi.confsched2023.model
 
-import io.github.droidkaigi.confsched2023.model.Contributor
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.flow.Flow
 

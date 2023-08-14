@@ -8,6 +8,8 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
+import io.github.droidkaigi.confsched2023.data.sessions.fake
+import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBookmarkIconTestTag
@@ -69,5 +71,9 @@ class TimetableItemDetailScreenRobot @Inject constructor(
     fun waitUntilIdle() {
         composeTestRule.waitForIdle()
         testDispatcher.scheduler.advanceUntilIdle()
+    }
+
+    companion object {
+        val defaultSessionId: String = SessionsAllResponse.fake().sessions.first().id
     }
 }

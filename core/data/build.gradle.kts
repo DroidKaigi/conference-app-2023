@@ -14,6 +14,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.core.model)
+                implementation(projects.core.common)
                 implementation(libs.kotlinxCoroutinesCore)
                 // We use api for test
                 api(libs.androidxDatastoreDatastorePreferences)

@@ -41,6 +41,7 @@ public class ApiModule {
     public fun provideHttpClient(
         okHttpClient: OkHttpClient,
         settingsDatastore: UserDataStore,
+        ktorJsonSettings: Json,
     ): HttpClient {
         val httpClient = HttpClient(OkHttp) {
             engine {
@@ -58,25 +59,18 @@ public class ApiModule {
                     )
                 }
             }
-            defaultKtorConfig(settingsDatastore)
+            defaultKtorConfig(settingsDatastore, ktorJsonSettings)
         }
         return httpClient
     }
 
     public fun HttpClientConfig<*>.defaultKtorConfig(
         userDataStore: UserDataStore,
+        ktorJsonSettings: Json,
     ) {
         install(ContentNegotiation) {
             json(
-                Json {
-                    encodeDefaults = true
-                    isLenient = true
-                    allowSpecialFloatingPointValues = true
-                    allowStructuredMapKeys = true
-                    prettyPrint = false
-                    useArrayPolymorphism = false
-                    ignoreUnknownKeys = true
-                },
+                ktorJsonSettings,
             )
         }
 
@@ -86,6 +80,20 @@ public class ApiModule {
                     set("Authorization", "Bearer $it")
                 }
             }
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideKtorJsonSettings(): Json {
+        return Json {
+            encodeDefaults = true
+            isLenient = true
+            allowSpecialFloatingPointValues = true
+            allowStructuredMapKeys = true
+            prettyPrint = false
+            useArrayPolymorphism = false
+            ignoreUnknownKeys = true
         }
     }
 
