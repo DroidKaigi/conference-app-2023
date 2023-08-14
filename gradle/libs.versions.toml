@@ -74,7 +74,6 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", versi
 composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigatiaon" }
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
-composeConstraintLayout = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.1" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 
