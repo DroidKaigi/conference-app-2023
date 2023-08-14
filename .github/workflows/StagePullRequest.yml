@@ -110,11 +110,11 @@ jobs:
         if: steps.upload.conclusion == 'success'
         run: |
             if [[ "${{ steps.upload.outcome }}" == "success" ]]; then
-              echo "deployment-url=${{ steps.upload.outputs.distribution_url }}" >> $GITHUB_OUTPUT
-              echo "description=Deployed an app successfully. Please try it through DeployGate!" >> $GITHUB_OUTPUT
+              echo "deployment-url=${{ steps.upload.outputs.distribution_url }}" >> "$GITHUB_OUTPUT"
+              echo "description=Deployed an app successfully. Please try it through DeployGate!" >> "$GITHUB_OUTPUT"
             else
-              echo "deployment-url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_OUTPUT
-              echo "description=Staging an app failed. Please check the workflow." >> $GITHUB_OUTPUT
+              echo "deployment-url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> "$GITHUB_OUTPUT"
+              echo "description=Staging an app failed. Please check the workflow." >> "$GITHUB_OUTPUT"
             fi
       - uses: ./gh-actions/actions/commit-deployment
         if: steps.upload.conclusion == 'success'
