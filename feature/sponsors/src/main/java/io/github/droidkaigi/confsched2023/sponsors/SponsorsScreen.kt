@@ -78,9 +78,7 @@ private fun SponsorsScreen(
                     text = "Please implement SponsorsScreen!!!",
                     style = MaterialTheme.typography.titleLarge,
                 )
-                uiState.sponsors.forEach {
-                    Text(it.toString())
-                }
+                Text(text = "uiState.sponsors.size:" + uiState.sponsors.size)
             }
         },
     )
