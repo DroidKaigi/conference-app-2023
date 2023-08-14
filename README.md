@@ -13,7 +13,23 @@ This is a video of an app in development, and it will be updated as needed.
 
 # Try it out!
 
+The app is currently in preparation for release on Google Play and the App Store. In the meantime, you can try the app on DeployGate. Stay tuned for updates!
+
 [<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
+
+# Contributing
+
+We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+
+For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
+
+# Design
+
+You can check out the design on Figma.
+
+https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI
+
+<img src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/0d9aa57b-d001-4c69-a3d1-374eba44fdfa" alt="Design thumbnail" width="480" />
 
 # Architecture
 
@@ -208,12 +224,6 @@ This project is an OSS so we cannot assign write-able tokens to workflow-runs th
 
 This achieves to post comments on forked PRs safely. For example, you can see the results of the visual testing reports even on your PRs! (See [Architecture > Testing](#testing) for the visual testing).
 
-## WIP - Automatic dependency updates
-
-> This workflow is disabled now.
-
-We continue to use Renovate to update dependencies. [./.github/workflows/Renovate.yml](./.github/workflows/Renovate.yml) allows us to update some dependencies whose impacts seem to be low automatically.
-
 # Testing
 
 Testing an app involves balancing fidelity, how closely the test resembles actual use, and reliability, the consistency of test results. This year, our goal is to improve both using several methods.
@@ -345,6 +355,10 @@ And now, you can check the scrolled screenshot!
 
 ![TimetableScreenTest checkScrollShot](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/d9e006d3-009b-4780-80fb-064c1526fbb3)
 
+This screenshot testing has been useful in that we can find bugs. For example, we found a bug where the tab was hidden when scrolling.
+
+![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/08f04cf7-d3f6-4377-af70-68b2780e793c)
+
 
 ## Fake API Server
 
@@ -432,12 +446,6 @@ class FakeSessionsApiModule {
   - ![Run Configuration](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/4f076561-8bf2-4595-a9aa-4fc03ccc09e1)
 - Set configs like below
   - ![config](https://github.com/DroidKaigi/conference-app-2023/assets/32740480/afb6b975-db98-49e1-bc2d-ad55222baadd)
-
-# Contributing
-
-We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
-
-For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
 
 # Special thanks
 
