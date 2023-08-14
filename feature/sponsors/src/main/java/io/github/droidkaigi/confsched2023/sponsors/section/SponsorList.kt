@@ -24,7 +24,34 @@ fun SponsorList(
         item {
             SponsorHeader(title = "PLATINUM SPONSORS")
         }
-        items(sponsors) { sponsor ->
+        items(
+            items = sponsors.drop(5),
+            key = { sponsor -> sponsor.name },
+        ) { sponsor ->
+            Text(
+                text = sponsor.name,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        item {
+            SponsorHeader(title = "GOLD SPONSORS")
+        }
+        items(
+            items = sponsors.drop(5),
+            key = { sponsor -> sponsor.name },
+        ) { sponsor ->
+            Text(
+                text = sponsor.name,
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        item {
+            SponsorHeader(title = "SUPPORTERS")
+        }
+        items(
+            items = sponsors.drop(5),
+            key = { sponsor -> sponsor.name },
+        ) { sponsor ->
             Text(
                 text = sponsor.name,
                 style = MaterialTheme.typography.bodyMedium,
