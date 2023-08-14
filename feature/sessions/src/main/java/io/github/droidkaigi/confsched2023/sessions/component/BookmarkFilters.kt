@@ -31,7 +31,7 @@ fun BookmarkFilters(
 ) {
     val selectedChipColor = AssistChipDefaults.assistChipColors(
         containerColor = MaterialTheme.colorScheme.primary,
-        labelColor = MaterialTheme.colorScheme.onPrimary
+        labelColor = MaterialTheme.colorScheme.onPrimary,
     )
     val selectedChipBoarderColor = AssistChipDefaults.assistChipBorder(
         borderColor = MaterialTheme.colorScheme.outline,
