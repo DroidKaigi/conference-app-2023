@@ -14,7 +14,8 @@ private let startDateFormatter: DateFormatter = {
 
 public struct SessionView: View {
     let viewModel: SessionViewModel
-    @State var isDescriptionExpanded: Bool = false
+    @State private var isDescriptionExpanded: Bool = false
+    @State private var canBeExpanded = false
 
     public init(timetableItem: TimetableItem) {
         self.viewModel = .init(timetableItem: timetableItem)
@@ -66,9 +67,21 @@ public struct SessionView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text(session.description_)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
-                        if !isDescriptionExpanded {
+                            .background {
+                                ViewThatFits(in: .vertical) {
+                                    Text(session.description_)
+                                        .hidden()
+                                    // Just for receiving onAppear event if the description exceeds its line limit
+                                    Color.clear
+                                        .onAppear {
+                                            canBeExpanded = true
+                                        }
+                                }
+                            }
+                        if canBeExpanded {
                             Button {
                                 isDescriptionExpanded = true
+                                canBeExpanded = false
                             } label: {
                                 Text("続きを読む")
                                     .font(Font.system(size: 14, weight: .medium))
@@ -78,7 +91,6 @@ public struct SessionView: View {
                                         Capsule()
                                             .stroke(AssetColors.outline.swiftUIColor)
                                     }
-
                             }
                         }
                     }
