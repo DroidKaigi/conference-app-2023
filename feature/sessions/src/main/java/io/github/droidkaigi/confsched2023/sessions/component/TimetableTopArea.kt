@@ -2,9 +2,9 @@ package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -54,7 +54,7 @@ fun TimetableTopArea(
                 onClick = { onTopAreaBookmarkIconClick() },
             ) {
                 Icon(
-                    imageVector = Icons.Default.BookmarkBorder,
+                    imageVector = Icons.Outlined.Bookmarks,
                     contentDescription = Timetable.asString(),
                 )
             }
