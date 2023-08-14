@@ -31,7 +31,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.ListTimetable
 
 sealed interface TimetableSheetUiState {
-    object Empty : TimetableSheetUiState
+    data object Empty : TimetableSheetUiState
     data class ListTimetable(
         val timetableListUiStates: Map<DroidKaigi2023Day, TimetableListUiState>,
     ) : TimetableSheetUiState

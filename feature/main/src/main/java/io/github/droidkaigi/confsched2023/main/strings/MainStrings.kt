@@ -5,11 +5,11 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.Strings
 import io.github.droidkaigi.confsched2023.designsystem.strings.StringsBindings
 
 sealed class MainStrings : Strings<MainStrings>(Bindings) {
-    object Timetable : MainStrings()
-    object FloorMap : MainStrings()
-    object Stamps : MainStrings()
-    object About : MainStrings()
-    object Contributors : MainStrings()
+    data object Timetable : MainStrings()
+    data object FloorMap : MainStrings()
+    data object Stamps : MainStrings()
+    data object About : MainStrings()
+    data object Contributors : MainStrings()
     class Time(val hours: Int, val minutes: Int) : MainStrings()
 
     private object Bindings : StringsBindings<MainStrings>(
