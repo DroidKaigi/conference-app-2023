@@ -1,10 +1,12 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
@@ -21,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreenUiState.Empty
@@ -74,22 +75,18 @@ fun BookmarkSheet(
 
 @Composable
 private fun EmptyView() {
-    ConstraintLayout(
+    Column(
         modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
-        val (emptyText, icon) = createRefs()
         Box(
             modifier = Modifier
                 .size(84.dp)
                 .background(
                     color = Color(0xFFCEE9DB),
                     shape = RoundedCornerShape(24.dp),
-                )
-                .constrainAs(icon) {
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(emptyText.top, margin = 24.dp)
-                },
+                ),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
@@ -97,31 +94,23 @@ private fun EmptyView() {
                 contentDescription = null,
             )
         }
-        Column(
-            modifier = Modifier.constrainAs(emptyText) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            },
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = BookmarkedItemNotFound.asString(),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                lineHeight = 24.sp,
-                color = Color(0xFF191C1A),
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-            Text(
-                text = BookmarkedItemNotFoundSideNote.asString(),
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.25.sp,
-                textAlign = TextAlign.Center,
-                color = Color(0xFF404944),
-            )
-        }
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            text = BookmarkedItemNotFound.asString(),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            lineHeight = 24.sp,
+            color = Color(0xFF191C1A),
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(
+            text = BookmarkedItemNotFoundSideNote.asString(),
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            letterSpacing = 0.25.sp,
+            textAlign = TextAlign.Center,
+            color = Color(0xFF404944),
+        )
+        Spacer(modifier = Modifier.height(108.dp))
     }
 }
