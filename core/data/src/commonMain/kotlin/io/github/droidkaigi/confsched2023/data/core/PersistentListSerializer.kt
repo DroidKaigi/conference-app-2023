@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.model
+package io.github.droidkaigi.confsched2023.data.core
 
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.PersistentMap

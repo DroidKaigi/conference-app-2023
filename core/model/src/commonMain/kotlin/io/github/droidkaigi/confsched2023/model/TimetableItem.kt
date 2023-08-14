@@ -1,7 +1,3 @@
-@file:UseSerializers(
-    PersistentListSerializer::class,
-)
-
 package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
@@ -13,9 +9,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 
-@Serializable
 public sealed class TimetableItem {
     public abstract val id: TimetableItemId
     public abstract val title: MultiLangText

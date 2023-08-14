@@ -4,9 +4,9 @@ import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.http.GET
 import io.github.droidkaigi.confsched2023.data.NetworkService
 import io.github.droidkaigi.confsched2023.data.sessions.response.LocaledResponse
-import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAllResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAssetResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionMessageResponse
+import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
@@ -27,24 +27,24 @@ import kotlinx.datetime.toInstant
 
 internal interface SessionApi {
     @GET("events/droidkaigi2023/timetable")
-    suspend fun getTimetable(): SessionAllResponse
+    suspend fun getTimetable(): SessionsAllResponse
 }
 
-class DefaultSessionsApiClient(
-    val networkService: NetworkService,
+class DefaultSessionsApiClient internal constructor(
+    private val networkService: NetworkService,
     ktorfit: Ktorfit,
 ) : SessionsApiClient {
 
     private val sessionApi = ktorfit.create<SessionApi>()
 
-    override suspend fun timetable(): Timetable {
+    override suspend fun sessionsAllResponse(): SessionsAllResponse {
         return networkService {
-            sessionApi.getTimetable().toTimetable()
+            sessionApi.getTimetable()
         }
     }
 }
 
-internal fun SessionAllResponse.toTimetable(): Timetable {
+internal fun SessionsAllResponse.toTimetable(): Timetable {
     val timetableContents = this
     val speakerIdToSpeaker: Map<String, TimetableSpeaker> = timetableContents.speakers
         .groupBy { it.id }

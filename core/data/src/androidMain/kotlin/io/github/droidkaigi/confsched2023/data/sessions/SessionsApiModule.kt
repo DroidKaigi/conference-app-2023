@@ -13,7 +13,7 @@ import javax.inject.Singleton
 class SessionsApiModule {
     @Provides
     @Singleton
-    fun provideSessionsApi(
+    internal fun provideSessionsApi(
         networkService: NetworkService,
         ktorfit: Ktorfit,
     ): SessionsApiClient {

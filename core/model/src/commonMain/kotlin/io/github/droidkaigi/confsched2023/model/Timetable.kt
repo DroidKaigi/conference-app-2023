@@ -1,7 +1,3 @@
-@file:UseSerializers(
-    PersistentSetSerializer::class,
-)
-
 package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
@@ -14,10 +10,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.UseSerializers
 
-@Serializable
 @Immutable
 public data class Timetable(
     val timetableItems: TimetableItemList = TimetableItemList(),

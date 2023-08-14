@@ -2,9 +2,7 @@ package io.github.droidkaigi.confsched2023.model
 
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
-import kotlinx.serialization.Serializable
 
-@Serializable
 public data class Sponsor(
     val name: String,
     val logo: String,
@@ -14,7 +12,6 @@ public data class Sponsor(
     public companion object
 }
 
-@Serializable
 public enum class Plan {
     PLATINUM,
     GOLD,

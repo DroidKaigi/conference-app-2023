@@ -14,6 +14,10 @@ class UserDataStoreModule {
 
     @Provides
     @Singleton
-    fun provideUserDataStore(dataStore: DataStore<Preferences>): UserDataStore =
-        UserDataStore(dataStore)
+    fun provideUserDataStore(
+        @UserDataStoreQualifier
+        dataStore: DataStore<Preferences>,
+    ): UserDataStore {
+        return UserDataStore(dataStore)
+    }
 }

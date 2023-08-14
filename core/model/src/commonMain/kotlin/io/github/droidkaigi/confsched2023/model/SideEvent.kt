@@ -3,9 +3,7 @@ package io.github.droidkaigi.confsched2023.model
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.serialization.Serializable
 
-@Serializable
 public data class SideEvent(
     val title: MultiLangText,
     val description: MultiLangText,

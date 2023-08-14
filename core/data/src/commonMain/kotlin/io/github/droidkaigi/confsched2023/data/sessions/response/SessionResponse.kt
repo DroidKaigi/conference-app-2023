@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.data.sessions.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class SessionResponse(
+data class SessionResponse(
     val id: String,
     val isServiceSession: Boolean,
     val title: LocaledResponse,

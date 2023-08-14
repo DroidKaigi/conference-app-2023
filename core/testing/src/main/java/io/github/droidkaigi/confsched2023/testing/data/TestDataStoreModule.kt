@@ -10,6 +10,8 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
 import io.github.droidkaigi.confsched2023.data.createDataStore
 import io.github.droidkaigi.confsched2023.data.user.DataStoreModule
+import io.github.droidkaigi.confsched2023.data.user.SessionCacheDataStoreQualifier
+import io.github.droidkaigi.confsched2023.data.user.UserDataStoreQualifier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.test.TestDispatcher
@@ -21,6 +23,7 @@ class TestDataStoreModule {
 
     @Provides
     @Singleton
+    @UserDataStoreQualifier
     fun provideDataStore(
         @ApplicationContext context: Context,
         testDispatcher: TestDispatcher,
@@ -31,7 +34,21 @@ class TestDataStoreModule {
         },
     )
 
+    @Provides
+    @Singleton
+    @SessionCacheDataStoreQualifier
+    fun provideSessionCacheDataStore(
+        @ApplicationContext context: Context,
+        testDispatcher: TestDispatcher,
+    ): DataStore<Preferences> = createDataStore(
+        coroutineScope = CoroutineScope(testDispatcher + Job()),
+        producePath = {
+            context.cacheDir.resolve(TEST_DATASTORE_CACHE_NAME).path
+        },
+    )
+
     companion object {
         private const val TEST_DATASTORE_NAME = "test_datastore.preferences_pb"
+        private const val TEST_DATASTORE_CACHE_NAME = "test_datastore_cache.preferences_pb"
     }
 }
