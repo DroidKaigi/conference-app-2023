@@ -7,6 +7,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -76,11 +79,15 @@ private fun BookmarkScreen(
     onDayThirdChipClick: () -> Unit,
 ) {
     val scrollState = rememberLazyListState()
+    var firstItemHeightDp by remember {
+        mutableStateOf<Float?>(null)
+    }
     Scaffold(
         modifier = Modifier.testTag(BookmarkScreenTestTag),
         topBar = {
             BookmarkTopArea(
                 scrollState = scrollState,
+                firstItemHeightDp = firstItemHeightDp,
                 onBackPressClick = onBackPressClick,
             )
         },
@@ -96,6 +103,9 @@ private fun BookmarkScreen(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
+            onFirstItemHeightDpMeasured = {
+                firstItemHeightDp = it
+            },
             uiState = uiState,
         )
     }

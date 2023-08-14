@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.lerp
@@ -34,6 +35,7 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 @Composable
 fun BookmarkTopArea(
     scrollState: LazyListState,
+    firstItemHeightDp: Float?,
     onBackPressClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -46,22 +48,33 @@ fun BookmarkTopArea(
         fontWeight = FontWeight.Normal,
     )
 
-    val fraction by remember {
+    val density = LocalDensity.current.density
+    val fraction by remember(firstItemHeightDp) {
         derivedStateOf {
-            if (scrollState.firstVisibleItemIndex == 0) {
-                scrollState.firstVisibleItemScrollOffset / 520F
+            if (firstItemHeightDp != null) {
+                if (scrollState.firstVisibleItemIndex == 0) {
+                    scrollState.firstVisibleItemScrollOffset / (firstItemHeightDp * density)
+                } else {
+                    1F
+                }
             } else {
-                1F
+                0F
             }
         }
     }
-
-    val rowNum by remember {
+    val rowNum by remember(firstItemHeightDp) {
         derivedStateOf {
-            if (scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset / 520F < 1F) {
-                1
+            if (firstItemHeightDp != null) {
+                if (scrollState.firstVisibleItemIndex == 0 &&
+                    scrollState.firstVisibleItemScrollOffset /
+                    (firstItemHeightDp * density) < 1F
+                ) {
+                    1
+                } else {
+                    2
+                }
             } else {
-                2
+                1
             }
         }
     }
@@ -122,9 +135,8 @@ fun BookmarkTopArea(
                 text = SessionsStrings.Bookmark.asString(),
                 style = titleTextStyle,
                 modifier = Modifier.padding(
-                    // FIXME: If we don't use this `if` expresson, a crash happen
-                    start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
-                    top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp,
+                    start = titlePaddingStart,
+                    top = titlePaddingTop,
                 ),
             )
         }

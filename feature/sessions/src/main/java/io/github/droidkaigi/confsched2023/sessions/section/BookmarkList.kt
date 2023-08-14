@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,15 +46,31 @@ fun BookmarkList(
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
+    onFirstItemHeightDpMeasured: (Float) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val current = LocalDensity.current
     LazyColumn(
         state = scrollState,
         modifier = modifier.padding(end = 16.dp),
     ) {
-        timetableItemMap.forEach { (_, values) ->
+        val firstKey = timetableItemMap.keys.firstOrNull()
+        timetableItemMap.forEach { (key, values) ->
             itemsIndexed(values) { index, timetableItem ->
-                Row(modifier = Modifier.padding(top = 10.dp)) {
+                val onGloballyPositionedModifier = if (key == firstKey && index == 0) {
+                    Modifier.onGloballyPositioned {
+                        with(current) {
+                            onFirstItemHeightDpMeasured(it.size.height.toDp().value)
+                        }
+                    }
+                } else {
+                    Modifier
+                }
+                Row(
+                    modifier = Modifier
+                        .then(onGloballyPositionedModifier)
+                        .padding(top = 10.dp),
+                ) {
                     Column(
                         modifier = Modifier.width(58.dp),
                         verticalArrangement = Arrangement.Center,

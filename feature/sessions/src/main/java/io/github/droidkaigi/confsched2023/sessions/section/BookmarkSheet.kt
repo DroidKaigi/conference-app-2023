@@ -40,6 +40,7 @@ fun BookmarkSheet(
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,
     onDayThirdChipClick: () -> Unit,
+    onFirstItemHeightDpMeasured: (Float) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -65,6 +66,7 @@ fun BookmarkSheet(
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItemMap = uiState.timetableItemMap,
                     onTimetableItemClick = onTimetableItemClick,
+                    onFirstItemHeightDpMeasured = onFirstItemHeightDpMeasured,
                     onBookmarkIconClick = onBookmarkClick,
                 )
             }
