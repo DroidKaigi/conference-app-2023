@@ -6,7 +6,7 @@
 
 ### タスクの見つけ方
 
-タスク管理にGitHub Issueを使っています。こちらでコントリビュートしたいIssueをお探しください。[`welcome contribute` と `easy`のラベルがついているIssue](https://github.com/DroidKaigi/conference-app-2023/issues?q=is%3Aopen+is%3Aissue+label%3A%22welcome+contribute%22)は、初めてのコントリビュートにおすすめです。
+タスク管理にGitHub Issueを使っています。こちらでコントリビュートしたいIssueをお探しください。[`welcome contribute` と `easy`のラベルがついているIssue](https://github.com/DroidKaigi/conference-app-2023/issues?q=is%3Aopen+is%3Aissue+label%3A%22welcome+contribute%22%2Ceasy)は、初めてのコントリビュートにおすすめです。
 
 IssueがないPull Requestでも大丈夫です。その場合はPull Requestに理由、原因、解決策などの詳細をご記入ください。
 
@@ -33,4 +33,4 @@ Issueが望ましいですが、もし実装やリファクタリングのため
 
 分からないことがありましたら何でも聞いてください！
 
-コントリビュートを楽しみ、多くのことを学び、知識を共有し、DroidKaigiを楽みましょう！
+コントリビュートを楽しみ、多くのことを学び、知識を共有し、DroidKaigiを楽しみましょう！

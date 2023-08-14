@@ -56,7 +56,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
                 Archive -> "アーカイブ"
-                ViewDocument -> "ドキュメントを見る"
+                ViewDocument -> "資料を見る"
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"
