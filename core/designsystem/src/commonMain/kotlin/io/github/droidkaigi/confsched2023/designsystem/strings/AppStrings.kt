@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2023.designsystem.strings
 
 sealed class AppStrings : Strings<AppStrings>(Bindings) {
-    object Retry : AppStrings()
+    data object Retry : AppStrings()
 
     private object Bindings : StringsBindings<AppStrings>(
         Lang.Japanese to { item, _ ->

@@ -18,13 +18,13 @@ import okio.IOException
 class FakeSessionsApiClient : SessionsApiClient {
 
     sealed class Status : SessionsApiClient {
-        object Operational : Status() {
+        data object Operational : Status() {
             override suspend fun sessionsAllResponse(): SessionsAllResponse {
                 return SessionsAllResponse.fake()
             }
         }
 
-        object Error : Status() {
+        data object Error : Status() {
             override suspend fun sessionsAllResponse(): SessionsAllResponse {
                 throw IOException("Fake IO Exception")
             }

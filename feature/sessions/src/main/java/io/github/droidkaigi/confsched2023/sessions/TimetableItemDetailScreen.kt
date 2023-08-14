@@ -70,7 +70,7 @@ fun TimetableItemDetailScreen(
 }
 
 sealed class TimetableItemDetailScreenUiState() {
-    object Loading : TimetableItemDetailScreenUiState()
+    data object Loading : TimetableItemDetailScreenUiState()
     data class Loaded(
         val timetableItem: TimetableItem,
         val isBookmarked: Boolean,

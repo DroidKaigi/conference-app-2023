@@ -8,13 +8,13 @@ import okio.IOException
 class FakeContributorsApiClient : ContributorsApiClient {
 
     sealed class Status : ContributorsApiClient {
-        object Operational : Status() {
+        data object Operational : Status() {
             override suspend fun contributors(): PersistentList<Contributor> {
                 return Contributor.fakes()
             }
         }
 
-        object Error : Status() {
+        data object Error : Status() {
             override suspend fun contributors(): PersistentList<Contributor> {
                 throw IOException("Fake IO Exception")
             }
