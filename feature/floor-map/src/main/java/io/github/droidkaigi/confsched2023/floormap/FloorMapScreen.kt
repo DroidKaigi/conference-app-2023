@@ -14,6 +14,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +26,7 @@ import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
 import io.github.droidkaigi.confsched2023.floormap.component.FloorMap
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
+import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -99,7 +102,15 @@ private fun FloorMapScreen(
                     FloorMapSideEventList(
                         uiState = uiState.floorMapSideEventListUiState,
                         onSideEventClick = onSideEventClick,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fadingEdge(
+                                Brush.verticalGradient(
+                                    0.85f to Color.Black,
+                                    1f to Color.Transparent
+                                )
+                            )
+                            .padding(bottom = 56.dp),
                     )
                 }
                 FloorLevelSwitcher(
