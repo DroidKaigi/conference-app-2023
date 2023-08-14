@@ -65,9 +65,14 @@ import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
+<<<<<<< HEAD
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+=======
+import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
+import io.github.droidkaigi.confsched2023.staff.staffScreen
+>>>>>>> a0df692 (create staff screen template)
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -119,6 +124,8 @@ private fun KaigiNavHost(
                 TODO()
             },
         )
+        staffScreen()
+
     }
 }
 
@@ -152,7 +159,7 @@ private fun NavGraphBuilder.mainScreen(
                         License -> TODO()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> TODO()
-                        Staff -> TODO()
+                        Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
                     }
