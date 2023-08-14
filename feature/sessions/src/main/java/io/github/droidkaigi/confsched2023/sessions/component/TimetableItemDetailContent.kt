@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,15 +13,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.PlayCircle
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
@@ -168,69 +168,82 @@ private fun ArchiveSection(
             modifier = Modifier
                 .padding(top = 16.dp)
                 .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(space = 8.dp)
         ) {
-            Box(modifier = Modifier.weight(1F)) {
-                AssistChip(
-                    onClick = { onViewDocumentClick() },
-                    label = {
-                        Text(
-                            text = SessionsStrings.ViewDocument.asString(),
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            textAlign = TextAlign.Center,
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Description,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimary,
-                            modifier = Modifier.size(width = 18.dp, height = 18.dp),
-                        )
-                    },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    shape = RoundedCornerShape(100.dp),
-                    border = AssistChipDefaults.assistChipBorder(
-                        borderColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    modifier = Modifier.align(Alignment.Center),
-                )
-            }
-            Box(modifier = Modifier.weight(1F)) {
-                AssistChip(
-                    onClick = { onWatchVideoClick() },
-                    label = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.PlayCircle,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onPrimary,
-                                modifier = Modifier.size(width = 18.dp, height = 18.dp),
-                            )
-                            Text(
-                                text = SessionsStrings.WatchVideo.asString(),
-                                fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.onPrimary,
-                            )
-                        }
-                    },
-                    colors = AssistChipDefaults.assistChipColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    shape = RoundedCornerShape(100.dp),
-                    border = AssistChipDefaults.assistChipBorder(
-                        borderColor = MaterialTheme.colorScheme.primary,
-                    ),
-                    modifier = Modifier.align(Alignment.Center),
-                )
-            }
+            TimeTableIconButton(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.Description,
+                        contentDescription = null,
+                        modifier = Modifier.size(width = 18.dp, height = 18.dp),
+                    )
+                },
+                label = {
+                    Text(
+                        text = SessionsStrings.ViewDocument.asString(),
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center
+                    )
+                },
+                onClick = { onViewDocumentClick() },
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1F)
+            )
+
+            TimeTableIconButton(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Outlined.PlayCircle,
+                        contentDescription = null,
+                        modifier = Modifier.size(width = 18.dp, height = 18.dp),
+                    )
+                },
+                label = {
+                    Text(
+                        text = SessionsStrings.WatchVideo.asString(),
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center
+                    )
+                },
+                onClick = { onWatchVideoClick() },
+                modifier = Modifier
+                    .width(0.dp)
+                    .weight(1F)
+            )
         }
         Spacer(modifier = Modifier.height(24.dp))
+    }
+}
+
+@Composable
+private fun TimeTableIconButton(
+    icon: @Composable () -> Unit,
+    label: @Composable () -> Unit,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    iconSpacing: Dp = 8.dp
+) {
+    Surface(
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+        shape = RoundedCornerShape(100.dp),
+        onClick = { onClick() }
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(
+                space = iconSpacing,
+                alignment = Alignment.CenterHorizontally
+            )
+        ) {
+            icon()
+            label()
+        }
     }
 }
 
