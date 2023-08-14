@@ -48,7 +48,10 @@ fun BookmarkSheet(
             .padding(start = 16.dp),
     ) {
         BookmarkFilters(
-            currentDayFilter = uiState.currentDayFilter,
+            isAll = uiState.isAll,
+            isDayFirst = uiState.isDayFirst,
+            isDaySecond = uiState.isDaySecond,
+            isDayThird = uiState.isDayThird,
             onAllFilterChipClick = onAllFilterChipClick,
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
