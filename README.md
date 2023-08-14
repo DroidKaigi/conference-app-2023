@@ -1,4 +1,4 @@
-![readme-banner](https://github.com/DroidKaigi/conference-app-2023/assets/136104152/b24bf87d-7af0-4224-9321-bfc101d541fb)
+![readme-banner](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/22efb1a7-5a43-469c-a493-fa619034863e)
 
 
 # DroidKaigi 2023 official app
@@ -9,7 +9,7 @@
 
 This is a video of an app in development, and it will be updated as needed.
 
-[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/b30d8912-387c-48cc-8eb3-a4ea4b8ccb21)
+[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/32968ea9-6ef8-4707-b402-0fd009cc04fe)
 
 # Try it out!
 
@@ -29,7 +29,7 @@ You can check out the design on Figma.
 
 https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI
 
-<img src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/0d9aa57b-d001-4c69-a3d1-374eba44fdfa" alt="Design thumbnail" width="480" />
+<img src="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/bf32d1ad-774b-4a5d-88b3-dab8c9f0ef15" alt="Design thumbnail" width="480" />
 
 # Architecture
 
@@ -37,7 +37,7 @@ https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI
 
 In addition to general Android practices, we are exploring and implementing various concepts. Details for each are discussed further in this README.
 
-![architecture diagram](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/756add6b-5a6a-4c3a-9bfc-a88cabce79bf)
+![architecture diagram](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/ba0a9faa-e35d-4aa7-88fa-c8b1016e58a2)
 
 
 ## Module structure
@@ -45,7 +45,7 @@ In addition to general Android practices, we are exploring and implementing vari
 We are adopting the module separation approach used in [Now in Android](https://github.com/android/nowinandroid), such as splitting into 'feature' and 'core' modules.
 We've added experimental support for Compose Multiplatform on certain screens, making the features accessible from the iOS app module as well."
 
-<img width="798" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/378fb263-79af-4158-9c49-d5df92bd70f0">
+<img width="798" alt="image" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/257e1dc6-da07-405b-8263-3e90ccc3c606">
 
 
 # UI
@@ -54,8 +54,7 @@ We've added experimental support for Compose Multiplatform on certain screens, m
 
 Composable functions are categorized into three types: Screen, Section, and Component. This categorization does not have a definitive rule, but it serves as a guide for better structure and improved readability.
 
-<img width="200" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/c775f5d6-acd5-4224-a925-5507189fcded">
-
+<img width="200" alt="image" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/0b54af75-2556-4634-9479-588c516203eb">
 
 ```
 sessions
@@ -188,7 +187,7 @@ println(SessionsStrings.Timetable.asString())
 
 ## Single Source of Truth with buildUiState() {}
 
-<img width="351" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/9d0ebc3b-1e5e-46fd-8a0c-1ad4a0980476">
+<img width="351" alt="image" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/61257c45-0b1d-4f7d-b31b-249a9d482297">
 
 The buildUiState() {} function promotes the Single Source of Truth (SSoT) principle in our application by combining multiple StateFlow objects into a single UI state. This ensures that data is managed and accessed from a single, consistent, and reliable source.
 
