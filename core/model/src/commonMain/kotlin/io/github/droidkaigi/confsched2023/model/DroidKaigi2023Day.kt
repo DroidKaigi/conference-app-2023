@@ -24,7 +24,7 @@ public enum class DroidKaigi2023Day(
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day2(
-        day = 1,
+        day = 2,
         dayOfMonth = 15,
         start = LocalDateTime
             .parse("2023-09-15T00:00:00")
@@ -34,7 +34,7 @@ public enum class DroidKaigi2023Day(
             .toInstant(TimeZone.of("UTC+9")),
     ),
     Day3(
-        day = 1,
+        day = 3,
         dayOfMonth = 16,
         start = LocalDateTime
             .parse("2023-09-16T00:00:00")
