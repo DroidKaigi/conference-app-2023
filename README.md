@@ -234,7 +234,7 @@ Overview Diagram
 
 Detailed Diagram
 
-<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/34d9d0d6-2bea-4311-a20c-64f2c2b3e0bd">
+<img width="812" alt="image" src="https://github.com/DroidKaigi/conference-app-2023/assets/1386930/2c927141-4dbb-4260-b063-5ea53448a810">
 
 
 ## Screenshot Testing with Robolectric Native Graphics (RNG) and Roborazzi
@@ -357,7 +357,7 @@ And now, you can check the scrolled screenshot!
 
 This screenshot testing has been useful in that we can find bugs. For example, we found a bug where the tab was hidden when scrolling.
 
-![image](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/08f04cf7-d3f6-4377-af70-68b2780e793c)
+![screenshot-diff](https://github.com/DroidKaigi/conference-app-2023/assets/1386930/a478b040-985c-4efe-a230-caf7a972d14e)
 
 
 ## Fake API Server
