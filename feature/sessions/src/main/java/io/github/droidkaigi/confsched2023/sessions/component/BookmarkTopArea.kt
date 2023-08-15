@@ -76,7 +76,7 @@ fun BookmarkTopArea(
 
     val backgroundColor = lerp(
         MaterialTheme.colorScheme.surface,
-        MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp),
+        MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         fraction,
     )
 
