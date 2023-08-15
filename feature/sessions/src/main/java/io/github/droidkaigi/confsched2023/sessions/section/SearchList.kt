@@ -86,6 +86,8 @@ fun SearchList(
                         // Chips
                         val infoChip = mutableListOf<String>()
 
+                        infoChip.add(timetableItem.day?.name.orEmpty())
+                        infoChip.add(timetableItem.category.title.currentLangTitle)
                         infoChip.add(
                             timetableItem.language.langOfSpeaker.let {
                                 when (it) {
