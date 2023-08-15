@@ -67,7 +67,7 @@ private fun FloorLevelSwitcherButton(
             color = MaterialTheme.colorScheme.outline
         ),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.White, // FIXME 明暗の変換に対応できる色がThemeに定義されていない
+            containerColor = Color.White, // FIXME The color that can handle the theme switch between light and dark is not defined in the Theme.
             disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
             disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -77,7 +77,7 @@ private fun FloorLevelSwitcherButton(
     ) {
         if (targetFloorLevel == selectingFloorLevel) Icon(
             imageVector = Icons.Filled.Check,
-            contentDescription = null, //FIXME Figma上で特に決まってないようです
+            contentDescription = null, //FIXME Not defined on Figma.
             modifier = Modifier
                 .padding(end = 8.dp)
                 .size(18.dp)
