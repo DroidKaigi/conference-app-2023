@@ -139,7 +139,7 @@ private fun EmptyView() {
             lineHeight = 20.sp,
             letterSpacing = 0.25.sp,
             textAlign = TextAlign.Center,
-            color = Color(0xFF404944),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.height(108.dp))
     }
