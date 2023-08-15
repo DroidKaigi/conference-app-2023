@@ -1,13 +1,14 @@
 package io.github.droidkaigi.confsched2023.about.component
 
 import android.content.res.Configuration
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.SentimentVerySatisfied
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,17 +17,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.feature.about.R
 
 @Composable
 fun AboutContentColumn(
-    @DrawableRes leadingIconRes: Int,
+    leadingIcon: ImageVector,
     label: String,
     testTag: String,
     onClickAction: () -> Unit,
@@ -48,7 +48,7 @@ fun AboutContentColumn(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
-                painter = painterResource(id = leadingIconRes),
+                imageVector = leadingIcon,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(
@@ -79,7 +79,7 @@ fun AboutContentColumnPreview() {
     KaigiTheme {
         Surface {
             AboutContentColumn(
-                leadingIconRes = R.drawable.ic_sentiment_very_satisfied,
+                leadingIcon = Icons.Outlined.SentimentVerySatisfied,
                 label = AboutStrings.Staff.asString(),
                 testTag = "",
                 onClickAction = {},
@@ -95,7 +95,7 @@ fun AboutContentColumnDarkModePreview() {
     KaigiTheme {
         Surface {
             AboutContentColumn(
-                leadingIconRes = R.drawable.ic_sentiment_very_satisfied,
+                leadingIcon = Icons.Outlined.SentimentVerySatisfied,
                 label = AboutStrings.Staff.asString(),
                 testTag = "",
                 onClickAction = {},

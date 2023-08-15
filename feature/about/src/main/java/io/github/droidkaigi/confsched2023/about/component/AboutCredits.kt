@@ -2,12 +2,15 @@ package io.github.droidkaigi.confsched2023.about.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.Diversity1
+import androidx.compose.material.icons.outlined.SentimentVerySatisfied
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
-import io.github.droidkaigi.confsched2023.feature.about.R
 
 const val AboutCreditsStaffItemTestTag = "AboutCreditsStaffItem"
 const val AboutCreditsContributorsItemTestTag = "AboutCreditsContributorsItem"
@@ -32,7 +35,7 @@ fun LazyListScope.aboutCredits(
     }
     item {
         AboutContentColumn(
-            leadingIconRes = R.drawable.ic_sentiment_very_satisfied,
+            leadingIcon = Icons.Outlined.SentimentVerySatisfied,
             label = AboutStrings.Staff.asString(),
             testTag = AboutCreditsStaffItemTestTag,
             onClickAction = onStaffItemClick,
@@ -44,7 +47,7 @@ fun LazyListScope.aboutCredits(
     }
     item {
         AboutContentColumn(
-            leadingIconRes = R.drawable.ic_diversity_1,
+            leadingIcon = Icons.Outlined.Diversity1,
             label = AboutStrings.Contributor.asString(),
             testTag = AboutCreditsContributorsItemTestTag,
             onClickAction = onContributorsItemClick,
@@ -56,7 +59,7 @@ fun LazyListScope.aboutCredits(
     }
     item {
         AboutContentColumn(
-            leadingIconRes = R.drawable.ic_apartment,
+            leadingIcon = Icons.Outlined.Apartment,
             label = AboutStrings.Sponsor.asString(),
             testTag = AboutCreditsSponsorsItemTestTag,
             onClickAction = onSponsorsItemClick,
