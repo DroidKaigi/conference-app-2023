@@ -64,7 +64,6 @@ fun AboutDroidKaigiDetail(
                     start = 16.dp,
                     top = 12.dp,
                     end = 16.dp,
-                    bottom = 16.dp,
                 ),
         )
     }

@@ -44,9 +44,9 @@ import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Stamps
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
@@ -191,7 +191,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            stampsScreenRoute -> Stamps
+            stampsScreenRoute -> Badges
             else -> null
         }
     }
@@ -205,7 +205,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
-            Stamps -> mainNestedNavController.navigateStampsScreen()
+            Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }
 }

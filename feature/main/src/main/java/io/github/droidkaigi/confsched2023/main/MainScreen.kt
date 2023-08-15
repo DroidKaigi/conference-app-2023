@@ -95,11 +95,11 @@ enum class MainScreenTab(
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
-    Stamps(
+    Badges(
         icon = Icons.Outlined.Approval,
         selectedIcon = Icons.Filled.Approval,
-        label = MainStrings.Stamps.asString(),
-        contentDescription = MainStrings.Stamps.asString(),
+        label = MainStrings.Badges.asString(),
+        contentDescription = MainStrings.Badges.asString(),
     ),
     About(
         icon = Icons.Outlined.Info,
