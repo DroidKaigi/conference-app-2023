@@ -113,6 +113,9 @@ private fun KaigiNavHost(
             },
         )
         sponsorsScreen(
+            onNavigationIconClick = {
+                navController.popBackStack()
+            },
             onSponsorClick = { sponsor ->
                 TODO()
             },
