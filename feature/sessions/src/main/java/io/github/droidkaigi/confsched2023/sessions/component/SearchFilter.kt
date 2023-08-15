@@ -13,14 +13,15 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 
 data class SearchFilterUiState(
     val categories: List<TimetableCategory> = emptyList(),
-    val sessionTypes: List<String> = emptyList(),
+    val sessionTypes: List<TimetableSessionType> = emptyList(),
     val languages: List<TimetableLanguage> = emptyList(),
     val selectedDays: List<DroidKaigi2023Day> = emptyList(),
     val selectedCategories: List<TimetableCategory> = emptyList(),
-    val selectedSessionTypes: List<String> = emptyList(),
+    val selectedSessionTypes: List<TimetableSessionType> = emptyList(),
     val selectedLanguages: List<TimetableLanguage> = emptyList(),
     val isFavoritesOn: Boolean = false,
 ) {
@@ -34,7 +35,7 @@ data class SearchFilterUiState(
         get() = selectedCategories.joinToString { it.title.currentLangTitle }
 
     val selectedSessionTypesValue: String
-        get() = selectedSessionTypes.joinToString { it }
+        get() = selectedSessionTypes.joinToString { it.label.currentLangTitle }
 
     val selectedLanguagesValue: String
         get() = selectedLanguages.joinToString { it.langOfSpeaker }
@@ -56,7 +57,7 @@ fun SearchFilter(
     modifier: Modifier = Modifier,
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
-    onSessionTypesSelected: (String, Boolean) -> Unit = { _, _ -> },
+    onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
     onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit = { _, _ -> },
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current

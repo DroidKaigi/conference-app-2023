@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.NORMAL
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
@@ -16,7 +17,7 @@ public sealed class TimetableItem {
     public abstract val startsAt: Instant
     public abstract val endsAt: Instant
     public abstract val category: TimetableCategory
-    public abstract val sessionType: String
+    public abstract val sessionType: TimetableSessionType
     public abstract val room: TimetableRoom
     public abstract val targetAudience: String
     public abstract val language: TimetableLanguage
@@ -32,7 +33,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
-        override val sessionType: String,
+        override val sessionType: TimetableSessionType,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -52,7 +53,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
-        override val sessionType: String,
+        override val sessionType: TimetableSessionType,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -121,7 +122,7 @@ public fun Session.Companion.fake(): Session {
                 "Android Framework and Jetpack",
             ),
         ),
-        sessionType = "NORMAL",
+        sessionType = NORMAL,
         room = TimetableRoom(
             id = 1,
             name = MultiLangText("Room1", "Room2"),

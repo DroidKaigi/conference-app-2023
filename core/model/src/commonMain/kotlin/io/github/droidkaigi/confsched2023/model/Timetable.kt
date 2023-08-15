@@ -30,7 +30,7 @@ public data class Timetable(
         timetableItems.map { it.category }.toSet().sortedBy { it.id }
     }
 
-    val sessionTypes: List<String> by lazy {
+    val sessionTypes: List<TimetableSessionType> by lazy {
         timetableItems.map { it.sessionType }.toSet().sorted()
     }
 
@@ -110,7 +110,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
-                sessionType = "NORMAL",
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(
@@ -187,7 +187,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
-                sessionType = "NORMAL",
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(

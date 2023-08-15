@@ -8,6 +8,8 @@ import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAssetRes
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionMessageResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
 import io.github.droidkaigi.confsched2023.model.MultiLangText
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.Companion
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
@@ -94,7 +96,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
-                        sessionType = apiSession.sessionType,
+                        sessionType = TimetableSessionType.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
@@ -116,7 +118,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
-                        sessionType = apiSession.sessionType,
+                        sessionType = Companion.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(

@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
@@ -73,7 +74,7 @@ private fun SearchScreen(
     onSearchQueryChanged: (String) -> Unit = {},
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
-    onSessionTypesSelected: (String, Boolean) -> Unit = { _, _ -> },
+    onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
     onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit = { _, _ -> },
 ) {
     Scaffold(

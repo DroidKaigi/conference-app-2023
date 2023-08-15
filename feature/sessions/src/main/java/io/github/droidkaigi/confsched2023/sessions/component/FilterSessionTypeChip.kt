@@ -20,14 +20,15 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SessionType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterSessionTypeChip(
-    selectedSessionTypes: List<String>,
-    sessionTypes: List<String>,
-    onSessionTypeSelected: (String, Boolean) -> Unit,
+    selectedSessionTypes: List<TimetableSessionType>,
+    sessionTypes: List<TimetableSessionType>,
+    onSessionTypeSelected: (TimetableSessionType, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     selectedSessionTypesValues: String = "",
@@ -61,7 +62,7 @@ fun FilterSessionTypeChip(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = sessionType,
+                            text = sessionType.label.currentLangTitle,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )

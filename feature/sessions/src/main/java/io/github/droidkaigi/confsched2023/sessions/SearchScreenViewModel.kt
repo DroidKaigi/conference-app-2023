@@ -10,6 +10,7 @@ import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -91,7 +92,7 @@ class SearchScreenViewModel @Inject constructor(
         )
     }
 
-    fun onSessionTypesSelected(sessionType: String, isSelected: Boolean) {
+    fun onSessionTypesSelected(sessionType: TimetableSessionType, isSelected: Boolean) {
         val selectedSessionTypes = searchFilterUiState.value.selectedSessionTypes.toMutableList()
         searchFilterUiState.value = searchFilterUiState.value.copy(
             selectedSessionTypes = selectedSessionTypes.apply {
