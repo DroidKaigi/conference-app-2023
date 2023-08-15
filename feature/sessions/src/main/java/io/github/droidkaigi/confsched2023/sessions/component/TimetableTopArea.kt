@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import io.github.droidkaigi.confsched2023.feature.sessions.R
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Bookmark
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
 
@@ -55,7 +56,7 @@ fun TimetableTopArea(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Bookmarks,
-                    contentDescription = Timetable.asString(),
+                    contentDescription = Bookmark.asString(),
                 )
             }
             IconButton(
