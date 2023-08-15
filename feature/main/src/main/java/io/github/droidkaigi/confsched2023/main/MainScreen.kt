@@ -95,7 +95,7 @@ enum class MainScreenTab(
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
-    Stamps(
+    Badges(
         icon = Icons.Outlined.Approval,
         selectedIcon = Icons.Filled.Approval,
         label = MainStrings.Badges.asString(),
