@@ -1,14 +1,20 @@
 package io.github.droidkaigi.confsched2023.about.component
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apartment
+import androidx.compose.material.icons.outlined.Diversity1
+import androidx.compose.material.icons.outlined.SentimentVerySatisfied
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.about.AboutStrings
 
-const val AboutCreditsSponsorsItemTestTag = "AboutCreditsSponsorsItem"
-const val AboutCreditsContributorsItemTestTag = "AboutCreditsContributorsItem"
 const val AboutCreditsStaffItemTestTag = "AboutCreditsStaffItem"
+const val AboutCreditsContributorsItemTestTag = "AboutCreditsContributorsItem"
+const val AboutCreditsSponsorsItemTestTag = "AboutCreditsSponsorsItem"
 
 fun LazyListScope.aboutCredits(
     onStaffItemClick: () -> Unit,
@@ -16,30 +22,51 @@ fun LazyListScope.aboutCredits(
     onSponsorsItemClick: () -> Unit,
 ) {
     item {
-        Text("Credits")
-    }
-    item {
         Text(
+            text = AboutStrings.CreditsTitle.asString(),
+            style = MaterialTheme.typography.titleMedium,
             modifier = Modifier
-                .testTag(AboutCreditsContributorsItemTestTag)
-                .clickable { onContributorsItemClick() },
-            text = "Go to contributors screen",
+                .padding(
+                    start = 16.dp,
+                    top = 32.dp,
+                    end = 16.dp,
+                ),
         )
     }
     item {
-        Text(
+        AboutContentColumn(
+            leadingIcon = Icons.Outlined.SentimentVerySatisfied,
+            label = AboutStrings.Staff.asString(),
+            testTag = AboutCreditsStaffItemTestTag,
+            onClickAction = onStaffItemClick,
             modifier = Modifier
-                .testTag(AboutCreditsStaffItemTestTag)
-                .clickable { onStaffItemClick() },
-            text = "Go to staff screen",
+                .padding(
+                    horizontal = 16.dp,
+                ),
         )
     }
     item {
-        Text(
+        AboutContentColumn(
+            leadingIcon = Icons.Outlined.Diversity1,
+            label = AboutStrings.Contributor.asString(),
+            testTag = AboutCreditsContributorsItemTestTag,
+            onClickAction = onContributorsItemClick,
             modifier = Modifier
-                .testTag(AboutCreditsSponsorsItemTestTag)
-                .clickable { onSponsorsItemClick() },
-            text = "Go to sponsors screen",
+                .padding(
+                    horizontal = 16.dp,
+                ),
+        )
+    }
+    item {
+        AboutContentColumn(
+            leadingIcon = Icons.Outlined.Apartment,
+            label = AboutStrings.Sponsor.asString(),
+            testTag = AboutCreditsSponsorsItemTestTag,
+            onClickAction = onSponsorsItemClick,
+            modifier = Modifier
+                .padding(
+                    horizontal = 16.dp,
+                ),
         )
     }
 }
