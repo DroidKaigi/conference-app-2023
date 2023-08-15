@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2023.data.sessions
 
-import co.touchlab.kermit.Logger
-import co.touchlab.kermit.Logger.Companion
 import de.jensklingenberg.ktorfit.Ktorfit
 import de.jensklingenberg.ktorfit.http.GET
 import io.github.droidkaigi.confsched2023.data.NetworkService
