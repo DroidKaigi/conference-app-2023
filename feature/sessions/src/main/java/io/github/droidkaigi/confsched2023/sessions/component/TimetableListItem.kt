@@ -66,8 +66,8 @@ fun TimetableListItem(
                 checked = isBookmarked,
                 onCheckedChange = { onBoomarkClick(timetableItem) },
                 colors = IconButtonDefaults.iconToggleButtonColors(
-                    checkedContentColor = MaterialTheme.colorScheme.onSurface
-                )
+                    checkedContentColor = MaterialTheme.colorScheme.onSurface,
+                ),
             ) {
                 Icon(
                     imageVector = if (isBookmarked) {
