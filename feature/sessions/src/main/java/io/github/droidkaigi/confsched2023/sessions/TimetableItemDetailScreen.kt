@@ -19,8 +19,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailFooter
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 
@@ -98,7 +98,7 @@ private fun TimetableItemDetailScreen(
         },
         bottomBar = {
             if (uiState is TimetableItemDetailScreenUiState.Loaded) {
-                TimetableItemDetailFooter(
+                TimetableItemDetailBottomAppBar(
                     timetableItem = uiState.timetableItem,
                     isBookmarked = uiState.isBookmarked,
                     onBookmarkClick = onBookmarkClick,
