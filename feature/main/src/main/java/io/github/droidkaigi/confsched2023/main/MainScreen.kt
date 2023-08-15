@@ -1,5 +1,13 @@
 package io.github.droidkaigi.confsched2023.main
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
@@ -147,8 +155,35 @@ private fun MainScreen(
             navController = mainNestedNavController,
             startDestination = "timetable",
             modifier = Modifier.padding(padding),
+            enterTransition = { materialFadeThroughIn() },
+            exitTransition = { materialFadeThroughOut() },
         ) {
             mainNestedNavGraph(mainNestedNavController, padding)
         }
     }
 }
+
+private fun materialFadeThroughIn(
+): EnterTransition = fadeIn(
+    animationSpec = tween(
+        durationMillis = 195,
+        delayMillis = 105,
+        easing = LinearOutSlowInEasing,
+    )
+) + scaleIn(
+    animationSpec = tween(
+        durationMillis = 195,
+        delayMillis = 105,
+        easing = LinearOutSlowInEasing,
+    ),
+    initialScale = 0.92f,
+)
+
+private fun materialFadeThroughOut(
+): ExitTransition = fadeOut(
+    animationSpec = tween(
+        durationMillis = 105,
+        delayMillis = 0,
+        easing = FastOutLinearInEasing,
+    )
+)
