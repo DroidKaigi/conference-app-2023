@@ -29,7 +29,6 @@ class SponsorsScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<SponsorsScreenUiState> = buildUiState(sponsorsStateFlow) { sponsors ->
         SponsorsScreenUiState(
-            sponsors = sponsors,
             platinumSponsors = sponsors.filter { it.plan.isPlatinum }.toImmutableList(),
             goldSponsors = sponsors.filter { it.plan.isGold }.toImmutableList(),
             supporters = sponsors.filter { it.plan.isSupporter }.toImmutableList(),

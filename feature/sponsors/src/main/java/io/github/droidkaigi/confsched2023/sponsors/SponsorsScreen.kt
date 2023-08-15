@@ -69,7 +69,6 @@ fun SponsorsScreen(
 }
 
 data class SponsorsScreenUiState(
-    val sponsors: ImmutableList<Sponsor>,
     val platinumSponsors: ImmutableList<Sponsor>,
     val goldSponsors: ImmutableList<Sponsor>,
     val supporters: ImmutableList<Sponsor>,
