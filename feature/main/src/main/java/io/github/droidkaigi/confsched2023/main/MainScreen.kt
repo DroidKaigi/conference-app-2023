@@ -163,13 +163,12 @@ private fun MainScreen(
     }
 }
 
-private fun materialFadeThroughIn(
-): EnterTransition = fadeIn(
+private fun materialFadeThroughIn(): EnterTransition = fadeIn(
     animationSpec = tween(
         durationMillis = 195,
         delayMillis = 105,
         easing = LinearOutSlowInEasing,
-    )
+    ),
 ) + scaleIn(
     animationSpec = tween(
         durationMillis = 195,
@@ -179,11 +178,10 @@ private fun materialFadeThroughIn(
     initialScale = 0.92f,
 )
 
-private fun materialFadeThroughOut(
-): ExitTransition = fadeOut(
+private fun materialFadeThroughOut(): ExitTransition = fadeOut(
     animationSpec = tween(
         durationMillis = 105,
         delayMillis = 0,
         easing = FastOutLinearInEasing,
-    )
+    ),
 )

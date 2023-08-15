@@ -84,13 +84,13 @@ private fun materialSharedAxisXIn(
     ),
     initialOffsetX = {
         if (forward) slideDistance else -slideDistance
-    }
+    },
 ) + fadeIn(
     animationSpec = tween(
         durationMillis = 195,
         delayMillis = 105,
         easing = LinearOutSlowInEasing,
-    )
+    ),
 )
 
 private fun materialSharedAxisXOut(
@@ -103,11 +103,11 @@ private fun materialSharedAxisXOut(
     ),
     targetOffsetX = {
         if (forward) -slideDistance else slideDistance
-    }
+    },
 ) + fadeOut(
     animationSpec = tween(
         durationMillis = 105,
         delayMillis = 0,
         easing = FastOutLinearInEasing,
-    )
+    ),
 )
