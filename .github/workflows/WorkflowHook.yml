@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
+      - uses: marocchino/sticky-pull-request-comment@f6a2580ed520ae15da6076e7410b088d1c5dddd9 # v2.7.0
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
@@ -136,7 +136,7 @@ jobs:
           run_id: ${{ github.event.workflow_run.id }}
           name: event-payload
           path: .event-payload
-      - uses: EnricoMi/publish-unit-test-result-action@4e7013f9576bd22ffdae979dc6e68cb9ec2aeece # v2.7.0
+      - uses: EnricoMi/publish-unit-test-result-action@283dea176069279a9076e77b548668a8e4f0c31b # v2.9.0
         with:
           commit: ${{ github.event.workflow_run.head_sha }}
           event_file: .event-payload/event.json
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@f61b6cf21ef2fcc468f4345cdfcc9bda741d2343 # v2.6.2
+      - uses: marocchino/sticky-pull-request-comment@f6a2580ed520ae15da6076e7410b088d1c5dddd9 # v2.7.0
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
