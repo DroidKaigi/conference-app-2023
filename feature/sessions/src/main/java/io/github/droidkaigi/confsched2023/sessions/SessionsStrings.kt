@@ -13,7 +13,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object UserIcon : SessionsStrings()
     data object EventDay : SessionsStrings()
     data object Category : SessionsStrings()
-    data object SearchResultNotFound : SessionsStrings()
+    class SearchResultNotFound(val missedWord: String) : SessionsStrings()
     data object Bookmark : SessionsStrings()
     data object BookmarkFilterAllChip : SessionsStrings()
     data object BookmarkedItemNotFound : SessionsStrings()
@@ -44,7 +44,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Category -> "カテゴリー"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "全て"
-                SearchResultNotFound -> "この検索条件に一致する結果はありません"
+                is SearchResultNotFound -> "「${item.missedWord}」と一致する検索結果がありません"
                 BookmarkedItemNotFound -> "登録されたセッションがありません"
                 BookmarkedItemNotFoundSideNote -> "気になるセッションをブックマークに追加して\n集めてみましょう！"
                 Share -> "共有"
@@ -72,7 +72,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 UserIcon -> "User icon"
                 EventDay -> "Day"
                 Category -> "Category"
-                SearchResultNotFound -> "Nothing matched your search criteria"
+                is SearchResultNotFound -> "Nothing matched your search criteria \"${item.missedWord}\""
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "All"
                 BookmarkedItemNotFound -> "No sessions registered"

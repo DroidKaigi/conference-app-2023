@@ -115,7 +115,7 @@ private fun SearchScreen(
                 onCategoriesSelected = onCategoriesSelected,
             )
             when (uiState) {
-                is Empty -> EmptySearchResultBody()
+                is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery)
                 is SearchList -> SearchList(
                     contentPaddingValues = PaddingValues(
                         bottom = innerPadding.calculateBottomPadding()
