@@ -27,21 +27,20 @@ fun SponsorItem(
             .fillMaxWidth()
             .padding(
                 top = if (sponsor.plan.isPlatinum) 0.dp else 8.dp,
-                bottom = if (sponsor.plan.isPlatinum) 12.dp else 8.dp
+                bottom = if (sponsor.plan.isPlatinum) 12.dp else 8.dp,
             )
-            .clickable { onSponsorClick(sponsor) }
+            .clickable { onSponsorClick(sponsor) },
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     color = Color.White,
-                    shape = RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp)
-                )
+                    shape = RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp),
+                ),
         ) {
             // TODO Implement Sponsor UI
         }
-
     }
 }
 

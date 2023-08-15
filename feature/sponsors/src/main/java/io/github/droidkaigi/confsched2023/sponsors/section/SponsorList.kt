@@ -38,14 +38,14 @@ fun SponsorList(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item(
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "PLATINUM SPONSORS")
         }
         items(
             items = platinumSponsors,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,
@@ -57,14 +57,14 @@ fun SponsorList(
             Spacer(modifier = Modifier.height(8.dp))
         }
         item(
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "GOLD SPONSORS")
         }
         items(
             items = goldSponsors,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(DOUBLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(DOUBLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,
@@ -73,14 +73,14 @@ fun SponsorList(
             )
         }
         item(
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "SUPPORTERS")
         }
         items(
             items = supporters,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(TRIPLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(TRIPLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,
