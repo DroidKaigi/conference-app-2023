@@ -8,7 +8,7 @@ File.open("#{repo_root}/.ruby-version", "r") do |f|
 end
 
 gem 'fastlane', '2.214.0'
-gem 'danger', '9.3.0'
+gem 'danger', '9.3.1'
 gem 'danger-swiftlint', '0.33.0'
 gem 'danger-xcode_summary', '1.2.0'
 gem 'danger-xcov', '0.5.0'
