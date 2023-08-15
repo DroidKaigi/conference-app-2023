@@ -70,6 +70,9 @@ fun SponsorsScreen(
 
 data class SponsorsScreenUiState(
     val sponsors: ImmutableList<Sponsor>,
+    val platinumSponsors: ImmutableList<Sponsor>,
+    val goldSponsors: ImmutableList<Sponsor>,
+    val supporters: ImmutableList<Sponsor>,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -104,7 +107,9 @@ private fun SponsorsScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
             SponsorList(
-                sponsors = uiState.sponsors,
+                platinumSponsors = uiState.platinumSponsors,
+                goldSponsors = uiState.goldSponsors,
+                supporters = uiState.supporters,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(padding)

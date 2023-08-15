@@ -26,6 +26,10 @@ public enum class Plan {
 
     public val isSupporter: Boolean
         get() = this == SUPPORTER
+    public val isPlatinum: Boolean
+        get() = this == PLATINUM
+    public val isGold: Boolean
+        get() = this == GOLD
 }
 
 public fun Sponsor.Companion.fakes(): PersistentList<Sponsor> = (

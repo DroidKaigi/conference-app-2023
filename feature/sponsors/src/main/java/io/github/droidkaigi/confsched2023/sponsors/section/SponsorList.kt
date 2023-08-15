@@ -11,10 +11,13 @@ import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sponsors.component.SponsorHeader
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun SponsorList(
-    sponsors: ImmutableList<Sponsor>,
+    platinumSponsors: ImmutableList<Sponsor>,
+    goldSponsors: ImmutableList<Sponsor>,
+    supporters: ImmutableList<Sponsor>,
     modifier: Modifier = Modifier,
     onSponsorClick: (Sponsor) -> Unit = {},
 ) {
@@ -25,7 +28,7 @@ fun SponsorList(
             SponsorHeader(title = "PLATINUM SPONSORS")
         }
         items(
-            items = sponsors.drop(5),
+            items = platinumSponsors,
             key = { sponsor -> sponsor.name },
         ) { sponsor ->
             Text(
@@ -37,7 +40,7 @@ fun SponsorList(
             SponsorHeader(title = "GOLD SPONSORS")
         }
         items(
-            items = sponsors.drop(5),
+            items = goldSponsors,
             key = { sponsor -> sponsor.name },
         ) { sponsor ->
             Text(
@@ -49,7 +52,7 @@ fun SponsorList(
             SponsorHeader(title = "SUPPORTERS")
         }
         items(
-            items = sponsors.drop(5),
+            items = supporters,
             key = { sponsor -> sponsor.name },
         ) { sponsor ->
             Text(
@@ -64,6 +67,8 @@ fun SponsorList(
 @Composable
 fun SponsorListPreview() {
     SponsorList(
-        sponsors = Sponsor.fakes(),
+        platinumSponsors = Sponsor.fakes().take(5).toImmutableList(),
+        goldSponsors = Sponsor.fakes().take(5).toImmutableList(),
+        supporters = Sponsor.fakes().take(5).toImmutableList(),
     )
 }
