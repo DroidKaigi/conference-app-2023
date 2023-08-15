@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.viewModelScope
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -28,7 +29,9 @@ class SponsorsScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<SponsorsScreenUiState> = buildUiState(sponsorsStateFlow) { sponsors ->
         SponsorsScreenUiState(
-            sponsors = sponsors,
+            platinumSponsors = sponsors.filter { it.plan.isPlatinum }.toImmutableList(),
+            goldSponsors = sponsors.filter { it.plan.isGold }.toImmutableList(),
+            supporters = sponsors.filter { it.plan.isSupporter }.toImmutableList(),
         )
     }
 }
