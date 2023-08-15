@@ -32,7 +32,7 @@ class FloorMapScreenViewModel @Inject constructor(
         )
     }
 
-    fun updateFloorLevelState(floorLevel: FloorLevel) {
+    fun onClickFloorLevelSwitcher(floorLevel: FloorLevel) {
         floorLevelStateFlow.value = floorLevel
     }
 }

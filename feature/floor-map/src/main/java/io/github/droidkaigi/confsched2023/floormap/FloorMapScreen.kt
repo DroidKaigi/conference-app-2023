@@ -71,7 +71,7 @@ fun FloorMapScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onSideEventClick = onSideEventClick,
-        updateFloorLevelState = viewModel::updateFloorLevelState
+        onClickFloorLevelSwitcher = viewModel::onClickFloorLevelSwitcher
     )
 }
 
@@ -85,7 +85,7 @@ private fun FloorMapScreen(
     uiState: FloorMapScreenUiState,
     snackbarHostState: SnackbarHostState,
     onSideEventClick: (SideEvent) -> Unit,
-    updateFloorLevelState: (FloorLevel) -> Unit,
+    onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.testTag(FloorMapScreenTestTag),
@@ -121,7 +121,7 @@ private fun FloorMapScreen(
                 }
                 FloorLevelSwitcher(
                     selectingFloorLevel = uiState.floorLevel,
-                    updateFloorLevelState = updateFloorLevelState,
+                    onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
                         .padding(bottom = 24.dp)
@@ -146,7 +146,7 @@ fun PreviewFloorMapScreen() {
                 ),
                 snackbarHostState = SnackbarHostState(),
                 onSideEventClick = {},
-                updateFloorLevelState = {},
+                onClickFloorLevelSwitcher = {},
             )
         }
     }

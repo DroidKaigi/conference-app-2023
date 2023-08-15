@@ -28,7 +28,7 @@ import io.github.droidkaigi.confsched2023.model.FloorLevel
 @Composable
 fun FloorLevelSwitcher(
     selectingFloorLevel: FloorLevel,
-    updateFloorLevelState: (FloorLevel) -> Unit,
+    onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -39,13 +39,13 @@ fun FloorLevelSwitcher(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Ground,
             shape = RoundedCornerShape(topStart = 100.dp, bottomStart = 100.dp),
-            onClick = updateFloorLevelState
+            onClick = onClickFloorLevelSwitcher
         )
         FloorLevelSwitcherButton(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Basement,
             shape = RoundedCornerShape(topEnd = 100.dp, bottomEnd = 100.dp),
-            onClick = updateFloorLevelState
+            onClick = onClickFloorLevelSwitcher
         )
     }
 }
@@ -83,10 +83,7 @@ private fun FloorLevelSwitcherButton(
                 .size(18.dp)
         )
         Text(
-            text = when (targetFloorLevel) {
-                FloorLevel.Basement -> "B1F"
-                FloorLevel.Ground -> "1F"
-            },
+            text = targetFloorLevel.floorName,
             style = TextStyle(
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
