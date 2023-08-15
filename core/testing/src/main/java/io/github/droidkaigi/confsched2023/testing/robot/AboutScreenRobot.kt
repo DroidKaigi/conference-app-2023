@@ -11,6 +11,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.about.AboutScreen
 import io.github.droidkaigi.confsched2023.about.AboutScreenTestTag
 import io.github.droidkaigi.confsched2023.about.component.AboutCreditsSponsorsItemTestTag
+import io.github.droidkaigi.confsched2023.about.component.AboutCreditsStaffItemTestTag
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
@@ -53,6 +54,12 @@ class AboutScreenRobot @Inject constructor(
     fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())
+            .captureRoboImage()
+    }
+
+    fun checkAboutContentColumnCapture() {
+        composeTestRule
+            .onNode(hasTestTag(AboutCreditsStaffItemTestTag))
             .captureRoboImage()
     }
 

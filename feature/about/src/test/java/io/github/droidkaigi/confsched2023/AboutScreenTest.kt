@@ -38,4 +38,14 @@ class AboutScreenTest {
             checkScreenCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        aboutScreenRobot {
+            setupAboutScreenContent()
+            scrollAboutScreen()
+            checkAboutContentColumnCapture()
+        }
+    }
 }
