@@ -25,6 +25,7 @@ include(
     ":feature:sponsors",
     ":feature:floor-map",
     ":feature:contributors",
+    ":feature:stamps",
     ":core:designsystem",
     ":core:data",
     ":core:model",
