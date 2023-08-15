@@ -35,7 +35,9 @@ public data class Timetable(
     }
 
     val languages: List<TimetableLanguage> by lazy {
-        timetableItems.map { it.language }.toSet().sortedBy { it.langOfSpeaker }
+        timetableItems.map { it.language }.toSet()
+            .sortedBy { it.langOfSpeaker }
+            .sortedBy { it.isInterpretationTarget }
     }
 
     public fun dayTimetable(droidKaigi2023Day: DroidKaigi2023Day): Timetable {
