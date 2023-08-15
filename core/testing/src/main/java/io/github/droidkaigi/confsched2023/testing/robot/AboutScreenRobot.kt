@@ -10,12 +10,7 @@ import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.about.AboutScreen
 import io.github.droidkaigi.confsched2023.about.AboutScreenTestTag
-import io.github.droidkaigi.confsched2023.about.component.AboutCreditsContributorsItemTestTag
 import io.github.droidkaigi.confsched2023.about.component.AboutCreditsSponsorsItemTestTag
-import io.github.droidkaigi.confsched2023.about.component.AboutCreditsStaffItemTestTag
-import io.github.droidkaigi.confsched2023.about.component.AboutOthersCodeOfConductItemTestTag
-import io.github.droidkaigi.confsched2023.about.component.AboutOthersLicenseItemTestTag
-import io.github.droidkaigi.confsched2023.about.component.AboutOthersPrivacyPolicyItemTestTag
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
@@ -58,42 +53,6 @@ class AboutScreenRobot @Inject constructor(
     fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())
-            .captureRoboImage()
-    }
-
-    fun checkStaffAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutCreditsStaffItemTestTag))
-            .captureRoboImage()
-    }
-
-    fun checkContributorsAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutCreditsContributorsItemTestTag))
-            .captureRoboImage()
-    }
-
-    fun checkSponsorsAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutCreditsSponsorsItemTestTag))
-            .captureRoboImage()
-    }
-
-    fun checkCodeOfConductAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutOthersCodeOfConductItemTestTag))
-            .captureRoboImage()
-    }
-
-    fun checkLicenseAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutOthersLicenseItemTestTag))
-            .captureRoboImage()
-    }
-
-    fun checkPrivacyPolicyAboutContentColumnCapture() {
-        composeTestRule
-            .onNode(hasTestTag(AboutOthersPrivacyPolicyItemTestTag))
             .captureRoboImage()
     }
 

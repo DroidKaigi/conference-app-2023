@@ -44,14 +44,12 @@ class AboutScreenTest {
     fun checkScrollShot() {
         aboutScreenRobot {
             setupAboutScreenContent()
+            // Take a screenshot of Credits
             scrollAboutScreen()
-            checkStaffAboutContentColumnCapture()
-            checkContributorsAboutContentColumnCapture()
-            checkSponsorsAboutContentColumnCapture()
+            checkScreenCapture()
+            // Take a screenshot of the Others
             scrollAboutScreen()
-            checkCodeOfConductAboutContentColumnCapture()
-            checkLicenseAboutContentColumnCapture()
-            checkPrivacyPolicyAboutContentColumnCapture()
+            checkScreenCapture()
         }
     }
 }
