@@ -36,7 +36,7 @@ fun TimetableItemDetailSummaryCardRow(
             text = label,
             fontWeight = FontWeight.Bold,
             style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(text = content, style = MaterialTheme.typography.bodyMedium)

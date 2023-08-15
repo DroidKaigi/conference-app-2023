@@ -35,7 +35,7 @@ fun TimetableItemDetailSummaryCard(
     Card(
         shape = RoundedCornerShape(12.dp),
         modifier = modifier,
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF2F4F1))
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFF2F4F1)),
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
