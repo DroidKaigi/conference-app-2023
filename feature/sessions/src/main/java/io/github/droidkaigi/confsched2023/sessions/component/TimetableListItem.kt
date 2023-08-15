@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -64,6 +65,9 @@ fun TimetableListItem(
                 modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
                 checked = isBookmarked,
                 onCheckedChange = { onBoomarkClick(timetableItem) },
+                colors = IconButtonDefaults.iconToggleButtonColors(
+                    checkedContentColor = MaterialTheme.colorScheme.onSurface
+                )
             ) {
                 Icon(
                     imageVector = if (isBookmarked) {
