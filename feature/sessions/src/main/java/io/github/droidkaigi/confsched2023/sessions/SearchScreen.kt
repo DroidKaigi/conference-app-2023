@@ -16,7 +16,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
+import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Sessions
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
@@ -24,6 +27,21 @@ import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppB
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
+
+sealed interface SearchScreenUiState {
+    val searchQuery: String
+    val searchFilterUiState: SearchFilterUiState
+    data class Empty(
+        override val searchQuery: String,
+        override val searchFilterUiState: SearchFilterUiState,
+    ) : SearchScreenUiState
+
+    data class Sessions(
+        override val searchQuery: String,
+        override val searchFilterUiState: SearchFilterUiState,
+        val sessions: Timetable
+    ) : SearchScreenUiState
+}
 
 fun NavGraphBuilder.searchScreen(onNavigationIconClick: () -> Unit) {
     composable(searchScreenRoute) {
@@ -46,28 +64,21 @@ fun SearchScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     SearchScreen(
+        uiState = uiState,
         modifier = modifier,
         onBackClick = onBackClick,
-        searchQuery = uiState.searchQuery,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
-        searchFilterUiState = uiState.searchFilterUiState,
         onDaySelected = viewModel::onDaySelected,
         onFilterCategoryChipClicked = viewModel::onFilterCategoryChipClicked,
         onCategoriesSelected = viewModel::onCategoriesSelected,
     )
 }
 
-data class SearchScreenUiState(
-    val searchQuery: String,
-    val searchFilterUiState: SearchFilterUiState,
-)
-
 @Composable
 private fun SearchScreen(
-    searchFilterUiState: SearchFilterUiState,
+    uiState: SearchScreenUiState,
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
-    searchQuery: String = "",
     onSearchQueryChanged: (String) -> Unit = {},
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onFilterCategoryChipClicked: () -> Unit = {},
@@ -77,7 +88,7 @@ private fun SearchScreen(
         modifier = modifier.testTag(SearchScreenTestTag),
         topBar = {
             SearchTextFieldAppBar(
-                searchQuery = searchQuery,
+                searchQuery = uiState.searchQuery,
                 onSearchQueryChanged = onSearchQueryChanged,
                 onBackClick = onBackClick,
             )
@@ -91,12 +102,17 @@ private fun SearchScreen(
                 color = MaterialTheme.colorScheme.outline,
             )
             SearchFilter(
-                searchFilterUiState = searchFilterUiState,
+                searchFilterUiState = uiState.searchFilterUiState,
                 onDaySelected = onDaySelected,
                 onFilterCategoryChipClicked = onFilterCategoryChipClicked,
                 onCategoriesSelected = onCategoriesSelected,
             )
-            EmptySearchResultBody()
+            when(uiState) {
+                is Empty -> EmptySearchResultBody()
+                is Sessions -> {
+                    // TODO: Show sessions result of search.
+                }
+            }
         }
     }
 }
