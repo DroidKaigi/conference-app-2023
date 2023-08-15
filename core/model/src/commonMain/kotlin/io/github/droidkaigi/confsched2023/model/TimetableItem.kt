@@ -16,6 +16,7 @@ public sealed class TimetableItem {
     public abstract val startsAt: Instant
     public abstract val endsAt: Instant
     public abstract val category: TimetableCategory
+    public abstract val sessionType: String
     public abstract val room: TimetableRoom
     public abstract val targetAudience: String
     public abstract val language: TimetableLanguage
@@ -31,6 +32,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
+        override val sessionType: String,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -50,6 +52,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
+        override val sessionType: String,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -118,6 +121,7 @@ public fun Session.Companion.fake(): Session {
                 "Android Framework and Jetpack",
             ),
         ),
+        sessionType = "NORMAL",
         room = TimetableRoom(
             id = 1,
             name = MultiLangText("Room1", "Room2"),

@@ -98,6 +98,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = "NORMAL",
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(
@@ -174,6 +175,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = "NORMAL",
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(

@@ -94,6 +94,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = apiSession.sessionType,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
@@ -115,6 +116,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = apiSession.sessionType,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
