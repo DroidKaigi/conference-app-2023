@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
@@ -85,7 +84,7 @@ fun TimetableList(
                         timetableItem,
                         isBookmarked = isBookmarked,
                         onClick = onTimetableItemClick,
-                        onBoomarkClick = onBookmarkClick,
+                        onBookmarkClick = onBookmarkClick,
                         chipContent = {
                             // Chips
                             val infoChip = mutableListOf<String>()
