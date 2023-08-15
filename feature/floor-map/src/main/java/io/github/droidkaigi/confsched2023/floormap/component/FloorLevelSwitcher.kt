@@ -33,19 +33,19 @@ fun FloorLevelSwitcher(
 ) {
     Row(
         modifier,
-        Arrangement.spacedBy(-1.dp)
+        Arrangement.spacedBy(-1.dp),
     ) {
         FloorLevelSwitcherButton(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Ground,
             shape = RoundedCornerShape(topStart = 100.dp, bottomStart = 100.dp),
-            onClick = onClickFloorLevelSwitcher
+            onClick = onClickFloorLevelSwitcher,
         )
         FloorLevelSwitcherButton(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Basement,
             shape = RoundedCornerShape(topEnd = 100.dp, bottomEnd = 100.dp),
-            onClick = onClickFloorLevelSwitcher
+            onClick = onClickFloorLevelSwitcher,
         )
     }
 }
@@ -64,7 +64,7 @@ private fun FloorLevelSwitcherButton(
         contentPadding = PaddingValues(vertical = 10.dp),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outline
+            color = MaterialTheme.colorScheme.outline,
         ),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = Color.White, // FIXME The color that can handle the theme switch between light and dark is not defined in the Theme.
@@ -75,13 +75,15 @@ private fun FloorLevelSwitcherButton(
         modifier = Modifier
             .width(104.dp),
     ) {
-        if (targetFloorLevel == selectingFloorLevel) Icon(
-            imageVector = Icons.Filled.Check,
-            contentDescription = null, //FIXME Not defined on Figma.
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .size(18.dp)
-        )
+        if (targetFloorLevel == selectingFloorLevel) {
+            Icon(
+                imageVector = Icons.Filled.Check,
+                contentDescription = null, // FIXME Not defined on Figma.
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .size(18.dp),
+            )
+        }
         Text(
             text = targetFloorLevel.floorName,
             style = TextStyle(
@@ -90,7 +92,7 @@ private fun FloorLevelSwitcherButton(
                 fontWeight = FontWeight(500),
                 textAlign = TextAlign.Center,
                 letterSpacing = 0.1.sp,
-            )
+            ),
         )
     }
 }

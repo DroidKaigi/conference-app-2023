@@ -71,7 +71,7 @@ fun FloorMapScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onSideEventClick = onSideEventClick,
-        onClickFloorLevelSwitcher = viewModel::onClickFloorLevelSwitcher
+        onClickFloorLevelSwitcher = viewModel::onClickFloorLevelSwitcher,
     )
 }
 
@@ -93,11 +93,11 @@ private fun FloorMapScreen(
         content = { _ ->
             Box(
                 Modifier
-                    .fillMaxSize()
+                    .fillMaxSize(),
             ) {
                 Column(
                     Modifier
-                        .matchParentSize()
+                        .matchParentSize(),
                 ) {
                     Text(
                         text = "Please implement FloorMapScreen!!!",
@@ -112,8 +112,8 @@ private fun FloorMapScreen(
                             .fadingEdge(
                                 Brush.verticalGradient(
                                     0.85f to Color.Black,
-                                    1f to Color.Transparent
-                                )
+                                    1f to Color.Transparent,
+                                ),
                             )
                             .padding(bottom = 56.dp),
                     )
@@ -123,7 +123,7 @@ private fun FloorMapScreen(
                     onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 24.dp)
+                        .padding(bottom = 24.dp),
                 )
             }
         },
