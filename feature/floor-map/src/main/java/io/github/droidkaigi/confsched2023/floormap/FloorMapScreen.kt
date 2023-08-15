@@ -90,11 +90,10 @@ private fun FloorMapScreen(
     Scaffold(
         modifier = Modifier.testTag(FloorMapScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        content = { padding ->
+        content = { _ ->
             Box(
                 Modifier
                     .fillMaxSize()
-//                    .padding(padding) FIXME コメントを外すとSnackbarの分だけ下部のpaddingが合わなくなる,スナックバー表示中のUIもいただきたい
             ) {
                 Column(
                     Modifier
