@@ -15,7 +15,7 @@ fun SponsorHeader(
 ) {
     Text(
         text = title,
-        modifier = modifier.padding(16.dp),
+        modifier = modifier.padding(vertical = 16.dp),
         style = MaterialTheme.typography.titleMedium,
     )
 }
