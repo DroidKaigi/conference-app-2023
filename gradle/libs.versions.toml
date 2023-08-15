@@ -102,6 +102,7 @@ okIo = { module = "com.squareup.okio:okio", version = "3.5.0" }
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebaseAuth" }
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
+firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version = "1.8.0" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 
