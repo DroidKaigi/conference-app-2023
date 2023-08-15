@@ -65,7 +65,7 @@ class SearchScreenViewModel @Inject constructor(
                 searchFilterUiState = searchFilterUiState,
             )
         } else {
-            SearchScreenUiState.Sessions(
+            SearchScreenUiState.SearchList(
                 searchQuery = searchQuery,
                 searchFilterUiState = searchFilterUiState,
                 sessions = searchedSessions,

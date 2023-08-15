@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,12 +19,15 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
-import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Sessions
+import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.SearchList
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppBar
+import io.github.droidkaigi.confsched2023.sessions.section.SearchList
+import kotlinx.collections.immutable.toPersistentSet
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
@@ -31,15 +35,16 @@ const val SearchScreenTestTag = "SearchScreen"
 sealed interface SearchScreenUiState {
     val searchQuery: String
     val searchFilterUiState: SearchFilterUiState
+
     data class Empty(
         override val searchQuery: String,
         override val searchFilterUiState: SearchFilterUiState,
     ) : SearchScreenUiState
 
-    data class Sessions(
+    data class SearchList(
         override val searchQuery: String,
         override val searchFilterUiState: SearchFilterUiState,
-        val sessions: Timetable
+        val sessions: Timetable,
     ) : SearchScreenUiState
 }
 
@@ -84,6 +89,7 @@ private fun SearchScreen(
     onFilterCategoryChipClicked: () -> Unit = {},
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
 ) {
+    val scrollState = rememberLazyListState()
     Scaffold(
         modifier = modifier.testTag(SearchScreenTestTag),
         topBar = {
@@ -107,11 +113,15 @@ private fun SearchScreen(
                 onFilterCategoryChipClicked = onFilterCategoryChipClicked,
                 onCategoriesSelected = onCategoriesSelected,
             )
-            when(uiState) {
+            when (uiState) {
                 is Empty -> EmptySearchResultBody()
-                is Sessions -> {
-                    // TODO: Show sessions result of search.
-                }
+                is SearchList -> SearchList(
+                    scrollState = scrollState,
+                    bookmarkedTimetableItemIds = emptySet<TimetableItemId>().toPersistentSet(),
+                    timetableItems = uiState.sessions.timetableItems,
+                    onTimetableItemClick = {},
+                    onBookmarkIconClick = {},
+                )
             }
         }
     }
