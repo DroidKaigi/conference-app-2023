@@ -45,7 +45,13 @@ class AboutScreenTest {
         aboutScreenRobot {
             setupAboutScreenContent()
             scrollAboutScreen()
-            checkAboutContentColumnCapture()
+            checkStaffAboutContentColumnCapture()
+            checkContributorsAboutContentColumnCapture()
+            checkSponsorsAboutContentColumnCapture()
+            scrollAboutScreen()
+            checkCodeOfConductAboutContentColumnCapture()
+            checkLicenseAboutContentColumnCapture()
+            checkPrivacyPolicyAboutContentColumnCapture()
         }
     }
 }
