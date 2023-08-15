@@ -1,10 +1,9 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -62,42 +61,50 @@ fun SearchFilter(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    Row(
-        modifier = modifier
-            .padding(horizontal = 16.dp)
-            .horizontalScroll(rememberScrollState()),
+    LazyRow(
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        FilterDayChip(
-            isSelected = searchFilterUiState.isDaySelected,
-            selectedDays = searchFilterUiState.selectedDays,
-            selectedDaysValues = searchFilterUiState.selectedDaysValues,
-            kaigiDays = DroidKaigi2023Day.values().toList(),
-            onDaySelected = onDaySelected,
-        )
-        FilterCategoryChip(
-            isSelected = searchFilterUiState.isCategoriesSelected,
-            selectedCategories = searchFilterUiState.selectedCategories,
-            selectedCategoriesValues = searchFilterUiState.selectedCategoriesValue,
-            categories = searchFilterUiState.categories,
-            onCategoriesSelected = onCategoriesSelected,
-            onFilterCategoryChipClicked = { keyboardController?.hide() },
-        )
-        FilterSessionTypeChip(
-            isSelected = searchFilterUiState.isSessionTypeSelected,
-            selectedSessionTypes = searchFilterUiState.selectedSessionTypes,
-            selectedSessionTypesValues = searchFilterUiState.selectedSessionTypesValue,
-            sessionTypes = searchFilterUiState.sessionTypes,
-            onSessionTypeSelected = onSessionTypesSelected,
-            onFilterSessionTypeChipClicked = { keyboardController?.hide() },
-        )
-        FilterLanguageChip(
-            isSelected = searchFilterUiState.isLanguagesSelected,
-            selectedLanguages = searchFilterUiState.selectedLanguages,
-            selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
-            languages = searchFilterUiState.languages,
-            onLanguagesSelected = onLanguagesSelected,
-            onFilterLanguageChipClicked = { keyboardController?.hide() },
-        )
+        item {
+            Spacer(modifier = Modifier.width(16.dp))
+            FilterDayChip(
+                isSelected = searchFilterUiState.isDaySelected,
+                selectedDays = searchFilterUiState.selectedDays,
+                selectedDaysValues = searchFilterUiState.selectedDaysValues,
+                kaigiDays = DroidKaigi2023Day.values().toList(),
+                onDaySelected = onDaySelected,
+            )
+        }
+        item {
+            FilterCategoryChip(
+                isSelected = searchFilterUiState.isCategoriesSelected,
+                selectedCategories = searchFilterUiState.selectedCategories,
+                selectedCategoriesValues = searchFilterUiState.selectedCategoriesValue,
+                categories = searchFilterUiState.categories,
+                onCategoriesSelected = onCategoriesSelected,
+                onFilterCategoryChipClicked = { keyboardController?.hide() },
+            )
+        }
+        item {
+            FilterSessionTypeChip(
+                isSelected = searchFilterUiState.isSessionTypeSelected,
+                selectedSessionTypes = searchFilterUiState.selectedSessionTypes,
+                selectedSessionTypesValues = searchFilterUiState.selectedSessionTypesValue,
+                sessionTypes = searchFilterUiState.sessionTypes,
+                onSessionTypeSelected = onSessionTypesSelected,
+                onFilterSessionTypeChipClicked = { keyboardController?.hide() },
+            )
+        }
+        item {
+            FilterLanguageChip(
+                isSelected = searchFilterUiState.isLanguagesSelected,
+                selectedLanguages = searchFilterUiState.selectedLanguages,
+                selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
+                languages = searchFilterUiState.languages,
+                onLanguagesSelected = onLanguagesSelected,
+                onFilterLanguageChipClicked = { keyboardController?.hide() },
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+        }
     }
 }
