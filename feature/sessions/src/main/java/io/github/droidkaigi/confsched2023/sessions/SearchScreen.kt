@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
@@ -101,7 +102,7 @@ private fun SearchScreen(
         },
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
         ) {
             Divider(
                 thickness = 1.dp,
@@ -116,6 +117,9 @@ private fun SearchScreen(
             when (uiState) {
                 is Empty -> EmptySearchResultBody()
                 is SearchList -> SearchList(
+                    contentPaddingValues = PaddingValues(
+                        bottom = innerPadding.calculateBottomPadding()
+                    ),
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = emptySet<TimetableItemId>().toPersistentSet(),
                     timetableItems = uiState.sessions.timetableItems,

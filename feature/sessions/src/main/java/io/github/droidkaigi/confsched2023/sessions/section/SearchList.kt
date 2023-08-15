@@ -2,10 +2,10 @@ package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -43,6 +43,7 @@ import java.util.Locale
 
 @Composable
 fun SearchList(
+    contentPaddingValues: PaddingValues,
     scrollState: LazyListState,
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItems: PersistentList<TimetableItem>,
@@ -52,7 +53,8 @@ fun SearchList(
 ) {
     LazyColumn(
         state = scrollState,
-        modifier = modifier.imePadding().navigationBarsPadding().padding(end = 16.dp),
+        contentPadding = contentPaddingValues,
+        modifier = modifier.imePadding().padding(end = 16.dp),
     ) {
         itemsIndexed(timetableItems) { index, timetableItem ->
             Row(modifier = Modifier.padding(top = 10.dp)) {
