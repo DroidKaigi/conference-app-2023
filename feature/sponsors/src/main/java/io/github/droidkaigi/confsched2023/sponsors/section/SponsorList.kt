@@ -38,6 +38,7 @@ fun SponsorList(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item(
+            key = "platinum_sponsor_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "PLATINUM SPONSORS")
@@ -53,10 +54,13 @@ fun SponsorList(
                 onSponsorClick = onSponsorClick,
             )
         }
-        item {
+        item(
+            key = "spacer_under_platinum_sponsor",
+        ) {
             Spacer(modifier = Modifier.height(8.dp))
         }
         item(
+            key = "gold_sponsor_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "GOLD SPONSORS")
@@ -73,6 +77,7 @@ fun SponsorList(
             )
         }
         item(
+            key = "supporter_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             SponsorHeader(title = "SUPPORTERS")
@@ -88,7 +93,9 @@ fun SponsorList(
                 onSponsorClick = onSponsorClick,
             )
         }
-        item {
+        item(
+            key = "spacer_under_supporter",
+        ) {
             Spacer(modifier = Modifier.height(16.dp))
         }
     }
