@@ -26,6 +26,18 @@ public data class Timetable(
         timetableItems.map { it.room }.toSet().sortedBy { it.sort }
     }
 
+    val categories: List<TimetableCategory> by lazy {
+        timetableItems.map { it.category }.toSet().sortedBy { it.id }
+    }
+
+    val sessionTypes: List<String> by lazy {
+        timetableItems.map { it.sessionType }.toSet().sorted()
+    }
+
+    val languages: List<TimetableLanguage> by lazy {
+        timetableItems.map { it.language }.toSet().sortedBy { it.langOfSpeaker }
+    }
+
     public fun dayTimetable(droidKaigi2023Day: DroidKaigi2023Day): Timetable {
         var timetableItems = timetableItems.toList()
         timetableItems = timetableItems.filter { timetableItem ->

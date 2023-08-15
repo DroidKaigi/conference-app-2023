@@ -17,6 +17,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
@@ -52,8 +53,9 @@ fun SearchScreen(
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         searchFilterUiState = uiState.searchFilterUiState,
         onDaySelected = viewModel::onDaySelected,
-        onFilterCategoryChipClicked = viewModel::onFilterCategoryChipClicked,
         onCategoriesSelected = viewModel::onCategoriesSelected,
+        onSessionTypesSelected = viewModel::onSessionTypesSelected,
+        onLanguagesSelected = viewModel::onLanguagesSelected,
     )
 }
 
@@ -70,8 +72,9 @@ private fun SearchScreen(
     searchQuery: String = "",
     onSearchQueryChanged: (String) -> Unit = {},
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
-    onFilterCategoryChipClicked: () -> Unit = {},
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
+    onSessionTypesSelected: (String, Boolean) -> Unit = { _, _ -> },
+    onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit = { _, _ -> },
 ) {
     Scaffold(
         modifier = modifier.testTag(SearchScreenTestTag),
@@ -93,8 +96,9 @@ private fun SearchScreen(
             SearchFilter(
                 searchFilterUiState = searchFilterUiState,
                 onDaySelected = onDaySelected,
-                onFilterCategoryChipClicked = onFilterCategoryChipClicked,
                 onCategoriesSelected = onCategoriesSelected,
+                onSessionTypesSelected = onSessionTypesSelected,
+                onLanguagesSelected = onLanguagesSelected,
             )
             EmptySearchResultBody()
         }
