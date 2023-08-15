@@ -21,7 +21,7 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 const val TimetableItemDetailBookmarkIconTestTag = "TimetableItemDetailBookmarkIcon"
 
 @Composable
-fun TimetableItemDetailFooter(
+fun TimetableItemDetailBottomAppBar(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
     onBookmarkClick: (TimetableItem) -> Unit,
