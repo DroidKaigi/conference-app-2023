@@ -74,7 +74,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 UserIcon -> "User icon"
                 EventDay -> "Day"
                 Category -> "Category"
-                SearchPlaceHolder -> "Enter the technology you are interested in"
+                SearchPlaceHolder -> "Enter some technology"
                 SearchResultNotFound -> "Nothing matched your search criteria"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "All"
