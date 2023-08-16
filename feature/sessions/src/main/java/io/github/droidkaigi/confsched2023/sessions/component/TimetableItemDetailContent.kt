@@ -24,12 +24,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -73,17 +78,20 @@ fun TimetableItemDetailContent(
 private fun DescriptionSection(
     description: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
 ) {
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
+
     Column(modifier = modifier) {
         Text(
             text = description,
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurface,
+            maxLines = if (isExpanded) Int.MAX_VALUE else 5,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         )
         ReadMoreOutlinedButton(
-            onClick = onClick,
+            onClick = { isExpanded = !isExpanded },
             modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
         )
         BorderLine(modifier = Modifier.padding(top = 24.dp))
