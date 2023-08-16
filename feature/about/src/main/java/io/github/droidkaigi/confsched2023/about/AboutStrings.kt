@@ -12,6 +12,8 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     object PlaceTitle : AboutStrings()
     object PlaceDescription : AboutStrings()
     object PlaceLink : AboutStrings()
+    object AppVersion: AboutStrings()
+
     private object Bindings : StringsBindings<AboutStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -22,6 +24,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 PlaceTitle -> "場所"
                 PlaceDescription -> "ベルサール渋谷ガーデン"
                 PlaceLink -> "地図を見る"
+                AppVersion -> "アプリバージョン"
             }
         },
         Lang.English to { item, bindings ->
@@ -33,6 +36,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 PlaceTitle -> "Location"
                 PlaceDescription -> "Bellesalle Shibuya Garden"
                 PlaceLink -> "View Map"
+                AppVersion -> "App Version"
             }
         },
         default = Lang.Japanese,
