@@ -29,6 +29,7 @@ fun AboutDroidKaigiDetailSummaryCardRow(
     content: String,
     modifier: Modifier = Modifier,
     leadingIconContentDescription: String? = null,
+    onLinkClick: (url: String) -> Unit = {},
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -49,7 +50,7 @@ fun AboutDroidKaigiDetailSummaryCardRow(
         ClickableLinkText(
             style = MaterialTheme.typography.bodyMedium,
             content = content,
-            onLinkClick = {}, // TODO Go to FloorMapScreen
+            onLinkClick = onLinkClick,
         )
     }
 }
@@ -116,8 +117,9 @@ fun ClickableLinkText(
 ) {
     val findResults = findResults(
         content = content,
-        regex = AboutStrings.PlaceLink.asString().toRegex(),
+        regex = AboutStrings.PlaceLink().asString().toRegex(),
     )
+    val googleMapUrl = AboutStrings.PlaceLink().url
     val annotatedString = getAnnotatedString(
         content = content,
         findUrlResults = findResults,
@@ -134,7 +136,7 @@ fun ClickableLinkText(
                     start = offset,
                     end = offset,
                 ).firstOrNull()?.let {
-                    onLinkClick(matchResult.value)
+                    onLinkClick(googleMapUrl)
                 }
             }
         },

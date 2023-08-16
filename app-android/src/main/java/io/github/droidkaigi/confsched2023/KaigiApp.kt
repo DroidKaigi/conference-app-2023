@@ -157,6 +157,7 @@ private fun NavGraphBuilder.mainScreen(
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
                     }
                 },
+                onLinkClick = externalNavController::navigate
             )
             nestedFloorMapScreen(
                 onSideEventClick = {
