@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -19,10 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.stamps.component.Stamps
-import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
+import io.github.droidkaigi.confsched2023.stamps.section.StampsSheet
+import io.github.droidkaigi.confsched2023.stamps.section.StampsSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.ImmutableList
 
 const val stampsScreenRoute = "stamps"
 fun NavGraphBuilder.nestedStampsScreen(
@@ -64,7 +62,7 @@ fun StampsScreen(
 }
 
 data class StampsScreenUiState(
-    val stamps: ImmutableList<String>,
+    val contentUiState: StampsSheetUiState,
 )
 
 @Composable
@@ -79,22 +77,17 @@ private fun StampsScreen(
         content = { padding ->
             val layoutDirection = LocalLayoutDirection.current
 
-            LazyColumn(
-                Modifier.padding(
+            StampsSheet(
+                modifier = Modifier.padding(
                     PaddingValues(
                         top = padding.calculateTopPadding() + 20.dp,
                         start = padding.calculateStartPadding(layoutDirection) + 16.dp,
                         end = padding.calculateEndPadding(layoutDirection) + 16.dp
                     )
                 ),
-            ) {
-                item {
-                    StampsDetail()
-                }
-                item {
-                    Stamps(stamps = uiState.stamps, onStampsClick = onStampsClick)
-                }
-            }
+                onStampsClick = onStampsClick,
+                uiState = uiState.contentUiState
+            )
         },
     )
 }
