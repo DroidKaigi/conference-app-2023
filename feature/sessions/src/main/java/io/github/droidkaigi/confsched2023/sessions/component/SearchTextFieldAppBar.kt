@@ -34,7 +34,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
-import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchResultNotFound
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
