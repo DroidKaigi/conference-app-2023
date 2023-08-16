@@ -23,7 +23,7 @@ data class FloorMapUiState(
     private val floorLevel: FloorLevel,
     @DrawableRes val floorMapResId: Int,
 ) {
-    val floorName: String = floorLevel.name
+    val floorName: String = floorLevel.floorName
 
     companion object {
         fun of(floorLevel: FloorLevel): FloorMapUiState {
