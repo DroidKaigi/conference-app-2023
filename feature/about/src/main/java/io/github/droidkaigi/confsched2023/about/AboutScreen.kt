@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -95,12 +93,6 @@ private fun AboutScreen(
                         end = padding.calculateEndPadding(LocalLayoutDirection.current),
                     ),
             ) {
-                item {
-                    Text(
-                        text = "Please implement AboutScreen!!!",
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
                 item {
                     AboutDroidKaigiDetail(
                         onLinkClick = onLinkClick,
