@@ -135,8 +135,11 @@ private fun TimetableScreen(
 ) {
     val state = rememberTimetableScreenScrollState()
     val gradientEndRatio =
-        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) 0.2f
-        else 0.5f
+        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            0.2f
+        } else {
+            0.5f
+        }
     Scaffold(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
@@ -146,7 +149,7 @@ private fun TimetableScreen(
                 Brush.verticalGradient(
                     0f to timetableTopGradient(),
                     gradientEndRatio to Color.Transparent,
-                )
+                ),
             ),
         snackbarHost = {
             SnackbarHost(
@@ -229,10 +232,10 @@ private fun PreviewTimetableScreen() {
                     mapOf(
                         DroidKaigi2023Day.Day1 to TimetableListUiState(
                             mapOf<String, List<TimetableItem>>().toPersistentMap(),
-                            Timetable()
-                        )
-                    )
-                )
+                            Timetable(),
+                        ),
+                    ),
+                ),
             ),
             SnackbarHostState(),
             {},
@@ -240,7 +243,7 @@ private fun PreviewTimetableScreen() {
             {},
             {},
             {},
-            Modifier.statusBarsPadding()
+            Modifier.statusBarsPadding(),
         )
     }
 }
