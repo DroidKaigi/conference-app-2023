@@ -37,7 +37,7 @@ import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
-import io.github.droidkaigi.confsched2023.model.FloorLevel.*
+import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -83,6 +83,7 @@ fun FloorMapScreen(
 
 data class FloorMapScreenUiState(
     val floorLevel: FloorLevel,
+    val floorMapUiState: FloorMapUiState,
     val floorMapSideEventListUiState: FloorMapSideEventListUiState,
 )
 
@@ -120,10 +121,7 @@ private fun FloorMapScreen(
                     Modifier
                         .fillMaxSize(),
                 ) {
-                    FloorMap(uiState = when(uiState.floorLevel){
-                        Basement -> FloorMapUiState.Basement
-                        Ground -> FloorMapUiState.Ground
-                    })
+                    FloorMap(uiState = uiState.floorMapUiState)
                     FloorMapSideEventList(
                         uiState = uiState.floorMapSideEventListUiState,
                         onSideEventClick = onSideEventClick,
@@ -159,6 +157,7 @@ fun PreviewFloorMapScreen() {
             FloorMapScreen(
                 uiState = FloorMapScreenUiState(
                     floorLevel = Basement,
+                    floorMapUiState = FloorMapUiState.of(Basement),
                     floorMapSideEventListUiState = FloorMapSideEventListUiState(
                         sideEvents = SideEvents.filter { it.floorLevel == Basement }
                             .toImmutableList(),

@@ -14,20 +14,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.feature.floormap.R
-import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
+import io.github.droidkaigi.confsched2023.model.FloorLevel
 
-sealed interface FloorMapUiState {
-    val headline: String
-    @get:DrawableRes val floorMapResId: Int
+data class FloorMapUiState(
+    private val floorLevel: FloorLevel,
+    @DrawableRes val floorMapResId: Int,
+) {
+    val floorName: String = floorLevel.name
 
-    data object Basement : FloorMapUiState {
-        override val headline = FloorMapStrings.Basement.asString()
-        override val floorMapResId = R.drawable.img_floormap_basement
-    }
+    companion object {
+        fun of(floorLevel: FloorLevel): FloorMapUiState {
+            return when (floorLevel) {
+                FloorLevel.Basement -> FloorMapUiState(
+                    floorLevel = floorLevel,
+                    floorMapResId = R.drawable.img_floormap_basement,
+                )
 
-    data object Ground : FloorMapUiState {
-        override val headline = FloorMapStrings.Ground.asString()
-        override val floorMapResId = R.drawable.img_floormap_ground
+                FloorLevel.Ground -> FloorMapUiState(
+                    floorLevel = floorLevel,
+                    floorMapResId = R.drawable.img_floormap_ground,
+                )
+            }
+        }
     }
 }
 
@@ -38,7 +46,7 @@ fun FloorMap(
 ) {
     Column(modifier) {
         Text(
-            text = uiState.headline,
+            text = uiState.floorName,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary,
         )
