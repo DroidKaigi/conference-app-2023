@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.staff
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -32,7 +34,10 @@ fun StaffListItem(
     staff: Staff,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+    Row(
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
                 rememberAsyncImagePainter(staff.iconUrl)
@@ -88,7 +93,7 @@ class PreviewStaffProvider : PreviewParameterProvider<Staff> {
 fun StaffListItemPreview(
     @PreviewParameter(PreviewStaffProvider::class) staff: Staff
 ) {
-   StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth())
+    StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth())
 }
 
 // endregion
