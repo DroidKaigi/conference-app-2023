@@ -50,8 +50,11 @@ import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.minus
 import kotlin.math.roundToInt
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
@@ -210,6 +213,15 @@ fun PreviewTimetableGridItem() {
 @Preview
 @Composable
 fun PreviewTimetableGridLongTitleItem() {
+    val fake = Session.fake()
+
+    val localDensity = LocalDensity.current
+    val verticalScale = 1f
+
+    val minutePx = with(localDensity) { TimetableSizes.minuteHeight.times(verticalScale).toPx() }
+    val displayEndsAt = fake.endsAt.minus(1, DateTimeUnit.MINUTE)
+    val height = ((displayEndsAt - fake.startsAt).inWholeMinutes * minutePx).roundToInt()
+
     KaigiTheme {
         Surface {
             TimetableGridItem(
@@ -221,7 +233,7 @@ fun PreviewTimetableGridLongTitleItem() {
                     it.copy(title = longTitle)
                 },
                 onTimetableItemClick = {},
-                gridItemHeightPx = 350,
+                gridItemHeightPx = height,
             )
         }
     }
