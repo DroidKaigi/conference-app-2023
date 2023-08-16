@@ -13,7 +13,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object UserIcon : SessionsStrings()
     data object EventDay : SessionsStrings()
     data object Category : SessionsStrings()
-    data object SearchPlaceHolder: SessionsStrings()
+    data object SearchPlaceHolder : SessionsStrings()
     data object SearchResultNotFound : SessionsStrings()
     data object Bookmark : SessionsStrings()
     data object BookmarkFilterAllChip : SessionsStrings()
