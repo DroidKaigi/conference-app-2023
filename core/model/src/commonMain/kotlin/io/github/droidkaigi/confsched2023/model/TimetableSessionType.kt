@@ -31,7 +31,8 @@ enum class TimetableSessionType(
             jaTitle = "アフターパーティー",
             enTitle = "After Party",
         ),
-    );
+    ),
+    ;
 
     companion object {
         fun ofOrNull(key: String): TimetableSessionType? {

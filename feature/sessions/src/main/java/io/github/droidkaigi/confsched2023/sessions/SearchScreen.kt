@@ -18,7 +18,6 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
-import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter

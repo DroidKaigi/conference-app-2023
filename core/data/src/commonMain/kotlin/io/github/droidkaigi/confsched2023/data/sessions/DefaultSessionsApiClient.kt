@@ -8,8 +8,6 @@ import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAssetRes
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionMessageResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
 import io.github.droidkaigi.confsched2023.model.MultiLangText
-import io.github.droidkaigi.confsched2023.model.TimetableSessionType
-import io.github.droidkaigi.confsched2023.model.TimetableSessionType.Companion
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
@@ -20,6 +18,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.TimetableItemList
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.Companion
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant

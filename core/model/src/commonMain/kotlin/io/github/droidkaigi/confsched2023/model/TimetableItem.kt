@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2023.model
 
-import io.github.droidkaigi.confsched2023.model.TimetableSessionType.NORMAL
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.NORMAL
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
