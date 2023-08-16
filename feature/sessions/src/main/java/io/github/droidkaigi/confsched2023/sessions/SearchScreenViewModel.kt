@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
-import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
@@ -56,7 +56,6 @@ class SearchScreenViewModel @Inject constructor(
             searchQuery = searchQuery,
             searchFilterUiState = searchFilterUiState.copy(
                 categories = sessions.categories,
-                languages = sessions.languages,
                 sessionTypes = sessions.sessionTypes,
             ),
         )
@@ -105,7 +104,7 @@ class SearchScreenViewModel @Inject constructor(
         )
     }
 
-    fun onLanguagesSelected(language: TimetableLanguage, isSelected: Boolean) {
+    fun onLanguagesSelected(language: Lang, isSelected: Boolean) {
         val selectedLanguages = searchFilterUiState.value.selectedLanguages.toMutableList()
         searchFilterUiState.value = searchFilterUiState.value.copy(
             selectedLanguages = selectedLanguages.apply {

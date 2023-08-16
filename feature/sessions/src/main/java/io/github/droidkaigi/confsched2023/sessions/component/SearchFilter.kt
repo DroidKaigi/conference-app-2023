@@ -10,18 +10,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
-import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 
 data class SearchFilterUiState(
     val categories: List<TimetableCategory> = emptyList(),
     val sessionTypes: List<TimetableSessionType> = emptyList(),
-    val languages: List<TimetableLanguage> = emptyList(),
     val selectedDays: List<DroidKaigi2023Day> = emptyList(),
     val selectedCategories: List<TimetableCategory> = emptyList(),
     val selectedSessionTypes: List<TimetableSessionType> = emptyList(),
-    val selectedLanguages: List<TimetableLanguage> = emptyList(),
+    val selectedLanguages: List<Lang> = emptyList(),
     val isFavoritesOn: Boolean = false,
 ) {
     val selectedDaysValues: String
@@ -37,7 +36,7 @@ data class SearchFilterUiState(
         get() = selectedSessionTypes.joinToString { it.label.currentLangTitle }
 
     val selectedLanguagesValue: String
-        get() = selectedLanguages.joinToString { it.langOfSpeaker }
+        get() = selectedLanguages.joinToString { it.tagName }
 
     val isCategoriesSelected: Boolean
         get() = selectedCategories.isNotEmpty()
@@ -57,7 +56,7 @@ fun SearchFilter(
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
     onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
-    onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit = { _, _ -> },
+    onLanguagesSelected: (Lang, Boolean) -> Unit = { _, _ -> },
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -100,7 +99,7 @@ fun SearchFilter(
                 isSelected = searchFilterUiState.isLanguagesSelected,
                 selectedLanguages = searchFilterUiState.selectedLanguages,
                 selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
-                languages = searchFilterUiState.languages,
+                languages = listOf(Lang.JAPANESE, Lang.ENGLISH),
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )

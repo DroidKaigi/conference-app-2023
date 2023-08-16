@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
@@ -75,7 +76,7 @@ private fun SearchScreen(
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
     onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
-    onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit = { _, _ -> },
+    onLanguagesSelected: (Lang, Boolean) -> Unit = { _, _ -> },
 ) {
     Scaffold(
         modifier = modifier.testTag(SearchScreenTestTag),

@@ -20,15 +20,15 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.TimetableLanguage
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SupportedLanguages
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterLanguageChip(
-    selectedLanguages: List<TimetableLanguage>,
-    languages: List<TimetableLanguage>,
-    onLanguagesSelected: (TimetableLanguage, Boolean) -> Unit,
+    selectedLanguages: List<Lang>,
+    languages: List<Lang>,
+    onLanguagesSelected: (Lang, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
     selectedLanguagesValues: String = "",
@@ -62,12 +62,7 @@ fun FilterLanguageChip(
                 DropdownMenuItem(
                     text = {
                         Text(
-                            text = language.langLabel + if (language.isInterpretationTarget) {
-                                // TODO: extract to string resource
-                                "(interpretation)"
-                            } else {
-                                ""
-                            },
+                            text = language.tagName,
                             style = MaterialTheme.typography.bodyLarge,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                         )
