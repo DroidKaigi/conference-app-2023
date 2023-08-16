@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -22,18 +24,24 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableHeader
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.toPersistentMap
 import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
@@ -168,5 +176,47 @@ private fun TimetableScreen(
                 onFavoriteClick = onBookmarkClick,
             )
         }
+    }
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_NO,
+    showBackground = true,
+)
+@Composable
+fun PreviewTimetableScreenDark() {
+    PreviewTimetableScreen()
+}
+
+@Preview(
+    uiMode = UI_MODE_NIGHT_YES,
+    showBackground = true,
+)
+@Composable
+fun PreviewTimetableScreenLight() {
+    PreviewTimetableScreen()
+}
+
+@Composable
+private fun PreviewTimetableScreen() {
+    KaigiTheme {
+        TimetableScreen(
+            TimetableScreenUiState(
+                TimetableSheetUiState.ListTimetable(
+                    mapOf(
+                        DroidKaigi2023Day.Day1 to TimetableListUiState(
+                            mapOf<String, List<TimetableItem>>().toPersistentMap(),
+                            Timetable()
+                        )
+                    )
+                )
+            ),
+            SnackbarHostState(),
+            {},
+            {},
+            {},
+            {},
+            {},
+        )
     }
 }
