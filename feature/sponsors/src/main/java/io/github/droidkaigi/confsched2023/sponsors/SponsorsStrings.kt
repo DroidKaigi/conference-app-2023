@@ -6,12 +6,27 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.StringsBindings
 
 sealed class SponsorsStrings : Strings<SponsorsStrings>(Bindings) {
 
+    data object Sponsor: SponsorsStrings()
+    data object PlatinumSponsors: SponsorsStrings()
+    data object GoldSponsors: SponsorsStrings()
+    data object Supporters: SponsorsStrings()
+
     private object Bindings : StringsBindings<SponsorsStrings>(
         Lang.Japanese to { item, _ ->
-            TODO()
+            when(item){
+                Sponsor -> "スポンサー"
+                PlatinumSponsors -> "プラチナスポンサー"
+                GoldSponsors -> "ゴールドスポンサー"
+                Supporters -> "サポーター"
+            }
         },
-        Lang.English to { item, bindings ->
-            TODO()
+        Lang.English to { item, _ ->
+            when(item){
+                Sponsor -> "Sponsor"
+                PlatinumSponsors -> "PLATINUM SPONSOR"
+                GoldSponsors -> "GOLD SPONSOR"
+                Supporters -> "SUPPORTERS"
+            }
         },
         default = Lang.Japanese,
     )

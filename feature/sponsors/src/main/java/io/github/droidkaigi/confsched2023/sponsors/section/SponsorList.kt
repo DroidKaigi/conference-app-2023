@@ -28,12 +28,13 @@ import io.github.droidkaigi.confsched2023.model.Plan.PLATINUM
 import io.github.droidkaigi.confsched2023.model.Plan.SUPPORTER
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
+import io.github.droidkaigi.confsched2023.sponsors.SponsorsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.toPersistentList
 
 internal fun LazyListScope.sponsorList(
-    title: String,
+    title: SponsorsStrings,
     gridSize: Int = 1,
     onSponsorClick: (Sponsor) ->Unit,
     sponsorList: List<Sponsor>
@@ -45,7 +46,7 @@ internal fun LazyListScope.sponsorList(
 
     item {
         Text(
-            text = title,
+            text = title.asString(),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(vertical = 16.dp)
         )
@@ -91,7 +92,8 @@ internal fun LazyListScope.sponsorList(
 private object Spacer
 
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun SponsorListPreview(){
     KaigiTheme {
@@ -99,21 +101,21 @@ fun SponsorListPreview(){
             LazyColumn{
                 sponsorList(
                     gridSize = 1,
-                    title = "PLATINUM SPONSORS",
+                    title = SponsorsStrings.PlatinumSponsors,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == PLATINUM }
                 )
 
                 sponsorList(
                     gridSize = 2,
-                    title = "GOLD SPONSORS",
+                    title = SponsorsStrings.GoldSponsors,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == GOLD }
                 )
 
                 sponsorList(
                     gridSize = 3,
-                    title = "SUPPORTERS",
+                    title = SponsorsStrings.Supporters,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == SUPPORTER }
                 )
@@ -122,29 +124,30 @@ fun SponsorListPreview(){
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun SponsorListDarkModPreview(){
+fun SponsorListDarkModePreview(){
     KaigiTheme {
         Surface {
             LazyColumn{
                 sponsorList(
                     gridSize = 1,
-                    title = "PLATINUM SPONSORS",
+                    title = SponsorsStrings.PlatinumSponsors,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == PLATINUM }
                 )
 
                 sponsorList(
                     gridSize = 2,
-                    title = "GOLD SPONSORS",
+                    title = SponsorsStrings.GoldSponsors,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == GOLD }
                 )
 
                 sponsorList(
                     gridSize = 3,
-                    title = "SUPPORTERS",
+                    title = SponsorsStrings.Supporters,
                     onSponsorClick = {},
                     sponsorList = Sponsor.fakes().filter { it.plan == SUPPORTER }
                 )
