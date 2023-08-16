@@ -4,6 +4,10 @@ plugins {
 
 android.namespace = "io.github.droidkaigi.confsched2023.feature.sessions"
 
+ksp {
+    arg("skipPrivatePreviews", "true")
+}
+
 dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
