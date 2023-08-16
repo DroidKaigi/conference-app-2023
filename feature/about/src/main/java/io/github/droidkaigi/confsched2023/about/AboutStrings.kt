@@ -11,7 +11,9 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     object DateDescription : AboutStrings()
     object PlaceTitle : AboutStrings()
     object PlaceDescription : AboutStrings()
-    object PlaceLink : AboutStrings()
+    class PlaceLink(
+        val url: String = "https://goo.gl/maps/vv9sE19JvRjYKtSP9",
+    ) : AboutStrings()
     object CreditsTitle : AboutStrings()
     object Staff : AboutStrings()
     object Contributor : AboutStrings()
@@ -30,7 +32,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 DateDescription -> "2023.09.14(木) 〜 16(土) 3日間"
                 PlaceTitle -> "場所"
                 PlaceDescription -> "ベルサール渋谷ガーデン"
-                PlaceLink -> "地図を見る"
+                is PlaceLink -> "地図を見る"
                 CreditsTitle -> "Credits"
                 Staff -> "スタッフ"
                 Contributor -> "コントリビューター"
@@ -49,7 +51,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 DateDescription -> "2023.09.14(Thu) - 16(Sat) 3days"
                 PlaceTitle -> "Location"
                 PlaceDescription -> "Bellesalle Shibuya Garden"
-                PlaceLink -> "View Map"
+                is PlaceLink -> "View Map"
                 CreditsTitle -> bindings.defaultBinding(item, bindings)
                 Staff -> "Staff"
                 Contributor -> "Contributor"
