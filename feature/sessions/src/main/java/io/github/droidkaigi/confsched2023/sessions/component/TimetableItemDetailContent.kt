@@ -92,7 +92,7 @@ private fun DescriptionSection(
         )
         ReadMoreOutlinedButton(
             onClick = { isExpanded = !isExpanded },
-            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
         )
         BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
@@ -285,16 +285,16 @@ private fun ReadMoreOutlinedButton(
         shape = RoundedCornerShape(100.dp),
         border = BorderStroke(
             width = 1.dp,
-            color = MaterialTheme.colorScheme.outline
+            color = MaterialTheme.colorScheme.outline,
         ),
-        onClick = onClick
+        onClick = onClick,
     ) {
         Text(
             modifier = Modifier.padding(vertical = 10.dp),
             text = SessionsStrings.ReadMore.asString(),
             fontSize = 14.sp,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
