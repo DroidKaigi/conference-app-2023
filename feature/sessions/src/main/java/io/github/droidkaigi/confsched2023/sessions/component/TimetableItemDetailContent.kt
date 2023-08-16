@@ -33,6 +33,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
@@ -68,13 +70,21 @@ fun TimetableItemDetailContent(
 }
 
 @Composable
-private fun DescriptionSection(description: String, modifier: Modifier = Modifier) {
+private fun DescriptionSection(
+    description: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
     Column(modifier = modifier) {
         Text(
             text = description,
             fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+        )
+        ReadMoreOutlinedButton(
+            onClick = onClick,
+            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
         )
         BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
@@ -255,4 +265,36 @@ private fun BorderLine(modifier: Modifier = Modifier) {
             .height(1.dp)
             .background(MaterialTheme.colorScheme.outlineVariant),
     )
+}
+
+@Composable
+private fun ReadMoreOutlinedButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(100.dp),
+        border = BorderStroke(
+            width = 1.dp,
+            color = MaterialTheme.colorScheme.outline
+        ),
+        onClick = onClick
+    ) {
+        Text(
+            modifier = Modifier.padding(vertical = 10.dp),
+            text = SessionsStrings.ReadMore.asString(),
+            fontSize = 14.sp,
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+@MultiLanguagePreviews
+@Composable
+private fun ReadMoreOutlinedButtonPreview() {
+    KaigiTheme {
+        ReadMoreOutlinedButton(onClick = {})
+    }
 }
