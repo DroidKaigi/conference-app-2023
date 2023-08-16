@@ -35,7 +35,6 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import kotlinx.collections.immutable.PersistentMap
-import java.util.Locale
 
 const val TimetableListTestTag = "TimetableList"
 
@@ -86,18 +85,6 @@ fun TimetableList(
                         onBookmarkClick = onBookmarkClick,
                         chipContent = {
                             // Chips
-                            val infoChip = mutableListOf<String>()
-
-                            infoChip.add(
-                                timetableItem.language.langOfSpeaker.let {
-                                    when (it) {
-                                        "MIXED" -> it
-                                        else -> {
-                                            it.take(2).toUpperCase(Locale.ENGLISH)
-                                        }
-                                    }
-                                },
-                            )
 
                             SuggestionChip(
                                 colors = SuggestionChipDefaults.suggestionChipColors(
@@ -119,7 +106,7 @@ fun TimetableList(
                                     )
                                 },
                             )
-                            infoChip.forEach {
+                            timetableItem.language.labels.forEach {
                                 SuggestionChip(
                                     modifier = Modifier.padding(start = 4.dp),
                                     onClick = { /* Do nothing */ },
