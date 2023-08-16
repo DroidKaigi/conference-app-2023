@@ -16,6 +16,7 @@ dependencies {
     implementation(libs.composeMaterial)
     implementation(libs.composeMaterialIcon)
     implementation(libs.composeUiToolingPreview)
+    implementation(libs.composeNavigation)
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
     androidTestImplementation(libs.composeUiTestJunit4)

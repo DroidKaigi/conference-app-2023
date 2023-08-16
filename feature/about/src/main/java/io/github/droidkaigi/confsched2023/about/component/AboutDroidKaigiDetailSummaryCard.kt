@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2023.about.AboutStrings
 @Composable
 fun AboutDroidKaigiDetailSummaryCard(
     modifier: Modifier = Modifier,
+    onLinkClick: (url: String) -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(12.dp),
@@ -42,11 +43,12 @@ fun AboutDroidKaigiDetailSummaryCard(
                 content = AboutStrings.DateDescription.asString(),
             )
             val placeContent = AboutStrings.PlaceDescription.asString()
-                .plus(" " + AboutStrings.PlaceLink.asString())
+                .plus(" " + AboutStrings.PlaceLink().asString())
             AboutDroidKaigiDetailSummaryCardRow(
                 leadingIcon = Icons.Filled.Place,
                 label = AboutStrings.PlaceTitle.asString(),
                 content = placeContent,
+                onLinkClick = onLinkClick,
             )
         }
     }

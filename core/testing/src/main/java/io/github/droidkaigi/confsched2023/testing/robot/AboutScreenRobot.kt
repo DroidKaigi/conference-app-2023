@@ -37,6 +37,7 @@ class AboutScreenRobot @Inject constructor(
             KaigiTheme {
                 AboutScreen(
                     onAboutItemClick = { },
+                    onLinkClick = { },
                 )
             }
         }
