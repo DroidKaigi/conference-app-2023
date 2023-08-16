@@ -58,7 +58,7 @@ class SearchScreenViewModel @Inject constructor(
                 days = searchFilterUiState.selectedDays,
                 categories = searchFilterUiState.selectedCategories,
                 searchWord = searchQuery,
-            )
+            ),
         )
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
@@ -70,7 +70,7 @@ class SearchScreenViewModel @Inject constructor(
                 searchQuery = searchQuery,
                 searchFilterUiState = searchFilterUiState,
                 sessions = searchedSessions,
-                bookmarkedTimetableItemIds = sessions.bookmarks
+                bookmarkedTimetableItemIds = sessions.bookmarks,
             )
         }
     }

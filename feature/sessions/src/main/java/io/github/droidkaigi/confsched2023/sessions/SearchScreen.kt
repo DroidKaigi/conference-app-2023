@@ -129,7 +129,7 @@ private fun SearchScreen(
                 is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery)
                 is SearchList -> SearchList(
                     contentPaddingValues = PaddingValues(
-                        bottom = innerPadding.calculateBottomPadding()
+                        bottom = innerPadding.calculateBottomPadding(),
                     ),
                     scrollState = scrollState,
                     bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,

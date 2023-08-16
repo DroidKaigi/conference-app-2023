@@ -136,7 +136,7 @@ fun SearchList(
                         }
                     },
                     onClick = onTimetableItemClick,
-                    onBoomarkClick = onBookmarkIconClick,
+                    onBookmarkClick = onBookmarkIconClick,
                 )
             }
         }
