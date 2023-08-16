@@ -81,7 +81,7 @@ fun TimetableGrid(
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = onTimetableItemClick,
-            gridItemHeightPx = itemHeightPx
+            gridItemHeightPx = itemHeightPx,
         )
     }
 }
@@ -253,7 +253,7 @@ fun TimetablePreview() {
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = {},
-            gridItemHeightPx = itemHeightPx
+            gridItemHeightPx = itemHeightPx,
         )
     }
 }

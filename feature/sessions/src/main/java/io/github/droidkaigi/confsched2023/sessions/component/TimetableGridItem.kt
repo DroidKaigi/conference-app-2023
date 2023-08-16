@@ -83,7 +83,7 @@ fun TimetableGridItem(
             localDensity = localDensity,
             gridItemHeightPx = gridItemHeightPx,
             speaker = speaker,
-            titleLength = timetableItem.title.currentLangTitle.length
+            titleLength = timetableItem.title.currentLangTitle.length,
         )
         it.copy(fontSize = titleFontSize, color = Color.White)
     }
@@ -201,7 +201,7 @@ fun PreviewTimetableGridItem() {
             TimetableGridItem(
                 timetableItem = Session.fake(),
                 onTimetableItemClick = {},
-                gridItemHeightPx = 350
+                gridItemHeightPx = 350,
             )
         }
     }
@@ -216,12 +216,12 @@ fun PreviewTimetableGridLongTitleItem() {
                 timetableItem = Session.fake().let {
                     val longTitle = it.title.copy(
                         jaTitle = it.title.jaTitle.repeat(2),
-                        enTitle = it.title.enTitle.repeat(2)
+                        enTitle = it.title.enTitle.repeat(2),
                     )
                     it.copy(title = longTitle)
                 },
                 onTimetableItemClick = {},
-                gridItemHeightPx = 350
+                gridItemHeightPx = 350,
             )
         }
     }
