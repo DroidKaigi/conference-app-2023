@@ -119,10 +119,6 @@ private fun FloorMapScreen(
                     Modifier
                         .fillMaxSize(),
                 ) {
-                    Text(
-                        text = "Please implement FloorMapScreen!!!",
-                        style = MaterialTheme.typography.titleLarge,
-                    )
                     FloorMap(floorLevel = uiState.floorLevel)
                     FloorMapSideEventList(
                         uiState = uiState.floorMapSideEventListUiState,
@@ -150,7 +146,6 @@ private fun FloorMapScreen(
     )
 }
 
-@Preview
 @MultiThemePreviews
 @MultiLanguagePreviews
 @Composable
