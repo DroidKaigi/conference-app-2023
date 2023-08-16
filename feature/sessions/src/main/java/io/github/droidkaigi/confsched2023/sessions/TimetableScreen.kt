@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -132,7 +134,9 @@ private fun TimetableScreen(
     modifier: Modifier = Modifier,
 ) {
     val state = rememberTimetableScreenScrollState()
-
+    val gradientEndRatio =
+        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) 0.2f
+        else 0.5f
     Scaffold(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
@@ -141,7 +145,7 @@ private fun TimetableScreen(
             .background(
                 Brush.verticalGradient(
                     0f to timetableTopGradient(),
-                    0.2f to Color.Transparent,
+                    gradientEndRatio to Color.Transparent,
                 )
             ),
         snackbarHost = {
