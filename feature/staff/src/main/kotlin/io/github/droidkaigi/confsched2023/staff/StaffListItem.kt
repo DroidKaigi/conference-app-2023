@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.staff
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -34,7 +33,7 @@ private val staffIconShape = RoundedCornerShape(20.dp)
 fun StaffListItem(
     staff: Staff,
     onStaffClick: (url: String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
@@ -42,7 +41,7 @@ fun StaffListItem(
                 onStaffClick(staff.profileUrl)
             }
             .padding(horizontal = 16.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
@@ -55,7 +54,7 @@ fun StaffListItem(
                 .border(
                     width = 1.dp,
                     color = MaterialTheme.colorScheme.outline,
-                    shape = staffIconShape
+                    shape = staffIconShape,
                 ),
         )
         Spacer(modifier = Modifier.size(23.dp))
@@ -77,19 +76,19 @@ class PreviewStaffProvider : PreviewParameterProvider<Staff> {
                 id = 1,
                 username = "",
                 iconUrl = "",
-                profileUrl = ""
+                profileUrl = "",
             ),
             Staff(
                 id = 1,
                 username = "UserName",
                 iconUrl = "",
-                profileUrl = ""
+                profileUrl = "",
             ),
             Staff(
                 id = 1,
                 username = "UserNameUserNameUserNameUserNameUserNameUserNameUserName",
                 iconUrl = "",
-                profileUrl = ""
+                profileUrl = "",
             ),
         )
 }
@@ -97,7 +96,7 @@ class PreviewStaffProvider : PreviewParameterProvider<Staff> {
 @Preview(showBackground = true)
 @Composable
 fun StaffListItemPreview(
-    @PreviewParameter(PreviewStaffProvider::class) staff: Staff
+    @PreviewParameter(PreviewStaffProvider::class) staff: Staff,
 ) {
     StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth(), onStaffClick = {})
 }

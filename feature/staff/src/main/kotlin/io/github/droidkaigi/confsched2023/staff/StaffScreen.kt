@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.staff
 
-import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -43,14 +42,14 @@ fun NavController.navigateStaffScreen() {
 fun StaffScreen(
     onBackClick: () -> Unit,
     onStaffClick: (url: String) -> Unit,
-    viewModel: StaffScreenViewModel = hiltViewModel()
+    viewModel: StaffScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     StaffScreen(
         uiState = uiState,
         onStaffClick = onStaffClick,
-        onBackClick = onBackClick
+        onBackClick = onBackClick,
     )
 }
 
@@ -80,7 +79,7 @@ private fun StaffScreen(
                 },
                 scrollBehavior = scrollBehavior,
             )
-        }
+        },
     ) { padding ->
         StaffList(
             staffs = uiState.staffs,
@@ -88,7 +87,7 @@ private fun StaffScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
         )
     }
 }
@@ -100,13 +99,13 @@ private fun StaffList(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
     ) {
         items(staffs) { staff ->
             StaffListItem(
                 staff = staff,
                 onStaffClick = onStaffClick,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

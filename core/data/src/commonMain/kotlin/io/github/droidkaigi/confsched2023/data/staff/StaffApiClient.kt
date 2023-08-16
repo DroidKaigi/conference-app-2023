@@ -14,9 +14,9 @@ internal interface StaffApi {
     suspend fun getStaff(): StaffsResponse
 }
 
-public class DefaultStaffApiClient (
+public class DefaultStaffApiClient(
     val networkService: NetworkService,
-    val ktorfit: Ktorfit
+    val ktorfit: Ktorfit,
 ) : StaffApiClient {
 
     private val staffApi = ktorfit.create<StaffApi>()

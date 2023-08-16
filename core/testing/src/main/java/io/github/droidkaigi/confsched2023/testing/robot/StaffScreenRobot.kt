@@ -12,7 +12,7 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 class StaffScreenRobot @Inject constructor(
-    private val testDispatcher: TestDispatcher
+    private val testDispatcher: TestDispatcher,
 ) {
 
     @Inject lateinit var robotTestRule: RobotTestRule

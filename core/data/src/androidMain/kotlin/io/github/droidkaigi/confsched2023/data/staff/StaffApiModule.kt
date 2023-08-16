@@ -14,11 +14,11 @@ class StaffApiModule {
     @Provides
     fun providesStaffApiClient(
         networkService: NetworkService,
-        ktorfit: Ktorfit
+        ktorfit: Ktorfit,
     ): StaffApiClient {
         return DefaultStaffApiClient(
             networkService = networkService,
-            ktorfit = ktorfit
+            ktorfit = ktorfit,
         )
     }
 }
