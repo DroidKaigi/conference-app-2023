@@ -23,6 +23,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object AddToCalendar : SessionsStrings()
     data object AddToFavorites : SessionsStrings()
     data object RemoveFromFavorites : SessionsStrings()
+    data object ErrorIcon : SessionsStrings()
     data object Date : SessionsStrings()
     data object Place : SessionsStrings()
     data object SessionType : SessionsStrings()
@@ -55,6 +56,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 AddToCalendar -> "カレンダーに追加"
                 AddToFavorites -> "お気に入りに追加"
                 RemoveFromFavorites -> "お気に入りから削除"
+                ErrorIcon -> "エラーアイコン"
                 Date -> "日付"
                 Place -> "場所"
                 SessionType -> "セッション種別"
@@ -88,6 +90,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 AddToCalendar -> "Add to calendar"
                 AddToFavorites -> "Add to favorites"
                 RemoveFromFavorites -> "Remove from favorites"
+                ErrorIcon -> "Error Icon"
                 Date -> "Date"
                 Place -> "Place"
                 SessionType -> "Session type"
