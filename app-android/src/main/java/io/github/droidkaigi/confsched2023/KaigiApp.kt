@@ -24,7 +24,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -95,7 +94,7 @@ private fun KaigiNavHost(
     navController: NavHostController = rememberNavController(),
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
-    NavHost(navController = navController, startDestination = mainScreenRoute) {
+    NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
         mainScreen(navController, externalNavController)
         sessionScreens(
             onNavigationIconClick = {
