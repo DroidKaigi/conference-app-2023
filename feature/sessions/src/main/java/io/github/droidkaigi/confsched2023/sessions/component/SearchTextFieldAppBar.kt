@@ -102,13 +102,13 @@ private fun SearchTextField(
                 singleLine = true,
                 visualTransformation = VisualTransformation.None,
                 interactionSource = interactionSource,
-                placeholder = {
+//                placeholder = {
 //                    Text(
 //                        text = SearchPlaceHolder.asString(),
 //                        style = MaterialTheme.typography.bodyLarge,
 //                        color = MaterialTheme.colorScheme.onSurface,
 //                    )
-                },
+//                },
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         Box(modifier = Modifier.offset(x = (-4).dp)) {
