@@ -20,17 +20,17 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import kotlin.math.min
 
@@ -100,7 +100,7 @@ fun BookmarkTopArea(
         fraction,
     )
 
-    var enabledBackPress by remember { mutableStateOf(true) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     Box(
         modifier = modifier
@@ -120,9 +120,13 @@ fun BookmarkTopArea(
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable(enabled = enabledBackPress) {
-                        enabledBackPress = false
-                        onBackPressClick()
+                    .clickable {
+                        // Ignore click events when you've started navigating to another screen
+                        // https://stackoverflow.com/a/76386604/4339442
+                        val currentState = lifecycleOwner.lifecycle.currentState
+                        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                            onBackPressClick()
+                        }
                     },
             )
             Text(
