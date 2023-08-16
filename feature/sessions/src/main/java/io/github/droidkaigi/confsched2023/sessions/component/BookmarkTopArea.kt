@@ -123,7 +123,7 @@ fun BookmarkTopArea(
                     .clickable(enabled = enabledBackPress) {
                         enabledBackPress = false
                         onBackPressClick()
-                    }
+                    },
             )
             Text(
                 text = SessionsStrings.Bookmark.asString(),
