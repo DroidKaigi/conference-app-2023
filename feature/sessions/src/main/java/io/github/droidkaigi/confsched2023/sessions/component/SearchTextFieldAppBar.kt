@@ -133,12 +133,12 @@ private fun SearchTextField(
     )
 }
 
-@Preview
-@Composable
-fun SearchTextFieldAppBarPreview() {
+//@Preview
+//@Composable
+//fun SearchTextFieldAppBarPreview() {
 //    SearchTextFieldAppBar(
 //        searchQuery = "",
 //        onSearchQueryChanged = {},
 //        onBackClick = {},
 //    )
-}
+//}
