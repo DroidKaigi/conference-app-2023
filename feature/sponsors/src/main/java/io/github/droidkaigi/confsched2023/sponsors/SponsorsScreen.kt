@@ -27,13 +27,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.model.Plan
 import io.github.droidkaigi.confsched2023.model.Plan.GOLD
 import io.github.droidkaigi.confsched2023.model.Plan.PLATINUM
 import io.github.droidkaigi.confsched2023.model.Plan.SUPPORTER
 import io.github.droidkaigi.confsched2023.model.Sponsor
+import io.github.droidkaigi.confsched2023.sponsors.section.SponsorListUiState
 import io.github.droidkaigi.confsched2023.sponsors.section.sponsorList
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentMap
 
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(
@@ -76,7 +78,7 @@ fun SponsorsScreen(
 }
 
 data class SponsorsScreenUiState(
-    val sponsors: ImmutableList<Sponsor>,
+    val sponsorListUiStates: PersistentMap<Plan, SponsorListUiState>,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -119,26 +121,20 @@ private fun SponsorsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(padding)
+                    .padding(horizontal = 16.dp)
             ){
                 sponsorList(
-                    title = SponsorsStrings.PlatinumSponsors,
-                    gridSize = 1,
+                    uiState = requireNotNull(uiState.sponsorListUiStates[PLATINUM]),
                     onSponsorClick = onSponsorClick,
-                    sponsorList = uiState.sponsors.filter { it.plan == PLATINUM }
                 )
                 sponsorList(
-                    title = SponsorsStrings.GoldSponsors,
-                    gridSize = 2,
+                    uiState = requireNotNull(uiState.sponsorListUiStates[GOLD]),
                     onSponsorClick = onSponsorClick,
-                    sponsorList = uiState.sponsors.filter { it.plan == GOLD }
                 )
                 sponsorList(
-                    title = SponsorsStrings.Supporters,
-                    gridSize = 3,
+                    uiState = requireNotNull(uiState.sponsorListUiStates[SUPPORTER]),
                     onSponsorClick = onSponsorClick,
-                    sponsorList = uiState.sponsors.filter { it.plan == SUPPORTER }
                 )
-
             }
         },
     )
