@@ -50,6 +50,9 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
     )
     val rooms = listOf(
         RoomResponse(name = LocaledResponse(ja = "Room1", en = "Room2"), id = 1, sort = 1),
+        RoomResponse(name = LocaledResponse(ja = "Room3", en = "Room4"), id = 2, sort = 2),
+        RoomResponse(name = LocaledResponse(ja = "Room5", en = "Room6"), id = 3, sort = 3),
+        RoomResponse(name = LocaledResponse(ja = "Room7", en = "Room8"), id = 4, sort = 4),
     )
     val categories = listOf(
         CategoryResponse(
