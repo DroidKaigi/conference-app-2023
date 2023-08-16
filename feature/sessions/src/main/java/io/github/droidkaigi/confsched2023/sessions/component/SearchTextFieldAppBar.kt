@@ -136,9 +136,9 @@ private fun SearchTextField(
 @Preview
 @Composable
 fun SearchTextFieldAppBarPreview() {
-    SearchTextFieldAppBar(
-        searchQuery = "",
-        onSearchQueryChanged = {},
-        onBackClick = {},
-    )
+//    SearchTextFieldAppBar(
+//        searchQuery = "",
+//        onSearchQueryChanged = {},
+//        onBackClick = {},
+//    )
 }
