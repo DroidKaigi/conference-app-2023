@@ -30,6 +30,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMap
@@ -153,6 +155,8 @@ private fun FloorMapScreen(
 }
 
 @Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun PreviewFloorMapScreen() {
     KaigiTheme {
@@ -185,6 +189,7 @@ fun FloorMapScreenPreview(
                 uiState = uiState,
                 snackbarHostState = SnackbarHostState(),
                 onSideEventClick = {},
+                onClickFloorLevelSwitcher = {},
             )
         }
     }
