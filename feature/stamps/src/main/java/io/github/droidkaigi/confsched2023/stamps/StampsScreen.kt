@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -102,7 +103,7 @@ private fun StampsScreen(
                     StampsDetail()
                 }
                 item {
-                    Stamps(stamps = uiState.stamps)
+                    Stamps(stamps = uiState.stamps, onStampsClick = onStampsClick)
                 }
             }
         },
@@ -143,15 +144,19 @@ private fun StampsDetail(
 @Composable
 private fun Stamps(
     stamps: ImmutableList<String>,
+    onStampsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     // TODO: Switching the display of stamps image according stamps variable
     Column(modifier = modifier) {
-        Row {
+        Row(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(id = R.drawable.img_stamp_a_off),
                 contentDescription = null,
-                modifier = Modifier.padding(horizontal = 21.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onStampsClick() }
+                    .padding(horizontal = 21.dp)
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -159,17 +164,23 @@ private fun Stamps(
             Image(
                 painter = painterResource(id = R.drawable.img_stamp_b_off),
                 contentDescription = null,
-                modifier = Modifier.padding(horizontal = 21.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onStampsClick() }
+                    .padding(horizontal = 21.dp)
             )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row {
+        Row(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(id = R.drawable.img_stamp_c_off),
                 contentDescription = null,
-                modifier = Modifier.padding(horizontal = 21.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onStampsClick() }
+                    .padding(horizontal = 21.dp)
             )
 
             Spacer(modifier = Modifier.width(8.dp))
@@ -177,7 +188,11 @@ private fun Stamps(
             Image(
                 painter = painterResource(id = R.drawable.img_stamp_d_off),
                 contentDescription = null,
-                modifier = Modifier.padding(horizontal = 21.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onStampsClick() }
+                    .padding(horizontal = 21.dp)
+
             )
         }
 
@@ -189,6 +204,7 @@ private fun Stamps(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
+                .clickable { onStampsClick() }
         )
     }
 }
