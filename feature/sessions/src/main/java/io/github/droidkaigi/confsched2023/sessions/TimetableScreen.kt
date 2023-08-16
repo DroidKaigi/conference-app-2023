@@ -19,6 +19,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
@@ -107,6 +108,17 @@ private fun timetableTopBackground() = if (!isSystemInDarkTheme()) {
     timetableTopBackgroundDark
 }
 
+private val timetableTopGradientLight = Color(0xFFA9E5FF)
+private val timetableTopGradientDark = Color(0xFF050D10)
+
+@Composable
+@ReadOnlyComposable
+private fun timetableTopGradient() = if (!isSystemInDarkTheme()) {
+    timetableTopGradientLight
+} else {
+    timetableTopGradientDark
+}
+
 @Composable
 private fun TimetableScreen(
     uiState: TimetableScreenUiState,
@@ -124,7 +136,13 @@ private fun TimetableScreen(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
             .nestedScroll(state.screenNestedScrollConnection)
-            .background(timetableTopBackground()),
+            .background(timetableTopBackground())
+            .background(
+                Brush.verticalGradient(
+                    0f to timetableTopGradient(),
+                    0.2f to Color.Transparent,
+                )
+            ),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
