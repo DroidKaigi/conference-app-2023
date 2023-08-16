@@ -36,7 +36,7 @@ fun FloorMap(
     FloorMap(
         headline = headline,
         floorMapResId = mapResId,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 

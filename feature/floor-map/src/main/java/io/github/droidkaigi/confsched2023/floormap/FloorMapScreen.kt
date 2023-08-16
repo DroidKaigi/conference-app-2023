@@ -177,7 +177,7 @@ fun PreviewFloorMapScreen() {
 @Composable
 fun FloorMapScreenPreview(
     @PreviewParameter(PreviewFloorMapScreenUiStateProvider::class)
-    uiState: FloorMapScreenUiState
+    uiState: FloorMapScreenUiState,
 ) {
     KaigiTheme {
         Surface {
