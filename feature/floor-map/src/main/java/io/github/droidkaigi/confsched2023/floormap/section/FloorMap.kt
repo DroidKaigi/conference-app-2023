@@ -7,12 +7,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.floormap.R
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 
@@ -57,5 +60,25 @@ fun FloorMap(
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth(),
         )
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun BasementFloorMapPreview() {
+    KaigiTheme {
+        Surface {
+            FloorMap(uiState = FloorMapUiState.of(FloorLevel.Basement))
+        }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun GroundFloorMapPreview() {
+    KaigiTheme {
+        Surface {
+            FloorMap(uiState = FloorMapUiState.of(FloorLevel.Ground))
+        }
     }
 }
