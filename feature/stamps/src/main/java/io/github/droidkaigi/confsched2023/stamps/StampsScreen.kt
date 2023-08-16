@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -88,45 +89,56 @@ private fun StampsScreen(
         content = { padding ->
             val layoutDirection = LocalLayoutDirection.current
 
-            Column(
-                Modifier
-                    .padding(
-                        PaddingValues(
-                            top = padding.calculateTopPadding() + 20.dp,
-                            start = padding.calculateStartPadding(layoutDirection) + 16.dp,
-                            end = padding.calculateEndPadding(layoutDirection) + 16.dp,
-                            bottom = padding.calculateBottomPadding() + 20.dp
-                        )
-                    ),
+            LazyColumn(
+                Modifier.padding(
+                    PaddingValues(
+                        top = padding.calculateTopPadding() + 20.dp,
+                        start = padding.calculateStartPadding(layoutDirection) + 16.dp,
+                        end = padding.calculateEndPadding(layoutDirection) + 16.dp,
+                        bottom = padding.calculateBottomPadding() + 20.dp
+                    )
+                ),
             ) {
-                Text(
-                    text = StampsStrings.Title.asString(),
-                    style = MaterialTheme.typography.headlineLarge,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text(
-                    text = StampsStrings.Description.asString(),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(
-                    text = StampsStrings.DescriptionNotes.asString(),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Stamps(stamps = uiState.stamps)
+                item {
+                    StampsDetail()
+                }
+                item {
+                    Stamps(stamps = uiState.stamps)
+                }
             }
         },
     )
+}
+
+@Composable
+private fun StampsDetail(
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier) {
+        Text(
+            text = StampsStrings.Title.asString(),
+            style = MaterialTheme.typography.headlineLarge,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = StampsStrings.Description.asString(),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Text(
+            text = StampsStrings.DescriptionNotes.asString(),
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+    }
 }
 
 @Composable
