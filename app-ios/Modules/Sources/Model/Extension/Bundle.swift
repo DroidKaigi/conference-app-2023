@@ -1,10 +1,3 @@
-//
-//  Bundle.swift
-//
-//
-//  Created by rei.nakaoka on 2023/08/16.
-//
-
 import Foundation
 
 public extension Bundle {
