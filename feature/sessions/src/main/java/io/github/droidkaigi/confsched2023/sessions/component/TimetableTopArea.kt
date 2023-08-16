@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
@@ -34,7 +33,7 @@ fun TimetableTopArea(
 ) {
     TopAppBar(
         title = {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.icon_droidkaigi_logo),
                 contentDescription = null,
             )
