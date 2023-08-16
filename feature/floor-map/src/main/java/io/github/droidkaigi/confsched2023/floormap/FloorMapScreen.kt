@@ -30,7 +30,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
-import io.github.droidkaigi.confsched2023.floormap.component.FloorMap
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMap
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
@@ -111,7 +111,8 @@ private fun FloorMapScreen(
         content = { innerPadding ->
             Box(
                 Modifier
-                    .padding(innerPadding),
+                    .padding(innerPadding)
+                    .padding(horizontal = 16.dp),
             ) {
                 Column(
                     Modifier
