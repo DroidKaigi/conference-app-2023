@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -7,11 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -86,6 +88,17 @@ data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
 )
 
+private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
+private val timetableTopBackgroundDark = Color(0xFF2D4625)
+
+@Composable
+@ReadOnlyComposable
+private fun timetableTopBackground() = if (!isSystemInDarkTheme()) {
+    timetableTopBackgroundLight
+} else {
+    timetableTopBackgroundDark
+}
+
 @Composable
 private fun TimetableScreen(
     uiState: TimetableScreenUiState,
@@ -102,7 +115,8 @@ private fun TimetableScreen(
     Scaffold(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
-            .nestedScroll(state.screenNestedScrollConnection),
+            .nestedScroll(state.screenNestedScrollConnection)
+            .background(timetableTopBackground()),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
