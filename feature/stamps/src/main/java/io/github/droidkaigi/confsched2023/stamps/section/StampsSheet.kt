@@ -5,10 +5,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.droidkaigi.confsched2023.stamps.component.Stamps
 import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
-import kotlinx.collections.immutable.ImmutableList
 
 data class StampsSheetUiState(
-    val stamps: ImmutableList<String>,
+    val isStampA: Boolean,
+    val isStampB: Boolean,
+    val isStampC: Boolean,
+    val isStampD: Boolean,
+    val isStampE: Boolean,
 )
 
 @Composable
@@ -22,7 +25,14 @@ fun StampsSheet(
             StampsDetail()
         }
         item {
-            Stamps(stamps = uiState.stamps, onStampsClick = onStampsClick)
+            Stamps(
+                isStampA = uiState.isStampA,
+                isStampB = uiState.isStampB,
+                isStampC = uiState.isStampC,
+                isStampD = uiState.isStampD,
+                isStampE = uiState.isStampE,
+                onStampsClick = onStampsClick,
+            )
         }
     }
 }

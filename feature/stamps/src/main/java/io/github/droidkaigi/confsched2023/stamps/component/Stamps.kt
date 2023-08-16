@@ -14,20 +14,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.feature.stamps.R.drawable
-import kotlinx.collections.immutable.ImmutableList
+import io.github.droidkaigi.confsched2023.feature.stamps.R
 
 @Composable
 fun Stamps(
-    stamps: ImmutableList<String>,
+    isStampA: Boolean,
+    isStampB: Boolean,
+    isStampC: Boolean,
+    isStampD: Boolean,
+    isStampE: Boolean,
     onStampsClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // TODO: Switching the display of stamps image according stamps variable
     Column(modifier = modifier) {
         Row(modifier = Modifier.fillMaxWidth()) {
             Image(
-                painter = painterResource(id = drawable.img_stamp_a_off),
+                painter = painterResource(
+                    id = if (isStampA) R.drawable.img_stamp_a_on else R.drawable.img_stamp_a_off
+                ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
@@ -38,7 +42,9 @@ fun Stamps(
             Spacer(modifier = Modifier.width(8.dp))
 
             Image(
-                painter = painterResource(id = drawable.img_stamp_b_off),
+                painter = painterResource(
+                    id = if (isStampB) R.drawable.img_stamp_b_on else R.drawable.img_stamp_b_off
+                ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
@@ -51,7 +57,9 @@ fun Stamps(
 
         Row(modifier = Modifier.fillMaxWidth()) {
             Image(
-                painter = painterResource(id = drawable.img_stamp_c_off),
+                painter = painterResource(
+                    id = if (isStampC) R.drawable.img_stamp_c_on else R.drawable.img_stamp_c_off
+                ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
@@ -62,7 +70,9 @@ fun Stamps(
             Spacer(modifier = Modifier.width(8.dp))
 
             Image(
-                painter = painterResource(id = drawable.img_stamp_d_off),
+                painter = painterResource(
+                    id = if (isStampD) R.drawable.img_stamp_d_on else R.drawable.img_stamp_d_off
+                ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
@@ -75,7 +85,9 @@ fun Stamps(
         Spacer(modifier = Modifier.height(16.dp))
 
         Image(
-            painter = painterResource(id = drawable.img_stamp_e_off),
+            painter = painterResource(
+                id = if (isStampE) R.drawable.img_stamp_e_on else R.drawable.img_stamp_e_off
+            ),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
