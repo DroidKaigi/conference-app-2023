@@ -83,14 +83,15 @@ fun TimetableGridItem(
                 .padding(12.dp),
         ) {
             Column {
-                val textStyle = if (speaker != null) {
-                    MaterialTheme.typography.labelLarge.copy(hallColor.hallText)
+                val textColor = if (speaker != null) {
+                    hallColor.hallText
                 } else {
-                    MaterialTheme.typography.labelLarge.copy(hallColor.hallTextWhenWithoutSpeakers)
+                    hallColor.hallTextWhenWithoutSpeakers
                 }
                 Text(
                     text = timetableItem.title.currentLangTitle,
-                    style = textStyle,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = textColor,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.height(16.dp)) {
@@ -106,7 +107,8 @@ fun TimetableGridItem(
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = textStyle,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = textColor,
                     )
                 }
 
@@ -128,7 +130,8 @@ fun TimetableGridItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = speaker.name,
-                            style = textStyle,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = textColor,
                         )
                     }
                 }
