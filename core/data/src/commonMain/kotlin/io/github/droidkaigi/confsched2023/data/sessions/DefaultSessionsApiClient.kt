@@ -72,19 +72,19 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                 )
             }.first()
         }
-    val roomIdToRoom = timetableContents.rooms
-        .groupBy { it.id }
-        .mapValues { (_, apiRooms) ->
-            apiRooms.map { apiRoom ->
-                val roomSorts = apiRooms.map { it.sort }.sorted()
+    val roomIdToRoom: Map<Int, TimetableRoom> = timetableContents.rooms
+        .associateBy(
+            keySelector = { room -> room.id },
+            valueTransform = { room ->
+                val roomSorts = timetableContents.rooms.map { it.sort }.sorted()
                 TimetableRoom(
-                    id = apiRoom.id,
-                    name = apiRoom.name.toMultiLangText(),
-                    sort = apiRoom.sort,
-                    sortIndex = roomSorts.indexOf(apiRoom.sort),
+                    id = room.id,
+                    name = room.name.toMultiLangText(),
+                    sort = room.sort,
+                    sortIndex = roomSorts.indexOf(room.sort),
                 )
-            }.first()
-        }
+            },
+        )
 
     return Timetable(
         TimetableItemList(

@@ -34,6 +34,7 @@ class KmpComposePlugin : Plugin<Project> {
                         dependencies {
                             implementation(libs.findLibrary("androidxActivityActivityCompose").get())
                             implementation(libs.findLibrary("androidxLifecycleLifecycleRuntimeKtx").get())
+                            implementation(libs.findLibrary("composeUiToolingPreview").get())
                         }
                     }
                 }

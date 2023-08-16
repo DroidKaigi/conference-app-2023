@@ -26,10 +26,12 @@ import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 const val aboutScreenRoute = "about"
 fun NavGraphBuilder.nestedAboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
+    onLinkClick: (url: String) -> Unit,
 ) {
     composable(aboutScreenRoute) {
         AboutScreen(
             onAboutItemClick = onAboutItemClick,
+            onLinkClick = onLinkClick,
         )
     }
 }
@@ -44,6 +46,7 @@ const val AboutScreenTestTag = "AboutScreen"
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
+    onLinkClick: (url: String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = SnackbarHostState()
@@ -56,6 +59,7 @@ fun AboutScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onAboutItemClick = onAboutItemClick,
+        onLinkClick = onLinkClick,
     )
 }
 
@@ -66,6 +70,7 @@ private fun AboutScreen(
     uiState: AboutScreenUiState,
     snackbarHostState: SnackbarHostState,
     onAboutItemClick: (AboutItem) -> Unit,
+    onLinkClick: (url: String) -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.testTag(AboutScreenTestTag),
@@ -82,7 +87,9 @@ private fun AboutScreen(
                     )
                 }
                 item {
-                    AboutDroidKaigiDetail()
+                    AboutDroidKaigiDetail(
+                        onLinkClick = onLinkClick,
+                    )
                 }
                 aboutCredits(
                     onSponsorsItemClick = {

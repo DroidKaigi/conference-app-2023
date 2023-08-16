@@ -85,11 +85,13 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
+    implementation(projects.feature.stamps)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.accompanistSystemUiController)
+    implementation(libs.androidxBrowser)
     testImplementation(projects.core.testing)
 }

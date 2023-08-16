@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.sessions.section.BookmarkSheetUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -63,14 +64,18 @@ class BookmarkScreenViewModel @Inject constructor(
             }.toPersistentMap()
 
             if (sortAndGroupedBookmarkedTimetableItems.isEmpty()) {
-                BookmarkScreenUiState.Empty(
-                    currentDayFilter.toPersistentList(),
+                BookmarkScreenUiState(
+                    contentUiState = BookmarkSheetUiState.Empty(
+                        currentDayFilter.toPersistentList(),
+                    ),
                 )
             } else {
-                BookmarkScreenUiState.ListBookmark(
-                    sessions.bookmarks,
-                    sortAndGroupedBookmarkedTimetableItems,
-                    currentDayFilter.toPersistentList(),
+                BookmarkScreenUiState(
+                    contentUiState = BookmarkSheetUiState.ListBookmark(
+                        sessions.bookmarks,
+                        sortAndGroupedBookmarkedTimetableItems,
+                        currentDayFilter.toPersistentList(),
+                    ),
                 )
             }
         }

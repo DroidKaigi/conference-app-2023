@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Category
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.Language
+import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -49,22 +49,22 @@ fun TimetableItemDetailSummaryCard(
                 .padding(horizontal = 16.dp, vertical = 24.dp),
         ) {
             TimetableItemDetailSummaryCardRow(
-                leadingIcon = Icons.Filled.Schedule,
+                leadingIcon = Icons.Outlined.Schedule,
                 label = SessionsStrings.Date.asString(),
                 content = timetableItem.formattedDateTimeString,
             )
             TimetableItemDetailSummaryCardRow(
-                leadingIcon = Icons.Filled.Place,
+                leadingIcon = Icons.Outlined.Place,
                 label = SessionsStrings.Place.asString(),
                 content = timetableItem.room.name.currentLangTitle,
             )
             TimetableItemDetailSummaryCardRow(
-                leadingIcon = Icons.Filled.Language,
+                leadingIcon = Icons.Outlined.Language,
                 label = SessionsStrings.SupportedLanguages.asString(),
                 content = timetableItem.getSupportedLangString(isJapaneseLocale),
             )
             TimetableItemDetailSummaryCardRow(
-                leadingIcon = Icons.Filled.Category,
+                leadingIcon = Icons.Outlined.Category,
                 label = SessionsStrings.Category.asString(),
                 content = timetableItem.category.title.currentLangTitle,
             )

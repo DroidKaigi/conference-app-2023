@@ -5,25 +5,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun BookmarkFilters(
-    currentDayFilter: PersistentList<DroidKaigi2023Day>,
+    isAll: Boolean,
+    isDayFirst: Boolean,
+    isDaySecond: Boolean,
+    isDayThird: Boolean,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,
@@ -31,19 +31,13 @@ fun BookmarkFilters(
     modifier: Modifier = Modifier,
 ) {
     val selectedChipColor = AssistChipDefaults.assistChipColors(
-        containerColor = Color(0xFFCEE9DB),
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
     )
     val selectedChipBoarderColor = AssistChipDefaults.assistChipBorder(
-        borderColor = md_theme_light_outline,
+        borderColor = MaterialTheme.colorScheme.outline,
         borderWidth = 0.dp,
     )
-    val isAll = currentDayFilter.size == DroidKaigi2023Day.values().size
-    val isDayFirst =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
-    val isDaySecond =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day2
-    val isDayThird =
-        currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day3
     Row(modifier) {
         AssistChip(
             onClick = onAllFilterChipClick,
@@ -124,13 +118,16 @@ private fun ChipInnerText(name: String) {
     )
 }
 
-@Preview
+@MultiThemePreviews
 @Composable
 fun BookmarkFiltersPreview() {
     KaigiTheme {
         Surface {
             BookmarkFilters(
-                currentDayFilter = DroidKaigi2023Day.values().toList().toPersistentList(),
+                isAll = false,
+                isDayFirst = true,
+                isDaySecond = false,
+                isDayThird = false,
                 onAllFilterChipClick = {},
                 onDayFirstChipClick = {},
                 onDaySecondChipClick = {},

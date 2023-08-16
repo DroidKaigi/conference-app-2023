@@ -2,9 +2,9 @@ package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -15,7 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import io.github.droidkaigi.confsched2023.feature.sessions.R.drawable
+import io.github.droidkaigi.confsched2023.feature.sessions.R
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Bookmark
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
 
@@ -34,7 +35,7 @@ fun TimetableTopArea(
     TopAppBar(
         title = {
             Image(
-                painter = painterResource(id = drawable.icon_droidkaigi_logo),
+                painter = painterResource(id = R.drawable.icon_droidkaigi_logo),
                 contentDescription = null,
             )
         },
@@ -54,8 +55,8 @@ fun TimetableTopArea(
                 onClick = { onTopAreaBookmarkIconClick() },
             ) {
                 Icon(
-                    imageVector = Icons.Default.BookmarkBorder,
-                    contentDescription = Timetable.asString(),
+                    imageVector = Icons.Outlined.Bookmarks,
+                    contentDescription = Bookmark.asString(),
                 )
             }
             IconButton(

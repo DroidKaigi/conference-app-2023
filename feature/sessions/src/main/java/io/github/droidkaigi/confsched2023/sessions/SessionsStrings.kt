@@ -5,9 +5,9 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.Strings
 import io.github.droidkaigi.confsched2023.designsystem.strings.StringsBindings
 
 sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
-    object Search : SessionsStrings()
-    object Timetable : SessionsStrings()
-    object Hoge : SessionsStrings()
+    data object Search : SessionsStrings()
+    data object Timetable : SessionsStrings()
+    data object Hoge : SessionsStrings()
     class Time(val hours: Int, val minutes: Int) : SessionsStrings()
     object ScheduleIcon : SessionsStrings()
     object UserIcon : SessionsStrings()
@@ -58,7 +58,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
                 Archive -> "アーカイブ"
-                ViewDocument -> "ドキュメントを見る"
+                ViewDocument -> "資料を見る"
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"

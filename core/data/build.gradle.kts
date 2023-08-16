@@ -24,6 +24,7 @@ kotlin {
                 implementation(libs.ktorKotlinxSerialization)
                 implementation(libs.ktorContentNegotiation)
                 implementation(libs.kermit)
+                implementation(libs.firebaseRemoteConfig)
             }
         }
         val androidMain by getting {

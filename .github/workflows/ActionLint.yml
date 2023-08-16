@@ -1,0 +1,19 @@
+on:
+  push:
+    paths:
+      - '.github/workflows/**'
+
+name: "Trigger: Push action"
+permissions: {}
+
+jobs:
+  actionlint:
+    name: Actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run actionlint
+        run: |
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.6.25
+          ./actionlint -color
+        shell: bash

@@ -23,6 +23,9 @@ We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.
 
 For Japanese speakers, please see [CONTRIBUTING.ja.md](CONTRIBUTING.ja.md).
 
+# Requirements
+Stable Android Studio Giraffe or higher. You can download it from [this page](https://developer.android.com/studio).
+
 # Design
 
 You can check out the design on Figma.
@@ -428,9 +431,9 @@ class FakeSessionsApiModule {
 
 2. Setup
    1. `bundle install`
-   2. `bundle exec fastlane shared`
+   2. `cd app-ios && bundle exec fastlane shared`
    
-3. open [`app-ios.xcworkspace`](./app-ios/app-ios.xcworkspace) by Xcode
+3. open [`DroidKaigi2023.xcodeproj`](./app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj) by Xcode
 
 ## Build
 

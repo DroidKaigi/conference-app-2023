@@ -14,13 +14,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -29,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import kotlin.math.min
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -49,7 +51,7 @@ fun BookmarkTopArea(
     val fraction by remember {
         derivedStateOf {
             if (scrollState.firstVisibleItemIndex == 0) {
-                scrollState.firstVisibleItemScrollOffset / 520F
+                min(scrollState.firstVisibleItemScrollOffset / 520F, 1F)
             } else {
                 1F
             }
@@ -73,8 +75,8 @@ fun BookmarkTopArea(
     )
 
     val backgroundColor = lerp(
-        Color(0xFFF8FAF6),
-        Color(0xFFCEE9DB),
+        MaterialTheme.colorScheme.surface,
+        MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         fraction,
     )
 
@@ -122,9 +124,8 @@ fun BookmarkTopArea(
                 text = SessionsStrings.Bookmark.asString(),
                 style = titleTextStyle,
                 modifier = Modifier.padding(
-                    // FIXME: If we don't use this `if` expresson, a crash happen
-                    start = if (titlePaddingStart >= 0.dp) titlePaddingStart else 0.dp,
-                    top = if (titlePaddingTop >= 0.dp) titlePaddingTop else 0.dp,
+                    start = titlePaddingStart,
+                    top = titlePaddingTop,
                 ),
             )
         }

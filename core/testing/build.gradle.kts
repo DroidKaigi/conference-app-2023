@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":feature:about"))
     implementation(project(":feature:sponsors"))
     implementation(project(":feature:floor-map"))
+    implementation(project(":feature:stamps"))
 
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)
