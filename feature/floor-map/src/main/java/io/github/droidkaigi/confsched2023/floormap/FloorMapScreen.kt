@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -36,6 +38,7 @@ import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
+import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -168,4 +171,35 @@ fun PreviewFloorMapScreen() {
             )
         }
     }
+}
+
+@Preview
+@Composable
+private fun FloorMapScreenPreview(
+    @PreviewParameter(PreviewFloorMapScreenUiStateProvider::class) uiState: FloorMapScreenUiState
+) {
+    KaigiTheme {
+        Surface {
+            FloorMapScreen(
+                uiState = uiState,
+                snackbarHostState = SnackbarHostState(),
+                onSideEventClick = {},
+            )
+        }
+    }
+}
+
+private class PreviewFloorMapScreenUiStateProvider :
+    PreviewParameterProvider<FloorMapScreenUiState> {
+    override val values: Sequence<FloorMapScreenUiState>
+        get() = sequenceOf(
+            FloorMapScreenUiState(
+                Basement,
+                FloorMapSideEventListUiState(SideEvents),
+            ),
+            FloorMapScreenUiState(
+                Ground,
+                FloorMapSideEventListUiState(SideEvents),
+            ),
+        )
 }
