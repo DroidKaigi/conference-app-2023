@@ -73,7 +73,7 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
 
     for (day in 0 until 3) {
         val dayOffset = day * 24 * 60 * 60
-        for (room in 0 until 5) {
+        for (room in rooms) {
             for (index in 0 until 4) {
                 val start = Instant.fromEpochSeconds(
                     LocalDateTime.parse("2023-09-14T10:10:00")
@@ -88,15 +88,15 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                     id = "$day$room$index",
                     isServiceSession = false,
                     title = LocaledResponse(
-                        ja = "DroidKaigiのアプリのアーキテクチャ day$day room$room index$index",
-                        en = "DroidKaigi App Architecture day$day room$room index$index",
+                        ja = "DroidKaigiのアプリのアーキテクチャ day$day room${room.name.ja} index$index",
+                        en = "DroidKaigi App Architecture day$day room${room.name.en} index$index",
                     ),
                     speakers = listOf("1", "2"),
                     description = "これはディスクリプションです。\nこれはディスクリプションです。",
                     startsAt = start.toString(),
                     endsAt = end.toString(),
                     language = "JAPANESE",
-                    roomId = room + 1,
+                    roomId = room.id,
                     sessionCategoryItemId = 1,
                     sessionType = "NORMAL",
                     message = null,
