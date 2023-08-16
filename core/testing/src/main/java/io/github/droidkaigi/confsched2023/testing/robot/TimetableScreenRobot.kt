@@ -5,9 +5,12 @@ import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
+import com.github.takahirom.roborazzi.Dump
+import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.data.sessions.FakeSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
@@ -133,6 +136,18 @@ class TimetableScreenRobot @Inject constructor(
         composeTestRule
             .onNode(hasTestTag(TimetableScreenTestTag))
             .captureRoboImage()
+    }
+
+    fun checkAccessibilityCapture() {
+        composeTestRule
+            .onRoot()
+            .captureRoboImage(
+                roborazziOptions = RoborazziOptions(
+                    captureType = RoborazziOptions.CaptureType.Dump(
+                        explanation = Dump.AccessibilityExplanation,
+                    ),
+                ),
+            )
     }
 
     fun waitUntilIdle() {

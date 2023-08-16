@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.floormap
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
@@ -22,13 +23,23 @@ class FloorMapScreenViewModel @Inject constructor(
             sideEvents = SideEvents.filter { it.floorLevel == floorLevel }.toImmutableList(),
         )
     }
+    private val floorMapUiStateFlow = buildUiState(floorLevelStateFlow) { floorLevel ->
+        FloorMapUiState.of(floorLevel)
+    }
+
     val uiState = buildUiState(
         floorLevelStateFlow,
+        floorMapUiStateFlow,
         floorMapSideEventListUiStateFlow,
-    ) { floorLevel, floorMapSideEventListUiState ->
+    ) { floorLevel, floorMapUiState, floorMapSideEventListUiState ->
         FloorMapScreenUiState(
-            floorMapSideEventListUiState = floorMapSideEventListUiState,
             floorLevel = floorLevel,
+            floorMapUiState = floorMapUiState,
+            floorMapSideEventListUiState = floorMapSideEventListUiState,
         )
+    }
+
+    fun onClickFloorLevelSwitcher(floorLevel: FloorLevel) {
+        floorLevelStateFlow.value = floorLevel
     }
 }
