@@ -14,11 +14,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -113,7 +113,7 @@ private fun EmptyView() {
             modifier = Modifier
                 .size(84.dp)
                 .background(
-                    color = Color(0xFFCEE9DB),
+                    color = MaterialTheme.colorScheme.secondaryContainer,
                     shape = RoundedCornerShape(24.dp),
                 ),
             contentAlignment = Alignment.Center,
@@ -129,7 +129,7 @@ private fun EmptyView() {
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
             lineHeight = 24.sp,
-            color = Color(0xFF191C1A),
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
@@ -138,7 +138,7 @@ private fun EmptyView() {
             lineHeight = 20.sp,
             letterSpacing = 0.25.sp,
             textAlign = TextAlign.Center,
-            color = Color(0xFF404944),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.height(108.dp))
     }

@@ -14,13 +14,14 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -74,8 +75,8 @@ fun BookmarkTopArea(
     )
 
     val backgroundColor = lerp(
-        Color(0xFFF8FAF6),
-        Color(0xFFCEE9DB),
+        MaterialTheme.colorScheme.surface,
+        MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         fraction,
     )
 

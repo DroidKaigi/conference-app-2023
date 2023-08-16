@@ -11,6 +11,18 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     object DateDescription : AboutStrings()
     object PlaceTitle : AboutStrings()
     object PlaceDescription : AboutStrings()
+    class PlaceLink(
+        val url: String = "https://goo.gl/maps/vv9sE19JvRjYKtSP9",
+    ) : AboutStrings()
+    object CreditsTitle : AboutStrings()
+    object Staff : AboutStrings()
+    object Contributor : AboutStrings()
+    object Sponsor : AboutStrings()
+    object OthersTitle : AboutStrings()
+    object CodeOfConduct : AboutStrings()
+    object License : AboutStrings()
+    object PrivacyPolicy : AboutStrings()
+
     object PlaceLink : AboutStrings()
     object AppVersion: AboutStrings()
 
@@ -23,18 +35,36 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 DateDescription -> "2023.09.14(木) 〜 16(土) 3日間"
                 PlaceTitle -> "場所"
                 PlaceDescription -> "ベルサール渋谷ガーデン"
+                is PlaceLink -> "地図を見る"
+                CreditsTitle -> "Credits"
+                Staff -> "スタッフ"
+                Contributor -> "コントリビューター"
+                Sponsor -> "スポンサー"
+                OthersTitle -> "Others"
+                CodeOfConduct -> "行動規範"
+                License -> "ライセンス"
+                PrivacyPolicy -> "プライバシーポリシー"
                 PlaceLink -> "地図を見る"
                 AppVersion -> "アプリバージョン"
             }
         },
         Lang.English to { item, bindings ->
             when (item) {
-                Title -> "About"
+                Title -> bindings.defaultBinding(item, bindings)
                 Description -> "DroidKaigi is a conference tailored for Android developers."
                 DateTitle -> "Date & Time"
                 DateDescription -> "2023.09.14(Thu) - 16(Sat) 3days"
                 PlaceTitle -> "Location"
                 PlaceDescription -> "Bellesalle Shibuya Garden"
+                is PlaceLink -> "View Map"
+                CreditsTitle -> bindings.defaultBinding(item, bindings)
+                Staff -> "Staff"
+                Contributor -> "Contributor"
+                Sponsor -> "Sponsor"
+                OthersTitle -> bindings.defaultBinding(item, bindings)
+                CodeOfConduct -> "Code Of Conduct"
+                License -> "License"
+                PrivacyPolicy -> "Privacy Policy"
                 PlaceLink -> "View Map"
                 AppVersion -> "App Version"
             }

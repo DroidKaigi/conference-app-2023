@@ -22,7 +22,7 @@ fun KaigiBottomBar(
         modifier = modifier,
     ) {
         mainScreenTabs.forEach { tab ->
-            if (tab == MainScreenTab.Stamps && isEnableStamps.not()) return@forEach
+            if (tab == MainScreenTab.Badges && isEnableStamps.not()) return@forEach
             val selected = currentTab == tab
             NavigationBarItem(
                 modifier = Modifier.testTag(tab.testTag),

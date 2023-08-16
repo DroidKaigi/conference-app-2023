@@ -24,13 +24,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.momomomo111.stamps.navigateStampsScreen
-import com.momomomo111.stamps.nestedStampsScreen
-import com.momomomo111.stamps.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
@@ -44,9 +40,9 @@ import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Stamps
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
 import io.github.droidkaigi.confsched2023.main.mainScreenRoute
@@ -69,6 +65,9 @@ import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
+import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
+import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
+import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -95,7 +94,7 @@ private fun KaigiNavHost(
     navController: NavHostController = rememberNavController(),
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
-    NavHost(navController = navController, startDestination = mainScreenRoute) {
+    NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
         mainScreen(navController, externalNavController)
         sessionScreens(
             onNavigationIconClick = {
@@ -113,6 +112,9 @@ private fun KaigiNavHost(
             },
         )
         sponsorsScreen(
+            onNavigationIconClick = {
+                navController.popBackStack()
+            },
             onSponsorClick = { sponsor ->
                 TODO()
             },
@@ -155,6 +157,7 @@ private fun NavGraphBuilder.mainScreen(
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
                     }
                 },
+                onLinkClick = externalNavController::navigate,
             )
             nestedFloorMapScreen(
                 onSideEventClick = {
@@ -188,7 +191,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            stampsScreenRoute -> Stamps
+            stampsScreenRoute -> Badges
             else -> null
         }
     }
@@ -202,7 +205,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
             Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
-            Stamps -> mainNestedNavController.navigateStampsScreen()
+            Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }
 }

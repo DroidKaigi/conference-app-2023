@@ -29,7 +29,8 @@ class SponsorsScreenRobot @Inject constructor(
         composeTestRule.setContent {
             KaigiTheme {
                 SponsorsScreen(
-                    onSponsorClick = { },
+                    onNavigationIconClick = {},
+                    onSponsorClick = {},
                 )
             }
         }
