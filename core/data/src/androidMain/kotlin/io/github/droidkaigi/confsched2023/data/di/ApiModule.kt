@@ -10,7 +10,8 @@ import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
-import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
+import io.github.droidkaigi.confsched2023.data.remoteconfig.FakeRemoteConfigApi
+import io.github.droidkaigi.confsched2023.data.remoteconfig.FakeRemoteConfigApi.Status.Default
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.ktor.client.HttpClient
@@ -159,6 +160,8 @@ class RemoteConfigModule {
     @Provides
     @Singleton
     fun provideFirebaseRemoteConfig(): RemoteConfigApi {
-        return DefaultRemoteConfigApi()
+        return FakeRemoteConfigApi().apply {
+            setUp(Default)
+        }
     }
 }
