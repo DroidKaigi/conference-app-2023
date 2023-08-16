@@ -1,4 +1,4 @@
-package com.momomomo111.stamps
+package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
