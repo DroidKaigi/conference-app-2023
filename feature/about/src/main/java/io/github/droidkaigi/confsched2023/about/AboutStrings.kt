@@ -22,9 +22,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     object CodeOfConduct : AboutStrings()
     object License : AboutStrings()
     object PrivacyPolicy : AboutStrings()
-
-    object PlaceLink : AboutStrings()
-    object AppVersion: AboutStrings()
+    object AppVersion : AboutStrings()
 
     private object Bindings : StringsBindings<AboutStrings>(
         Lang.Japanese to { item, _ ->
@@ -44,7 +42,6 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 CodeOfConduct -> "行動規範"
                 License -> "ライセンス"
                 PrivacyPolicy -> "プライバシーポリシー"
-                PlaceLink -> "地図を見る"
                 AppVersion -> "アプリバージョン"
             }
         },
@@ -65,7 +62,6 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 CodeOfConduct -> "Code Of Conduct"
                 License -> "License"
                 PrivacyPolicy -> "Privacy Policy"
-                PlaceLink -> "View Map"
                 AppVersion -> "App Version"
             }
         },
