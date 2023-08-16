@@ -33,7 +33,6 @@ import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.type
-import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import kotlinx.collections.immutable.PersistentMap
 import java.util.Locale
@@ -99,9 +98,6 @@ fun TimetableList(
                                     }
                                 },
                             )
-                            if (timetableItem.language.isInterpretationTarget) {
-                                infoChip.add(SessionsStrings.InterpretationTarget.asString())
-                            }
 
                             SuggestionChip(
                                 colors = SuggestionChipDefaults.suggestionChipColors(
