@@ -85,7 +85,7 @@ fun SearchScreen(
         onFilterCategoryChipClicked = viewModel::onFilterCategoryChipClicked,
         onCategoriesSelected = viewModel::onCategoriesSelected,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = viewModel::updateBookmark,
+        onBookmarkClick = viewModel::onClickTimetableItemBookmark,
     )
 }
 
