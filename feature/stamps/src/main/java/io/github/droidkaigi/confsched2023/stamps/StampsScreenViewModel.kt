@@ -20,7 +20,7 @@ class StampsScreenViewModel @Inject constructor(
                 isStampB = false,
                 isStampC = false,
                 isStampD = false,
-                isStampE = false
+                isStampE = false,
             ),
         ),
     )

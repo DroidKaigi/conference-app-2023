@@ -82,11 +82,11 @@ private fun StampsScreen(
                     PaddingValues(
                         top = padding.calculateTopPadding() + 20.dp,
                         start = padding.calculateStartPadding(layoutDirection) + 16.dp,
-                        end = padding.calculateEndPadding(layoutDirection) + 16.dp
-                    )
+                        end = padding.calculateEndPadding(layoutDirection) + 16.dp,
+                    ),
                 ),
                 onStampsClick = onStampsClick,
-                uiState = uiState.contentUiState
+                uiState = uiState.contentUiState,
             )
         },
     )

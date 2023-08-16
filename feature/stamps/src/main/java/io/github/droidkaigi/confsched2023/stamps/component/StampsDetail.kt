@@ -19,7 +19,7 @@ fun StampsDetail(
         Text(
             text = StampsStrings.Title.asString(),
             style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -27,7 +27,7 @@ fun StampsDetail(
         Text(
             text = StampsStrings.Description.asString(),
             style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -35,7 +35,7 @@ fun StampsDetail(
         Text(
             text = StampsStrings.DescriptionNotes.asString(),
             style = MaterialTheme.typography.bodySmall,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Spacer(modifier = Modifier.height(24.dp))

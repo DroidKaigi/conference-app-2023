@@ -30,26 +30,26 @@ fun Stamps(
         Row(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(
-                    id = if (isStampA) R.drawable.img_stamp_a_on else R.drawable.img_stamp_a_off
+                    id = if (isStampA) R.drawable.img_stamp_a_on else R.drawable.img_stamp_a_off,
                 ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onStampsClick() }
-                    .padding(horizontal = 21.dp)
+                    .padding(horizontal = 21.dp),
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Image(
                 painter = painterResource(
-                    id = if (isStampB) R.drawable.img_stamp_b_on else R.drawable.img_stamp_b_off
+                    id = if (isStampB) R.drawable.img_stamp_b_on else R.drawable.img_stamp_b_off,
                 ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onStampsClick() }
-                    .padding(horizontal = 21.dp)
+                    .padding(horizontal = 21.dp),
             )
         }
 
@@ -58,26 +58,26 @@ fun Stamps(
         Row(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(
-                    id = if (isStampC) R.drawable.img_stamp_c_on else R.drawable.img_stamp_c_off
+                    id = if (isStampC) R.drawable.img_stamp_c_on else R.drawable.img_stamp_c_off,
                 ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onStampsClick() }
-                    .padding(horizontal = 21.dp)
+                    .padding(horizontal = 21.dp),
             )
 
             Spacer(modifier = Modifier.width(8.dp))
 
             Image(
                 painter = painterResource(
-                    id = if (isStampD) R.drawable.img_stamp_d_on else R.drawable.img_stamp_d_off
+                    id = if (isStampD) R.drawable.img_stamp_d_on else R.drawable.img_stamp_d_off,
                 ),
                 contentDescription = null,
                 modifier = Modifier
                     .weight(1f)
                     .clickable { onStampsClick() }
-                    .padding(horizontal = 21.dp)
+                    .padding(horizontal = 21.dp),
 
             )
         }
@@ -86,13 +86,13 @@ fun Stamps(
 
         Image(
             painter = painterResource(
-                id = if (isStampE) R.drawable.img_stamp_e_on else R.drawable.img_stamp_e_off
+                id = if (isStampE) R.drawable.img_stamp_e_on else R.drawable.img_stamp_e_off,
             ),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
-                .clickable { onStampsClick() }
+                .clickable { onStampsClick() },
         )
     }
 }
