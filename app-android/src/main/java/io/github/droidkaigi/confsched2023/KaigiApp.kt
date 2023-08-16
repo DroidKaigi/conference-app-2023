@@ -125,6 +125,9 @@ private fun KaigiNavHost(
         staffScreen(
             onBackClick = {
                 navController.popBackStack()
+            },
+            onStaffClick ={
+                externalNavController.navigate(it)
             }
         )
 

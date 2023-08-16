@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.staff
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,10 +33,15 @@ private val staffIconShape = RoundedCornerShape(20.dp)
 @Composable
 fun StaffListItem(
     staff: Staff,
+    onStaffClick: (url: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+        modifier = modifier
+            .clickable(enabled = staff.profileUrl.isNotEmpty()) {
+                onStaffClick(staff.profileUrl)
+            }
+            .padding(horizontal = 16.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -93,7 +99,7 @@ class PreviewStaffProvider : PreviewParameterProvider<Staff> {
 fun StaffListItemPreview(
     @PreviewParameter(PreviewStaffProvider::class) staff: Staff
 ) {
-    StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth())
+    StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth(), onStaffClick = {})
 }
 
 // endregion

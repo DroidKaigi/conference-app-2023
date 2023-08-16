@@ -29,9 +29,9 @@ import kotlinx.collections.immutable.ImmutableList
 
 const val staffScreenRoute = "staff"
 
-fun NavGraphBuilder.staffScreen(onBackClick: () -> Unit) {
+fun NavGraphBuilder.staffScreen(onBackClick: () -> Unit, onStaffClick: (url: String) -> Unit) {
     composable(staffScreenRoute) {
-        StaffScreen(onBackClick = onBackClick)
+        StaffScreen(onBackClick = onBackClick, onStaffClick = onStaffClick)
     }
 }
 
@@ -42,12 +42,14 @@ fun NavController.navigateStaffScreen() {
 @Composable
 fun StaffScreen(
     onBackClick: () -> Unit,
+    onStaffClick: (url: String) -> Unit,
     viewModel: StaffScreenViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     StaffScreen(
         uiState = uiState,
+        onStaffClick = onStaffClick,
         onBackClick = onBackClick
     )
 }
@@ -60,6 +62,7 @@ data class StaffScreenUiState(
 @Composable
 private fun StaffScreen(
     uiState: StaffScreenUiState,
+    onStaffClick: (url: String) -> Unit,
     onBackClick: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -81,6 +84,7 @@ private fun StaffScreen(
     ) { padding ->
         StaffList(
             staffs = uiState.staffs,
+            onStaffClick = onStaffClick,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
@@ -92,6 +96,7 @@ private fun StaffScreen(
 @Composable
 private fun StaffList(
     staffs: ImmutableList<Staff>,
+    onStaffClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -100,6 +105,7 @@ private fun StaffList(
         items(staffs) { staff ->
             StaffListItem(
                 staff = staff,
+                onStaffClick = onStaffClick,
                 modifier = Modifier.fillMaxWidth()
             )
         }
