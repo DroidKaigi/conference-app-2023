@@ -189,7 +189,7 @@ private fun calculateTitleFontSize(
     return when {
         rows <= 1 -> textStyle.fontSize
         displayTitleHeight > actualTitleHeight -> textStyle.fontSize
-        else -> 10.sp // FIXME: Change to variable size.
+        else -> 8.sp
     }
 }
 
