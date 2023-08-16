@@ -34,9 +34,10 @@ import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMap
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
-import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
+import io.github.droidkaigi.confsched2023.model.FloorLevel.*
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -119,7 +120,10 @@ private fun FloorMapScreen(
                     Modifier
                         .fillMaxSize(),
                 ) {
-                    FloorMap(floorLevel = uiState.floorLevel)
+                    FloorMap(uiState = when(uiState.floorLevel){
+                        Basement -> FloorMapUiState.Basement
+                        Ground -> FloorMapUiState.Ground
+                    })
                     FloorMapSideEventList(
                         uiState = uiState.floorMapSideEventListUiState,
                         onSideEventClick = onSideEventClick,

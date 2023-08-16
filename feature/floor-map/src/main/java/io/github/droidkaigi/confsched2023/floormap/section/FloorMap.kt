@@ -15,46 +15,36 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.feature.floormap.R
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
-import io.github.droidkaigi.confsched2023.model.FloorLevel
-import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
-import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
 
-@Composable
-fun FloorMap(
-    floorLevel: FloorLevel,
-    modifier: Modifier = Modifier,
-) {
-    val headline = when (floorLevel) {
-        Basement -> FloorMapStrings.Basement.asString()
-        Ground -> FloorMapStrings.Ground.asString()
-    }
-    val mapResId = when (floorLevel) {
-        Basement -> R.drawable.img_floormap_basement
-        Ground -> R.drawable.img_floormap_ground
+sealed interface FloorMapUiState {
+    val headline: String
+    @get:DrawableRes val floorMapResId: Int
+
+    data object Basement : FloorMapUiState {
+        override val headline = FloorMapStrings.Basement.asString()
+        override val floorMapResId = R.drawable.img_floormap_basement
     }
 
-    FloorMap(
-        headline = headline,
-        floorMapResId = mapResId,
-        modifier = modifier,
-    )
+    data object Ground : FloorMapUiState {
+        override val headline = FloorMapStrings.Ground.asString()
+        override val floorMapResId = R.drawable.img_floormap_ground
+    }
 }
 
 @Composable
 fun FloorMap(
-    headline: String,
-    @DrawableRes floorMapResId: Int,
+    uiState: FloorMapUiState,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier) {
         Text(
-            text = headline,
+            text = uiState.headline,
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary,
         )
         Spacer(modifier = Modifier.height(8.dp))
         Image(
-            painter = painterResource(id = floorMapResId),
+            painter = painterResource(id = uiState.floorMapResId),
             contentDescription = "",
             contentScale = ContentScale.FillWidth,
             modifier = Modifier.fillMaxWidth(),
