@@ -1,8 +1,11 @@
 package io.github.droidkaigi.confsched2023.sponsors
 
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -135,6 +138,9 @@ private fun SponsorsScreen(
                     uiState = requireNotNull(uiState.sponsorListUiStates[SUPPORTER]),
                     onSponsorClick = onSponsorClick,
                 )
+                item {
+                    Spacer(modifier = Modifier.windowInsetsBottomHeight(WindowInsets.navigationBars))
+                }
             }
         },
     )
