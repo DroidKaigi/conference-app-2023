@@ -30,6 +30,7 @@ class SponsorsScreenRobot @Inject constructor(
             KaigiTheme {
                 SponsorsScreen(
                     onSponsorClick = { },
+                    onNavigationIconClick = {}
                 )
             }
         }
