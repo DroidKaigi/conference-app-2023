@@ -20,6 +20,7 @@ import io.github.droidkaigi.confsched2023.model.Plan.PLATINUM
 import io.github.droidkaigi.confsched2023.model.Plan.SUPPORTER
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
+import io.github.droidkaigi.confsched2023.sponsors.SponsorsStrings
 import io.github.droidkaigi.confsched2023.sponsors.component.SponsorHeader
 import io.github.droidkaigi.confsched2023.sponsors.component.SponsorItem
 import kotlinx.collections.immutable.ImmutableList
@@ -30,11 +31,15 @@ private const val SINGLE_ITEM_SPAN_COUNT = 6
 private const val DOUBLE_ITEM_SPAN_COUNT = 6 / 2
 private const val TRIPLE_ITEM_SPAN_COUNT = 6 / 3
 
+data class SponsorListUiState(
+    val platinumSponsors: ImmutableList<Sponsor>,
+    val goldSponsors: ImmutableList<Sponsor>,
+    val supporters: ImmutableList<Sponsor>,
+)
+
 @Composable
 fun SponsorList(
-    platinumSponsors: ImmutableList<Sponsor>,
-    goldSponsors: ImmutableList<Sponsor>,
-    supporters: ImmutableList<Sponsor>,
+    uiState: SponsorListUiState,
     modifier: Modifier = Modifier,
     onSponsorClick: (Sponsor) -> Unit = {},
 ) {
@@ -47,10 +52,10 @@ fun SponsorList(
             key = "platinum_sponsor_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
-            SponsorHeader(title = "PLATINUM SPONSORS")
+            SponsorHeader(title = SponsorsStrings.PlatinumSponsors.asString())
         }
         items(
-            items = platinumSponsors,
+            items = uiState.platinumSponsors,
             key = { sponsor -> sponsor.name },
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
@@ -69,10 +74,10 @@ fun SponsorList(
             key = "gold_sponsor_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
-            SponsorHeader(title = "GOLD SPONSORS")
+            SponsorHeader(title = SponsorsStrings.GoldSponsors.asString())
         }
         items(
-            items = goldSponsors,
+            items = uiState.goldSponsors,
             key = { sponsor -> sponsor.name },
             span = { GridItemSpan(DOUBLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
@@ -86,10 +91,10 @@ fun SponsorList(
             key = "supporter_header",
             span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
-            SponsorHeader(title = "SUPPORTERS")
+            SponsorHeader(title = SponsorsStrings.Supporters.asString())
         }
         items(
-            items = supporters,
+            items = uiState.supporters,
             key = { sponsor -> sponsor.name },
             span = { GridItemSpan(TRIPLE_ITEM_SPAN_COUNT) },
         ) { sponsor ->
@@ -113,12 +118,15 @@ fun SponsorList(
 @Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SponsorListPreview() {
+    val uiState = SponsorListUiState(
+        platinumSponsors = Sponsor.fakes().filter { it.plan == PLATINUM }.toImmutableList(),
+        goldSponsors = Sponsor.fakes().filter { it.plan == GOLD }.toImmutableList(),
+        supporters = Sponsor.fakes().filter { it.plan == SUPPORTER }.toImmutableList(),
+    )
     KaigiTheme {
         Surface {
             SponsorList(
-                platinumSponsors = Sponsor.fakes().filter { it.plan == PLATINUM }.toImmutableList(),
-                goldSponsors = Sponsor.fakes().filter { it.plan == GOLD }.toImmutableList(),
-                supporters = Sponsor.fakes().filter { it.plan == SUPPORTER }.toImmutableList(),
+                uiState = uiState
             )
         }
     }
