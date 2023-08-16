@@ -104,7 +104,7 @@ sealed class HallColorScheme {
 }
 
 @Composable
-fun HallColors() = if (isSystemInDarkTheme()) {
+fun hallColors() = if (isSystemInDarkTheme()) {
     HallColorScheme.Dark()
 } else {
     HallColorScheme.Light()

@@ -29,7 +29,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.designsystem.theme.HallColors
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
@@ -53,7 +53,7 @@ fun TimetableGridItem(
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val hallColor = HallColors()
+    val hallColor = hallColors()
     val backgroundColor = when (timetableItem.room.type) {
         Room1 -> hallColor.hallA
         Room2 -> hallColor.hallB

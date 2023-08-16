@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.droidkaigi.confsched2023.designsystem.theme.HallColors
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
@@ -74,7 +74,7 @@ fun BookmarkList(
                         timetableItem = timetableItem,
                         isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                         chipContent = {
-                            val hallColor = HallColors()
+                            val hallColor = hallColors()
                             val roomChipBackgroundColor = when (timetableItem.room.type) {
                                 Room1 -> hallColor.hallA
                                 Room2 -> hallColor.hallB
