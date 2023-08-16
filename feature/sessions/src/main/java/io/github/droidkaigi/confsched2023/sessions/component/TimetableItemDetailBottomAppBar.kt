@@ -21,7 +21,7 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 const val TimetableItemDetailBookmarkIconTestTag = "TimetableItemDetailBookmarkIcon"
 
 @Composable
-fun TimetableItemDetailFooter(
+fun TimetableItemDetailBottomAppBar(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
     onBookmarkClick: (TimetableItem) -> Unit,
@@ -33,13 +33,13 @@ fun TimetableItemDetailFooter(
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Filled.Share,
-                    contentDescription = SessionsStrings.Share.toString(),
+                    contentDescription = SessionsStrings.Share.asString(),
                 )
             }
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     painter = painterResource(id = R.drawable.calendar_add_on),
-                    contentDescription = SessionsStrings.AddToCalendar.toString(),
+                    contentDescription = SessionsStrings.AddToCalendar.asString(),
                 )
             }
         },
@@ -53,7 +53,7 @@ fun TimetableItemDetailFooter(
                 if (isBookmarked) {
                     Icon(
                         imageVector = Icons.Filled.Bookmark,
-                        contentDescription = SessionsStrings.RemoveFromFavorites.toString(),
+                        contentDescription = SessionsStrings.RemoveFromFavorites.asString(),
                     )
                 } else {
                     Icon(

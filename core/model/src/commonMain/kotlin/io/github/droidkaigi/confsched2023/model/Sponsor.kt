@@ -26,26 +26,30 @@ public enum class Plan {
 
     public val isSupporter: Boolean
         get() = this == SUPPORTER
+    public val isPlatinum: Boolean
+        get() = this == PLATINUM
+    public val isGold: Boolean
+        get() = this == GOLD
 }
 
 public fun Sponsor.Companion.fakes(): PersistentList<Sponsor> = (
     List(3) {
         Sponsor(
-            name = "DroidKaigi",
+            name = "DroidKaigi PLATINUM Section $it",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.PLATINUM,
             link = "https://developer.android.com/",
         )
     } + List(5) {
         Sponsor(
-            name = "DroidKaigi",
+            name = "DroidKaigi GOLD Section $it",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.GOLD,
             link = "https://developer.android.com/",
         )
     } + List(12) {
         Sponsor(
-            name = "DroidKaigi",
+            name = "DroidKaigi Supporter Section $it",
             logo = "https://placehold.jp/150x150.png",
             plan = Plan.SUPPORTER,
             link = "https://developer.android.com/",

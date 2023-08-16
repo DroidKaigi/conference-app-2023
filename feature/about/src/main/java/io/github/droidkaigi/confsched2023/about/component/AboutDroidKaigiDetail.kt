@@ -21,6 +21,7 @@ import io.github.droidkaigi.confsched2023.feature.about.R
 @Composable
 fun AboutDroidKaigiDetail(
     modifier: Modifier = Modifier,
+    onLinkClick: (url: String) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -64,8 +65,8 @@ fun AboutDroidKaigiDetail(
                     start = 16.dp,
                     top = 12.dp,
                     end = 16.dp,
-                    bottom = 16.dp,
                 ),
+            onLinkClick = onLinkClick,
         )
     }
 }
@@ -76,7 +77,9 @@ fun AboutDroidKaigiDetail(
 fun AboutDroidKaigiDetailPreview() {
     KaigiTheme {
         Surface {
-            AboutDroidKaigiDetail()
+            AboutDroidKaigiDetail(
+                onLinkClick = {},
+            )
         }
     }
 }
@@ -87,7 +90,9 @@ fun AboutDroidKaigiDetailPreview() {
 fun AboutDroidKaigiDetailDarkModePreview() {
     KaigiTheme {
         Surface {
-            AboutDroidKaigiDetail()
+            AboutDroidKaigiDetail(
+                onLinkClick = {},
+            )
         }
     }
 }
