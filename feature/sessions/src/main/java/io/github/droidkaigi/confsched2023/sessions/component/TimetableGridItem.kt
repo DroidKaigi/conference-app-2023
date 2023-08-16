@@ -185,7 +185,7 @@ private fun calculateTitleFontSize(
     val actualTitleHeight = rows * fontSizePx
 
     val oneLine = 1
-    val minFontSize = 8.sp
+    val minFontSize = 9.sp
     return when {
         displayTitleHeight <= 0 -> minFontSize
         rows <= oneLine || displayTitleHeight > actualTitleHeight -> textStyle.fontSize
