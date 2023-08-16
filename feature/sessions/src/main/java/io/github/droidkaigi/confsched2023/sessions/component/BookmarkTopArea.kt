@@ -20,7 +20,9 @@ import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.text.TextStyle
@@ -98,6 +100,8 @@ fun BookmarkTopArea(
         fraction,
     )
 
+    var enabledBackPress by remember { mutableStateOf(true) }
+
     Box(
         modifier = modifier
             .height(topBarHeight)
@@ -116,9 +120,10 @@ fun BookmarkTopArea(
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {
+                    .clickable(enabled = enabledBackPress) {
+                        enabledBackPress = false
                         onBackPressClick()
-                    },
+                    }
             )
             Text(
                 text = SessionsStrings.Bookmark.asString(),
