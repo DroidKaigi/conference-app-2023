@@ -1,4 +1,4 @@
-package com.momomomo111.stamps
+package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

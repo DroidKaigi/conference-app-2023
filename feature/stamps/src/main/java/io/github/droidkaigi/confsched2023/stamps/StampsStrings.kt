@@ -1,4 +1,4 @@
-package com.momomomo111.stamps
+package io.github.droidkaigi.confsched2023.stamps
 
 import io.github.droidkaigi.confsched2023.designsystem.strings.Lang
 import io.github.droidkaigi.confsched2023.designsystem.strings.Strings

@@ -24,13 +24,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.momomomo111.stamps.navigateStampsScreen
-import com.momomomo111.stamps.nestedStampsScreen
-import com.momomomo111.stamps.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
@@ -69,6 +65,9 @@ import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
+import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
+import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
+import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
 
 @Composable
 fun KaigiApp(modifier: Modifier = Modifier) {
@@ -95,7 +94,7 @@ private fun KaigiNavHost(
     navController: NavHostController = rememberNavController(),
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
-    NavHost(navController = navController, startDestination = mainScreenRoute) {
+    NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
         mainScreen(navController, externalNavController)
         sessionScreens(
             onNavigationIconClick = {

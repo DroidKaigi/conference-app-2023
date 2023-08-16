@@ -112,7 +112,7 @@ fun BookmarkList(
                             )
                         },
                         onClick = onTimetableItemClick,
-                        onBoomarkClick = onBookmarkIconClick,
+                        onBookmarkClick = onBookmarkIconClick,
                     )
                 }
             }

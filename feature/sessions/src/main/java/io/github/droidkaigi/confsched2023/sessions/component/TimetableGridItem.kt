@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
@@ -34,7 +36,6 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
-import io.github.droidkaigi.confsched2023.feature.sessions.R
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
@@ -87,7 +88,7 @@ fun TimetableGridItem(
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.height(16.dp)) {
                     Icon(
-                        painter = painterResource(id = R.drawable.icon_schedule),
+                        imageVector = Icons.Default.Schedule,
                         tint = Color.White,
                         contentDescription = ScheduleIcon.asString(),
                     )
