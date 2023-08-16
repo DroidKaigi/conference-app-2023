@@ -38,7 +38,9 @@ private fun StaffsResponse.toStaffList(): PersistentList<Staff> {
 
 private fun StaffResponse.toStaff(): Staff {
     return Staff(
+        id = id,
         username = username,
         iconUrl = iconUrl,
+        profileUrl = profileUrl,
     )
 }

@@ -124,7 +124,11 @@ private fun KaigiNavHost(
                 TODO()
             },
         )
-        staffScreen()
+        staffScreen(
+            onBackClick = {
+                navController.popBackStack()
+            }
+        )
 
     }
 }
