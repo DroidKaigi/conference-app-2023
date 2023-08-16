@@ -144,12 +144,12 @@ private fun versionName(context: Context) = runCatching {
     val info = if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
         context.packageManager.getPackageInfo(
             context.packageName,
-            PackageInfoFlags.of(0)
+            PackageInfoFlags.of(0),
         )
     } else {
         context.packageManager.getPackageInfo(
             context.packageName,
-            0
+            0,
         )
     }
     info.versionName

@@ -28,7 +28,7 @@ fun AboutFooterLinksIcon(
         onClick = onClick,
         modifier = modifier
             .testTag(testTag)
-            .size(48.dp)
+            .size(48.dp),
     ) {
         Image(
             painter = painterResource(id = iconRes),

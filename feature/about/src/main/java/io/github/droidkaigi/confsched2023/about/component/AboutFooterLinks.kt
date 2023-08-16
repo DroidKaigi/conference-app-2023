@@ -37,7 +37,7 @@ fun AboutFooterLinks(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 24.dp, bottom = 16.dp)
+            .padding(top = 24.dp, bottom = 16.dp),
     ) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             AboutFooterLinksIcon(
