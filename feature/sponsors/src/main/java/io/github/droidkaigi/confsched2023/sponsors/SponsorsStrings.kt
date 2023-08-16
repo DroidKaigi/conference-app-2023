@@ -13,7 +13,7 @@ sealed class SponsorsStrings : Strings<SponsorsStrings>(Bindings) {
 
     private object Bindings : StringsBindings<SponsorsStrings>(
         Lang.Japanese to { item, _ ->
-            when(item){
+            when (item) {
                 Sponsor -> "スポンサー"
                 PlatinumSponsors -> "プラチナスポンサー"
                 GoldSponsors -> "ゴールドスポンサー"
@@ -21,7 +21,7 @@ sealed class SponsorsStrings : Strings<SponsorsStrings>(Bindings) {
             }
         },
         Lang.English to { item, _ ->
-            when(item){
+            when (item) {
                 Sponsor -> "Sponsor"
                 PlatinumSponsors -> "PLATINUM SPONSORS"
                 GoldSponsors -> "GOLD SPONSORS"

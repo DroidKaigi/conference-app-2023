@@ -27,7 +27,6 @@ import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.sponsors.section.SponsorList
 import io.github.droidkaigi.confsched2023.sponsors.section.SponsorListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.ImmutableList
 
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(

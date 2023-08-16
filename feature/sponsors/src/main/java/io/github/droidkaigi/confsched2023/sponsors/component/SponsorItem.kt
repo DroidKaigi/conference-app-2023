@@ -39,7 +39,7 @@ fun SponsorItem(
             .background(color = Color.White)
             .clip(RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp))
             .clickable { onSponsorClick(sponsor) }
-            .fillMaxSize()
+            .fillMaxSize(),
     )
 }
 

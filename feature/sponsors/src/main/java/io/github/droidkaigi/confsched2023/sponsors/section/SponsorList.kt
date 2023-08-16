@@ -126,7 +126,7 @@ fun SponsorListPreview() {
     KaigiTheme {
         Surface {
             SponsorList(
-                uiState = uiState
+                uiState = uiState,
             )
         }
     }

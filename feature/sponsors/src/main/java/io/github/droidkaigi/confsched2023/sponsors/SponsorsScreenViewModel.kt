@@ -34,7 +34,7 @@ class SponsorsScreenViewModel @Inject constructor(
                 platinumSponsors = sponsors.filter { it.plan.isPlatinum }.toImmutableList(),
                 goldSponsors = sponsors.filter { it.plan.isGold }.toImmutableList(),
                 supporters = sponsors.filter { it.plan.isSupporter }.toImmutableList(),
-            )
+            ),
         )
     }
 }
