@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sponsors.section
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -8,10 +9,15 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.Plan.GOLD
+import io.github.droidkaigi.confsched2023.model.Plan.PLATINUM
+import io.github.droidkaigi.confsched2023.model.Plan.SUPPORTER
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sponsors.component.SponsorHeader
@@ -101,12 +107,19 @@ fun SponsorList(
     }
 }
 
-@Preview
+@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SponsorListPreview() {
-    SponsorList(
-        platinumSponsors = Sponsor.fakes().take(5).toImmutableList(),
-        goldSponsors = Sponsor.fakes().take(5).toImmutableList(),
-        supporters = Sponsor.fakes().take(5).toImmutableList(),
-    )
+    KaigiTheme {
+        Surface {
+            SponsorList(
+                platinumSponsors = Sponsor.fakes().filter { it.plan == PLATINUM }.toImmutableList(),
+                goldSponsors = Sponsor.fakes().filter { it.plan == GOLD }.toImmutableList(),
+                supporters = Sponsor.fakes().filter { it.plan == SUPPORTER }.toImmutableList(),
+            )
+        }
+    }
 }
