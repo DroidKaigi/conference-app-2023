@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.SearchList
@@ -28,7 +29,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppBar
 import io.github.droidkaigi.confsched2023.sessions.section.SearchList
-import kotlinx.collections.immutable.toPersistentSet
+import kotlinx.collections.immutable.PersistentSet
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
@@ -46,13 +47,18 @@ sealed interface SearchScreenUiState {
         override val searchQuery: String,
         override val searchFilterUiState: SearchFilterUiState,
         val sessions: Timetable,
+        val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     ) : SearchScreenUiState
 }
 
-fun NavGraphBuilder.searchScreen(onNavigationIconClick: () -> Unit) {
+fun NavGraphBuilder.searchScreen(
+    onNavigationIconClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+) {
     composable(searchScreenRoute) {
         SearchScreen(
             onBackClick = onNavigationIconClick,
+            onTimetableItemClick = onTimetableItemClick,
         )
     }
 }
@@ -64,6 +70,7 @@ fun NavController.navigateSearchScreen() {
 @Composable
 fun SearchScreen(
     onBackClick: () -> Unit,
+    onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchScreenViewModel = hiltViewModel(),
 ) {
@@ -77,6 +84,8 @@ fun SearchScreen(
         onDaySelected = viewModel::onDaySelected,
         onFilterCategoryChipClicked = viewModel::onFilterCategoryChipClicked,
         onCategoriesSelected = viewModel::onCategoriesSelected,
+        onTimetableItemClick = onTimetableItemClick,
+        onBookmarkClick = viewModel::updateBookmark,
     )
 }
 
@@ -89,6 +98,8 @@ private fun SearchScreen(
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
     onFilterCategoryChipClicked: () -> Unit = {},
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
+    onTimetableItemClick: (TimetableItem) -> Unit = {},
+    onBookmarkClick: (TimetableItem) -> Unit = {},
 ) {
     val scrollState = rememberLazyListState()
     Scaffold(
@@ -121,10 +132,10 @@ private fun SearchScreen(
                         bottom = innerPadding.calculateBottomPadding()
                     ),
                     scrollState = scrollState,
-                    bookmarkedTimetableItemIds = emptySet<TimetableItemId>().toPersistentSet(),
+                    bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
                     timetableItems = uiState.sessions.timetableItems,
-                    onTimetableItemClick = {},
-                    onBookmarkIconClick = {},
+                    onTimetableItemClick = onTimetableItemClick,
+                    onBookmarkIconClick = onBookmarkClick,
                 )
             }
         }

@@ -10,6 +10,7 @@ import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -26,7 +27,7 @@ const val SEARCH_QUERY = "searchQuery"
 @HiltViewModel
 class SearchScreenViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    sessionsRepository: SessionsRepository,
+    private val sessionsRepository: SessionsRepository,
     userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel() {
     private val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
@@ -69,6 +70,7 @@ class SearchScreenViewModel @Inject constructor(
                 searchQuery = searchQuery,
                 searchFilterUiState = searchFilterUiState,
                 sessions = searchedSessions,
+                bookmarkedTimetableItemIds = sessions.bookmarks
             )
         }
     }
@@ -115,5 +117,11 @@ class SearchScreenViewModel @Inject constructor(
                 }
             },
         )
+    }
+
+    fun updateBookmark(timetableItem: TimetableItem) {
+        viewModelScope.launch {
+            sessionsRepository.toggleBookmark(timetableItem.id)
+        }
     }
 }
