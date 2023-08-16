@@ -34,15 +34,14 @@ data class ContributorsUiState(val contributors: PersistentList<Contributor>)
 @Composable
 fun ContributorsScreen(
     viewModel: ContributorsViewModel,
-    onNavigationIconClick: () -> Unit
+    onNavigationIconClick: () -> Unit,
+    onContributorItemClick: (url: String) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     ContributorsScreen(
         uiState = uiState,
         onBackClick = onNavigationIconClick,
-        onContributorItemClick = {
-            // TODO: Implement navigation
-        }
+        onContributorItemClick = onContributorItemClick
     )
 }
 
