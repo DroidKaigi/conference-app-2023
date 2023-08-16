@@ -25,8 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
 import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
@@ -125,7 +126,8 @@ fun TimetableGridItem(
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun PreviewTimetableGridItem() {
     KaigiTheme {

@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.about.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.about.R
 
@@ -69,21 +69,10 @@ fun AboutDroidKaigiDetail(
     }
 }
 
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun AboutDroidKaigiDetailPreview() {
-    KaigiTheme {
-        Surface {
-            AboutDroidKaigiDetail()
-        }
-    }
-}
-
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun AboutDroidKaigiDetailDarkModePreview() {
     KaigiTheme {
         Surface {
             AboutDroidKaigiDetail()
