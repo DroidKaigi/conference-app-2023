@@ -49,7 +49,7 @@ fun FloorMapSideEventItem(
     Column(
         modifier
             .clickable { onSideEventClick(sideEvent) }
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -78,7 +78,7 @@ fun FloorMapSideEventItem(
             Icon(
                 imageVector = Icons.Filled.Schedule,
                 contentDescription = FavoriteIcon.asString(),
-                modifier = Modifier.size(16.dp)
+                modifier = Modifier.size(16.dp),
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -92,7 +92,7 @@ fun FloorMapSideEventItem(
                 Icon(
                     imageVector = Icons.Filled.Link,
                     contentDescription = FavoriteIcon.asString(),
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(16.dp),
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -100,7 +100,7 @@ fun FloorMapSideEventItem(
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.clickable {
                         // todo open link
-                    }
+                    },
                 )
             }
         }
@@ -128,7 +128,7 @@ private fun createAnnotatedEventDetailString(): AnnotatedString {
                 color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline,
                 fontWeight = FontWeight.Bold,
-            )
+            ),
         ) {
             append(FloorMapStrings.EventDetail.asString())
         }
