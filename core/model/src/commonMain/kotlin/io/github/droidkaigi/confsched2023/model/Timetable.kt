@@ -76,9 +76,6 @@ public data class Timetable(
                 bookmarks.contains(timetableItem.id)
             }
         }
-        if (filters.filterSession) {
-            timetableItems = timetableItems.filterIsInstance<Session>()
-        }
         if (filters.searchWord.isNotBlank()) {
             timetableItems = timetableItems.filter { timetableItem ->
                 timetableItem.title.currentLangTitle.contains(

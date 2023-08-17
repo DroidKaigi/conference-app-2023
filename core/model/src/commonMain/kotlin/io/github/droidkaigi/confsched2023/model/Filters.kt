@@ -6,6 +6,5 @@ public data class Filters(
     val sessionTypes: List<TimetableSessionType> = emptyList(),
     val languages: List<Lang> = emptyList(),
     val filterFavorite: Boolean = false,
-    val filterSession: Boolean = false,
     val searchWord: String = "",
 )
