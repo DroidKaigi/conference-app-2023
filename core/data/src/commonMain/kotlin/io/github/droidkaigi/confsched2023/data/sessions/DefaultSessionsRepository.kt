@@ -25,7 +25,9 @@ class DefaultSessionsRepository(
         ) { timetable, favorites ->
             timetable.copy(bookmarks = favorites)
         }.collect {
-            emit(it)
+            if (!it.isEmpty()) {
+                emit(it)
+            }
             if (first) {
                 first = false
                 Logger.d("DefaultSessionsRepository onStart getTimetableStream()")
