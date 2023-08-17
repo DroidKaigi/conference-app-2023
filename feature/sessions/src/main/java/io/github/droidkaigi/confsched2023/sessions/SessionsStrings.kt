@@ -32,6 +32,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object WatchVideo : SessionsStrings()
     data object Speaker : SessionsStrings()
     data object TargetAudience : SessionsStrings()
+    data object ReadMore : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -62,6 +63,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"
+                ReadMore -> "続きを読む"
             }
         },
         Lang.English to { item, bindings ->
@@ -93,6 +95,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 WatchVideo -> "Watch Video"
                 Speaker -> "Speaker"
                 TargetAudience -> "Target Audience"
+                ReadMore -> "Read More"
             }
         },
         default = Lang.Japanese,

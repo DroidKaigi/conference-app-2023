@@ -71,3 +71,7 @@ val room_hall_b = Color(0xFF005085)
 val room_hall_c = Color(0xFF16525A)
 val room_hall_d = Color(0xFF5E5504)
 val room_hall_e = Color(0xFF78085F)
+
+val md_theme_light_floor_button_background = Color(0xFFFFFFFF)
+
+val md_theme_dark_floor_button_background = Color(0xFF000000)
