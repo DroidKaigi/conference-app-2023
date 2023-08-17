@@ -55,7 +55,7 @@ fun TimetableList(
     ) {
         uiState.timetableItemMap.forEach { (_, timetableItems) ->
             itemsIndexed(timetableItems) { index, timetableItem ->
-                Row(modifier = Modifier.padding(top = 10.dp)) {
+                Row(modifier = Modifier.padding(start = 16.dp, top = 10.dp)) {
                     Column(
                         modifier = Modifier.width(58.dp),
                         verticalArrangement = Arrangement.Center,

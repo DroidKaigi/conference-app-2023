@@ -8,16 +8,24 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -76,6 +84,7 @@ fun AboutScreen(
 
 class AboutScreenUiState()
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AboutScreen(
     uiState: AboutScreenUiState,
@@ -84,8 +93,29 @@ private fun AboutScreen(
     versionName: String?,
     onLinkClick: (url: String) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         modifier = Modifier.testTag(AboutScreenTestTag),
+        topBar = {
+            TopAppBar(
+                title = {
+                    if (scrollBehavior.state.overlappedFraction == 0f) {
+                        Text(
+                            text = AboutStrings.Title.asString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Medium,
+                        )
+                    } else {
+                        Text(
+                            text = AboutStrings.Title.asString(),
+                            color = Color.Unspecified.copy(alpha = scrollBehavior.state.overlappedFraction),
+                            style = MaterialTheme.typography.titleLarge,
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
+        },
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
             LazyColumn(
@@ -94,7 +124,8 @@ private fun AboutScreen(
                         top = padding.calculateTopPadding(),
                         start = padding.calculateStartPadding(LocalLayoutDirection.current),
                         end = padding.calculateEndPadding(LocalLayoutDirection.current),
-                    ),
+                    )
+                    .nestedScroll(scrollBehavior.nestedScrollConnection),
             ) {
                 item {
                     AboutDroidKaigiDetail(
