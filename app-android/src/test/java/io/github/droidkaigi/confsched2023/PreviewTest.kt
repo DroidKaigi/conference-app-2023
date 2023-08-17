@@ -49,19 +49,21 @@ class PreviewTest(
     @ShowkaseMultiplePreviewsWorkaround
     @Composable
     private fun ProvidesPreviewValues(group: String, componentKey: String, content: @Composable () -> Unit) {
-        val components = componentKey.split("-")
-
         val appliers = arrayListOf<(Configuration) -> Unit>()
 
-        when (group) {
-            MultiLanguagePreviewDefinition.Group -> {
-                appliers += { c ->
-                    c.setLocales(newLocales(baseLocales = c.locales, components = components))
+        if (isCustomGroup(group = group)) {
+            val previewValue = extractPreviewValues(group = group, componentKey)
+
+            when (group) {
+                MultiLanguagePreviewDefinition.Group -> {
+                    appliers += { c ->
+                        c.setLocales(newLocales(baseLocales = c.locales, previewValue = previewValue))
+                    }
                 }
-            }
-            MultiThemePreviewDefinition.Group -> {
-                appliers += { c ->
-                    c.uiMode = newUiMode(baseUiMode = c.uiMode, components = components)
+                MultiThemePreviewDefinition.Group -> {
+                    appliers += { c ->
+                        c.uiMode = newUiMode(baseUiMode = c.uiMode, previewValue = previewValue)
+                    }
                 }
             }
         }
@@ -76,13 +78,40 @@ class PreviewTest(
         }
     }
 
+    /**
+     * Depends on the naming rule from Showkase.
+     * We must not include "_${group}_" in an original preview function name.
+     */
     @ShowkaseMultiplePreviewsWorkaround
-    private fun newLocales(baseLocales: LocaleList, components: List<String>): LocaleList {
-        val locale = when {
-            MultiLanguagePreviewDefinition.English.Name in components -> {
+    private fun extractPreviewValues(group: String, componentKey: String): String {
+        val components = componentKey.split("_")
+
+        // _${group_ is expected here
+        val groupIndex = requireNotNull(components.indexOf(group).takeIf { it > 0 }) {
+            "Failed to extract a preview value for $group: $group is not found in $components"
+        }
+
+        val modifiedPreviewName = requireNotNull(components.getOrNull(groupIndex + 1)) {
+            "Failed to extract a preview value for $group: $components is unexpectedly aligned"
+        }
+
+        // ${preview_name}_${preview_value}_${...others}
+        val match = requireNotNull(Regex("\\w+-([\\w-]+)-[_\\w]+").matchEntire(modifiedPreviewName)) {
+            "Failed to extract a preview value for $group: no value was found in $modifiedPreviewName"
+        }
+
+        return requireNotNull(match.groupValues.getOrNull(1)) {
+            "Failed to extract a preview value for $group: this may be a development issue"
+        }
+    }
+
+    @ShowkaseMultiplePreviewsWorkaround
+    private fun newLocales(baseLocales: LocaleList, previewValue: String): LocaleList {
+        val locale = when (previewValue) {
+            MultiLanguagePreviewDefinition.English.Name -> {
                 MultiLanguagePreviewDefinition.English.Locale
             }
-            MultiLanguagePreviewDefinition.Japanese.Name in components -> {
+            MultiLanguagePreviewDefinition.Japanese.Name -> {
                 MultiLanguagePreviewDefinition.Japanese.Locale
             }
             else -> return baseLocales
@@ -92,12 +121,12 @@ class PreviewTest(
     }
 
     @ShowkaseMultiplePreviewsWorkaround
-    private fun newUiMode(baseUiMode: Int, components: List<String>): Int {
-        val nightMode = when {
-            MultiThemePreviewDefinition.DarkMode.Name in components -> {
+    private fun newUiMode(baseUiMode: Int, previewValue: String): Int {
+        val nightMode = when (previewValue) {
+            MultiThemePreviewDefinition.DarkMode.Name -> {
                 MultiThemePreviewDefinition.DarkMode.UiMode
             }
-            MultiThemePreviewDefinition.LightMode.Name in components -> {
+            MultiThemePreviewDefinition.LightMode.Name -> {
                 MultiThemePreviewDefinition.LightMode.UiMode
             }
             else -> baseUiMode
@@ -108,6 +137,9 @@ class PreviewTest(
     }
 
     companion object {
+        fun isCustomGroup(group: String): Boolean {
+            return group != "Default Group"
+        }
 
         @ParameterizedRobolectricTestRunner.Parameters
         @JvmStatic
