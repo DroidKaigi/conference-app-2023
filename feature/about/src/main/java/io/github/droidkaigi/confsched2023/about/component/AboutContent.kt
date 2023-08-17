@@ -76,7 +76,6 @@ fun AboutContentColumn(
 
 @MultiThemePreviews
 @MultiLanguagePreviews
-@Preview
 @Composable
 fun AboutContentColumnPreview() {
     KaigiTheme {

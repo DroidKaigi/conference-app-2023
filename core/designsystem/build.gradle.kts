@@ -8,6 +8,7 @@ plugins {
     id("droidkaigi.primitive.kmp.compose")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.android.roborazzi")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"
