@@ -61,6 +61,7 @@ class SearchScreenViewModel @Inject constructor(
                 days = searchFilterUiState.selectedDays,
                 categories = searchFilterUiState.selectedCategories,
                 sessionTypes = searchFilterUiState.selectedSessionTypes,
+                languages = searchFilterUiState.selectedLanguages,
                 searchWord = searchQuery,
             ),
         )

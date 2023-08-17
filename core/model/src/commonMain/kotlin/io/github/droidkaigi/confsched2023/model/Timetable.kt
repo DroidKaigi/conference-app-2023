@@ -65,6 +65,12 @@ public data class Timetable(
                 filters.sessionTypes.contains(timetableItem.sessionType)
             }
         }
+        if (filters.languages.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.languages.contains(timetableItem.language.toLang()) ||
+                    timetableItem.language.isInterpretationTarget
+            }
+        }
         if (filters.filterFavorite) {
             timetableItems = timetableItems.filter { timetableItem ->
                 bookmarks.contains(timetableItem.id)
