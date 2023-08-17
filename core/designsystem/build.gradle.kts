@@ -1,4 +1,4 @@
-import io.github.droidkaigi.confsched2023.primitive.implementation
+import io.github.droidkaigi.confsched2023.primitive.ksp
 import io.github.droidkaigi.confsched2023.primitive.libs
 
 plugins {
@@ -8,7 +8,6 @@ plugins {
     id("droidkaigi.primitive.kmp.compose")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
-    id("droidkaigi.primitive.android.roborazzi")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"
@@ -19,6 +18,12 @@ kotlin {
             dependencies {
                 // Fix https://youtrack.jetbrains.com/issue/KT-41821
                 implementation(libs.findLibrary("kotlinxAtomicfu").get())
+            }
+        }
+        androidTarget {
+            dependencies {
+                // FIXME: move this to build-logic
+                ksp(libs.findLibrary("showkaseProcessor"))
             }
         }
     }
