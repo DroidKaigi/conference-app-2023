@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import kotlinx.collections.immutable.persistentListOf
 
 public data class SideEvent(
@@ -13,8 +14,12 @@ public data class SideEvent(
     val link: String?,
 ) {
 
-    enum class Mark {
-        Mark1,
+    enum class Mark(val color: MarkColor) {
+        Mark1(Pink),
+    }
+
+    enum class MarkColor {
+        Pink;
     }
 
     public companion object

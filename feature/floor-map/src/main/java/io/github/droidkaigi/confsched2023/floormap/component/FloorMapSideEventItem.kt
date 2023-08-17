@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -38,6 +37,7 @@ import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvents
 
 @Composable
@@ -111,9 +111,13 @@ fun FloorMapSideEventItem(
 
 @Composable
 private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
-    return when (this) {
-        Mark1 -> Icons.Filled.Favorite to LocalContentColor.current
+    val icon = when (this) {
+        Mark1 -> Icons.Filled.Favorite
     }
+    val colorLong = when (color) {
+        Pink -> 0xFFDC369A
+    }
+    return icon to Color(colorLong)
 }
 
 @Composable
