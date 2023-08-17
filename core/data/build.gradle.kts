@@ -24,7 +24,6 @@ kotlin {
                 implementation(libs.ktorKotlinxSerialization)
                 implementation(libs.ktorContentNegotiation)
                 implementation(libs.kermit)
-                implementation(libs.firebaseRemoteConfig)
             }
         }
         val androidMain by getting {
@@ -33,6 +32,7 @@ kotlin {
                 implementation(libs.ktorClientOkHttp)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
+                implementation(libs.firebaseRemoteConfig)
             }
         }
         val iosMain by getting {
