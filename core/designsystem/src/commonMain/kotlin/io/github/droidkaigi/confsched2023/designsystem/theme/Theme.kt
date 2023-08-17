@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 // Generated code from https://m3.material.io/theme-builder#/custom
 
@@ -71,6 +72,25 @@ private val DarkColors = darkColorScheme(
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
 )
+
+sealed class FloorButtonColorScheme {
+    abstract val background: Color
+
+    data class Light(
+        override val background: Color = md_theme_light_floor_button_background,
+    ) : FloorButtonColorScheme()
+
+    data class Dark(
+        override val background: Color = md_theme_dark_floor_button_background,
+    ) : FloorButtonColorScheme()
+}
+
+@Composable
+fun floorButtonColors() = if (isSystemInDarkTheme()) {
+    FloorButtonColorScheme.Dark()
+} else {
+    FloorButtonColorScheme.Light()
+}
 
 @Composable
 fun KaigiTheme(
