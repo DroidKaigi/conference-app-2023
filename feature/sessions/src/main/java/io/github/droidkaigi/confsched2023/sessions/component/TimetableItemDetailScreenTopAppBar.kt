@@ -50,7 +50,7 @@ fun TimetableItemDetailScreenTopAppBar(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
                     styles = listOf(
-                        MaterialTheme.typography.headlineSmall,
+                        MaterialTheme.typography.headlineMedium,
                         MaterialTheme.typography.titleLarge,
                         MaterialTheme.typography.titleMedium,
                         MaterialTheme.typography.titleSmall,
