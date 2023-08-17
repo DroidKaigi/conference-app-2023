@@ -92,6 +92,40 @@ fun floorButtonColors() = if (isSystemInDarkTheme()) {
     FloorButtonColorScheme.Light()
 }
 
+sealed interface HallColorScheme {
+    val hallA: Color
+    val hallB: Color
+    val hallC: Color
+    val hallD: Color
+    val hallE: Color
+    val hallText: Color
+
+    data object Light : HallColorScheme {
+        override val hallA: Color = arcticfoxBlue
+        override val hallB: Color = bumblebeeYellow
+        override val hallC: Color = chipmunkBrown
+        override val hallD: Color = dolphinGreen
+        override val hallE: Color = electriceelGray
+        override val hallText: Color = Color.White
+    }
+
+    data object Dark : HallColorScheme {
+        override val hallA: Color = arcticfoxBluePale
+        override val hallB: Color = bumblebeeYellowPale
+        override val hallC: Color = chipmunkBrownPale
+        override val hallD: Color = dolphinGreenPale
+        override val hallE: Color = electriceelGrayPale
+        override val hallText: Color = Color.Black
+    }
+}
+
+@Composable
+fun hallColors() = if (isSystemInDarkTheme()) {
+    HallColorScheme.Dark
+} else {
+    HallColorScheme.Light
+}
+
 @Composable
 fun KaigiTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),
