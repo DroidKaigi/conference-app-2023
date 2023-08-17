@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
+import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import kotlinx.collections.immutable.persistentListOf
 
@@ -15,7 +15,7 @@ public data class SideEvent(
 ) {
 
     enum class Mark(val color: MarkColor) {
-        Mark1(Pink),
+        Favorite(Pink),
     }
 
     enum class MarkColor {
@@ -40,7 +40,7 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
+        mark = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
     ),
     SideEvent(
@@ -57,7 +57,7 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
+        mark = Favorite,
         link = null,
     ),
     SideEvent(
@@ -74,7 +74,7 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
+        mark = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
     ),
 )

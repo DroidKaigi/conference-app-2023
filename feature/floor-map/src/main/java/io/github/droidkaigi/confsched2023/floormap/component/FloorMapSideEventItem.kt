@@ -36,7 +36,7 @@ import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
+import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvents
 
@@ -112,7 +112,7 @@ fun FloorMapSideEventItem(
 @Composable
 private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
     val icon = when (this) {
-        Mark1 -> Icons.Filled.Favorite
+        Favorite -> Icons.Filled.Favorite
     }
     val colorLong = when (color) {
         Pink -> 0xFFDC369A
