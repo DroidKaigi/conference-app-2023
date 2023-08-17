@@ -88,7 +88,7 @@ private fun SponsorsScreen(
         topBar = {
             LargeTopAppBar(
                 title = {
-                    Text(text = "Sponsor")
+                    Text(text = SponsorsStrings.Sponsor.asString())
                 },
                 navigationIcon = {
                     IconButton(
