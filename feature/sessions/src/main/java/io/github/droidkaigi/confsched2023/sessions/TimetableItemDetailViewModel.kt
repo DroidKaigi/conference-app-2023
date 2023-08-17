@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -21,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TimetableItemDetailViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
-    private val userMessageStateHolder: UserMessageStateHolder,
+    val userMessageStateHolder: UserMessageStateHolder,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
@@ -60,6 +61,13 @@ class TimetableItemDetailViewModel @Inject constructor(
     fun onBookmarkClick(timetableItem: TimetableItem) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(timetableItem.id)
+            val bookmarked = timetableItemStateFlow.value?.second ?: return@launch
+            if (bookmarked) {
+                userMessageStateHolder.showMessage(
+                    TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
+                    TimetableItemDetailStrings.ViewBookmarkList.asString(),
+                )
+            }
         }
     }
 }
