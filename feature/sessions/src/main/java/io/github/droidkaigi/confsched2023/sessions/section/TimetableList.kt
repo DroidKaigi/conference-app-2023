@@ -29,10 +29,8 @@ import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.type
-import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import kotlinx.collections.immutable.PersistentMap
-import java.util.Locale
 
 const val TimetableListTestTag = "TimetableList"
 
@@ -53,7 +51,7 @@ fun TimetableList(
     ) {
         uiState.timetableItemMap.forEach { (_, timetableItems) ->
             itemsIndexed(timetableItems) { index, timetableItem ->
-                Row(modifier = Modifier.padding(top = 10.dp)) {
+                Row(modifier = Modifier.padding(start = 16.dp, top = 10.dp)) {
                     Column(
                         modifier = Modifier.width(58.dp),
                         verticalArrangement = Arrangement.Center,
@@ -83,21 +81,6 @@ fun TimetableList(
                         onBookmarkClick = onBookmarkClick,
                         chipContent = {
                             // Chips
-                            val infoChip = mutableListOf<String>()
-
-                            infoChip.add(
-                                timetableItem.language.langOfSpeaker.let {
-                                    when (it) {
-                                        "MIXED" -> it
-                                        else -> {
-                                            it.take(2).toUpperCase(Locale.ENGLISH)
-                                        }
-                                    }
-                                },
-                            )
-                            if (timetableItem.language.isInterpretationTarget) {
-                                infoChip.add(SessionsStrings.InterpretationTarget.asString())
-                            }
 
                             val hallColor = hallColors()
                             val containerColor = when (timetableItem.room.type) {
@@ -122,7 +105,7 @@ fun TimetableList(
                                     )
                                 },
                             )
-                            infoChip.forEach {
+                            timetableItem.language.labels.forEach {
                                 SuggestionChip(
                                     modifier = Modifier.padding(start = 4.dp),
                                     onClick = { /* Do nothing */ },

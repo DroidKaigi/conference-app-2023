@@ -4,10 +4,11 @@ public data class TimetableLanguage(
     val langOfSpeaker: String,
     val isInterpretationTarget: Boolean,
 ) {
-    val langLabel = when (langOfSpeaker) {
-        "MIXED" -> langOfSpeaker
-        else -> {
-            langOfSpeaker.take(2)
-        }
+    val labels = if (langOfSpeaker == Lang.MIXED.tagName) {
+        listOf(Lang.MIXED.tagName)
+    } else if (isInterpretationTarget) {
+        listOf(Lang.ENGLISH.tagName, Lang.JAPANESE.tagName)
+    } else {
+        listOf(langOfSpeaker.take(2))
     }
 }

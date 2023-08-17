@@ -50,6 +50,9 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
     )
     val rooms = listOf(
         RoomResponse(name = LocaledResponse(ja = "Room1", en = "Room2"), id = 1, sort = 1),
+        RoomResponse(name = LocaledResponse(ja = "Room3", en = "Room4"), id = 2, sort = 2),
+        RoomResponse(name = LocaledResponse(ja = "Room5", en = "Room6"), id = 3, sort = 3),
+        RoomResponse(name = LocaledResponse(ja = "Room7", en = "Room8"), id = 4, sort = 4),
     )
     val categories = listOf(
         CategoryResponse(
@@ -73,42 +76,44 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
 
     for (day in 0 until 3) {
         val dayOffset = day * 24 * 60 * 60
-        for (index in 0 until 4) {
-            val start = Instant.fromEpochSeconds(
-                LocalDateTime.parse("2023-09-14T10:10:00")
-                    .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
-            ).toLocalDateTime(TimeZone.of("UTC+9"))
-            val end = Instant.fromEpochSeconds(
-                LocalDateTime.parse("2023-09-14T10:50:00")
-                    .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
-            ).toLocalDateTime(TimeZone.of("UTC+9"))
+        for (room in rooms) {
+            for (index in 0 until 4) {
+                val start = Instant.fromEpochSeconds(
+                    LocalDateTime.parse("2023-09-14T10:10:00")
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
+                ).toLocalDateTime(TimeZone.of("UTC+9"))
+                val end = Instant.fromEpochSeconds(
+                    LocalDateTime.parse("2023-09-14T10:50:00")
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
+                ).toLocalDateTime(TimeZone.of("UTC+9"))
 
-            val session = SessionResponse(
-                id = "$day$index",
-                isServiceSession = false,
-                title = LocaledResponse(
-                    ja = "DroidKaigiのアプリのアーキテクチャ day$day index$index",
-                    en = "DroidKaigi App Architecture day$day index$index",
-                ),
-                speakers = listOf("1", "2"),
-                description = "これはディスクリプションです。\nこれはディスクリプションです。",
-                startsAt = start.toString(),
-                endsAt = end.toString(),
-                language = "JAPANESE",
-                roomId = 1,
-                sessionCategoryItemId = 1,
-                sessionType = "NORMAL",
-                message = null,
-                isPlenumSession = false,
-                targetAudience = "For App developer アプリ開発者向け",
-                interpretationTarget = false,
-                asset = SessionAssetResponse(
-                    videoUrl = "https://www.youtube.com/watch?v=hFdKCyJ-Z9A",
-                    slideUrl = "https://droidkaigi.jp/2021/",
-                ),
-                levels = listOf("INTERMEDIATE"),
-            )
-            sessions.add(session)
+                val session = SessionResponse(
+                    id = "$day$room$index",
+                    isServiceSession = false,
+                    title = LocaledResponse(
+                        ja = "DroidKaigiのアプリのアーキテクチャ day$day room${room.name.ja} index$index",
+                        en = "DroidKaigi App Architecture day$day room${room.name.en} index$index",
+                    ),
+                    speakers = listOf("1", "2"),
+                    description = "これはディスクリプションです。\nこれはディスクリプションです。",
+                    startsAt = start.toString(),
+                    endsAt = end.toString(),
+                    language = "JAPANESE",
+                    roomId = room.id,
+                    sessionCategoryItemId = 1,
+                    sessionType = "NORMAL",
+                    message = null,
+                    isPlenumSession = false,
+                    targetAudience = "For App developer アプリ開発者向け",
+                    interpretationTarget = false,
+                    asset = SessionAssetResponse(
+                        videoUrl = "https://www.youtube.com/watch?v=hFdKCyJ-Z9A",
+                        slideUrl = "https://droidkaigi.jp/2021/",
+                    ),
+                    levels = listOf("INTERMEDIATE"),
+                )
+                sessions.add(session)
+            }
         }
     }
 
