@@ -141,7 +141,7 @@ private fun MainScreen(
     Scaffold(
         bottomBar = {
             KaigiBottomBar(
-                mainScreenTabs = MainScreenTab.values().toList(),
+                mainScreenTabs = MainScreenTab.entries.toList(),
                 onTabSelected = { tab ->
                     onTabSelected(mainNestedNavController, tab)
                 },
