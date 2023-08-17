@@ -5,6 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -44,6 +46,7 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TimetableListItem(
     timetableItem: TimetableItem,
@@ -59,7 +62,7 @@ fun TimetableListItem(
             .clickable { onClick(timetableItem) },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Row(modifier = Modifier.weight(1F)) {
+            FlowRow(modifier = Modifier.weight(1F)) {
                 chipContent()
             }
             IconToggleButton(

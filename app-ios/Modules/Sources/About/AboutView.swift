@@ -103,7 +103,7 @@ public struct AboutView<ContributorView: View>: View {
                     Text("アプリバージョン")
                         .font(Font.system(size: 14, weight: .medium))
                     Spacer().frame(height: 8)
-                    Text("1.2")
+                    Text(Bundle.main.formattedVersion)
                         .font(Font.system(size: 14, weight: .medium))
                 }
                 .padding(.horizontal, 16)

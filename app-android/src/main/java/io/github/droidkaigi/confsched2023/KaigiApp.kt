@@ -110,6 +110,11 @@ private fun KaigiNavHost(
             onNavigationIconClick = {
                 navController.popBackStack()
             },
+            onTimetableItemClick = { timetableItem ->
+                navController.navigateToTimetableItemDetailScreen(
+                    timetableItem.id,
+                )
+            },
         )
         sponsorsScreen(
             onNavigationIconClick = {
