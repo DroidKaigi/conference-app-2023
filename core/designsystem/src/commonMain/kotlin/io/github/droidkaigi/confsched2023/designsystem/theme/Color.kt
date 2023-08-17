@@ -72,6 +72,17 @@ val room_hall_c = Color(0xFF16525A)
 val room_hall_d = Color(0xFF5E5504)
 val room_hall_e = Color(0xFF78085F)
 
+val arcticfoxBlue = Color(0xFF0A57A4)
+val bumblebeeYellow = Color(0xFF5E5504)
+val chipmunkBrown = Color(0xFF552E21)
+val dolphinGreen = Color(0xFF026066)
+val electriceelGray = Color(0xFF494E5A)
+val arcticfoxBluePale = Color(0xFFB2D1FF)
+val bumblebeeYellowPale = Color(0xFFF0DF63)
+val chipmunkBrownPale = Color(0xFFE7BB92)
+val dolphinGreenPale = Color(0xFFB4DDDD)
+val electriceelGrayPale = Color(0xFFB8B9BD)
+
 val md_theme_light_floor_button_background = Color(0xFFFFFFFF)
 
 val md_theme_dark_floor_button_background = Color(0xFF000000)
