@@ -1,19 +1,16 @@
 package io.github.droidkaigi.confsched2023.stamps.section
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.stamps.component.StampImage
 import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
 import kotlinx.collections.immutable.ImmutableList
 
@@ -56,13 +53,7 @@ fun StampsList(
                 )
             }
         ) { stamp ->
-            Image(
-                painter = painterResource(id = stamp.getDrawableResId()),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable { onStampsClick() }
-                    .padding(horizontal = 21.dp),
-            )
+            StampImage(stamp = stamp, onStampClick = onStampsClick)
         }
     }
 }
