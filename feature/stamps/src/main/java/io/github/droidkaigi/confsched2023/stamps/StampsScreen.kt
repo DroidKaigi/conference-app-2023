@@ -31,7 +31,10 @@ fun NavGraphBuilder.nestedStampsScreen(
 }
 
 fun NavController.navigateStampsScreen() {
-    navigate(stampsScreenRoute)
+    navigate(stampsScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val StampsScreenTestTag = "StampsScreen"
