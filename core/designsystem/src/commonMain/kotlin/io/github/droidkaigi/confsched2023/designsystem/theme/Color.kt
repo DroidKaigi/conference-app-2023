@@ -66,12 +66,6 @@ val md_theme_dark_scrim = Color(0xFF000000)
 
 val seed = Color(0xFF006C50)
 
-val room_hall_a = Color(0xFF483382)
-val room_hall_b = Color(0xFF005085)
-val room_hall_c = Color(0xFF16525A)
-val room_hall_d = Color(0xFF5E5504)
-val room_hall_e = Color(0xFF78085F)
-
 val arcticfoxBlue = Color(0xFF0A57A4)
 val bumblebeeYellow = Color(0xFF5E5504)
 val chipmunkBrown = Color(0xFF552E21)
