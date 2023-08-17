@@ -36,6 +36,8 @@ class FloorMapScreenTest {
         floorMapScreenRobot {
             setupScreenContent()
             checkScreenCapture()
+            setFloorLevelToGround()
+            checkScreenCapture()
         }
     }
 }
