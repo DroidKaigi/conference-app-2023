@@ -107,11 +107,13 @@ private fun SearchTextField(
                 visualTransformation = VisualTransformation.None,
                 interactionSource = interactionSource,
                 placeholder = {
-                    Text(
-                        text = SearchPlaceHolder.asString(),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                    )
+                    if (searchQuery.isBlank()) {
+                        Text(
+                            text = SearchPlaceHolder.asString(),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onSurface,
+                        )
+                    }
                 },
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
