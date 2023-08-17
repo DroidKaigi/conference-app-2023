@@ -157,7 +157,7 @@ fun PreviewTimetableGridItem() {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun PreviewTimetableGridItem(
+internal fun PreviewTimetableGridItem(
     @PreviewParameter(PreviewTimeTableItemRoomProvider::class) timetableItem: TimetableItem,
 ) {
     KaigiTheme {
