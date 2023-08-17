@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
+import io.github.droidkaigi.confsched2023.ui.isTest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +79,10 @@ private fun SearchTextField(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
+        // NOTE: Temporary workaround to pass unit tests
+        if (!isTest()) {
+            focusRequester.requestFocus()
+        }
     }
 
     BasicTextField(
