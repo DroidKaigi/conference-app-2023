@@ -1,12 +1,16 @@
 package io.github.droidkaigi.confsched2023.about.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -19,8 +23,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @Composable
 fun AboutDroidKaigiDetailSummaryCardRow(
@@ -109,7 +117,7 @@ private fun getAnnotatedString(
 }
 
 @Composable
-fun ClickableLinkText(
+private fun ClickableLinkText(
     style: TextStyle,
     content: String,
     onLinkClick: (url: String) -> Unit,
@@ -141,4 +149,19 @@ fun ClickableLinkText(
             }
         },
     )
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun AboutDroidKaigiDetailSummaryCardRowPreview() {
+    KaigiTheme {
+        Surface {
+            AboutDroidKaigiDetailSummaryCardRow(
+                leadingIcon = Icons.Filled.Schedule,
+                label = "label".repeat(5),
+                content = "content".repeat(5),
+            )
+        }
+    }
 }
