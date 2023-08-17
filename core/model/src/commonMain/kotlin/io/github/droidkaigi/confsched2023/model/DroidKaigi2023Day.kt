@@ -47,7 +47,7 @@ public enum class DroidKaigi2023Day(
 
     public companion object {
         public fun ofOrNull(time: Instant): DroidKaigi2023Day? {
-            return values().firstOrNull {
+            return entries.firstOrNull {
                 time in it.start..it.end
             }
         }

@@ -67,9 +67,9 @@ fun TimetableSheet(
         ) {
             TimetableTabRow(
                 tabState = timetableSheetContentScrollState.tabScrollState,
-                selectedTabIndex = DroidKaigi2023Day.values().indexOf(selectedDay),
+                selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
             ) {
-                DroidKaigi2023Day.values().forEach { day ->
+                DroidKaigi2023Day.entries.forEach { day ->
                     TimetableTab(
                         day = day,
                         selected = day == selectedDay,
