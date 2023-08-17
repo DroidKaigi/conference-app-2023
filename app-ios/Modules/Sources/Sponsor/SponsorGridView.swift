@@ -1,3 +1,4 @@
+import Component
 import Model
 import shared
 import SwiftUI
@@ -37,7 +38,7 @@ struct SponsorItemView: View {
             Button {
                 action()
             } label: {
-                AsyncImage(url: URL(string: sponsor.logo)) { image in
+                CacheAsyncImage(url: URL(string: sponsor.logo)) { image in
                     image
                         .resizable()
                         .frame(minWidth: 0, maxWidth: .infinity)
