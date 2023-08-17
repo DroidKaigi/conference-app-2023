@@ -1,4 +1,3 @@
-import io.github.droidkaigi.confsched2023.primitive.implementation
 import io.github.droidkaigi.confsched2023.primitive.libs
 
 plugins {
@@ -8,6 +7,7 @@ plugins {
     id("droidkaigi.primitive.kmp.compose")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.kmp.android.showkase")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"

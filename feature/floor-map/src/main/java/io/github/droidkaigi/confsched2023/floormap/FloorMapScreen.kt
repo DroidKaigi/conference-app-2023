@@ -55,7 +55,10 @@ fun NavGraphBuilder.nestedFloorMapScreen(
 }
 
 fun NavController.navigateFloorMapScreen() {
-    navigate(floorMapScreenRoute)
+    navigate(floorMapScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val FloorMapScreenTestTag = "FloorMapScreen"

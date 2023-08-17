@@ -1,10 +1,14 @@
 package io.github.droidkaigi.confsched2023.testing.robot
 
+import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreen
+import io.github.droidkaigi.confsched2023.sponsors.SponsorsScreenTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -35,6 +39,17 @@ class SponsorsScreenRobot @Inject constructor(
             }
         }
         waitUntilIdle()
+    }
+
+    fun scrollSponsorScreen() {
+        composeTestRule
+            .onNode(hasTestTag(SponsorsScreenTestTag))
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 3F,
+                )
+            }
     }
 
     fun checkScreenCapture() {
