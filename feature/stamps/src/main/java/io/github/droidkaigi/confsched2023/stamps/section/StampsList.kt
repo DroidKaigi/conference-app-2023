@@ -29,14 +29,14 @@ fun StampsList(
         modifier = modifier,
         contentPadding = PaddingValues(
             horizontal = 16.dp,
-            vertical = 20.dp
+            vertical = 20.dp,
         ),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         item(
             key = "stamps_header",
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) }
+            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
         ) {
             StampsDetail()
         }
@@ -49,9 +49,9 @@ fun StampsList(
                         SINGLE_ITEM_SPAN_COUNT
                     } else {
                         DOUBLE_ITEM_SPAN_COUNT
-                    }
+                    },
                 )
-            }
+            },
         ) { stamp ->
             StampImage(stamp = stamp, onStampClick = onStampsClick)
         }
