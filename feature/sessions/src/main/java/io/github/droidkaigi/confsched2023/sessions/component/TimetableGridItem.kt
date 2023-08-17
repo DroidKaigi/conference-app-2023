@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -46,35 +47,32 @@ fun TimetableGridItem(
 ) {
     val backgroundColor = timetableItem.room.color
     Box(modifier.testTag(TimetableGridItemTestTag)) {
-        Box(
+        Surface(
+            onClick = { onTimetableItemClick(timetableItem) },
+            shape = RoundedCornerShape(4.dp),
+            color = backgroundColor,
+            contentColor = hallColors().hallText,
             modifier = Modifier
                 .testTag(TimetableGridItemTestTag)
-                .background(
-                    color = backgroundColor,
-                    shape = RoundedCornerShape(4.dp),
-                )
-                .width(192.dp)
-                .clickable {
-                    onTimetableItemClick(timetableItem)
-                }
-                .padding(12.dp),
+                .width(192.dp),
         ) {
-            Column {
+            Column(
+                modifier = Modifier.padding(12.dp),
+            ) {
                 Text(
                     text = timetableItem.title.currentLangTitle,
-                    style = MaterialTheme.typography.labelLarge.copy(Color.White),
+                    style = MaterialTheme.typography.labelLarge,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.height(16.dp)) {
                     Icon(
                         imageVector = Icons.Default.Schedule,
-                        tint = Color.White,
                         contentDescription = ScheduleIcon.asString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall.copy(Color.White),
+                        style = MaterialTheme.typography.bodySmall,
                     )
                 }
 
@@ -97,7 +95,7 @@ fun TimetableGridItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = speaker.name,
-                            style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                            style = MaterialTheme.typography.labelMedium,
                         )
                     }
                 }
