@@ -112,8 +112,8 @@ enum class MainScreenTab(
     Badges(
         icon = Icons.Outlined.Approval,
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Approval),
-        label = MainStrings.Badges.asString(),
-        contentDescription = MainStrings.Badges.asString(),
+        label = MainStrings.Stamps.asString(),
+        contentDescription = MainStrings.Stamps.asString(),
     ),
     About(
         icon = Icons.Outlined.Info,
