@@ -84,6 +84,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpAndroidHiltPlugin"
         }
+        register("kotlinMppAndroidShowkase") {
+            id = "droidkaigi.primitive.kmp.android.showkase"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpAndroidShowkasePlugin"
+        }
         register("kotlinMppKotlinSerialization") {
             id = "droidkaigi.primitive.kmp.serialization"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KotlinSerializationPlugin"
