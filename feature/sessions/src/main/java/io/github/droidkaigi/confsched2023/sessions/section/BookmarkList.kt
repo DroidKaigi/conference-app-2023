@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
@@ -76,11 +77,11 @@ fun BookmarkList(
                                         timetableItem.room.name.currentLangTitle,
                                         fontWeight = FontWeight.Medium,
                                         fontSize = 12.sp,
-                                        color = Color.White,
                                     )
                                 },
                                 colors = AssistChipDefaults.assistChipColors(
                                     containerColor = roomChipBackgroundColor,
+                                    labelColor = hallColors().hallText,
                                 ),
                                 border = AssistChipDefaults.assistChipBorder(
                                     borderColor = Color.Transparent,

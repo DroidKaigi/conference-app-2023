@@ -20,10 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.sessions.component.color
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
+import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentMap
 
 const val TimetableListTestTag = "TimetableList"
@@ -79,13 +80,13 @@ fun TimetableList(
                             SuggestionChip(
                                 colors = SuggestionChipDefaults.suggestionChipColors(
                                     containerColor = timetableItem.room.color,
+                                    labelColor = hallColors().hallText,
                                 ),
                                 onClick = { /* Do nothing */ },
                                 label = {
                                     Text(
                                         text = timetableItem.room.name.currentLangTitle,
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = Color.White,
                                     )
                                 },
                             )
