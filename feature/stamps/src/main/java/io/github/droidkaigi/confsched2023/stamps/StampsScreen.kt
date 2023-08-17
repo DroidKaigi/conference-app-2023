@@ -79,11 +79,9 @@ private fun StampsScreen(
 
             StampsSheet(
                 modifier = Modifier.padding(
-                    PaddingValues(
-                        top = padding.calculateTopPadding() + 20.dp,
-                        start = padding.calculateStartPadding(layoutDirection) + 16.dp,
-                        end = padding.calculateEndPadding(layoutDirection) + 16.dp,
-                    ),
+                    top = padding.calculateTopPadding() + 20.dp,
+                    start = padding.calculateStartPadding(layoutDirection) + 16.dp,
+                    end = padding.calculateEndPadding(layoutDirection) + 16.dp,
                 ),
                 onStampsClick = onStampsClick,
                 uiState = uiState.contentUiState,
