@@ -22,6 +22,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @Composable
@@ -72,8 +74,9 @@ fun AboutContentColumn(
     }
 }
 
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Preview
 @Composable
 fun AboutContentColumnPreview() {
     KaigiTheme {
