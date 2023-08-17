@@ -11,6 +11,7 @@ import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -49,7 +50,7 @@ fun TimetableSheet(
     onFavoriteClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedDay by remember { mutableStateOf(DroidKaigi2023Day.Day1) }
+    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.Day1) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
