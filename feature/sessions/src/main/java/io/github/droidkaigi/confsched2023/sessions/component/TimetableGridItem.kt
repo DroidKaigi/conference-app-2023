@@ -55,6 +55,7 @@ import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.minus
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 const val TimetableGridItemTestTag = "TimetableGridItem"
@@ -81,14 +82,14 @@ fun TimetableGridItem(
     val height = with(localDensity) { gridItemHeightPx.toDp() }
     val titleTextStyle = MaterialTheme.typography.labelLarge.let {
         check(it.fontSize.isSp)
-        val titleFontSize = calculateTitleFontSize(
+        val (titleFontSize, titleLineHeight) = calculateFontSizeAndLineHeight(
             textStyle = it,
             localDensity = localDensity,
             gridItemHeightPx = gridItemHeightPx,
             speaker = speaker,
             titleLength = timetableItem.title.currentLangTitle.length,
         )
-        it.copy(fontSize = titleFontSize, color = Color.White)
+        it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = Color.White)
     }
 
     Box(modifier.testTag(TimetableGridItemTestTag)) {
@@ -154,7 +155,7 @@ fun TimetableGridItem(
 
 /**
  *
- * Calculate the font size of the title by the height of the displayed session grid.
+ * Calculate the font size and line height of the title by the height of the session grid item.
  *
  * @param textStyle session title text style.
  * @param localDensity local density.
@@ -162,14 +163,17 @@ fun TimetableGridItem(
  * @param speaker session speaker.
  * @param titleLength session title length.
  *
+ * @return calculated font size and line height. (Both units are sp.)
+ *
  */
-private fun calculateTitleFontSize(
+private fun calculateFontSizeAndLineHeight(
     textStyle: TextStyle,
     localDensity: Density,
     gridItemHeightPx: Int,
     speaker: TimetableSpeaker?,
     titleLength: Int,
-): TextUnit {
+): Pair<TextUnit, TextUnit> {
+    // The height of the title that should be displayed.
     val titleToScheduleSpaceHeightPx = with(localDensity) {
         TimetableGridItemSizes.titleToScheduleSpaceHeight.toPx()
     }
@@ -182,8 +186,6 @@ private fun calculateTitleFontSize(
     val horizontalPaddingPx = with(localDensity) {
         (TimetableGridItemSizes.padding * 2).toPx()
     }
-
-    // The height of the title that should be displayed.
     var displayTitleHeight =
         gridItemHeightPx - titleToScheduleSpaceHeightPx - scheduleHeightPx - scheduleToSpeakerSpaceHeightPx - horizontalPaddingPx
     displayTitleHeight -= if (speaker != null) {
@@ -197,16 +199,84 @@ private fun calculateTitleFontSize(
         (TimetableGridItemSizes.width - TimetableGridItemSizes.padding * 2).toPx()
     }
     val fontSizePx = with(localDensity) { textStyle.fontSize.toPx() }
-    val textLengthInRow = (boxWidthWithoutPadding / fontSizePx).roundToInt()
-    val rows = titleLength / textLengthInRow
-    val actualTitleHeight = rows * fontSizePx
+    val lineHeightPx = with(localDensity) { textStyle.lineHeight.toPx() }
+    var actualTitleHeight = calculateTitleHeight(
+        fontSizePx = fontSizePx,
+        lineHeightPx = lineHeightPx,
+        titleLength = titleLength,
+        maxWidth = boxWidthWithoutPadding,
+    )
 
-    val oneLine = 1
     return when {
-        displayTitleHeight <= 0 -> TimetableGridItemSizes.minFontSize
-        rows <= oneLine || displayTitleHeight > actualTitleHeight -> textStyle.fontSize
-        else -> TimetableGridItemSizes.minFontSize
+        displayTitleHeight <= 0 ->
+            Pair(TimetableGridItemSizes.minTitleFontSize, TimetableGridItemSizes.minTitleLineHeight)
+        displayTitleHeight > actualTitleHeight ->
+            Pair(textStyle.fontSize, textStyle.lineHeight)
+        else -> {
+            // Change the font size until it fits in the height of the title box.
+            var fontResizePx = fontSizePx
+            var lineHeightResizePx = lineHeightPx
+
+            val minFontSizePx = with(localDensity) {
+                TimetableGridItemSizes.minTitleFontSize.toPx()
+            }
+            val middleLineHeightPx = with(localDensity) {
+                TimetableGridItemSizes.middleTitleLineHeight.toPx()
+            }
+            val minLineHeightPx = with(localDensity) {
+                TimetableGridItemSizes.minTitleLineHeight.toPx()
+            }
+
+            while (displayTitleHeight <= actualTitleHeight) {
+                if (fontResizePx <= minFontSizePx) {
+                    fontResizePx = minFontSizePx
+                    lineHeightResizePx = minLineHeightPx
+                    break
+                }
+
+                fontResizePx -= with(localDensity) { 1.sp.toPx() }
+                val fontResize = with(localDensity) { fontResizePx.toSp() }
+                if (fontResize <= 12.sp) {
+                    lineHeightResizePx = middleLineHeightPx
+                } else if (fontResize <= 10.sp) {
+                    lineHeightResizePx = minLineHeightPx
+                }
+                actualTitleHeight = calculateTitleHeight(
+                    fontSizePx = fontResizePx,
+                    lineHeightPx = lineHeightResizePx,
+                    titleLength = titleLength,
+                    maxWidth = boxWidthWithoutPadding,
+                )
+            }
+
+            Pair(
+                with(localDensity) { fontResizePx.toSp() },
+                with(localDensity) { lineHeightResizePx.toSp() },
+            )
+        }
     }
+}
+
+/**
+ *
+ * Calculate the title height.
+ *
+ * @param fontSizePx font size. (unit is px.)
+ * @param lineHeightPx line height. (unit is px.)
+ * @param titleLength session title length.
+ * @param maxWidth max width of session grid item.
+ *
+ * @return calculated title height. (unit is px.)
+ *
+ */
+private fun calculateTitleHeight(
+    fontSizePx: Float,
+    lineHeightPx: Float,
+    titleLength: Int,
+    maxWidth: Float,
+): Float {
+    val rows = ceil(titleLength * fontSizePx / maxWidth)
+    return fontSizePx + (lineHeightPx * (rows - 1f))
 }
 
 object TimetableGridItemSizes {
@@ -216,7 +286,9 @@ object TimetableGridItemSizes {
     val scheduleHeight = 16.dp
     val scheduleToSpeakerSpaceHeight = 16.dp
     val speakerHeight = 32.dp
-    val minFontSize = 9.sp
+    val minTitleFontSize = 10.sp
+    val middleTitleLineHeight = 16.sp // base on MaterialTheme.typography.labelSmall.lineHeight
+    val minTitleLineHeight = 12.sp
 }
 
 @Preview
