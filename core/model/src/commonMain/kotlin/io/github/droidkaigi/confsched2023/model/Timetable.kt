@@ -60,6 +60,11 @@ public data class Timetable(
                 filters.categories.contains(timetableItem.category)
             }
         }
+        if (filters.sessionTypes.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.sessionTypes.contains(timetableItem.sessionType)
+            }
+        }
         if (filters.filterFavorite) {
             timetableItems = timetableItems.filter { timetableItem ->
                 bookmarks.contains(timetableItem.id)

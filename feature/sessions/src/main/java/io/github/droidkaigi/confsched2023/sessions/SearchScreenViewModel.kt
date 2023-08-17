@@ -60,6 +60,7 @@ class SearchScreenViewModel @Inject constructor(
             Filters(
                 days = searchFilterUiState.selectedDays,
                 categories = searchFilterUiState.selectedCategories,
+                sessionTypes = searchFilterUiState.selectedSessionTypes,
                 searchWord = searchQuery,
             ),
         )
