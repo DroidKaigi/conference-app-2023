@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,16 +29,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
@@ -71,14 +69,21 @@ fun TimetableGridItem(
 
     val speaker = timetableItem.speakers.firstOrNull()
 
+    val hallColor = hallColors()
     val backgroundColor = when (timetableItem.room.type) {
-        Room1 -> room_hall_a
-        Room2 -> room_hall_b
-        Room3 -> room_hall_c
-        Room4 -> room_hall_d
-        Room5 -> room_hall_e
+        Room1 -> hallColor.hallA
+        Room2 -> hallColor.hallB
+        Room3 -> hallColor.hallC
+        Room4 -> hallColor.hallD
+        Room5 -> hallColor.hallE
         else -> Color.White
     }
+    val textColor = if (speaker != null) {
+        hallColor.hallText
+    } else {
+        hallColor.hallTextWhenWithoutSpeakers
+    }
+
     val height = with(localDensity) { gridItemHeightPx.toDp() }
     val titleTextStyle = MaterialTheme.typography.labelLarge.let {
         check(it.fontSize.isSp)
@@ -89,7 +94,7 @@ fun TimetableGridItem(
             speaker = speaker,
             titleLength = timetableItem.title.currentLangTitle.length,
         )
-        it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = Color.White)
+        it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = textColor)
     }
 
     Box(modifier.testTag(TimetableGridItemTestTag)) {
@@ -97,7 +102,11 @@ fun TimetableGridItem(
             modifier = Modifier
                 .testTag(TimetableGridItemTestTag)
                 .background(
-                    color = backgroundColor,
+                    color = if (speaker != null) {
+                        backgroundColor
+                    } else {
+                        MaterialTheme.colorScheme.surfaceVariant
+                    },
                     shape = RoundedCornerShape(4.dp),
                 )
                 .width(TimetableGridItemSizes.width)
@@ -116,13 +125,18 @@ fun TimetableGridItem(
                 Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
                     Icon(
                         imageVector = Icons.Default.Schedule,
-                        tint = Color.White,
+                        tint = if (speaker != null) {
+                            hallColor.hallText
+                        } else {
+                            hallColor.hallTextWhenWithoutSpeakers
+                        },
                         contentDescription = ScheduleIcon.asString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall.copy(Color.White),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = textColor,
                     )
                 }
 
@@ -144,7 +158,8 @@ fun TimetableGridItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = speaker.name,
-                            style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = textColor,
                         )
                     }
                 }
@@ -291,7 +306,8 @@ object TimetableGridItemSizes {
     val minTitleLineHeight = 12.sp
 }
 
-@Preview
+@Preview(locale = "en")
+@Preview(locale = "ja")
 @Composable
 fun PreviewTimetableGridItem() {
     KaigiTheme {
@@ -329,6 +345,23 @@ fun PreviewTimetableGridLongTitleItem() {
                 },
                 onTimetableItemClick = {},
                 gridItemHeightPx = height,
+            )
+        }
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+internal fun PreviewTimetableGridItem(
+    @PreviewParameter(PreviewTimeTableItemRoomProvider::class) timetableItem: TimetableItem,
+) {
+    KaigiTheme {
+        Surface {
+            TimetableGridItem(
+                timetableItem = timetableItem,
+                onTimetableItemClick = {},
+                gridItemHeightPx = 350,
             )
         }
     }
