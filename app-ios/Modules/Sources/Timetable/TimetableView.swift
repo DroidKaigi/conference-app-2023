@@ -72,7 +72,7 @@ public struct TimetableView<SessionView: View>: View {
                             Assets.Icons.search.swiftUIImage
                         }
                         ToolbarItem {
-                            Assets.Icons.bookmarkBorder.swiftUIImage
+                            Assets.Icons.bookmarks.swiftUIImage
                         }
                         ToolbarItem {
                             Assets.Icons.gridView.swiftUIImage

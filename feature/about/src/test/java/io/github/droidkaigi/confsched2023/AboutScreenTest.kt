@@ -50,6 +50,9 @@ class AboutScreenTest {
             // Take a screenshot of the Others
             scrollAboutScreen()
             checkScreenCapture()
+            // Take a screenshot of the Footer Links
+            scrollAboutScreen()
+            checkScreenCapture()
         }
     }
 }

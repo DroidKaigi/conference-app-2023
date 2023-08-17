@@ -29,6 +29,7 @@ local.properties
 *.iml
 .idea/*
 !.idea/copyright
+!.idea/codeInsightSettings.xml
 # Keep the code styles.
 !/.idea/codeStyles
 /.idea/codeStyles/*

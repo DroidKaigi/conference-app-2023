@@ -14,6 +14,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object EventDay : SessionsStrings()
     data object Category : SessionsStrings()
     class SearchResultNotFound(val missedWord: String) : SessionsStrings()
+    data object SearchPlaceHolder : SessionsStrings()
     data object Bookmark : SessionsStrings()
     data object BookmarkFilterAllChip : SessionsStrings()
     data object BookmarkedItemNotFound : SessionsStrings()
@@ -31,7 +32,6 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object WatchVideo : SessionsStrings()
     data object Speaker : SessionsStrings()
     data object TargetAudience : SessionsStrings()
-    data object SearchHint : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -46,6 +46,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "全て"
                 is SearchResultNotFound -> "「${item.missedWord}」と一致する検索結果がありません"
+                SearchPlaceHolder -> "気になる技術を入力"
                 BookmarkedItemNotFound -> "登録されたセッションがありません"
                 BookmarkedItemNotFoundSideNote -> "気になるセッションをブックマークに追加して\n集めてみましょう！"
                 Share -> "共有"
@@ -61,7 +62,6 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"
-                SearchHint -> "気になる技術を入力"
             }
         },
         Lang.English to { item, bindings ->
@@ -75,6 +75,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 EventDay -> "Day"
                 Category -> "Category"
                 is SearchResultNotFound -> "Nothing matched your search criteria \"${item.missedWord}\""
+                SearchPlaceHolder -> "Enter some technology"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "All"
                 BookmarkedItemNotFound -> "No sessions registered"
@@ -92,7 +93,6 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 WatchVideo -> "Watch Video"
                 Speaker -> "Speaker"
                 TargetAudience -> "Target Audience"
-                SearchHint -> "Enter the technology you are interested in"
             }
         },
         default = Lang.Japanese,

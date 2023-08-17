@@ -181,6 +181,7 @@ private fun NavGraphBuilder.mainScreen(
                     onNavigationIconClick = {
                         navController.popBackStack()
                     },
+                    onContributorItemClick = externalNavController::navigate,
                 )
             }
         },
