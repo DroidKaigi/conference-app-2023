@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -69,8 +70,10 @@ class SearchScreenViewModel @Inject constructor(
             SearchScreenUiState.SearchList(
                 searchQuery = searchQuery,
                 searchFilterUiState = searchFilterUiState,
-                sessions = searchedSessions,
-                bookmarkedTimetableItemIds = sessions.bookmarks,
+                searchListUiState = SearchListUiState(
+                    bookmarkedTimetableItemIds = sessions.bookmarks,
+                    timetableItems = searchedSessions.timetableItems,
+                ),
             )
         }
     }

@@ -18,10 +18,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
-import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.SearchList
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
@@ -29,7 +27,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppBar
 import io.github.droidkaigi.confsched2023.sessions.section.SearchList
-import kotlinx.collections.immutable.PersistentSet
+import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
@@ -46,8 +44,7 @@ sealed interface SearchScreenUiState {
     data class SearchList(
         override val searchQuery: String,
         override val searchFilterUiState: SearchFilterUiState,
-        val sessions: Timetable,
-        val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
+        val searchListUiState: SearchListUiState,
     ) : SearchScreenUiState
 }
 
@@ -132,8 +129,7 @@ private fun SearchScreen(
                         bottom = innerPadding.calculateBottomPadding(),
                     ),
                     scrollState = scrollState,
-                    bookmarkedTimetableItemIds = uiState.bookmarkedTimetableItemIds,
-                    timetableItems = uiState.sessions.timetableItems,
+                    searchListUiState = uiState.searchListUiState,
                     onTimetableItemClick = onTimetableItemClick,
                     onBookmarkIconClick = onBookmarkClick,
                 )

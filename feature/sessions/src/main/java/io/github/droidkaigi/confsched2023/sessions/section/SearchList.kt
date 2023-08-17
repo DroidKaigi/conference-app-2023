@@ -41,12 +41,16 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.PersistentSet
 import java.util.Locale
 
+data class SearchListUiState(
+    val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
+    val timetableItems: PersistentList<TimetableItem>,
+)
+
 @Composable
 fun SearchList(
     contentPaddingValues: PaddingValues,
+    searchListUiState: SearchListUiState,
     scrollState: LazyListState,
-    bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
-    timetableItems: PersistentList<TimetableItem>,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
@@ -54,9 +58,11 @@ fun SearchList(
     LazyColumn(
         state = scrollState,
         contentPadding = contentPaddingValues,
-        modifier = modifier.imePadding().padding(end = 16.dp),
+        modifier = modifier
+            .imePadding()
+            .padding(end = 16.dp),
     ) {
-        itemsIndexed(timetableItems) { index, timetableItem ->
+        itemsIndexed(searchListUiState.timetableItems) { index, timetableItem ->
             Row(modifier = Modifier.padding(top = 10.dp)) {
                 Column(
                     modifier = Modifier.width(58.dp),
@@ -81,7 +87,9 @@ fun SearchList(
                 }
                 TimetableListItem(
                     timetableItem = timetableItem,
-                    isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
+                    isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
+                        timetableItem.id
+                    ),
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()
