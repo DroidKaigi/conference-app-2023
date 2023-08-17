@@ -13,7 +13,11 @@ class KmpAndroidShowkasePlugin : Plugin<Project> {
                 apply(libs.findPlugin("kspGradlePlugin").get().get().pluginId)
             }
             kotlin {
-
+                sourceSets.getByName("androidMain") {
+                    dependencies {
+                        implementation(libs.findLibrary("showkaseRuntime").get())
+                    }
+                }
             }
             dependencies {
                 this.add("kspAndroid", libs.findLibrary("showkaseProcessor").get())
