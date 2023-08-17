@@ -34,7 +34,7 @@ jobs:
       - name: Build App
         working-directory: app-ios
         run: |
-          xcodebuild build -workspace app-ios.xcworkspace \
+          xcodebuild build -project App/DroidKaigi2023/DroidKaigi2023.xcodeproj \
               -scheme DroidKaigi2023 \
               -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=17.0' \
               -skipPackagePluginValidation
