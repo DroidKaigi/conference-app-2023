@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -26,7 +25,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
@@ -155,7 +153,7 @@ fun PreviewTimetableGridItem() {
     }
 }
 
-@@MultiThemePreviews
+@MultiThemePreviews
 @Composable
 internal fun PreviewTimetableGridItem(
     @PreviewParameter(PreviewTimeTableItemRoomProvider::class) timetableItem: TimetableItem,
