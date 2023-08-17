@@ -65,7 +65,10 @@ fun NavGraphBuilder.nestedSessionScreens(
 }
 
 fun NavController.navigateTimetableScreen() {
-    navigate(timetableScreenRoute)
+    navigate(timetableScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val TimetableScreenTestTag = "TimetableScreen"
