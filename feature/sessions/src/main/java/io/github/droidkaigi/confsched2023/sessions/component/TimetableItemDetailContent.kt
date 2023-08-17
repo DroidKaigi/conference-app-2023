@@ -162,7 +162,7 @@ private fun ArchiveSection(
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
         Text(
             text = SessionsStrings.Archive.asString(),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
         Row(
             modifier = Modifier
