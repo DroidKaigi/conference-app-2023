@@ -121,7 +121,7 @@ public struct SessionView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.timetableItem.speakers, id: \.id) { speaker in
                             HStack(spacing: 24) {
-                                AsyncImage(url: URL(string: speaker.iconUrl)) { image in
+                                CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
                                     image.resizable()
                                 } placeholder: {
                                     Color.gray
