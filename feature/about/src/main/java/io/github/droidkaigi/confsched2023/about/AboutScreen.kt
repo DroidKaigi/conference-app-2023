@@ -43,7 +43,10 @@ fun NavGraphBuilder.nestedAboutScreen(
 }
 
 fun NavController.navigateAboutScreen() {
-    navigate(aboutScreenRoute)
+    navigate(aboutScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val AboutScreenTestTag = "AboutScreen"
