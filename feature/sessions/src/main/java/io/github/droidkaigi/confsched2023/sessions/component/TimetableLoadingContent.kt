@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
@@ -12,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.style.TextOverflow.Companion
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -25,7 +23,7 @@ internal fun TimetableLoadingContent(
         verticalArrangement = Arrangement.spacedBy(
             space = 16.dp,
             alignment = Alignment.CenterVertically,
-        )
+        ),
     ) {
         CircularProgressIndicator()
 
