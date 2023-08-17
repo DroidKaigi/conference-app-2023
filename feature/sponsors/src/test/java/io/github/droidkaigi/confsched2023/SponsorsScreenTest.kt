@@ -38,4 +38,16 @@ class SponsorsScreenTest {
             checkScreenCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        sponsorsScreenRobot {
+            setupScreenContent()
+            scrollSponsorScreen()
+            checkScreenCapture()
+            scrollSponsorScreen()
+            checkScreenCapture()
+        }
+    }
 }

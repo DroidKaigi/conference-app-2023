@@ -25,6 +25,6 @@ class FakeRemoteConfigApi : RemoteConfigApi {
     }
 
     override suspend fun getBoolean(key: String): Boolean {
-        return status.getBoolean("key")
+        return status.getBoolean(key)
     }
 }

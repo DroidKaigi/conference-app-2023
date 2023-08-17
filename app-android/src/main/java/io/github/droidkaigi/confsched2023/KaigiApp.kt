@@ -110,6 +110,11 @@ private fun KaigiNavHost(
             onNavigationIconClick = {
                 navController.popBackStack()
             },
+            onTimetableItemClick = { timetableItem ->
+                navController.navigateToTimetableItemDetailScreen(
+                    timetableItem.id,
+                )
+            },
         )
         sponsorsScreen(
             onNavigationIconClick = {
@@ -205,7 +210,10 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute)
+            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute) {
+                launchSingleTop = true
+                restoreState = true
+            }
             Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }

@@ -26,28 +26,13 @@ fun AboutDroidKaigiDetail(
     Column(
         modifier = modifier,
     ) {
-        Text(
-            text = AboutStrings.Title.asString(),
-            style = MaterialTheme.typography.headlineLarge,
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    top = 20.dp,
-                    end = 16.dp,
-                    bottom = 16.dp,
-                ),
-        )
         Image(
             painter = painterResource(id = R.drawable.img_about_key_visual),
             contentDescription = null,
             contentScale = ContentScale.FillWidth,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp,
-                    bottom = 16.dp,
-                ),
+                .padding(16.dp),
         )
         Text(
             text = AboutStrings.Description.asString(),
