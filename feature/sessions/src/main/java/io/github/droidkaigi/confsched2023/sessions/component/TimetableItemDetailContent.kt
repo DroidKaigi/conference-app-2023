@@ -90,10 +90,12 @@ private fun DescriptionSection(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         )
-        ReadMoreOutlinedButton(
-            onClick = { isExpanded = !isExpanded },
-            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
-        )
+        if (!isExpanded) {
+            ReadMoreOutlinedButton(
+                onClick = { isExpanded = !isExpanded },
+                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+            )
+        }
         BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
 }
