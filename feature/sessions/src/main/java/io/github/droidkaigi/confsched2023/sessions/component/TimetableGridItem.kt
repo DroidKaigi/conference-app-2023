@@ -99,20 +99,20 @@ fun TimetableGridItem(
                     color = backgroundColor,
                     shape = RoundedCornerShape(4.dp),
                 )
-                .width(192.dp)
+                .width(TimetableGridItemSizes.width)
                 .height(height)
                 .clickable {
                     onTimetableItemClick(timetableItem)
                 }
-                .padding(12.dp),
+                .padding(TimetableGridItemSizes.padding),
         ) {
             Column {
                 Text(
                     text = timetableItem.title.currentLangTitle,
                     style = titleTextStyle,
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(modifier = Modifier.height(16.dp)) {
+                Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
+                Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
                     Icon(
                         imageVector = Icons.Default.Schedule,
                         tint = Color.White,
@@ -125,12 +125,12 @@ fun TimetableGridItem(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(TimetableGridItemSizes.scheduleToSpeakerSpaceHeight))
 
                 // TODO: Dealing with more than one speaker
                 if (speaker != null) {
                     Row(
-                        modifier = Modifier.height(32.dp),
+                        modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
@@ -170,30 +170,53 @@ private fun calculateTitleFontSize(
     speaker: TimetableSpeaker?,
     titleLength: Int,
 ): TextUnit {
-    val titleToScheduleSpaceHeight = with(localDensity) { 4.dp.toPx() }
-    val scheduleHeight = with(localDensity) { 16.dp.toPx() }
-    val scheduleToSpeakerSpaceHeight = with(localDensity) { 16.dp.toPx() }
-    val horizontalPadding = with(localDensity) { (12 * 2).dp.toPx() }
+    val titleToScheduleSpaceHeightPx = with(localDensity) {
+        TimetableGridItemSizes.titleToScheduleSpaceHeight.toPx()
+    }
+    val scheduleHeightPx = with(localDensity) {
+        TimetableGridItemSizes.scheduleHeight.toPx()
+    }
+    val scheduleToSpeakerSpaceHeightPx = with(localDensity) {
+        TimetableGridItemSizes.scheduleToSpeakerSpaceHeight.toPx()
+    }
+    val horizontalPaddingPx = with(localDensity) {
+        (TimetableGridItemSizes.padding * 2).toPx()
+    }
 
     // The height of the title that should be displayed.
     var displayTitleHeight =
-        gridItemHeightPx - titleToScheduleSpaceHeight - scheduleHeight - scheduleToSpeakerSpaceHeight - horizontalPadding
-    displayTitleHeight -= if (speaker != null) with(localDensity) { 32.dp.toPx() } else 0f
+        gridItemHeightPx - titleToScheduleSpaceHeightPx - scheduleHeightPx - scheduleToSpeakerSpaceHeightPx - horizontalPaddingPx
+    displayTitleHeight -= if (speaker != null) {
+        with(localDensity) { TimetableGridItemSizes.speakerHeight.toPx() }
+    } else {
+        0f
+    }
 
     // Actual height of displayed title.
-    val boxWidthWithoutPadding = with(localDensity) { (192 - 12 * 2).dp.toPx() }
+    val boxWidthWithoutPadding = with(localDensity) {
+        (TimetableGridItemSizes.width - TimetableGridItemSizes.padding * 2).toPx()
+    }
     val fontSizePx = with(localDensity) { textStyle.fontSize.toPx() }
     val textLengthInRow = (boxWidthWithoutPadding / fontSizePx).roundToInt()
     val rows = titleLength / textLengthInRow
     val actualTitleHeight = rows * fontSizePx
 
     val oneLine = 1
-    val minFontSize = 9.sp
     return when {
-        displayTitleHeight <= 0 -> minFontSize
+        displayTitleHeight <= 0 -> TimetableGridItemSizes.minFontSize
         rows <= oneLine || displayTitleHeight > actualTitleHeight -> textStyle.fontSize
-        else -> minFontSize
+        else -> TimetableGridItemSizes.minFontSize
     }
+}
+
+object TimetableGridItemSizes {
+    val width = 192.dp
+    val padding = 12.dp
+    val titleToScheduleSpaceHeight = 4.dp
+    val scheduleHeight = 16.dp
+    val scheduleToSpeakerSpaceHeight = 16.dp
+    val speakerHeight = 32.dp
+    val minFontSize = 9.sp
 }
 
 @Preview
