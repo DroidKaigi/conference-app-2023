@@ -68,9 +68,6 @@ class TimetableItemDetailViewModel @Inject constructor(
                     TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
                     TimetableItemDetailStrings.ViewBookmarkList.asString(),
                 )
-            } else {
-                val currentMessage = userMessageStateHolder.messageUiState.userMessages.firstOrNull() ?: return@launch
-                userMessageStateHolder.messageShown(currentMessage.id, Dismissed)
             }
         }
     }
