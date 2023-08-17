@@ -303,7 +303,7 @@ private fun ReadMoreOutlinedButton(
 
 @MultiLanguagePreviews
 @Composable
-private fun ReadMoreOutlinedButtonPreview() {
+fun ReadMoreOutlinedButtonPreview() {
     KaigiTheme {
         ReadMoreOutlinedButton(onClick = {})
     }
