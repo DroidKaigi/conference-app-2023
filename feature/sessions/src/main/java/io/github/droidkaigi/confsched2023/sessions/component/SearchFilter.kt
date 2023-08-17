@@ -1,8 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -63,9 +62,9 @@ fun SearchFilter(
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         item {
-            Spacer(modifier = Modifier.width(16.dp))
             FilterDayChip(
                 isSelected = searchFilterUiState.isDaySelected,
                 selectedDays = searchFilterUiState.selectedDays,
@@ -103,7 +102,6 @@ fun SearchFilter(
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )
-            Spacer(modifier = Modifier.width(16.dp))
         }
     }
 }
