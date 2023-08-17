@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -18,7 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -29,7 +33,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.feature.floormap.R
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
 import io.github.droidkaigi.confsched2023.model.SideEvent
@@ -50,9 +53,9 @@ fun FloorMapSideEventItem(
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            val (iconRes, iconColor) = sideEvent.mark.iconResAndColor()
+            val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
             Icon(
-                painter = painterResource(id = iconRes),
+                imageVector = iconVector,
                 contentDescription = FavoriteIcon.asString(),
                 tint = iconColor,
                 modifier = Modifier.size(16.dp),
@@ -73,7 +76,7 @@ fun FloorMapSideEventItem(
         Spacer(modifier = Modifier.height(8.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_schedule),
+                imageVector = Icons.Filled.Schedule,
                 contentDescription = FavoriteIcon.asString(),
                 modifier = Modifier.size(16.dp)
             )
@@ -87,7 +90,7 @@ fun FloorMapSideEventItem(
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_link),
+                    imageVector = Icons.Filled.Link,
                     contentDescription = FavoriteIcon.asString(),
                     modifier = Modifier.size(16.dp)
                 )
@@ -107,9 +110,9 @@ fun FloorMapSideEventItem(
 }
 
 @Composable
-private fun Mark.iconResAndColor(): Pair<Int, Color> {
+private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
     return when (this) {
-        Mark1 -> R.drawable.ic_favorite to LocalContentColor.current
+        Mark1 -> Icons.Filled.Favorite to LocalContentColor.current
     }
 }
 
