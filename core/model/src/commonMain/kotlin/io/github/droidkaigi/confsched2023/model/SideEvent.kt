@@ -19,7 +19,7 @@ public data class SideEvent(
     }
 
     enum class MarkColor {
-        Pink;
+        Pink,
     }
 
     public companion object
