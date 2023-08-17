@@ -69,7 +69,7 @@ fun SearchFilter(
                 isSelected = searchFilterUiState.isDaySelected,
                 selectedDays = searchFilterUiState.selectedDays,
                 selectedDaysValues = searchFilterUiState.selectedDaysValues,
-                kaigiDays = DroidKaigi2023Day.values().toList(),
+                kaigiDays = DroidKaigi2023Day.entries.toList(),
                 onDaySelected = onDaySelected,
             )
         }
