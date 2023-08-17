@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.stamps
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -18,9 +17,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.stamps.section.StampsSheet
-import io.github.droidkaigi.confsched2023.stamps.section.StampsSheetUiState
+import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.stamps.section.StampsList
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.ImmutableList
 
 const val stampsScreenRoute = "stamps"
 fun NavGraphBuilder.nestedStampsScreen(
@@ -62,7 +62,7 @@ fun StampsScreen(
 }
 
 data class StampsScreenUiState(
-    val contentUiState: StampsSheetUiState,
+    val stamps: ImmutableList<Stamp>,
 )
 
 @Composable
@@ -77,14 +77,14 @@ private fun StampsScreen(
         content = { padding ->
             val layoutDirection = LocalLayoutDirection.current
 
-            StampsSheet(
-                modifier = Modifier.padding(
-                    top = padding.calculateTopPadding() + 20.dp,
-                    start = padding.calculateStartPadding(layoutDirection) + 16.dp,
-                    end = padding.calculateEndPadding(layoutDirection) + 16.dp,
-                ),
+            StampsList(
+                stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
-                uiState = uiState.contentUiState,
+                modifier = Modifier.padding(
+                    top = padding.calculateTopPadding(),
+                    start = padding.calculateStartPadding(layoutDirection),
+                    end = padding.calculateEndPadding(layoutDirection),
+                ),
             )
         },
     )
