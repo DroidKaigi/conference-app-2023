@@ -53,7 +53,7 @@ val SideEvents = persistentListOf(
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
         mark = Mark1,
-        link = "https://github.com/DroidKaigi/conference-app-2023",
+        link = null,
     ),
     SideEvent(
         title = MultiLangText(
