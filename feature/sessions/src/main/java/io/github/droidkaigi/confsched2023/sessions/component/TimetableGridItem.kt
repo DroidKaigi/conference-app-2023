@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,15 +26,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
@@ -56,20 +55,27 @@ fun TimetableGridItem(
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val hallColor = hallColors()
     val backgroundColor = when (timetableItem.room.type) {
-        Room1 -> room_hall_a
-        Room2 -> room_hall_b
-        Room3 -> room_hall_c
-        Room4 -> room_hall_d
-        Room5 -> room_hall_e
+        Room1 -> hallColor.hallA
+        Room2 -> hallColor.hallB
+        Room3 -> hallColor.hallC
+        Room4 -> hallColor.hallD
+        Room5 -> hallColor.hallE
         else -> Color.White
     }
     Box(modifier.testTag(TimetableGridItemTestTag)) {
+        val speaker = timetableItem.speakers.firstOrNull()
+
         Box(
             modifier = Modifier
                 .testTag(TimetableGridItemTestTag)
                 .background(
-                    color = backgroundColor,
+                    color = if (speaker != null) {
+                        backgroundColor
+                    } else {
+                        MaterialTheme.colorScheme.surfaceVariant
+                    },
                     shape = RoundedCornerShape(4.dp),
                 )
                 .width(192.dp)
@@ -79,28 +85,38 @@ fun TimetableGridItem(
                 .padding(12.dp),
         ) {
             Column {
+                val textColor = if (speaker != null) {
+                    hallColor.hallText
+                } else {
+                    hallColor.hallTextWhenWithoutSpeakers
+                }
                 Text(
                     text = timetableItem.title.currentLangTitle,
-                    style = MaterialTheme.typography.labelLarge.copy(Color.White),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = textColor,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Row(modifier = Modifier.height(16.dp)) {
                     Icon(
                         imageVector = Icons.Default.Schedule,
-                        tint = Color.White,
+                        tint = if (speaker != null) {
+                            hallColor.hallText
+                        } else {
+                            hallColor.hallTextWhenWithoutSpeakers
+                        },
                         contentDescription = ScheduleIcon.asString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall.copy(Color.White),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = textColor,
                     )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // TODO: Dealing with more than one speaker
-                val speaker = timetableItem.speakers.firstOrNull()
                 if (speaker != null) {
                     Row(
                         modifier = Modifier.height(32.dp),
@@ -116,7 +132,8 @@ fun TimetableGridItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = speaker.name,
-                            style = MaterialTheme.typography.labelMedium.copy(Color.White),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = textColor,
                         )
                     }
                 }
@@ -125,7 +142,6 @@ fun TimetableGridItem(
     }
 }
 
-@MultiThemePreviews
 @MultiLanguagePreviews
 @Composable
 fun PreviewTimetableGridItem() {
@@ -133,6 +149,21 @@ fun PreviewTimetableGridItem() {
         Surface {
             TimetableGridItem(
                 timetableItem = Session.fake(),
+                onTimetableItemClick = {},
+            )
+        }
+    }
+}
+
+@@MultiThemePreviews
+@Composable
+internal fun PreviewTimetableGridItem(
+    @PreviewParameter(PreviewTimeTableItemRoomProvider::class) timetableItem: TimetableItem,
+) {
+    KaigiTheme {
+        Surface {
+            TimetableGridItem(
+                timetableItem = timetableItem,
                 onTimetableItemClick = {},
             )
         }

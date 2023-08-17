@@ -42,7 +42,7 @@ class BookmarkScreenViewModel @Inject constructor(
         )
 
     private val currentDayFilter = MutableStateFlow(
-        DroidKaigi2023Day.values().map { it },
+        DroidKaigi2023Day.entries.map { it },
     )
 
     val uiState: StateFlow<BookmarkScreenUiState> =
@@ -82,7 +82,7 @@ class BookmarkScreenViewModel @Inject constructor(
 
     fun onAllFilterChipClick() {
         currentDayFilter.update {
-            DroidKaigi2023Day.values().toList()
+            DroidKaigi2023Day.entries.toList()
         }
     }
 

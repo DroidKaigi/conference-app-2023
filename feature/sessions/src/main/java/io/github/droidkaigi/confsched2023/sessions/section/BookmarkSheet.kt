@@ -38,7 +38,7 @@ import kotlinx.collections.immutable.PersistentSet
 sealed interface BookmarkSheetUiState {
     val currentDayFilter: PersistentList<DroidKaigi2023Day>
     val isAll: Boolean
-        get() = currentDayFilter.size == DroidKaigi2023Day.values().size
+        get() = currentDayFilter.size == DroidKaigi2023Day.entries.size
     val isDayFirst: Boolean
         get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
     val isDaySecond: Boolean
