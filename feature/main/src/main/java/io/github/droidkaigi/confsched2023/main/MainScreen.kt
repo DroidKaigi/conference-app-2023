@@ -85,45 +85,45 @@ fun MainScreen(
     )
 }
 
-sealed class IconType {
-    data class Vector(val imageVector: ImageVector) : IconType()
-    data class Drawable(@DrawableRes val drawableId: Int) : IconType()
+sealed class IconRepresentation {
+    data class Vector(val imageVector: ImageVector) : IconRepresentation()
+    data class Drawable(@DrawableRes val drawableId: Int) : IconRepresentation()
 }
 
 enum class MainScreenTab(
     val icon: ImageVector,
-    val selectedIcon: IconType,
+    val selectedIcon: IconRepresentation,
     val label: String,
     val contentDescription: String,
     val testTag: String = "mainScreenTab:$label",
 ) {
     Timetable(
         icon = Icons.Outlined.CalendarMonth,
-        selectedIcon = IconType.Vector(Icons.Filled.CalendarMonth),
+        selectedIcon = IconRepresentation.Vector(Icons.Filled.CalendarMonth),
         label = MainStrings.Timetable.asString(),
         contentDescription = MainStrings.Timetable.asString(),
     ),
     FloorMap(
         icon = Icons.Outlined.Map,
-        selectedIcon = IconType.Drawable(drawableId = R.drawable.icon_map_fill),
+        selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_map_fill),
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
     Badges(
         icon = Icons.Outlined.Approval,
-        selectedIcon = IconType.Vector(Icons.Filled.Approval),
+        selectedIcon = IconRepresentation.Vector(Icons.Filled.Approval),
         label = MainStrings.Badges.asString(),
         contentDescription = MainStrings.Badges.asString(),
     ),
     About(
         icon = Icons.Outlined.Info,
-        selectedIcon = IconType.Vector(Icons.Filled.Info),
+        selectedIcon = IconRepresentation.Vector(Icons.Filled.Info),
         label = MainStrings.About.asString(),
         contentDescription = MainStrings.About.asString(),
     ),
     Contributor(
         icon = Icons.Outlined.Group,
-        selectedIcon = IconType.Vector(Icons.Filled.Group),
+        selectedIcon = IconRepresentation.Vector(Icons.Filled.Group),
         label = MainStrings.Contributors.asString(),
         contentDescription = MainStrings.Contributors.asString(),
     ),

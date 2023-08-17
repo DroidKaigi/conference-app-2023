@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
-import io.github.droidkaigi.confsched2023.main.IconType.Drawable
-import io.github.droidkaigi.confsched2023.main.IconType.Vector
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Drawable
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Vector
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 
 @Composable
