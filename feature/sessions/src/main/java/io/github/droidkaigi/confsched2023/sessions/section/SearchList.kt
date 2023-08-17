@@ -88,7 +88,7 @@ fun SearchList(
                 TimetableListItem(
                     timetableItem = timetableItem,
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
-                        timetableItem.id
+                        timetableItem.id,
                     ),
                     chipContent = {
                         // Chips
