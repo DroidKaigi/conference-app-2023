@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Modifier.Companion
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -70,9 +71,7 @@ fun BookmarkSheet(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(start = 16.dp),
+        modifier = modifier.fillMaxSize(),
     ) {
         BookmarkFilters(
             isAll = uiState.isAll,
@@ -83,6 +82,7 @@ fun BookmarkSheet(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
+            modifier = Modifier.padding(start = 16.dp),
         )
         when (uiState) {
             is Empty -> {
@@ -126,9 +126,9 @@ private fun EmptyView() {
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = BookmarkedItemNotFound.asString(),
-            fontSize = 16.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 24.sp,
+            lineHeight = 28.sp,
             color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.size(8.dp))
