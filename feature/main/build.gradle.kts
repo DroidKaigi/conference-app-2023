@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.composeNavigation)
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
+    implementation(libs.androidxWindow)
     androidTestImplementation(libs.composeUiTestJunit4)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
