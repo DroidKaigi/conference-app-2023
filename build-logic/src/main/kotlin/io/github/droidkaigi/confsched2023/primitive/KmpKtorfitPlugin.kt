@@ -14,18 +14,18 @@ class KmpKtorfitPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             with(pluginManager) {
-                apply(libs.findPlugin("kspGradlePlugin").get().get().pluginId)
+                apply(libs.plugin("kspGradlePlugin").pluginId)
                 apply("de.jensklingenberg.ktorfit")
             }
 
             configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
-                version = "1.5.0"
+                version = libs.library("ktorfitKsp").versionConstraint.requiredVersion
             }
 
             kotlin {
-                sourceSets.get("commonMain").apply {
+                sourceSets["commonMain"].apply {
                     dependencies {
-                        implementation(libs.findLibrary("ktorfitLib").get())
+                        implementation(libs.library("ktorfitLib"))
                     }
                 }
             }
@@ -40,8 +40,8 @@ class KmpKtorfitPlugin : Plugin<Project> {
                         "IosSimulatorArm64",
                     )
                 }
-                listOf("CommonMainMetadata", "Android") + iosConfigs.forEach {
-                    add("ksp$it", "de.jensklingenberg.ktorfit:ktorfit-ksp:1.5.0")
+                (listOf("CommonMainMetadata", "Android") + iosConfigs).forEach {
+                    add("ksp$it", libs.library("ktorfitKsp"))
                 }
             }
         }
