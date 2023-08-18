@@ -12,10 +12,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import io.github.droidkaigi.confsched2023.main.IconRepresentation.Drawable
 import io.github.droidkaigi.confsched2023.main.IconRepresentation.Vector
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun KaigiBottomBar(
-    mainScreenTabs: List<MainScreenTab>,
+    mainScreenTabs: PersistentList<MainScreenTab>,
     onTabSelected: (MainScreenTab) -> Unit,
     currentTab: MainScreenTab,
     isEnableStamps: Boolean,

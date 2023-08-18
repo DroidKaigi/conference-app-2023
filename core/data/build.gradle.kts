@@ -9,9 +9,10 @@ plugins {
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.data"
+
 kotlin {
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 implementation(projects.core.model)
                 implementation(projects.core.common)
@@ -26,8 +27,9 @@ kotlin {
                 implementation(libs.kermit)
             }
         }
-        val androidMain by getting {
-            dependsOn(commonMain)
+
+        androidMain {
+            dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientOkHttp)
                 implementation(libs.okHttpLoggingInterceptor)
@@ -35,12 +37,12 @@ kotlin {
                 implementation(libs.firebaseRemoteConfig)
             }
         }
-        val iosMain by getting {
+
+        iosMain {
+            dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientDarwin)
             }
         }
     }
-}
-dependencies {
 }
