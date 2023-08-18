@@ -1,3 +1,4 @@
+import Component
 import shared
 import SwiftUI
 import Theme
@@ -9,7 +10,7 @@ struct PersonLabel: View {
         HStack(alignment: .center, spacing: 8) {
             HStack(spacing: -8) {
                 ForEach(speakers.map(\.iconUrl), id: \.self) { iconUrl in
-                    AsyncImage(url: URL(string: iconUrl)) { image in
+                    CacheAsyncImage(url: URL(string: iconUrl)) { image in
                         image.resizable()
                     } placeholder: {
                         Color.gray

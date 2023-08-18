@@ -1,56 +1,47 @@
 package io.github.droidkaigi.confsched2023.primitive
 
-import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-import java.util.Optional
 
 fun DependencyHandlerScope.implementation(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("implementation", artifact.get())
+    add("implementation", artifact)
 }
 
 fun DependencyHandlerScope.debugImplementation(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("debugImplementation", artifact.get())
+    add("debugImplementation", artifact)
 }
 
 fun DependencyHandlerScope.androidTestImplementation(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("androidTestImplementation", artifact.get())
+    add("androidTestImplementation", artifact)
 }
 
 fun DependencyHandlerScope.testImplementation(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("testImplementation", artifact.get())
+    add("testImplementation", artifact)
 }
 
 fun DependencyHandlerScope.lintChecks(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("lintChecks", artifact.get())
+    add("lintChecks", artifact)
 }
 
 private fun DependencyHandlerScope.api(
-    artifact: Optional<Provider<MinimalExternalModuleDependency>>
+    artifact: MinimalExternalModuleDependency,
 ) {
-    add("api", artifact.get())
+    add("api", artifact)
 }
 
 fun Project.java(action: JavaPluginExtension.() -> Unit) {
     extensions.configure(action)
 }
-
-val Project.libs get() = extensions.getByType<VersionCatalogsExtension>().named("libs")

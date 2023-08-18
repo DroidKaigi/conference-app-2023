@@ -105,6 +105,7 @@ firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version = "1.8.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
 
 # Debug
 
