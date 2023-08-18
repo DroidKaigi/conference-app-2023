@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -46,6 +48,7 @@ import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvents
+import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 @Composable
@@ -128,7 +131,10 @@ fun FloorMapSideEventItem(
                             color = MaterialTheme.colorScheme.outline,
                             shape = RoundedCornerShape(16.dp),
                         ),
-                    painter = rememberAsyncImagePainter(sideEvent.imageLink!!),
+                    painter = previewOverride(
+                        previewPainter = { rememberVectorPainter(image = Icons.Default.Person) },
+                        painter = { rememberAsyncImagePainter(sideEvent.imageLink!!) },
+                    ),
                     contentScale = ContentScale.Crop,
                     contentDescription = "Side events image",
                 )
