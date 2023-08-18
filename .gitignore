@@ -35,7 +35,7 @@ local.properties
 /.idea/codeStyles/*
 !/.idea/codeStyles/Project.xml
 !/.idea/codeStyles/codeStyleConfig.xml
-!/.idea/icon.png
+!/.idea/icon.svg
 
 # Gradle cache
 .gradle
