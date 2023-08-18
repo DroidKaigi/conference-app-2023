@@ -13,11 +13,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Approval
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Info
@@ -112,8 +110,8 @@ enum class MainScreenTab(
         contentDescription = MainStrings.FloorMap.asString(),
     ),
     Badges(
-        icon = IconRepresentation.Vector(Icons.Outlined.Approval),
-        selectedIcon = IconRepresentation.Vector(Icons.Filled.Approval),
+        icon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_outline),
+        selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_fill),
         label = MainStrings.Stamps.asString(),
         contentDescription = MainStrings.Stamps.asString(),
     ),
