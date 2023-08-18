@@ -37,8 +37,7 @@ import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkTe
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.EventDetail
-import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
+import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
@@ -70,7 +69,7 @@ fun FloorMapSideEventItem(
                     val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
                     Icon(
                         imageVector = iconVector,
-                        contentDescription = FavoriteIcon.asString(),
+                        contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                         tint = iconColor,
                         modifier = Modifier.size(16.dp),
                     )
@@ -91,7 +90,7 @@ fun FloorMapSideEventItem(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.Schedule,
-                        contentDescription = FavoriteIcon.asString(),
+                        contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                         modifier = Modifier.size(16.dp),
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -105,15 +104,15 @@ fun FloorMapSideEventItem(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Filled.Link,
-                            contentDescription = FavoriteIcon.asString(),
+                            contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                             modifier = Modifier.size(16.dp),
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         ClickableLinkText(
                             style = MaterialTheme.typography.bodySmall,
-                            content = EventDetail.asString(),
+                            content = FloorMapStrings.EventDetail.asString(),
                             onLinkClick = onSideEventClick,
-                            regex = EventDetail.asString().toRegex(),
+                            regex = FloorMapStrings.EventDetail.asString().toRegex(),
                             url = link,
                         )
                     }
