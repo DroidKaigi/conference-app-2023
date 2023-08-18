@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Description
@@ -82,22 +83,24 @@ private fun DescriptionSection(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier.animateContentSize()) {
-        Text(
-            text = description,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = if (isExpanded) Int.MAX_VALUE else 5,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-        )
-        if (!isExpanded) {
-            ReadMoreOutlinedButton(
-                onClick = { isExpanded = true },
-                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+    SelectionContainer {
+        Column(modifier = modifier.animateContentSize()) {
+            Text(
+                text = description,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = if (isExpanded) Int.MAX_VALUE else 5,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             )
+            if (!isExpanded) {
+                ReadMoreOutlinedButton(
+                    onClick = { isExpanded = true },
+                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                )
+            }
+            BorderLine(modifier = Modifier.padding(top = 24.dp))
         }
-        BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
 }
 
