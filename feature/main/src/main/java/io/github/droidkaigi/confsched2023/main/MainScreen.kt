@@ -93,38 +93,38 @@ sealed class IconRepresentation {
 }
 
 enum class MainScreenTab(
-    val icon: ImageVector,
+    val icon: IconRepresentation,
     val selectedIcon: IconRepresentation,
     val label: String,
     val contentDescription: String,
     val testTag: String = "mainScreenTab:$label",
 ) {
     Timetable(
-        icon = Icons.Outlined.CalendarMonth,
+        icon = IconRepresentation.Vector(Icons.Outlined.CalendarMonth),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.CalendarMonth),
         label = MainStrings.Timetable.asString(),
         contentDescription = MainStrings.Timetable.asString(),
     ),
     FloorMap(
-        icon = Icons.Outlined.Map,
+        icon = IconRepresentation.Vector(Icons.Outlined.Map),
         selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_map_fill),
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
     Badges(
-        icon = Icons.Outlined.Approval,
+        icon = IconRepresentation.Vector(Icons.Outlined.Approval),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Approval),
         label = MainStrings.Stamps.asString(),
         contentDescription = MainStrings.Stamps.asString(),
     ),
     About(
-        icon = Icons.Outlined.Info,
+        icon = IconRepresentation.Vector(Icons.Outlined.Info),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Info),
         label = MainStrings.About.asString(),
         contentDescription = MainStrings.About.asString(),
     ),
     Contributor(
-        icon = Icons.Outlined.Group,
+        icon = IconRepresentation.Vector(Icons.Outlined.Group),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Group),
         label = MainStrings.Contributors.asString(),
         contentDescription = MainStrings.Contributors.asString(),

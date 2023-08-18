@@ -46,10 +46,17 @@ fun KaigiBottomBar(
                             )
                         }
                     } else {
-                        Icon(
-                            imageVector = tab.icon,
-                            contentDescription = tab.contentDescription,
-                        )
+                        when (val icon = tab.icon) {
+                            is Drawable -> Icon(
+                                painterResource(id = icon.drawableId),
+                                contentDescription = tab.contentDescription,
+                            )
+
+                            is Vector -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = tab.contentDescription,
+                            )
+                        }
                     }
                 },
                 label = {
