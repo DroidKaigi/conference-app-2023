@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -81,7 +82,7 @@ private fun DescriptionSection(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier) {
+    Column(modifier = modifier.animateContentSize(),) {
         Text(
             text = description,
             fontSize = 16.sp,
