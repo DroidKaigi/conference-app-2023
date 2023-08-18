@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.about.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,9 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.about.R.drawable
 
@@ -74,26 +74,10 @@ fun AboutFooterLinks(
     }
 }
 
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun AboutFooterLinksPreview() {
-    KaigiTheme {
-        Surface {
-            AboutFooterLinks(
-                versionName = "1.2",
-                onYouTubeClick = {},
-                onXClick = {},
-                onMediumClick = {},
-            )
-        }
-    }
-}
-
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun AboutFooterLinksDarkModePreview() {
     KaigiTheme {
         Surface {
             AboutFooterLinks(

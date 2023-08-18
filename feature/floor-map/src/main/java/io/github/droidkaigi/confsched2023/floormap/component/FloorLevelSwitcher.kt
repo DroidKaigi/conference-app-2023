@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2023.floormap.component
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,9 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.floorButtonColors
 import io.github.droidkaigi.confsched2023.model.FloorLevel
@@ -104,8 +102,7 @@ private fun FloorLevelSwitcherButton(
 
 // TODO Use PreviewParameterProvider to display the Preview once the Linter issue is resolved.
 // https://github.com/DroidKaigi/conference-app-2023/pull/557#discussion_r1295780974
-@Preview(uiMode = UI_MODE_NIGHT_NO)
-@Preview(uiMode = UI_MODE_NIGHT_YES)
+@MultiThemePreviews
 @Composable
 fun FloorLevelSwitcherGroundPreview() {
     KaigiTheme {
@@ -118,8 +115,7 @@ fun FloorLevelSwitcherGroundPreview() {
     }
 }
 
-@Preview(uiMode = UI_MODE_NIGHT_NO)
-@Preview(uiMode = UI_MODE_NIGHT_YES)
+@MultiThemePreviews
 @Composable
 fun FloorLevelSwitcherBasementPreview() {
     KaigiTheme {

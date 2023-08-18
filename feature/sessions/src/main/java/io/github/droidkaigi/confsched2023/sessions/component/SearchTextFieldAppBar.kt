@@ -31,8 +31,9 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
 import io.github.droidkaigi.confsched2023.ui.isTest
 
@@ -139,7 +140,8 @@ private fun SearchTextField(
     )
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun SearchTextFieldAppBarPreview() {
     SearchTextFieldAppBar(

@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sponsors.section
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -12,8 +11,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Plan.GOLD
 import io.github.droidkaigi.confsched2023.model.Plan.PLATINUM
@@ -112,10 +112,8 @@ fun SponsorList(
     }
 }
 
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun SponsorListPreview() {
     val uiState = SponsorListUiState(

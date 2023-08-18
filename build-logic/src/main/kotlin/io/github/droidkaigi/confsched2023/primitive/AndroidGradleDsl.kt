@@ -30,6 +30,7 @@ fun Project.setupAndroid() {
 
         defaultConfig {
             minSdk = 23
+            targetSdk = 33
         }
 
         compileOptions {
@@ -38,7 +39,7 @@ fun Project.setupAndroid() {
             isCoreLibraryDesugaringEnabled = true
         }
         dependencies {
-            add("coreLibraryDesugaring", libs.findLibrary("androidDesugarJdkLibs").get())
+            add("coreLibraryDesugaring", libs.library("androidDesugarJdkLibs"))
         }
         testOptions {
             unitTests {
@@ -59,7 +60,5 @@ fun Project.setupAndroid() {
             // for now
             sarifReport = false
         }
-
-        defaultConfig.targetSdk = 33
     }
 }
