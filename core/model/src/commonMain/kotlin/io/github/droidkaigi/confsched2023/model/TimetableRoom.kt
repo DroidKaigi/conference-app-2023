@@ -1,10 +1,10 @@
 package io.github.droidkaigi.confsched2023.model
 
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
+import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomA
+import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomB
+import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomC
+import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomE
 
 public data class TimetableRoom(
     val id: Int,
@@ -15,10 +15,10 @@ public data class TimetableRoom(
 
 val TimetableRoom.type: RoomIndex
     get() = when (name.enTitle.lowercase()) {
-        "arctic fox" -> Room2
-        "bumblebee" -> Room3
-        "chipmunk" -> Room1
-        "dolphin" -> Room4
-        "electric eel" -> Room5
-        else -> Room1
+        "arctic fox" -> RoomA
+        "bumblebee" -> RoomB
+        "chipmunk" -> RoomC
+        "dolphin" -> RoomD
+        "electric eel" -> RoomE
+        else -> RoomA
     }
