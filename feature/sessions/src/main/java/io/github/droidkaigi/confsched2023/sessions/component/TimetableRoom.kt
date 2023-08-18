@@ -3,11 +3,11 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
-import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomA
-import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomB
-import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomC
-import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomD
-import io.github.droidkaigi.confsched2023.model.RoomIndex.RoomE
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
 import io.github.droidkaigi.confsched2023.model.type
 
