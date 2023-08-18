@@ -32,6 +32,7 @@ class StaffScreenRobot @Inject constructor(
             KaigiTheme {
                 StaffScreen(
                     onBackClick = { },
+                    onStaffClick = {},
                 )
             }
         }
