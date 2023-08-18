@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -143,9 +142,9 @@ private fun NavGraphBuilder.mainScreen(
 ) {
     mainScreen(
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, padding ->
+        mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 onSearchClick = {
                     navController.navigateSearchScreen()
                 },
