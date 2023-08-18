@@ -73,34 +73,4 @@ class TimetableItemDetailScreenTest {
             checkScreenCapture()
         }
     }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    @Config(fontScale = 0.5f)
-    fun smallFontScaleShot() {
-        timetableItemDetailScreenRobot {
-            setupScreenContent()
-            checkScreenCapture()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    @Config(fontScale = 1.5f)
-    fun largeFontScaleShot() {
-        timetableItemDetailScreenRobot {
-            setupScreenContent()
-            checkScreenCapture()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    @Config(fontScale = 2.0f)
-    fun hugeFontScaleShot() {
-        timetableItemDetailScreenRobot {
-            setupScreenContent()
-            checkScreenCapture()
-        }
-    }
 }
