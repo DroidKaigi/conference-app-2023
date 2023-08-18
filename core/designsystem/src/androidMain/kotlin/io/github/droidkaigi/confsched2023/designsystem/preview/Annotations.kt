@@ -88,7 +88,7 @@ annotation class MultiLanguagePreviews
  */
 @Preview(
     name = "small font",
-    fontScale = 1.0f,
+    fontScale = 0.5f,
 )
 @Preview(
     name = "medium font",
