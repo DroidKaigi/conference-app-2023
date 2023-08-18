@@ -34,6 +34,7 @@ jobs:
         working-directory: app-ios
         run: bundle exec fastlane shared
 
-      - name: Build App
-        working-directory: app-ios
-        run: bundle exec fastlane build_project
+      # Skip the build app because the build result is unstable due to the Xcode 15 is still in beta
+      # - name: Build App
+      #   working-directory: app-ios
+      #   run: bundle exec fastlane build_project
