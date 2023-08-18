@@ -9,7 +9,6 @@ import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
-import io.github.droidkaigi.confsched2023.model.type
 
 internal val TimetableRoom.color: Color
     @Composable get() {
