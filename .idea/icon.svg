@@ -1,21 +1,21 @@
 <svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_57449_53423)">
+<g clip-path="url(#clip0_56198_19178)">
 <rect width="192" height="192" rx="32" fill="white"/>
-<g clip-path="url(#clip1_57449_53423)">
-<rect width="192" height="192" fill="url(#paint0_linear_57449_53423)"/>
-<path d="M77.6793 82.348L110.649 52.113C122.619 41.1379 145.778 46.1025 145.778 62.3261V129.817C145.778 146.045 122.487 150.823 110.517 139.844L77.6793 109.795C69.6254 102.416 69.6254 89.7347 77.6793 82.348Z" fill="#4FE4A3"/>
-<path d="M89.5832 62.9871L73.4754 77.7644C68.3537 82.4608 65.4176 89.1321 65.4176 96.0757C65.4176 103.015 68.3537 109.691 73.4754 114.387L89.4704 129.024L78.5621 139.891C67.541 150.866 46.222 145.901 46.222 129.674V62.1823C46.222 45.9549 67.6615 41.1769 78.6826 52.1558L89.5832 62.9871Z" fill="#31C2EF"/>
+<g clip-path="url(#clip1_56198_19178)">
+<rect width="192" height="192" fill="url(#paint0_linear_56198_19178)"/>
+<path d="M77.6793 82.348L110.649 52.113C122.619 41.1379 145.778 46.1025 145.778 62.3261V129.817C145.778 146.045 122.487 150.823 110.517 139.844L77.6793 109.795C69.6254 102.416 69.6254 89.7347 77.6793 82.348Z" fill="#48D597"/>
+<path d="M89.5832 62.9871L73.4754 77.7644C68.3537 82.4608 65.4176 89.1322 65.4176 96.0757C65.4176 103.015 68.3537 109.691 73.4754 114.387L89.4704 129.024L78.5621 139.891C67.541 150.866 46.222 145.901 46.222 129.674V62.1824C46.222 45.9549 67.6615 41.1769 78.6826 52.1559L89.5832 62.9871Z" fill="#18AFDE"/>
 </g>
 </g>
 <defs>
-<linearGradient id="paint0_linear_57449_53423" x1="96" y1="192" x2="95.9998" y2="6.63062e-06" gradientUnits="userSpaceOnUse">
-<stop stop-color="#13763B"/>
-<stop offset="1" stop-color="#1B3026"/>
+<linearGradient id="paint0_linear_56198_19178" x1="96" y1="0" x2="100.499" y2="127.877" gradientUnits="userSpaceOnUse">
+<stop stop-color="#A9E5FF"/>
+<stop offset="1" stop-color="#F6FFD3"/>
 </linearGradient>
-<clipPath id="clip0_57449_53423">
+<clipPath id="clip0_56198_19178">
 <rect width="192" height="192" rx="32" fill="white"/>
 </clipPath>
-<clipPath id="clip1_57449_53423">
+<clipPath id="clip1_56198_19178">
 <rect width="192" height="192" fill="white"/>
 </clipPath>
 </defs>
