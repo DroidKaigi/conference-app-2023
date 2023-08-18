@@ -69,7 +69,9 @@ fun BookmarkList(
                         timetableItem = timetableItem,
                         isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                         chipContent = {
+                            val hallColor = hallColors()
                             val roomChipBackgroundColor = timetableItem.room.color
+                            val roomChipLabelColor = hallColor.hallText
                             AssistChip(
                                 onClick = { /*Do Nothing*/ },
                                 label = {
@@ -81,7 +83,7 @@ fun BookmarkList(
                                 },
                                 colors = AssistChipDefaults.assistChipColors(
                                     containerColor = roomChipBackgroundColor,
-                                    labelColor = hallColors().hallText,
+                                    labelColor = roomChipLabelColor,
                                 ),
                                 border = AssistChipDefaults.assistChipBorder(
                                     borderColor = Color.Transparent,

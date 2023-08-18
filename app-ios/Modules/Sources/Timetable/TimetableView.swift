@@ -28,16 +28,22 @@ public struct TimetableView<SessionView: View>: View {
         case .loaded(let state):
             NavigationStack {
                 ZStack(alignment: .topLeading) {
-                    HStack(alignment: .top) {
-                        VStack {
-                            Text("DroidKaigi\n2023")
-                                .font(Font.system(size: 36))
-                            Text("at Bellesalle Shibuya Garden")
-                                .font(Font.system(size: 12, weight: .semibold))
+                    ZStack(alignment: .top) {
+                        HStack(spacing: 0) {
+                            Spacer()
+                            Assets.Images.droidHotSpring.swiftUIImage
                         }
-                        .padding(.horizontal, 16)
-                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-                        Assets.Images.droidHotSpring.swiftUIImage
+                        HStack(spacing: 0) {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text("DroidKaigi\n2023")
+                                    .font(Font.system(size: 36))
+                                Text("at Bellesalle Shibuya Garden")
+                                    .font(Font.system(size: 12, weight: .semibold))
+                            }
+                            .padding(.horizontal, 16)
+                            .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                            Spacer()
+                        }
                     }
                     ScrollView(.vertical) {
                         Spacer().frame(height: 130)

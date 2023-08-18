@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
@@ -101,10 +100,13 @@ fun SearchList(
                             infoChip.add(SessionsStrings.InterpretationTarget.asString())
                         }
 
+                        val hallColor = hallColors()
+                        val roomChipBackgroundColor = timetableItem.room.color
+                        val roomChipLabelColor = hallColor.hallText
                         SuggestionChip(
                             colors = SuggestionChipDefaults.suggestionChipColors(
-                                containerColor = timetableItem.room.color,
-                                labelColor = hallColors().hallText,
+                                containerColor = roomChipBackgroundColor,
+                                labelColor = roomChipLabelColor,
                             ),
                             onClick = { /* Do nothing */ },
                             label = {

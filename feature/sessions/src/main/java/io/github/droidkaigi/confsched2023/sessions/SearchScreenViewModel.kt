@@ -7,10 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Filters
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
@@ -33,10 +35,6 @@ class SearchScreenViewModel @Inject constructor(
 ) : ViewModel() {
     private val searchQuery = savedStateHandle.getStateFlow(SEARCH_QUERY, "")
 
-    private val searchFilterUiState: MutableStateFlow<SearchFilterUiState> = MutableStateFlow(
-        SearchFilterUiState(),
-    )
-
     private val sessionsStateFlow: StateFlow<Timetable> = sessionsRepository
         .getTimetableStream()
         .handleErrorAndRetry(
@@ -49,6 +47,10 @@ class SearchScreenViewModel @Inject constructor(
             initialValue = Timetable(),
         )
 
+    private val searchFilterUiState: MutableStateFlow<SearchFilterUiState> = MutableStateFlow(
+        SearchFilterUiState(),
+    )
+
     val uiState: StateFlow<SearchScreenUiState> = buildUiState(
         searchQuery,
         searchFilterUiState,
@@ -58,6 +60,8 @@ class SearchScreenViewModel @Inject constructor(
             Filters(
                 days = searchFilterUiState.selectedDays,
                 categories = searchFilterUiState.selectedCategories,
+                sessionTypes = searchFilterUiState.selectedSessionTypes,
+                languages = searchFilterUiState.selectedLanguages,
                 searchWord = searchQuery,
             ),
         )
@@ -69,7 +73,10 @@ class SearchScreenViewModel @Inject constructor(
         } else {
             SearchScreenUiState.SearchList(
                 searchQuery = searchQuery,
-                searchFilterUiState = searchFilterUiState,
+                searchFilterUiState = searchFilterUiState.copy(
+                    categories = sessions.categories,
+                    sessionTypes = sessions.sessionTypes,
+                ),
                 searchListUiState = SearchListUiState(
                     bookmarkedTimetableItemIds = sessions.bookmarks,
                     timetableItems = searchedSessions.timetableItems,
@@ -95,20 +102,6 @@ class SearchScreenViewModel @Inject constructor(
         )
     }
 
-    fun onFilterCategoryChipClicked() {
-        viewModelScope.launch {
-            // TODO: Implement SessionsRepository.getCategories()
-            val categories = emptyList<TimetableCategory>()
-            if (categories.isEmpty()) {
-                return@launch
-            }
-
-            searchFilterUiState.value = SearchFilterUiState(
-                categories = categories,
-            )
-        }
-    }
-
     fun onCategoriesSelected(category: TimetableCategory, isSelected: Boolean) {
         val selectedCategories = searchFilterUiState.value.selectedCategories.toMutableList()
         searchFilterUiState.value = searchFilterUiState.value.copy(
@@ -117,6 +110,32 @@ class SearchScreenViewModel @Inject constructor(
                     add(category)
                 } else {
                     remove(category)
+                }
+            },
+        )
+    }
+
+    fun onSessionTypesSelected(sessionType: TimetableSessionType, isSelected: Boolean) {
+        val selectedSessionTypes = searchFilterUiState.value.selectedSessionTypes.toMutableList()
+        searchFilterUiState.value = searchFilterUiState.value.copy(
+            selectedSessionTypes = selectedSessionTypes.apply {
+                if (isSelected) {
+                    add(sessionType)
+                } else {
+                    remove(sessionType)
+                }
+            },
+        )
+    }
+
+    fun onLanguagesSelected(language: Lang, isSelected: Boolean) {
+        val selectedLanguages = searchFilterUiState.value.selectedLanguages.toMutableList()
+        searchFilterUiState.value = searchFilterUiState.value.copy(
+            selectedLanguages = selectedLanguages.apply {
+                if (isSelected) {
+                    add(language)
+                } else {
+                    remove(language)
                 }
             },
         )

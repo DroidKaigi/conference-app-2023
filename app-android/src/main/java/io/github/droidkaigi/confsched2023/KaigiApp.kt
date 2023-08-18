@@ -165,9 +165,7 @@ private fun NavGraphBuilder.mainScreen(
                 onLinkClick = externalNavController::navigate,
             )
             nestedFloorMapScreen(
-                onSideEventClick = {
-                    TODO()
-                },
+                onSideEventClick = externalNavController::navigate,
             )
             nestedStampsScreen(
                 onStampsClick = {

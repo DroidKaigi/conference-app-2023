@@ -73,6 +73,36 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+sealed class HallColorScheme {
+    abstract val hallA: Color
+    abstract val hallB: Color
+    abstract val hallC: Color
+    abstract val hallD: Color
+    abstract val hallE: Color
+    abstract val hallText: Color
+    abstract val hallTextWhenWithoutSpeakers: Color
+
+    data class Light(
+        override val hallA: Color = md_theme_light_room_hall_a,
+        override val hallB: Color = md_theme_light_room_hall_b,
+        override val hallC: Color = md_theme_light_room_hall_c,
+        override val hallD: Color = md_theme_light_room_hall_d,
+        override val hallE: Color = md_theme_light_room_hall_e,
+        override val hallText: Color = md_theme_light_room_hall_text,
+        override val hallTextWhenWithoutSpeakers: Color = md_theme_light_onSurfaceVariant,
+    ) : HallColorScheme()
+
+    data class Dark(
+        override val hallA: Color = md_theme_dark_room_hall_a,
+        override val hallB: Color = md_theme_dark_room_hall_b,
+        override val hallC: Color = md_theme_dark_room_hall_c,
+        override val hallD: Color = md_theme_dark_room_hall_d,
+        override val hallE: Color = md_theme_dark_room_hall_e,
+        override val hallText: Color = md_theme_dark_room_hall_text,
+        override val hallTextWhenWithoutSpeakers: Color = md_theme_dark_onSurfaceVariant,
+    ) : HallColorScheme()
+}
+
 sealed class FloorButtonColorScheme {
     abstract val background: Color
 
@@ -86,44 +116,17 @@ sealed class FloorButtonColorScheme {
 }
 
 @Composable
+fun hallColors() = if (isSystemInDarkTheme()) {
+    HallColorScheme.Dark()
+} else {
+    HallColorScheme.Light()
+}
+
+@Composable
 fun floorButtonColors() = if (isSystemInDarkTheme()) {
     FloorButtonColorScheme.Dark()
 } else {
     FloorButtonColorScheme.Light()
-}
-
-sealed interface HallColorScheme {
-    val hallA: Color
-    val hallB: Color
-    val hallC: Color
-    val hallD: Color
-    val hallE: Color
-    val hallText: Color
-
-    data object Light : HallColorScheme {
-        override val hallA: Color = arcticfoxBlue
-        override val hallB: Color = bumblebeeYellow
-        override val hallC: Color = chipmunkBrown
-        override val hallD: Color = dolphinGreen
-        override val hallE: Color = electriceelGray
-        override val hallText: Color = Color.White
-    }
-
-    data object Dark : HallColorScheme {
-        override val hallA: Color = arcticfoxBluePale
-        override val hallB: Color = bumblebeeYellowPale
-        override val hallC: Color = chipmunkBrownPale
-        override val hallD: Color = dolphinGreenPale
-        override val hallE: Color = electriceelGrayPale
-        override val hallText: Color = Color.Black
-    }
-}
-
-@Composable
-fun hallColors() = if (isSystemInDarkTheme()) {
-    HallColorScheme.Dark
-} else {
-    HallColorScheme.Light
 }
 
 @Composable

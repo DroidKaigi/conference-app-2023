@@ -8,4 +8,4 @@ public data class TimetableRoom(
 )
 
 val TimetableRoom.type: RoomIndex
-    get() = RoomIndex.values().getOrNull(sortIndex) ?: RoomIndex.Room1
+    get() = RoomIndex.entries.getOrNull(sortIndex) ?: RoomIndex.Room1

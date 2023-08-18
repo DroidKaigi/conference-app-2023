@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -77,10 +76,14 @@ fun TimetableList(
                         chipContent = {
                             // Chips
 
+                            val hallColor = hallColors()
+                            val containerColor = timetableItem.room.color
+                            val labelColor = hallColor.hallText
+
                             SuggestionChip(
                                 colors = SuggestionChipDefaults.suggestionChipColors(
-                                    containerColor = timetableItem.room.color,
-                                    labelColor = hallColors().hallText,
+                                    containerColor = containerColor,
+                                    labelColor = labelColor,
                                 ),
                                 onClick = { /* Do nothing */ },
                                 label = {
