@@ -18,8 +18,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.SearchList
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
@@ -79,8 +81,9 @@ fun SearchScreen(
         onBackClick = onBackClick,
         onSearchQueryChanged = viewModel::onSearchQueryChanged,
         onDaySelected = viewModel::onDaySelected,
-        onFilterCategoryChipClicked = viewModel::onFilterCategoryChipClicked,
         onCategoriesSelected = viewModel::onCategoriesSelected,
+        onSessionTypesSelected = viewModel::onSessionTypesSelected,
+        onLanguagesSelected = viewModel::onLanguagesSelected,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = viewModel::onClickTimetableItemBookmark,
     )
@@ -93,8 +96,9 @@ private fun SearchScreen(
     onBackClick: () -> Unit = {},
     onSearchQueryChanged: (String) -> Unit = {},
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit = { _, _ -> },
-    onFilterCategoryChipClicked: () -> Unit = {},
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit = { _, _ -> },
+    onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
+    onLanguagesSelected: (Lang, Boolean) -> Unit = { _, _ -> },
     onTimetableItemClick: (TimetableItem) -> Unit = {},
     onBookmarkClick: (TimetableItem) -> Unit = {},
 ) {
@@ -119,8 +123,9 @@ private fun SearchScreen(
             SearchFilter(
                 searchFilterUiState = uiState.searchFilterUiState,
                 onDaySelected = onDaySelected,
-                onFilterCategoryChipClicked = onFilterCategoryChipClicked,
                 onCategoriesSelected = onCategoriesSelected,
+                onSessionTypesSelected = onSessionTypesSelected,
+                onLanguagesSelected = onLanguagesSelected,
             )
             when (uiState) {
                 is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery)
