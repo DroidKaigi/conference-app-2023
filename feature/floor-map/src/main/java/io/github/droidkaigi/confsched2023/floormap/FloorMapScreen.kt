@@ -1,9 +1,13 @@
 package io.github.droidkaigi.confsched2023.floormap
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -138,6 +142,18 @@ private fun FloorMapScreen(
                             .padding(bottom = 56.dp),
                     )
                 }
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(96.dp)
+                        .align(Alignment.BottomCenter)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                0f to Color.Transparent,
+                                0.5f to MaterialTheme.colorScheme.background
+                            )
+                        )
+                )
                 FloorLevelSwitcher(
                     selectingFloorLevel = uiState.floorLevel,
                     onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
