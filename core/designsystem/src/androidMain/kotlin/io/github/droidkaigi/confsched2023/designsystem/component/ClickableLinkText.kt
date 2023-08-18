@@ -11,6 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 
 @Composable
 private fun findResults(
@@ -77,8 +78,10 @@ fun ClickableLinkText(
     content: String,
     onLinkClick: (url: String) -> Unit,
     regex: Regex,
-    url: String?,
     modifier: Modifier = Modifier,
+    overflow: TextOverflow = TextOverflow.Clip,
+    maxLines: Int = Int.MAX_VALUE,
+    url: String? = null,
 ) {
     val findResults = findResults(
         content = content,
@@ -94,6 +97,8 @@ fun ClickableLinkText(
         modifier = modifier,
         text = annotatedString,
         style = style,
+        overflow = overflow,
+        maxLines = maxLines,
         onClick = { offset ->
             findResults.forEach { matchResult ->
                 annotatedString.getStringAnnotations(
