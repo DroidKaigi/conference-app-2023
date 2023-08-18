@@ -252,7 +252,7 @@ fun TimetablePreview() {
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
         timetableState = timetableState,
-        nestedScrollDispatcher = remember { NestedScrollDispatcher() }
+        nestedScrollDispatcher = remember { NestedScrollDispatcher() },
     ) { timetableItem ->
         TimetableGridItem(
             timetableItem = timetableItem,
