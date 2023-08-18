@@ -45,15 +45,18 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
+import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.PersistentList
+import java.net.URLEncoder
 
 @Composable
 fun TimetableItemDetailContent(
@@ -66,6 +69,7 @@ fun TimetableItemDetailContent(
             is Session -> {
                 DescriptionSection(
                     description = uiState.description,
+                    language = uiState.language,
                     onLinkClick = onLinkClick,
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
@@ -86,6 +90,7 @@ fun TimetableItemDetailContent(
 @Composable
 private fun DescriptionSection(
     description: String,
+    language: TimetableLanguage,
     modifier: Modifier = Modifier,
     onLinkClick: (url: String) -> Unit,
 ) {
@@ -104,11 +109,24 @@ private fun DescriptionSection(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             )
             if (!isExpanded) {
-                ReadMoreOutlinedButton(
+                OutlinedButton(
+                    buttonText = SessionsStrings.ReadMore.asString(),
                     onClick = { isExpanded = true },
                     modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 )
             }
+            OutlinedButton(
+                buttonText = SessionsStrings.Translate.asString(),
+                onClick = {
+                    onLinkClick(
+                        createGoogleTranslateURL(
+                            description = description,
+                            language = language,
+                        ),
+                    )
+                },
+                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+            )
             BorderLine(modifier = Modifier.padding(top = 24.dp))
         }
     }
@@ -292,7 +310,8 @@ private fun BorderLine(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun ReadMoreOutlinedButton(
+private fun OutlinedButton(
+    buttonText: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -307,19 +326,40 @@ private fun ReadMoreOutlinedButton(
     ) {
         Text(
             modifier = Modifier.padding(vertical = 10.dp),
-            text = SessionsStrings.ReadMore.asString(),
+            text = buttonText,
             fontSize = 14.sp,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
         )
     }
 }
+private fun createGoogleTranslateURL(
+    description: String,
+    language: TimetableLanguage,
+): String {
+    val isJapaneseSpeaker = language.langOfSpeaker == Lang.JAPANESE.name
+    val targetLanguage = if (isJapaneseSpeaker) {
+        "en"
+    } else {
+        "ja"
+    }
+    val charSet = "utf-8"
+    val googleTranslateUrl = "https://translate.google.co.jp/?hl=ja&tab=TT&sl=auto&tl=${targetLanguage}&text="
+    val encodedDescription = URLEncoder.encode(
+        description,
+        charSet,
+    )
+    return googleTranslateUrl.plus(encodedDescription)
+}
 
 @MultiLanguagePreviews
 @Composable
 fun ReadMoreOutlinedButtonPreview() {
     KaigiTheme {
-        ReadMoreOutlinedButton(onClick = {})
+        OutlinedButton(
+            buttonText = SessionsStrings.ReadMore.asString(),
+            onClick = {}
+        )
     }
 }
 
@@ -330,6 +370,7 @@ fun DescriptionSectionPreview() {
         Surface {
             DescriptionSection(
                 description = Session.fake().description,
+                language = Session.fake().language,
                 onLinkClick = {},
             )
         }
