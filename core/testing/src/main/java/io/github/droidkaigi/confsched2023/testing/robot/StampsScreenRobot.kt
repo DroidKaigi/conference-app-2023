@@ -28,7 +28,7 @@ class StampsScreenRobot @Inject constructor(
         }
     }
 
-    fun setupScreenContent(scroll: Boolean) {
+    fun setupScreenContent(scrollToBottom: Boolean) {
         composeTestRule.setContent {
             KaigiTheme {
                 StampsScreen(
@@ -36,7 +36,7 @@ class StampsScreenRobot @Inject constructor(
                 )
             }
         }
-        if (scroll) {
+        if (scrollToBottom) {
             composeTestRule.onNodeWithTag(StampsListLazyVerticalGridTestTag)
                 .performScrollToIndex(5)
         }
