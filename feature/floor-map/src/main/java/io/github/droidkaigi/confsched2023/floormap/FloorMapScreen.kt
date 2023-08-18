@@ -150,9 +150,9 @@ private fun FloorMapScreen(
                         .background(
                             brush = Brush.verticalGradient(
                                 0f to Color.Transparent,
-                                0.5f to MaterialTheme.colorScheme.background
-                            )
-                        )
+                                0.5f to MaterialTheme.colorScheme.background,
+                            ),
+                        ),
                 )
                 FloorLevelSwitcher(
                     selectingFloorLevel = uiState.floorLevel,
