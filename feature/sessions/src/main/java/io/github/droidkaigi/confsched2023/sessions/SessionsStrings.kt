@@ -49,7 +49,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 BookmarkFilterAllChip -> "全て"
                 is SearchResultNotFound -> "「${item.missedWord}」と一致する検索結果がありません"
                 SearchPlaceHolder -> "気になる技術を入力"
-                BookmarkedItemNotFound -> "登録されたセッションがありません"
+                BookmarkedItemNotFound -> "登録されたセッションが\nありません"
                 BookmarkedItemNotFoundSideNote -> "気になるセッションをブックマークに追加して\n集めてみましょう！"
                 Share -> "共有"
                 AddToCalendar -> "カレンダーに追加"
