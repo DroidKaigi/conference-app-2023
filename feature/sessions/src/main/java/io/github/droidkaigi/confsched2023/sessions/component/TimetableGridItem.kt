@@ -320,7 +320,7 @@ fun PreviewTimetableGridItem() {
     }
 }
 
-@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun PreviewTimetableGridLongTitleItem() {
     val fake = Session.fake()
