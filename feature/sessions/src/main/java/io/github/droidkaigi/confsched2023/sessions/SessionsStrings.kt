@@ -25,6 +25,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object RemoveFromFavorites : SessionsStrings()
     data object Date : SessionsStrings()
     data object Place : SessionsStrings()
+    data object SessionType : SessionsStrings()
     data object SupportedLanguages : SessionsStrings()
     data object InterpretationTarget : SessionsStrings()
     data object Archive : SessionsStrings()
@@ -56,6 +57,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "お気に入りから削除"
                 Date -> "日付"
                 Place -> "場所"
+                SessionType -> "セッション種別"
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
                 Archive -> "アーカイブ"
@@ -88,6 +90,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "Remove from favorites"
                 Date -> "Date"
                 Place -> "Place"
+                SessionType -> "Session type"
                 SupportedLanguages -> "Supported languages"
                 InterpretationTarget -> "Interpretation target"
                 Archive -> "Archive"
