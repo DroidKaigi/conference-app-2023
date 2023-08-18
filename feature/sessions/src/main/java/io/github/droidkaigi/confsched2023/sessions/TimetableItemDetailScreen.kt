@@ -1,5 +1,9 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,7 +11,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,6 +29,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
@@ -120,24 +124,32 @@ private fun TimetableItemDetailScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
-        when (uiState) {
-            TimetableItemDetailScreenUiState.Loading -> {
-                Text(text = "Loading")
-            }
+        AnimatedContent(
+            targetState = uiState,
+            transitionSpec = { fadeIn().togetherWith(fadeOut()) },
+            label = "TimetableItemDetailScreen",
+        ) {
+            when (it) {
+                TimetableItemDetailScreenUiState.Loading -> {
+                    TimetableLoadingContent(
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
 
-            is TimetableItemDetailScreenUiState.Loaded -> {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = innerPadding,
-                ) {
-                    item {
-                        TimetableItemDetailSummaryCard(
-                            timetableItem = uiState.timetableItem,
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
-                        )
-                    }
-                    item {
-                        TimetableItemDetailContent(uiState = uiState.timetableItem)
+                is TimetableItemDetailScreenUiState.Loaded -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = innerPadding,
+                    ) {
+                        item {
+                            TimetableItemDetailSummaryCard(
+                                timetableItem = it.timetableItem,
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+                            )
+                        }
+                        item {
+                            TimetableItemDetailContent(uiState = it.timetableItem)
+                        }
                     }
                 }
             }
