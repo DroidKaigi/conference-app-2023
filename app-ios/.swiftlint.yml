@@ -7,10 +7,11 @@ opt_in_rules:
   - file_header
   - sorted_imports
 
-excluded:
-  - .build
-  - Modules/.build
+included:
+  - App/DroidKaigi2023
   - Modules/Package.swift
+  - Modules/Sources
+  - Modules/Tests
 
 identifier_name:
   min_length: 2
