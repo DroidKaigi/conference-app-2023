@@ -11,11 +11,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
@@ -23,8 +26,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
@@ -153,6 +162,29 @@ private fun TimetableItemDetailScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+@MultiThemePreviews
+@MultiLanguagePreviews
+fun TimetableItemDetailScreenPreview() {
+    var isBookMarked by remember { mutableStateOf(false) }
+
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailScreen(
+                uiState = Loaded(
+                    timetableItem = Session.fake(),
+                    isBookmarked = isBookMarked,
+                ),
+                onNavigationIconClick = {},
+                onBookmarkClick = {
+                    isBookMarked = !isBookMarked
+                },
+                snackbarHostState = SnackbarHostState(),
+            )
         }
     }
 }
