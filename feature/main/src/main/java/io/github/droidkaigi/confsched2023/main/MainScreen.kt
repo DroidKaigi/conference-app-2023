@@ -66,7 +66,7 @@ interface MainNestedGraphStateHolder {
 @Composable
 fun MainScreen(
     mainNestedGraphStateHolder: MainNestedGraphStateHolder,
-    viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>(),
+    viewModel: MainScreenViewModel = hiltViewModel(),
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
