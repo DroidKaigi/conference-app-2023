@@ -12,6 +12,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
@@ -25,6 +26,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.DisplayFeature
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
@@ -69,9 +71,14 @@ import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun KaigiApp(modifier: Modifier = Modifier) {
+fun KaigiApp(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
+    modifier: Modifier = Modifier,
+) {
     KaigiTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
@@ -85,13 +92,18 @@ fun KaigiApp(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
-            KaigiNavHost()
+            KaigiNavHost(
+                windowSize = windowSize,
+                displayFeatures = displayFeatures,
+            )
         }
     }
 }
 
 @Composable
 private fun KaigiNavHost(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     navController: NavHostController = rememberNavController(),
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
@@ -138,10 +150,14 @@ private fun KaigiNavHost(
 }
 
 private fun NavGraphBuilder.mainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     navController: NavHostController,
     externalNavController: ExternalNavController,
 ) {
     mainScreen(
+        windowSize = windowSize,
+        displayFeatures = displayFeatures,
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
         mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
@@ -222,6 +238,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
                 launchSingleTop = true
                 restoreState = true
             }
+
             Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }

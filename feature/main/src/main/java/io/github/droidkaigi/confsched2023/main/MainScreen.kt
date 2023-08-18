@@ -22,6 +22,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,21 +37,27 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.DisplayFeature
 import io.github.droidkaigi.confsched2023.feature.main.R
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
 
 fun NavGraphBuilder.mainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     mainNestedGraphStateHolder: MainNestedGraphStateHolder,
     mainNestedGraph: NavGraphBuilder.(mainNestedNavController: NavController, PaddingValues) -> Unit,
 ) {
     composable(mainScreenRoute) {
         MainScreen(
+            windowSize = windowSize,
+            displayFeatures = displayFeatures,
             mainNestedGraphStateHolder = mainNestedGraphStateHolder,
             mainNestedNavGraph = mainNestedGraph,
         )
@@ -65,6 +72,8 @@ interface MainNestedGraphStateHolder {
 
 @Composable
 fun MainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: ImmutableList<DisplayFeature>,
     mainNestedGraphStateHolder: MainNestedGraphStateHolder,
     viewModel: MainScreenViewModel = hiltViewModel(),
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
