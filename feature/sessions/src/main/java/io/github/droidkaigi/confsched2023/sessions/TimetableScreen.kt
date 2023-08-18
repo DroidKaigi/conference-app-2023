@@ -58,6 +58,7 @@ fun NavGraphBuilder.nestedSessionScreens(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
             onBookmarkIconClick = onBookmarkIconClick,
+            modifier = modifier,
         )
     }
 }
@@ -94,6 +95,7 @@ fun TimetableScreen(
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
+        modifier = modifier,
     )
 }
 
