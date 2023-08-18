@@ -251,7 +251,7 @@ private fun calculateFontSizeAndLineHeight(
 
                 fontResizePx -= with(localDensity) { 1.sp.toPx() }
                 val fontResize = with(localDensity) { fontResizePx.toSp() }
-                if (fontResize <= 12.sp) {
+                if (fontResize <= 12.sp && fontResize > 10.sp) {
                     lineHeightResizePx = middleLineHeightPx
                 } else if (fontResize <= 10.sp) {
                     lineHeightResizePx = minLineHeightPx
