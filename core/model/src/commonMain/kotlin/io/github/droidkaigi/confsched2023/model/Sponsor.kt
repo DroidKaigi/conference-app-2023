@@ -20,7 +20,7 @@ public enum class Plan {
 
     public companion object {
         public fun ofOrNull(plan: String): Plan? {
-            return values().firstOrNull { it.name == plan }
+            return entries.firstOrNull { it.name == plan }
         }
     }
 

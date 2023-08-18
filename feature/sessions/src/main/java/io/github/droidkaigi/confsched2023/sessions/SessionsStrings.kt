@@ -25,6 +25,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object RemoveFromFavorites : SessionsStrings()
     data object Date : SessionsStrings()
     data object Place : SessionsStrings()
+    data object SessionType : SessionsStrings()
     data object SupportedLanguages : SessionsStrings()
     data object InterpretationTarget : SessionsStrings()
     data object Archive : SessionsStrings()
@@ -32,6 +33,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object WatchVideo : SessionsStrings()
     data object Speaker : SessionsStrings()
     data object TargetAudience : SessionsStrings()
+    data object ReadMore : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -55,6 +57,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "お気に入りから削除"
                 Date -> "日付"
                 Place -> "場所"
+                SessionType -> "セッション種別"
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
                 Archive -> "アーカイブ"
@@ -62,6 +65,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"
+                ReadMore -> "続きを読む"
             }
         },
         Lang.English to { item, bindings ->
@@ -86,6 +90,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "Remove from favorites"
                 Date -> "Date"
                 Place -> "Place"
+                SessionType -> "Session type"
                 SupportedLanguages -> "Supported languages"
                 InterpretationTarget -> "Interpretation target"
                 Archive -> "Archive"
@@ -93,6 +98,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 WatchVideo -> "Watch Video"
                 Speaker -> "Speaker"
                 TargetAudience -> "Target Audience"
+                ReadMore -> "Read More"
             }
         },
         default = Lang.Japanese,
