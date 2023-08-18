@@ -26,6 +26,20 @@ public data class Timetable(
         timetableItems.map { it.room }.toSet().sortedBy { it.sort }
     }
 
+    val categories: List<TimetableCategory> by lazy {
+        timetableItems.map { it.category }.toSet().sortedBy { it.id }
+    }
+
+    val sessionTypes: List<TimetableSessionType> by lazy {
+        timetableItems.map { it.sessionType }.toSet().sorted()
+    }
+
+    val languages: List<TimetableLanguage> by lazy {
+        timetableItems.map { it.language }.toSet()
+            .sortedBy { it.langOfSpeaker }
+            .sortedBy { it.isInterpretationTarget }
+    }
+
     public fun dayTimetable(droidKaigi2023Day: DroidKaigi2023Day): Timetable {
         var timetableItems = timetableItems.toList()
         timetableItems = timetableItems.filter { timetableItem ->
@@ -46,13 +60,21 @@ public data class Timetable(
                 filters.categories.contains(timetableItem.category)
             }
         }
+        if (filters.sessionTypes.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.sessionTypes.contains(timetableItem.sessionType)
+            }
+        }
+        if (filters.languages.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.languages.contains(timetableItem.language.toLang()) ||
+                    timetableItem.language.isInterpretationTarget
+            }
+        }
         if (filters.filterFavorite) {
             timetableItems = timetableItems.filter { timetableItem ->
                 bookmarks.contains(timetableItem.id)
             }
-        }
-        if (filters.filterSession) {
-            timetableItems = timetableItems.filterIsInstance<Session>()
         }
         if (filters.searchWord.isNotBlank()) {
             timetableItems = timetableItems.filter { timetableItem ->
@@ -98,6 +120,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(
@@ -174,6 +197,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(

@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -94,5 +96,6 @@ private fun ResizeableText(
             }
         },
         style = styles[styleIndex],
+        modifier = Modifier.padding(end = 16.dp),
     )
 }
