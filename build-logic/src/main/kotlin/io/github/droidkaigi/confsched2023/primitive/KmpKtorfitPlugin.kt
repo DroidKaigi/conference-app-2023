@@ -17,9 +17,6 @@ class KmpKtorfitPlugin : Plugin<Project> {
                 apply(libs.findPlugin("kspGradlePlugin").get().get().pluginId)
                 apply("de.jensklingenberg.ktorfit")
             }
-            kotlin {
-                androidTarget()
-            }
 
             configure<de.jensklingenberg.ktorfit.gradle.KtorfitGradleConfiguration> {
                 version = "1.5.0"
@@ -32,12 +29,8 @@ class KmpKtorfitPlugin : Plugin<Project> {
                     }
                 }
             }
+
             dependencies {
-                this.add(
-                    "kspCommonMainMetadata",
-                    "de.jensklingenberg.ktorfit:ktorfit-ksp:1.5.0"
-                )
-                this.add("kspAndroid", "de.jensklingenberg.ktorfit:ktorfit-ksp:1.5.0")
                 val iosConfigs = when (activeArch) {
                     ARM -> listOf("IosSimulatorArm64")
                     X86 -> listOf("IosX64")
@@ -47,8 +40,8 @@ class KmpKtorfitPlugin : Plugin<Project> {
                         "IosSimulatorArm64",
                     )
                 }
-                iosConfigs.forEach {
-                    this.add("ksp$it", "de.jensklingenberg.ktorfit:ktorfit-ksp:1.5.0")
+                listOf("CommonMainMetadata", "Android") + iosConfigs.forEach {
+                    add("ksp$it", "de.jensklingenberg.ktorfit:ktorfit-ksp:1.5.0")
                 }
             }
         }
