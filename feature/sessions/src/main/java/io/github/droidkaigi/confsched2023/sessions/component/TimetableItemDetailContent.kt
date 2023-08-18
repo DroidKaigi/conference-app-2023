@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Description
@@ -81,22 +83,24 @@ private fun DescriptionSection(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier) {
-        Text(
-            text = description,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = if (isExpanded) Int.MAX_VALUE else 5,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-        )
-        if (!isExpanded) {
-            ReadMoreOutlinedButton(
-                onClick = { isExpanded = !isExpanded },
-                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+    SelectionContainer {
+        Column(modifier = modifier.animateContentSize()) {
+            Text(
+                text = description,
+                fontSize = 16.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = if (isExpanded) Int.MAX_VALUE else 5,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             )
+            if (!isExpanded) {
+                ReadMoreOutlinedButton(
+                    onClick = { isExpanded = true },
+                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                )
+            }
+            BorderLine(modifier = Modifier.padding(top = 24.dp))
         }
-        BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
 }
 
@@ -105,9 +109,9 @@ private fun TargetAudienceSection(targetAudienceString: String, modifier: Modifi
     Column(modifier = modifier) {
         Text(
             text = SessionsStrings.TargetAudience.asString(),
-            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
+            style = MaterialTheme.typography.titleLarge,
         )
         Text(
             text = targetAudienceString,
@@ -127,9 +131,9 @@ private fun SpeakerSection(
     Column(modifier = modifier) {
         Text(
             text = SessionsStrings.Speaker.asString(),
-            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
+            style = MaterialTheme.typography.titleLarge,
         )
         Spacer(modifier = Modifier.height(8.dp))
         speakers.forEach { speaker ->
@@ -182,7 +186,7 @@ private fun ArchiveSection(
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
         Text(
             text = SessionsStrings.Archive.asString(),
-            fontSize = 14.sp,
+            style = MaterialTheme.typography.titleLarge,
         )
         Row(
             modifier = Modifier

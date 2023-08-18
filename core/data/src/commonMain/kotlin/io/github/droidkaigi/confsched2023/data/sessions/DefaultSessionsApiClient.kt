@@ -18,6 +18,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.TimetableItemList
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.Companion
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
@@ -94,6 +96,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = TimetableSessionType.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
@@ -115,6 +118,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = Companion.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(

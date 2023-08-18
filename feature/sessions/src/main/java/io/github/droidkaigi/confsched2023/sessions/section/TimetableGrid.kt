@@ -45,11 +45,12 @@ import androidx.compose.ui.semantics.horizontalScrollAxisRange
 import androidx.compose.ui.semantics.scrollBy
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.verticalScrollAxisRange
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -77,10 +78,11 @@ fun TimetableGrid(
         timetableState = timetableGridState,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
-    ) { timetableItem ->
+    ) { timetableItem, itemHeightPx ->
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = onTimetableItemClick,
+            gridItemHeightPx = itemHeightPx,
         )
     }
 }
@@ -92,13 +94,9 @@ fun TimetableGrid(
     timetableState: TimetableState,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    content: @Composable (TimetableItem) -> Unit,
+    content: @Composable (TimetableItem, Int) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
-        val timetableItemWithFavorite = timetable.contents[index]
-        content(timetableItemWithFavorite.timetableItem)
-    }
     val density = timetableState.density
     val verticalScale = timetableState.screenScaleState.verticalScale
     val timetableLayout = remember(timetable, verticalScale) {
@@ -116,6 +114,12 @@ fun TimetableGrid(
     val lineColor = MaterialTheme.colorScheme.surfaceVariant
     val linePxSize = with(timetableState.density) { TimetableSizes.lineStrokeSize.toPx() }
     val layoutDirection = LocalLayoutDirection.current
+
+    val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
+        val timetableItemWithFavorite = timetable.contents[index]
+        val itemHeightPx = timetableLayout.timetableLayouts[index].height
+        content(timetableItemWithFavorite.timetableItem, itemHeightPx)
+    }
 
     LazyLayout(
         modifier = modifier
@@ -238,7 +242,8 @@ fun TimetableGrid(
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun TimetablePreview() {
     val timetableState = rememberTimetableGridState()
@@ -246,10 +251,11 @@ fun TimetablePreview() {
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
         timetableState = timetableState,
-    ) { timetableItem ->
+    ) { timetableItem, itemHeightPx ->
         TimetableGridItem(
             timetableItem = timetableItem,
             onTimetableItemClick = {},
+            gridItemHeightPx = itemHeightPx,
         )
     }
 }

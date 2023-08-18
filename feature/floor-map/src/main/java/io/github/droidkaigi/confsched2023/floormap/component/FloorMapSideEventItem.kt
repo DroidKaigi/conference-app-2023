@@ -29,8 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
@@ -43,12 +44,14 @@ import io.github.droidkaigi.confsched2023.model.SideEvents
 @Composable
 fun FloorMapSideEventItem(
     sideEvent: SideEvent,
-    onSideEventClick: (SideEvent) -> Unit,
+    onSideEventClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier
-            .clickable { onSideEventClick(sideEvent) }
+            .clickable(enabled = !sideEvent.link.isNullOrEmpty()) {
+                sideEvent.link?.let(onSideEventClick)
+            }
             .padding(horizontal = 16.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
@@ -139,7 +142,8 @@ private fun createAnnotatedEventDetailString(): AnnotatedString {
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun PreviewFloorMapSideEventItem() {
     KaigiTheme {

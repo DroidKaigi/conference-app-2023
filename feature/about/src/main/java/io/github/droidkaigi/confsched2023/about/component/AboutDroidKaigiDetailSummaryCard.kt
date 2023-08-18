@@ -11,11 +11,15 @@ import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @Composable
 fun AboutDroidKaigiDetailSummaryCard(
@@ -49,6 +53,19 @@ fun AboutDroidKaigiDetailSummaryCard(
                 label = AboutStrings.PlaceTitle.asString(),
                 content = placeContent,
                 onLinkClick = onLinkClick,
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun AboutDroidKaigiDetailSummaryCardPreview() {
+    KaigiTheme {
+        Surface {
+            AboutDroidKaigiDetailSummaryCard(
+                onLinkClick = {},
             )
         }
     }

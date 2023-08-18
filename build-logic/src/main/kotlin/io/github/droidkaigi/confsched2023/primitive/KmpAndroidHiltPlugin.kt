@@ -19,18 +19,18 @@ class KmpAndroidHiltPlugin : Plugin<Project> {
                 sourceSets.getByName("androidMain") {
                     val kaptConfiguration = configurations["kapt"]
                     kaptConfiguration.dependencies.add(
-                        libs.findLibrary("daggerHiltAndroidCompiler").map {
+                        libs.library("daggerHiltAndroidCompiler").let {
                             DefaultExternalModuleDependency(
-                                it.get().module.group,
-                                it.get().module.name,
-                                it.get().versionConstraint.requiredVersion
+                                it.module.group,
+                                it.module.name,
+                                it.versionConstraint.requiredVersion
                             )
-                        }.get()
+                        }
                     )
                     dependencies {
-                        implementation(libs.findLibrary("daggerHiltAndroid").get())
+                        implementation(libs.library("daggerHiltAndroid"))
                         // https://issuetracker.google.com/issues/237567009
-                        implementation(libs.findLibrary("androidxFragment").get())
+                        implementation(libs.library("androidxFragment"))
                     }
                 }
             }

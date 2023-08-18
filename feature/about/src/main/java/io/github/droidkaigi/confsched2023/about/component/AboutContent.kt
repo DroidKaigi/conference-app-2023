@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.about.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
@@ -78,22 +76,6 @@ fun AboutContentColumn(
 @MultiLanguagePreviews
 @Composable
 fun AboutContentColumnPreview() {
-    KaigiTheme {
-        Surface {
-            AboutContentColumn(
-                leadingIcon = Icons.Outlined.SentimentVerySatisfied,
-                label = AboutStrings.Staff.asString(),
-                testTag = "",
-                onClickAction = {},
-            )
-        }
-    }
-}
-
-@Preview(locale = "en", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview(locale = "ja", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-fun AboutContentColumnDarkModePreview() {
     KaigiTheme {
         Surface {
             AboutContentColumn(
