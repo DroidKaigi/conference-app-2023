@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.data.staff
 
-import io.github.droidkaigi.confsched2023.data.staff.response.StaffsResponse
 import io.github.droidkaigi.confsched2023.model.Staff
 import io.github.droidkaigi.confsched2023.model.fakes
 import kotlinx.collections.immutable.PersistentList
