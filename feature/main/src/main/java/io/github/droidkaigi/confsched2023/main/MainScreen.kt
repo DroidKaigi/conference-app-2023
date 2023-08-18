@@ -41,6 +41,7 @@ import io.github.droidkaigi.confsched2023.feature.main.R
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.toPersistentList
 
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
@@ -147,7 +148,7 @@ private fun MainScreen(
     Scaffold(
         bottomBar = {
             KaigiBottomBar(
-                mainScreenTabs = MainScreenTab.entries.toList(),
+                mainScreenTabs = MainScreenTab.entries.toPersistentList(),
                 onTabSelected = { tab ->
                     onTabSelected(mainNestedNavController, tab)
                 },
