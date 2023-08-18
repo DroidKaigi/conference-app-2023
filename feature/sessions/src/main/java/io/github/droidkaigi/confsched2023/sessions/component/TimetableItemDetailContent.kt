@@ -82,7 +82,7 @@ private fun DescriptionSection(
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier.animateContentSize(),) {
+    Column(modifier = modifier.animateContentSize()) {
         Text(
             text = description,
             fontSize = 16.sp,
