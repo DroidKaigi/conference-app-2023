@@ -1,13 +1,18 @@
 package io.github.droidkaigi.confsched2023.floormap.component
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Link
@@ -20,8 +25,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.ContentScale.Companion
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -39,6 +47,7 @@ import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvents
+import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
 @Composable
 fun FloorMapSideEventItem(
@@ -52,55 +61,77 @@ fun FloorMapSideEventItem(
             .padding(horizontal = 16.dp),
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
-            Icon(
-                imageVector = iconVector,
-                contentDescription = FavoriteIcon.asString(),
-                tint = iconColor,
-                modifier = Modifier.size(16.dp),
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = sideEvent.title.currentLangTitle,
-                style = MaterialTheme.typography.labelLarge,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
-        }
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = sideEvent.description.currentLangTitle,
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = Icons.Filled.Schedule,
-                contentDescription = FavoriteIcon.asString(),
-                modifier = Modifier.size(16.dp),
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = sideEvent.timeText.currentLangTitle,
-                style = MaterialTheme.typography.bodySmall,
-            )
-        }
-        if (sideEvent.link != null) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Filled.Link,
-                    contentDescription = FavoriteIcon.asString(),
-                    modifier = Modifier.size(16.dp),
-                )
-                Spacer(modifier = Modifier.width(8.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
+                    Icon(
+                        imageVector = iconVector,
+                        contentDescription = FavoriteIcon.asString(),
+                        tint = iconColor,
+                        modifier = Modifier.size(16.dp),
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = sideEvent.title.currentLangTitle,
+                        style = MaterialTheme.typography.labelLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = createAnnotatedEventDetailString(),
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.clickable {
-                        // todo open link
-                    },
+                    text = sideEvent.description.currentLangTitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.Schedule,
+                        contentDescription = FavoriteIcon.asString(),
+                        modifier = Modifier.size(16.dp),
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = sideEvent.timeText.currentLangTitle,
+                        style = MaterialTheme.typography.bodySmall,
+                    )
+                }
+                if (sideEvent.link != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Filled.Link,
+                            contentDescription = FavoriteIcon.asString(),
+                            modifier = Modifier.size(16.dp),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = createAnnotatedEventDetailString(),
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.clickable {
+                                // todo open link
+                            },
+                        )
+                    }
+                }
+            }
+            if (sideEvent.imageLink != null) {
+                Image(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .border(
+                            width = 1.dp,
+                            color = MaterialTheme.colorScheme.outline,
+                            shape = RoundedCornerShape(16.dp),
+                        ),
+                    painter = rememberAsyncImagePainter(sideEvent.imageLink!!),
+                    contentScale = ContentScale.Crop,
+                    contentDescription = "Side events image",
                 )
             }
         }
