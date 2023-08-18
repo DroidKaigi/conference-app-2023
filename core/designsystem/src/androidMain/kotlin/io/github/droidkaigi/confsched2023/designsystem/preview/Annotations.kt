@@ -82,24 +82,3 @@ object MultiLanguagePreviewDefinition {
     locale = MultiLanguagePreviewDefinition.English.Locale,
 )
 annotation class MultiLanguagePreviews
-
-/**
- * Annotation for previewing font scale.
- */
-@Preview(
-    name = "small font",
-    fontScale = 0.5f,
-)
-@Preview(
-    name = "medium font",
-    fontScale = 1.0f,
-)
-@Preview(
-    name = "large font",
-    fontScale = 1.5f,
-)
-@Preview(
-    name = "huge font",
-    fontScale = 2.0f,
-)
-annotation class FontScalePreviews

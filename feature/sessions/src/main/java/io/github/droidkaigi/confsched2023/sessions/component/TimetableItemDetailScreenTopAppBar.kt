@@ -27,11 +27,11 @@ import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.droidkaigi.confsched2023.designsystem.preview.FontScalePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 
@@ -142,10 +142,69 @@ private fun ResizeableText(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@FontScalePreviews
+@Preview(fontScale = 0.5f)
 @Composable
-internal fun PreviewTimetableItemDetailScreenTopAppBar(
-    @PreviewParameter(PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class) title: MultiLangText,
+internal fun PreviewTimetableItemDetailScreenTopAppBarSmallFontScale(
+    @PreviewParameter(
+        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
+    ) title: MultiLangText,
+) {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailScreenTopAppBar(
+                title = title,
+                onNavigationIconClick = {},
+                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(fontScale = 1.0f)
+@Composable
+internal fun PreviewTimetableItemDetailScreenTopAppBarMediumFontScale(
+    @PreviewParameter(
+        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
+    ) title: MultiLangText,
+) {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailScreenTopAppBar(
+                title = title,
+                onNavigationIconClick = {},
+                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(fontScale = 1.5f)
+@Composable
+internal fun PreviewTimetableItemDetailScreenTopAppBarLargeFontScale(
+    @PreviewParameter(
+        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
+    ) title: MultiLangText,
+) {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailScreenTopAppBar(
+                title = title,
+                onNavigationIconClick = {},
+                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(fontScale = 2.0f)
+@Composable
+internal fun PreviewTimetableItemDetailScreenTopAppBarHugeFontScale(
+    @PreviewParameter(
+        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
+    ) title: MultiLangText,
 ) {
     KaigiTheme {
         Surface {
