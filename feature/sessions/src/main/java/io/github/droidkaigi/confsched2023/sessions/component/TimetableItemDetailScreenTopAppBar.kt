@@ -131,10 +131,9 @@ private fun ResizeableText(
 
     Text(
         text = text,
-        fontSize = fontSize.sp,
         overflow = overflow,
         maxLines = maxLines,
-        style = styles[styleIndex],
+        style = styles[styleIndex].copy(fontSize = fontSize.sp),
         modifier = Modifier.padding(end = 16.dp),
     )
 }
