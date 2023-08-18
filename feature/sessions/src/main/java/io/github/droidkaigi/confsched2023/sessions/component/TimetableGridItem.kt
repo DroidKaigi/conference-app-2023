@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,12 +27,13 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
@@ -306,8 +306,7 @@ object TimetableGridItemSizes {
     val minTitleLineHeight = 12.sp
 }
 
-@Preview(locale = "en")
-@Preview(locale = "ja")
+@MultiLanguagePreviews
 @Composable
 fun PreviewTimetableGridItem() {
     KaigiTheme {
@@ -321,7 +320,7 @@ fun PreviewTimetableGridItem() {
     }
 }
 
-@Preview
+@MultiThemePreviews
 @Composable
 fun PreviewTimetableGridLongTitleItem() {
     val fake = Session.fake()
@@ -350,8 +349,7 @@ fun PreviewTimetableGridLongTitleItem() {
     }
 }
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@MultiThemePreviews
 @Composable
 internal fun PreviewTimetableGridItem(
     @PreviewParameter(PreviewTimeTableItemRoomProvider::class) timetableItem: TimetableItem,
