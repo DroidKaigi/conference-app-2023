@@ -143,9 +143,9 @@ private fun NavGraphBuilder.mainScreen(
 ) {
     mainScreen(
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, padding ->
+        mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 onSearchClick = {
                     navController.navigateSearchScreen()
                 },
