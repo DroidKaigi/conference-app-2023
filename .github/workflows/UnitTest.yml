@@ -39,7 +39,10 @@ jobs:
           path: ${{ github.event_path }}
 
       - name: Run local tests
-        run: ./gradlew testDevDebugUnitTest testDebugUnitTest --stacktrace
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
+        with:
+          gradle-home-cache-cleanup: true
+          arguments: testDevDebugUnitTest testDebugUnitTest --stacktrace
 
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: ${{ always() }}
