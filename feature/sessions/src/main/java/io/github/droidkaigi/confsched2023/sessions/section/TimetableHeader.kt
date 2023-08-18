@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,9 +32,14 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
                 style = MaterialTheme.typography.labelMedium,
             )
         }
+        val droidKunInBathDrawableRes = if (isSystemInDarkTheme()) {
+            R.drawable.img_droid_kun_in_bath_dark
+        } else {
+            R.drawable.img_droid_kun_in_bath_light
+        }
         Image(
             modifier = Modifier.size(width = 212.dp, height = 168.dp),
-            painter = painterResource(id = R.drawable.img_droid_kun_in_bath),
+            painter = painterResource(id = droidKunInBathDrawableRes),
             contentDescription = null,
         )
     }
