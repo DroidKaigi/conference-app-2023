@@ -59,7 +59,7 @@ import kotlinx.collections.immutable.PersistentList
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
     modifier: Modifier = Modifier,
-    onLinkClick: (url: String) -> Unit
+    onLinkClick: (url: String) -> Unit,
 ) {
     Column(modifier = modifier) {
         when (uiState) {
