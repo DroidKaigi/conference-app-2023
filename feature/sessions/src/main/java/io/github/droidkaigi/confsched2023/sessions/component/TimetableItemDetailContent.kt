@@ -106,9 +106,9 @@ private fun TargetAudienceSection(targetAudienceString: String, modifier: Modifi
     Column(modifier = modifier) {
         Text(
             text = SessionsStrings.TargetAudience.asString(),
-            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
+            style = MaterialTheme.typography.titleLarge,
         )
         Text(
             text = targetAudienceString,
@@ -128,9 +128,9 @@ private fun SpeakerSection(
     Column(modifier = modifier) {
         Text(
             text = SessionsStrings.Speaker.asString(),
-            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 24.dp),
+            style = MaterialTheme.typography.titleLarge,
         )
         Spacer(modifier = Modifier.height(8.dp))
         speakers.forEach { speaker ->
@@ -183,7 +183,7 @@ private fun ArchiveSection(
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
         Text(
             text = SessionsStrings.Archive.asString(),
-            fontSize = 14.sp,
+            style = MaterialTheme.typography.titleLarge,
         )
         Row(
             modifier = Modifier
