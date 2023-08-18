@@ -31,18 +31,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
+import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.EventDetail
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
@@ -105,7 +100,8 @@ fun FloorMapSideEventItem(
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }
-                if (sideEvent.link != null) {
+                sideEvent.link?.let { link ->
+                    val content = EventDetail(link)
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -114,17 +110,17 @@ fun FloorMapSideEventItem(
                             modifier = Modifier.size(16.dp),
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = createAnnotatedEventDetailString(),
+                        ClickableLinkText(
                             style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.clickable {
-                                // todo open link
-                            },
+                            content = content.asString(),
+                            onLinkClick = onSideEventClick,
+                            regex = content.asString().toRegex(),
+                            url = content.url,
                         )
                     }
                 }
             }
-            if (sideEvent.imageLink != null) {
+            sideEvent.imageLink?.let {
                 Image(
                     modifier = Modifier
                         .size(80.dp)
@@ -157,25 +153,6 @@ private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
         Pink -> 0xFFDC369A
     }
     return icon to Color(colorLong)
-}
-
-@Composable
-private fun createAnnotatedEventDetailString(): AnnotatedString {
-    return buildAnnotatedString {
-        pushStringAnnotation(
-            tag = "URL",
-            annotation = FloorMapStrings.EventDetail.asString(),
-        )
-        withStyle(
-            SpanStyle(
-                color = MaterialTheme.colorScheme.primary,
-                textDecoration = TextDecoration.Underline,
-                fontWeight = FontWeight.Bold,
-            ),
-        ) {
-            append(FloorMapStrings.EventDetail.asString())
-        }
-    }
 }
 
 @MultiThemePreviews
