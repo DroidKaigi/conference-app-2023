@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -25,14 +27,12 @@ import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 
-const val LARGE_TOP_APP_BAR_HEIGHT_DP = 124f // maxTopAppBarHeight(152.dp) - bottomPadding(28.dp)
-const val RATE_TO_REDUCE_FONT_SIZE = 0.92f
+const val RATE_TO_REDUCE_FONT_SIZE = 0.95f
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -99,41 +99,42 @@ private fun ResizeableText(
     val density = LocalDensity.current
     var fontSize by remember(text) { mutableFloatStateOf(styles.first().fontSize.value) }
 
-    val calculateParagraph = @Composable {
-        Paragraph(
-            paragraphIntrinsics = ParagraphIntrinsics(
-                text = text,
-                style = styles[styleIndex].copy(fontSize = fontSize.sp),
-                placeholders = emptyList(),
-                density = density,
-                fontFamilyResolver = LocalFontFamilyResolver.current,
-            ),
-            constraints = Constraints(),
+    BoxWithConstraints {
+        val calculateParagraph = @Composable {
+            Paragraph(
+                paragraphIntrinsics = ParagraphIntrinsics(
+                    text = text,
+                    style = styles[styleIndex].copy(fontSize = fontSize.sp),
+                    density = density,
+                    fontFamilyResolver = LocalFontFamilyResolver.current,
+                ),
+                constraints = constraints,
+                maxLines = maxLines,
+                ellipsis = true,
+            )
+        }
+
+        // calculate before displaying to avoid broken character.
+        var intrinsics = calculateParagraph()
+        while (intrinsics.height > maxHeight.value / density.density && fontSize > minFontSize.value) {
+            println("ログ fontSize: $fontSize, styleIndex: $styleIndex, intrinsics.height: ${intrinsics.height}")
+            if (styleIndex == styles.lastIndex) {
+                // if the size does not fit in any style, reduce the font size.
+                fontSize *= RATE_TO_REDUCE_FONT_SIZE
+            } else {
+                // switch to the next text style
+                val nextIndex = styleIndex.inc().coerceAtMost(styles.lastIndex)
+                styleIndex = nextIndex
+                fontSize = styles[nextIndex].fontSize.value
+            }
+            intrinsics = calculateParagraph()
+        }
+        Text(
+            text = text,
+            overflow = overflow,
             maxLines = maxLines,
-            ellipsis = true,
+            style = styles[styleIndex].copy(fontSize = fontSize.sp),
+            modifier = Modifier.padding(end = 16.dp),
         )
     }
-
-    // calculate before displaying to avoid broken character.
-    var intrinsics = calculateParagraph()
-    while (intrinsics.height > LARGE_TOP_APP_BAR_HEIGHT_DP && fontSize > minFontSize.value) {
-        if (styleIndex == styles.lastIndex) {
-            // if the size does not fit in any style, reduce the font size.
-            fontSize *= RATE_TO_REDUCE_FONT_SIZE
-        } else {
-            // switch to the next text style
-            val nextIndex = styleIndex.inc().coerceAtMost(styles.lastIndex)
-            styleIndex = nextIndex
-            fontSize = styles[nextIndex].fontSize.value
-        }
-        intrinsics = calculateParagraph()
-    }
-
-    Text(
-        text = text,
-        overflow = overflow,
-        maxLines = maxLines,
-        style = styles[styleIndex].copy(fontSize = fontSize.sp),
-        modifier = Modifier.padding(end = 16.dp),
-    )
 }
