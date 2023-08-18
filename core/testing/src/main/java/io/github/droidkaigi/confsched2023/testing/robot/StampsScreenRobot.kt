@@ -2,9 +2,12 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performScrollToIndex
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.stamps.StampsScreen
+import io.github.droidkaigi.confsched2023.stamps.section.StampsListLazyVerticalGridTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -25,13 +28,17 @@ class StampsScreenRobot @Inject constructor(
         }
     }
 
-    fun setupScreenContent() {
+    fun setupScreenContent(scroll: Boolean) {
         composeTestRule.setContent {
             KaigiTheme {
                 StampsScreen(
                     onStampsClick = { },
                 )
             }
+        }
+        if (scroll) {
+            composeTestRule.onNodeWithTag(StampsListLazyVerticalGridTestTag)
+                .performScrollToIndex(5)
         }
         waitUntilIdle()
     }
