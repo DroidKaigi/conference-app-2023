@@ -68,9 +68,7 @@ fun AboutScreen(
     onLinkClick: (url: String) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = remember {
-        SnackbarHostState()
-    }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,

@@ -55,9 +55,7 @@ fun SponsorsScreen(
     viewModel: SponsorsScreenViewModel = hiltViewModel<SponsorsScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = remember {
-        SnackbarHostState()
-    }
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
