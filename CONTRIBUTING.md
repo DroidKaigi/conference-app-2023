@@ -6,7 +6,7 @@ We welcome your contribution!
 
 ### Finding tasks
 
-We use GitHub issues to manage the tasks. Please check here for issues you would like to contribute to. [`welcome contribute` and `easy` are good labels](https://github.com/DroidKaigi/conference-app-2023/issues?q=is%3Aopen+is%3Aissue+label%3A%22welcome+contribute%22%2Ceasy) to check for the first contribution.
+We use GitHub issues to manage the tasks. Please check here for issues you would like to contribute to. [`welcome contribute` and `easy` are good labels](https://github.com/DroidKaigi/conference-app-2023/issues?q=is%3Aopen+is%3Aissue+label%3A%22welcome+contribute%22%2Ceasy+no%3Aassignee) to check for the first contribution.
 
 Of course, we also accept Pull Requests which don't have an issue. However, in this case please make sure you explain the motivation, cause, solution, etc in the PR description.
 
