@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -22,14 +21,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFontFamilyResolver
 import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -144,26 +141,19 @@ private fun ResizeableText(
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 internal fun PreviewTimetableItemDetailScreenTopAppBarMediumFontScale(
     @PreviewParameter(
-        PreviewTimetableItemDetailScreenTopAppBarTitleAndFontScaleProvider::class,
-    ) titleAndFontScale: Pair<MultiLangText, Float>,
+        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
+    ) title: MultiLangText,
 ) {
-    val (title, scale) = titleAndFontScale
-    val newConfiguration = LocalConfiguration.current.apply {
-        this.fontScale = scale
-    }
-    CompositionLocalProvider(LocalConfiguration provides newConfiguration) {
-        KaigiTheme {
-            Surface {
-                TimetableItemDetailScreenTopAppBar(
-                    title = title,
-                    onNavigationIconClick = {},
-                    scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
-                )
-            }
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailScreenTopAppBar(
+                title = title,
+                onNavigationIconClick = {},
+                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+            )
         }
     }
 }
