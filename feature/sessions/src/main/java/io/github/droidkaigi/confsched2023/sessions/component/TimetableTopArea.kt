@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
@@ -8,11 +7,11 @@ import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import io.github.droidkaigi.confsched2023.feature.sessions.R
@@ -34,7 +33,7 @@ fun TimetableTopArea(
 ) {
     TopAppBar(
         title = {
-            Image(
+            Icon(
                 painter = painterResource(id = R.drawable.icon_droidkaigi_logo),
                 contentDescription = null,
             )
@@ -70,7 +69,7 @@ fun TimetableTopArea(
             }
         },
         colors = TopAppBarDefaults.largeTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = Color.Transparent,
         ),
     )
 }

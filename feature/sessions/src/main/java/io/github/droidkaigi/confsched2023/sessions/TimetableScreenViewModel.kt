@@ -53,7 +53,7 @@ class TimetableScreenViewModel @Inject constructor(
         }
         if (uiType == TimetableUiType.List) {
             TimetableSheetUiState.ListTimetable(
-                DroidKaigi2023Day.values().associateWith { day ->
+                DroidKaigi2023Day.entries.associateWith { day ->
                     val sortAndGroupedTimetableItems = sessionTimetable.filtered(
                         Filters(
                             days = listOf(day),
@@ -73,7 +73,7 @@ class TimetableScreenViewModel @Inject constructor(
             )
         } else {
             TimetableSheetUiState.GridTimetable(
-                DroidKaigi2023Day.values().associateWith { day ->
+                DroidKaigi2023Day.entries.associateWith { day ->
                     TimetableGridUiState(
                         timetable = sessionTimetable.dayTimetable(day),
                     )

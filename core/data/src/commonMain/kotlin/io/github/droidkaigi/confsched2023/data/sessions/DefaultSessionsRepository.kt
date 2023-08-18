@@ -8,8 +8,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 
 class DefaultSessionsRepository(
     private val sessionsApi: SessionsApiClient,
@@ -17,18 +17,24 @@ class DefaultSessionsRepository(
     private val sessionCacheDataStore: SessionCacheDataStore,
 ) : SessionsRepository {
 
-    override fun getTimetableStream(): Flow<Timetable> {
-        return combine(
+    override fun getTimetableStream(): Flow<Timetable> = flow {
+        var first = true
+        combine(
             sessionCacheDataStore.getTimetableStream(),
             userDataStore.getFavoriteSessionStream(),
         ) { timetable, favorites ->
             timetable.copy(bookmarks = favorites)
-        }
-            .onStart {
+        }.collect {
+            if (!it.isEmpty()) {
+                emit(it)
+            }
+            if (first) {
+                first = false
                 Logger.d("DefaultSessionsRepository onStart getTimetableStream()")
                 sessionCacheDataStore.save(sessionsApi.sessionsAllResponse())
                 Logger.d("DefaultSessionsRepository onStart fetched")
             }
+        }
     }
 
     override fun getTimetableItemWithBookmarkStream(id: TimetableItemId): Flow<Pair<TimetableItem, Boolean>> {

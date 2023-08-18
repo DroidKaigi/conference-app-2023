@@ -12,6 +12,7 @@ var package = Package(
         .library(name: "Component", targets: ["Component"]),
         .library(name: "FloorMap", targets: ["FloorMap"]),
         .library(name: "Session", targets: ["Session"]),
+        .library(name: "Sponsor", targets: ["Sponsor"]),
         .library(name: "Timetable", targets: ["Timetable"]),
         .library(name: "Navigation", targets: ["Navigation"]),
     ],
@@ -59,6 +60,17 @@ var package = Package(
         ),
 
         .target(
+            name: "Contributor",
+            dependencies: [
+                "Assets",
+                "Component",
+                "Model",
+                "shared",
+                "Theme",
+            ]
+        ),
+
+        .target(
             name: "FloorMap",
             dependencies: [
                 "Assets",
@@ -91,10 +103,9 @@ var package = Package(
         ),
 
         .target(
-            name: "Contributor",
+            name: "Sponsor",
             dependencies: [
                 "Assets",
-                "Component",
                 "Model",
                 "shared",
                 "Theme",
@@ -137,10 +148,11 @@ var package = Package(
             dependencies: [
                 "About",
                 "Assets",
+                "Contributor",
                 "FloorMap",
                 "Session",
+                "Sponsor",
                 "Stamps",
-                "Contributor",
                 "Theme",
                 "Timetable",
             ]

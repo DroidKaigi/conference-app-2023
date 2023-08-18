@@ -38,7 +38,7 @@ import kotlinx.collections.immutable.PersistentSet
 sealed interface BookmarkSheetUiState {
     val currentDayFilter: PersistentList<DroidKaigi2023Day>
     val isAll: Boolean
-        get() = currentDayFilter.size == DroidKaigi2023Day.values().size
+        get() = currentDayFilter.size == DroidKaigi2023Day.entries.size
     val isDayFirst: Boolean
         get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
     val isDaySecond: Boolean
@@ -70,9 +70,7 @@ fun BookmarkSheet(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(start = 16.dp),
+        modifier = modifier.fillMaxSize(),
     ) {
         BookmarkFilters(
             isAll = uiState.isAll,
@@ -83,6 +81,7 @@ fun BookmarkSheet(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
+            modifier = Modifier.padding(start = 16.dp),
         )
         when (uiState) {
             is Empty -> {
@@ -126,10 +125,11 @@ private fun EmptyView() {
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = BookmarkedItemNotFound.asString(),
-            fontSize = 16.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Medium,
-            lineHeight = 24.sp,
+            lineHeight = 28.sp,
             color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(

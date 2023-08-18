@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 // Generated code from https://m3.material.io/theme-builder#/custom
 
@@ -71,6 +72,62 @@ private val DarkColors = darkColorScheme(
     outlineVariant = md_theme_dark_outlineVariant,
     scrim = md_theme_dark_scrim,
 )
+
+sealed class HallColorScheme {
+    abstract val hallA: Color
+    abstract val hallB: Color
+    abstract val hallC: Color
+    abstract val hallD: Color
+    abstract val hallE: Color
+    abstract val hallText: Color
+    abstract val hallTextWhenWithoutSpeakers: Color
+
+    data class Light(
+        override val hallA: Color = md_theme_light_room_hall_a,
+        override val hallB: Color = md_theme_light_room_hall_b,
+        override val hallC: Color = md_theme_light_room_hall_c,
+        override val hallD: Color = md_theme_light_room_hall_d,
+        override val hallE: Color = md_theme_light_room_hall_e,
+        override val hallText: Color = md_theme_light_room_hall_text,
+        override val hallTextWhenWithoutSpeakers: Color = md_theme_light_onSurfaceVariant,
+    ) : HallColorScheme()
+
+    data class Dark(
+        override val hallA: Color = md_theme_dark_room_hall_a,
+        override val hallB: Color = md_theme_dark_room_hall_b,
+        override val hallC: Color = md_theme_dark_room_hall_c,
+        override val hallD: Color = md_theme_dark_room_hall_d,
+        override val hallE: Color = md_theme_dark_room_hall_e,
+        override val hallText: Color = md_theme_dark_room_hall_text,
+        override val hallTextWhenWithoutSpeakers: Color = md_theme_dark_onSurfaceVariant,
+    ) : HallColorScheme()
+}
+
+sealed class FloorButtonColorScheme {
+    abstract val background: Color
+
+    data class Light(
+        override val background: Color = md_theme_light_floor_button_background,
+    ) : FloorButtonColorScheme()
+
+    data class Dark(
+        override val background: Color = md_theme_dark_floor_button_background,
+    ) : FloorButtonColorScheme()
+}
+
+@Composable
+fun hallColors() = if (isSystemInDarkTheme()) {
+    HallColorScheme.Dark()
+} else {
+    HallColorScheme.Light()
+}
+
+@Composable
+fun floorButtonColors() = if (isSystemInDarkTheme()) {
+    FloorButtonColorScheme.Dark()
+} else {
+    FloorButtonColorScheme.Light()
+}
 
 @Composable
 fun KaigiTheme(

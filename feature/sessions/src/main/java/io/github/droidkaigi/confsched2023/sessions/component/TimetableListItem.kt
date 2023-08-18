@@ -5,6 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -28,9 +30,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -43,6 +46,7 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun TimetableListItem(
     timetableItem: TimetableItem,
@@ -58,7 +62,7 @@ fun TimetableListItem(
             .clickable { onClick(timetableItem) },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Row(modifier = Modifier.weight(1F)) {
+            FlowRow(modifier = Modifier.weight(1F)) {
                 chipContent()
             }
             IconToggleButton(
@@ -140,7 +144,8 @@ fun TimetableListItem(
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun TimetableListItemPreview() {
     KaigiTheme {

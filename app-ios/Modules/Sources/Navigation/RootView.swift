@@ -1,4 +1,5 @@
 import About
+import Sponsor
 import Assets
 import Contributor
 import FloorMap
@@ -59,6 +60,9 @@ public struct RootView: View {
             AboutView(
                 contributorViewProvider: { _ in
                     ContributorView()
+                },
+                sponsorViewProvider: { _ in
+                    SponsorView()
                 }
             )
                 .tag(Tab.about)

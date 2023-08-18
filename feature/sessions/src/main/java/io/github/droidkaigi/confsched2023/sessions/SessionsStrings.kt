@@ -13,7 +13,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object UserIcon : SessionsStrings()
     data object EventDay : SessionsStrings()
     data object Category : SessionsStrings()
-    data object SearchResultNotFound : SessionsStrings()
+    class SearchResultNotFound(val missedWord: String) : SessionsStrings()
+    data object SearchPlaceHolder : SessionsStrings()
     data object Bookmark : SessionsStrings()
     data object BookmarkFilterAllChip : SessionsStrings()
     data object BookmarkedItemNotFound : SessionsStrings()
@@ -24,6 +25,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object RemoveFromFavorites : SessionsStrings()
     data object Date : SessionsStrings()
     data object Place : SessionsStrings()
+    data object SessionType : SessionsStrings()
     data object SupportedLanguages : SessionsStrings()
     data object InterpretationTarget : SessionsStrings()
     data object Archive : SessionsStrings()
@@ -31,6 +33,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
     data object WatchVideo : SessionsStrings()
     data object Speaker : SessionsStrings()
     data object TargetAudience : SessionsStrings()
+    data object ReadMore : SessionsStrings()
     private object Bindings : StringsBindings<SessionsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
@@ -44,8 +47,9 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 Category -> "カテゴリー"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "全て"
-                SearchResultNotFound -> "この検索条件に一致する結果はありません"
-                BookmarkedItemNotFound -> "登録されたセッションがありません"
+                is SearchResultNotFound -> "「${item.missedWord}」と一致する検索結果がありません"
+                SearchPlaceHolder -> "気になる技術を入力"
+                BookmarkedItemNotFound -> "登録されたセッションが\nありません"
                 BookmarkedItemNotFoundSideNote -> "気になるセッションをブックマークに追加して\n集めてみましょう！"
                 Share -> "共有"
                 AddToCalendar -> "カレンダーに追加"
@@ -53,6 +57,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "お気に入りから削除"
                 Date -> "日付"
                 Place -> "場所"
+                SessionType -> "セッション種別"
                 SupportedLanguages -> "対応言語"
                 InterpretationTarget -> "同時通訳対象"
                 Archive -> "アーカイブ"
@@ -60,6 +65,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 TargetAudience -> "対象者"
                 WatchVideo -> "動画を見る"
                 Speaker -> "スピーカー"
+                ReadMore -> "続きを読む"
             }
         },
         Lang.English to { item, bindings ->
@@ -72,7 +78,8 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 UserIcon -> "User icon"
                 EventDay -> "Day"
                 Category -> "Category"
-                SearchResultNotFound -> "Nothing matched your search criteria"
+                is SearchResultNotFound -> "Nothing matched your search criteria \"${item.missedWord}\""
+                SearchPlaceHolder -> "Enter some technology"
                 Bookmark -> "Bookmark"
                 BookmarkFilterAllChip -> "All"
                 BookmarkedItemNotFound -> "No sessions registered"
@@ -83,6 +90,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 RemoveFromFavorites -> "Remove from favorites"
                 Date -> "Date"
                 Place -> "Place"
+                SessionType -> "Session type"
                 SupportedLanguages -> "Supported languages"
                 InterpretationTarget -> "Interpretation target"
                 Archive -> "Archive"
@@ -90,6 +98,7 @@ sealed class SessionsStrings : Strings<SessionsStrings>(Bindings) {
                 WatchVideo -> "Watch Video"
                 Speaker -> "Speaker"
                 TargetAudience -> "Target Audience"
+                ReadMore -> "Read More"
             }
         },
         default = Lang.Japanese,
