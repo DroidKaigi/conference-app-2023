@@ -14,9 +14,9 @@ import io.github.droidkaigi.confsched2023.stamps.component.StampImage
 import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
 import kotlinx.collections.immutable.ImmutableList
 
-private const val STAMP_LIST_COLUMNS = 2
-private const val SINGLE_ITEM_SPAN_COUNT = 2
-private const val DOUBLE_ITEM_SPAN_COUNT = 2 / 2
+private const val StampListColumns = 2
+private const val SingleItemSpanCount = 2
+private const val DoubleItemSpanCount = 2 / 2
 
 @Composable
 fun StampsList(
@@ -25,7 +25,7 @@ fun StampsList(
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
-        columns = Fixed(STAMP_LIST_COLUMNS),
+        columns = Fixed(StampListColumns),
         modifier = modifier,
         contentPadding = PaddingValues(
             horizontal = 16.dp,
@@ -36,7 +36,7 @@ fun StampsList(
     ) {
         item(
             key = "stamps_header",
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(SingleItemSpanCount) },
         ) {
             StampsDetail()
         }
@@ -45,10 +45,10 @@ fun StampsList(
             key = { stamp -> stamp.hasDrawableResId },
             span = { stamp ->
                 GridItemSpan(
-                    if (stamp == stamps.last() && stamps.size % STAMP_LIST_COLUMNS != 0) {
-                        SINGLE_ITEM_SPAN_COUNT
+                    if (stamp == stamps.last() && stamps.size % StampListColumns != 0) {
+                        SingleItemSpanCount
                     } else {
-                        DOUBLE_ITEM_SPAN_COUNT
+                        DoubleItemSpanCount
                     },
                 )
             },

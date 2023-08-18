@@ -1,5 +1,3 @@
-import io.github.droidkaigi.confsched2023.primitive.libs
-
 plugins {
     id("droidkaigi.primitive.kmp")
     id("droidkaigi.primitive.kmp.android")
@@ -17,12 +15,12 @@ kotlin {
         commonMain {
             dependencies {
                 // Fix https://youtrack.jetbrains.com/issue/KT-41821
-                implementation(libs.findLibrary("kotlinxAtomicfu").get())
+                implementation(libs.kotlinxAtomicfu)
             }
         }
     }
 }
 
 dependencies {
-    lintChecks(libs.findLibrary("composeLintCheck").get())
+    lintChecks(libs.composeLintCheck)
 }

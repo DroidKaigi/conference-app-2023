@@ -1,8 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions
 
 import android.content.res.Configuration
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -20,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -28,12 +27,12 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
@@ -82,7 +81,7 @@ fun TimetableScreen(
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -208,26 +207,9 @@ private fun TimetableScreen(
     }
 }
 
-@Preview(
-    uiMode = UI_MODE_NIGHT_NO,
-    showBackground = true,
-)
+@MultiThemePreviews
 @Composable
 fun PreviewTimetableScreenDark() {
-    PreviewTimetableScreen()
-}
-
-@Preview(
-    uiMode = UI_MODE_NIGHT_YES,
-    showBackground = true,
-)
-@Composable
-fun PreviewTimetableScreenLight() {
-    PreviewTimetableScreen()
-}
-
-@Composable
-private fun PreviewTimetableScreen() {
     KaigiTheme {
         TimetableScreen(
             TimetableScreenUiState(
