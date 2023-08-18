@@ -344,7 +344,7 @@ private fun createGoogleTranslateURL(
         "ja"
     }
     val charSet = "utf-8"
-    val googleTranslateUrl = "https://translate.google.co.jp/?hl=ja&tab=TT&sl=auto&tl=${targetLanguage}&text="
+    val googleTranslateUrl = "https://translate.google.co.jp/?hl=ja&tab=TT&sl=auto&tl=$targetLanguage&text="
     val encodedDescription = URLEncoder.encode(
         description,
         charSet,
@@ -358,7 +358,7 @@ fun ReadMoreOutlinedButtonPreview() {
     KaigiTheme {
         OutlinedButton(
             buttonText = SessionsStrings.ReadMore.asString(),
-            onClick = {}
+            onClick = {},
         )
     }
 }
