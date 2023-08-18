@@ -31,8 +31,10 @@ jobs:
         run: echo "arch=x86_64" >> local.properties
 
       - name: Build KMM Module
-        working-directory: app-ios
-        run: bundle exec fastlane shared
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
+        with:
+          gradle-home-cache-cleanup: true
+          arguments: :app-ios-shared:assembleSharedReleaseXCFramework --stacktrace
 
       # Skip the build app because the build result is unstable due to the Xcode 15 is still in beta
       # - name: Build App
