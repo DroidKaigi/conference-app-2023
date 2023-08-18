@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,83 +33,65 @@ fun BookmarkFilters(
     onDayThirdChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val selectedChipColor = AssistChipDefaults.assistChipColors(
+    Row(modifier) {
+        BookmarkFilterChip(
+            labelText = SessionsStrings.BookmarkFilterAllChip.asString(),
+            isSelected = isAll,
+            onClick = onAllFilterChipClick
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        BookmarkFilterChip(
+            labelText = DroidKaigi2023Day.Day1.name,
+            isSelected = isDayFirst,
+            onClick = onDayFirstChipClick
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        BookmarkFilterChip(
+            labelText = DroidKaigi2023Day.Day2.name,
+            isSelected = isDaySecond,
+            onClick = onDaySecondChipClick
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        BookmarkFilterChip(
+            labelText = DroidKaigi2023Day.Day3.name,
+            isSelected = isDayThird,
+            onClick = onDayThirdChipClick
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BookmarkFilterChip(
+    labelText: String,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+) {
+    val selectedChipColor = FilterChipDefaults.filterChipColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
         labelColor = MaterialTheme.colorScheme.onSecondaryContainer,
     )
-    val selectedChipBoarderColor = AssistChipDefaults.assistChipBorder(
+    val selectedChipBoarderColor = FilterChipDefaults.filterChipBorder(
         borderColor = MaterialTheme.colorScheme.outline,
         borderWidth = 0.dp,
     )
-    Row(modifier) {
-        AssistChip(
-            onClick = onAllFilterChipClick,
-            label = {
-                ChipInnerText(SessionsStrings.BookmarkFilterAllChip.asString())
-            },
-            colors = if (isAll) {
-                selectedChipColor
-            } else {
-                AssistChipDefaults.assistChipColors()
-            },
-            border = if (isAll) {
-                selectedChipBoarderColor
-            } else {
-                AssistChipDefaults.assistChipBorder()
-            },
-        )
-        Spacer(modifier = Modifier.size(8.dp))
-        AssistChip(
-            onClick = onDayFirstChipClick,
-            label = {
-                ChipInnerText(DroidKaigi2023Day.Day1.name)
-            },
-            colors = if (isDayFirst) {
-                selectedChipColor
-            } else {
-                AssistChipDefaults.assistChipColors()
-            },
-            border = if (isDayFirst) {
-                selectedChipBoarderColor
-            } else {
-                AssistChipDefaults.assistChipBorder()
-            },
-        )
-        Spacer(modifier = Modifier.size(8.dp))
-        AssistChip(
-            onClick = onDaySecondChipClick,
-            label = {
-                ChipInnerText(DroidKaigi2023Day.Day2.name)
-            },
-            colors = if (isDaySecond) {
-                selectedChipColor
-            } else {
-                AssistChipDefaults.assistChipColors()
-            },
-            border = if (isDaySecond) {
-                selectedChipBoarderColor
-            } else {
-                AssistChipDefaults.assistChipBorder()
-            },
-        )
-        Spacer(modifier = Modifier.size(8.dp))
-        AssistChip(
-            onClick = onDayThirdChipClick,
-            label = {
-                ChipInnerText(DroidKaigi2023Day.Day3.name)
-            },
-            colors = if (isDayThird) {
-                selectedChipColor
-            } else {
-                AssistChipDefaults.assistChipColors()
-            },
-            border = if (isDayThird) {
-                selectedChipBoarderColor
-            } else {
-                AssistChipDefaults.assistChipBorder()
-            },
-        )
-    }
+    FilterChip(
+        onClick = onClick,
+        label = {
+            ChipInnerText(labelText)
+        },
+        colors = if (isSelected) {
+            selectedChipColor
+        } else {
+            FilterChipDefaults.filterChipColors()
+        },
+        border = if (isSelected) {
+            selectedChipBoarderColor
+        } else {
+            FilterChipDefaults.filterChipBorder()
+        },
+        selected = isSelected,
+    )
 }
 
 @Composable
