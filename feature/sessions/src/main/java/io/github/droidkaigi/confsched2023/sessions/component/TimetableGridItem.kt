@@ -22,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
@@ -36,16 +35,10 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
-import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
@@ -70,14 +63,7 @@ fun TimetableGridItem(
     val speaker = timetableItem.speakers.firstOrNull()
 
     val hallColor = hallColors()
-    val backgroundColor = when (timetableItem.room.type) {
-        Room1 -> hallColor.hallA
-        Room2 -> hallColor.hallB
-        Room3 -> hallColor.hallC
-        Room4 -> hallColor.hallD
-        Room5 -> hallColor.hallE
-        else -> Color.White
-    }
+    val backgroundColor = timetableItem.room.color
     val textColor = if (speaker != null) {
         hallColor.hallText
     } else {
