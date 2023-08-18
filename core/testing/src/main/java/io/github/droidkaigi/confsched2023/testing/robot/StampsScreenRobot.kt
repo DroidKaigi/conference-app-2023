@@ -2,12 +2,12 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onNodeWithTag
-import androidx.compose.ui.test.performScrollToIndex
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.stamps.StampsScreen
-import io.github.droidkaigi.confsched2023.stamps.section.StampsListLazyVerticalGridTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -28,7 +28,7 @@ class StampsScreenRobot @Inject constructor(
         }
     }
 
-    fun setupScreenContent(scrollToBottom: Boolean) {
+    fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
                 StampsScreen(
@@ -36,11 +36,18 @@ class StampsScreenRobot @Inject constructor(
                 )
             }
         }
-        if (scrollToBottom) {
-            composeTestRule.onNodeWithTag(StampsListLazyVerticalGridTestTag)
-                .performScrollToIndex(5)
-        }
         waitUntilIdle()
+    }
+
+    fun scroll() {
+        composeTestRule
+            .onRoot()
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 2F,
+                )
+            }
     }
 
     fun checkScreenCapture() {

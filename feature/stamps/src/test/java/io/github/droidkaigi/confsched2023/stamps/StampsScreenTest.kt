@@ -34,16 +34,9 @@ class StampsScreenTest {
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
         stampsScreenRobot {
-            setupScreenContent(scrollToBottom = false)
+            setupScreenContent()
             checkScreenCapture()
-        }
-    }
-
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkScrolledShot() {
-        stampsScreenRobot {
-            setupScreenContent(scrollToBottom = true)
+            scroll()
             checkScreenCapture()
         }
     }
