@@ -3,11 +3,12 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,25 +38,25 @@ fun BookmarkFilters(
         BookmarkFilterChip(
             labelText = SessionsStrings.BookmarkFilterAllChip.asString(),
             isSelected = isAll,
-            onClick = onAllFilterChipClick
+            onClick = onAllFilterChipClick,
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day1.name,
             isSelected = isDayFirst,
-            onClick = onDayFirstChipClick
+            onClick = onDayFirstChipClick,
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day2.name,
             isSelected = isDaySecond,
-            onClick = onDaySecondChipClick
+            onClick = onDaySecondChipClick,
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day3.name,
             isSelected = isDayThird,
-            onClick = onDayThirdChipClick
+            onClick = onDayThirdChipClick,
         )
     }
 }
@@ -79,6 +80,15 @@ private fun BookmarkFilterChip(
         onClick = onClick,
         label = {
             ChipInnerText(labelText)
+        },
+        leadingIcon = {
+            if (isSelected) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+            }
         },
         colors = if (isSelected) {
             selectedChipColor
