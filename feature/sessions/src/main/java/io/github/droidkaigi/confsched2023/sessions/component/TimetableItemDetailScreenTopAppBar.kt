@@ -116,7 +116,6 @@ private fun ResizeableText(
         // calculate before displaying to avoid broken character.
         var intrinsics = calculateParagraph()
         while (intrinsics.height > maxHeight.value / density.density && fontSize > minFontSize.value) {
-            println("ログ fontSize: $fontSize, styleIndex: $styleIndex, intrinsics.height: ${intrinsics.height}")
             if (styleIndex == styles.lastIndex) {
                 // if the size does not fit in any style, reduce the font size.
                 fontSize *= RATE_TO_REDUCE_FONT_SIZE
