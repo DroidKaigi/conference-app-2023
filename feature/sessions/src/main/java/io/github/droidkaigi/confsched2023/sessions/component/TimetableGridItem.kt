@@ -97,71 +97,68 @@ fun TimetableGridItem(
         it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = textColor)
     }
 
-    Box(modifier.testTag(TimetableGridItemTestTag)) {
-        Box(
-            modifier = Modifier
-                .testTag(TimetableGridItemTestTag)
-                .background(
-                    color = if (speaker != null) {
-                        backgroundColor
+    Box(
+        modifier = Modifier
+            .background(
+                color = if (speaker != null) {
+                    backgroundColor
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                },
+                shape = RoundedCornerShape(4.dp),
+            )
+            .width(TimetableGridItemSizes.width)
+            .height(height)
+            .clickable {
+                onTimetableItemClick(timetableItem)
+            }
+            .padding(TimetableGridItemSizes.padding),
+    ) {
+        Column {
+            Text(
+                text = timetableItem.title.currentLangTitle,
+                style = titleTextStyle,
+            )
+            Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
+            Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
+                Icon(
+                    imageVector = Icons.Default.Schedule,
+                    tint = if (speaker != null) {
+                        hallColor.hallText
                     } else {
-                        MaterialTheme.colorScheme.surfaceVariant
+                        hallColor.hallTextWhenWithoutSpeakers
                     },
-                    shape = RoundedCornerShape(4.dp),
+                    contentDescription = ScheduleIcon.asString(),
                 )
-                .width(TimetableGridItemSizes.width)
-                .height(height)
-                .clickable {
-                    onTimetableItemClick(timetableItem)
-                }
-                .padding(TimetableGridItemSizes.padding),
-        ) {
-            Column {
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = timetableItem.title.currentLangTitle,
-                    style = titleTextStyle,
+                    text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = textColor,
                 )
-                Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
-                Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
-                    Icon(
-                        imageVector = Icons.Default.Schedule,
-                        tint = if (speaker != null) {
-                            hallColor.hallText
-                        } else {
-                            hallColor.hallTextWhenWithoutSpeakers
+            }
+
+            Spacer(modifier = Modifier.height(TimetableGridItemSizes.scheduleToSpeakerSpaceHeight))
+
+            // TODO: Dealing with more than one speaker
+            if (speaker != null) {
+                Row(
+                    modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Image(
+                        painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
+                            rememberAsyncImagePainter(speaker.iconUrl)
                         },
-                        contentDescription = ScheduleIcon.asString(),
+                        contentDescription = UserIcon.asString(),
+                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall,
+                        text = speaker.name,
+                        style = MaterialTheme.typography.labelMedium,
                         color = textColor,
                     )
-                }
-
-                Spacer(modifier = Modifier.height(TimetableGridItemSizes.scheduleToSpeakerSpaceHeight))
-
-                // TODO: Dealing with more than one speaker
-                if (speaker != null) {
-                    Row(
-                        modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Image(
-                            painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
-                                rememberAsyncImagePainter(speaker.iconUrl)
-                            },
-                            contentDescription = UserIcon.asString(),
-                            modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = speaker.name,
-                            style = MaterialTheme.typography.labelMedium,
-                            color = textColor,
-                        )
-                    }
                 }
             }
         }
@@ -225,8 +222,10 @@ private fun calculateFontSizeAndLineHeight(
     return when {
         displayTitleHeight <= 0 ->
             Pair(TimetableGridItemSizes.minTitleFontSize, TimetableGridItemSizes.minTitleLineHeight)
+
         displayTitleHeight > actualTitleHeight ->
             Pair(textStyle.fontSize, textStyle.lineHeight)
+
         else -> {
             // Change the font size until it fits in the height of the title box.
             var fontResizePx = fontSizePx
