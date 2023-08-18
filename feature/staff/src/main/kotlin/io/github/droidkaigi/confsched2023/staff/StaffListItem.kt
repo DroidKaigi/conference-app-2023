@@ -95,7 +95,7 @@ class PreviewStaffProvider : PreviewParameterProvider<Staff> {
 
 @Preview(showBackground = true)
 @Composable
-fun StaffListItemPreview(
+internal fun StaffListItemPreview(
     @PreviewParameter(PreviewStaffProvider::class) staff: Staff,
 ) {
     StaffListItem(staff = staff, modifier = Modifier.fillMaxWidth(), onStaffClick = {})
