@@ -101,7 +101,6 @@ fun FloorMapSideEventItem(
                     )
                 }
                 sideEvent.link?.let { link ->
-                    val content = EventDetail(link)
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -112,10 +111,10 @@ fun FloorMapSideEventItem(
                         Spacer(modifier = Modifier.width(8.dp))
                         ClickableLinkText(
                             style = MaterialTheme.typography.bodySmall,
-                            content = content.asString(),
+                            content = EventDetail.asString(),
                             onLinkClick = onSideEventClick,
-                            regex = content.asString().toRegex(),
-                            url = content.url,
+                            regex = EventDetail.asString().toRegex(),
+                            url = link,
                         )
                     }
                 }
