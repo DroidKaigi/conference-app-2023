@@ -119,7 +119,7 @@ fun FloorMapSideEventItem(
                     }
                 }
             }
-            sideEvent.imageLink?.let {
+            sideEvent.imageLink?.let { url ->
                 Image(
                     modifier = Modifier
                         .size(80.dp)
@@ -131,7 +131,7 @@ fun FloorMapSideEventItem(
                         ),
                     painter = previewOverride(
                         previewPainter = { rememberVectorPainter(image = Icons.Default.Person) },
-                        painter = { rememberAsyncImagePainter(sideEvent.imageLink!!) },
+                        painter = { rememberAsyncImagePainter(url) },
                     ),
                     contentScale = ContentScale.Crop,
                     contentDescription = "Side events image",
