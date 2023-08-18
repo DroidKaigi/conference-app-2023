@@ -29,15 +29,15 @@ class AndroidRoborazziPlugin : Plugin<Project> {
                 }
             }
             dependencies {
-                testImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))
-                testImplementation(libs.findLibrary("junit"))
-                testImplementation(libs.findLibrary("robolectric"))
-                testImplementation(libs.findLibrary("androidxTestExtJunit"))
-                testImplementation(libs.findLibrary("roborazzi"))
-                testImplementation(libs.findLibrary("roborazziCompose"))
+                testImplementation(libs.library("androidxTestEspressoEspressoCore"))
+                testImplementation(libs.library("junit"))
+                testImplementation(libs.library("robolectric"))
+                testImplementation(libs.library("androidxTestExtJunit"))
+                testImplementation(libs.library("roborazzi"))
+                testImplementation(libs.library("roborazziCompose"))
                 // For preview screenshot tests
-                implementation(libs.findLibrary("showkaseRuntime"))
-                ksp(libs.findLibrary("showkaseProcessor"))
+                implementation(libs.library("showkaseRuntime"))
+                ksp(libs.library("showkaseProcessor"))
             }
         }
     }

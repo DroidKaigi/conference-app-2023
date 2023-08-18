@@ -14,14 +14,13 @@ class KmpComposePlugin : Plugin<Project> {
             android {
                 buildFeatures.compose = true
                 composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findLibrary("composeCompiler").get()
-                        .get().versionConstraint.requiredVersion
+                    kotlinCompilerExtensionVersion = libs.version("composeCompiler")
                 }
             }
             val compose = extensions.get("compose") as org.jetbrains.compose.ComposeExtension
             kotlin {
                 with(sourceSets) {
-                    get("commonMain").apply {
+                    getByName("commonMain").apply {
                         dependencies {
                             implementation(compose.dependencies.runtime)
                             implementation(compose.dependencies.foundation)
@@ -30,11 +29,11 @@ class KmpComposePlugin : Plugin<Project> {
                             implementation(compose.dependencies.components.resources)
                         }
                     }
-                    get("androidMain").apply {
+                    getByName("androidMain").apply {
                         dependencies {
-                            implementation(libs.findLibrary("androidxActivityActivityCompose").get())
-                            implementation(libs.findLibrary("androidxLifecycleLifecycleRuntimeKtx").get())
-                            implementation(libs.findLibrary("composeUiToolingPreview").get())
+                            implementation(libs.library("androidxActivityActivityCompose"))
+                            implementation(libs.library("androidxLifecycleLifecycleRuntimeKtx"))
+                            implementation(libs.library("composeUiToolingPreview"))
                         }
                     }
                 }

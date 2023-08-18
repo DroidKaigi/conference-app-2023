@@ -22,9 +22,9 @@ class AndroidFirebasePlugin : Plugin<Project> {
                 }
             }
             dependencies {
-                implementation(libs.findLibrary("firebaseAuth"))
-                implementation(libs.findLibrary("firebaseCommon"))
-                implementation(libs.findLibrary("multiplatformFirebaseAuth"))
+                implementation(libs.library("firebaseAuth"))
+                implementation(libs.library("firebaseCommon"))
+                implementation(libs.library("multiplatformFirebaseAuth"))
             }
             extensions.configure<KaptExtension> {
                 correctErrorTypes = true
