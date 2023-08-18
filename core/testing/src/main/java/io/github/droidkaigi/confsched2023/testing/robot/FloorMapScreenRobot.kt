@@ -50,7 +50,7 @@ class FloorMapScreenRobot @Inject constructor(
         testDispatcher.scheduler.advanceUntilIdle()
     }
 
-    fun setFloorLevelToGround() {
+    fun clickFloorGroundButton() {
         composeTestRule
             .onNodeWithTag(FloorLevelSwitcherGroundTestTag)
             .performClick()

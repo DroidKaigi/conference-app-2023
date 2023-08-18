@@ -36,7 +36,15 @@ class FloorMapScreenTest {
         floorMapScreenRobot {
             setupScreenContent()
             checkScreenCapture()
-            setFloorLevelToGround()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkChangeFloorShot() {
+        floorMapScreenRobot {
+            setupScreenContent()
+            clickFloorGroundButton()
             checkScreenCapture()
         }
     }
