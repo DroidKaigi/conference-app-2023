@@ -1,0 +1,40 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+concurrency:
+  group: ios-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-ios:
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Select Xcode
+        run: sudo xcode-select -s '/Applications/Xcode_15.0.app'
+
+      - uses: ./.github/actions/setup-java
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
+        with:
+          bundler-cache: true
+
+      - name: Set up XCFramework arch filter
+        run: echo "arch=x86_64" >> local.properties
+
+      - name: Build KMM Module
+        working-directory: app-ios
+        run: bundle exec fastlane shared
+
+      # Skip the build app because the build result is unstable due to the Xcode 15 is still in beta
+      # - name: Build App
+      #   working-directory: app-ios
+      #   run: bundle exec fastlane build_project
