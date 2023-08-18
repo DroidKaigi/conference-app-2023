@@ -27,6 +27,9 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Set up XCFramework arch filter
+        run: echo "arch=x86_64" >> local.properties
+
       - name: Build KMM Module
         working-directory: app-ios
         run: bundle exec fastlane shared
