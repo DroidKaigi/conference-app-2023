@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions.section
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -92,6 +93,7 @@ fun TimetableSheet(
                 is ListTimetable -> {
                     TimetableList(
                         uiState = requireNotNull(uiState.timetableListUiStates[selectedDay]),
+                        scrollState = rememberLazyListState(),
                         onTimetableItemClick = onTimetableItemClick,
                         onBookmarkClick = onFavoriteClick,
                         modifier = Modifier
