@@ -5,7 +5,5 @@ public data class TimetableRoom(
     val name: MultiLangText,
     val sort: Int,
     val sortIndex: Int,
+    val type: RoomType,
 )
-
-val TimetableRoom.type: RoomIndex
-    get() = RoomIndex.entries.getOrNull(sortIndex) ?: RoomIndex.Room1
