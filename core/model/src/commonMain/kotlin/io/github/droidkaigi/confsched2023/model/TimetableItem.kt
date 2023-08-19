@@ -156,7 +156,7 @@ public fun Session.Companion.fake(): Session {
                 tagLine = "iOS Engineer",
             ),
         ).toPersistentList(),
-        description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。",
+        description = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
             enTitle = "This session has been cancelled due to circumstances.",
