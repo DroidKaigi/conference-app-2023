@@ -128,6 +128,7 @@ kotlinGradlePlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotli
 hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
 
 [bundles]
 plugins = [

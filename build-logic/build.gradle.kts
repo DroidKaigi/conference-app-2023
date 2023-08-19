@@ -96,6 +96,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.spotless"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.SpotlessPlugin"
         }
+        register("kover") {
+            id = "droidkaigi.primitive.kover"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverPlugin"
+        }
 
         // Conventions
         register("androidFeature") {
