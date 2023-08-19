@@ -25,7 +25,8 @@ enum class FloorMapUiState(
     @DrawableRes val floorMapResId: Int,
 ) {
     Basement(FloorLevel.Basement, FloorLevel.Basement.name, R.drawable.img_floormap_basement),
-    Ground(FloorLevel.Ground, FloorLevel.Ground.name, R.drawable.img_floormap_ground);
+    Ground(FloorLevel.Ground, FloorLevel.Ground.name, R.drawable.img_floormap_ground),
+    ;
 
     companion object {
         fun of(floorLevel: FloorLevel) = values().find { it.floorLevel == floorLevel }
