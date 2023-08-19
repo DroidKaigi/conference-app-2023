@@ -38,13 +38,7 @@ internal fun StaffSheet(
     Box(modifier = modifier.fillMaxSize()) {
         when (uiState) {
             Loading -> LoadingContent(modifier = Modifier.fillMaxSize())
-            Empty -> {
-                Text(
-                    text = "empty",
-                    modifier = Modifier.testTag("empty"),
-                )
-            }
-
+            Empty -> EmptyView()
             is StaffList -> StaffList(
                 staffs = uiState.staffs,
                 onStaffClick = onStaffClick,
@@ -53,6 +47,14 @@ internal fun StaffSheet(
     }
 }
 
+// FIXME: This is a temporary view.
+@Composable
+private fun EmptyView() {
+    Text(
+        text = "empty",
+        modifier = Modifier.testTag("empty"),
+    )
+}
 
 // FIXME: It might be a good idea to move this Composable function to a common module somewhere. The same applies to TimetableLoadingContent as well.
 @Composable
