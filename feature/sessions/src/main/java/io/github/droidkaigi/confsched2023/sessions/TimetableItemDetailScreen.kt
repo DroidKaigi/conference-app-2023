@@ -166,13 +166,14 @@ private fun TimetableItemDetailScreen(
 @MultiLanguagePreviews
 fun TimetableItemDetailScreenPreview() {
     var isBookMarked by remember { mutableStateOf(false) }
+    val fakeSession = Session.fake()
 
     KaigiTheme {
         Surface {
             TimetableItemDetailScreen(
                 uiState = Loaded(
-                    timetableItem = Session.fake(),
-                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(Session.fake()),
+                    timetableItem = fakeSession,
+                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
                 ),
                 onNavigationIconClick = {},
