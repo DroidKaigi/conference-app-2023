@@ -32,8 +32,8 @@ class StaffScreenViewModel @Inject constructor(
         )
 
     internal val uiState: StateFlow<StaffScreenUiState> = buildUiState(staffsStateFlow) { staffs ->
-        when {
-            staffs == null -> StaffSheetUiState.Loading
+        when (staffs) {
+            null -> StaffSheetUiState.Loading
             else -> StaffSheetUiState.StaffList(
                 staffs = staffs,
             )
