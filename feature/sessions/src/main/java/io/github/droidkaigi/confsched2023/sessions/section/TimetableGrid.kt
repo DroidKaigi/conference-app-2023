@@ -9,7 +9,9 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,7 +57,10 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.component.RoomItem
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridHours
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridItem
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridRooms
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -71,17 +76,51 @@ fun TimetableGrid(
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val timetableGridState = rememberTimetableGridState()
     TimetableGrid(
         timetable = uiState.timetable,
-        timetableState = timetableGridState,
-        modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
-    ) { timetableItem ->
-        TimetableGridItem(
-            timetableItem = timetableItem,
-            onTimetableItemClick = onTimetableItemClick,
+        onTimetableItemClick = onTimetableItemClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun TimetableGrid(
+    timetable: Timetable,
+    onTimetableItemClick: (TimetableItem) -> Unit,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
+) {
+    val timetableGridState = rememberTimetableGridState()
+    val coroutineScope = rememberCoroutineScope()
+    val layoutDirection = LocalLayoutDirection.current
+    Row(
+        modifier = Modifier.padding(
+            top = contentPadding.calculateTopPadding(),
+            start = contentPadding.calculateStartPadding(layoutDirection),
+            end = contentPadding.calculateEndPadding(layoutDirection),
         )
+    ) {
+        TimetableGridHours()
+        Column {
+            TimetableGridRooms(
+                rooms = timetable.rooms,
+                timetableState = timetableGridState,
+                coroutineScope = coroutineScope,
+            ) { room ->
+                RoomItem(room = room)
+            }
+            TimetableGrid(
+                timetable = timetable,
+                timetableState = timetableGridState,
+                modifier = modifier,
+                contentPadding = PaddingValues(16.dp),
+            ) { timetableItem ->
+                TimetableGridItem(
+                    timetableItem = timetableItem,
+                    onTimetableItemClick = onTimetableItemClick,
+                )
+            }
+        }
     }
 }
 
@@ -115,15 +154,9 @@ fun TimetableGrid(
     val visibleItemLayouts by remember(timetableScreen) { timetableScreen.visibleItemLayouts }
     val lineColor = MaterialTheme.colorScheme.surfaceVariant
     val linePxSize = with(timetableState.density) { TimetableSizes.lineStrokeSize.toPx() }
-    val layoutDirection = LocalLayoutDirection.current
 
     LazyLayout(
         modifier = modifier
-            .padding(
-                top = contentPadding.calculateTopPadding(),
-                start = contentPadding.calculateStartPadding(layoutDirection),
-                end = contentPadding.calculateEndPadding(layoutDirection),
-            )
             .focusGroup()
             .clipToBounds()
             .drawBehind {
@@ -241,17 +274,11 @@ fun TimetableGrid(
 @Preview
 @Composable
 fun TimetablePreview() {
-    val timetableState = rememberTimetableGridState()
     TimetableGrid(
-        modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
-        timetableState = timetableState,
-    ) { timetableItem ->
-        TimetableGridItem(
-            timetableItem = timetableItem,
-            onTimetableItemClick = {},
-        )
-    }
+        modifier = Modifier.fillMaxSize(),
+        onTimetableItemClick ={}
+    )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
