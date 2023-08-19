@@ -33,7 +33,7 @@ jobs:
       - name: Check lint
         uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
         with:
-          arguments: lintDebug --stacktrace
+          arguments: lintDebug lintDevDebug --stacktrace
 
       - name: Upload lint reports
         if: always()
