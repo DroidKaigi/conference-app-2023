@@ -11,7 +11,6 @@ empty-blocks:
 exceptions:
   active: true
   TooGenericExceptionCaught:
-    # 認証系ライブラリは Throwable などを既に投げているため無効化
     active: false
 
 naming:
