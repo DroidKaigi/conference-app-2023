@@ -114,7 +114,7 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     Text(Bundle.main.formattedVersion)
                         .font(Font.system(size: 14, weight: .medium))
                 }
-                .padding(.horizontal, 16)
+                .padding(16)
             }
             .navigationTitle("About")
             .navigationDestination(for: AboutRouting.self) { routing in
@@ -129,9 +129,9 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
     }
 }
 
- #Preview {
-     AboutView(
+#Preview {
+    AboutView(
         contributorViewProvider: {_ in EmptyView()},
         sponsorViewProvider: {_ in EmptyView()}
-     )
- }
+    )
+}

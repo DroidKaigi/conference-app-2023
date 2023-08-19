@@ -19,7 +19,7 @@ private const val SingleItemSpanCount = 2
 private const val DoubleItemSpanCount = 2 / 2
 
 @Composable
-fun StampsList(
+fun StampList(
     stamps: ImmutableList<Stamp>,
     onStampsClick: () -> Unit,
     modifier: Modifier = Modifier,

@@ -131,6 +131,7 @@ var package = Package(
             name: "Timetable",
             dependencies: [
                 "Assets",
+                "Component",
                 "shared",
                 "Model",
                 "Theme",

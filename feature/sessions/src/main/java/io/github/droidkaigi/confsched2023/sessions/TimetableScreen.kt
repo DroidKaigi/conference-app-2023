@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -58,6 +59,7 @@ fun NavGraphBuilder.nestedSessionScreens(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
             onBookmarkIconClick = onBookmarkIconClick,
+            modifier = modifier,
         )
     }
 }
@@ -80,7 +82,7 @@ fun TimetableScreen(
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -94,6 +96,7 @@ fun TimetableScreen(
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
+        modifier = modifier,
     )
 }
 

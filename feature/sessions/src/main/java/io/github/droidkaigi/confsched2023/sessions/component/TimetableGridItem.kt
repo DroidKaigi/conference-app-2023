@@ -22,10 +22,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Density
@@ -36,16 +34,10 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
-import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
@@ -70,14 +62,7 @@ fun TimetableGridItem(
     val speaker = timetableItem.speakers.firstOrNull()
 
     val hallColor = hallColors()
-    val backgroundColor = when (timetableItem.room.type) {
-        Room1 -> hallColor.hallA
-        Room2 -> hallColor.hallB
-        Room3 -> hallColor.hallC
-        Room4 -> hallColor.hallD
-        Room5 -> hallColor.hallE
-        else -> Color.White
-    }
+    val backgroundColor = timetableItem.room.color
     val textColor = if (speaker != null) {
         hallColor.hallText
     } else {
@@ -97,71 +82,68 @@ fun TimetableGridItem(
         it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = textColor)
     }
 
-    Box(modifier.testTag(TimetableGridItemTestTag)) {
-        Box(
-            modifier = Modifier
-                .testTag(TimetableGridItemTestTag)
-                .background(
-                    color = if (speaker != null) {
-                        backgroundColor
+    Box(
+        modifier = Modifier
+            .background(
+                color = if (speaker != null) {
+                    backgroundColor
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                },
+                shape = RoundedCornerShape(4.dp),
+            )
+            .width(TimetableGridItemSizes.width)
+            .height(height)
+            .clickable {
+                onTimetableItemClick(timetableItem)
+            }
+            .padding(TimetableGridItemSizes.padding),
+    ) {
+        Column {
+            Text(
+                text = timetableItem.title.currentLangTitle,
+                style = titleTextStyle,
+            )
+            Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
+            Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
+                Icon(
+                    imageVector = Icons.Default.Schedule,
+                    tint = if (speaker != null) {
+                        hallColor.hallText
                     } else {
-                        MaterialTheme.colorScheme.surfaceVariant
+                        hallColor.hallTextWhenWithoutSpeakers
                     },
-                    shape = RoundedCornerShape(4.dp),
+                    contentDescription = ScheduleIcon.asString(),
                 )
-                .width(TimetableGridItemSizes.width)
-                .height(height)
-                .clickable {
-                    onTimetableItemClick(timetableItem)
-                }
-                .padding(TimetableGridItemSizes.padding),
-        ) {
-            Column {
+                Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = timetableItem.title.currentLangTitle,
-                    style = titleTextStyle,
+                    text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = textColor,
                 )
-                Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
-                Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
-                    Icon(
-                        imageVector = Icons.Default.Schedule,
-                        tint = if (speaker != null) {
-                            hallColor.hallText
-                        } else {
-                            hallColor.hallTextWhenWithoutSpeakers
+            }
+
+            Spacer(modifier = Modifier.height(TimetableGridItemSizes.scheduleToSpeakerSpaceHeight))
+
+            // TODO: Dealing with more than one speaker
+            if (speaker != null) {
+                Row(
+                    modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Image(
+                        painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
+                            rememberAsyncImagePainter(speaker.iconUrl)
                         },
-                        contentDescription = ScheduleIcon.asString(),
+                        contentDescription = UserIcon.asString(),
+                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                        style = MaterialTheme.typography.bodySmall,
+                        text = speaker.name,
+                        style = MaterialTheme.typography.labelMedium,
                         color = textColor,
                     )
-                }
-
-                Spacer(modifier = Modifier.height(TimetableGridItemSizes.scheduleToSpeakerSpaceHeight))
-
-                // TODO: Dealing with more than one speaker
-                if (speaker != null) {
-                    Row(
-                        modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Image(
-                            painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
-                                rememberAsyncImagePainter(speaker.iconUrl)
-                            },
-                            contentDescription = UserIcon.asString(),
-                            modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = speaker.name,
-                            style = MaterialTheme.typography.labelMedium,
-                            color = textColor,
-                        )
-                    }
                 }
             }
         }
@@ -225,8 +207,10 @@ private fun calculateFontSizeAndLineHeight(
     return when {
         displayTitleHeight <= 0 ->
             Pair(TimetableGridItemSizes.minTitleFontSize, TimetableGridItemSizes.minTitleLineHeight)
+
         displayTitleHeight > actualTitleHeight ->
             Pair(textStyle.fontSize, textStyle.lineHeight)
+
         else -> {
             // Change the font size until it fits in the height of the title box.
             var fontResizePx = fontSizePx

@@ -28,26 +28,20 @@ fun KaigiBottomBar(
         mainScreenTabs.forEach { tab ->
             if (tab == MainScreenTab.Badges && isEnableStamps.not()) return@forEach
             val selected = currentTab == tab
+            val targetIcon = if (selected) tab.selectedIcon else tab.icon
             NavigationBarItem(
                 modifier = Modifier.testTag(tab.testTag),
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
-                    if (selected) {
-                        when (val icon = tab.selectedIcon) {
-                            is Drawable -> Icon(
-                                painterResource(id = icon.drawableId),
-                                contentDescription = tab.contentDescription,
-                            )
+                    when (targetIcon) {
+                        is Drawable -> Icon(
+                            painterResource(id = targetIcon.drawableId),
+                            contentDescription = tab.contentDescription,
+                        )
 
-                            is Vector -> Icon(
-                                imageVector = icon.imageVector,
-                                contentDescription = tab.contentDescription,
-                            )
-                        }
-                    } else {
-                        Icon(
-                            imageVector = tab.icon,
+                        is Vector -> Icon(
+                            imageVector = targetIcon.imageVector,
                             contentDescription = tab.contentDescription,
                         )
                     }
