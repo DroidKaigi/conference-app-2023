@@ -129,9 +129,9 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
     }
 }
 
- #Preview {
-     AboutView(
+#Preview {
+    AboutView(
         contributorViewProvider: {_ in EmptyView()},
         sponsorViewProvider: {_ in EmptyView()}
-     )
- }
+    )
+}
