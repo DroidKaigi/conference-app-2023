@@ -23,6 +23,7 @@ import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -39,11 +40,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
 import io.github.droidkaigi.confsched2023.feature.main.R
+import io.github.droidkaigi.confsched2023.main.NavigationType.BOTTOM_NAVIGATION
+import io.github.droidkaigi.confsched2023.main.NavigationType.NAVIGATION_RAIL
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.toPersistentList
 
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
@@ -70,6 +74,10 @@ interface MainNestedGraphStateHolder {
     fun onTabSelected(mainNestedNavController: NavController, tab: MainScreenTab)
 }
 
+enum class NavigationType {
+    BOTTOM_NAVIGATION, NAVIGATION_RAIL;
+}
+
 @Composable
 fun MainScreen(
     windowSize: WindowSizeClass,
@@ -80,6 +88,13 @@ fun MainScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val navigationType: NavigationType = when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> BOTTOM_NAVIGATION
+        WindowWidthSizeClass.Medium -> NAVIGATION_RAIL
+        WindowWidthSizeClass.Expanded -> NAVIGATION_RAIL
+        else -> BOTTOM_NAVIGATION
+    }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
