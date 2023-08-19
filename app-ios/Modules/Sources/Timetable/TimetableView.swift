@@ -6,6 +6,7 @@ import Theme
 
 enum TimetableRouting: Hashable {
     case bookmark
+    case search
     case session(TimetableItem)
 }
 
@@ -65,6 +66,8 @@ public struct TimetableView<SessionView: View>: View {
                         switch routing {
                         case .bookmark:
                             BookmarkView(sessionViewBuilder: sessionViewBuilder)
+                        case .search:
+                            SearchView(sessionViewBuilder: sessionViewBuilder)
                         case .session(let item):
                             sessionViewBuilder(item)
                         }
@@ -78,7 +81,9 @@ public struct TimetableView<SessionView: View>: View {
                             Assets.Icons.droidkaigi.swiftUIImage
                         }
                         ToolbarItem {
-                            Assets.Icons.search.swiftUIImage
+                            NavigationLink(value: TimetableRouting.search) {
+                                Assets.Icons.search.swiftUIImage
+                            }
                         }
                         ToolbarItem {
                             NavigationLink(value: TimetableRouting.bookmark) {
