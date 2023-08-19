@@ -35,6 +35,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 
 const val RATE_TO_REDUCE_FONT_SIZE = 0.95f
+const val LARGE_TOP_APP_BAR_HEIGHT_DP = 124f // maxTopAppBarHeight(152.dp) - bottomPadding(28.dp)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -118,7 +119,7 @@ private fun ResizeableText(
 
         // calculate before displaying to avoid broken character.
         var intrinsics = calculateParagraph()
-        while (intrinsics.height > maxHeight.value / density.density && fontSize > minFontSize.value) {
+        while (intrinsics.height > LARGE_TOP_APP_BAR_HEIGHT_DP && fontSize > minFontSize.value) {
             if (styleIndex == styles.lastIndex) {
                 // if the size does not fit in any style, reduce the font size.
                 fontSize *= RATE_TO_REDUCE_FONT_SIZE
