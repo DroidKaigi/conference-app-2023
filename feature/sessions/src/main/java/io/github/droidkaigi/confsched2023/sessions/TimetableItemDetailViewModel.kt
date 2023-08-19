@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemUiState
 import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -53,8 +54,9 @@ class TimetableItemDetailViewModel @Inject constructor(
             }
             val (timetableItem, bookmarked) = timetableItemAndBookmark
             TimetableItemDetailScreenUiState.Loaded(
-                timetableItem,
-                bookmarked,
+                timetableItem = timetableItem,
+                timetableItemUiState = TimetableItemUiState(timetableItem),
+                isBookmarked = bookmarked,
             )
         }
 

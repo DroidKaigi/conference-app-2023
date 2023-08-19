@@ -39,7 +39,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
-import io.github.droidkaigi.confsched2023.sessions.section.TimetableIItemDetail
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
@@ -103,6 +103,7 @@ sealed class TimetableItemDetailScreenUiState() {
     data object Loading : TimetableItemDetailScreenUiState()
     data class Loaded(
         val timetableItem: TimetableItem,
+        val timetableItemUiState: TimetableItemUiState,
         val isBookmarked: Boolean,
     ) : TimetableItemDetailScreenUiState()
 }
@@ -186,6 +187,7 @@ fun TimetableItemDetailScreenPreview() {
             TimetableItemDetailScreen(
                 uiState = Loaded(
                     timetableItem = Session.fake(),
+                    timetableItemUiState = TimetableItemUiState(Session.fake()),
                     isBookmarked = isBookMarked,
                 ),
                 onNavigationIconClick = {},
