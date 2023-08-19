@@ -68,13 +68,13 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
 }
 
 // TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
-//@MultiThemePreviews
-//@MultiLanguagePreviews
-//@Composable
-//fun TimetableShimmerListItemPreview() {
+// @MultiThemePreviews
+// @MultiLanguagePreviews
+// @Composable
+// fun TimetableShimmerListItemPreview() {
 //    KaigiTheme {
 //        Surface {
 //            TimetableShimmerListItem()
 //        }
 //    }
-//}
+// }
