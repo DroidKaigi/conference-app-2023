@@ -91,8 +91,8 @@ private extension RoomIndex {
         case .room1: AssetColors.Custom.hallA
         case .room2: AssetColors.Custom.hallB
         case .room3: AssetColors.Custom.hallC
-        case .room4: AssetColors.Custom.room1
-        case .room5: AssetColors.Custom.room1
+        case .room4: AssetColors.Custom.hallD
+        case .room5: AssetColors.Custom.hallE
         default: AssetColors.Custom.white
         }
         return colorAsset.swiftUIColor
