@@ -39,6 +39,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
@@ -153,23 +154,12 @@ private fun TimetableItemDetailScreen(
                 }
 
                 is TimetableItemDetailScreenUiState.Loaded -> {
-                    LazyColumn(
+                    TimetableItemDetail(
                         modifier = Modifier.fillMaxSize(),
+                        uiState = it.timetableItemDetailSectionUiState,
+                        onLinkClick = onLinkClick,
                         contentPadding = innerPadding,
-                    ) {
-                        item {
-                            TimetableItemDetailSummaryCard(
-                                timetableItem = it.timetableItem,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
-                            )
-                        }
-                        item {
-                            TimetableItemDetailContent(
-                                uiState = it.timetableItem,
-                                onLinkClick = onLinkClick,
-                            )
-                        }
-                    }
+                    )
                 }
             }
         }

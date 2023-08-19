@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -16,9 +17,14 @@ data class TimetableItemDetailSectionUiState(
 @Composable
 internal fun TimetableItemDetail(
     uiState: TimetableItemDetailSectionUiState,
+    contentPadding: PaddingValues,
+    onLinkClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding,
+    ) {
         item {
             TimetableItemDetailSummaryCard(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
@@ -27,7 +33,10 @@ internal fun TimetableItemDetail(
         }
 
         item {
-            TimetableItemDetailContent(uiState = uiState.timetableItem)
+            TimetableItemDetailContent(
+                uiState = uiState.timetableItem,
+                onLinkClick = onLinkClick,
+            )
         }
     }
 }
