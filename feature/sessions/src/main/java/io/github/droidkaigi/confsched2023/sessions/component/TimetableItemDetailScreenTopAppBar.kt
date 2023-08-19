@@ -9,7 +9,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -27,11 +26,9 @@ import androidx.compose.ui.text.Paragraph
 import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 
 const val RATE_TO_REDUCE_FONT_SIZE = 0.95f
@@ -138,23 +135,5 @@ private fun ResizeableText(
             style = styles[styleIndex].copy(fontSize = fontSize.sp),
             modifier = Modifier.padding(end = 16.dp),
         )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-internal fun PreviewTimetableItemDetailScreenTopAppBarMediumFontScale(
-    @PreviewParameter(
-        PreviewTimetableItemDetailScreenTopAppBarTitleProvider::class,
-    ) title: MultiLangText,
-) {
-    KaigiTheme {
-        Surface {
-            TimetableItemDetailScreenTopAppBar(
-                title = title,
-                onNavigationIconClick = {},
-                scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
-            )
-        }
     }
 }
