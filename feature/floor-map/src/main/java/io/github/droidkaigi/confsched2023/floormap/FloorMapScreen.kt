@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -68,7 +69,7 @@ fun FloorMapScreen(
     viewModel: FloorMapScreenViewModel = hiltViewModel<FloorMapScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -129,13 +130,13 @@ private fun FloorMapScreen(
                         onSideEventClick = onSideEventClick,
                         modifier = Modifier
                             .weight(1f)
+                            .padding(bottom = 56.dp)
                             .fadingEdge(
                                 Brush.verticalGradient(
                                     0.85f to Color.Black,
                                     1f to Color.Transparent,
                                 ),
-                            )
-                            .padding(bottom = 56.dp),
+                            ),
                     )
                 }
                 FloorLevelSwitcher(

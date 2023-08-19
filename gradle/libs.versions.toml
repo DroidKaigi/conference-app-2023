@@ -43,6 +43,7 @@ kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gr
 firebaseGradlePlugin = { module = "com.google.gms:google-services", version = "4.3.15" }
 ktorfitGradlePlugin = { module = "de.jensklingenberg.ktorfit:gradle-plugin", version = "1.0.0" }
 kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version = "1.1.0" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -106,6 +107,7 @@ firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version = "1.8.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
 
 # Debug
 
@@ -140,5 +142,6 @@ plugins = [
     "kspGradlePlugin",
     "firebaseGradlePlugin",
     "ktorfitGradlePlugin",
-    "kotlinxSerializationGradlePlugin"
+    "kotlinxSerializationGradlePlugin",
+    "completeKotlinPlugin"
 ]

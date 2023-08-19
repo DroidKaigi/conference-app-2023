@@ -18,7 +18,7 @@ dependencies {
     implementation(project(":feature:sponsors"))
     implementation(project(":feature:floor-map"))
     implementation(project(":feature:stamps"))
-
+    implementation(project(":feature:staff"))
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)
     implementation(libs.kermit)

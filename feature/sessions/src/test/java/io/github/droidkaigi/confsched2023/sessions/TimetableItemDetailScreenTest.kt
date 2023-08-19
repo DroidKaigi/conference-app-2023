@@ -50,6 +50,15 @@ class TimetableItemDetailScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    fun checkLaunchAccessibilityShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
+            checkAccessibilityCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     fun checkBookmarkToggleShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()

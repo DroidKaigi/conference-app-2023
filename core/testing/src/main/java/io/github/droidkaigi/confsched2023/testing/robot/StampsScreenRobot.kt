@@ -2,6 +2,9 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performTouchInput
+import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.stamps.StampsScreen
@@ -34,6 +37,17 @@ class StampsScreenRobot @Inject constructor(
             }
         }
         waitUntilIdle()
+    }
+
+    fun scroll() {
+        composeTestRule
+            .onRoot()
+            .performTouchInput {
+                swipeUp(
+                    startY = visibleSize.height * 3F / 4,
+                    endY = visibleSize.height / 2F,
+                )
+            }
     }
 
     fun checkScreenCapture() {

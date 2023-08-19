@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Description
@@ -39,13 +40,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
+import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
@@ -55,11 +59,15 @@ import kotlinx.collections.immutable.PersistentList
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
     modifier: Modifier = Modifier,
+    onLinkClick: (url: String) -> Unit,
 ) {
     Column(modifier = modifier) {
         when (uiState) {
             is Session -> {
-                DescriptionSection(description = uiState.description)
+                DescriptionSection(
+                    description = uiState.description,
+                    onLinkClick = onLinkClick,
+                )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
                 SpeakerSection(speakers = uiState.speakers)
                 ArchiveSection(
@@ -79,25 +87,30 @@ fun TimetableItemDetailContent(
 private fun DescriptionSection(
     description: String,
     modifier: Modifier = Modifier,
+    onLinkClick: (url: String) -> Unit,
 ) {
     var isExpanded by rememberSaveable { mutableStateOf(false) }
 
-    Column(modifier = modifier.animateContentSize()) {
-        Text(
-            text = description,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface,
-            maxLines = if (isExpanded) Int.MAX_VALUE else 5,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-        )
-        if (!isExpanded) {
-            ReadMoreOutlinedButton(
-                onClick = { isExpanded = true },
-                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+    SelectionContainer {
+        Column(modifier = modifier.animateContentSize()) {
+            ClickableLinkText(
+                style = MaterialTheme.typography.bodyLarge
+                    .copy(color = MaterialTheme.colorScheme.onSurface),
+                content = description,
+                onLinkClick = onLinkClick,
+                regex = "(https)(://[\\w/:%#$&?()~.=+\\-]+)".toRegex(),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = if (isExpanded) Int.MAX_VALUE else 5,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             )
+            if (!isExpanded) {
+                ReadMoreOutlinedButton(
+                    onClick = { isExpanded = true },
+                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                )
+            }
+            BorderLine(modifier = Modifier.padding(top = 24.dp))
         }
-        BorderLine(modifier = Modifier.padding(top = 24.dp))
     }
 }
 
@@ -307,5 +320,18 @@ private fun ReadMoreOutlinedButton(
 fun ReadMoreOutlinedButtonPreview() {
     KaigiTheme {
         ReadMoreOutlinedButton(onClick = {})
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun DescriptionSectionPreview() {
+    KaigiTheme {
+        Surface {
+            DescriptionSection(
+                description = Session.fake().description,
+                onLinkClick = {},
+            )
+        }
     }
 }
