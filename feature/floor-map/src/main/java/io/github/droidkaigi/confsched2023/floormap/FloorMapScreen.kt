@@ -130,13 +130,13 @@ private fun FloorMapScreen(
                         onSideEventClick = onSideEventClick,
                         modifier = Modifier
                             .weight(1f)
+                            .padding(bottom = 56.dp)
                             .fadingEdge(
                                 Brush.verticalGradient(
                                     0.85f to Color.Black,
                                     1f to Color.Transparent,
                                 ),
-                            )
-                            .padding(bottom = 56.dp),
+                            ),
                     )
                 }
                 FloorLevelSwitcher(

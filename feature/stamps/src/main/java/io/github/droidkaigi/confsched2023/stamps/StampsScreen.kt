@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.stamps.section.StampsList
+import io.github.droidkaigi.confsched2023.stamps.section.StampList
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.ImmutableList
 
@@ -77,7 +77,7 @@ private fun StampsScreen(
         content = { padding ->
             val layoutDirection = LocalLayoutDirection.current
 
-            StampsList(
+            StampList(
                 stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
                 modifier = Modifier.padding(
