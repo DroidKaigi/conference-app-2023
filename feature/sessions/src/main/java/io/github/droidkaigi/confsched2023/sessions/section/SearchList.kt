@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,16 +31,34 @@ import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.PersistentSet
 import java.util.Locale
+import kotlin.ranges.IntRange.Companion
 
 data class SearchListUiState(
     val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
-    val timetableItems: PersistentList<TimetableItem>,
+    val timetableItems: PersistentList<TimetableItem>
 )
+
+@JvmInline
+value class SearchQueryUiState(val queryText: String = "") {
+    val hasQuery get() = queryText.isNotBlank()
+
+    fun String.getHighlightIndexRange(): IntRange {
+        if (!hasQuery) return IntRange.EMPTY
+
+        val startIndex = this.indexOf(queryText, ignoreCase = true)
+        return if (startIndex >= 0) {
+            startIndex until (startIndex + queryText.length)
+        } else {
+            IntRange.EMPTY
+        }
+    }
+}
 
 @Composable
 fun SearchList(
     contentPaddingValues: PaddingValues,
     searchListUiState: SearchListUiState,
+    searchQueryUiState: SearchQueryUiState,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
@@ -80,6 +99,11 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
+                    highlightIndexLange = {
+                        with(searchQueryUiState) {
+                            it.getHighlightIndexRange()
+                        }
+                    },
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()

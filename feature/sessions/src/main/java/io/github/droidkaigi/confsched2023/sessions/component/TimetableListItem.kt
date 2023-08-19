@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -29,7 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextDecoration.Companion
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
@@ -42,6 +50,8 @@ import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import java.lang.Integer.max
+import kotlin.math.min
 
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
@@ -55,6 +65,7 @@ fun TimetableListItem(
     onBookmarkClick: (TimetableItem) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
+    highlightIndexLange: (String) -> IntRange = { IntRange.EMPTY },
 ) {
     Column(
         modifier
@@ -89,7 +100,22 @@ fun TimetableListItem(
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
-            text = timetableItem.title.currentLangTitle,
+            text = buildAnnotatedString {
+                timetableItem.title.currentLangTitle.let { title ->
+                    val range = highlightIndexLange(title)
+                    append(title.take(range.first))
+                    withStyle(SpanStyle(
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                        fontStyle = FontStyle.Italic,
+                        fontFamily = FontFamily.Serif,
+                        textDecoration = Companion.Underline
+                    )) {
+                        append(title.substring(range))
+                    }
+                    append(title.takeLast(max((title.lastIndex - range.last), 0)))
+                }
+            },
             fontSize = 22.sp,
             lineHeight = 28.sp,
         )
@@ -153,6 +179,7 @@ fun TimetableListItemPreview() {
             TimetableListItem(
                 timetableItem = Session.fake(),
                 isBookmarked = false,
+                highlightIndexLange = { IntRange.EMPTY },
                 onClick = {},
                 onBookmarkClick = {},
                 chipContent = {
