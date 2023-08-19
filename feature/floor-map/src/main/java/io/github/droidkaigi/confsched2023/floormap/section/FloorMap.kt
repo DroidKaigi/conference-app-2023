@@ -24,8 +24,8 @@ enum class FloorMapUiState(
     val floorName: String,
     @DrawableRes val floorMapResId: Int,
 ) {
-    Basement(FloorLevel.Basement, FloorLevel.Basement.name, R.drawable.img_floormap_basement),
-    Ground(FloorLevel.Ground, FloorLevel.Ground.name, R.drawable.img_floormap_ground),
+    Basement(FloorLevel.Basement, FloorLevel.Basement.floorName, R.drawable.img_floormap_basement),
+    Ground(FloorLevel.Ground, FloorLevel.Ground.floorName, R.drawable.img_floormap_ground),
     ;
 
     companion object {
