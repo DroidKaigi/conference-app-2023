@@ -136,7 +136,7 @@ private fun FloorMapScreen(
                                     1f to Color.Transparent,
                                 ),
                             )
-                            .padding(bottom = 56.dp),
+                            .padding(bottom = 72.dp),
                     )
                 }
                 FloorLevelSwitcher(
