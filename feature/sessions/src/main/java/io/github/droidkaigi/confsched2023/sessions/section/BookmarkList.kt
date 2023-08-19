@@ -66,7 +66,7 @@ fun BookmarkList(
                 }
             }
             Row(
-                modifier = Modifier.padding(top = 10.dp).onGloballyPositioned {
+                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
                     rowHeight = it.size.height
                 },
             ) {
@@ -95,8 +95,9 @@ fun BookmarkList(
                     }
                 }
                 Column {
-                    values.forEachIndexed { _, timetableItem ->
+                    values.forEachIndexed { k, timetableItem ->
                         TimetableListItem(
+                            modifier = Modifier.let { if (k >= 1) it.padding(top = 10.dp) else it },
                             timetableItem = timetableItem,
                             isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                             chipContent = {

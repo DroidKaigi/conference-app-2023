@@ -101,10 +101,11 @@ fun TimetableList(
                     }
                 }
                 Column {
-                    timetableItems.forEachIndexed { _, timetableItem ->
+                    timetableItems.forEachIndexed { k, timetableItem ->
                         val isBookmarked = uiState.timetable.bookmarks.contains(timetableItem.id)
                         TimetableListItem(
                             timetableItem,
+                            modifier = Modifier.let { if (k >= 1) it.padding(top = 10.dp) else it },
                             isBookmarked = isBookmarked,
                             onClick = onTimetableItemClick,
                             onBookmarkClick = onBookmarkClick,

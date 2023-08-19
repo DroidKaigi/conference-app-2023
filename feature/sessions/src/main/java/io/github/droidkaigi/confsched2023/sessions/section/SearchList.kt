@@ -78,7 +78,7 @@ fun SearchList(
                 }
             }
             Row(
-                modifier = Modifier.padding(top = 10.dp).onGloballyPositioned {
+                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
                     rowHeight = it.size.height
                 },
             ) {
