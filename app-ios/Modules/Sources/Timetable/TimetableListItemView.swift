@@ -17,6 +17,7 @@ struct TimetableListItemView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 4)
+                // TODO apply like flexbox layout
                 LazyHStack(spacing: 4) {
                     // TODO use AssertColors
                     let labelColor: Color = if colorScheme == .light {
