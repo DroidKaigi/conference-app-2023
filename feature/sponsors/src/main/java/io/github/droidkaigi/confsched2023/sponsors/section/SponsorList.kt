@@ -26,10 +26,10 @@ import io.github.droidkaigi.confsched2023.sponsors.component.SponsorItem
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
-private const val SPONSOR_LIST_COLUMNS = 6
-private const val SINGLE_ITEM_SPAN_COUNT = 6
-private const val DOUBLE_ITEM_SPAN_COUNT = 6 / 2
-private const val TRIPLE_ITEM_SPAN_COUNT = 6 / 3
+private const val SponsorListColumns = 6
+private const val SingleItemSpanCount = 6
+private const val DoubleItemSpanCount = 6 / 2
+private const val TripleItemSpanCount = 6 / 3
 
 data class SponsorListUiState(
     val platinumSponsors: ImmutableList<Sponsor>,
@@ -44,20 +44,20 @@ fun SponsorList(
     onSponsorClick: (Sponsor) -> Unit = {},
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(SPONSOR_LIST_COLUMNS),
+        columns = GridCells.Fixed(SponsorListColumns),
         modifier = modifier.padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item(
             key = "platinum_sponsor_header",
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(SingleItemSpanCount) },
         ) {
             SponsorHeader(title = SponsorsStrings.PlatinumSponsors.asString())
         }
         items(
             items = uiState.platinumSponsors,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(SingleItemSpanCount) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,
@@ -72,14 +72,14 @@ fun SponsorList(
         }
         item(
             key = "gold_sponsor_header",
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(SingleItemSpanCount) },
         ) {
             SponsorHeader(title = SponsorsStrings.GoldSponsors.asString())
         }
         items(
             items = uiState.goldSponsors,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(DOUBLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(DoubleItemSpanCount) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,
@@ -89,14 +89,14 @@ fun SponsorList(
         }
         item(
             key = "supporter_header",
-            span = { GridItemSpan(SINGLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(SingleItemSpanCount) },
         ) {
             SponsorHeader(title = SponsorsStrings.Supporters.asString())
         }
         items(
             items = uiState.supporters,
             key = { sponsor -> sponsor.name },
-            span = { GridItemSpan(TRIPLE_ITEM_SPAN_COUNT) },
+            span = { GridItemSpan(TripleItemSpanCount) },
         ) { sponsor ->
             SponsorItem(
                 sponsor = sponsor,

@@ -10,7 +10,6 @@ import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -65,6 +64,8 @@ import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
+import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
+import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
@@ -105,6 +106,7 @@ private fun KaigiNavHost(
                     timetableItem.id,
                 )
             },
+            onLinkClick = externalNavController::navigate,
         )
         searchScreen(
             onNavigationIconClick = {
@@ -124,6 +126,14 @@ private fun KaigiNavHost(
                 TODO()
             },
         )
+        staffScreen(
+            onBackClick = {
+                navController.popBackStack()
+            },
+            onStaffClick = {
+                externalNavController.navigate(it)
+            },
+        )
     }
 }
 
@@ -133,9 +143,9 @@ private fun NavGraphBuilder.mainScreen(
 ) {
     mainScreen(
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, padding ->
+        mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 onSearchClick = {
                     navController.navigateSearchScreen()
                 },
@@ -157,7 +167,7 @@ private fun NavGraphBuilder.mainScreen(
                         License -> TODO()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> TODO()
-                        Staff -> TODO()
+                        Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
                     }
