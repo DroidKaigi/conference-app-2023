@@ -82,6 +82,8 @@ fun Project.setupDetekt(extension: DetektExtension) {
         ignoreFailures = false
         // ルール違反の自動修正を試みる
         autoCorrect = false
+
+        source = files(project.files("./").asFileTree.files)
     }
 
     val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {
@@ -95,6 +97,12 @@ fun Project.setupDetekt(extension: DetektExtension) {
     plugins.withType<io.gitlab.arturbosch.detekt.DetektPlugin> {
         tasks.withType<io.gitlab.arturbosch.detekt.Detekt> detekt@{
             finalizedBy(reportMerge)
+
+            include("**/*.kt")
+            include("**/*.kts")
+            exclude("**/resources/**")
+            exclude("**/build/**")
+
 
             reportMerge.configure {
                 input.from(this@detekt.xmlReportFile) // or .sarifReportFile
