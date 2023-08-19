@@ -38,6 +38,7 @@ class TimetableItemDetailScreenRobot @Inject constructor(
             KaigiTheme {
                 TimetableItemDetailScreen(
                     onNavigationIconClick = { },
+                    onLinkClick = { },
                 )
             }
         }

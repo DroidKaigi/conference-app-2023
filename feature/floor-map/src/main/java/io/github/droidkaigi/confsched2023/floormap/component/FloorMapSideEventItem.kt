@@ -31,19 +31,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
-import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings.FavoriteIcon
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
@@ -75,7 +69,7 @@ fun FloorMapSideEventItem(
                     val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
                     Icon(
                         imageVector = iconVector,
-                        contentDescription = FavoriteIcon.asString(),
+                        contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                         tint = iconColor,
                         modifier = Modifier.size(16.dp),
                     )
@@ -96,7 +90,7 @@ fun FloorMapSideEventItem(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         imageVector = Icons.Filled.Schedule,
-                        contentDescription = FavoriteIcon.asString(),
+                        contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                         modifier = Modifier.size(16.dp),
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -105,26 +99,26 @@ fun FloorMapSideEventItem(
                         style = MaterialTheme.typography.bodySmall,
                     )
                 }
-                if (sideEvent.link != null) {
+                sideEvent.link?.let { link ->
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Filled.Link,
-                            contentDescription = FavoriteIcon.asString(),
+                            contentDescription = FloorMapStrings.FavoriteIcon.asString(),
                             modifier = Modifier.size(16.dp),
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = createAnnotatedEventDetailString(),
+                        ClickableLinkText(
                             style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier.clickable {
-                                // todo open link
-                            },
+                            content = FloorMapStrings.EventDetail.asString(),
+                            onLinkClick = onSideEventClick,
+                            regex = FloorMapStrings.EventDetail.asString().toRegex(),
+                            url = link,
                         )
                     }
                 }
             }
-            if (sideEvent.imageLink != null) {
+            sideEvent.imageLink?.let { url ->
                 Image(
                     modifier = Modifier
                         .size(80.dp)
@@ -136,7 +130,7 @@ fun FloorMapSideEventItem(
                         ),
                     painter = previewOverride(
                         previewPainter = { rememberVectorPainter(image = Icons.Default.Person) },
-                        painter = { rememberAsyncImagePainter(sideEvent.imageLink!!) },
+                        painter = { rememberAsyncImagePainter(url) },
                     ),
                     contentScale = ContentScale.Crop,
                     contentDescription = "Side events image",
@@ -157,25 +151,6 @@ private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
         Pink -> 0xFFDC369A
     }
     return icon to Color(colorLong)
-}
-
-@Composable
-private fun createAnnotatedEventDetailString(): AnnotatedString {
-    return buildAnnotatedString {
-        pushStringAnnotation(
-            tag = "URL",
-            annotation = FloorMapStrings.EventDetail.asString(),
-        )
-        withStyle(
-            SpanStyle(
-                color = MaterialTheme.colorScheme.primary,
-                textDecoration = TextDecoration.Underline,
-                fontWeight = FontWeight.Bold,
-            ),
-        ) {
-            append(FloorMapStrings.EventDetail.asString())
-        }
-    }
 }
 
 @MultiThemePreviews

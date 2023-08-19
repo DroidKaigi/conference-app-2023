@@ -106,6 +106,7 @@ private fun KaigiNavHost(
                     timetableItem.id,
                 )
             },
+            onLinkClick = externalNavController::navigate,
         )
         searchScreen(
             onNavigationIconClick = {

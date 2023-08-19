@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Icon
@@ -12,18 +11,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
@@ -57,96 +51,10 @@ fun AboutDroidKaigiDetailSummaryCardRow(
             style = MaterialTheme.typography.bodyMedium,
             content = content,
             onLinkClick = onLinkClick,
+            regex = AboutStrings.PlaceLink().asString().toRegex(),
+            url = AboutStrings.PlaceLink().url,
         )
     }
-}
-
-// TODO The following components can be commonized and made available on the session screen.
-@Composable
-private fun findResults(
-    content: String,
-    regex: Regex,
-): Sequence<MatchResult> {
-    return remember(content) {
-        regex.findAll(content)
-    }
-}
-
-@Composable
-private fun getAnnotatedString(
-    content: String,
-    findUrlResults: Sequence<MatchResult>,
-): AnnotatedString {
-    return buildAnnotatedString {
-        pushStyle(
-            style = SpanStyle(
-                color = MaterialTheme.colorScheme.inverseSurface,
-            ),
-        )
-        append(content)
-        pop()
-
-        var lastIndex = 0
-        findUrlResults.forEach { matchResult ->
-            val startIndex = content.indexOf(
-                string = matchResult.value,
-                startIndex = lastIndex,
-            )
-            val endIndex = startIndex + matchResult.value.length
-            addStyle(
-                style = SpanStyle(
-                    color = MaterialTheme.colorScheme.primary,
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold,
-                ),
-                start = startIndex,
-                end = endIndex,
-            )
-            addStringAnnotation(
-                tag = matchResult.value,
-                annotation = matchResult.value,
-                start = startIndex,
-                end = endIndex,
-            )
-
-            lastIndex = endIndex
-        }
-    }
-}
-
-@Composable
-private fun ClickableLinkText(
-    style: TextStyle,
-    content: String,
-    onLinkClick: (url: String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    val findResults = findResults(
-        content = content,
-        regex = AboutStrings.PlaceLink().asString().toRegex(),
-    )
-    val googleMapUrl = AboutStrings.PlaceLink().url
-    val annotatedString = getAnnotatedString(
-        content = content,
-        findUrlResults = findResults,
-    )
-
-    ClickableText(
-        modifier = modifier,
-        text = annotatedString,
-        style = style,
-        onClick = { offset ->
-            findResults.forEach { matchResult ->
-                annotatedString.getStringAnnotations(
-                    tag = matchResult.value,
-                    start = offset,
-                    end = offset,
-                ).firstOrNull()?.let {
-                    onLinkClick(googleMapUrl)
-                }
-            }
-        },
-    )
 }
 
 @MultiThemePreviews
