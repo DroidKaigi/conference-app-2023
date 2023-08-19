@@ -105,13 +105,13 @@ fun TimetableListItem(
                         imageVector = Icons.Default.Error,
                         contentDescription = SessionsStrings.ErrorIcon.asString(),
                         tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(16.dp)
+                        modifier = Modifier.size(16.dp),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = it.currentLangTitle,
                         color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.labelMedium
+                        style = MaterialTheme.typography.labelMedium,
                     )
                 }
             }
