@@ -78,8 +78,8 @@ class TimetableItemDetailScreenRobot @Inject constructor(
                 roborazziOptions = RoborazziOptions(
                     captureType = RoborazziOptions.CaptureType.Dump(
                         explanation = Dump.AccessibilityExplanation,
-                    )
-                )
+                    ),
+                ),
             )
     }
 
