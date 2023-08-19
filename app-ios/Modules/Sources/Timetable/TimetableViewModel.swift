@@ -1,4 +1,6 @@
+import Dependencies
 import Foundation
+import KMPContainer
 import Model
 import shared
 
@@ -9,14 +11,16 @@ struct TimetableState: ViewModelState {
 
 @MainActor
 final class TimetableViewModel: ObservableObject {
+    @Dependency(\.sessionsData) var sessionsData
     @Published private(set) var state: TimetableState = .init()
     private var cachedTimeGroupTimetableItems: [TimetableTimeGroupItems]?
 
     func load() async {
         state.timeGroupTimetableItems = .loading
         do {
-            let timetable = try await Timetable.companion.fake()
-            let timetableTimeGroupItems = timetable.timetableItems.map {
+            let timetable = try await sessionsData.timetable()
+            let timetableTimeGroupItems = timetable.dayTimetable(droidKaigi2023Day: state.selectedDay).timetableItems
+                .map {
                     TimetableTimeGroupItems.Duration(startsAt: $0.startsAt, endsAt: $0.endsAt)
                 }
                 .map { duration in
