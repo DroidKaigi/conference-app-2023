@@ -34,7 +34,7 @@ fun KaigiBottomBar(
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
-                   when (targetIcon) {
+                    when (targetIcon) {
                         is Drawable -> Icon(
                             painterResource(id = targetIcon.drawableId),
                             contentDescription = tab.contentDescription,
