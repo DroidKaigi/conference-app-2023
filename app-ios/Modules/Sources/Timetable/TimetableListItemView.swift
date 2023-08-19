@@ -4,6 +4,9 @@ import SwiftUI
 import Theme
 
 struct TimetableListItemView: View {
+
+    @Environment(\.colorScheme) var colorScheme
+
     let timetableItemWithFavorite: TimetableItemWithFavorite
 
     var timetableItem: TimetableItem {
@@ -14,16 +17,27 @@ struct TimetableListItemView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 4)
-                Text(timetableItem.language.langOfSpeaker)
-                    .font(Font.system(size: 12, weight: .medium))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .inset(by: 0.5)
-                            .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                LazyHStack(spacing: 4) {
+                    // TODO use AssertColors
+                    let labelColor: Color = if colorScheme == .light {
+                        .white
+                    } else {
+                        .black
+                    }
+
+                    InfoChip(
+                        label: timetableItem.room.name.currentLangTitle,
+                        labelColor: labelColor,
+                        backgroundColor: timetableItem.room.type.toColor()
                     )
-                    .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                    ForEach(timetableItem.language.labels, id: \.self) { label in
+                        InfoChip(
+                            label: label,
+                            labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
+                            strokeColor: AssetColors.outline.swiftUIColor
+                        )
+                    }
+                }
                 Spacer().frame(height: 12)
                 Text(timetableItem.title.currentLangTitle)
                     .multilineTextAlignment(.leading)
@@ -70,8 +84,22 @@ struct TimetableListItemView: View {
     }
 }
 
- #Preview {
-     TimetableListItemView(
-         timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake()
-     )
- }
+private extension RoomIndex {
+    func toColor() -> Color {
+        let colorAsset = switch self {
+        case .room1: AssetColors.Custom.hallA
+        case .room2: AssetColors.Custom.hallB
+        case .room3: AssetColors.Custom.hallC
+        case .room4: AssetColors.Custom.room1
+        case .room5: AssetColors.Custom.room1
+        default: AssetColors.Custom.white
+        }
+        return colorAsset.swiftUIColor
+    }
+}
+
+#Preview {
+    TimetableListItemView(
+        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake()
+    )
+}
