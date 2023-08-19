@@ -93,7 +93,9 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
+    implementation(libs.composeMaterialWindowSize)
     implementation(libs.accompanistSystemUiController)
     implementation(libs.androidxBrowser)
+    implementation(libs.androidxWindow)
     testImplementation(projects.core.testing)
 }

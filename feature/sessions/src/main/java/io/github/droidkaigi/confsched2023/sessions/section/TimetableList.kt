@@ -85,6 +85,7 @@ fun TimetableList(
                                     containerColor = containerColor,
                                     labelColor = labelColor,
                                 ),
+                                border = null,
                                 onClick = { /* Do nothing */ },
                                 label = {
                                     Text(
