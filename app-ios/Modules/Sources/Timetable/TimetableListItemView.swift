@@ -5,8 +5,6 @@ import Theme
 
 struct TimetableListItemView: View {
 
-    @Environment(\.colorScheme) var colorScheme
-
     let timetableItemWithFavorite: TimetableItemWithFavorite
 
     var timetableItem: TimetableItem {
@@ -19,16 +17,9 @@ struct TimetableListItemView: View {
                 Spacer().frame(height: 4)
                 // TODO apply like flexbox layout
                 LazyHStack(spacing: 4) {
-                    // TODO use AssertColors
-                    let labelColor: Color = if colorScheme == .light {
-                        .white
-                    } else {
-                        .black
-                    }
-
                     InfoLabel(
                         timetableItem.room.name.currentLangTitle,
-                        labelColor: labelColor,
+                        labelColor: AssetColors.Custom.hallText.swiftUIColor,
                         backgroundColor: timetableItem.room.type.toColor()
                     )
                     ForEach(timetableItem.language.labels, id: \.self) { label in
