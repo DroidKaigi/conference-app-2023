@@ -162,11 +162,11 @@ private fun NavGraphBuilder.mainScreen(
                 onAboutItemClick = { aboutItem ->
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> TODO()
+                        CodeOfConduct -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/code-of-conduct")
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> TODO()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> TODO()
+                        PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
