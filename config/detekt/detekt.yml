@@ -1,0 +1,105 @@
+complexity:
+  # 設定値が難しいので一旦無効化
+  active: false
+
+coroutines:
+  active: true
+
+empty-blocks:
+  active: true
+
+exceptions:
+  active: true
+  TooGenericExceptionCaught:
+    # 認証系ライブラリは Throwable などを既に投げているため無効化
+    active: false
+
+naming:
+  active: true
+  FunctionNaming:
+    # Composable fun は大文字から始まるので除外
+    ignoreAnnotated:
+      - 'Composable'
+  MatchingDeclarationName:
+    mustBeFirst: false
+  PackageNaming:
+    active: false
+  TopLevelPropertyNaming:
+    active: false
+
+performance:
+  active: true
+  SpreadOperator:
+    # スプレッド演算子を使うことで可読性が高くなるケースがあるため無効化
+    active: false
+
+style:
+  active: true
+  MaxLineLength:
+    active: false
+  MagicNumber:
+    # Compose 導入後 Magic Number の制御は難しくなったので無効化
+    active: false
+  ReturnCount:
+    # 早期 return 数の制限はなくても良さそうなので無効化
+    active: false
+  ThrowsCount:
+    # throw 数の制限はなくても良さそうなので無効化
+    active: false
+  LoopWithTooManyJumpStatements:
+    # break 数の制限はなくても良さそうなので無効化
+    active: false
+  ForbiddenComment:
+    # 開発時のコメントを削除する必要はないので無効化
+    active: false
+  DestructuringDeclarationWithTooManyEntries:
+    # Compose の ConstraintLayout#createRefs などで用いることがあるため無効化
+    active: false
+  # 空のコレクションを表すときは empty... を強制する
+  UseEmptyCounterpart:
+    active: true
+  # プロパティ、メソッド、companion object の順番を強制する
+  ClassOrdering:
+    active: true
+  # 複数行の if 文は中括弧を強制する
+  MandatoryBracesIfStatements:
+    active: true
+  # 複数行の for, while... は中括弧を強制する
+  MandatoryBracesLoops:
+    active: true
+  UnusedPrivateMember:
+    active: true
+    # Compose の Preview 関数と Test でモックしているものは無効化
+    ignoreAnnotated:
+      - 'RelaxedMockK'
+      - 'InjectMockKs'
+      - 'Preview'
+
+potential-bugs:
+  active: true
+
+formatting:
+  active: true
+  autoCorrect: true
+  MaximumLineLength:
+    active: false
+  ArgumentListWrapping:
+    maxLineLength: 999
+  ParameterListWrapping:
+    maxLineLength: 999
+  # ワイルドカードは使用しない
+  NoWildcardImports:
+    active: false
+  # 定義箇所での TrailingComma を強制
+  TrailingCommaOnDeclarationSite:
+    active: true
+  # 呼び出し箇所での TrailingComma を強制
+  TrailingCommaOnCallSite:
+    active: true
+  PackageName:
+    active: false
+
+TwitterCompose:
+  CompositionLocalAllowlist:
+    active: false
+  active: true
