@@ -98,8 +98,3 @@ formatting:
     active: true
   PackageName:
     active: false
-
-TwitterCompose:
-  CompositionLocalAllowlist:
-    active: false
-  active: true
