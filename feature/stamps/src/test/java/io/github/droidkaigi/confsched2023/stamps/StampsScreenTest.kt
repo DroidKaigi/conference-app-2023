@@ -36,6 +36,8 @@ class StampsScreenTest {
         stampsScreenRobot {
             setupScreenContent()
             checkScreenCapture()
+            scroll()
+            checkScreenCapture()
         }
     }
 }

@@ -11,24 +11,23 @@ class AndroidComposePlugin : Plugin<Project> {
             android {
                 buildFeatures.compose = true
                 composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findLibrary("composeCompiler").get()
-                        .get().versionConstraint.requiredVersion
+                    kotlinCompilerExtensionVersion = libs.version("composeCompiler")
                 }
             }
             dependencies {
-                implementation(libs.findLibrary("androidxCoreKtx"))
-                implementation(libs.findLibrary("composeUi"))
-                implementation(libs.findLibrary("composeMaterial"))
-                implementation(libs.findLibrary("composeUiToolingPreview"))
-                implementation(libs.findLibrary("androidxLifecycleLifecycleRuntimeKtx"))
-                implementation(libs.findLibrary("androidxActivityActivityCompose"))
-                testImplementation(libs.findLibrary("junit"))
-                testImplementation(libs.findLibrary("androidxTestExtJunit"))
-                testImplementation(libs.findLibrary("androidxTestEspressoEspressoCore"))
-                testImplementation(libs.findLibrary("composeUiTestJunit4"))
-                debugImplementation(libs.findLibrary("composeUiTooling"))
-                debugImplementation(libs.findLibrary("composeUiTestManifest"))
-                lintChecks(libs.findLibrary("composeLintCheck"))
+                implementation(libs.library("androidxCoreKtx"))
+                implementation(libs.library("composeUi"))
+                implementation(libs.library("composeMaterial"))
+                implementation(libs.library("composeUiToolingPreview"))
+                implementation(libs.library("androidxLifecycleLifecycleRuntimeKtx"))
+                implementation(libs.library("androidxActivityActivityCompose"))
+                testImplementation(libs.library("junit"))
+                testImplementation(libs.library("androidxTestExtJunit"))
+                testImplementation(libs.library("androidxTestEspressoEspressoCore"))
+                testImplementation(libs.library("composeUiTestJunit4"))
+                debugImplementation(libs.library("composeUiTooling"))
+                debugImplementation(libs.library("composeUiTestManifest"))
+                lintChecks(libs.library("composeLintCheck"))
             }
         }
     }

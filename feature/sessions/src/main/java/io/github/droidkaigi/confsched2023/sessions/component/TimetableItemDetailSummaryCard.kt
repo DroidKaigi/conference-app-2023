@@ -17,12 +17,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.model.nameAndFloor
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import java.util.Locale
 
@@ -56,7 +58,7 @@ fun TimetableItemDetailSummaryCard(
             TimetableItemDetailSummaryCardRow(
                 leadingIcon = Icons.Outlined.Place,
                 label = SessionsStrings.Place.asString(),
-                content = timetableItem.room.name.currentLangTitle,
+                content = timetableItem.room.nameAndFloor,
             )
             TimetableItemDetailSummaryCardRow(
                 leadingIcon = Icons.Outlined.Language,
@@ -72,7 +74,8 @@ fun TimetableItemDetailSummaryCard(
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun PreviewTimetableItemDetailSummary() {
     KaigiTheme {

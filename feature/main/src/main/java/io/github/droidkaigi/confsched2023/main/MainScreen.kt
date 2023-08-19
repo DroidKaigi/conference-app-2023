@@ -13,11 +13,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Approval
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Info
@@ -27,6 +25,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -41,6 +40,7 @@ import io.github.droidkaigi.confsched2023.feature.main.R
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.toPersistentList
 
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
@@ -70,7 +70,7 @@ fun MainScreen(
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -91,38 +91,38 @@ sealed class IconRepresentation {
 }
 
 enum class MainScreenTab(
-    val icon: ImageVector,
+    val icon: IconRepresentation,
     val selectedIcon: IconRepresentation,
     val label: String,
     val contentDescription: String,
     val testTag: String = "mainScreenTab:$label",
 ) {
     Timetable(
-        icon = Icons.Outlined.CalendarMonth,
+        icon = IconRepresentation.Vector(Icons.Outlined.CalendarMonth),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.CalendarMonth),
         label = MainStrings.Timetable.asString(),
         contentDescription = MainStrings.Timetable.asString(),
     ),
     FloorMap(
-        icon = Icons.Outlined.Map,
+        icon = IconRepresentation.Vector(Icons.Outlined.Map),
         selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_map_fill),
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
     Badges(
-        icon = Icons.Outlined.Approval,
-        selectedIcon = IconRepresentation.Vector(Icons.Filled.Approval),
+        icon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_outline),
+        selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_fill),
         label = MainStrings.Stamps.asString(),
         contentDescription = MainStrings.Stamps.asString(),
     ),
     About(
-        icon = Icons.Outlined.Info,
+        icon = IconRepresentation.Vector(Icons.Outlined.Info),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Info),
         label = MainStrings.About.asString(),
         contentDescription = MainStrings.About.asString(),
     ),
     Contributor(
-        icon = Icons.Outlined.Group,
+        icon = IconRepresentation.Vector(Icons.Outlined.Group),
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Group),
         label = MainStrings.Contributors.asString(),
         contentDescription = MainStrings.Contributors.asString(),
@@ -147,7 +147,7 @@ private fun MainScreen(
     Scaffold(
         bottomBar = {
             KaigiBottomBar(
-                mainScreenTabs = MainScreenTab.entries.toList(),
+                mainScreenTabs = MainScreenTab.entries.toPersistentList(),
                 onTabSelected = { tab ->
                     onTabSelected(mainNestedNavController, tab)
                 },

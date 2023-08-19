@@ -20,7 +20,7 @@ data class FloorMapSideEventListUiState(
 @Composable
 fun FloorMapSideEventList(
     uiState: FloorMapSideEventListUiState,
-    onSideEventClick: (SideEvent) -> Unit,
+    onSideEventClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier) {

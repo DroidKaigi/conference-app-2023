@@ -21,12 +21,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
       - uses: ./.github/actions/setup-java
+
       - name: Check spotless
-        run: ./gradlew spotlessCheck --stacktrace
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
+        with:
+          gradle-home-cache-cleanup: true
+          arguments: spotlessCheck --stacktrace
 
       - name: Check lint
-        run: ./gradlew lintDebug --stacktrace
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
+        with:
+          arguments: lintDebug --stacktrace
 
       - name: Upload lint reports
         if: always()

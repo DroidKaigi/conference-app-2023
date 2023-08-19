@@ -12,10 +12,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import io.github.droidkaigi.confsched2023.main.IconRepresentation.Drawable
 import io.github.droidkaigi.confsched2023.main.IconRepresentation.Vector
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun KaigiBottomBar(
-    mainScreenTabs: List<MainScreenTab>,
+    mainScreenTabs: PersistentList<MainScreenTab>,
     onTabSelected: (MainScreenTab) -> Unit,
     currentTab: MainScreenTab,
     isEnableStamps: Boolean,
@@ -45,10 +46,17 @@ fun KaigiBottomBar(
                             )
                         }
                     } else {
-                        Icon(
-                            imageVector = tab.icon,
-                            contentDescription = tab.contentDescription,
-                        )
+                        when (val icon = tab.icon) {
+                            is Drawable -> Icon(
+                                painterResource(id = icon.drawableId),
+                                contentDescription = tab.contentDescription,
+                            )
+
+                            is Vector -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = tab.contentDescription,
+                            )
+                        }
                     }
                 },
                 label = {
