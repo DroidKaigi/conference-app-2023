@@ -108,6 +108,7 @@ fun SearchList(
                                 containerColor = roomChipBackgroundColor,
                                 labelColor = roomChipLabelColor,
                             ),
+                            border = null,
                             onClick = { /* Do nothing */ },
                             label = {
                                 Text(
