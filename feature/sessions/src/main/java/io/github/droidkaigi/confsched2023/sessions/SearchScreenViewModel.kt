@@ -47,35 +47,44 @@ class SearchScreenViewModel @Inject constructor(
             initialValue = Timetable(),
         )
 
-    private val searchFilterUiState: MutableStateFlow<SearchFilterUiState> = MutableStateFlow(
-        SearchFilterUiState(),
+    private val filterStateFlow: MutableStateFlow<Filters> = MutableStateFlow(
+        Filters(),
     )
 
     val uiState: StateFlow<SearchScreenUiState> = buildUiState(
         searchQuery,
-        searchFilterUiState,
+        filterStateFlow,
         sessionsStateFlow,
-    ) { searchQuery, searchFilterUiState, sessions ->
+    ) { searchQuery, filters, sessions ->
         val searchedSessions = sessions.filtered(
             Filters(
-                days = searchFilterUiState.selectedDays,
-                categories = searchFilterUiState.selectedCategories,
-                sessionTypes = searchFilterUiState.selectedSessionTypes,
-                languages = searchFilterUiState.selectedLanguages,
                 searchWord = searchQuery,
+                days = filters.days,
+                categories = filters.categories,
+                sessionTypes = filters.sessionTypes,
+                languages = filters.languages,
             ),
         )
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
                 searchQuery = searchQuery,
-                searchFilterUiState = searchFilterUiState,
+                searchFilterUiState = SearchFilterUiState(
+                    selectedDays = filters.days,
+                    selectedCategories = filters.categories,
+                    selectedSessionTypes = filters.sessionTypes,
+                    selectedLanguages = filters.languages,
+                ),
             )
         } else {
             SearchScreenUiState.SearchList(
                 searchQuery = searchQuery,
-                searchFilterUiState = searchFilterUiState.copy(
+                searchFilterUiState = SearchFilterUiState(
                     categories = sessions.categories,
                     sessionTypes = sessions.sessionTypes,
+                    selectedDays = filters.days,
+                    selectedCategories = filters.categories,
+                    selectedSessionTypes = filters.sessionTypes,
+                    selectedLanguages = filters.languages,
                 ),
                 searchListUiState = SearchListUiState(
                     bookmarkedTimetableItemIds = sessions.bookmarks,
@@ -90,9 +99,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onDaySelected(day: DroidKaigi2023Day, isSelected: Boolean) {
-        val selectedDays = searchFilterUiState.value.selectedDays.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedDays = selectedDays.apply {
+        val selectedDays = filterStateFlow.value.days.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            days = selectedDays.apply {
                 if (isSelected) {
                     add(day)
                 } else {
@@ -103,9 +112,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onCategoriesSelected(category: TimetableCategory, isSelected: Boolean) {
-        val selectedCategories = searchFilterUiState.value.selectedCategories.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedCategories = selectedCategories.apply {
+        val selectedCategories = filterStateFlow.value.categories.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            categories = selectedCategories.apply {
                 if (isSelected) {
                     add(category)
                 } else {
@@ -116,9 +125,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onSessionTypesSelected(sessionType: TimetableSessionType, isSelected: Boolean) {
-        val selectedSessionTypes = searchFilterUiState.value.selectedSessionTypes.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedSessionTypes = selectedSessionTypes.apply {
+        val selectedSessionTypes = filterStateFlow.value.sessionTypes.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            sessionTypes = selectedSessionTypes.apply {
                 if (isSelected) {
                     add(sessionType)
                 } else {
@@ -129,9 +138,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onLanguagesSelected(language: Lang, isSelected: Boolean) {
-        val selectedLanguages = searchFilterUiState.value.selectedLanguages.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedLanguages = selectedLanguages.apply {
+        val selectedLanguages = filterStateFlow.value.languages.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            languages = selectedLanguages.apply {
                 if (isSelected) {
                     add(language)
                 } else {
