@@ -16,6 +16,7 @@ class DetektPlugin : Plugin<Project> {
 
             dependencies {
                 "detektPlugins"(libs.findLibrary("detektFormatting").get())
+                "detektPlugins"(libs.findLibrary("twitterComposeRule").get())
             }
         }
     }

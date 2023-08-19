@@ -31,6 +31,7 @@ kermit = "1.2.2"
 okHttp = "4.11.0"
 ktorfit = "1.5.0"
 detekt = "1.23.1"
+twitterComposeRule = "0.0.26"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -45,6 +46,7 @@ kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-seria
 completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version = "1.1.0" }
 detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
