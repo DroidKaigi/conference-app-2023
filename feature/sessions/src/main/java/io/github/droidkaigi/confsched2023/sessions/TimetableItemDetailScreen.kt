@@ -48,10 +48,12 @@ const val timetableItemDetailScreenRoute =
 fun NavGraphBuilder.sessionScreens(
     onNavigationIconClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
+    onLinkClick: (url: String) -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
+            onLinkClick = onLinkClick,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -76,6 +78,7 @@ fun NavController.navigateToTimetableItemDetailScreen(
 @Composable
 fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
+    onLinkClick: (url: String) -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -90,6 +93,7 @@ fun TimetableItemDetailScreen(
         uiState = uiState,
         onNavigationIconClick = onNavigationIconClick,
         onBookmarkClick = viewModel::onBookmarkClick,
+        onLinkClick = onLinkClick,
         snackbarHostState = snackbarHostState,
     )
 }
@@ -108,6 +112,7 @@ private fun TimetableItemDetailScreen(
     uiState: TimetableItemDetailScreenUiState,
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
+    onLinkClick: (url: String) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -157,7 +162,10 @@ private fun TimetableItemDetailScreen(
                             )
                         }
                         item {
-                            TimetableItemDetailContent(uiState = it.timetableItem)
+                            TimetableItemDetailContent(
+                                uiState = it.timetableItem,
+                                onLinkClick = onLinkClick,
+                            )
                         }
                     }
                 }
@@ -183,6 +191,7 @@ fun TimetableItemDetailScreenPreview() {
                 onBookmarkClick = {
                     isBookMarked = !isBookMarked
                 },
+                onLinkClick = {},
                 snackbarHostState = SnackbarHostState(),
             )
         }

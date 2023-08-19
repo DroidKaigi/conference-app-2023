@@ -106,6 +106,7 @@ private fun KaigiNavHost(
                     timetableItem.id,
                 )
             },
+            onLinkClick = externalNavController::navigate,
         )
         searchScreen(
             onNavigationIconClick = {
@@ -162,7 +163,7 @@ private fun NavGraphBuilder.mainScreen(
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
                         CodeOfConduct -> TODO()
-                        Contributors -> TODO()
+                        Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> TODO()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> TODO()
