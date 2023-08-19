@@ -114,7 +114,7 @@ fun TimetableList(
                                 val hallColor = hallColors()
                                 val containerColor = timetableItem.room.color
                                 val labelColor = hallColor.hallText
-                                
+
                                 SuggestionChip(
                                     colors = SuggestionChipDefaults.suggestionChipColors(
                                         containerColor = containerColor,
