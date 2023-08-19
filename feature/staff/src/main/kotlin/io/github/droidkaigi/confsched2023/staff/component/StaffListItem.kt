@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.staff
+package io.github.droidkaigi.confsched2023.staff.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border

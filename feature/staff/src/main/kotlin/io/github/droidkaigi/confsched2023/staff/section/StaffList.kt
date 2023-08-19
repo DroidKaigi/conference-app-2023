@@ -6,7 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.github.droidkaigi.confsched2023.model.Staff
-import io.github.droidkaigi.confsched2023.staff.StaffListItem
+import io.github.droidkaigi.confsched2023.staff.component.StaffListItem
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
