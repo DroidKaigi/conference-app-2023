@@ -25,14 +25,14 @@ struct TimetableListItemView: View {
                         .black
                     }
 
-                    InfoChip(
-                        label: timetableItem.room.name.currentLangTitle,
+                    InfoLabel(
+                        timetableItem.room.name.currentLangTitle,
                         labelColor: labelColor,
                         backgroundColor: timetableItem.room.type.toColor()
                     )
                     ForEach(timetableItem.language.labels, id: \.self) { label in
-                        InfoChip(
-                            label: label,
+                        InfoLabel(
+                            label,
                             labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
                             strokeColor: AssetColors.outline.swiftUIColor
                         )

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct InfoChip: View {
+struct InfoLabel: View {
     
     private let label: String
     private let labelColor: Color
@@ -8,7 +8,7 @@ struct InfoChip: View {
     private let backgroundColor: Color
     
     public init(
-        label: String,
+        _ label: String,
         labelColor: Color,
         strokeColor: Color? = nil,
         backgroundColor: Color = .clear
