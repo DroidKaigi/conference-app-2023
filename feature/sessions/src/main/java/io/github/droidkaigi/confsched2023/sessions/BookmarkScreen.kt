@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -69,7 +68,6 @@ private fun BookmarkScreen(
                 onBackPressClick = onBackPressClick,
             )
         },
-        containerColor = Color(0xFFF8FAF6),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookmarkSheet(
