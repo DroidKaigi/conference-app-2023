@@ -85,14 +85,14 @@ struct TimetableListItemView: View {
     }
 }
 
-private extension RoomIndex {
+private extension RoomType {
     func toColor() -> Color {
         let colorAsset = switch self {
-        case .room1: AssetColors.Custom.hallA
-        case .room2: AssetColors.Custom.hallB
-        case .room3: AssetColors.Custom.hallC
-        case .room4: AssetColors.Custom.hallD
-        case .room5: AssetColors.Custom.hallE
+        case .rooma: AssetColors.Custom.hallA
+        case .roomb: AssetColors.Custom.hallB
+        case .roomc: AssetColors.Custom.hallC
+        case .roomd: AssetColors.Custom.hallD
+        case .roome: AssetColors.Custom.hallE
         default: AssetColors.Custom.white
         }
         return colorAsset.swiftUIColor
