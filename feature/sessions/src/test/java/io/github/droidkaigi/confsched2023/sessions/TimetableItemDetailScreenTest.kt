@@ -50,6 +50,15 @@ class TimetableItemDetailScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    fun checkLaunchAccessibilityShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
+            checkAccessibilityCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     fun checkBookmarkToggleShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()
@@ -70,6 +79,36 @@ class TimetableItemDetailScreenTest {
             scroll()
             checkScreenCapture()
             scroll()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 0.5f)
+    fun smallFontScaleShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 1.5f)
+    fun largeFontScaleShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 2.0f)
+    fun hugeFontScaleShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
             checkScreenCapture()
         }
     }

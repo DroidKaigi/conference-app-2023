@@ -74,35 +74,33 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     }
                     Divider()
                     SectionTitle(title: "Others")
-                    ListTile(
-                        icon: Assets.Icons.gavel.swiftUIImage,
-                        title: "行動規範"
-                    )
+                    SafariLink(url: .codeOfConduct) {
+                        ListTile(
+                            icon: Assets.Icons.gavel.swiftUIImage,
+                            title: "行動規範"
+                        )
+                    }
                     Divider()
                     ListTile(
                         icon: Assets.Icons.fileCopy.swiftUIImage,
                         title: "ライセンス"
                     )
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.privacyTip.swiftUIImage,
-                        title: "プライバシーポリシー"
-                    )
+                    SafariLink(url: .privacyPolicy) {
+                        ListTile(
+                            icon: Assets.Icons.privacyTip.swiftUIImage,
+                            title: "プライバシーポリシー"
+                        )
+                    }
                     Divider()
                     HStack(spacing: 12) {
-                        Button {
-                            // TODO: open youtube
-                        } label: {
+                        SafariLink(url: .youtube) {
                             Assets.Icons.youtube.swiftUIImage
                         }
-                        Button {
-                            // TODO: open Twitter
-                        } label: {
+                        SafariLink(url: .twitter) {
                             Assets.Icons.twitter.swiftUIImage
                         }
-                        Button {
-                            // TODO: open medium
-                        } label: {
+                        SafariLink(url: .medium) {
                             Assets.Icons.medium.swiftUIImage
                         }
                     }

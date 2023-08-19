@@ -117,11 +117,7 @@ fun BookmarkList(
                                         containerColor = roomChipBackgroundColor,
                                         labelColor = roomChipLabelColor,
                                     ),
-                                    border = AssistChipDefaults.assistChipBorder(
-                                        borderColor = Color.Transparent,
-                                        disabledBorderColor = Color.Transparent,
-                                        borderWidth = 0.dp,
-                                    ),
+                                    border = null,
                                 )
                                 Spacer(modifier = Modifier.size(5.dp))
                                 AssistChip(
