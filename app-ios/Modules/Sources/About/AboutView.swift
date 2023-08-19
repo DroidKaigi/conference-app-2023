@@ -6,13 +6,19 @@ import Theme
 
 enum AboutRouting: Hashable {
     case contributors
+    case sponsors
 }
 
-public struct AboutView<ContributorView: View>: View {
+public struct AboutView<ContributorView: View, SponsorView: View>: View {
     private let contributorViewProvider: ViewProvider<Void, ContributorView>
+    private let sponsorViewProvider: ViewProvider<Void, SponsorView>
 
-    public init(contributorViewProvider: @escaping ViewProvider<Void, ContributorView>) {
+    public init(
+        contributorViewProvider: @escaping ViewProvider<Void, ContributorView>,
+        sponsorViewProvider: @escaping ViewProvider<Void, SponsorView>
+    ) {
         self.contributorViewProvider = contributorViewProvider
+        self.sponsorViewProvider = sponsorViewProvider
     }
 
     public var body: some View {
@@ -60,10 +66,12 @@ public struct AboutView<ContributorView: View>: View {
                         )
                     }
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.apartment.swiftUIImage,
-                        title: "スポンサー"
-                    )
+                    NavigationLink(value: AboutRouting.sponsors) {
+                        ListTile(
+                            icon: Assets.Icons.apartment.swiftUIImage,
+                            title: "スポンサー"
+                        )
+                    }
                     Divider()
                     SectionTitle(title: "Others")
                     ListTile(
@@ -113,6 +121,8 @@ public struct AboutView<ContributorView: View>: View {
                 switch routing {
                 case .contributors:
                     contributorViewProvider(())
+                case .sponsors:
+                    sponsorViewProvider(())
                 }
             }
         }
@@ -121,6 +131,7 @@ public struct AboutView<ContributorView: View>: View {
 
  #Preview {
      AboutView(
-        contributorViewProvider: {_ in EmptyView()}
+        contributorViewProvider: {_ in EmptyView()},
+        sponsorViewProvider: {_ in EmptyView()}
      )
  }

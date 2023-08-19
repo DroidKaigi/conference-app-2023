@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.sponsors
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.model.SponsorsRepository
+import io.github.droidkaigi.confsched2023.sponsors.section.SponsorListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.viewModelScope
@@ -29,9 +30,11 @@ class SponsorsScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<SponsorsScreenUiState> = buildUiState(sponsorsStateFlow) { sponsors ->
         SponsorsScreenUiState(
-            platinumSponsors = sponsors.filter { it.plan.isPlatinum }.toImmutableList(),
-            goldSponsors = sponsors.filter { it.plan.isGold }.toImmutableList(),
-            supporters = sponsors.filter { it.plan.isSupporter }.toImmutableList(),
+            SponsorListUiState(
+                platinumSponsors = sponsors.filter { it.plan.isPlatinum }.toImmutableList(),
+                goldSponsors = sponsors.filter { it.plan.isGold }.toImmutableList(),
+                supporters = sponsors.filter { it.plan.isSupporter }.toImmutableList(),
+            ),
         )
     }
 }

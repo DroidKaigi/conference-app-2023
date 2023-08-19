@@ -24,6 +24,7 @@ platform :ios do
   workspace = "app-ios.xcworkspace"
   scheme = "DroidKaigi2023"
   project = "App/DroidKaigi2023/DroidKaigi2023.xcodeproj"
+  destination = "platform=iOS Simulator,name=iPhone 14 Pro,OS=17.0"
 
   desc "returns project root dir"
   lane :root_dir do
@@ -76,6 +77,16 @@ platform :ios do
     Dir.chdir(root_dir) do
       sh("./gradlew :app-ios-shared:assembleSharedReleaseXCFramework")
     end
+  end
+
+  desc "Build DroidKaigi2023 project"
+  lane :build_project do
+    xcodebuild(
+      xcargs: "-skipPackagePluginValidation",
+      project: project,
+      scheme: scheme,
+      destination: destination,
+    )
   end
 
   desc "run test"

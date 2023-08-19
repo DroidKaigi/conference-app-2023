@@ -16,24 +16,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
+import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentMap
 
 const val TimetableListTestTag = "TimetableList"
@@ -55,7 +45,7 @@ fun TimetableList(
     ) {
         uiState.timetableItemMap.forEach { (_, timetableItems) ->
             itemsIndexed(timetableItems) { index, timetableItem ->
-                Row(modifier = Modifier.padding(top = 10.dp)) {
+                Row(modifier = Modifier.padding(start = 16.dp, top = 10.dp)) {
                     Column(
                         modifier = Modifier.width(58.dp),
                         verticalArrangement = Arrangement.Center,
@@ -86,23 +76,20 @@ fun TimetableList(
                         chipContent = {
                             // Chips
 
+                            val hallColor = hallColors()
+                            val containerColor = timetableItem.room.color
+                            val labelColor = hallColor.hallText
+
                             SuggestionChip(
                                 colors = SuggestionChipDefaults.suggestionChipColors(
-                                    containerColor = when (timetableItem.room.type) {
-                                        Room1 -> room_hall_a
-                                        Room2 -> room_hall_b
-                                        Room3 -> room_hall_c
-                                        Room4 -> room_hall_d
-                                        Room5 -> room_hall_e
-                                        else -> Color.White
-                                    },
+                                    containerColor = containerColor,
+                                    labelColor = labelColor,
                                 ),
                                 onClick = { /* Do nothing */ },
                                 label = {
                                     Text(
                                         text = timetableItem.room.name.currentLangTitle,
                                         style = MaterialTheme.typography.bodyMedium,
-                                        color = Color.White,
                                     )
                                 },
                             )

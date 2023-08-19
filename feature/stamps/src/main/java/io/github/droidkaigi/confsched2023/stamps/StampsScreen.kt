@@ -1,21 +1,24 @@
 package io.github.droidkaigi.confsched2023.stamps
 
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.stamps.section.StampsList
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.ImmutableList
 
@@ -31,7 +34,10 @@ fun NavGraphBuilder.nestedStampsScreen(
 }
 
 fun NavController.navigateStampsScreen() {
-    navigate(stampsScreenRoute)
+    navigate(stampsScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val StampsScreenTestTag = "StampsScreen"
@@ -42,7 +48,7 @@ fun StampsScreen(
     viewModel: StampsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -56,7 +62,7 @@ fun StampsScreen(
 }
 
 data class StampsScreenUiState(
-    val stamps: ImmutableList<String>,
+    val stamps: ImmutableList<Stamp>,
 )
 
 @Composable
@@ -69,15 +75,17 @@ private fun StampsScreen(
         modifier = Modifier.testTag(StampsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
-            Column(
-                Modifier
-                    .padding(padding),
-            ) {
-                Text(
-                    text = "Please implement StampsScreen!!!",
-                    style = MaterialTheme.typography.titleLarge,
-                )
-            }
+            val layoutDirection = LocalLayoutDirection.current
+
+            StampsList(
+                stamps = uiState.stamps,
+                onStampsClick = onStampsClick,
+                modifier = Modifier.padding(
+                    top = padding.calculateTopPadding(),
+                    start = padding.calculateStartPadding(layoutDirection),
+                    end = padding.calculateEndPadding(layoutDirection),
+                ),
+            )
         },
     )
 }

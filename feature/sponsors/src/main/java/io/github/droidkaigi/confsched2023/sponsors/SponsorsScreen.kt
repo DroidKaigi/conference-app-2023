@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
@@ -25,8 +26,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.sponsors.section.SponsorList
+import io.github.droidkaigi.confsched2023.sponsors.section.SponsorListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.ImmutableList
 
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(
@@ -54,7 +55,7 @@ fun SponsorsScreen(
     viewModel: SponsorsScreenViewModel = hiltViewModel<SponsorsScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -69,9 +70,7 @@ fun SponsorsScreen(
 }
 
 data class SponsorsScreenUiState(
-    val platinumSponsors: ImmutableList<Sponsor>,
-    val goldSponsors: ImmutableList<Sponsor>,
-    val supporters: ImmutableList<Sponsor>,
+    val sponsorListUiState: SponsorListUiState,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -84,11 +83,13 @@ private fun SponsorsScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
-        modifier = Modifier.testTag(SponsorsScreenTestTag),
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .testTag(SponsorsScreenTestTag),
         topBar = {
             LargeTopAppBar(
                 title = {
-                    Text(text = "Sponsor")
+                    Text(text = SponsorsStrings.Sponsor.asString())
                 },
                 navigationIcon = {
                     IconButton(
@@ -106,13 +107,10 @@ private fun SponsorsScreen(
         snackbarHost = { SnackbarHost(snackbarHostState) },
         content = { padding ->
             SponsorList(
-                platinumSponsors = uiState.platinumSponsors,
-                goldSponsors = uiState.goldSponsors,
-                supporters = uiState.supporters,
+                uiState = uiState.sponsorListUiState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
-                    .nestedScroll(scrollBehavior.nestedScrollConnection),
+                    .padding(padding),
                 onSponsorClick = onSponsorClick,
             )
         },

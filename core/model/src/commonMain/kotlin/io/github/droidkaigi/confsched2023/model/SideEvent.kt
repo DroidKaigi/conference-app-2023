@@ -1,7 +1,8 @@
 package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Mark1
+import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import kotlinx.collections.immutable.persistentListOf
 
 public data class SideEvent(
@@ -11,10 +12,15 @@ public data class SideEvent(
     val floorLevel: FloorLevel,
     val mark: Mark,
     val link: String?,
+    val imageLink: String?,
 ) {
 
-    enum class Mark {
-        Mark1,
+    enum class Mark(val color: MarkColor) {
+        Favorite(Pink),
+    }
+
+    enum class MarkColor {
+        Pink,
     }
 
     public companion object
@@ -35,8 +41,9 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
+        mark = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
+        imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
     SideEvent(
         title = MultiLangText(
@@ -52,8 +59,9 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
-        link = "https://github.com/DroidKaigi/conference-app-2023",
+        mark = Favorite,
+        link = null,
+        imageLink = null,
     ),
     SideEvent(
         title = MultiLangText(
@@ -69,7 +77,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Mark1,
+        mark = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
+        imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
 )

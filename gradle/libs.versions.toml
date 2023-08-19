@@ -25,7 +25,7 @@ ktlint = "0.49.1"
 kotlinxSerialization = "1.5.1"
 ktor = "2.3.3"
 roborazzi = "1.6.0-alpha-3"
-showkase = "1.0.0-beta17"
+showkase = "1.0.0-beta18"
 ksp = "1.9.0-1.0.13"
 multiplatformFirebaseAuth = "1.8.1"
 kermit = "1.2.2"
@@ -57,7 +57,7 @@ kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-cor
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
 kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.0" }
-kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.21.0" }
+kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0" }
 
 # UI
 
@@ -105,6 +105,7 @@ firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version = "1.8.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
 
 # Debug
 

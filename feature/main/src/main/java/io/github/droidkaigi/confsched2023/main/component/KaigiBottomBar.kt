@@ -7,12 +7,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Drawable
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Vector
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun KaigiBottomBar(
-    mainScreenTabs: List<MainScreenTab>,
+    mainScreenTabs: PersistentList<MainScreenTab>,
     onTabSelected: (MainScreenTab) -> Unit,
     currentTab: MainScreenTab,
     isEnableStamps: Boolean,
@@ -29,10 +33,31 @@ fun KaigiBottomBar(
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
-                    Icon(
-                        imageVector = if (selected) tab.selectedIcon else tab.icon,
-                        contentDescription = tab.contentDescription,
-                    )
+                    if (selected) {
+                        when (val icon = tab.selectedIcon) {
+                            is Drawable -> Icon(
+                                painterResource(id = icon.drawableId),
+                                contentDescription = tab.contentDescription,
+                            )
+
+                            is Vector -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = tab.contentDescription,
+                            )
+                        }
+                    } else {
+                        when (val icon = tab.icon) {
+                            is Drawable -> Icon(
+                                painterResource(id = icon.drawableId),
+                                contentDescription = tab.contentDescription,
+                            )
+
+                            is Vector -> Icon(
+                                imageVector = icon.imageVector,
+                                contentDescription = tab.contentDescription,
+                            )
+                        }
+                    }
                 },
                 label = {
                     Text(

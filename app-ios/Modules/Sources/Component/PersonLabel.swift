@@ -15,7 +15,7 @@ public struct PersonLabel: View {
     public var body: some View {
         HStack(alignment: .center, spacing: 24) {
             HStack(spacing: -8) {
-                AsyncImage(url: URL(string: iconUrlString)) { image in
+                CacheAsyncImage(url: URL(string: iconUrlString)) { image in
                     image.resizable()
                 } placeholder: {
                     Color.gray

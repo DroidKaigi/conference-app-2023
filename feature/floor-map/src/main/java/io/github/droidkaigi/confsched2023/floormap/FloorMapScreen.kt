@@ -17,6 +17,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -38,14 +39,13 @@ import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
-import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.toImmutableList
 
 const val floorMapScreenRoute = "floorMap"
 fun NavGraphBuilder.nestedFloorMapScreen(
-    onSideEventClick: (SideEvent) -> Unit,
+    onSideEventClick: (url: String) -> Unit,
 ) {
     composable(floorMapScreenRoute) {
         FloorMapScreen(
@@ -55,18 +55,21 @@ fun NavGraphBuilder.nestedFloorMapScreen(
 }
 
 fun NavController.navigateFloorMapScreen() {
-    navigate(floorMapScreenRoute)
+    navigate(floorMapScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val FloorMapScreenTestTag = "FloorMapScreen"
 
 @Composable
 fun FloorMapScreen(
-    onSideEventClick: (SideEvent) -> Unit,
+    onSideEventClick: (url: String) -> Unit,
     viewModel: FloorMapScreenViewModel = hiltViewModel<FloorMapScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -92,7 +95,7 @@ data class FloorMapScreenUiState(
 private fun FloorMapScreen(
     uiState: FloorMapScreenUiState,
     snackbarHostState: SnackbarHostState,
-    onSideEventClick: (SideEvent) -> Unit,
+    onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
     Scaffold(

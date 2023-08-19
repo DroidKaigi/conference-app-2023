@@ -20,20 +20,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_a
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_b
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_c
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_d
-import io.github.droidkaigi.confsched2023.designsystem.theme.room_hall_e
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room1
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room2
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room3
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room4
-import io.github.droidkaigi.confsched2023.model.RoomIndex.Room5
+import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.model.type
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
+import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
@@ -78,14 +69,9 @@ fun BookmarkList(
                         timetableItem = timetableItem,
                         isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                         chipContent = {
-                            val roomChipBackgroundColor = when (timetableItem.room.type) {
-                                Room1 -> room_hall_a
-                                Room2 -> room_hall_b
-                                Room3 -> room_hall_c
-                                Room4 -> room_hall_d
-                                Room5 -> room_hall_e
-                                else -> Color.White
-                            }
+                            val hallColor = hallColors()
+                            val roomChipBackgroundColor = timetableItem.room.color
+                            val roomChipLabelColor = hallColor.hallText
                             AssistChip(
                                 onClick = { /*Do Nothing*/ },
                                 label = {
@@ -93,11 +79,11 @@ fun BookmarkList(
                                         timetableItem.room.name.currentLangTitle,
                                         fontWeight = FontWeight.Medium,
                                         fontSize = 12.sp,
-                                        color = Color.White,
                                     )
                                 },
                                 colors = AssistChipDefaults.assistChipColors(
                                     containerColor = roomChipBackgroundColor,
+                                    labelColor = roomChipLabelColor,
                                 ),
                                 border = AssistChipDefaults.assistChipBorder(
                                     borderColor = Color.Transparent,

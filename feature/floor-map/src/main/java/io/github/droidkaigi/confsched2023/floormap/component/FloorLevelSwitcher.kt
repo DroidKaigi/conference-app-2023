@@ -14,15 +14,18 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.designsystem.theme.floorButtonColors
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 
 @Composable
@@ -67,7 +70,7 @@ private fun FloorLevelSwitcherButton(
             color = MaterialTheme.colorScheme.outline,
         ),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = Color.White, // FIXME The color that can handle the theme switch between light and dark is not defined in the Theme.
+            containerColor = floorButtonColors().background,
             disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
             disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -94,5 +97,33 @@ private fun FloorLevelSwitcherButton(
                 letterSpacing = 0.1.sp,
             ),
         )
+    }
+}
+
+// TODO Use PreviewParameterProvider to display the Preview once the Linter issue is resolved.
+// https://github.com/DroidKaigi/conference-app-2023/pull/557#discussion_r1295780974
+@MultiThemePreviews
+@Composable
+fun FloorLevelSwitcherGroundPreview() {
+    KaigiTheme {
+        Surface {
+            FloorLevelSwitcher(
+                selectingFloorLevel = FloorLevel.Ground,
+                onClickFloorLevelSwitcher = {},
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun FloorLevelSwitcherBasementPreview() {
+    KaigiTheme {
+        Surface {
+            FloorLevelSwitcher(
+                selectingFloorLevel = FloorLevel.Basement,
+                onClickFloorLevelSwitcher = {},
+            )
+        }
     }
 }
