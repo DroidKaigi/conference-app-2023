@@ -79,7 +79,7 @@ interface MainNestedGraphStateHolder {
 }
 
 enum class NavigationType {
-    BOTTOM_NAVIGATION, NAVIGATION_RAIL;
+    BOTTOM_NAVIGATION, NAVIGATION_RAIL
 }
 
 @Composable
