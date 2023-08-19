@@ -31,6 +31,7 @@ multiplatformFirebaseAuth = "1.8.1"
 kermit = "1.2.2"
 okHttp = "4.11.0"
 ktorfit = "1.5.0"
+detekt = "1.23.1"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -44,6 +45,8 @@ firebaseGradlePlugin = { module = "com.google.gms:google-services", version = "4
 ktorfitGradlePlugin = { module = "de.jensklingenberg.ktorfit:gradle-plugin", version = "1.0.0" }
 kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version = "1.1.0" }
+detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -132,6 +135,7 @@ hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagge
 roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
+detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [bundles]
 plugins = [
@@ -145,5 +149,6 @@ plugins = [
     "firebaseGradlePlugin",
     "ktorfitGradlePlugin",
     "kotlinxSerializationGradlePlugin",
-    "completeKotlinPlugin"
+    "completeKotlinPlugin",
+    "detektGradlePlugin",
 ]
