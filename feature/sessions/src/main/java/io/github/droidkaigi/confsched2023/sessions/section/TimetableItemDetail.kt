@@ -9,13 +9,13 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 
-data class TimetableItemUiState(
+data class TimetableItemDetailSectionUiState(
     val timetableItem: TimetableItem,
 )
 
 @Composable
-internal fun TimetableItem(
-    uiState: TimetableItemUiState,
+internal fun TimetableItemDetail(
+    uiState: TimetableItemDetailSectionUiState,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier) {
