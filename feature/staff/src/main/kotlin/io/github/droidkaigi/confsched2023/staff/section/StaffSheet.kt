@@ -16,14 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.Staff
-import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.Empty
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.Loading
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.StaffList
 import kotlinx.collections.immutable.PersistentList
 
 internal sealed interface StaffSheetUiState {
     data object Loading : StaffSheetUiState
-    data object Empty : StaffSheetUiState
     data class StaffList(
         val staffs: PersistentList<Staff>,
     ) : StaffSheetUiState
@@ -38,22 +36,12 @@ internal fun StaffSheet(
     Box(modifier = modifier.fillMaxSize()) {
         when (uiState) {
             Loading -> LoadingContent(modifier = Modifier.fillMaxSize())
-            Empty -> EmptyView()
             is StaffList -> StaffList(
                 staffs = uiState.staffs,
                 onStaffClick = onStaffClick,
             )
         }
     }
-}
-
-// FIXME: This is a temporary view.
-@Composable
-private fun EmptyView() {
-    Text(
-        text = "empty",
-        modifier = Modifier.testTag("empty"),
-    )
 }
 
 // FIXME: It might be a good idea to move this Composable function to a common module somewhere. The same applies to TimetableLoadingContent as well.
