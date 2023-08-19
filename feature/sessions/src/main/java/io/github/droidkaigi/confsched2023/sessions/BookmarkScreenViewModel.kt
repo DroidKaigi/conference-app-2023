@@ -103,7 +103,7 @@ class BookmarkScreenViewModel @Inject constructor(
     private fun onDayChipClick(day: DroidKaigi2023Day) {
         currentDayFilter.update {
             when {
-                it.size == DroidKaigi2023Day.entries.size -> {
+                it.size == DroidKaigi2023Day.entries.size && allFilterChipSelected.value -> {
                     listOf(day)
                 }
 
