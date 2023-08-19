@@ -39,6 +39,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableIItemDetail
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
