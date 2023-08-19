@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -10,7 +11,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -43,6 +46,7 @@ import io.github.droidkaigi.confsched2023.feature.main.R
 import io.github.droidkaigi.confsched2023.main.NavigationType.BOTTOM_NAVIGATION
 import io.github.droidkaigi.confsched2023.main.NavigationType.NAVIGATION_RAIL
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
+import io.github.droidkaigi.confsched2023.main.component.KaigiNavigationRail
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.ImmutableList
@@ -103,6 +107,7 @@ fun MainScreen(
     MainScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
+        navigationType = navigationType,
         routeToTab = mainNestedGraphStateHolder::routeToTab,
         onTabSelected = mainNestedGraphStateHolder::onTabSelected,
         mainNestedNavGraph = mainNestedNavGraph,
@@ -161,6 +166,7 @@ data class MainScreenUiState(
 private fun MainScreen(
     uiState: MainScreenUiState,
     snackbarHostState: SnackbarHostState,
+    navigationType: NavigationType,
     routeToTab: String.() -> MainScreenTab?,
     onTabSelected: (NavController, MainScreenTab) -> Unit,
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
@@ -168,9 +174,9 @@ private fun MainScreen(
     val mainNestedNavController = rememberNavController()
     val navBackStackEntry by mainNestedNavController.currentBackStackEntryAsState()
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
-    Scaffold(
-        bottomBar = {
-            KaigiBottomBar(
+    Row(modifier = Modifier.fillMaxSize()) {
+        AnimatedVisibility(visible = navigationType == NAVIGATION_RAIL) {
+            KaigiNavigationRail(
                 mainScreenTabs = MainScreenTab.entries.toPersistentList(),
                 onTabSelected = { tab ->
                     onTabSelected(mainNestedNavController, tab)
@@ -178,17 +184,31 @@ private fun MainScreen(
                 currentTab = currentTab ?: MainScreenTab.Timetable,
                 isEnableStamps = uiState.isStampsEnabled,
             )
-        },
-        contentWindowInsets = WindowInsets(0.dp),
-    ) { padding ->
-        NavHost(
-            navController = mainNestedNavController,
-            startDestination = "timetable",
-            modifier = Modifier.padding(padding),
-            enterTransition = { materialFadeThroughIn() },
-            exitTransition = { materialFadeThroughOut() },
-        ) {
-            mainNestedNavGraph(mainNestedNavController, padding)
+        }
+        Scaffold(
+            bottomBar = {
+                AnimatedVisibility(visible = navigationType == BOTTOM_NAVIGATION) {
+                    KaigiBottomBar(
+                        mainScreenTabs = MainScreenTab.entries.toPersistentList(),
+                        onTabSelected = { tab ->
+                            onTabSelected(mainNestedNavController, tab)
+                        },
+                        currentTab = currentTab ?: MainScreenTab.Timetable,
+                        isEnableStamps = uiState.isStampsEnabled,
+                    )
+                }
+            },
+            contentWindowInsets = WindowInsets(0.dp),
+        ) { padding ->
+            NavHost(
+                navController = mainNestedNavController,
+                startDestination = "timetable",
+                modifier = Modifier.padding(padding),
+                enterTransition = { materialFadeThroughIn() },
+                exitTransition = { materialFadeThroughOut() },
+            ) {
+                mainNestedNavGraph(mainNestedNavController, padding)
+            }
         }
     }
 }

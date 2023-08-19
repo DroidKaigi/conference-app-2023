@@ -108,7 +108,7 @@ private fun KaigiNavHost(
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
     NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
-        mainScreen(navController, externalNavController)
+        mainScreen(windowSize, displayFeatures, navController, externalNavController)
         sessionScreens(
             onNavigationIconClick = {
                 navController.popBackStack()
