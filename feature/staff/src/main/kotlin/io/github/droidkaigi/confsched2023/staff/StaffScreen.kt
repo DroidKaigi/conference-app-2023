@@ -1,10 +1,7 @@
 package io.github.droidkaigi.confsched2023.staff
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,8 +20,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.model.Staff
-import kotlinx.collections.immutable.ImmutableList
+import io.github.droidkaigi.confsched2023.staff.section.StaffSheet
+import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState
 
 const val staffScreenRoute = "staff"
 
@@ -53,8 +50,8 @@ fun StaffScreen(
     )
 }
 
-data class StaffScreenUiState(
-    val staffs: ImmutableList<Staff>,
+internal data class StaffScreenUiState(
+    val contentUiState: StaffSheetUiState,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -81,32 +78,13 @@ private fun StaffScreen(
             )
         },
     ) { padding ->
-        StaffList(
-            staffs = uiState.staffs,
+        StaffSheet(
+            uiState = uiState.contentUiState,
             onStaffClick = onStaffClick,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
         )
-    }
-}
-
-@Composable
-private fun StaffList(
-    staffs: ImmutableList<Staff>,
-    onStaffClick: (url: String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    LazyColumn(
-        modifier = modifier,
-    ) {
-        items(staffs) { staff ->
-            StaffListItem(
-                staff = staff,
-                onStaffClick = onStaffClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
     }
 }
