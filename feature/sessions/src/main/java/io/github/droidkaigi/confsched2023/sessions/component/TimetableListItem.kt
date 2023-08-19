@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -35,7 +34,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextDecoration.Companion
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -51,7 +49,6 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import java.lang.Integer.max
-import kotlin.math.min
 
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
@@ -104,13 +101,15 @@ fun TimetableListItem(
                 timetableItem.title.currentLangTitle.let { title ->
                     val range = highlightIndexLange(title)
                     append(title.take(range.first))
-                    withStyle(SpanStyle(
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold,
-                        fontStyle = FontStyle.Italic,
-                        fontFamily = FontFamily.Serif,
-                        textDecoration = Companion.Underline
-                    )) {
+                    withStyle(
+                        SpanStyle(
+                            color = MaterialTheme.colorScheme.primary,
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic,
+                            fontFamily = FontFamily.Serif,
+                            textDecoration = Companion.Underline,
+                        ),
+                    ) {
                         append(title.substring(range))
                     }
                     append(title.takeLast(max((title.lastIndex - range.last), 0)))
