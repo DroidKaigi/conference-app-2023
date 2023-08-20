@@ -1,14 +1,11 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
@@ -64,7 +61,6 @@ fun PreviewFilterSessionTypeChip() {
                 )
             },
             onFilterSessionTypeChipClicked = {},
-            modifier = Modifier.fillMaxWidth().height(320.dp),
         )
     }
 }
