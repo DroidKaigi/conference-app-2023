@@ -17,12 +17,12 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.Staff
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.Loading
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.StaffList
-import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.ImmutableList
 
 internal sealed interface StaffSheetUiState {
     data object Loading : StaffSheetUiState
     data class StaffList(
-        val staffs: PersistentList<Staff>,
+        val staffs: ImmutableList<Staff>,
     ) : StaffSheetUiState
 }
 
