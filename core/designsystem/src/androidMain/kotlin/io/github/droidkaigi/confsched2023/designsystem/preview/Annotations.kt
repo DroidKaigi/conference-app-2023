@@ -59,12 +59,12 @@ object MultiLanguagePreviewDefinition {
 
     object Japanese {
         const val Name = "Japanese"
-        const val Locale = "ja_JP"
+        const val Locale = "ja"
     }
 
     object English {
         const val Name = "English"
-        const val Locale = "en_US"
+        const val Locale = "en"
     }
 }
 
