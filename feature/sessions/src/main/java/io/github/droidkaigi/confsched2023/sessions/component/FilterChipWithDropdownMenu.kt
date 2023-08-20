@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
@@ -18,6 +19,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -27,6 +29,7 @@ data class SearchFilterItemUiState<T>(
     val isSelected: Boolean = false,
     val selectedValues: String = "",
 )
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +54,7 @@ fun <T> FilterChipWithDropdownMenu(
     val selectedItems = searchFilterItemUiState.selectedItems
 
     Box(
-        modifier = modifier,
+        modifier = modifier.wrapContentSize(Alignment.TopStart),
     ) {
         FilterChip(
             selected = searchFilterItemUiState.isSelected,
