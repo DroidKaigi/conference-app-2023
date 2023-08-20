@@ -31,8 +31,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration.Companion
 import androidx.compose.ui.text.withStyle
@@ -103,10 +101,7 @@ fun TimetableListItem(
                     append(title.take(range.first))
                     withStyle(
                         SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic,
-                            fontFamily = FontFamily.Serif,
+                            background = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),
                             textDecoration = Companion.Underline,
                         ),
                     ) {
@@ -178,7 +173,7 @@ fun TimetableListItemPreview() {
             TimetableListItem(
                 timetableItem = Session.fake(),
                 isBookmarked = false,
-                highlightIndexLange = { IntRange.EMPTY },
+                highlightIndexLange = { IntRange(5, 10) },
                 onClick = {},
                 onBookmarkClick = {},
                 chipContent = {
