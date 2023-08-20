@@ -66,39 +66,47 @@ fun SearchFilter(
     ) {
         item {
             FilterDayChip(
-                isSelected = searchFilterUiState.isDaySelected,
-                selectedDays = searchFilterUiState.selectedDays,
-                selectedDaysValues = searchFilterUiState.selectedDaysValues,
-                kaigiDays = DroidKaigi2023Day.entries.toList(),
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedDays,
+                    items = DroidKaigi2023Day.entries.toList(),
+                    isSelected = searchFilterUiState.isDaySelected,
+                    selectedValues = searchFilterUiState.selectedDaysValues,
+                ),
                 onDaySelected = onDaySelected,
             )
         }
         item {
             FilterCategoryChip(
-                isSelected = searchFilterUiState.isCategoriesSelected,
-                selectedCategories = searchFilterUiState.selectedCategories,
-                selectedCategoriesValues = searchFilterUiState.selectedCategoriesValue,
-                categories = searchFilterUiState.categories,
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedCategories,
+                    items = searchFilterUiState.categories,
+                    isSelected = searchFilterUiState.isCategoriesSelected,
+                    selectedValues = searchFilterUiState.selectedCategoriesValue,
+                ),
                 onCategoriesSelected = onCategoriesSelected,
                 onFilterCategoryChipClicked = { keyboardController?.hide() },
             )
         }
         item {
             FilterSessionTypeChip(
-                isSelected = searchFilterUiState.isSessionTypeSelected,
-                selectedSessionTypes = searchFilterUiState.selectedSessionTypes,
-                selectedSessionTypesValues = searchFilterUiState.selectedSessionTypesValue,
-                sessionTypes = searchFilterUiState.sessionTypes,
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedSessionTypes,
+                    items = searchFilterUiState.sessionTypes,
+                    isSelected = searchFilterUiState.isSessionTypeSelected,
+                    selectedValues = searchFilterUiState.selectedSessionTypesValue,
+                ),
                 onSessionTypeSelected = onSessionTypesSelected,
                 onFilterSessionTypeChipClicked = { keyboardController?.hide() },
             )
         }
         item {
             FilterLanguageChip(
-                isSelected = searchFilterUiState.isLanguagesSelected,
-                selectedLanguages = searchFilterUiState.selectedLanguages,
-                selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
-                languages = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedLanguages,
+                    items = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                    isSelected = searchFilterUiState.isLanguagesSelected,
+                    selectedValues = searchFilterUiState.selectedLanguagesValue,
+                ),
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )
