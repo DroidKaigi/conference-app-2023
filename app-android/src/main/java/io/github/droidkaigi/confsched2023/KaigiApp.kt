@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.provider.CalendarContract
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -27,6 +29,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
+import co.touchlab.kermit.Logger
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
@@ -56,6 +59,7 @@ import io.github.droidkaigi.confsched2023.model.AboutItem.Sponsors
 import io.github.droidkaigi.confsched2023.model.AboutItem.Staff
 import io.github.droidkaigi.confsched2023.model.AboutItem.X
 import io.github.droidkaigi.confsched2023.model.AboutItem.YouTube
+import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
@@ -119,6 +123,7 @@ private fun KaigiNavHost(
                 )
             },
             onLinkClick = externalNavController::navigate,
+            onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
         )
         searchScreen(
             onNavigationIconClick = {
@@ -265,6 +270,30 @@ private class ExternalNavController(
         }
         if (launched.not()) {
             navigateToCustomTab(context = context, uri = uri)
+        }
+    }
+
+    /**
+     * Navigate to Calendar Registration
+     * @param timeTableItem カレンダー登録に必要なタイムラインアイテムの情報
+     */
+    fun navigateToCalendarRegistration(timeTableItem: TimetableItem) {
+        val calendarIntent = Intent(Intent.ACTION_INSERT).apply {
+            data = CalendarContract.Events.CONTENT_URI
+            putExtras(
+                bundleOf(
+                    CalendarContract.EXTRA_EVENT_BEGIN_TIME to timeTableItem.startsAt.toEpochMilliseconds(),
+                    CalendarContract.EXTRA_EVENT_END_TIME to timeTableItem.endsAt.toEpochMilliseconds(),
+                    CalendarContract.Events.TITLE to "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.title.currentLangTitle}",
+                    CalendarContract.Events.EVENT_LOCATION to timeTableItem.room.name.currentLangTitle,
+                ),
+            )
+        }
+
+        runCatching {
+            context.startActivity(calendarIntent)
+        }.onFailure {
+            Logger.e("Fail startActivity in navigateToCalendarRegistration", it)
         }
     }
 
