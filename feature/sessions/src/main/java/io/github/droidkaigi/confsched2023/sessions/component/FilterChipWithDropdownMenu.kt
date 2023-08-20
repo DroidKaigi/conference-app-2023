@@ -36,11 +36,11 @@ fun <T> FilterChipWithDropdownMenu(
     filterChipLabel: @Composable () -> Unit,
     dropdownMenuItemText: @Composable (T) -> Unit,
     modifier: Modifier = Modifier,
-    onFilterChipClick: (() -> Unit)? = null,
     filterChipLeadingIcon: @Composable (() -> Unit)? = null,
     filterChipTrailingIcon: @Composable (() -> Unit)? = null,
-    dropdownMenuItemLeadingIcon: @Composable ((List<T>, T) -> Unit)? = null,
-    dropdownMenuItemTrailingIcon: @Composable ((List<T>, T) -> Unit)? = null,
+    onFilterChipClick: (() -> Unit)? = null,
+    dropdownMenuItemLeadingIcon: @Composable ((T) -> Unit)? = null,
+    dropdownMenuItemTrailingIcon: @Composable ((T) -> Unit)? = null,
 ) {
     var expanded by remember { mutableStateOf(false) }
     val onSelectedUpdated by rememberUpdatedState(newValue = onSelected)
@@ -73,10 +73,10 @@ fun <T> FilterChipWithDropdownMenu(
                         dropdownMenuItemText(item)
                     },
                     leadingIcon = dropdownMenuItemLeadingIcon?.let { icon ->
-                        { icon(selectedItems, item) }
+                        { icon(item) }
                     },
                     trailingIcon = dropdownMenuItemTrailingIcon?.let { icon ->
-                        { icon(selectedItems, item) }
+                        { icon(item) }
                     },
                     onClick = {
                         onSelectedUpdated(
@@ -125,8 +125,8 @@ fun <T> FilterChipWithDropdownMenu(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         },
-        dropdownMenuItemLeadingIcon = { selectedItems, item ->
-            if (selectedItems.contains(item)) {
+        dropdownMenuItemLeadingIcon = { item ->
+            if (searchFilterItemUiState.selectedItems.contains(item)) {
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = null,
