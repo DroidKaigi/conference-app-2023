@@ -29,7 +29,6 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar

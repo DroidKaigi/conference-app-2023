@@ -131,7 +131,7 @@ private fun KaigiNavHost(
         )
         staffScreen(
             onBackClick = navController::popBackStack,
-            onStaffClick = externalNavController::navigate
+            onStaffClick = externalNavController::navigate,
         )
     }
 }
