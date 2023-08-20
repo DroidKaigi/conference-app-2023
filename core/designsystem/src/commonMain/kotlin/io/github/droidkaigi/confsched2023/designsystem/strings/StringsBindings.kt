@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.designsystem.strings
 
+import androidx.compose.ui.text.intl.LocaleList
+
 abstract class StringsBindings<T : Strings<T>>(
     vararg mapPairs: Pair<String, (T, StringsBindings<T>) -> String>,
     val default: String,
@@ -18,7 +20,7 @@ abstract class StringsBindings<T : Strings<T>>(
     }
 }
 
-expect fun lang(): String
+private fun lang(): String = LocaleList.current.localeList[0].language
 
 abstract class Strings<T : Strings<T>>(
     private val bindings: StringsBindings<T>,
