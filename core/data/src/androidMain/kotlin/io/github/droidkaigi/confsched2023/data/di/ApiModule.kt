@@ -10,6 +10,7 @@ import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
+import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
@@ -66,24 +67,6 @@ public class ApiModule {
         return httpClient
     }
 
-    public fun HttpClientConfig<*>.defaultKtorConfig(
-        userDataStore: UserDataStore,
-        ktorJsonSettings: Json,
-    ) {
-        install(ContentNegotiation) {
-            json(
-                ktorJsonSettings,
-            )
-        }
-
-        defaultRequest {
-            headers {
-                userDataStore.idToken.value?.let {
-                    set("Authorization", "Bearer $it")
-                }
-            }
-        }
-    }
 
     @Provides
     @Singleton
@@ -162,3 +145,4 @@ class RemoteConfigModule {
         return DefaultRemoteConfigApi()
     }
 }
+

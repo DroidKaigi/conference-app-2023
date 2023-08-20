@@ -1,6 +1,32 @@
 package io.github.droidkaigi.confsched2023.shared
 
-// delete this class after implemented any other files
-class EntryPoint {
-    fun echo(): String = "this class will be deleted"
+import io.github.droidkaigi.confsched2023.data.BaseUrl
+import io.github.droidkaigi.confsched2023.data.auth.Authenticator
+import io.github.droidkaigi.confsched2023.data.dataModule
+import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
+import org.koin.core.KoinApplication
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+
+object EntryPoint {
+    fun koinApplication(
+        baseUrl: String = "https://ssot-api-staging.an.r.appspot.com/",
+        remoteConfigApi: RemoteConfigApi,
+        authenticator: Authenticator,
+    ): KoinApplication = startKoin {
+        modules(
+            dataModule,
+            module {
+                single {
+                    BaseUrl(baseUrl)
+                }
+                single {
+                    remoteConfigApi
+                }
+                single {
+                    authenticator
+                }
+            }
+        )
+    }
 }
