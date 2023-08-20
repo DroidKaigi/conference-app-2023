@@ -8,6 +8,18 @@ struct TimetableDayHeader: View {
     let selectedDay: DroidKaigi2023Day
     let onSelect: (DroidKaigi2023Day) -> Void
 
+    // Define margin values to calculate holizontal position for capsule rectangle
+    private let buttonAreaLeadingMargin = 16.0
+    private let buttonTrailingMargin = 16.0
+    private let betweenButtonMargin = 8.0
+
+    // Define all button count to calculate holizontal position for capsule rectangle
+    private var buttonsCount: Int {
+        [DroidKaigi2023Day]
+            .fromKotlinArray(DroidKaigi2023Day.values())
+            .count
+    }
+
     var body: some View {
         ZStack {
             AssetColors.Surface.surface.swiftUIColor
@@ -41,30 +53,43 @@ struct TimetableDayHeader: View {
                 GeometryReader { geometry in
                     Capsule()
                         .fill(AssetColors.Primary.primary.swiftUIColor)
-                        .frame(width: calcButtonWidth(width: geometry.size.width), height: 56)
-                        .offset(x: calcDynamicTabHorizontalOffset(width: geometry.size.width), y: 10)
+                        .frame(width: calculateButtonWidth(deviceWidth: geometry.size.width), height: 56)
+                        .offset(x: calculateDynamicTabHorizontalOffset(deviceWidth: geometry.size.width), y: 10)
                         .animation(.easeInOut(duration: 0.16), value: selectedDay)
                 }
             }
         }
     }
 
-    private func calcDynamicTabHorizontalOffset(width: CGFloat) -> CGFloat {
-        let buttonAreaWidth = calcButtonWidth(width: width)
+    private func calculateDynamicTabHorizontalOffset(deviceWidth: CGFloat) -> CGFloat {
+        let buttonAreaWidth = calculateButtonWidth(deviceWidth: deviceWidth)
+        // Get the index value corresponding to `selectedDay` and use it for calculation
+        let indexBySelectedDay = getIndexBySelectedDay()
+        return buttonAreaLeadingMargin + (betweenButtonMargin + buttonAreaWidth) * CGFloat(indexBySelectedDay)
+    }
+
+    private func getIndexBySelectedDay() -> Int {
         switch selectedDay {
         case .day1:
-            return 16.0
+            return 0
         case .day2:
-            return 24.0 + buttonAreaWidth
+            return 1
         case .day3:
-            return 32.0 + buttonAreaWidth * 2
+            return 2
         default:
-            return 24.0 + buttonAreaWidth
+            return 1
         }
     }
 
-    private func calcButtonWidth(width: CGFloat) -> CGFloat {
-        (width - 48.0) / 3.0
+    private func calculateButtonWidth(deviceWidth: CGFloat) -> CGFloat {
+        // Calculate button width considering related margins
+        let excludeTotalMagin = calculateExcludeTotalMagin()
+        return (deviceWidth - excludeTotalMagin) / CGFloat(buttonsCount)
+    }
+
+    private func calculateExcludeTotalMagin() -> CGFloat {
+        let totalBetweenButtonMargin = betweenButtonMargin * CGFloat(buttonsCount - 1)
+        return buttonAreaLeadingMargin + buttonTrailingMargin + totalBetweenButtonMargin
     }
 }
 
