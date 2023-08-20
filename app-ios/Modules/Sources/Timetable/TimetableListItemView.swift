@@ -25,7 +25,7 @@ struct TimetableListItemView: View {
                         InfoLabel(
                             label,
                             labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
-                            strokeColor: AssetColors.outline.swiftUIColor
+                            strokeColor: AssetColors.Outline.outline.swiftUIColor
                         )
                     }
                 }
