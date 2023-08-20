@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.staff.section
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import io.github.droidkaigi.confsched2023.designsystem.component.LoadingText
 import io.github.droidkaigi.confsched2023.model.Staff
@@ -10,6 +11,7 @@ import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.Loadin
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState.StaffList
 import kotlinx.collections.immutable.ImmutableList
 
+@Stable
 internal sealed interface StaffSheetUiState {
     data object Loading : StaffSheetUiState
     data class StaffList(

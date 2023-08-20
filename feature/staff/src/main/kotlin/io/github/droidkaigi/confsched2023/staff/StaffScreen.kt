@@ -14,6 +14,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -61,6 +62,7 @@ fun StaffScreen(
     )
 }
 
+@Stable
 internal data class StaffScreenUiState(
     val contentUiState: StaffSheetUiState,
 )
