@@ -9,6 +9,7 @@ plugins {
     id("droidkaigi.primitive.android.firebase")
     id("droidkaigi.primitive.spotless")
     id("droidkaigi.primitive.android.roborazzi")
+    id("droidkaigi.primitive.kover")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -86,12 +87,15 @@ dependencies {
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
     implementation(projects.feature.stamps)
+    implementation(projects.feature.staff)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
+    implementation(libs.composeMaterialWindowSize)
     implementation(libs.accompanistSystemUiController)
     implementation(libs.androidxBrowser)
+    implementation(libs.androidxWindow)
     testImplementation(projects.core.testing)
 }

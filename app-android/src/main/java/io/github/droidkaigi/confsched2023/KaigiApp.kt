@@ -10,9 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
@@ -26,6 +26,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.DisplayFeature
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
@@ -65,12 +66,19 @@ import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
+import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
+import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
-fun KaigiApp(modifier: Modifier = Modifier) {
+fun KaigiApp(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
+    modifier: Modifier = Modifier,
+) {
     KaigiTheme {
         val systemUiController = rememberSystemUiController()
         val useDarkIcons = !isSystemInDarkTheme()
@@ -84,18 +92,23 @@ fun KaigiApp(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
-            KaigiNavHost()
+            KaigiNavHost(
+                windowSize = windowSize,
+                displayFeatures = displayFeatures,
+            )
         }
     }
 }
 
 @Composable
 private fun KaigiNavHost(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     navController: NavHostController = rememberNavController(),
     externalNavController: ExternalNavController = rememberExternalNavController(),
 ) {
     NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
-        mainScreen(navController, externalNavController)
+        mainScreen(windowSize, displayFeatures, navController, externalNavController)
         sessionScreens(
             onNavigationIconClick = {
                 navController.popBackStack()
@@ -105,6 +118,7 @@ private fun KaigiNavHost(
                     timetableItem.id,
                 )
             },
+            onLinkClick = externalNavController::navigate,
         )
         searchScreen(
             onNavigationIconClick = {
@@ -124,18 +138,30 @@ private fun KaigiNavHost(
                 TODO()
             },
         )
+        staffScreen(
+            onBackClick = {
+                navController.popBackStack()
+            },
+            onStaffClick = {
+                externalNavController.navigate(it)
+            },
+        )
     }
 }
 
 private fun NavGraphBuilder.mainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     navController: NavHostController,
     externalNavController: ExternalNavController,
 ) {
     mainScreen(
+        windowSize = windowSize,
+        displayFeatures = displayFeatures,
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, padding ->
+        mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 onSearchClick = {
                     navController.navigateSearchScreen()
                 },
@@ -152,12 +178,12 @@ private fun NavGraphBuilder.mainScreen(
                 onAboutItemClick = { aboutItem ->
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> TODO()
-                        Contributors -> TODO()
+                        CodeOfConduct -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/code-of-conduct")
+                        Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> TODO()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> TODO()
-                        Staff -> TODO()
+                        PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
+                        Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
                     }
@@ -212,6 +238,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
                 launchSingleTop = true
                 restoreState = true
             }
+
             Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }

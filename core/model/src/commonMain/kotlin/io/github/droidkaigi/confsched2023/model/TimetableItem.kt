@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType.NORMAL
 import kotlinx.collections.immutable.PersistentList
@@ -95,7 +96,7 @@ public sealed class TimetableItem {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
         val english = if (isJapaneseLocale) "英語" else "English"
         val japaneseWithInterpretation =
-            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with English Interpretation)"
         val englishWithInterpretation =
             if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
 
@@ -128,6 +129,7 @@ public fun Session.Companion.fake(): Session {
             name = MultiLangText("Room1", "Room2"),
             sort = 1,
             sortIndex = 0,
+            type = RoomA,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(
@@ -154,7 +156,7 @@ public fun Session.Companion.fake(): Session {
                 tagLine = "iOS Engineer",
             ),
         ).toPersistentList(),
-        description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。",
+        description = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
             enTitle = "This session has been cancelled due to circumstances.",

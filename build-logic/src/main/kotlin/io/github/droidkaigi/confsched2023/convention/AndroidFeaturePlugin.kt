@@ -13,6 +13,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
                 apply("droidkaigi.primitive.android.hilt")
                 apply("droidkaigi.primitive.android.roborazzi")
                 apply("droidkaigi.primitive.spotless")
+                apply("droidkaigi.primitive.kover")
             }
         }
     }

@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
     implementation(libs.androidxActivityActivityCompose)
     implementation(libs.composeMaterialIcon)
+    implementation(libs.composeShimmer)
     androidTestImplementation(libs.composeUiTestJunit4)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)

@@ -37,6 +37,7 @@ struct TimetableListItemView: View {
                             Assets.Icons.error.swiftUIImage
                                 .renderingMode(.template)
                             Text(message.currentLangTitle)
+                                .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 12, weight: .regular, design: .default))
                         }
                         .foregroundStyle(AssetColors.Error.error.swiftUIColor)
