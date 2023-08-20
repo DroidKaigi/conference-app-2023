@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.CalendarContract
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -30,6 +29,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
+import co.touchlab.kermit.Logger
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
@@ -293,7 +293,7 @@ private class ExternalNavController(
         runCatching {
             context.startActivity(calendarIntent)
         }.onFailure {
-            Log.e("navigateToCalendarRegistration", "Fail startActivity", it)
+            Logger.e("Fail startActivity in navigateToCalendarRegistration", it)
         }
     }
 
