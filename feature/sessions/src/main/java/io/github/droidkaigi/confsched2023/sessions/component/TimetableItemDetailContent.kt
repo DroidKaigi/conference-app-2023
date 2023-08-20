@@ -346,7 +346,7 @@ fun TimetableItemDetailContentPreview() {
         Surface {
             TimetableItemDetailContent(
                 uiState = Session.fake(),
-                onLinkClick = {}
+                onLinkClick = {},
             )
         }
     }
