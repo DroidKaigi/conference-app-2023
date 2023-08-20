@@ -463,6 +463,16 @@ class ScreenScrollState(
         }
     }
 
+    suspend fun flingXIfPossible() = coroutineScope {
+        val velocity = velocityTracker.calculateVelocity()
+        launch {
+            _scrollX.animateDecay(
+                velocity.x / 2f,
+                exponentialDecay()
+            )
+        }
+    }
+
     fun updateBounds(maxX: Float, maxY: Float) {
         _scrollX.updateBounds(maxX, 0f)
         _scrollY.updateBounds(maxY, 0f)
