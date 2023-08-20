@@ -25,7 +25,7 @@ public struct PersonLabel: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                 )
             }
 
