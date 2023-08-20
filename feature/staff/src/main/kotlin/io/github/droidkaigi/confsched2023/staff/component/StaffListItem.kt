@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.staff
+package io.github.droidkaigi.confsched2023.staff.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -30,7 +30,7 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 private val staffIconShape = RoundedCornerShape(20.dp)
 
 @Composable
-fun StaffListItem(
+internal fun StaffListItem(
     staff: Staff,
     onStaffClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
