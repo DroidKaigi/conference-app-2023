@@ -4,7 +4,6 @@ import SwiftUI
 import Theme
 
 struct TimetableListItemView: View {
-
     let timetableItemWithFavorite: TimetableItemWithFavorite
 
     var timetableItem: TimetableItem {
