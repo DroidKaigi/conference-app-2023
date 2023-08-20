@@ -70,10 +70,12 @@ fun TimetableItemDetailContent(
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
                 SpeakerSection(speakers = uiState.speakers)
-                ArchiveSection(
-                    onViewDocumentClick = {},
-                    onWatchVideoClick = {},
-                )
+                if (uiState.asset.isAvailable) {
+                    ArchiveSection(
+                        onViewDocumentClick = {},
+                        onWatchVideoClick = {},
+                    )
+                }
             }
 
             is Special -> {
