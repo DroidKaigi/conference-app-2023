@@ -101,10 +101,12 @@ fun SearchFilter(
         }
         item {
             FilterLanguageChip(
-                isSelected = searchFilterUiState.isLanguagesSelected,
-                selectedLanguages = searchFilterUiState.selectedLanguages,
-                selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
-                languages = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedLanguages,
+                    items = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                    isSelected = searchFilterUiState.isLanguagesSelected,
+                    selectedValues = searchFilterUiState.selectedLanguagesValue,
+                ),
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )
