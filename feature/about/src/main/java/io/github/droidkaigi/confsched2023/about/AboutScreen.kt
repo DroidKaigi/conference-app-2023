@@ -64,7 +64,6 @@ const val AboutScreenTestTag = "AboutScreen"
 @Composable
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
-    versionName: String? = versionName(LocalContext.current),
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
     onLinkClick: (url: String) -> Unit,
 ) {
@@ -174,18 +173,3 @@ private fun AboutScreen(
         },
     )
 }
-
-private fun versionName(context: Context) = runCatching {
-    val info = if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
-        context.packageManager.getPackageInfo(
-            context.packageName,
-            PackageInfoFlags.of(0),
-        )
-    } else {
-        context.packageManager.getPackageInfo(
-            context.packageName,
-            0,
-        )
-    }
-    info.versionName
-}.getOrNull()
