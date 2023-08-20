@@ -50,7 +50,7 @@ fun SearchList(
         contentPadding = contentPaddingValues,
         modifier = modifier
             .imePadding()
-            .padding(end = 16.dp),
+            .padding(start = 16.dp),
     ) {
         itemsIndexed(searchListUiState.timetableItems) { index, timetableItem ->
             Row(modifier = Modifier.padding(top = 10.dp)) {
