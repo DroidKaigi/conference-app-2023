@@ -1,6 +1,6 @@
 import Assets
-import Theme
 import SwiftUI
+import Theme
 
 /// Floor Map Footer Segmented Button
 /// [Figma](https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI?type=design&node-id=56145-70041&mode=dev)
@@ -55,14 +55,14 @@ struct FloorMapFooterSegmentedButton: View {
             }
         }
     }
-    
+
     /// Half a capsule
     private struct HalfCapsule: View {
         let foregroundColor: Color
         private let buttonWidth: CGFloat = 104
         private let buttonHeight: CGFloat = 40
         private let borderLineWidth: CGFloat = 1
-        
+
         var body: some View {
             ZStack(alignment: .leading) {
                 Capsule()
