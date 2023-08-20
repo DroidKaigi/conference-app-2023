@@ -69,16 +69,7 @@ struct TimetableDayHeader: View {
     }
 
     private func getIndexBySelectedDay() -> Int {
-        switch selectedDay {
-        case .day1:
-            return 0
-        case .day2:
-            return 1
-        case .day3:
-            return 2
-        default:
-            return 1
-        }
+        Int(selectedDay.ordinal)
     }
 
     private func calculateButtonWidth(deviceWidth: CGFloat) -> CGFloat {
