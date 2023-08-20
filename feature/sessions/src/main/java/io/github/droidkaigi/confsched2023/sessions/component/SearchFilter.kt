@@ -66,10 +66,12 @@ fun SearchFilter(
     ) {
         item {
             FilterDayChip(
-                isSelected = searchFilterUiState.isDaySelected,
-                selectedDays = searchFilterUiState.selectedDays,
-                selectedDaysValues = searchFilterUiState.selectedDaysValues,
-                kaigiDays = DroidKaigi2023Day.entries.toList(),
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedDays,
+                    items = DroidKaigi2023Day.entries.toList(),
+                    isSelected = searchFilterUiState.isDaySelected,
+                    selectedValues = searchFilterUiState.selectedDaysValues,
+                ),
                 onDaySelected = onDaySelected,
             )
         }
