@@ -27,10 +27,14 @@ struct InfoLabel: View {
             .foregroundColor(labelColor)
             .background(backgroundColor)
             .cornerRadius(4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 4)
-                    .inset(by: 0.5)
-                    .stroke(strokeColor != nil ? strokeColor! : .clear, lineWidth: 1)
-            )
+            .overlay {
+                if let strokeColor = strokeColor {
+                    RoundedRectangle(cornerRadius: 4)
+                        .inset(by: 0.5)
+                        .stroke(strokeColor, lineWidth: 1)
+                } else {
+                    EmptyView()
+                }
+            }
     }
 }
