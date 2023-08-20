@@ -1,4 +1,6 @@
+import Dependencies
 import Foundation
+import KMPContainer
 import Model
 import shared
 
@@ -8,13 +10,14 @@ struct SponsorState: ViewModelState {
 
 @MainActor
 final class SponsorViewModel: ObservableObject {
+    @Dependency(\.sponsorsData) var sponsorsData
     @Published private(set) var state: SponsorState = .init()
 
     func load() async {
         state.planGroupedSponsors = .loading
 
         do {
-            let sponsors = try await FakeSponsorsApiClient().sponsors()
+            let sponsors = try await sponsorsData.sponsors()
 
             state.planGroupedSponsors = .loaded(
                 [Plan: [Sponsor]](grouping: sponsors) {
