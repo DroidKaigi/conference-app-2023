@@ -37,10 +37,10 @@ data class SearchListUiState(
 )
 
 @JvmInline
-value class SearchQueryUiState(val queryText: String = "") {
+value class SearchQueryUiState(val queryText: String) {
     val hasQuery get() = queryText.isNotBlank()
 
-    fun String.getHighlightIndexRange(): IntRange {
+    fun String.getMatchIndexRange(): IntRange {
         if (!hasQuery) return IntRange.EMPTY
 
         val startIndex = this.indexOf(queryText, ignoreCase = true)
@@ -49,6 +49,10 @@ value class SearchQueryUiState(val queryText: String = "") {
         } else {
             IntRange.EMPTY
         }
+    }
+
+    companion object {
+        val EMPTY = SearchQueryUiState("")
     }
 }
 
@@ -97,11 +101,7 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
-                    highlightIndexLange = {
-                        with(searchQueryUiState) {
-                            it.getHighlightIndexRange()
-                        }
-                    },
+                    highlightQuery = searchQueryUiState,
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()
