@@ -52,7 +52,7 @@ value class SearchQuery(val queryText: String) {
     }
 
     companion object {
-        val EMPTY = SearchQuery("")
+        val Empty = SearchQuery("")
     }
 }
 

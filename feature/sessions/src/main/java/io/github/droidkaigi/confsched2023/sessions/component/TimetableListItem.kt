@@ -61,7 +61,7 @@ fun TimetableListItem(
     onBookmarkClick: (TimetableItem) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
-    highlightQuery: SearchQuery = SearchQuery.EMPTY,
+    highlightQuery: SearchQuery = SearchQuery.Empty,
 ) {
     Column(
         modifier
@@ -176,7 +176,7 @@ fun TimetableListItemPreview() {
             TimetableListItem(
                 timetableItem = Session.fake(),
                 isBookmarked = false,
-                highlightQuery = SearchQuery.EMPTY,
+                highlightQuery = SearchQuery.Empty,
                 onClick = {},
                 onBookmarkClick = {},
                 chipContent = {
