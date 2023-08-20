@@ -18,7 +18,6 @@ object AppModule {
             packageName = BuildConfig.APPLICATION_ID,
             versionName = BuildConfig.VERSION_NAME,
             versionCode = BuildConfig.VERSION_CODE,
-            isDebug = BuildConfig.DEBUG,
         )
     }
 }
