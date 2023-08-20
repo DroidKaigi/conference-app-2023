@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.component.LoadingText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
@@ -33,7 +34,6 @@ import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -143,7 +143,7 @@ private fun TimetableItemDetailScreen(
         ) {
             when (it) {
                 TimetableItemDetailScreenUiState.Loading -> {
-                    TimetableLoadingContent(
+                    LoadingText(
                         modifier = Modifier.fillMaxSize(),
                     )
                 }

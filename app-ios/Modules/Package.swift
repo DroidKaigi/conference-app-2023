@@ -106,6 +106,7 @@ var package = Package(
             name: "Sponsor",
             dependencies: [
                 "Assets",
+                "Component",
                 "Model",
                 "shared",
                 "Theme",

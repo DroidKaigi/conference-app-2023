@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
 
 run-name: "UnitTest by ${{ github.actor }}"
 
