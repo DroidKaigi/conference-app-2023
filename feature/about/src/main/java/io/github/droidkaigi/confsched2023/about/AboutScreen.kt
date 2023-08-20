@@ -35,6 +35,7 @@ import io.github.droidkaigi.confsched2023.about.component.AboutFooterLinks
 import io.github.droidkaigi.confsched2023.about.component.aboutCredits
 import io.github.droidkaigi.confsched2023.about.component.aboutOthers
 import io.github.droidkaigi.confsched2023.model.AboutItem
+import io.github.droidkaigi.confsched2023.model.AppVersion
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val aboutScreenRoute = "about"
@@ -77,12 +78,13 @@ fun AboutScreen(
         // uiState = uiState,
         snackbarHostState = snackbarHostState,
         onAboutItemClick = onAboutItemClick,
-        versionName = versionName,
         onLinkClick = onLinkClick,
     )
 }
 
-class AboutScreenUiState
+class AboutScreenUiState(
+    val appVersion: AppVersion,
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -90,7 +92,6 @@ private fun AboutScreen(
     // uiState: AboutScreenUiState,
     snackbarHostState: SnackbarHostState,
     onAboutItemClick: (AboutItem) -> Unit,
-    versionName: String?,
     onLinkClick: (url: String) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
@@ -156,7 +157,7 @@ private fun AboutScreen(
                 )
                 item {
                     AboutFooterLinks(
-                        versionName = versionName,
+                        versionName = uiState.appVersion.versionName,
                         onYouTubeClick = {
                             onAboutItemClick(AboutItem.YouTube)
                         },
