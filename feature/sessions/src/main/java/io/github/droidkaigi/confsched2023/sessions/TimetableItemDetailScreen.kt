@@ -46,11 +46,13 @@ fun NavGraphBuilder.sessionScreens(
     onNavigationIconClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
+            onCalendarRegistrationClick = onCalendarRegistrationClick,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -76,6 +78,7 @@ fun NavController.navigateToTimetableItemDetailScreen(
 fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -91,6 +94,7 @@ fun TimetableItemDetailScreen(
         onNavigationIconClick = onNavigationIconClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onLinkClick = onLinkClick,
+        onCalendarRegistrationClick = onCalendarRegistrationClick,
         snackbarHostState = snackbarHostState,
     )
 }
@@ -111,6 +115,7 @@ private fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -131,6 +136,7 @@ private fun TimetableItemDetailScreen(
                     timetableItem = uiState.timetableItem,
                     isBookmarked = uiState.isBookmarked,
                     onBookmarkClick = onBookmarkClick,
+                    onCalendarRegistrationClick = onCalendarRegistrationClick,
                 )
             }
         },
@@ -181,6 +187,7 @@ fun TimetableItemDetailScreenPreview() {
                     isBookMarked = !isBookMarked
                 },
                 onLinkClick = {},
+                onCalendarRegistrationClick = {},
                 snackbarHostState = SnackbarHostState(),
             )
         }

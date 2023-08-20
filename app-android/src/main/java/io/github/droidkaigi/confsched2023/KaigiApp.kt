@@ -123,6 +123,7 @@ private fun KaigiNavHost(
                 )
             },
             onLinkClick = externalNavController::navigate,
+            onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
         )
         searchScreen(
             onNavigationIconClick = {
