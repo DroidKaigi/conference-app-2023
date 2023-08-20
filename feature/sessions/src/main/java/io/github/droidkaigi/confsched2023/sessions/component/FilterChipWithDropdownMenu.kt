@@ -21,6 +21,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 data class SearchFilterItemUiState<T>(
@@ -29,6 +30,8 @@ data class SearchFilterItemUiState<T>(
     val isSelected: Boolean = false,
     val selectedValues: String = "",
 )
+
+const val FilterChipWithDropdownMenuItemTestTag = "FilterChipWithDropdownMenuItem"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,6 +90,7 @@ fun <T> FilterChipWithDropdownMenu(
                         )
                         shrinkMenu()
                     },
+                    modifier = Modifier.testTag(FilterChipWithDropdownMenuItemTestTag),
                 )
             }
         }

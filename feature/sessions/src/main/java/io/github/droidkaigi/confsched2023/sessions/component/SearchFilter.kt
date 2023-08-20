@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
@@ -47,6 +48,8 @@ data class SearchFilterUiState(
         get() = selectedSessionTypes.isNotEmpty()
 }
 
+const val SearchFilterTestTag = "SearchFilter"
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchFilter(
@@ -60,7 +63,7 @@ fun SearchFilter(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     LazyRow(
-        modifier = modifier,
+        modifier = modifier.testTag(SearchFilterTestTag),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
     ) {

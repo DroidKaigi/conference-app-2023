@@ -6,11 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import java.util.Locale
+
+const val FilterDayChipTestTag = "FilterDayChip"
 
 @Composable
 fun FilterDayChip(
@@ -25,7 +28,7 @@ fun FilterDayChip(
         dropdownMenuItemText = { kaigiDay ->
             kaigiDay.getDropDownText(Locale.getDefault().language)
         },
-        modifier = modifier,
+        modifier = modifier.testTag(FilterDayChipTestTag),
     )
 }
 

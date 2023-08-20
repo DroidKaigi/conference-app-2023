@@ -6,11 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+
+const val FilterCategoryChipTestTag = "FilterCategoryChip"
 
 @Composable
 fun FilterCategoryChip(
@@ -27,7 +30,7 @@ fun FilterCategoryChip(
         dropdownMenuItemText = { category ->
             category.title.currentLangTitle
         },
-        modifier = modifier,
+        modifier = modifier.testTag(FilterCategoryChipTestTag),
     )
 }
 
