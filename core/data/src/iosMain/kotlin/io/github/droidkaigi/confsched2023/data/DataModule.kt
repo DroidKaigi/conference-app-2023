@@ -68,7 +68,7 @@ public val dataModule: Module = module {
             .baseUrl(get<BaseUrl>().baseUrl)
             .build()
     }
-    single{
+    single {
         val dataStore = createDataStore(
             coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
             producePath = {
