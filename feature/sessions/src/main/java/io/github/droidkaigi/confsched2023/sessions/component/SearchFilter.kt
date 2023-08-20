@@ -89,10 +89,12 @@ fun SearchFilter(
         }
         item {
             FilterSessionTypeChip(
-                isSelected = searchFilterUiState.isSessionTypeSelected,
-                selectedSessionTypes = searchFilterUiState.selectedSessionTypes,
-                selectedSessionTypesValues = searchFilterUiState.selectedSessionTypesValue,
-                sessionTypes = searchFilterUiState.sessionTypes,
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedSessionTypes,
+                    items = searchFilterUiState.sessionTypes,
+                    isSelected = searchFilterUiState.isSessionTypeSelected,
+                    selectedValues = searchFilterUiState.selectedSessionTypesValue,
+                ),
                 onSessionTypeSelected = onSessionTypesSelected,
                 onFilterSessionTypeChipClicked = { keyboardController?.hide() },
             )
