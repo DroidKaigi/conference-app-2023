@@ -15,9 +15,7 @@ struct TimetableDayHeader: View {
 
     // Define all button count to calculate holizontal position for capsule rectangle
     private var buttonsCount: Int {
-        [DroidKaigi2023Day]
-            .fromKotlinArray(DroidKaigi2023Day.values())
-            .count
+        Int(DroidKaigi2023Day.values().size)
     }
 
     var body: some View {
