@@ -30,7 +30,6 @@ data class SearchFilterItemUiState<T>(
     val selectedValues: String = "",
 )
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> FilterChipWithDropdownMenu(
