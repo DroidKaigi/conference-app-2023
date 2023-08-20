@@ -7,11 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+
+const val SearchFilterDayFilterChipTestTag = "SearchFilterDayFilterChip"
+const val SearchFilterCategoryChipTestTag = "SearchFilterCategoryChipTest"
+const val SearchFilterSessionTypeChipTestTag = "SearchFilterSessionTypeChipTest"
+const val SearchFilterLanguageChipTestTag = "SearchFilterLanguageChipTest"
 
 data class SearchFilterUiState(
     val categories: List<TimetableCategory> = emptyList(),
@@ -71,6 +77,8 @@ fun SearchFilter(
                 selectedDaysValues = searchFilterUiState.selectedDaysValues,
                 kaigiDays = DroidKaigi2023Day.entries.toList(),
                 onDaySelected = onDaySelected,
+                modifier = Modifier
+                    .testTag(SearchFilterDayFilterChipTestTag),
             )
         }
         item {
@@ -81,6 +89,8 @@ fun SearchFilter(
                 categories = searchFilterUiState.categories,
                 onCategoriesSelected = onCategoriesSelected,
                 onFilterCategoryChipClicked = { keyboardController?.hide() },
+                modifier = Modifier
+                    .testTag(SearchFilterCategoryChipTestTag),
             )
         }
         item {
@@ -91,6 +101,8 @@ fun SearchFilter(
                 sessionTypes = searchFilterUiState.sessionTypes,
                 onSessionTypeSelected = onSessionTypesSelected,
                 onFilterSessionTypeChipClicked = { keyboardController?.hide() },
+                modifier = Modifier
+                    .testTag(SearchFilterSessionTypeChipTestTag),
             )
         }
         item {
@@ -101,6 +113,8 @@ fun SearchFilter(
                 languages = listOf(Lang.JAPANESE, Lang.ENGLISH),
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
+                modifier = Modifier
+                    .testTag(SearchFilterLanguageChipTestTag),
             )
         }
     }

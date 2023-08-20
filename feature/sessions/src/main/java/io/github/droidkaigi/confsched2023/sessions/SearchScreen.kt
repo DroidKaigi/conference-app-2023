@@ -33,6 +33,9 @@ import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
+const val SearchScreenFilterTestTag = "SearchScreenFilter"
+const val SearchScreenSearchTextFiledTestTag = "SearchTextFiled"
+const val SearchScreenEmptyBodyTestTag = "SearchScreenEmptySearchResultBody"
 
 sealed interface SearchScreenUiState {
     val searchQuery: String
@@ -110,6 +113,7 @@ private fun SearchScreen(
                 searchQuery = uiState.searchQuery,
                 onSearchQueryChanged = onSearchQueryChanged,
                 onBackClick = onBackClick,
+                testTag = SearchScreenSearchTextFiledTestTag,
             )
         },
     ) { innerPadding ->
@@ -126,9 +130,15 @@ private fun SearchScreen(
                 onCategoriesSelected = onCategoriesSelected,
                 onSessionTypesSelected = onSessionTypesSelected,
                 onLanguagesSelected = onLanguagesSelected,
+                modifier = Modifier
+                    .testTag(SearchScreenFilterTestTag),
             )
             when (uiState) {
-                is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery)
+                is Empty -> EmptySearchResultBody(
+                    missedQuery = uiState.searchQuery,
+                    modifier = Modifier
+                        .testTag(SearchScreenEmptyBodyTestTag),
+                )
                 is SearchList -> SearchList(
                     contentPaddingValues = PaddingValues(
                         bottom = innerPadding.calculateBottomPadding(),
