@@ -37,7 +37,7 @@ data class SearchListUiState(
 )
 
 @JvmInline
-value class SearchQueryUiState(val queryText: String) {
+value class SearchQuery(val queryText: String) {
     val hasQuery get() = queryText.isNotBlank()
 
     fun String.getMatchIndexRange(): IntRange {
@@ -52,7 +52,7 @@ value class SearchQueryUiState(val queryText: String) {
     }
 
     companion object {
-        val EMPTY = SearchQueryUiState("")
+        val EMPTY = SearchQuery("")
     }
 }
 
@@ -60,7 +60,7 @@ value class SearchQueryUiState(val queryText: String) {
 fun SearchList(
     contentPaddingValues: PaddingValues,
     searchListUiState: SearchListUiState,
-    searchQueryUiState: SearchQueryUiState,
+    searchQuery: SearchQuery,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
@@ -101,7 +101,7 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
-                    highlightQuery = searchQueryUiState,
+                    highlightQuery = searchQuery,
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()

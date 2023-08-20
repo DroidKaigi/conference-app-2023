@@ -30,22 +30,22 @@ import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppBar
 import io.github.droidkaigi.confsched2023.sessions.section.SearchList
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
-import io.github.droidkaigi.confsched2023.sessions.section.SearchQueryUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
 
 sealed interface SearchScreenUiState {
-    val searchQueryUiState: SearchQueryUiState
+    val searchQuery: SearchQuery
     val searchFilterUiState: SearchFilterUiState
 
     data class Empty(
-        override val searchQueryUiState: SearchQueryUiState,
+        override val searchQuery: SearchQuery,
         override val searchFilterUiState: SearchFilterUiState,
     ) : SearchScreenUiState
 
     data class SearchList(
-        override val searchQueryUiState: SearchQueryUiState,
+        override val searchQuery: SearchQuery,
         override val searchFilterUiState: SearchFilterUiState,
         val searchListUiState: SearchListUiState,
     ) : SearchScreenUiState
@@ -108,7 +108,7 @@ private fun SearchScreen(
         modifier = modifier.testTag(SearchScreenTestTag),
         topBar = {
             SearchTextFieldAppBar(
-                searchQuery = uiState.searchQueryUiState.queryText,
+                searchQuery = uiState.searchQuery.queryText,
                 onSearchQueryChanged = onSearchQueryChanged,
                 onBackClick = onBackClick,
             )
@@ -129,14 +129,14 @@ private fun SearchScreen(
                 onLanguagesSelected = onLanguagesSelected,
             )
             when (uiState) {
-                is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQueryUiState.queryText)
+                is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery.queryText)
                 is SearchList -> SearchList(
                     contentPaddingValues = PaddingValues(
                         bottom = innerPadding.calculateBottomPadding(),
                     ),
                     scrollState = scrollState,
                     searchListUiState = uiState.searchListUiState,
-                    searchQueryUiState = uiState.searchQueryUiState,
+                    searchQuery = uiState.searchQuery,
                     onTimetableItemClick = onTimetableItemClick,
                     onBookmarkIconClick = onBookmarkClick,
                 )
