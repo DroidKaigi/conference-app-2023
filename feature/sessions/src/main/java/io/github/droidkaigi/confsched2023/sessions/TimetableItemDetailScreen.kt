@@ -64,12 +64,12 @@ fun NavGraphBuilder.sessionScreens(
 }
 
 fun NavController.navigateToTimetableItemDetailScreen(
-    timetableItemId: TimetableItemId,
+    timetableItem: TimetableItem,
 ) {
     navigate(
         timetableItemDetailScreenRoute.replace(
             "{$timetableItemDetailScreenRouteItemIdParameterName}",
-            timetableItemId.value,
+            timetableItem.id.value,
         ),
     )
 }
