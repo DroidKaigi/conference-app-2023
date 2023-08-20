@@ -1,10 +1,17 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 
 data class SearchFilterItemUiState<T>(
     val selectedItems: List<T>,
@@ -81,4 +89,51 @@ fun <T> FilterChipWithDropdownMenu(
             }
         }
     }
+}
+
+@Composable
+fun <T> FilterChipWithDropdownMenu(
+    searchFilterItemUiState: SearchFilterItemUiState<T>,
+    onSelected: (T, Boolean) -> Unit,
+    filterChipLabelDefaultText: String,
+    dropdownMenuItemText: (T) -> String,
+    modifier: Modifier = Modifier,
+    onFilterChipClick: (() -> Unit)? = null,
+) {
+    FilterChipWithDropdownMenu(
+        modifier = modifier,
+        searchFilterItemUiState = searchFilterItemUiState,
+        onSelected = onSelected,
+        filterChipLabel = {
+            Text(
+                text = searchFilterItemUiState.selectedValues.ifEmpty {
+                    filterChipLabelDefaultText
+                },
+            )
+        },
+        filterChipTrailingIcon = {
+            Icon(
+                imageVector = Icons.Default.ArrowDropDown,
+                contentDescription = null,
+            )
+        },
+        onFilterChipClick = onFilterChipClick,
+        dropdownMenuItemText = { item ->
+            Text(
+                text = dropdownMenuItemText(item),
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        },
+        dropdownMenuItemLeadingIcon = { selectedItems, item ->
+            if (selectedItems.contains(item)) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        },
+    )
 }
