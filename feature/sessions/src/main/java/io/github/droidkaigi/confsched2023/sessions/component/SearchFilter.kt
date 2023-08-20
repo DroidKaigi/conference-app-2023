@@ -77,10 +77,12 @@ fun SearchFilter(
         }
         item {
             FilterCategoryChip(
-                isSelected = searchFilterUiState.isCategoriesSelected,
-                selectedCategories = searchFilterUiState.selectedCategories,
-                selectedCategoriesValues = searchFilterUiState.selectedCategoriesValue,
-                categories = searchFilterUiState.categories,
+                searchFilterItemUiState = SearchFilterItemUiState(
+                    selectedItems = searchFilterUiState.selectedCategories,
+                    items = searchFilterUiState.categories,
+                    isSelected = searchFilterUiState.isCategoriesSelected,
+                    selectedValues = searchFilterUiState.selectedCategoriesValue,
+                ),
                 onCategoriesSelected = onCategoriesSelected,
                 onFilterCategoryChipClicked = { keyboardController?.hide() },
             )
