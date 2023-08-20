@@ -337,3 +337,17 @@ fun DescriptionSectionPreview() {
         }
     }
 }
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableItemDetailContentPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailContent(
+                uiState = Session.fake(),
+                onLinkClick = {}
+            )
+        }
+    }
+}
