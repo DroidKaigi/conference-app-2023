@@ -20,4 +20,9 @@ fun HoursItem(
 }
 
 @Composable
-fun TimetableGridHours() {}
+fun TimetableGridHours(
+    modifier: Modifier = Modifier,
+    content: @Composable (String) -> Unit,
+) {
+
+}

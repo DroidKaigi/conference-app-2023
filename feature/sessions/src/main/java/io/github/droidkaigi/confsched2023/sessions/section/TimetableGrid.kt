@@ -57,6 +57,7 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.component.HoursItem
 import io.github.droidkaigi.confsched2023.sessions.component.RoomItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridHours
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridItem
@@ -100,7 +101,9 @@ fun TimetableGrid(
             end = contentPadding.calculateEndPadding(layoutDirection),
         )
     ) {
-        TimetableGridHours()
+        TimetableGridHours { hour ->
+            HoursItem(hour = hour)
+        }
         Column {
             TimetableGridRooms(
                 rooms = timetable.rooms,
