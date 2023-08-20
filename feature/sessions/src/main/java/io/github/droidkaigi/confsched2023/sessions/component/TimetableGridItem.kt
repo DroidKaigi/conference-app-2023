@@ -127,7 +127,7 @@ fun TimetableGridItem(
             Spacer(
                 modifier = Modifier
                     .weight(1f)
-                    .defaultMinSize(minHeight = 8.dp)
+                    .defaultMinSize(minHeight = 8.dp),
             )
 
             // TODO: Dealing with more than one speaker
