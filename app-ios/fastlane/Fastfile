@@ -86,7 +86,8 @@ platform :ios do
       xcargs: "-skipPackagePluginValidation",
       project: project,
       scheme: scheme,
-      destination: destination,
+      derived_data_path: derived_data_path,
+      destination: destination
     )
   end
 
