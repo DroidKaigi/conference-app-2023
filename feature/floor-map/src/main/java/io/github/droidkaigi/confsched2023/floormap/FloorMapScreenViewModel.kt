@@ -15,12 +15,15 @@ import javax.inject.Inject
 @HiltViewModel
 class FloorMapScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-) : ViewModel(),
-    UserMessageStateHolder by userMessageStateHolder {
+) : ViewModel(), UserMessageStateHolder by userMessageStateHolder {
     private val floorLevelStateFlow = MutableStateFlow(FloorLevel.Basement)
+    private val floorMapAllSideEventListUiState = FloorMapSideEventListUiState(
+        sideEvents = SideEvents,
+    )
     private val floorMapSideEventListUiStateFlow = buildUiState(floorLevelStateFlow) { floorLevel ->
         FloorMapSideEventListUiState(
-            sideEvents = SideEvents.filter { it.floorLevel == floorLevel }.toImmutableList(),
+            floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == floorLevel }
+                .toImmutableList(),
         )
     }
     private val floorMapUiStateFlow = buildUiState(floorLevelStateFlow) { floorLevel ->
@@ -36,6 +39,14 @@ class FloorMapScreenViewModel @Inject constructor(
             floorLevel = floorLevel,
             floorMapUiState = floorMapUiState,
             floorMapSideEventListUiState = floorMapSideEventListUiState,
+            basementFloorMapSideEventListUiState = FloorMapSideEventListUiState(
+                floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Basement }
+                    .toImmutableList(),
+            ),
+            groundFloorMapSideEventListUiState = FloorMapSideEventListUiState(
+                floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Ground }
+                    .toImmutableList(),
+            ),
         )
     }
 

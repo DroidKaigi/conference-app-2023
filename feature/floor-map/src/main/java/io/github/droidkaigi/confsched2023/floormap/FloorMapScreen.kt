@@ -99,6 +99,8 @@ data class FloorMapScreenUiState(
     val floorLevel: FloorLevel,
     val floorMapUiState: FloorMapUiState,
     val floorMapSideEventListUiState: FloorMapSideEventListUiState,
+    val basementFloorMapSideEventListUiState: FloorMapSideEventListUiState,
+    val groundFloorMapSideEventListUiState: FloorMapSideEventListUiState,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -211,7 +213,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Basement))
             FloorMapSideEventList(
-                uiState = uiState.floorMapSideEventListUiState,
+                uiState = uiState.basementFloorMapSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -229,7 +231,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Ground))
             FloorMapSideEventList(
-                uiState = uiState.floorMapSideEventListUiState,
+                uiState = uiState.groundFloorMapSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -256,6 +258,14 @@ fun PreviewFloorMapScreen() {
                     floorMapUiState = FloorMapUiState.of(Basement),
                     floorMapSideEventListUiState = FloorMapSideEventListUiState(
                         sideEvents = SideEvents.filter { it.floorLevel == Basement }
+                            .toImmutableList(),
+                    ),
+                    basementFloorMapSideEventListUiState = FloorMapSideEventListUiState(
+                        sideEvents = SideEvents.filter { it.floorLevel == Basement }
+                            .toImmutableList(),
+                    ),
+                    groundFloorMapSideEventListUiState = FloorMapSideEventListUiState(
+                        sideEvents = SideEvents.filter { it.floorLevel == Ground }
                             .toImmutableList(),
                     ),
                 ),
