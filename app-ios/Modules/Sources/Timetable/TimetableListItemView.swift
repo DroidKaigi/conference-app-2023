@@ -59,10 +59,8 @@ struct TimetableListItemView: View {
                 label: {
                     if timetableItemWithFavorite.isFavorited {
                         Assets.Icons.bookmark.swiftUIImage
-                            .renderingMode(.template)
                     } else {
                         Assets.Icons.bookmarkBorder.swiftUIImage
-                            .renderingMode(.template)
                     }
                 }
             )
