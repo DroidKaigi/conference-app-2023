@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -68,30 +68,72 @@ class SearchScreenViewModel @Inject constructor(
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
                 searchQuery = searchQuery,
-                searchFilterUiState = SearchFilterUiState(
-                    selectedDays = filters.days,
-                    selectedCategories = filters.categories,
-                    selectedSessionTypes = filters.sessionTypes,
-                    selectedLanguages = filters.languages,
-                ),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories),
+                searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
             )
         } else {
             SearchScreenUiState.SearchList(
                 searchQuery = searchQuery,
-                searchFilterUiState = SearchFilterUiState(
-                    categories = sessions.categories,
-                    sessionTypes = sessions.sessionTypes,
-                    selectedDays = filters.days,
-                    selectedCategories = filters.categories,
-                    selectedSessionTypes = filters.sessionTypes,
-                    selectedLanguages = filters.languages,
-                ),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState =
+                searchFilterCategoryUiState(filters.categories, sessions.categories),
+                searchFilterSessionTypeUiState =
+                searchFilterSessionTypeUiState(filters.sessionTypes, sessions.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
                 searchListUiState = SearchListUiState(
                     bookmarkedTimetableItemIds = sessions.bookmarks,
                     timetableItems = searchedSessions.timetableItems,
                 ),
             )
         }
+    }
+
+    private fun searchFilterDayUiState(
+        selectedDays: List<DroidKaigi2023Day>,
+    ): SearchFilterUiState<DroidKaigi2023Day> {
+        return SearchFilterUiState(
+            selectedItems = selectedDays,
+            items = DroidKaigi2023Day.entries.toList(),
+            isSelected = selectedDays.isNotEmpty(),
+            selectedValues = selectedDays.joinToString { it.name },
+        )
+    }
+
+    private fun searchFilterCategoryUiState(
+        selectedCategories: List<TimetableCategory>,
+        categories: List<TimetableCategory>? = null,
+    ): SearchFilterUiState<TimetableCategory> {
+        return SearchFilterUiState(
+            selectedItems = selectedCategories,
+            items = categories.orEmpty(),
+            isSelected = selectedCategories.isNotEmpty(),
+            selectedValues = selectedCategories.joinToString { it.title.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterSessionTypeUiState(
+        selectedSessionTypes: List<TimetableSessionType>,
+        sessionTypes: List<TimetableSessionType>? = null,
+    ): SearchFilterUiState<TimetableSessionType> {
+        return SearchFilterUiState(
+            selectedItems = selectedSessionTypes,
+            items = sessionTypes.orEmpty(),
+            isSelected = selectedSessionTypes.isNotEmpty(),
+            selectedValues = selectedSessionTypes.joinToString { it.label.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterLanguageUiState(
+        selectedLanguages: List<Lang>,
+    ): SearchFilterUiState<Lang> {
+        return SearchFilterUiState(
+            selectedItems = selectedLanguages,
+            items = listOf(Lang.JAPANESE, Lang.ENGLISH),
+            isSelected = selectedLanguages.isNotEmpty(),
+            selectedValues = selectedLanguages.joinToString { it.tagName },
+        )
     }
 
     fun onSearchQueryChanged(searchQuery: String) {

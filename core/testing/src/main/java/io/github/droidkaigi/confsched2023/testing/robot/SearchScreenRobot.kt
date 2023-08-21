@@ -13,7 +13,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SearchScreen
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterTestTag
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher

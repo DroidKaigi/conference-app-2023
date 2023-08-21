@@ -11,18 +11,19 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SessionType
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 
 const val FilterSessionTypeChipTestTag = "FilterSessionTypeChip"
 
 @Composable
 fun FilterSessionTypeChip(
-    dropdownFilterChipUiState: DropdownFilterChipUiState<TimetableSessionType>,
+    searchFilterUiState: SearchFilterUiState<TimetableSessionType>,
     onSessionTypeSelected: (TimetableSessionType, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterSessionTypeChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        dropdownFilterChipUiState = dropdownFilterChipUiState,
+        searchFilterUiState = searchFilterUiState,
         onSelected = onSessionTypeSelected,
         filterChipLabelDefaultText = SessionType.asString(),
         onFilterChipClick = onFilterSessionTypeChipClicked,
@@ -38,7 +39,7 @@ fun FilterSessionTypeChip(
 fun PreviewFilterSessionTypeChip() {
     var uiState by remember {
         mutableStateOf(
-            DropdownFilterChipUiState(
+            SearchFilterUiState(
                 selectedItems = emptyList(),
                 items = TimetableSessionType.entries.toList(),
             ),
@@ -47,7 +48,7 @@ fun PreviewFilterSessionTypeChip() {
 
     KaigiTheme {
         FilterSessionTypeChip(
-            dropdownFilterChipUiState = uiState,
+            searchFilterUiState = uiState,
             onSessionTypeSelected = { sessionType, isSelected ->
                 val selectedSessionTypes = uiState.selectedItems.toMutableList()
                 val newSelectedSessionTypes = selectedSessionTypes.apply {

@@ -11,18 +11,19 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import java.util.Locale
 
 const val FilterDayChipTestTag = "FilterDayChip"
 
 @Composable
 fun FilterDayChip(
-    dropdownFilterChipUiState: DropdownFilterChipUiState<DroidKaigi2023Day>,
+    searchFilterUiState: SearchFilterUiState<DroidKaigi2023Day>,
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     DropdownFilterChip(
-        dropdownFilterChipUiState = dropdownFilterChipUiState,
+        searchFilterUiState = searchFilterUiState,
         onSelected = onDaySelected,
         filterChipLabelDefaultText = SessionsStrings.EventDay.asString(),
         dropdownMenuItemText = { kaigiDay ->
@@ -37,7 +38,7 @@ fun FilterDayChip(
 fun PreviewFilterDayChip() {
     var uiState by remember {
         mutableStateOf(
-            DropdownFilterChipUiState(
+            SearchFilterUiState(
                 selectedItems = emptyList(),
                 items = DroidKaigi2023Day.entries.toList(),
             ),
@@ -46,7 +47,7 @@ fun PreviewFilterDayChip() {
 
     KaigiTheme {
         FilterDayChip(
-            dropdownFilterChipUiState = uiState,
+            searchFilterUiState = uiState,
             onDaySelected = { kaigiDay, isSelected ->
                 val selectedDays = uiState.selectedItems.toMutableList()
                 val newSelectedDays = selectedDays.apply {

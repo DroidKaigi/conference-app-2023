@@ -10,19 +10,22 @@ import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Lang
+import io.github.droidkaigi.confsched2023.model.Lang.ENGLISH
+import io.github.droidkaigi.confsched2023.model.Lang.JAPANESE
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SupportedLanguages
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 
 const val FilterLanguageChipTestTag = "FilterLanguageChip"
 
 @Composable
 fun FilterLanguageChip(
-    dropdownFilterChipUiState: DropdownFilterChipUiState<Lang>,
+    searchFilterUiState: SearchFilterUiState<Lang>,
     onLanguagesSelected: (Lang, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterLanguageChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        dropdownFilterChipUiState = dropdownFilterChipUiState,
+        searchFilterUiState = searchFilterUiState,
         onSelected = onLanguagesSelected,
         filterChipLabelDefaultText = SupportedLanguages.asString(),
         onFilterChipClick = onFilterLanguageChipClicked,
@@ -38,16 +41,16 @@ fun FilterLanguageChip(
 fun PreviewFilterLanguageChip() {
     var uiState by remember {
         mutableStateOf(
-            DropdownFilterChipUiState(
+            SearchFilterUiState(
                 selectedItems = emptyList(),
-                items = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                items = listOf(JAPANESE, ENGLISH),
             ),
         )
     }
 
     KaigiTheme {
         FilterLanguageChip(
-            dropdownFilterChipUiState = uiState,
+            searchFilterUiState = uiState,
             onLanguagesSelected = { language, isSelected ->
                 val selectedLanguages = uiState.selectedItems.toMutableList()
                 val newSelectedLanguages = selectedLanguages.apply {

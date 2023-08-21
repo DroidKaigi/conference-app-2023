@@ -12,18 +12,19 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 
 const val FilterCategoryChipTestTag = "FilterCategoryChip"
 
 @Composable
 fun FilterCategoryChip(
-    dropdownFilterChipUiState: DropdownFilterChipUiState<TimetableCategory>,
+    searchFilterUiState: SearchFilterUiState<TimetableCategory>,
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterCategoryChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        dropdownFilterChipUiState = dropdownFilterChipUiState,
+        searchFilterUiState = searchFilterUiState,
         onSelected = onCategoriesSelected,
         filterChipLabelDefaultText = SessionsStrings.Category.asString(),
         onFilterChipClick = onFilterCategoryChipClicked,
@@ -39,7 +40,7 @@ fun FilterCategoryChip(
 fun PreviewFilterCategoryChip() {
     var uiState by remember {
         mutableStateOf(
-            DropdownFilterChipUiState(
+            SearchFilterUiState(
                 selectedItems = emptyList(),
                 items = TimetableCategory.fakes(),
             ),
@@ -48,7 +49,7 @@ fun PreviewFilterCategoryChip() {
 
     KaigiTheme {
         FilterCategoryChip(
-            dropdownFilterChipUiState = uiState,
+            searchFilterUiState = uiState,
             onCategoriesSelected = { category, isSelected ->
                 val selectedCategories = uiState.selectedItems.toMutableList()
                 val newSelectedCategories = selectedCategories.apply {
