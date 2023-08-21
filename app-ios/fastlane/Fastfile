@@ -95,6 +95,7 @@ platform :ios do
   lane :test do
     shared
     scan(
+      xcargs: "-skipPackagePluginValidation",
       project: project,
       scheme: scheme,
       skip_build: true,
