@@ -26,36 +26,30 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - name: Check spotless
-        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
+      - uses: reviewdog/action-setup@v1.0.6
+
+      - name: Check detekt
+        id: detekt
+        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
         with:
           gradle-home-cache-cleanup: true
-          arguments: spotlessCheck --stacktrace
+          arguments: detekt reportMerge --continue
 
-#      - uses: reviewdog/action-setup@v1.0.6
-#
-#      - name: Check detekt
-#        id: detekt
-#        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
-#        with:
-#          gradle-home-cache-cleanup: true
-#          arguments: detekt reportMerge --continue
-#
-#      - name: Run report with ReviewDog
-#        if: steps.detekt.outcome == 'failure'
-#        env:
-#          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: cat ./build/reports/detekt/merge.xml |
-#          reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
-#
-#      - name: Comment lint check success
-#        if: steps.detekt.outcome == 'success'
-#        uses: marocchino/sticky-pull-request-comment@v2
-#        with:
-#          header: detekt
-#          recreate: true
-#          message: |
-#            :sparkles: :sparkles: **That's perfect, passed the PR lint check perfectly!** :sparkles: :sparkles:
+      - name: Run report with ReviewDog
+        if: steps.detekt.outcome == 'failure'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cat ./build/reports/detekt/merge.xml |
+          reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
+
+      - name: Comment lint check success
+        if: steps.detekt.outcome == 'success'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: detekt
+          recreate: true
+          message: |
+            :sparkles: :sparkles: **That's perfect, passed the PR lint check perfectly!** :sparkles: :sparkles:
 
       - name: Check lint
         uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
