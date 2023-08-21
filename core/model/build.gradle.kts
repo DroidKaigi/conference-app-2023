@@ -8,6 +8,7 @@ plugins {
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.model"
 
+@Suppress("UnusedPrivateProperty")
 kotlin {
     sourceSets {
         commonMain {

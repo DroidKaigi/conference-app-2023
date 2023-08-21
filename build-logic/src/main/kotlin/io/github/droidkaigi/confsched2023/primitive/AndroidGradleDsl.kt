@@ -96,6 +96,8 @@ fun Project.setupDetekt(extension: DetektExtension) {
         tasks.withType<io.gitlab.arturbosch.detekt.Detekt> detekt@{
             finalizedBy(reportMerge)
 
+            source = project.files("./").asFileTree
+
             include("**/*.kt")
             include("**/*.kts")
             exclude("**/resources/**")
