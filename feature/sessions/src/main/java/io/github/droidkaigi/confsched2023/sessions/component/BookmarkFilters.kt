@@ -37,9 +37,11 @@ fun BookmarkFilters(
     onDayThirdChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier
+    Row(
+        modifier
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)) {
+            .padding(horizontal = 16.dp),
+    ) {
         BookmarkFilterChip(
             labelText = SessionsStrings.BookmarkFilterAllChip.asString(),
             isSelected = isAll,
