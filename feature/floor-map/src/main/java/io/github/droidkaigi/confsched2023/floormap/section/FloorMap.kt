@@ -49,7 +49,7 @@ fun FloorMap(
         Image(
             painter = painterResource(id = uiState.floorMapResId),
             contentDescription = "",
-            contentScale = ContentScale.FillWidth,
+            contentScale = ContentScale.FillHeight,
             modifier = Modifier.fillMaxWidth(),
         )
     }
