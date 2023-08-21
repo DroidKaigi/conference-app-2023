@@ -32,6 +32,7 @@ runs:
 
     - name: set konan cache key
       id: konan-cache-key
+      shell: bash
       run: echo "KEY=$(eval find . -name \"build.gradle*\" -o -name \"settings.gradle*\" | sort | xargs cat | shasum | awk '{print $1}')" >> "$GITHUB_OUTPUT"
 
     - name: cache Konan
