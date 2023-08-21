@@ -3,6 +3,7 @@ plugins {
     id("droidkaigi.primitive.android.kotlin")
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
+    id("droidkaigi.primitive.spotless")
     id("droidkaigi.primitive.kover")
     id("droidkaigi.primitive.detekt")
 }

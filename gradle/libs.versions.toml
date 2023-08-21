@@ -20,6 +20,7 @@ junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
 dagger = "2.47"
+spotless = "6.20.0"
 ktlint = "0.49.1"
 kotlinxSerialization = "1.5.1"
 ktor = "2.3.3"
@@ -37,6 +38,7 @@ twitterComposeRule = "0.0.26"
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 composeJbGradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-jb" }
+spotlessGradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
 roborazziGradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
 kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
@@ -144,6 +146,7 @@ plugins = [
     "hiltGradlePlugin",
     "composeJbGradlePlugin",
     "roborazziGradlePlugin",
+    "spotlessGradlePlugin",
     "kspGradlePlugin",
     "firebaseGradlePlugin",
     "ktorfitGradlePlugin",
