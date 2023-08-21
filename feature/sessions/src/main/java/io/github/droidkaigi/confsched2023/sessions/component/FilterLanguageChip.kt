@@ -16,13 +16,13 @@ const val FilterLanguageChipTestTag = "FilterLanguageChip"
 
 @Composable
 fun FilterLanguageChip(
-    searchFilterItemUiState: SearchFilterItemUiState<Lang>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<Lang>,
     onLanguagesSelected: (Lang, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterLanguageChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        searchFilterItemUiState = searchFilterItemUiState,
+        dropdownFilterChipUiState = dropdownFilterChipUiState,
         onSelected = onLanguagesSelected,
         filterChipLabelDefaultText = SupportedLanguages.asString(),
         onFilterChipClick = onFilterLanguageChipClicked,
@@ -38,7 +38,7 @@ fun FilterLanguageChip(
 fun PreviewFilterLanguageChip() {
     var uiState by remember {
         mutableStateOf(
-            SearchFilterItemUiState(
+            DropdownFilterChipUiState(
                 selectedItems = emptyList(),
                 items = listOf(Lang.JAPANESE, Lang.ENGLISH),
             ),
@@ -47,7 +47,7 @@ fun PreviewFilterLanguageChip() {
 
     KaigiTheme {
         FilterLanguageChip(
-            searchFilterItemUiState = uiState,
+            dropdownFilterChipUiState = uiState,
             onLanguagesSelected = { language, isSelected ->
                 val selectedLanguages = uiState.selectedItems.toMutableList()
                 val newSelectedLanguages = selectedLanguages.apply {

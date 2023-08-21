@@ -69,7 +69,7 @@ fun SearchFilter(
     ) {
         item {
             FilterDayChip(
-                searchFilterItemUiState = SearchFilterItemUiState(
+                dropdownFilterChipUiState = DropdownFilterChipUiState(
                     selectedItems = searchFilterUiState.selectedDays,
                     items = DroidKaigi2023Day.entries.toList(),
                     isSelected = searchFilterUiState.isDaySelected,
@@ -80,7 +80,7 @@ fun SearchFilter(
         }
         item {
             FilterCategoryChip(
-                searchFilterItemUiState = SearchFilterItemUiState(
+                dropdownFilterChipUiState = DropdownFilterChipUiState(
                     selectedItems = searchFilterUiState.selectedCategories,
                     items = searchFilterUiState.categories,
                     isSelected = searchFilterUiState.isCategoriesSelected,
@@ -92,7 +92,7 @@ fun SearchFilter(
         }
         item {
             FilterSessionTypeChip(
-                searchFilterItemUiState = SearchFilterItemUiState(
+                dropdownFilterChipUiState = DropdownFilterChipUiState(
                     selectedItems = searchFilterUiState.selectedSessionTypes,
                     items = searchFilterUiState.sessionTypes,
                     isSelected = searchFilterUiState.isSessionTypeSelected,
@@ -104,7 +104,7 @@ fun SearchFilter(
         }
         item {
             FilterLanguageChip(
-                searchFilterItemUiState = SearchFilterItemUiState(
+                dropdownFilterChipUiState = DropdownFilterChipUiState(
                     selectedItems = searchFilterUiState.selectedLanguages,
                     items = listOf(Lang.JAPANESE, Lang.ENGLISH),
                     isSelected = searchFilterUiState.isLanguagesSelected,

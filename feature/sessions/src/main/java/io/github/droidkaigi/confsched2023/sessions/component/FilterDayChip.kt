@@ -17,12 +17,12 @@ const val FilterDayChipTestTag = "FilterDayChip"
 
 @Composable
 fun FilterDayChip(
-    searchFilterItemUiState: SearchFilterItemUiState<DroidKaigi2023Day>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<DroidKaigi2023Day>,
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     DropdownFilterChip(
-        searchFilterItemUiState = searchFilterItemUiState,
+        dropdownFilterChipUiState = dropdownFilterChipUiState,
         onSelected = onDaySelected,
         filterChipLabelDefaultText = SessionsStrings.EventDay.asString(),
         dropdownMenuItemText = { kaigiDay ->
@@ -37,7 +37,7 @@ fun FilterDayChip(
 fun PreviewFilterDayChip() {
     var uiState by remember {
         mutableStateOf(
-            SearchFilterItemUiState(
+            DropdownFilterChipUiState(
                 selectedItems = emptyList(),
                 items = DroidKaigi2023Day.entries.toList(),
             ),
@@ -46,7 +46,7 @@ fun PreviewFilterDayChip() {
 
     KaigiTheme {
         FilterDayChip(
-            searchFilterItemUiState = uiState,
+            dropdownFilterChipUiState = uiState,
             onDaySelected = { kaigiDay, isSelected ->
                 val selectedDays = uiState.selectedItems.toMutableList()
                 val newSelectedDays = selectedDays.apply {

@@ -17,13 +17,13 @@ const val FilterCategoryChipTestTag = "FilterCategoryChip"
 
 @Composable
 fun FilterCategoryChip(
-    searchFilterItemUiState: SearchFilterItemUiState<TimetableCategory>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<TimetableCategory>,
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterCategoryChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        searchFilterItemUiState = searchFilterItemUiState,
+        dropdownFilterChipUiState = dropdownFilterChipUiState,
         onSelected = onCategoriesSelected,
         filterChipLabelDefaultText = SessionsStrings.Category.asString(),
         onFilterChipClick = onFilterCategoryChipClicked,
@@ -39,7 +39,7 @@ fun FilterCategoryChip(
 fun PreviewFilterCategoryChip() {
     var uiState by remember {
         mutableStateOf(
-            SearchFilterItemUiState(
+            DropdownFilterChipUiState(
                 selectedItems = emptyList(),
                 items = TimetableCategory.fakes(),
             ),
@@ -48,7 +48,7 @@ fun PreviewFilterCategoryChip() {
 
     KaigiTheme {
         FilterCategoryChip(
-            searchFilterItemUiState = uiState,
+            dropdownFilterChipUiState = uiState,
             onCategoriesSelected = { category, isSelected ->
                 val selectedCategories = uiState.selectedItems.toMutableList()
                 val newSelectedCategories = selectedCategories.apply {

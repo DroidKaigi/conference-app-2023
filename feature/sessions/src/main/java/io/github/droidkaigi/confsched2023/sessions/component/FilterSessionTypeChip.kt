@@ -16,13 +16,13 @@ const val FilterSessionTypeChipTestTag = "FilterSessionTypeChip"
 
 @Composable
 fun FilterSessionTypeChip(
-    searchFilterItemUiState: SearchFilterItemUiState<TimetableSessionType>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<TimetableSessionType>,
     onSessionTypeSelected: (TimetableSessionType, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     onFilterSessionTypeChipClicked: () -> Unit,
 ) {
     DropdownFilterChip(
-        searchFilterItemUiState = searchFilterItemUiState,
+        dropdownFilterChipUiState = dropdownFilterChipUiState,
         onSelected = onSessionTypeSelected,
         filterChipLabelDefaultText = SessionType.asString(),
         onFilterChipClick = onFilterSessionTypeChipClicked,
@@ -38,7 +38,7 @@ fun FilterSessionTypeChip(
 fun PreviewFilterSessionTypeChip() {
     var uiState by remember {
         mutableStateOf(
-            SearchFilterItemUiState(
+            DropdownFilterChipUiState(
                 selectedItems = emptyList(),
                 items = TimetableSessionType.entries.toList(),
             ),
@@ -47,7 +47,7 @@ fun PreviewFilterSessionTypeChip() {
 
     KaigiTheme {
         FilterSessionTypeChip(
-            searchFilterItemUiState = uiState,
+            dropdownFilterChipUiState = uiState,
             onSessionTypeSelected = { sessionType, isSelected ->
                 val selectedSessionTypes = uiState.selectedItems.toMutableList()
                 val newSelectedSessionTypes = selectedSessionTypes.apply {

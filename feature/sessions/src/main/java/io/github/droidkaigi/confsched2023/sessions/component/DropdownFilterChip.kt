@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
-data class SearchFilterItemUiState<T>(
+data class DropdownFilterChipUiState<T>(
     val selectedItems: List<T>,
     val items: List<T>,
     val isSelected: Boolean = false,
@@ -36,7 +36,7 @@ const val DropdownFilterChipItemTestTag = "DropdownFilterChipItem"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> DropdownFilterChip(
-    searchFilterItemUiState: SearchFilterItemUiState<T>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<T>,
     onSelected: (T, Boolean) -> Unit,
     filterChipLabel: @Composable () -> Unit,
     dropdownMenuItemText: @Composable (T) -> Unit,
@@ -53,13 +53,13 @@ fun <T> DropdownFilterChip(
     val expandMenu = { expanded = true }
     val shrinkMenu = { expanded = false }
 
-    val selectedItems = searchFilterItemUiState.selectedItems
+    val selectedItems = dropdownFilterChipUiState.selectedItems
 
     Box(
         modifier = modifier.wrapContentSize(Alignment.TopStart),
     ) {
         FilterChip(
-            selected = searchFilterItemUiState.isSelected,
+            selected = dropdownFilterChipUiState.isSelected,
             onClick = {
                 onFilterChipClick?.invoke()
                 expandMenu()
@@ -72,7 +72,7 @@ fun <T> DropdownFilterChip(
             expanded = expanded,
             onDismissRequest = shrinkMenu,
         ) {
-            searchFilterItemUiState.items.forEach { item ->
+            dropdownFilterChipUiState.items.forEach { item ->
                 DropdownMenuItem(
                     text = {
                         dropdownMenuItemText(item)
@@ -99,7 +99,7 @@ fun <T> DropdownFilterChip(
 
 @Composable
 fun <T> DropdownFilterChip(
-    searchFilterItemUiState: SearchFilterItemUiState<T>,
+    dropdownFilterChipUiState: DropdownFilterChipUiState<T>,
     onSelected: (T, Boolean) -> Unit,
     filterChipLabelDefaultText: String,
     dropdownMenuItemText: (T) -> String,
@@ -108,11 +108,11 @@ fun <T> DropdownFilterChip(
 ) {
     DropdownFilterChip(
         modifier = modifier,
-        searchFilterItemUiState = searchFilterItemUiState,
+        dropdownFilterChipUiState = dropdownFilterChipUiState,
         onSelected = onSelected,
         filterChipLabel = {
             Text(
-                text = searchFilterItemUiState.selectedValues.ifEmpty {
+                text = dropdownFilterChipUiState.selectedValues.ifEmpty {
                     filterChipLabelDefaultText
                 },
             )
@@ -132,7 +132,7 @@ fun <T> DropdownFilterChip(
             )
         },
         dropdownMenuItemLeadingIcon = { item ->
-            if (searchFilterItemUiState.selectedItems.contains(item)) {
+            if (dropdownFilterChipUiState.selectedItems.contains(item)) {
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = null,
