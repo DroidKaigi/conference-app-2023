@@ -2,7 +2,10 @@
 
 source "https://rubygems.org"
 
-ruby file: ".ruby-version"
+repo_root = `git rev-parse --show-toplevel`.chop
+File.open("#{repo_root}/.ruby-version", "r") do |f|
+    ruby file: f
+end
 
 gem 'fastlane', '2.214.0'
 gem 'danger', '9.3.0'
