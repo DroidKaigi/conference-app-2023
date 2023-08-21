@@ -7,7 +7,7 @@
 ## Links
 - 
 
-## Screenshot (Optional if no screenshot test or unrelated to UI)
+## Screenshot (Optional if screenshot test is present or unrelated to UI)
 Before | After
 :--: | :--:
 <img src="" width="300" /> | <img src="" width="300" />
