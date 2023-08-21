@@ -86,7 +86,7 @@ platform :ios do
       xcargs: "-skipPackagePluginValidation",
       project: project,
       scheme: scheme,
-      derived_data_path: derived_data_path,
+      derivedDataPath: derived_data_path,
       destination: destination
     )
   end
@@ -98,7 +98,7 @@ platform :ios do
       project: project,
       scheme: scheme,
       skip_build: true,
-      derived_data_path: derived_data_path,
+      derivedDataPath: derived_data_path,
       devices: ["iPhone 14 Pro"]
     )
   end
