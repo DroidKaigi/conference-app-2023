@@ -8,10 +8,10 @@ runs:
       with:
         path: |
           app-ios/build/DerivedData/SourcePackages
-        key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hasFiles('app-ios/Modules/Package.swift') }}-${{ hasFiles('app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+        key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hashFiles('app-ios/Modules/Package.swift') }}-${{ hashFiles('app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
         restore-keys: |
-          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hasFiles('app-ios/Modules/Package.swift') }}-${{ hasFiles('app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
-          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hasFiles('app-ios/Modules/Package.swift') }}
+          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hashFiles('app-ios/Modules/Package.swift') }}-${{ hashFiles('app-ios/App/DroidKaigi2023/DroidKaigi2023.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ hashFiles('app-ios/Modules/Package.swift') }}
 
     - uses: andstor/file-existence-action@20b4d2e596410855db8f9ca21e96fbe18e12930b # v2
       id: spm-cache
