@@ -70,17 +70,17 @@ fun Project.setupAndroid() {
 
 fun Project.setupDetekt(extension: DetektExtension) {
     extension.apply {
-        // 並列処理
+        // parallel processing
         parallel = true
-        // Detektの設定ファイル
+        // detekt configuration file
         config = files("${project.rootDir}/config/detekt/detekt.yml")
-        // baseline 設定ファイル
+        // baseline configuration file
         baseline = file("${project.rootDir}/config/detekt/baseline.xml")
-        // デフォルト設定の上に自分の設定ファイルを適用する
+        // apply your own configuration file on top of the default settings
         buildUponDefaultConfig = true
-        // ルール違反があった場合にfailさせない
+        // do not let them fail when there is a rule violation
         ignoreFailures = false
-        // ルール違反の自動修正を試みる
+        // attempt to automatically correct rule violations
         autoCorrect = false
 
         source = files(project.files("./").asFileTree.files)
