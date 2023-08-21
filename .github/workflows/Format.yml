@@ -11,9 +11,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-permissions:
-  pull-requests: write # for creating a comment on pull requests
-
 jobs:
   format:
     permissions:
@@ -42,15 +39,6 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cat ./build/reports/detekt/merge.xml |
           reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
-
-      - name: Comment lint check success
-        if: steps.detekt.outcome == 'success'
-        uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2.8.0
-        with:
-          header: detekt
-          recreate: true
-          message: |
-            :sparkles: :sparkles: **That's perfect, passed the PR lint check perfectly!** :sparkles: :sparkles:
 
       - name: Check lint
         uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
