@@ -26,11 +26,7 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - name: Check spotless
-        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
-        with:
-          gradle-home-cache-cleanup: true
-          arguments: spotlessCheck --stacktrace
+      - run: ./gradlew spotlessCheck --stacktrace
 
 #      - uses: reviewdog/action-setup@v1.0.6
 #

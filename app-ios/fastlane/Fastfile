@@ -81,6 +81,7 @@ platform :ios do
 
   desc "Build DroidKaigi2023 project"
   lane :build_project do
+    shared
     xcodebuild(
       xcargs: "-skipPackagePluginValidation",
       project: project,

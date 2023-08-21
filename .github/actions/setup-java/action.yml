@@ -1,4 +1,5 @@
-name: 'Setup JDK'
+name: "Setup JDK"
+description: "setup JDK and gradle caching"
 
 inputs:
   java-version:
@@ -28,3 +29,17 @@ runs:
       uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2.7.0
       with:
         gradle-version: wrapper
+
+    - name: set konan cache key
+      id: konan-cache-key
+      run: echo "KEY=$(eval find . -name \"build.gradle*\" -o -name \"settings.gradle*\" | sort | xargs cat | shasum | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+
+    - name: cache Konan
+      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+      with:
+        path: |
+          ~/.konan
+        key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KEY }}
+        restore-keys: |
+          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KEY }}
+          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}

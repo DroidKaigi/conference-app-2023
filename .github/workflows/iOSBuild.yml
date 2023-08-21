@@ -17,8 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: Select Xcode
-        run: sudo xcode-select -s '/Applications/Xcode_15.0.app'
+      - uses: ./.github/actions/xcode-select
 
       - uses: ./.github/actions/setup-java
 
@@ -29,12 +28,6 @@ jobs:
 
       - name: Set up XCFramework arch filter
         run: echo "arch=x86_64" >> local.properties
-
-      - name: Build KMM Module
-        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
-        with:
-          gradle-home-cache-cleanup: true
-          arguments: :app-ios-shared:assembleSharedReleaseXCFramework --stacktrace
 
       - name: Build App
         working-directory: app-ios
