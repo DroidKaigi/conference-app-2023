@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Celebration
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Link
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -133,7 +133,7 @@ fun FloorMapSideEventItem(
                             shape = RoundedCornerShape(16.dp),
                         ),
                     painter = previewOverride(
-                        previewPainter = { rememberVectorPainter(image = Icons.Default.Person) },
+                        previewPainter = { rememberVectorPainter(image = Icons.Default.Celebration) },
                         painter = { rememberAsyncImagePainter(url) },
                     ),
                     contentScale = ContentScale.Crop,

@@ -25,6 +25,7 @@ fun TimetableItemDetailBottomAppBar(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
     onBookmarkClick: (TimetableItem) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     BottomAppBar(
@@ -36,7 +37,7 @@ fun TimetableItemDetailBottomAppBar(
                     contentDescription = SessionsStrings.Share.asString(),
                 )
             }
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onCalendarRegistrationClick(timetableItem) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.calendar_add_on),
                     contentDescription = SessionsStrings.AddToCalendar.asString(),

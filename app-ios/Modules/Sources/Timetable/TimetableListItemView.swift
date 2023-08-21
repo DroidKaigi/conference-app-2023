@@ -21,7 +21,7 @@ struct TimetableListItemView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 4)
                             .inset(by: 0.5)
-                            .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                            .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                     )
                     .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                 Spacer().frame(height: 12)
