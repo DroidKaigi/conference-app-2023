@@ -6,7 +6,7 @@ runs:
     - name: read .xcode-version
       shell: bash
       run: |
-        echo "XCODE_VERSION=$(grep -oP "\d+(\.\d+)+" .xcode-version | awk -F. '{print $1 ".0"}' | uniq)" >> $GITHUB_ENV
+        echo "XCODE_VERSION=$(grep -oE "\d+(\.\d+)+" .xcode-version | awk -F. '{print $1 ".0"}' | uniq)" >> $GITHUB_ENV
 
     - name: execute xcode-select
       shell: bash
