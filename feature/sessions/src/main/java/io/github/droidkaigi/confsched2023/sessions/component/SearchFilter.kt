@@ -3,11 +3,15 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
@@ -102,6 +106,17 @@ fun SearchFilter(
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )
+        }
+    }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun SearchFilterPreview() {
+    KaigiTheme {
+        Surface {
+            SearchFilter(searchFilterUiState = SearchFilterUiState())
         }
     }
 }

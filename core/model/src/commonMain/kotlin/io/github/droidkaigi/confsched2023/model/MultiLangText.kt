@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.model
 
-public data class MultiLangText(
+data class MultiLangText(
     val jaTitle: String,
     val enTitle: String,
 ) {
@@ -13,6 +13,4 @@ public data class MultiLangText(
             enTitle
         }
     }
-
-    public companion object
 }

@@ -12,23 +12,23 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 
-public sealed class TimetableItem {
-    public abstract val id: TimetableItemId
-    public abstract val title: MultiLangText
-    public abstract val startsAt: Instant
-    public abstract val endsAt: Instant
-    public abstract val category: TimetableCategory
-    public abstract val sessionType: TimetableSessionType
-    public abstract val room: TimetableRoom
-    public abstract val targetAudience: String
-    public abstract val language: TimetableLanguage
-    public abstract val asset: TimetableAsset
-    public abstract val levels: PersistentList<String>
-    public abstract val speakers: PersistentList<TimetableSpeaker>
-    public val day: DroidKaigi2023Day? get() = DroidKaigi2023Day.ofOrNull(startsAt)
+sealed class TimetableItem {
+    abstract val id: TimetableItemId
+    abstract val title: MultiLangText
+    abstract val startsAt: Instant
+    abstract val endsAt: Instant
+    abstract val category: TimetableCategory
+    abstract val sessionType: TimetableSessionType
+    abstract val room: TimetableRoom
+    abstract val targetAudience: String
+    abstract val language: TimetableLanguage
+    abstract val asset: TimetableAsset
+    abstract val levels: PersistentList<String>
+    abstract val speakers: PersistentList<TimetableSpeaker>
+    val day: DroidKaigi2023Day? get() = DroidKaigi2023Day.ofOrNull(startsAt)
 
     @Serializable
-    public data class Session(
+    data class Session(
         override val id: TimetableItemId,
         override val title: MultiLangText,
         override val startsAt: Instant,
@@ -44,11 +44,11 @@ public sealed class TimetableItem {
         val description: String,
         val message: MultiLangText?,
     ) : TimetableItem() {
-        public companion object
+        companion object
     }
 
     @Serializable
-    public data class Special(
+    data class Special(
         override val id: TimetableItemId,
         override val title: MultiLangText,
         override val startsAt: Instant,
@@ -65,15 +65,18 @@ public sealed class TimetableItem {
 
     private val startsDateString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
-        "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(2, '0') + "." + "${localDate.dayOfMonth}".padStart(2, '0')
+        "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(
+            2,
+            '0'
+        ) + "." + "${localDate.dayOfMonth}".padStart(2, '0')
     }
 
-    public val startsTimeString: String by lazy {
+    val startsTimeString: String by lazy {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
 
-    public val endsTimeString: String by lazy {
+    val endsTimeString: String by lazy {
         val localDate = endsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
     }
@@ -84,11 +87,11 @@ public sealed class TimetableItem {
         "${minutes}min"
     }
 
-    public val formattedDateTimeString: String by lazy {
+    val formattedDateTimeString: String by lazy {
         "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
     }
 
-    public val speakerString: String by lazy {
+    val speakerString: String by lazy {
         speakers.joinToString(", ") { it.name }
     }
 
@@ -108,7 +111,7 @@ public sealed class TimetableItem {
     }
 }
 
-public fun Session.Companion.fake(): Session {
+fun Session.Companion.fake(): Session {
     return Session(
         id = TimetableItemId("2"),
         title = MultiLangText("DroidKaigiのアプリのアーキテクチャ", "DroidKaigi App Architecture"),
