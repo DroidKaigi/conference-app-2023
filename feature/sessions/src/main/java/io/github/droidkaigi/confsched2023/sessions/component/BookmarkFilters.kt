@@ -1,8 +1,11 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +37,9 @@ fun BookmarkFilters(
     onDayThirdChipClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(modifier) {
+    Row(modifier
+            .horizontalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp)) {
         BookmarkFilterChip(
             labelText = SessionsStrings.BookmarkFilterAllChip.asString(),
             isSelected = isAll,
