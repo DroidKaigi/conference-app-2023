@@ -1,11 +1,14 @@
 package io.github.droidkaigi.confsched2023.floormap
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -22,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +43,7 @@ import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
+import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.toImmutableList
@@ -115,40 +120,106 @@ private fun FloorMapScreen(
             )
         },
         content = { innerPadding ->
-            Box(
+            BoxWithConstraints(
                 Modifier
                     .padding(innerPadding)
                     .padding(horizontal = 16.dp),
             ) {
-                Column(
-                    Modifier
-                        .fillMaxSize(),
-                ) {
-                    FloorMap(uiState = uiState.floorMapUiState)
-                    FloorMapSideEventList(
-                        uiState = uiState.floorMapSideEventListUiState,
+                // FIXME The LargeScreen decision is the magic coat. Any good ideas?
+                val density = LocalDensity.current.density
+                if (density > 2.5f && maxWidth >= 400.dp) {
+                    LargeScreenContent(
+                        uiState = uiState,
                         onSideEventClick = onSideEventClick,
+                    )
+                } else {
+                    MobileContent(
+                        uiState = uiState,
+                        onSideEventClick = onSideEventClick,
+                    )
+                    FloorLevelSwitcher(
+                        selectingFloorLevel = uiState.floorLevel,
+                        onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
                         modifier = Modifier
-                            .weight(1f)
-                            .padding(bottom = 56.dp)
-                            .fadingEdge(
-                                Brush.verticalGradient(
-                                    0.85f to Color.Black,
-                                    1f to Color.Transparent,
-                                ),
-                            ),
+                            .align(Alignment.BottomCenter)
+                            .padding(bottom = 24.dp),
                     )
                 }
-                FloorLevelSwitcher(
-                    selectingFloorLevel = uiState.floorLevel,
-                    onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 24.dp),
-                )
             }
-        },
+        }
     )
+}
+
+@Composable
+private fun MobileContent(
+    uiState: FloorMapScreenUiState,
+    onSideEventClick: (url: String) -> Unit,
+) {
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        FloorMap(uiState = uiState.floorMapUiState)
+        FloorMapSideEventList(
+            uiState = uiState.floorMapSideEventListUiState,
+            onSideEventClick = onSideEventClick,
+            modifier = Modifier
+                .weight(1f)
+                .padding(bottom = 56.dp)
+                .fadingEdge(
+                    Brush.verticalGradient(
+                        0.85f to Color.Black,
+                        1f to Color.Transparent,
+                    ),
+                ),
+        )
+    }
+}
+
+@Composable
+private fun LargeScreenContent(
+    uiState: FloorMapScreenUiState,
+    onSideEventClick: (url: String) -> Unit,
+) {
+    Row(
+        Modifier
+            .fillMaxSize(),
+    ) {
+        Column(
+            modifier = Modifier.weight(0.8f)
+        ) {
+            FloorMap(uiState = FloorMapUiState.of(Basement))
+            FloorMapSideEventList(
+                uiState = uiState.floorMapSideEventListUiState,
+                onSideEventClick = onSideEventClick,
+                modifier = Modifier
+                    .weight(1f)
+                    .fadingEdge(
+                        Brush.verticalGradient(
+                            0.85f to Color.Black,
+                            1f to Color.Transparent,
+                        ),
+                    ),
+            )
+        }
+        Spacer(modifier = Modifier.width(16.dp))
+        Column(
+            modifier = Modifier.weight(0.8f)
+        ) {
+            FloorMap(uiState = FloorMapUiState.of(Ground))
+            FloorMapSideEventList(
+                uiState = uiState.floorMapSideEventListUiState,
+                onSideEventClick = onSideEventClick,
+                modifier = Modifier
+                    .weight(1f)
+                    .fadingEdge(
+                        Brush.verticalGradient(
+                            0.85f to Color.Black,
+                            1f to Color.Transparent,
+                        ),
+                    ),
+            )
+        }
+    }
 }
 
 @MultiThemePreviews
