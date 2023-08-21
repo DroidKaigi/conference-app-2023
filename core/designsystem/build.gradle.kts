@@ -12,6 +12,15 @@ plugins {
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.designsystem"
 
+android {
+    sourceSets {
+        named("main") {
+            res.srcDirs("src/commonMain/resources", "src/androidMain/resources")
+            resources.srcDirs("src/commonMain/resources")
+        }
+    }
+}
+
 kotlin {
     sourceSets {
         commonMain {
