@@ -10,6 +10,7 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 class EntryPoint {
+    // Please EntryPoint.get() instead of this property
     lateinit var koinApplication: KoinApplication
     fun init(
         baseUrl: String = "https://ssot-api-staging.an.r.appspot.com/",
