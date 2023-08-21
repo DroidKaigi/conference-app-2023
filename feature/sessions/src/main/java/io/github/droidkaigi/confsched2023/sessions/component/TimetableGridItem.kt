@@ -175,7 +175,7 @@ private fun MultiSpeakers(
     Row(
         modifier = modifier.height(TimetableGridItemSizes.speakerHeight),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         speakers.forEach { speaker ->
             SpeakerIcon(speaker.iconUrl)
