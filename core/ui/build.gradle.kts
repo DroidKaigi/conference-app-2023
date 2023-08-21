@@ -6,6 +6,7 @@ plugins {
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.spotless")
     id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.detekt")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.ui"
