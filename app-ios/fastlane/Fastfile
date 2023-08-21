@@ -35,8 +35,9 @@ platform :ios do
   lane :clean_project do
     xcodebuild(
       clean: true,
-      alltargets: true,
-      project: project
+      project: project,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
     )
     sh("rm -rf #{root_dir}/app-ios/build")
     sh("rm -rf ~/Library/Developer/Xcode/DerivedData/#{scheme}-*")
