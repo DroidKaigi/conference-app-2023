@@ -1,0 +1,15 @@
+name: "select xcode"
+description: "select xcode defined at .xcode-version"
+runs:
+  using: "composite"
+  steps:
+    - name: read .xcode-version
+      shell: bash
+      run: |
+        echo "XCODE_VERSION=$(grep -oE "\d+(\.\d+)+" .xcode-version | awk -F. '{print $1 ".0"}' | uniq)" >> $GITHUB_ENV
+
+    - name: execute xcode-select
+      shell: bash
+      run: |
+        echo "select $XCODE_VERSION"
+        sudo xcode-select --switch "/Applications/Xcode_$XCODE_VERSION.app"

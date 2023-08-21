@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "1500"
+   version = "1.8">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D77DAF6C29FAA148007195DB"
+               BuildableName = "DroidKaigi2023.app"
+               BlueprintName = "DroidKaigi2023"
+               ReferencedContainer = "container:DroidKaigi2023.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SessionTests"
+               BuildableName = "SessionTests"
+               BlueprintName = "SessionTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TimetableTests"
+               BuildableName = "TimetableTests"
+               BlueprintName = "TimetableTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FloorMapTests"
+               BuildableName = "FloorMapTests"
+               BlueprintName = "FloorMapTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AboutTests"
+               BuildableName = "AboutTests"
+               BlueprintName = "AboutTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "StampsTests"
+               BuildableName = "StampsTests"
+               BlueprintName = "StampsTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ModelTests"
+               BuildableName = "ModelTests"
+               BlueprintName = "ModelTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SponsorTests"
+               BuildableName = "SponsorTests"
+               BlueprintName = "SponsorTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ComponentTests"
+               BuildableName = "ComponentTests"
+               BlueprintName = "ComponentTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ContributorTests"
+               BuildableName = "ContributorTests"
+               BlueprintName = "ContributorTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "KMPContainerTests"
+               BuildableName = "KMPContainerTests"
+               BlueprintName = "KMPContainerTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D77DAF7D29FAA14A007195DB"
+               BuildableName = "DroidKaigi2023Tests.xctest"
+               BlueprintName = "DroidKaigi2023Tests"
+               ReferencedContainer = "container:DroidKaigi2023.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AboutTests"
+               BuildableName = "AboutTests"
+               BlueprintName = "AboutTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ComponentTests"
+               BuildableName = "ComponentTests"
+               BlueprintName = "ComponentTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ContributorTests"
+               BuildableName = "ContributorTests"
+               BlueprintName = "ContributorTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "FloorMapTests"
+               BuildableName = "FloorMapTests"
+               BlueprintName = "FloorMapTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "KMPContainerTests"
+               BuildableName = "KMPContainerTests"
+               BlueprintName = "KMPContainerTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "ModelTests"
+               BuildableName = "ModelTests"
+               BlueprintName = "ModelTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SessionTests"
+               BuildableName = "SessionTests"
+               BlueprintName = "SessionTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SponsorTests"
+               BuildableName = "SponsorTests"
+               BlueprintName = "SponsorTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "StampsTests"
+               BuildableName = "StampsTests"
+               BlueprintName = "StampsTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "TimetableTests"
+               BuildableName = "TimetableTests"
+               BlueprintName = "TimetableTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
+      <TestableReference
+         skipped = "skipped"
+         parallelizable = "parallelizable"
+         testExecutionOrdering = "testExecutionOrdering">
+         <BuildableReference
+            BuildableIdentifier = "BuildableIdentifier"
+            BlueprintIdentifier = "BlueprintIdentifier"
+            BuildableName = "BuildableName"
+            BlueprintName = "BlueprintName"
+            ReferencedContainer = "ReferencedContainer">
+         </BuildableReference>
+      </TestableReference>
+      <TestableReference
+         skipped = "skipped"
+         parallelizable = "parallelizable"
+         testExecutionOrdering = "testExecutionOrdering">
+         <BuildableReference
+            BuildableIdentifier = "BuildableIdentifier"
+            BlueprintIdentifier = "BlueprintIdentifier"
+            BuildableName = "BuildableName"
+            BlueprintName = "BlueprintName"
+            ReferencedContainer = "ReferencedContainer">
+         </BuildableReference>
+      </TestableReference>
+      <TestableReference
+         skipped = "skipped"
+         parallelizable = "parallelizable"
+         testExecutionOrdering = "testExecutionOrdering">
+         <BuildableReference
+            BuildableIdentifier = "BuildableIdentifier"
+            BlueprintIdentifier = "BlueprintIdentifier"
+            BuildableName = "BuildableName"
+            BlueprintName = "BlueprintName"
+            ReferencedContainer = "ReferencedContainer">
+         </BuildableReference>
+      </TestableReference>
+      <TestableReference
+         skipped = "skipped"
+         parallelizable = "parallelizable"
+         testExecutionOrdering = "testExecutionOrdering">
+         <BuildableReference
+            BuildableIdentifier = "BuildableIdentifier"
+            BlueprintIdentifier = "BlueprintIdentifier"
+            BuildableName = "BuildableName"
+            BlueprintName = "BlueprintName"
+            ReferencedContainer = "ReferencedContainer">
+         </BuildableReference>
+      </TestableReference>
+      <TestableReference
+         skipped = "skipped"
+         parallelizable = "parallelizable"
+         testExecutionOrdering = "testExecutionOrdering">
+         <BuildableReference
+            BuildableIdentifier = "BuildableIdentifier"
+            BlueprintIdentifier = "BlueprintIdentifier"
+            BuildableName = "BuildableName"
+            BlueprintName = "BlueprintName"
+            ReferencedContainer = "ReferencedContainer">
+         </BuildableReference>
+      </TestableReference>
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D77DAF6C29FAA148007195DB"
+            BuildableName = "DroidKaigi2023.app"
+            BlueprintName = "DroidKaigi2023"
+            ReferencedContainer = "container:DroidKaigi2023.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D77DAF6C29FAA148007195DB"
+            BuildableName = "DroidKaigi2023.app"
+            BlueprintName = "DroidKaigi2023"
+            ReferencedContainer = "container:DroidKaigi2023.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>
