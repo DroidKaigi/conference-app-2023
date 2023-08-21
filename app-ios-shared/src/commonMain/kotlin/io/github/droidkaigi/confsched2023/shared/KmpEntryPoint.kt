@@ -9,7 +9,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import kotlin.reflect.KClass
 
-class EntryPoint {
+class KmpEntryPoint{
     // Please EntryPoint.get() instead of this property
     lateinit var koinApplication: KoinApplication
     fun init(
