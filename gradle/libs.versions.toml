@@ -20,6 +20,7 @@ junit = "4.13.2"
 androidxTestExt = "1.1.5"
 androidxTestEspresso = "3.5.1"
 dagger = "2.47"
+koin = "3.4.3"
 spotless = "6.20.0"
 ktlint = "0.49.1"
 kotlinxSerialization = "1.5.1"
@@ -53,6 +54,9 @@ androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs"
 daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 daggerHiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+
+# for iOS
+koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 
