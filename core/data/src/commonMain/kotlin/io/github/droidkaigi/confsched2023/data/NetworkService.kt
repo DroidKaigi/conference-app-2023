@@ -11,6 +11,7 @@ import kotlinx.coroutines.TimeoutCancellationException
 
 public class NetworkService(public val httpClient: HttpClient, public val authApi: AuthApi) {
 
+    @Suppress("SwallowedException")
     public suspend inline operator fun <reified T : Any> invoke(
         block: () -> T,
     ): T = try {

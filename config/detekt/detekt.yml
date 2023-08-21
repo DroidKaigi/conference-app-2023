@@ -20,7 +20,7 @@ naming:
     ignoreAnnotated:
       - 'Composable'
   MatchingDeclarationName:
-    mustBeFirst: false
+    active: false
   PackageNaming:
     active: false
   TopLevelPropertyNaming:

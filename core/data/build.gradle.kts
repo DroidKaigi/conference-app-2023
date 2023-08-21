@@ -3,7 +3,6 @@ plugins {
     id("droidkaigi.primitive.kmp.android")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.kmp.ios")
-    id("droidkaigi.primitive.spotless")
     id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.kmp.ktorfit")
     id("droidkaigi.primitive.kmp.serialization")

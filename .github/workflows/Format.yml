@@ -11,8 +11,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-permissions: {}
-
 jobs:
   format:
     permissions:
@@ -26,7 +24,7 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - run: ./gradlew spotlessCheck --stacktrace
+      - uses: reviewdog/action-setup@v1.0.6
 
 #      - uses: reviewdog/action-setup@v1.0.6
 #
@@ -52,11 +50,17 @@ jobs:
 #          recreate: true
 #          message: |
 #            :sparkles: :sparkles: **That's perfect, passed the PR lint check perfectly!** :sparkles: :sparkles:
+      - id: detekt
+        run: ./gradlew detekt reportMerge --continue
 
-      - name: Check lint
-        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
-        with:
-          arguments: lintDebug lintDevDebug --stacktrace
+      - name: Run report with ReviewDog
+        if: steps.detekt.outcome == 'failure'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat ./build/reports/detekt/merge.xml | reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
+
+      - run: ./gradlew lintDebug lintDevDebug --stacktrace
 
       - name: Upload lint reports
         if: always()

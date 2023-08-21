@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+import kotlinx.collections.immutable.toImmutableList
 
 data class SearchFilterUiState(
     val categories: List<TimetableCategory> = emptyList(),
@@ -67,18 +68,18 @@ fun SearchFilter(
         item {
             FilterDayChip(
                 isSelected = searchFilterUiState.isDaySelected,
-                selectedDays = searchFilterUiState.selectedDays,
+                selectedDays = searchFilterUiState.selectedDays.toImmutableList(),
                 selectedDaysValues = searchFilterUiState.selectedDaysValues,
-                kaigiDays = DroidKaigi2023Day.entries.toList(),
+                kaigiDays = DroidKaigi2023Day.entries.toImmutableList(),
                 onDaySelected = onDaySelected,
             )
         }
         item {
             FilterCategoryChip(
                 isSelected = searchFilterUiState.isCategoriesSelected,
-                selectedCategories = searchFilterUiState.selectedCategories,
+                selectedCategories = searchFilterUiState.selectedCategories.toImmutableList(),
                 selectedCategoriesValues = searchFilterUiState.selectedCategoriesValue,
-                categories = searchFilterUiState.categories,
+                categories = searchFilterUiState.categories.toImmutableList(),
                 onCategoriesSelected = onCategoriesSelected,
                 onFilterCategoryChipClicked = { keyboardController?.hide() },
             )
@@ -86,9 +87,9 @@ fun SearchFilter(
         item {
             FilterSessionTypeChip(
                 isSelected = searchFilterUiState.isSessionTypeSelected,
-                selectedSessionTypes = searchFilterUiState.selectedSessionTypes,
+                selectedSessionTypes = searchFilterUiState.selectedSessionTypes.toImmutableList(),
                 selectedSessionTypesValues = searchFilterUiState.selectedSessionTypesValue,
-                sessionTypes = searchFilterUiState.sessionTypes,
+                sessionTypes = searchFilterUiState.sessionTypes.toImmutableList(),
                 onSessionTypeSelected = onSessionTypesSelected,
                 onFilterSessionTypeChipClicked = { keyboardController?.hide() },
             )
@@ -96,9 +97,9 @@ fun SearchFilter(
         item {
             FilterLanguageChip(
                 isSelected = searchFilterUiState.isLanguagesSelected,
-                selectedLanguages = searchFilterUiState.selectedLanguages,
+                selectedLanguages = searchFilterUiState.selectedLanguages.toImmutableList(),
                 selectedLanguagesValues = searchFilterUiState.selectedLanguagesValue,
-                languages = listOf(Lang.JAPANESE, Lang.ENGLISH),
+                languages = listOf(Lang.JAPANESE, Lang.ENGLISH).toImmutableList(),
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
             )
