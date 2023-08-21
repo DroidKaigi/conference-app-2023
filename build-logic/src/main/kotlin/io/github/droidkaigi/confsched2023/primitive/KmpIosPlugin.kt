@@ -18,7 +18,8 @@ class KmpIosPlugin : Plugin<Project> {
             }
 
             kotlin {
-                // https://github.com/JetBrains/compose-multiplatform/issues/3135#issuecomment-1655877617
+                // TODO: remove after 1.5 release
+                //  https://github.com/JetBrains/compose-multiplatform/issues/3135#issuecomment-1655877617
                 val simulatorLinkerOptions = listOf(
                     "-linker-option", "-framework", "-linker-option", "Metal",
                     "-linker-option", "-framework", "-linker-option", "CoreText",
