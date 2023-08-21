@@ -33,14 +33,14 @@ runs:
     - name: set konan cache key
       id: konan-cache-key
       shell: bash
-      run: echo "KEY=$(eval find . -name \"build.gradle*\" -o -name \"settings.gradle*\" -o -name \"libs.versions.toml\" | sort | xargs cat | shasum | awk '{print $1}')" >> "$GITHUB_OUTPUT"
+      run: |
+        echo "KOTLIN_VERSION=$(grep -oE 'kotlin\s*=\s*"[0-9.]*"' gradle/libs.versions.toml | grep -oE '[0-9.]+'" >> $GITHUB_ENV
+        echo "KOTLIN_VERSION=$(grep -oE 'kotlin\s*=\s*"[0-9.]*"' gradle/libs.versions.toml | grep -oE '[0-9.]+'" >> $GITHUB_OUTPUT
+        echo "$KOTLIN_VERSION"
 
     - name: cache Konan
       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
       with:
         path: |
           ~/.konan
-        key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KEY }}
-        restore-keys: |
-          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KEY }}
-          v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}
+        key: v1-konan-${{ runner.os }}-${{ hashFiles('.xcode-version') }}-${{ steps.konan-cache-key.outputs.KOTLIN_VERSION }}

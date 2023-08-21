@@ -66,7 +66,7 @@ platform :ios do
   lane :resolved_package do
     xcodebuild(
       xcargs: "-resolvePackageDependencies",
-      workspace: workspace,
+      project: project,
       scheme: scheme,
       derivedDataPath: derived_data_path,
     )
@@ -94,7 +94,7 @@ platform :ios do
   lane :test do
     shared
     scan(
-      workspace: workspace,
+      project: project,
       scheme: scheme,
       skip_build: true,
       derived_data_path: derived_data_path,
