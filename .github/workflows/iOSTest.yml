@@ -1,4 +1,4 @@
-name: iOS Build
+name: iOS Test
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
   pull_request:
 
 concurrency:
-  group: ios-build-${{ github.ref }}
+  group: ios-test-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-ios:
+  test-ios:
     runs-on: macos-13
 
     steps:
@@ -31,5 +31,5 @@ jobs:
 
       - uses: ./.github/actions/spm
 
-      - run: bundle exec fastlane build
+      - run: bundle exec fastlane test
         working-directory: app-ios

@@ -80,7 +80,7 @@ platform :ios do
   end
 
   desc "Build DroidKaigi2023 project"
-  lane :build_project do
+  lane :build do
     shared
     xcodebuild(
       xcargs: "-skipPackagePluginValidation",
@@ -98,8 +98,8 @@ platform :ios do
       project: project,
       scheme: scheme,
       skip_build: true,
-      derivedDataPath: derived_data_path,
-      devices: ["iPhone 14 Pro"]
+      derived_data_path: derived_data_path,
+      destination: destination
     )
   end
 end
