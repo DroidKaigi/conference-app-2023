@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.sessions.component
+package io.github.droidkaigi.confsched2023.designsystem.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,8 +14,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-internal fun TimetableLoadingContent(
+fun LoadingText(
     modifier: Modifier = Modifier,
+    text: String = "Loading...",
 ) {
     Column(
         modifier = modifier,
@@ -29,7 +30,7 @@ internal fun TimetableLoadingContent(
 
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = "Loading...",
+            text = text,
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.bodyMedium,
             overflow = TextOverflow.Ellipsis,
