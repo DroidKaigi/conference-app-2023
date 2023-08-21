@@ -10,6 +10,7 @@ import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
+import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
@@ -65,15 +66,7 @@ public class ApiModule {
     @Provides
     @Singleton
     fun provideKtorJsonSettings(): Json {
-        return Json {
-            encodeDefaults = true
-            isLenient = true
-            allowSpecialFloatingPointValues = true
-            allowStructuredMapKeys = true
-            prettyPrint = false
-            useArrayPolymorphism = false
-            ignoreUnknownKeys = true
-        }
+        return defaultJson()
     }
 
     @Provides

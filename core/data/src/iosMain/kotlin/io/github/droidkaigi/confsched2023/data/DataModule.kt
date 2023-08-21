@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClien
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
+import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultStampRepository
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsApiClient
@@ -51,15 +52,7 @@ public val dataModule: Module = module {
         }
     }
     single {
-        Json {
-            encodeDefaults = true
-            isLenient = true
-            allowSpecialFloatingPointValues = true
-            allowStructuredMapKeys = true
-            prettyPrint = false
-            useArrayPolymorphism = false
-            ignoreUnknownKeys = true
-        }
+        defaultJson()
     }
     single {
         Ktorfit

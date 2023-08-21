@@ -7,26 +7,38 @@ import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import kotlin.reflect.KClass
 
-object EntryPoint {
-    fun koinApplication(
+class EntryPoint {
+    lateinit var koinApplication: KoinApplication
+    fun init(
         baseUrl: String = "https://ssot-api-staging.an.r.appspot.com/",
         remoteConfigApi: RemoteConfigApi,
         authenticator: Authenticator,
-    ): KoinApplication = startKoin {
-        modules(
-            dataModule,
-            module {
-                single {
-                    BaseUrl(baseUrl)
+    ) {
+        koinApplication = startKoin {
+            modules(
+                dataModule,
+                module {
+                    single {
+                        BaseUrl(baseUrl)
+                    }
+                    single {
+                        remoteConfigApi
+                    }
+                    single {
+                        authenticator
+                    }
                 }
-                single {
-                    remoteConfigApi
-                }
-                single {
-                    authenticator
-                }
-            }
-        )
+            )
+        }
+    }
+
+    inline fun <reified T : Any> get(): T {
+        return koinApplication.koin.get(T::class)
+    }
+
+    fun <T : Any> get(clazz: KClass<T>): T {
+        return koinApplication.koin.get(clazz)
     }
 }

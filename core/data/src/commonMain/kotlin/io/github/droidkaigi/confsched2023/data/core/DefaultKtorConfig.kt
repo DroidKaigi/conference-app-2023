@@ -26,3 +26,15 @@ public fun HttpClientConfig<*>.defaultKtorConfig(
         }
     }
 }
+
+public fun defaultJson(): Json {
+    return Json {
+        encodeDefaults = true
+        isLenient = true
+        allowSpecialFloatingPointValues = true
+        allowStructuredMapKeys = true
+        prettyPrint = false
+        useArrayPolymorphism = false
+        ignoreUnknownKeys = true
+    }
+}
