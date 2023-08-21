@@ -11,7 +11,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-permissions: {}
+permissions:
+  pull-requests: write # for creating a comment on pull requests
 
 jobs:
   format:
@@ -44,7 +45,7 @@ jobs:
 
       - name: Comment lint check success
         if: steps.detekt.outcome == 'success'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2.8.0
         with:
           header: detekt
           recreate: true
