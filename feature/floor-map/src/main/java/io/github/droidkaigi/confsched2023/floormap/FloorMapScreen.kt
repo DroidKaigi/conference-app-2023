@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.floormap
 
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -126,32 +127,49 @@ private fun FloorMapScreen(
             )
         },
         content = { innerPadding ->
-            BoxWithConstraints(
-                Modifier
-                    .padding(innerPadding)
-                    .padding(horizontal = 16.dp),
-            ) {
-                if (widthSizeClass != WindowWidthSizeClass.Compact) {
-                    LargeScreenContent(
-                        uiState = uiState,
-                        onSideEventClick = onSideEventClick,
-                    )
-                } else {
-                    MobileContent(
-                        uiState = uiState,
-                        onSideEventClick = onSideEventClick,
-                    )
-                    FloorLevelSwitcher(
-                        selectingFloorLevel = uiState.floorLevel,
-                        onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
-                        modifier = Modifier
-                            .align(Alignment.BottomCenter)
-                            .padding(bottom = 24.dp),
-                    )
-                }
-            }
+            FloorMapContent(
+                innerPadding = innerPadding,
+                widthSizeClass = widthSizeClass,
+                uiState = uiState,
+                onSideEventClick = onSideEventClick,
+                onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
+            )
         },
     )
+}
+
+@Composable
+private fun FloorMapContent(
+    innerPadding: PaddingValues,
+    widthSizeClass: WindowWidthSizeClass,
+    uiState: FloorMapScreenUiState,
+    onSideEventClick: (url: String) -> Unit,
+    onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
+) {
+    BoxWithConstraints(
+        Modifier
+            .padding(innerPadding)
+            .padding(horizontal = 16.dp),
+    ) {
+        if (widthSizeClass != WindowWidthSizeClass.Compact) {
+            LargeScreenContent(
+                uiState = uiState,
+                onSideEventClick = onSideEventClick,
+            )
+        } else {
+            MobileContent(
+                uiState = uiState,
+                onSideEventClick = onSideEventClick,
+            )
+            FloorLevelSwitcher(
+                selectingFloorLevel = uiState.floorLevel,
+                onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 24.dp),
+            )
+        }
+    }
 }
 
 @Composable
