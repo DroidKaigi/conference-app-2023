@@ -17,6 +17,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -50,10 +51,12 @@ import kotlinx.collections.immutable.toImmutableList
 
 const val floorMapScreenRoute = "floorMap"
 fun NavGraphBuilder.nestedFloorMapScreen(
+    windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
 ) {
     composable(floorMapScreenRoute) {
         FloorMapScreen(
+            windowSize = windowSize,
             onSideEventClick = onSideEventClick,
         )
     }
@@ -70,6 +73,7 @@ const val FloorMapScreenTestTag = "FloorMapScreen"
 
 @Composable
 fun FloorMapScreen(
+    windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
     viewModel: FloorMapScreenViewModel = hiltViewModel<FloorMapScreenViewModel>(),
 ) {
@@ -82,6 +86,7 @@ fun FloorMapScreen(
     )
 
     FloorMapScreen(
+        widthSizeClass = windowSize.widthSizeClass,
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onSideEventClick = onSideEventClick,
@@ -98,6 +103,7 @@ data class FloorMapScreenUiState(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun FloorMapScreen(
+    widthSizeClass: WindowWidthSizeClass,
     uiState: FloorMapScreenUiState,
     snackbarHostState: SnackbarHostState,
     onSideEventClick: (url: String) -> Unit,
@@ -125,9 +131,7 @@ private fun FloorMapScreen(
                     .padding(innerPadding)
                     .padding(horizontal = 16.dp),
             ) {
-                // FIXME The LargeScreen decision is the magic coat. Any good ideas?
-                val density = LocalDensity.current.density
-                if (density > 2.5f && maxWidth >= 400.dp) {
+                if (widthSizeClass != WindowWidthSizeClass.Compact) {
                     LargeScreenContent(
                         uiState = uiState,
                         onSideEventClick = onSideEventClick,
@@ -240,6 +244,7 @@ fun PreviewFloorMapScreen() {
                 snackbarHostState = SnackbarHostState(),
                 onSideEventClick = {},
                 onClickFloorLevelSwitcher = {},
+                widthSizeClass = WindowWidthSizeClass.Compact,
             )
         }
     }
