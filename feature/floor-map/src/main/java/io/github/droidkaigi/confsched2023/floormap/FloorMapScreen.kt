@@ -146,7 +146,7 @@ private fun FloorMapScreen(
                     )
                 }
             }
-        }
+        },
     )
 }
 
@@ -156,7 +156,7 @@ private fun MobileContent(
     onSideEventClick: (url: String) -> Unit,
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         FloorMap(uiState = uiState.floorMapUiState)
         FloorMapSideEventList(
@@ -185,7 +185,7 @@ private fun LargeScreenContent(
             .fillMaxSize(),
     ) {
         Column(
-            modifier = Modifier.weight(0.8f)
+            modifier = Modifier.weight(0.8f),
         ) {
             FloorMap(uiState = FloorMapUiState.of(Basement))
             FloorMapSideEventList(
@@ -203,7 +203,7 @@ private fun LargeScreenContent(
         }
         Spacer(modifier = Modifier.width(16.dp))
         Column(
-            modifier = Modifier.weight(0.8f)
+            modifier = Modifier.weight(0.8f),
         ) {
             FloorMap(uiState = FloorMapUiState.of(Ground))
             FloorMapSideEventList(
