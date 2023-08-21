@@ -32,5 +32,6 @@ kotlin {
 }
 
 dependencies {
+    implementation(libs.kermit)
     lintChecks(libs.composeLintCheck)
 }

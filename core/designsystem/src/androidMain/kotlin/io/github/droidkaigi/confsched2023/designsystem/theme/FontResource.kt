@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.res.ResourcesCompat
+import co.touchlab.kermit.Logger
 import io.github.droidkaigi.confsched2023.core.designsystem.R
 import io.github.droidkaigi.confsched2023.designsystem.theme.FontResource.Montserrat
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -35,7 +36,8 @@ actual fun fontFamilyResource(fontResource: FontResource): MutableState<FontFami
                     )!!,
                 )
             } catch (e: Exception) {
-                null
+                Logger.e(e.message ?: "Please check if the font file specification is correct.")
+                throw e
             }
             fontMap[fontResource.resName] = state.value
         }
