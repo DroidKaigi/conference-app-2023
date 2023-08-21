@@ -31,11 +31,11 @@ data class SearchFilterItemUiState<T>(
     val selectedValues: String = "",
 )
 
-const val FilterChipWithDropdownMenuItemTestTag = "FilterChipWithDropdownMenuItem"
+const val DropdownFilterChipItemTestTag = "DropdownFilterChipItem"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun <T> FilterChipWithDropdownMenu(
+fun <T> DropdownFilterChip(
     searchFilterItemUiState: SearchFilterItemUiState<T>,
     onSelected: (T, Boolean) -> Unit,
     filterChipLabel: @Composable () -> Unit,
@@ -90,7 +90,7 @@ fun <T> FilterChipWithDropdownMenu(
                         )
                         shrinkMenu()
                     },
-                    modifier = Modifier.testTag(FilterChipWithDropdownMenuItemTestTag),
+                    modifier = Modifier.testTag(DropdownFilterChipItemTestTag),
                 )
             }
         }
@@ -98,7 +98,7 @@ fun <T> FilterChipWithDropdownMenu(
 }
 
 @Composable
-fun <T> FilterChipWithDropdownMenu(
+fun <T> DropdownFilterChip(
     searchFilterItemUiState: SearchFilterItemUiState<T>,
     onSelected: (T, Boolean) -> Unit,
     filterChipLabelDefaultText: String,
@@ -106,7 +106,7 @@ fun <T> FilterChipWithDropdownMenu(
     modifier: Modifier = Modifier,
     onFilterChipClick: (() -> Unit)? = null,
 ) {
-    FilterChipWithDropdownMenu(
+    DropdownFilterChip(
         modifier = modifier,
         searchFilterItemUiState = searchFilterItemUiState,
         onSelected = onSelected,

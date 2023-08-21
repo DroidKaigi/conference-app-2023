@@ -21,7 +21,7 @@ fun FilterSessionTypeChip(
     modifier: Modifier = Modifier,
     onFilterSessionTypeChipClicked: () -> Unit,
 ) {
-    FilterChipWithDropdownMenu(
+    DropdownFilterChip(
         searchFilterItemUiState = searchFilterItemUiState,
         onSelected = onSessionTypeSelected,
         filterChipLabelDefaultText = SessionType.asString(),

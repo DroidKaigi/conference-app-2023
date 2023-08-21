@@ -12,7 +12,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SearchScreen
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.FilterChipWithDropdownMenuItemTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
@@ -68,7 +68,7 @@ class SearchScreenRobot @Inject constructor(
 
     fun clickFirstDropdownMenuItem() {
         composeTestRule
-            .onAllNodes(hasTestTag(FilterChipWithDropdownMenuItemTestTag))
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
             .onFirst()
             .performClick()
         waitUntilIdle()
@@ -76,7 +76,7 @@ class SearchScreenRobot @Inject constructor(
 
     fun clickLastDropdownMenuItem() {
         composeTestRule
-            .onAllNodes(hasTestTag(FilterChipWithDropdownMenuItemTestTag))
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
             .onLast()
             .performClick()
         waitUntilIdle()

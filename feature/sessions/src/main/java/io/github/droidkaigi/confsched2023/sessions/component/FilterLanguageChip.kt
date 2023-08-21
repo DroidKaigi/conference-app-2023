@@ -21,7 +21,7 @@ fun FilterLanguageChip(
     modifier: Modifier = Modifier,
     onFilterLanguageChipClicked: () -> Unit,
 ) {
-    FilterChipWithDropdownMenu(
+    DropdownFilterChip(
         searchFilterItemUiState = searchFilterItemUiState,
         onSelected = onLanguagesSelected,
         filterChipLabelDefaultText = SupportedLanguages.asString(),

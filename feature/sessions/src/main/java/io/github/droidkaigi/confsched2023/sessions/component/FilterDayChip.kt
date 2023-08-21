@@ -21,7 +21,7 @@ fun FilterDayChip(
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    FilterChipWithDropdownMenu(
+    DropdownFilterChip(
         searchFilterItemUiState = searchFilterItemUiState,
         onSelected = onDaySelected,
         filterChipLabelDefaultText = SessionsStrings.EventDay.asString(),

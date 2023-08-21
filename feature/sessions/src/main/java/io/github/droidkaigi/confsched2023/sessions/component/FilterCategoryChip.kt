@@ -22,7 +22,7 @@ fun FilterCategoryChip(
     modifier: Modifier = Modifier,
     onFilterCategoryChipClicked: () -> Unit,
 ) {
-    FilterChipWithDropdownMenu(
+    DropdownFilterChip(
         searchFilterItemUiState = searchFilterItemUiState,
         onSelected = onCategoriesSelected,
         filterChipLabelDefaultText = SessionsStrings.Category.asString(),
