@@ -23,17 +23,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.component.LoadingText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -46,11 +45,13 @@ fun NavGraphBuilder.sessionScreens(
     onNavigationIconClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
+            onCalendarRegistrationClick = onCalendarRegistrationClick,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -62,12 +63,12 @@ fun NavGraphBuilder.sessionScreens(
 }
 
 fun NavController.navigateToTimetableItemDetailScreen(
-    timetableItemId: TimetableItemId,
+    timetableItem: TimetableItem,
 ) {
     navigate(
         timetableItemDetailScreenRoute.replace(
             "{$timetableItemDetailScreenRouteItemIdParameterName}",
-            timetableItemId.value,
+            timetableItem.id.value,
         ),
     )
 }
@@ -76,6 +77,7 @@ fun NavController.navigateToTimetableItemDetailScreen(
 fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -91,6 +93,7 @@ fun TimetableItemDetailScreen(
         onNavigationIconClick = onNavigationIconClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onLinkClick = onLinkClick,
+        onCalendarRegistrationClick = onCalendarRegistrationClick,
         snackbarHostState = snackbarHostState,
     )
 }
@@ -111,6 +114,7 @@ private fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -131,6 +135,7 @@ private fun TimetableItemDetailScreen(
                     timetableItem = uiState.timetableItem,
                     isBookmarked = uiState.isBookmarked,
                     onBookmarkClick = onBookmarkClick,
+                    onCalendarRegistrationClick = onCalendarRegistrationClick,
                 )
             }
         },
@@ -143,7 +148,7 @@ private fun TimetableItemDetailScreen(
         ) {
             when (it) {
                 TimetableItemDetailScreenUiState.Loading -> {
-                    TimetableLoadingContent(
+                    LoadingText(
                         modifier = Modifier.fillMaxSize(),
                     )
                 }
@@ -181,6 +186,7 @@ fun TimetableItemDetailScreenPreview() {
                     isBookMarked = !isBookMarked
                 },
                 onLinkClick = {},
+                onCalendarRegistrationClick = {},
                 snackbarHostState = SnackbarHostState(),
             )
         }

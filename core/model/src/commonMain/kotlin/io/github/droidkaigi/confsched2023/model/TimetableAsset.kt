@@ -5,5 +5,5 @@ public data class TimetableAsset(
     val slideUrl: String?,
 ) {
     val isAvailable: Boolean
-        get() = videoUrl != null || slideUrl != null
+        get() = !videoUrl.isNullOrBlank() && !slideUrl.isNullOrBlank()
 }
