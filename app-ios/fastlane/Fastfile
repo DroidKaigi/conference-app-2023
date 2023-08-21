@@ -99,7 +99,6 @@ platform :ios do
       xcargs: "-skipPackagePluginValidation",
       project: project,
       scheme: scheme,
-      skip_build: true,
       derived_data_path: derived_data_path,
       destination: destination
     )
