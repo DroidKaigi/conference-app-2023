@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.designsystem.theme
 
 import android.content.Context
+import android.content.res.Resources.NotFoundException
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -37,7 +38,7 @@ actual fun fontFamilyResource(fontResource: FontResource): MutableState<FontFami
                 )
             } catch (e: Exception) {
                 Logger.e(e.message ?: "Please check if the font file specification is correct.")
-                throw e
+                throw NotFoundException()
             }
             fontMap[fontResource.resName] = state.value
         }

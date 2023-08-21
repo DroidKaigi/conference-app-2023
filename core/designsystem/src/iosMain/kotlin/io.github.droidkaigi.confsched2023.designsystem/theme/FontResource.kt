@@ -28,7 +28,7 @@ actual fun fontFamilyResource(fontResource: FontResource): MutableState<FontFami
                 fontMap[fontResource.resName] = FontFamily(font)
                 fontMap[fontResource.resName]
             } catch (e: Exception) {
-                throw Exception("Please check if the font file specification is correct.")
+                throw NoSuchElementException("Please check if the font file specification is correct.")
             }
         }
     }
