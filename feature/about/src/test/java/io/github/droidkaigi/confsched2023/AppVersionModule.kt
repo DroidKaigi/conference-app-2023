@@ -6,10 +6,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.model.AppVersion
 import javax.inject.Singleton
-
+/**
+ * AppVersionModule is in app-android module
+ * so we are not able to use it in tests in other modules.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object AppVersionModule {
 
     @Provides
     @Singleton
