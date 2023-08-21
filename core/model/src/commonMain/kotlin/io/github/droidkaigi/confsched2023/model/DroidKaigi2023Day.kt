@@ -45,18 +45,6 @@ public enum class DroidKaigi2023Day(
     ),
     ;
 
-    public companion object {
-        public fun ofOrNull(time: Instant): DroidKaigi2023Day? {
-            return entries.firstOrNull {
-                time in it.start..it.end
-            }
-        }
-
-        public fun defaultDyamicThemeDate(): Boolean {
-            return Day1.start < Clock.System.now()
-        }
-    }
-
     fun getDropDownText(language: String): String {
         val japanese = "ja"
 
@@ -81,5 +69,17 @@ public enum class DroidKaigi2023Day(
         }
 
         return "${this.name} ($year $month $day)"
+    }
+
+    public companion object {
+        public fun ofOrNull(time: Instant): DroidKaigi2023Day? {
+            return entries.firstOrNull {
+                time in it.start..it.end
+            }
+        }
+
+        public fun defaultDyamicThemeDate(): Boolean {
+            return Day1.start < Clock.System.now()
+        }
     }
 }

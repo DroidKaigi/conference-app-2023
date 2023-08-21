@@ -22,6 +22,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.MultiLangText
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +53,7 @@ fun TimetableItemDetailScreenTopAppBar(
                     text = title.currentLangTitle,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-                    styles = listOf(
+                    styles = persistentListOf(
                         MaterialTheme.typography.headlineMedium,
                         MaterialTheme.typography.titleLarge,
                         MaterialTheme.typography.titleMedium,
@@ -80,7 +82,7 @@ fun TimetableItemDetailScreenTopAppBar(
 private fun ResizeableText(
     text: String,
     maxLines: Int,
-    styles: List<TextStyle>,
+    styles: ImmutableList<TextStyle>,
     overflow: TextOverflow,
 ) {
     var styleIndex by remember(text) { mutableStateOf(0) }

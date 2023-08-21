@@ -1,3 +1,6 @@
+// TODO: Remove when you start using `displayFeatures`
+@file:Suppress("UnusedParameter")
+
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.annotation.DrawableRes
