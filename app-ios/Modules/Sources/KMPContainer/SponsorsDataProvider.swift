@@ -19,4 +19,3 @@ public extension DependencyValues {
         set { self[SponsorsDataProvider.self] = newValue }
     }
 }
-
