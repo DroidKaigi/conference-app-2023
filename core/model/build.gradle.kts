@@ -10,7 +10,7 @@ android.namespace = "io.github.droidkaigi.confsched2023.core.model"
 
 kotlin {
     sourceSets {
-        commonMain{
+        commonMain {
             dependencies {
                 implementation(libs.kotlinxCoroutinesCore)
                 implementation(libs.kotlinSerializationJson)
@@ -19,7 +19,7 @@ kotlin {
             }
         }
         val androidMain by getting {
-            dependencies{
+            dependencies {
                 implementation(libs.composeRuntime)
                 implementation(libs.androidxAppCompat)
             }

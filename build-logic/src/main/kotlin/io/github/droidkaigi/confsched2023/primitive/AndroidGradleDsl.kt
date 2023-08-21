@@ -82,8 +82,6 @@ fun Project.setupDetekt(extension: DetektExtension) {
         ignoreFailures = false
         // attempt to automatically correct rule violations
         autoCorrect = false
-
-        source = files(project.files("./").asFileTree.files)
     }
 
     val reportMerge = if (!rootProject.tasks.names.contains("reportMerge")) {

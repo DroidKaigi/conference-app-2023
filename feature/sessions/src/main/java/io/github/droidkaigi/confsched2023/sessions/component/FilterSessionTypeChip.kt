@@ -22,12 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SessionType
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterSessionTypeChip(
-    selectedSessionTypes: List<TimetableSessionType>,
-    sessionTypes: List<TimetableSessionType>,
+    selectedSessionTypes: ImmutableList<TimetableSessionType>,
+    sessionTypes: ImmutableList<TimetableSessionType>,
     onSessionTypeSelected: (TimetableSessionType, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
