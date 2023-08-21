@@ -27,7 +27,8 @@ ktor = "2.3.3"
 roborazzi = "1.6.0-alpha-3"
 showkase = "1.0.0-beta18"
 ksp = "1.9.0-1.0.13"
-multiplatformFirebaseAuth = "1.8.1"
+firebaseBom = "32.2.2"
+multiplatformFirebase = "1.8.1"
 kermit = "1.2.2"
 okHttp = "4.11.0"
 ktorfit = "1.5.0"
@@ -43,6 +44,7 @@ kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gr
 firebaseGradlePlugin = { module = "com.google.gms:google-services", version = "4.3.15" }
 ktorfitGradlePlugin = { module = "de.jensklingenberg.ktorfit:gradle-plugin", version = "1.0.0" }
 kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version = "1.1.0" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -66,6 +68,7 @@ composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.0" }
 composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.1" }
+composeMaterialWindowSize = { module = "androidx.compose.material3:material3-window-size-class", version = "1.1.1" }
 composeMaterialIcon = { module = "androidx.compose.material:material-icons-extended", version = "1.5.0" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
@@ -76,6 +79,7 @@ composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", vers
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -84,6 +88,7 @@ androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
 androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
 androidxBrowser = { module = "androidx.browser:browser", version = "1.6.0" }
+androidxWindow = { module = "androidx.window:window", version = "1.1.0" }
 javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 
 # Data
@@ -99,10 +104,11 @@ ktorContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", v
 okHttpCore = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
 okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
 okIo = { module = "com.squareup.okio:okio", version = "3.5.0" }
-multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebaseAuth" }
+firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
-firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version = "1.8.1" }
+multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebase" }
+firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version.ref = "multiplatformFirebase" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
@@ -128,6 +134,7 @@ kotlinGradlePlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotli
 hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
 
 [bundles]
 plugins = [
@@ -140,5 +147,6 @@ plugins = [
     "kspGradlePlugin",
     "firebaseGradlePlugin",
     "ktorfitGradlePlugin",
-    "kotlinxSerializationGradlePlugin"
+    "kotlinxSerializationGradlePlugin",
+    "completeKotlinPlugin"
 ]

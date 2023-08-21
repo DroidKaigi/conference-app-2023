@@ -1,4 +1,9 @@
 package io.github.droidkaigi.confsched2023.ui
 
-expect annotation class KmpHiltViewModel()
-expect annotation class KmpInject()
+@OptIn(ExperimentalMultiplatform::class)
+@OptionalExpectation
+expect annotation class HiltViewModel()
+
+@OptIn(ExperimentalMultiplatform::class)
+@OptionalExpectation
+expect annotation class Inject()
