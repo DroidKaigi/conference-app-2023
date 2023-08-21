@@ -192,7 +192,7 @@ fun TimetableTabPreview() {
                 day = DroidKaigi2023Day.Day1,
                 selected = true,
                 onClick = {},
-                scrollState = rememberTimetableTabState()
+                scrollState = rememberTimetableTabState(),
             )
         }
     }

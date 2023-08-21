@@ -106,7 +106,7 @@ fun FilterCategoryChipPreview() {
                 selectedCategories = emptyList(),
                 categories = emptyList(),
                 onCategoriesSelected = { _, _ -> },
-                onFilterCategoryChipClicked = {}
+                onFilterCategoryChipClicked = {},
             )
         }
     }

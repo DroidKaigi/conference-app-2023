@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
 @Composable
@@ -60,7 +59,7 @@ fun TimetableItemDetailSummaryCardRowPreview() {
             TimetableItemDetailSummaryCardRow(
                 leadingIcon = Icons.Outlined.Schedule,
                 label = SessionsStrings.Date.asString(),
-                content = "content".repeat(5)
+                content = "content".repeat(5),
             )
         }
     }

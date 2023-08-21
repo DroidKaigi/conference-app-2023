@@ -83,7 +83,7 @@ fun TimetableItemDetailBottomAppBarPreview() {
                 timetableItem = Session.fake(),
                 isBookmarked = true,
                 onBookmarkClick = {},
-                onCalendarRegistrationClick = {}
+                onCalendarRegistrationClick = {},
             )
         }
     }

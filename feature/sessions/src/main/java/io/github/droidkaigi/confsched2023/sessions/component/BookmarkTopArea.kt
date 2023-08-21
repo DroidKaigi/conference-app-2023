@@ -154,7 +154,7 @@ fun BookmarkTopAreaPreview() {
         Surface {
             BookmarkTopArea(
                 scrollState = rememberLazyListState(),
-                onBackPressClick = {}
+                onBackPressClick = {},
             )
         }
     }

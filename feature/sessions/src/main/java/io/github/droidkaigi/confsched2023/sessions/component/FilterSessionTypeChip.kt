@@ -106,7 +106,7 @@ fun FilterSessionTypeChipPreview() {
                 selectedSessionTypes = emptyList(),
                 sessionTypes = emptyList(),
                 onSessionTypeSelected = { _, _ -> },
-                onFilterSessionTypeChipClicked = {}
+                onFilterSessionTypeChipClicked = {},
             )
         }
     }

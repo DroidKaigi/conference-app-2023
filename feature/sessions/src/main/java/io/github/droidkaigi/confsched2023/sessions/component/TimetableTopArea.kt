@@ -87,7 +87,7 @@ fun TimetableTopAreaPreview() {
             TimetableTopArea(
                 onTimetableUiChangeClick = {},
                 onSearchClick = {},
-                onTopAreaBookmarkIconClick = {}
+                onTopAreaBookmarkIconClick = {},
             )
         }
     }

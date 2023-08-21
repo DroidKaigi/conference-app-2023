@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.MultiLangText
-import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.fake
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -112,6 +110,6 @@ fun TimetableItemDetailScreenTopAppBarPreview() {
     TimetableItemDetailScreenTopAppBar(
         title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
         onNavigationIconClick = {},
-        scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+        scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     )
 }

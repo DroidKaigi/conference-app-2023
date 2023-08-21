@@ -102,7 +102,7 @@ fun FilterDayChipPreview() {
             FilterDayChip(
                 selectedDays = emptyList(),
                 kaigiDays = emptyList(),
-                onDaySelected = { _, _ -> }
+                onDaySelected = { _, _ -> },
             )
         }
     }

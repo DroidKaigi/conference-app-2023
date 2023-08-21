@@ -67,7 +67,7 @@ sealed class TimetableItem {
         val localDate = startsAt.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.year}" + "." + "${localDate.monthNumber}".padStart(
             2,
-            '0'
+            '0',
         ) + "." + "${localDate.dayOfMonth}".padStart(2, '0')
     }
 

@@ -106,7 +106,7 @@ fun FilterLanguageChipPreview() {
                 selectedLanguages = emptyList(),
                 languages = emptyList(),
                 onLanguagesSelected = { _, _ -> },
-                onFilterLanguageChipClicked = {}
+                onFilterLanguageChipClicked = {},
             )
         }
     }

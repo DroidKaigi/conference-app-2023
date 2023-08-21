@@ -60,7 +60,7 @@ fun EmptySearchResultBodyPreview() {
     KaigiTheme {
         Surface {
             EmptySearchResultBody(
-                missedQuery = "missedQuery".repeat(5)
+                missedQuery = "missedQuery".repeat(5),
             )
         }
     }
