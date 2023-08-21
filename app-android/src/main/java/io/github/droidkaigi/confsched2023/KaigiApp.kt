@@ -114,42 +114,24 @@ private fun KaigiNavHost(
     NavHostWithSharedAxisX(navController = navController, startDestination = mainScreenRoute) {
         mainScreen(windowSize, displayFeatures, navController, externalNavController)
         sessionScreens(
-            onNavigationIconClick = {
-                navController.popBackStack()
-            },
-            onTimetableItemClick = { timetableItem ->
-                navController.navigateToTimetableItemDetailScreen(
-                    timetableItem.id,
-                )
-            },
+            onNavigationIconClick = navController::popBackStack,
+            onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
             onLinkClick = externalNavController::navigate,
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
         )
         searchScreen(
-            onNavigationIconClick = {
-                navController.popBackStack()
-            },
-            onTimetableItemClick = { timetableItem ->
-                navController.navigateToTimetableItemDetailScreen(
-                    timetableItem.id,
-                )
-            },
+            onNavigationIconClick = navController::popBackStack,
+            onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
         )
         sponsorsScreen(
-            onNavigationIconClick = {
-                navController.popBackStack()
-            },
+            onNavigationIconClick = navController::popBackStack,
             onSponsorClick = { sponsor ->
                 TODO()
             },
         )
         staffScreen(
-            onBackClick = {
-                navController.popBackStack()
-            },
-            onStaffClick = {
-                externalNavController.navigate(it)
-            },
+            onBackClick = navController::popBackStack,
+            onStaffClick = externalNavController::navigate,
         )
     }
 }
@@ -167,17 +149,9 @@ private fun NavGraphBuilder.mainScreen(
         mainNestedGraph = { mainNestedNavController, _ ->
             nestedSessionScreens(
                 modifier = Modifier,
-                onSearchClick = {
-                    navController.navigateSearchScreen()
-                },
-                onTimetableItemClick = { timetableItem ->
-                    navController.navigateToTimetableItemDetailScreen(
-                        timetableItem.id,
-                    )
-                },
-                onBookmarkIconClick = {
-                    navController.navigateToBookmarkScreen()
-                },
+                onSearchClick = navController::navigateSearchScreen,
+                onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
+                onBookmarkIconClick = navController::navigateToBookmarkScreen,
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
@@ -208,9 +182,7 @@ private fun NavGraphBuilder.mainScreen(
             composable(contributorsScreenRoute) {
                 ContributorsScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
-                    onNavigationIconClick = {
-                        navController.popBackStack()
-                    },
+                    onNavigationIconClick = navController::popBackStack,
                     onContributorItemClick = externalNavController::navigate,
                 )
             }

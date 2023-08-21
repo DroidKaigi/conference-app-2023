@@ -4,7 +4,7 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.remoteconfig.get
 import dev.gitlive.firebase.remoteconfig.remoteConfig
 
-actual class DefaultRemoteConfigApi : RemoteConfigApi {
+class DefaultRemoteConfigApi : RemoteConfigApi {
 
     private val firebaseRemoteConfig = Firebase.remoteConfig
 
@@ -19,7 +19,7 @@ actual class DefaultRemoteConfigApi : RemoteConfigApi {
 //        }
 //    }
 
-    actual override suspend fun getBoolean(key: String): Boolean {
+    override suspend fun getBoolean(key: String): Boolean {
         firebaseRemoteConfig.fetchAndActivate()
         return firebaseRemoteConfig[key]
     }

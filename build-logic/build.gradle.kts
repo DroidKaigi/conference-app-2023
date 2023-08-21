@@ -100,6 +100,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.kover"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverPlugin"
         }
+        register("detekt") {
+            id = "droidkaigi.primitive.detekt"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
+        }
 
         // Conventions
         register("androidFeature") {

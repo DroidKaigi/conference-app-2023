@@ -36,7 +36,6 @@ jobs:
           gradle-home-cache-cleanup: true
           arguments: :app-ios-shared:assembleSharedReleaseXCFramework --stacktrace
 
-      # Skip the build app because the build result is unstable due to the Xcode 15 is still in beta
-      # - name: Build App
-      #   working-directory: app-ios
-      #   run: bundle exec fastlane build_project
+      - name: Build App
+        working-directory: app-ios
+        run: bundle exec fastlane build_project
