@@ -69,7 +69,7 @@ struct FloorMapFooterSegmentedButton: View {
                     .frame(width: buttonWidth, height: buttonHeight)
                     .overlay {
                         Capsule()
-                            .stroke(AssetColors.outline.swiftUIColor, lineWidth: borderLineWidth)
+                            .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: borderLineWidth)
                             .frame(width: buttonWidth - borderLineWidth, height: buttonHeight - borderLineWidth)
                     }
                 Rectangle()
@@ -77,18 +77,18 @@ struct FloorMapFooterSegmentedButton: View {
                     .overlay(alignment: .top) {
                         Rectangle()
                             .frame(width: buttonWidth - buttonHeight / 2, height: borderLineWidth)
-                            .foregroundStyle(AssetColors.outline.swiftUIColor)
+                            .foregroundStyle(AssetColors.Outline.outline.swiftUIColor)
                     }
                     .overlay(alignment: .bottom) {
                         Rectangle()
                             .frame(width: buttonWidth - buttonHeight / 2, height: borderLineWidth)
-                            .foregroundStyle(AssetColors.outline.swiftUIColor)
+                            .foregroundStyle(AssetColors.Outline.outline.swiftUIColor)
                     }
                     .overlay(alignment: .leading) {
                         // Half of borderLineWidth because of boundary line
                         Rectangle()
                             .frame(width: borderLineWidth / 2, height: buttonHeight)
-                            .foregroundStyle(AssetColors.outline.swiftUIColor)
+                            .foregroundStyle(AssetColors.Outline.outline.swiftUIColor)
                     }
             }
             .foregroundStyle(foregroundColor)
