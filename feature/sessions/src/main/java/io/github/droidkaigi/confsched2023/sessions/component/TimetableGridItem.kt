@@ -84,7 +84,7 @@ fun TimetableGridItem(
     }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = if (speaker != null) {
                     backgroundColor

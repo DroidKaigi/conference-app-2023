@@ -22,12 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterCategoryChip(
-    selectedCategories: List<TimetableCategory>,
-    categories: List<TimetableCategory>,
+    selectedCategories: ImmutableList<TimetableCategory>,
+    categories: ImmutableList<TimetableCategory>,
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
