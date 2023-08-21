@@ -21,4 +21,9 @@ runs:
     - if: steps.spm-cache.outputs.files_exists != 'true'
       working-directory: app-ios
       shell: bash
+      run: bundle exec fastlane shared
+
+    - if: steps.spm-cache.outputs.files_exists != 'true'
+      working-directory: app-ios
+      shell: bash
       run: bundle exec fastlane resolved_package

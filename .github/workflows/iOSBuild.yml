@@ -26,11 +26,10 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - uses: ./.github/actions/spm
-
       - name: Set up XCFramework arch filter
         run: echo "arch=x86_64" >> local.properties
 
-      - name: Build App
+      - uses: ./.github/actions/spm
+
+      - run: bundle exec fastlane build_project
         working-directory: app-ios
-        run: bundle exec fastlane build_project
