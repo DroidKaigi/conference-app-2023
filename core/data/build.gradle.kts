@@ -21,7 +21,6 @@ kotlin {
                 implementation(libs.kotlinxCoroutinesCore)
                 // We use api for test
                 api(libs.androidxDatastoreDatastorePreferences)
-                implementation(libs.multiplatformFirebaseAuth)
                 implementation(libs.okIo)
                 implementation(libs.ktorClientCore)
                 implementation(libs.ktorKotlinxSerialization)
@@ -34,6 +33,7 @@ kotlin {
             dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientOkHttp)
+                implementation(libs.multiplatformFirebaseAuth)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.firebaseRemoteConfig)
@@ -44,6 +44,7 @@ kotlin {
             dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientDarwin)
+                api(libs.koin)
             }
         }
     }

@@ -2,6 +2,8 @@ name: Format
 
 on:
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
 
 run-name: "Format by ${{ github.actor }}"
 
@@ -17,7 +19,7 @@ jobs:
       contents: read
 
     timeout-minutes: 20
-      
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
@@ -58,7 +60,7 @@ jobs:
       - name: Check lint
         uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
         with:
-          arguments: lintDebug --stacktrace
+          arguments: lintDebug lintDevDebug --stacktrace
 
       - name: Upload lint reports
         if: always()
