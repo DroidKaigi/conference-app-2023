@@ -19,8 +19,8 @@ import kotlin.test.assertNotNull
 class EntryPointTest {
     @Test
     fun get() {
-        val entryPoint = EntryPoint()
-        entryPoint.init(
+        val kmpEntryPoint = KmpEntryPoint()
+        kmpEntryPoint.init(
             baseUrl = "https://ssot-api-staging.an.r.appspot.com/",
             remoteConfigApi = object : RemoteConfigApi {
                 override suspend fun getBoolean(key: String): Boolean {
@@ -38,17 +38,17 @@ class EntryPointTest {
             }
         )
         // Check finer dependencies first to debug easily
-        assertNotNull(entryPoint.get<UserDataStore>())
-        assertNotNull(entryPoint.get<HttpClient>())
-        assertNotNull(entryPoint.get<Authenticator>())
-        assertNotNull(entryPoint.get<AuthApi>())
-        assertNotNull(entryPoint.get<SessionsApiClient>())
-        assertNotNull(entryPoint.get<SessionCacheDataStore>())
+        assertNotNull(kmpEntryPoint.get<UserDataStore>())
+        assertNotNull(kmpEntryPoint.get<HttpClient>())
+        assertNotNull(kmpEntryPoint.get<Authenticator>())
+        assertNotNull(kmpEntryPoint.get<AuthApi>())
+        assertNotNull(kmpEntryPoint.get<SessionsApiClient>())
+        assertNotNull(kmpEntryPoint.get<SessionCacheDataStore>())
 
-        assertNotNull(entryPoint.get<SessionsRepository>())
-        assertNotNull(entryPoint.get<StampRepository>())
-        assertNotNull(entryPoint.get<ContributorsRepository>())
-        assertNotNull(entryPoint.get<SponsorsRepository>())
-        assertNotNull(entryPoint.get<StaffRepository>())
+        assertNotNull(kmpEntryPoint.get<SessionsRepository>())
+        assertNotNull(kmpEntryPoint.get<StampRepository>())
+        assertNotNull(kmpEntryPoint.get<ContributorsRepository>())
+        assertNotNull(kmpEntryPoint.get<SponsorsRepository>())
+        assertNotNull(kmpEntryPoint.get<StaffRepository>())
     }
 }
