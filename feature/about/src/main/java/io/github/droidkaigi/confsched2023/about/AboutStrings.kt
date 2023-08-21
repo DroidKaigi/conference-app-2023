@@ -49,9 +49,9 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
             when (item) {
                 Title -> bindings.defaultBinding(item, bindings)
                 Description -> "DroidKaigi is a conference tailored for Android developers."
-                DateTitle -> "Date & Time"
+                DateTitle -> "Date"
                 DateDescription -> "2023.09.14(Thu) - 16(Sat) 3days"
-                PlaceTitle -> "Location"
+                PlaceTitle -> "Place"
                 PlaceDescription -> "Bellesalle Shibuya Garden"
                 is PlaceLink -> "View Map"
                 CreditsTitle -> bindings.defaultBinding(item, bindings)

@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2023.model.Sponsor
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
-internal interface ContributorApi {
+internal interface SponsorApi {
     @GET("/events/droidkaigi2023/sponsor")
     suspend fun getSponsors(): SponsorsResponse
 }
@@ -20,10 +20,10 @@ public class DefaultSponsorsApiClient(
     ktorfit: Ktorfit,
 ) : SponsorsApiClient {
 
-    private val contributorApi = ktorfit.create<ContributorApi>()
+    private val sponsorApi = ktorfit.create<SponsorApi>()
     public override suspend fun sponsors(): PersistentList<Sponsor> {
         return networkService {
-            contributorApi.getSponsors()
+            sponsorApi.getSponsors()
         }.toSponsorList()
     }
 }
