@@ -39,7 +39,7 @@ fun SessionTag(
                 color = backgroundColor,
                 shape = RoundedCornerShape(50.dp),
             )
-            .padding(horizontal = 8.dp, vertical = 4.dp)
+            .padding(horizontal = 8.dp, vertical = 4.dp),
     ) {
         Text(
             text = label,
