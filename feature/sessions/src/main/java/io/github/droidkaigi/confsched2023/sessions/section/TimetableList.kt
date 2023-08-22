@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
@@ -95,7 +94,7 @@ fun TimetableList(
                         verticalArrangement = Arrangement.spacedBy(
                             space = 4.dp,
                             alignment = Alignment.CenterVertically,
-                        )
+                        ),
                     ) {
                         Text(
                             text = timetableItem.startsTimeString,
@@ -105,7 +104,7 @@ fun TimetableList(
                             modifier = Modifier
                                 .height(12.dp)
                                 .width(1.dp)
-                                .background(MaterialTheme.colorScheme.onSurfaceVariant)
+                                .background(MaterialTheme.colorScheme.onSurfaceVariant),
                         )
                         Text(
                             text = timetableItem.endsTimeString,
