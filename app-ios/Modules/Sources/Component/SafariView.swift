@@ -1,5 +1,5 @@
-import SwiftUI
 import SafariServices
+import SwiftUI
 
 public struct SafariView: UIViewControllerRepresentable {
     private let url: URL

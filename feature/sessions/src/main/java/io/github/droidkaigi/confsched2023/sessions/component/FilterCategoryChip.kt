@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 
 const val FilterCategoryChipTestTag = "FilterCategoryChip"
 
@@ -41,8 +42,8 @@ fun PreviewFilterCategoryChip() {
     var uiState by remember {
         mutableStateOf(
             SearchFilterUiState(
-                selectedItems = emptyList(),
-                items = TimetableCategory.fakes(),
+                selectedItems = emptyList<TimetableCategory>().toImmutableList(),
+                items = TimetableCategory.fakes().toImmutableList(),
             ),
         )
     }
@@ -60,7 +61,7 @@ fun PreviewFilterCategoryChip() {
                     }
                 }
                 uiState = uiState.copy(
-                    selectedItems = newSelectedCategories,
+                    selectedItems = newSelectedCategories.toImmutableList(),
                     isSelected = newSelectedCategories.isNotEmpty(),
                     selectedValues = newSelectedCategories.joinToString { it.title.currentLangTitle },
                 )

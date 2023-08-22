@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -94,8 +95,8 @@ class SearchScreenViewModel @Inject constructor(
         selectedDays: List<DroidKaigi2023Day>,
     ): SearchFilterUiState<DroidKaigi2023Day> {
         return SearchFilterUiState(
-            selectedItems = selectedDays,
-            items = DroidKaigi2023Day.entries.toList(),
+            selectedItems = selectedDays.toImmutableList(),
+            items = DroidKaigi2023Day.entries.toImmutableList(),
             isSelected = selectedDays.isNotEmpty(),
             selectedValues = selectedDays.joinToString { it.name },
         )
@@ -106,8 +107,8 @@ class SearchScreenViewModel @Inject constructor(
         categories: List<TimetableCategory>? = null,
     ): SearchFilterUiState<TimetableCategory> {
         return SearchFilterUiState(
-            selectedItems = selectedCategories,
-            items = categories.orEmpty(),
+            selectedItems = selectedCategories.toImmutableList(),
+            items = categories.orEmpty().toImmutableList(),
             isSelected = selectedCategories.isNotEmpty(),
             selectedValues = selectedCategories.joinToString { it.title.currentLangTitle },
         )
@@ -118,8 +119,8 @@ class SearchScreenViewModel @Inject constructor(
         sessionTypes: List<TimetableSessionType>? = null,
     ): SearchFilterUiState<TimetableSessionType> {
         return SearchFilterUiState(
-            selectedItems = selectedSessionTypes,
-            items = sessionTypes.orEmpty(),
+            selectedItems = selectedSessionTypes.toImmutableList(),
+            items = sessionTypes.orEmpty().toImmutableList(),
             isSelected = selectedSessionTypes.isNotEmpty(),
             selectedValues = selectedSessionTypes.joinToString { it.label.currentLangTitle },
         )
@@ -129,8 +130,8 @@ class SearchScreenViewModel @Inject constructor(
         selectedLanguages: List<Lang>,
     ): SearchFilterUiState<Lang> {
         return SearchFilterUiState(
-            selectedItems = selectedLanguages,
-            items = listOf(Lang.JAPANESE, Lang.ENGLISH),
+            selectedItems = selectedLanguages.toImmutableList(),
+            items = listOf(Lang.JAPANESE, Lang.ENGLISH).toImmutableList(),
             isSelected = selectedLanguages.isNotEmpty(),
             selectedValues = selectedLanguages.joinToString { it.tagName },
         )

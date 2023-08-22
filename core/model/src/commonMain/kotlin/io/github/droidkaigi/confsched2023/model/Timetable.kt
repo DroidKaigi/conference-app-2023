@@ -4,6 +4,7 @@ import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
@@ -101,13 +102,14 @@ public data class Timetable(
 public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
-    var rooms = listOf(
-        TimetableRoom(1, MultiLangText("App Bar", "App Bar"), 0, 0, RoomA),
-        TimetableRoom(2, MultiLangText("Backdrop", "Backdrop"), 1, 1, RoomB),
-        TimetableRoom(3, MultiLangText("Cards", "Cards"), 2, 2, RoomC),
-        TimetableRoom(4, MultiLangText("Dialogs", "Dialogs"), 3, 3, RoomD),
+    val rooms = mutableListOf(
+        TimetableRoom(1, MultiLangText("Arctic Fox", "Arctic Fox"), 0, 0, RoomA),
+        TimetableRoom(2, MultiLangText("Bumblebee", "Bumblebee"), 1, 1, RoomB),
+        TimetableRoom(3, MultiLangText("Chipmunk", "Chipmunk"), 2, 2, RoomC),
+        TimetableRoom(4, MultiLangText("Dolphin", "Dolphin"), 3, 3, RoomD),
+        TimetableRoom(5, MultiLangText("Electric Eel", "Electric Eel"), 4, 4, RoomE),
     )
-    (0..10).forEach { _ ->
+    repeat(10) {
         rooms += rooms
     }
     val roomsIterator = rooms.iterator()
@@ -155,8 +157,8 @@ public fun Timetable.Companion.fake(): Timetable {
                 ),
             ),
         )
-        (-1..1).forEach { day ->
-            (0..20).forEach { index ->
+        for (day in -1..1) {
+            for (index in 0..20) {
                 val dayOffset = day * 24 * 60 * 60
                 val start = Instant.fromEpochSeconds(
                     LocalDateTime.parse("2023-09-15T10:10:00")

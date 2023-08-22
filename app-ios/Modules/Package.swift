@@ -30,9 +30,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
-                "shared",
                 "Model",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -59,6 +57,12 @@ var package = Package(
                 "Theme",
             ]
         ),
+        .testTarget(
+            name: "ComponentTests",
+            dependencies: [
+                "Component",
+            ]
+        ),
 
         .target(
             name: "Contributor",
@@ -67,9 +71,13 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
                 .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "ContributorTests",
+            dependencies: [
+                "Contributor",
             ]
         ),
 
@@ -77,7 +85,6 @@ var package = Package(
             name: "FloorMap",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
             ]
         ),
@@ -95,6 +102,12 @@ var package = Package(
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
+        .testTarget(
+            name: "KMPContainerTests",
+            dependencies: [
+                "KMPContainer",
+            ]
+        ),
 
         .target(
             name: "Session",
@@ -103,8 +116,6 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -121,8 +132,12 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
+            ]
+        ),
+        .testTarget(
+            name: "SponsorTests",
+            dependencies: [
+                "Sponsor"
             ]
         ),
 
@@ -130,9 +145,8 @@ var package = Package(
             name: "Stamps",
             dependencies: [
                 "Assets",
-                "KMPContainer",
-                "shared",
                 "Theme",
+                "KMPContainer",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
@@ -149,9 +163,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
-                "shared",
                 "Model",
-                "Theme",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
@@ -181,6 +193,12 @@ var package = Package(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+        .testTarget(
+            name: "ModelTests",
+            dependencies: [
+                "Model",
             ]
         ),
 

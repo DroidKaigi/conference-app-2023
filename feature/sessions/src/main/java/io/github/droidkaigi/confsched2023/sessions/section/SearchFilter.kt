@@ -17,10 +17,11 @@ import io.github.droidkaigi.confsched2023.sessions.component.FilterCategoryChip
 import io.github.droidkaigi.confsched2023.sessions.component.FilterDayChip
 import io.github.droidkaigi.confsched2023.sessions.component.FilterLanguageChip
 import io.github.droidkaigi.confsched2023.sessions.component.FilterSessionTypeChip
+import kotlinx.collections.immutable.ImmutableList
 
 data class SearchFilterUiState<T>(
-    val selectedItems: List<T>,
-    val items: List<T>,
+    val selectedItems: ImmutableList<T>,
+    val items: ImmutableList<T>,
     val isSelected: Boolean = false,
     val selectedValues: String = "",
 )

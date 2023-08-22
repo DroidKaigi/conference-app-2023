@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2023.model.Lang.ENGLISH
 import io.github.droidkaigi.confsched2023.model.Lang.JAPANESE
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SupportedLanguages
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 
 const val FilterLanguageChipTestTag = "FilterLanguageChip"
 
@@ -42,8 +43,8 @@ fun PreviewFilterLanguageChip() {
     var uiState by remember {
         mutableStateOf(
             SearchFilterUiState(
-                selectedItems = emptyList(),
-                items = listOf(JAPANESE, ENGLISH),
+                selectedItems = emptyList<Lang>().toImmutableList(),
+                items = listOf(JAPANESE, ENGLISH).toImmutableList(),
             ),
         )
     }
@@ -61,7 +62,7 @@ fun PreviewFilterLanguageChip() {
                     }
                 }
                 uiState = uiState.copy(
-                    selectedItems = newSelectedLanguages,
+                    selectedItems = newSelectedLanguages.toImmutableList(),
                     isSelected = newSelectedLanguages.isNotEmpty(),
                     selectedValues = newSelectedLanguages.joinToString { it.tagName },
                 )

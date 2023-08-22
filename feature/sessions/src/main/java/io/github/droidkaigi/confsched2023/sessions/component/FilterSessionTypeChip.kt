@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SessionType
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 
 const val FilterSessionTypeChipTestTag = "FilterSessionTypeChip"
 
@@ -40,8 +41,8 @@ fun PreviewFilterSessionTypeChip() {
     var uiState by remember {
         mutableStateOf(
             SearchFilterUiState(
-                selectedItems = emptyList(),
-                items = TimetableSessionType.entries.toList(),
+                selectedItems = emptyList<TimetableSessionType>().toImmutableList(),
+                items = TimetableSessionType.entries.toImmutableList(),
             ),
         )
     }
@@ -59,7 +60,7 @@ fun PreviewFilterSessionTypeChip() {
                     }
                 }
                 uiState = uiState.copy(
-                    selectedItems = newSelectedSessionTypes,
+                    selectedItems = newSelectedSessionTypes.toImmutableList(),
                     isSelected = newSelectedSessionTypes.isNotEmpty(),
                     selectedValues = newSelectedSessionTypes.joinToString { it.label.currentLangTitle },
                 )

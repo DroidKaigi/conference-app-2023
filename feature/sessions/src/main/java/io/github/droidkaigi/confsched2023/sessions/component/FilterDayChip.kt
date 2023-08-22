@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 import java.util.Locale
 
 const val FilterDayChipTestTag = "FilterDayChip"
@@ -39,8 +40,8 @@ fun PreviewFilterDayChip() {
     var uiState by remember {
         mutableStateOf(
             SearchFilterUiState(
-                selectedItems = emptyList(),
-                items = DroidKaigi2023Day.entries.toList(),
+                selectedItems = emptyList<DroidKaigi2023Day>().toImmutableList(),
+                items = DroidKaigi2023Day.entries.toImmutableList(),
             ),
         )
     }
@@ -58,7 +59,7 @@ fun PreviewFilterDayChip() {
                     }
                 }.sortedBy(DroidKaigi2023Day::start)
                 uiState = uiState.copy(
-                    selectedItems = newSelectedDays,
+                    selectedItems = newSelectedDays.toImmutableList(),
                     isSelected = newSelectedDays.isNotEmpty(),
                     selectedValues = newSelectedDays.joinToString { it.name },
                 )
