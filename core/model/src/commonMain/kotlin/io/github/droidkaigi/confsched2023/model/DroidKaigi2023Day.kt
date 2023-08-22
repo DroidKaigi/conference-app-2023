@@ -83,15 +83,15 @@ public enum class DroidKaigi2023Day(
         }
 
         /**
-         * @return appropriate day at this time
+         * @return appropriate initial day for now
          */
-        fun currentDay(): DroidKaigi2023Day {
-            lateinit var currentDay: DroidKaigi2023Day
-            for (entry in entries.sortedBy { it.day }) {
-                currentDay = entry
-                if (Clock.System.now() <= entry.end) break
+        fun initialSelectedDay(): DroidKaigi2023Day {
+            val reversedEntries = entries.sortedByDescending { it.day }
+            var selectedDay = reversedEntries.last()
+            for (entry in reversedEntries) {
+                if (Clock.System.now() <= entry.end) selectedDay = entry
             }
-            return currentDay
+            return selectedDay
         }
     }
 }
