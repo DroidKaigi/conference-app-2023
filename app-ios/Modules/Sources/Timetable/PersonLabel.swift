@@ -5,7 +5,7 @@ import Theme
 
 struct PersonLabel: View {
     let speaker: TimetableSpeaker
-    
+
     var body: some View {
         HStack(alignment: .center, spacing: 8) {
             CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
@@ -20,7 +20,7 @@ struct PersonLabel: View {
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
             )
-            
+
             Text(speaker.name)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 .font(Font.system(size: 14, weight: .medium))

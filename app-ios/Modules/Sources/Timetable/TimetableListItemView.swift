@@ -5,11 +5,11 @@ import Theme
 
 struct TimetableListItemView: View {
     let timetableItemWithFavorite: TimetableItemWithFavorite
-    
+
     var timetableItem: TimetableItem {
         self.timetableItemWithFavorite.timetableItem
     }
-    
+
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
