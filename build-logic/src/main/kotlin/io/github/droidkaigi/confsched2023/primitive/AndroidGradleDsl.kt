@@ -52,15 +52,19 @@ fun Project.setupAndroid() {
             }
         }
 
-        (this as CommonExtension<*,*,*,*,*>).lint {
+        (this as CommonExtension<*, *, *, *, *>).lint {
             // shell friendly
             val filename = displayName.replace(":", "_").replace("[\\s']".toRegex(), "")
 
             xmlReport = true
-            xmlOutput = rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.xml").get().asFile
+            xmlOutput =
+                rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.xml")
+                    .get().asFile
 
             htmlReport = true
-            htmlOutput = rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.html").get().asFile
+            htmlOutput =
+                rootProject.layout.buildDirectory.file("lint-reports/lint-results-${filename}.html")
+                    .get().asFile
 
             // for now
             sarifReport = false
