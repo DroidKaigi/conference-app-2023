@@ -10,12 +10,18 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.sessions.R
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
 const val TimetableItemDetailBookmarkIconTestTag = "TimetableItemDetailBookmarkIcon"
@@ -65,4 +71,20 @@ fun TimetableItemDetailBottomAppBar(
             }
         },
     )
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableItemDetailBottomAppBarPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailBottomAppBar(
+                timetableItem = Session.fake(),
+                isBookmarked = true,
+                onBookmarkClick = {},
+                onCalendarRegistrationClick = {},
+            )
+        }
+    }
 }

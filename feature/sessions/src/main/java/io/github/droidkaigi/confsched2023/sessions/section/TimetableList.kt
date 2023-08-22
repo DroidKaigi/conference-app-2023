@@ -1,9 +1,12 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -86,13 +89,21 @@ fun TimetableList(
                     Spacer(modifier = Modifier.size(6.dp))
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.spacedBy(
+                            space = 4.dp,
+                            alignment = Alignment.CenterVertically,
+                        ),
                     ) {
                         Text(
                             text = timetableItem.startsTimeString,
                             fontWeight = FontWeight.Medium,
                         )
-                        Text(text = "|")
+                        Box(
+                            modifier = Modifier
+                                .height(8.dp)
+                                .width(2.dp)
+                                .background(MaterialTheme.colorScheme.outlineVariant),
+                        )
                         Text(
                             text = timetableItem.endsTimeString,
                         )

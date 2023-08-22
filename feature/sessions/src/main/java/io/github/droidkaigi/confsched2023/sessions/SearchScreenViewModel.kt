@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -68,7 +69,7 @@ class SearchScreenViewModel @Inject constructor(
         )
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
-                searchQuery = searchQuery,
+                searchQuery = SearchQuery(searchQuery),
                 searchFilterDayUiState = searchFilterDayUiState(filters.days),
                 searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories),
                 searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes),
@@ -76,7 +77,7 @@ class SearchScreenViewModel @Inject constructor(
             )
         } else {
             SearchScreenUiState.SearchList(
-                searchQuery = searchQuery,
+                searchQuery = SearchQuery(searchQuery),
                 searchFilterDayUiState = searchFilterDayUiState(filters.days),
                 searchFilterCategoryUiState =
                 searchFilterCategoryUiState(filters.categories, sessions.categories),

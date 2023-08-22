@@ -62,12 +62,13 @@ const val AboutScreenTestTag = "AboutScreen"
 @Composable
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
-    versionName: String? = versionName(LocalContext.current),
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
     onLinkClick: (url: String) -> Unit,
 ) {
     // val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val versionName = remember { versionName(context) }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
