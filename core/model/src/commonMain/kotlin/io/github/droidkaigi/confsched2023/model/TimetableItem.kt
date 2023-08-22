@@ -84,7 +84,7 @@ sealed class TimetableItem {
     private val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
-        "${minutes}min"
+        "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
     val formattedDateTimeString: String by lazy {

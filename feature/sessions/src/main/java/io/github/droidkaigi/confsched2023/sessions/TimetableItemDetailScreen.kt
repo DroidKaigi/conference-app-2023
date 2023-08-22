@@ -98,7 +98,7 @@ fun TimetableItemDetailScreen(
     )
 }
 
-sealed class TimetableItemDetailScreenUiState() {
+sealed class TimetableItemDetailScreenUiState {
     data object Loading : TimetableItemDetailScreenUiState()
     data class Loaded(
         val timetableItem: TimetableItem,
@@ -121,7 +121,7 @@ private fun TimetableItemDetailScreen(
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+            if (uiState is Loaded) {
                 TimetableItemDetailScreenTopAppBar(
                     title = uiState.timetableItem.title,
                     onNavigationIconClick = onNavigationIconClick,
@@ -130,7 +130,7 @@ private fun TimetableItemDetailScreen(
             }
         },
         bottomBar = {
-            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+            if (uiState is Loaded) {
                 TimetableItemDetailBottomAppBar(
                     timetableItem = uiState.timetableItem,
                     isBookmarked = uiState.isBookmarked,
@@ -153,7 +153,7 @@ private fun TimetableItemDetailScreen(
                     )
                 }
 
-                is TimetableItemDetailScreenUiState.Loaded -> {
+                is Loaded -> {
                     TimetableItemDetail(
                         modifier = Modifier.fillMaxSize(),
                         uiState = it.timetableItemDetailSectionUiState,

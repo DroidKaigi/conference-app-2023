@@ -3,7 +3,7 @@ plugins {
     id("droidkaigi.primitive.kmp.android")
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.kmp.ios")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.kmp.ktorfit")
     id("droidkaigi.primitive.kmp.serialization")
     id("droidkaigi.primitive.kover")
@@ -20,7 +20,6 @@ kotlin {
                 implementation(libs.kotlinxCoroutinesCore)
                 // We use api for test
                 api(libs.androidxDatastoreDatastorePreferences)
-                implementation(libs.multiplatformFirebaseAuth)
                 implementation(libs.okIo)
                 implementation(libs.ktorClientCore)
                 implementation(libs.ktorKotlinxSerialization)
@@ -33,6 +32,7 @@ kotlin {
             dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientOkHttp)
+                implementation(libs.multiplatformFirebaseAuth)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.firebaseRemoteConfig)
@@ -43,6 +43,7 @@ kotlin {
             dependsOn(getByName("commonMain"))
             dependencies {
                 implementation(libs.ktorClientDarwin)
+                api(libs.koin)
             }
         }
     }

@@ -7,11 +7,11 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 
-enum class DroidKaigi2023Day(
-    val day: Int,
-    val dayOfMonth: Int,
-    val start: Instant,
-    val end: Instant,
+public enum class DroidKaigi2023Day(
+    public val day: Int,
+    public val dayOfMonth: Int,
+    public val start: Instant,
+    public val end: Instant,
 ) {
     Day1(
         day = 1,
@@ -45,18 +45,6 @@ enum class DroidKaigi2023Day(
     ),
     ;
 
-    companion object {
-        fun ofOrNull(time: Instant): DroidKaigi2023Day? {
-            return entries.firstOrNull {
-                time in it.start..it.end
-            }
-        }
-
-        fun defaultDyamicThemeDate(): Boolean {
-            return Day1.start < Clock.System.now()
-        }
-    }
-
     fun getDropDownText(language: String): String {
         val japanese = "ja"
 
@@ -81,5 +69,17 @@ enum class DroidKaigi2023Day(
         }
 
         return "${this.name} ($year $month $day)"
+    }
+
+    public companion object {
+        public fun ofOrNull(time: Instant): DroidKaigi2023Day? {
+            return entries.firstOrNull {
+                time in it.start..it.end
+            }
+        }
+
+        public fun defaultDyamicThemeDate(): Boolean {
+            return Day1.start < Clock.System.now()
+        }
     }
 }

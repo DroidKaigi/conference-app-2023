@@ -26,12 +26,13 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SupportedLanguages
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterLanguageChip(
-    selectedLanguages: List<Lang>,
-    languages: List<Lang>,
+    selectedLanguages: ImmutableList<Lang>,
+    languages: ImmutableList<Lang>,
     onLanguagesSelected: (Lang, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,

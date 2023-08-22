@@ -1,5 +1,5 @@
-import SwiftUI
 import SafariServices
+import SwiftUI
 
 public struct SafariLink<Content>: View where Content: View {
     

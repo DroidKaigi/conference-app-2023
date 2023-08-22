@@ -26,13 +26,14 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import kotlinx.collections.immutable.ImmutableList
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterDayChip(
-    selectedDays: List<DroidKaigi2023Day>,
-    kaigiDays: List<DroidKaigi2023Day>,
+    selectedDays: ImmutableList<DroidKaigi2023Day>,
+    kaigiDays: ImmutableList<DroidKaigi2023Day>,
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     isSelected: Boolean = false,
