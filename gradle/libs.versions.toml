@@ -143,6 +143,7 @@ roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "r
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
 detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kmpNativeCoroutines = { id = "com.rickclephas.kmp:kmp-nativecoroutines-gradle-plugin", veresion = "1.0.0-ALPHA-17" }
 
 [bundles]
 plugins = [
