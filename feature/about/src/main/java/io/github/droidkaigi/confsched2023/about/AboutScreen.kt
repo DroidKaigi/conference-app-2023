@@ -92,7 +92,7 @@ private fun AboutScreen(
     snackbarHostState: SnackbarHostState,
     onAboutItemClick: (AboutItem) -> Unit,
     versionName: String?,
-    onLinkClick: (url: String) -> Unit
+    onLinkClick: (url: String) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
