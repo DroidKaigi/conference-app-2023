@@ -81,5 +81,17 @@ public enum class DroidKaigi2023Day(
         public fun defaultDyamicThemeDate(): Boolean {
             return Day1.start < Clock.System.now()
         }
+
+        /**
+         * @return appropriate day at this time
+         */
+        fun currentDay(): DroidKaigi2023Day {
+            lateinit var currentDay: DroidKaigi2023Day
+            for (entry in entries.sortedBy { it.day }) {
+                currentDay = entry
+                if (Clock.System.now() <= entry.end) break
+            }
+            return currentDay
+        }
     }
 }
