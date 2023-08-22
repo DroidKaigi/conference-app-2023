@@ -21,7 +21,6 @@ class EntryPointTest {
     fun get() {
         val kmpEntryPoint = KmpEntryPoint()
         kmpEntryPoint.init(
-            baseUrl = "https://ssot-api-staging.an.r.appspot.com/",
             remoteConfigApi = object : RemoteConfigApi {
                 override suspend fun getBoolean(key: String): Boolean {
                     return true
