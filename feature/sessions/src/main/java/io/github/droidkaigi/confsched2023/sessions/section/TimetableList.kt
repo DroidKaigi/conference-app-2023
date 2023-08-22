@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
+import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_secondary
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
@@ -97,6 +98,8 @@ fun TimetableList(
                         Text(text = "|")
                         Text(
                             text = timetableItem.endsTimeString,
+                            color = md_theme_light_secondary,
+                            fontWeight = FontWeight.Medium,
                         )
                     }
                 }
