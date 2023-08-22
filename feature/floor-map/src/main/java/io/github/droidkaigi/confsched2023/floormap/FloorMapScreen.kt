@@ -99,7 +99,6 @@ fun FloorMapScreen(
 
 data class FloorMapScreenUiState(
     val floorLevel: FloorLevel,
-    val floorMapUiState: FloorMapUiState,
     val largeFloorMapContentUiState: LargeFloorMapContentUiState,
     val smallFloorMapContentUiState: SmallFloorMapContentUiState,
 )
@@ -111,6 +110,7 @@ sealed interface FloorMapContentUiState {
     ) : FloorMapContentUiState
 
     data class SmallFloorMapContentUiState(
+        val floorMapUiState: FloorMapUiState,
         val sideEventListUiState: FloorMapSideEventListUiState,
     ) : FloorMapContentUiState
 }
@@ -167,7 +167,7 @@ private fun FloorMapContent(
     ) {
         if (widthSizeClass != WindowWidthSizeClass.Compact) {
             LargeScreenContent(
-                uiState = uiState,
+                uiState = uiState.largeFloorMapContentUiState,
                 onSideEventClick = onSideEventClick,
             )
         } else {
@@ -194,7 +194,7 @@ private fun MobileContent(
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        FloorMap(uiState = uiState.floorMapUiState)
+        FloorMap(uiState = uiState.smallFloorMapContentUiState.floorMapUiState)
         FloorMapSideEventList(
             uiState = uiState.smallFloorMapContentUiState.sideEventListUiState,
             onSideEventClick = onSideEventClick,
@@ -213,7 +213,7 @@ private fun MobileContent(
 
 @Composable
 private fun LargeScreenContent(
-    uiState: FloorMapScreenUiState,
+    uiState: LargeFloorMapContentUiState,
     onSideEventClick: (url: String) -> Unit,
 ) {
     Row(
@@ -225,7 +225,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Basement))
             FloorMapSideEventList(
-                uiState = uiState.largeFloorMapContentUiState.baseSideEventListUiState,
+                uiState = uiState.baseSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -243,7 +243,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Ground))
             FloorMapSideEventList(
-                uiState = uiState.largeFloorMapContentUiState.groundSideEventListUiState,
+                uiState = uiState.groundSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -267,7 +267,6 @@ fun PreviewFloorMapScreen() {
             FloorMapScreen(
                 uiState = FloorMapScreenUiState(
                     floorLevel = Basement,
-                    floorMapUiState = FloorMapUiState.of(Basement),
                     largeFloorMapContentUiState = LargeFloorMapContentUiState(
                         baseSideEventListUiState = FloorMapSideEventListUiState(
                             sideEvents = SideEvents.filter { it.floorLevel == Basement }
@@ -279,6 +278,7 @@ fun PreviewFloorMapScreen() {
                         ),
                     ),
                     smallFloorMapContentUiState = SmallFloorMapContentUiState(
+                        floorMapUiState = FloorMapUiState.of(Basement),
                         sideEventListUiState = FloorMapSideEventListUiState(
                             sideEvents = SideEvents.filter { it.floorLevel == Basement }
                                 .toImmutableList(),

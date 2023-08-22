@@ -40,8 +40,10 @@ class FloorMapScreenViewModel @Inject constructor(
     ) { floorLevel, floorMapUiState, floorMapSideEventListUiState ->
         FloorMapScreenUiState(
             floorLevel = floorLevel,
-            floorMapUiState = floorMapUiState,
-            smallFloorMapContentUiState = SmallFloorMapContentUiState(sideEventListUiState = floorMapSideEventListUiState),
+            smallFloorMapContentUiState = SmallFloorMapContentUiState(
+                sideEventListUiState = floorMapSideEventListUiState,
+                floorMapUiState = floorMapUiState,
+            ),
             largeFloorMapContentUiState = LargeFloorMapContentUiState(
                 groundSideEventListUiState = FloorMapSideEventListUiState(
                     this.floorMapSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Basement }
