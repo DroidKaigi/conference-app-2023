@@ -1,11 +1,13 @@
 import Assets
 import Component
+import LicenseList
 import Model
 import SwiftUI
 import Theme
 
 enum AboutRouting: Hashable {
     case contributors
+    case license
     case sponsors
 }
 
@@ -32,12 +34,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.schedule.swiftUIImage,
                             title: "日時",
                             content: "2023.09.14(木) 〜 16(土) 3日間"
                         )
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.locationOn.swiftUIImage,
                             title: "場所",
                             content: "ベルサール渋谷ガーデン",
                             action: .init(
@@ -81,10 +83,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                         )
                     }
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.fileCopy.swiftUIImage,
-                        title: "ライセンス"
-                    )
+                    NavigationLink(value: AboutRouting.license) {
+                        ListTile(
+                            icon: Assets.Icons.fileCopy.swiftUIImage,
+                            title: "ライセンス"
+                        )
+                    }
                     Divider()
                     SafariLink(url: .privacyPolicy) {
                         ListTile(
@@ -121,6 +125,8 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     contributorViewProvider(())
                 case .sponsors:
                     sponsorViewProvider(())
+                case .license:
+                    LicenseListView()
                 }
             }
         }

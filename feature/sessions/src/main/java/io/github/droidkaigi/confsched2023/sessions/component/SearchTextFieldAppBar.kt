@@ -15,6 +15,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
@@ -34,6 +35,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
 import io.github.droidkaigi.confsched2023.ui.isTest
 
@@ -144,9 +146,13 @@ private fun SearchTextField(
 @MultiLanguagePreviews
 @Composable
 fun SearchTextFieldAppBarPreview() {
-    SearchTextFieldAppBar(
-        searchQuery = "",
-        onSearchQueryChanged = {},
-        onBackClick = {},
-    )
+    KaigiTheme {
+        Surface {
+            SearchTextFieldAppBar(
+                searchQuery = "",
+                onSearchQueryChanged = {},
+                onBackClick = {},
+            )
+        }
+    }
 }

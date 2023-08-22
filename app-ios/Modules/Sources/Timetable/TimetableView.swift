@@ -1,4 +1,5 @@
 import Assets
+import Component
 import Model
 import shared
 import SwiftUI
@@ -61,6 +62,7 @@ public struct TimetableView<SessionView: View>: View {
                             }
                         }
                         .background(AssetColors.Surface.surface.swiftUIColor)
+                        .clipShape(RoundedCornersShape(corners: [.topLeft, .topRight], cornerRadius: 40))
                     }
                     .navigationDestination(for: TimetableRouting.self) { routing in
                         switch routing {
