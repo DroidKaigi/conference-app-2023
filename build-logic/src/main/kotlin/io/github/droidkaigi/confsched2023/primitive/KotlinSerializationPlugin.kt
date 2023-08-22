@@ -13,3 +13,4 @@ class KotlinSerializationPlugin : Plugin<Project> {
         }
     }
 }
+
