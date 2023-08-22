@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.floormap.section
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -9,6 +11,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.floormap.component.FloorMapSideEventItem
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import kotlinx.collections.immutable.ImmutableList
@@ -29,6 +32,9 @@ fun FloorMapSideEventList(
                 sideEvent = sideEvent,
                 onSideEventClick = onSideEventClick,
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(80.dp))
         }
     }
 }
