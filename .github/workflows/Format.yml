@@ -2,6 +2,8 @@ name: Format
 
 on:
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
 
 run-name: "Format by ${{ github.actor }}"
 
@@ -9,31 +11,56 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
-permissions: {}
-
 jobs:
   format:
     permissions:
       contents: read
 
     timeout-minutes: 20
-      
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
       - uses: ./.github/actions/setup-java
 
-      - name: Check spotless
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
-        with:
-          gradle-home-cache-cleanup: true
-          arguments: spotlessCheck --stacktrace --no-configuration-cache
+      - uses: reviewdog/action-setup@v1.0.6
 
-      - name: Check lint
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
-        with:
-          arguments: lintDebug --stacktrace
+#      - uses: reviewdog/action-setup@v1.0.6
+#
+#      - name: Check detekt
+#        id: detekt
+#        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
+#        with:
+#          gradle-home-cache-cleanup: true
+#          arguments: detekt reportMerge --continue
+#
+#      - name: Run report with ReviewDog
+#        if: steps.detekt.outcome == 'failure'
+#        env:
+#          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: cat ./build/reports/detekt/merge.xml |
+#          reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
+#
+#      - name: Comment lint check success
+#        if: steps.detekt.outcome == 'success'
+#        uses: marocchino/sticky-pull-request-comment@v2
+#        with:
+#          header: detekt
+#          recreate: true
+#          message: |
+#            :sparkles: :sparkles: **That's perfect, passed the PR lint check perfectly!** :sparkles: :sparkles:
+      - id: detekt
+        run: ./gradlew detekt reportMerge --continue
+
+      - name: Run report with ReviewDog
+        if: steps.detekt.outcome == 'failure'
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          < ./build/reports/detekt/merge.xml reviewdog -f=checkstyle -name="detekt" -reporter="github-pr-review"
+
+      - run: ./gradlew lintDebug lintDevDebug --stacktrace
 
       - name: Upload lint reports
         if: always()

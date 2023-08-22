@@ -39,6 +39,14 @@ class KaigiAppTest {
     }
 
     @Test
+    @Config(qualifiers = RobolectricDeviceQualifiers.MediumTablet)
+    fun checkMediumTabletLaunchShot() {
+        kaigiAppRobot {
+            capture()
+        }
+    }
+
+    @Test
     fun checkStartup() {
         kaigiAppRobot {
             timetableScreenRobot {

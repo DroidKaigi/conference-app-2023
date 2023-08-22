@@ -18,15 +18,20 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.floorButtonColors
 import io.github.droidkaigi.confsched2023.model.FloorLevel
+
+const val FloorLevelSwitcherGroundTestTag = "FloorLevelSwitcherGround"
+const val FloorLevelSwitcherBasementTestTag = "FloorLevelSwitcherBasement"
 
 @Composable
 fun FloorLevelSwitcher(
@@ -42,12 +47,14 @@ fun FloorLevelSwitcher(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Ground,
             shape = RoundedCornerShape(topStart = 100.dp, bottomStart = 100.dp),
+            testTag = FloorLevelSwitcherGroundTestTag,
             onClick = onClickFloorLevelSwitcher,
         )
         FloorLevelSwitcherButton(
             selectingFloorLevel = selectingFloorLevel,
             targetFloorLevel = FloorLevel.Basement,
             shape = RoundedCornerShape(topEnd = 100.dp, bottomEnd = 100.dp),
+            testTag = FloorLevelSwitcherBasementTestTag,
             onClick = onClickFloorLevelSwitcher,
         )
     }
@@ -58,6 +65,7 @@ private fun FloorLevelSwitcherButton(
     selectingFloorLevel: FloorLevel,
     targetFloorLevel: FloorLevel,
     shape: RoundedCornerShape,
+    testTag: String,
     onClick: (FloorLevel) -> Unit,
 ) {
     OutlinedButton(
@@ -76,7 +84,8 @@ private fun FloorLevelSwitcherButton(
             disabledContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
         ),
         modifier = Modifier
-            .width(104.dp),
+            .width(104.dp)
+            .testTag(testTag),
     ) {
         if (targetFloorLevel == selectingFloorLevel) {
             Icon(
@@ -100,28 +109,15 @@ private fun FloorLevelSwitcherButton(
     }
 }
 
-// TODO Use PreviewParameterProvider to display the Preview once the Linter issue is resolved.
-// https://github.com/DroidKaigi/conference-app-2023/pull/557#discussion_r1295780974
 @MultiThemePreviews
 @Composable
-fun FloorLevelSwitcherGroundPreview() {
+internal fun FloorLevelSwitcherPreview(
+    @PreviewParameter(PreviewFloorMapSwitcherFloorLevelProvider::class) floorLevel: FloorLevel,
+) {
     KaigiTheme {
         Surface {
             FloorLevelSwitcher(
-                selectingFloorLevel = FloorLevel.Ground,
-                onClickFloorLevelSwitcher = {},
-            )
-        }
-    }
-}
-
-@MultiThemePreviews
-@Composable
-fun FloorLevelSwitcherBasementPreview() {
-    KaigiTheme {
-        Surface {
-            FloorLevelSwitcher(
-                selectingFloorLevel = FloorLevel.Basement,
+                selectingFloorLevel = floorLevel,
                 onClickFloorLevelSwitcher = {},
             )
         }

@@ -14,16 +14,21 @@ struct TimetableListItemView: View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 4)
-                Text(timetableItem.language.langOfSpeaker)
-                    .font(Font.system(size: 12, weight: .medium))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .inset(by: 0.5)
-                            .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                // TODO apply like flexbox layout
+                LazyHStack(spacing: 4) {
+                    InfoLabel(
+                        timetableItem.room.name.currentLangTitle,
+                        labelColor: AssetColors.Custom.hallText.swiftUIColor,
+                        backgroundColor: timetableItem.room.type.toColor()
                     )
-                    .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                    ForEach(timetableItem.language.labels, id: \.self) { label in
+                        InfoLabel(
+                            label,
+                            labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
+                            strokeColor: AssetColors.Outline.outline.swiftUIColor
+                        )
+                    }
+                }
                 Spacer().frame(height: 12)
                 Text(timetableItem.title.currentLangTitle)
                     .multilineTextAlignment(.leading)
@@ -37,6 +42,7 @@ struct TimetableListItemView: View {
                             Assets.Icons.error.swiftUIImage
                                 .renderingMode(.template)
                             Text(message.currentLangTitle)
+                                .multilineTextAlignment(.leading)
                                 .font(Font.system(size: 12, weight: .regular, design: .default))
                         }
                         .foregroundStyle(AssetColors.Error.error.swiftUIColor)
@@ -69,8 +75,22 @@ struct TimetableListItemView: View {
     }
 }
 
- #Preview {
-     TimetableListItemView(
-         timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake()
-     )
- }
+private extension RoomType {
+    func toColor() -> Color {
+        let colorAsset = switch self {
+        case .rooma: AssetColors.Custom.hallA
+        case .roomb: AssetColors.Custom.hallB
+        case .roomc: AssetColors.Custom.hallC
+        case .roomd: AssetColors.Custom.hallD
+        case .roome: AssetColors.Custom.hallE
+        default: AssetColors.Custom.white
+        }
+        return colorAsset.swiftUIColor
+    }
+}
+
+#Preview {
+    TimetableListItemView(
+        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake()
+    )
+}

@@ -7,6 +7,9 @@ on:
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
@@ -19,7 +22,7 @@ jobs:
       contents: read
 
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
@@ -27,11 +30,7 @@ jobs:
 
       - uses: ./.github/actions/setup-java
 
-      - name: Build all build type and flavor permutations
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2
-        with:
-          gradle-home-cache-cleanup: true
-          arguments: assemble --stacktrace
+      - run: ./gradlew :app-android:assemble --stacktrace
 
       - name: Upload build outputs (APKs)
         uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2

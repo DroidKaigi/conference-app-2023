@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,23 +35,26 @@ import kotlinx.collections.immutable.PersistentMap
 import kotlinx.collections.immutable.PersistentSet
 
 sealed interface BookmarkSheetUiState {
+    val allFilterChipSelected: Boolean
     val currentDayFilter: PersistentList<DroidKaigi2023Day>
-    val isAll: Boolean
-        get() = currentDayFilter.size == DroidKaigi2023Day.entries.size
-    val isDayFirst: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
-    val isDaySecond: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day2
-    val isDayThird: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day3
+    val isAllSelected: Boolean
+        get() = currentDayFilter.size == DroidKaigi2023Day.entries.size && allFilterChipSelected
+    val isDayFirstSelected: Boolean
+        get() = currentDayFilter.contains(DroidKaigi2023Day.Day1) && !allFilterChipSelected
+    val isDaySecondSelected: Boolean
+        get() = currentDayFilter.contains(DroidKaigi2023Day.Day2) && !allFilterChipSelected
+    val isDayThirdSelected: Boolean
+        get() = currentDayFilter.contains(DroidKaigi2023Day.Day3) && !allFilterChipSelected
 
     data class Empty(
+        override val allFilterChipSelected: Boolean,
         override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
     ) : BookmarkSheetUiState
 
     data class ListBookmark(
         val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
         val timetableItemMap: PersistentMap<String, List<TimetableItem>>,
+        override val allFilterChipSelected: Boolean,
         override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
     ) : BookmarkSheetUiState
 }
@@ -73,15 +75,15 @@ fun BookmarkSheet(
         modifier = modifier.fillMaxSize(),
     ) {
         BookmarkFilters(
-            isAll = uiState.isAll,
-            isDayFirst = uiState.isDayFirst,
-            isDaySecond = uiState.isDaySecond,
-            isDayThird = uiState.isDayThird,
+            isAll = uiState.isAllSelected,
+            isDayFirst = uiState.isDayFirstSelected,
+            isDaySecond = uiState.isDaySecondSelected,
+            isDayThird = uiState.isDayThirdSelected,
             onAllFilterChipClick = onAllFilterChipClick,
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = Modifier,
         )
         when (uiState) {
             is Empty -> {

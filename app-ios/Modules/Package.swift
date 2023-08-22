@@ -22,6 +22,7 @@ var package = Package(
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -29,9 +30,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
-                "shared",
                 "Model",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -58,15 +57,27 @@ var package = Package(
                 "Theme",
             ]
         ),
+        .testTarget(
+            name: "ComponentTests",
+            dependencies: [
+                "Component",
+            ]
+        ),
 
         .target(
             name: "Contributor",
             dependencies: [
                 "Assets",
                 "Component",
+                "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "ContributorTests",
+            dependencies: [
+                "Contributor",
             ]
         ),
 
@@ -74,7 +85,6 @@ var package = Package(
             name: "FloorMap",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
             ]
         ),
@@ -86,13 +96,26 @@ var package = Package(
         ),
 
         .target(
+            name: "KMPContainer",
+            dependencies: [
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "KMPContainerTests",
+            dependencies: [
+                "KMPContainer",
+            ]
+        ),
+
+        .target(
             name: "Session",
             dependencies: [
                 "Assets",
                 "Component",
+                "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -106,9 +129,15 @@ var package = Package(
             name: "Sponsor",
             dependencies: [
                 "Assets",
+                "Component",
+                "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
+            ]
+        ),
+        .testTarget(
+            name: "SponsorTests",
+            dependencies: [
+                "Sponsor"
             ]
         ),
 
@@ -116,8 +145,9 @@ var package = Package(
             name: "Stamps",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
+                "KMPContainer",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
@@ -131,9 +161,10 @@ var package = Package(
             name: "Timetable",
             dependencies: [
                 "Assets",
-                "shared",
+                "Component",
+                "KMPContainer",
                 "Model",
-                "Theme",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
@@ -162,6 +193,12 @@ var package = Package(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+        .testTarget(
+            name: "ModelTests",
+            dependencies: [
+                "Model",
             ]
         ),
 

@@ -45,11 +45,14 @@ class BookmarkScreenViewModel @Inject constructor(
         DroidKaigi2023Day.entries.map { it },
     )
 
+    private val allFilterChipSelected = MutableStateFlow(true)
+
     val uiState: StateFlow<BookmarkScreenUiState> =
         buildUiState(
             sessionsStateFlow,
             currentDayFilter,
-        ) { sessions, currentDayFilter ->
+            allFilterChipSelected,
+        ) { sessions, currentDayFilter, allFilterChipSelected ->
             val sortAndGroupedBookmarkedTimetableItems = sessions.filtered(
                 Filters(
                     days = currentDayFilter,
@@ -66,6 +69,7 @@ class BookmarkScreenViewModel @Inject constructor(
             if (sortAndGroupedBookmarkedTimetableItems.isEmpty()) {
                 BookmarkScreenUiState(
                     contentUiState = BookmarkSheetUiState.Empty(
+                        false,
                         currentDayFilter.toPersistentList(),
                     ),
                 )
@@ -74,6 +78,7 @@ class BookmarkScreenViewModel @Inject constructor(
                     contentUiState = BookmarkSheetUiState.ListBookmark(
                         sessions.bookmarks,
                         sortAndGroupedBookmarkedTimetableItems,
+                        allFilterChipSelected,
                         currentDayFilter.toPersistentList(),
                     ),
                 )
@@ -84,23 +89,33 @@ class BookmarkScreenViewModel @Inject constructor(
         currentDayFilter.update {
             DroidKaigi2023Day.entries.toList()
         }
-    }
-
-    fun onDayFirstChipClick() {
-        currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day1)
+        allFilterChipSelected.update {
+            true
         }
     }
 
-    fun onDaySecondChipClick() {
-        currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day2)
-        }
-    }
+    fun onDayFirstChipClick() = onDayChipClick(DroidKaigi2023Day.Day1)
 
-    fun onDayThirdChipClick() {
+    fun onDaySecondChipClick() = onDayChipClick(DroidKaigi2023Day.Day2)
+
+    fun onDayThirdChipClick() = onDayChipClick(DroidKaigi2023Day.Day3)
+
+    private fun onDayChipClick(day: DroidKaigi2023Day) {
         currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day3)
+            when {
+                it.size == DroidKaigi2023Day.entries.size && allFilterChipSelected.value -> {
+                    listOf(day)
+                }
+
+                it.contains(day) -> if (it.size > 1) it.minus(day) else it
+
+                else -> {
+                    it.plus(day)
+                }
+            }
+        }
+        allFilterChipSelected.update {
+            false
         }
     }
 

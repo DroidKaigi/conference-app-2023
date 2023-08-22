@@ -1,19 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Floor_B1F.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Floor_B1F@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Floor_B1F@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "floorMap_light_B1F.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

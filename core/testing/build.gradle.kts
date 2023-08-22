@@ -3,7 +3,8 @@ plugins {
     id("droidkaigi.primitive.android.kotlin")
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.detekt")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.testing"
