@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.res.Resources.NotFoundException
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.core.content.res.ResourcesCompat
@@ -20,14 +21,14 @@ val fontMap: HashMap<String, FontFamily?> = HashMap()
 // https://ishroid.medium.com/custom-font-loading-in-kmp-compose-multiplatform-2eb19865f61b
 @ExperimentalResourceApi
 @Composable
-actual fun fontFamilyResource(fontResource: FontResource): MutableState<FontFamily?> {
+actual fun fontFamilyResource(fontResource: FontResource): FontFamily? {
     val context: Context = LocalContext.current
 
-    val state: MutableState<FontFamily?> =
-        remember(fontResource) { mutableStateOf(fontMap[fontResource.resName]) }
-    if (state.value == null) {
+    var fontFamily: FontFamily? by
+        remember(fontResource.resName) { mutableStateOf(fontMap[fontResource.resName]) }
+    if (fontFamily == null) {
         LaunchedEffect(fontResource) {
-            state.value = try {
+            fontFamily = try {
                 FontFamily(
                     ResourcesCompat.getFont(
                         context,
@@ -40,8 +41,8 @@ actual fun fontFamilyResource(fontResource: FontResource): MutableState<FontFami
                 Logger.e(e.message ?: "Please check if the font file specification is correct.")
                 throw NotFoundException()
             }
-            fontMap[fontResource.resName] = state.value
+            fontMap[fontResource.resName] = fontFamily
         }
     }
-    return state
+    return fontFamily
 }
