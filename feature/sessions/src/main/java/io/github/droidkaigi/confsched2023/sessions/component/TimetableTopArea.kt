@@ -1,9 +1,10 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Bookmarks
+import androidx.compose.material.icons.outlined.GridView
+import androidx.compose.material.icons.outlined.ViewTimeline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -19,6 +20,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.sessions.R
+import io.github.droidkaigi.confsched2023.model.TimetableUiType
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Bookmark
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Search
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.Timetable
@@ -30,6 +32,7 @@ const val TimetableBookmarksIconTestTag = "TimetableBookmarksIconTestTag"
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun TimetableTopArea(
+    timetableUiType: TimetableUiType,
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
     onTopAreaBookmarkIconClick: () -> Unit,
@@ -67,7 +70,11 @@ fun TimetableTopArea(
                 onClick = { onTimetableUiChangeClick() },
             ) {
                 Icon(
-                    imageVector = Icons.Default.GridView,
+                    imageVector = if (timetableUiType != TimetableUiType.Grid) {
+                        Icons.Outlined.GridView
+                    } else {
+                        Icons.Outlined.ViewTimeline
+                    },
                     contentDescription = Timetable.asString(),
                 )
             }
@@ -85,6 +92,7 @@ fun TimetableTopAreaPreview() {
     KaigiTheme {
         Surface {
             TimetableTopArea(
+                timetableUiType = TimetableUiType.Grid,
                 onTimetableUiChangeClick = {},
                 onSearchClick = {},
                 onTopAreaBookmarkIconClick = {},
