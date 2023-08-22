@@ -1,11 +1,13 @@
 import Assets
 import Component
+import LicenseList
 import Model
 import SwiftUI
 import Theme
 
 enum AboutRouting: Hashable {
     case contributors
+    case license
     case sponsors
 }
 
@@ -81,10 +83,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                         )
                     }
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.fileCopy.swiftUIImage,
-                        title: "ライセンス"
-                    )
+                    NavigationLink(value: AboutRouting.license) {
+                        ListTile(
+                            icon: Assets.Icons.fileCopy.swiftUIImage,
+                            title: "ライセンス"
+                        )
+                    }
                     Divider()
                     SafariLink(url: .privacyPolicy) {
                         ListTile(
@@ -121,6 +125,8 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     contributorViewProvider(())
                 case .sponsors:
                     sponsorViewProvider(())
+                case .license:
+                    LicenseListView()
                 }
             }
         }
