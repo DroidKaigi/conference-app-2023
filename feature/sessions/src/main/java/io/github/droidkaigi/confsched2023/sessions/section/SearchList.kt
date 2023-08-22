@@ -135,6 +135,7 @@ fun SearchList(
                             label = timetableItem.room.name.currentLangTitle,
                             labelColor = roomChipLabelColor,
                             backgroundColor = roomChipBackgroundColor,
+                            borderColor = roomChipBackgroundColor,
                         )
                         infoChip.forEach {
                             SessionTag(label = it)

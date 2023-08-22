@@ -106,8 +106,8 @@ fun BookmarkList(
                                     label = timetableItem.room.name.currentLangTitle,
                                     labelColor = roomChipLabelColor,
                                     backgroundColor = roomChipBackgroundColor,
+                                    borderColor = roomChipBackgroundColor,
                                 )
-                                Spacer(modifier = Modifier.size(5.dp))
                                 SessionTag(
                                     label = timetableItem.day?.name.orEmpty(),
                                 )

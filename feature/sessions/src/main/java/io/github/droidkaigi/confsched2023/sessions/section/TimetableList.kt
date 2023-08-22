@@ -118,6 +118,7 @@ fun TimetableList(
                                     label = timetableItem.room.name.currentLangTitle,
                                     labelColor = labelColor,
                                     backgroundColor = containerColor,
+                                    borderColor = containerColor,
                                 )
                                 timetableItem.language.labels.forEach {
                                     SessionTag(label = it)
