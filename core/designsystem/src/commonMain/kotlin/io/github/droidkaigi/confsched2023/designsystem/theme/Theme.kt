@@ -144,6 +144,7 @@ fun KaigiTheme(
 
     MaterialTheme(
         colorScheme = colors,
+        typography = typography(),
         content = content,
     )
 }

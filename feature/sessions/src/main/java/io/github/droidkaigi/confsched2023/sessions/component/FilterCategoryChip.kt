@@ -1,94 +1,72 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.testTag
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
+import io.github.droidkaigi.confsched2023.model.fakes
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
-import kotlinx.collections.immutable.ImmutableList
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 
-@OptIn(ExperimentalMaterial3Api::class)
+const val FilterCategoryChipTestTag = "FilterCategoryChip"
+
 @Composable
 fun FilterCategoryChip(
-    selectedCategories: ImmutableList<TimetableCategory>,
-    categories: ImmutableList<TimetableCategory>,
+    searchFilterUiState: SearchFilterUiState<TimetableCategory>,
     onCategoriesSelected: (TimetableCategory, Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    isSelected: Boolean = false,
-    selectedCategoriesValues: String = "",
     onFilterCategoryChipClicked: () -> Unit,
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    val onCategoriesSelectedUpdated by rememberUpdatedState(newValue = onCategoriesSelected)
+    DropdownFilterChip(
+        searchFilterUiState = searchFilterUiState,
+        onSelected = onCategoriesSelected,
+        filterChipLabelDefaultText = SessionsStrings.Category.asString(),
+        onFilterChipClick = onFilterCategoryChipClicked,
+        dropdownMenuItemText = { category ->
+            category.title.currentLangTitle
+        },
+        modifier = modifier.testTag(FilterCategoryChipTestTag),
+    )
+}
 
-    Box(
-        modifier = modifier,
-    ) {
-        FilterChip(
-            selected = isSelected,
-            onClick = {
-                onFilterCategoryChipClicked()
-                expanded = true
-            },
-            label = { Text(text = selectedCategoriesValues.ifEmpty { SessionsStrings.Category.asString() }) },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = null,
-                )
-            },
+@MultiThemePreviews
+@Composable
+fun PreviewFilterCategoryChip() {
+    var uiState by remember {
+        mutableStateOf(
+            SearchFilterUiState(
+                selectedItems = emptyList<TimetableCategory>().toImmutableList(),
+                items = TimetableCategory.fakes().toImmutableList(),
+            ),
         )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            categories.forEach { category ->
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = category.title.currentLangTitle,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    },
-                    leadingIcon = {
-                        if (selectedCategories.contains(category)) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    },
-                    onClick = {
-                        onCategoriesSelectedUpdated(
-                            category,
-                            selectedCategories
-                                .contains(category)
-                                .not(),
-                        )
-                        expanded = false
-                    },
+    }
+
+    KaigiTheme {
+        FilterCategoryChip(
+            searchFilterUiState = uiState,
+            onCategoriesSelected = { category, isSelected ->
+                val selectedCategories = uiState.selectedItems.toMutableList()
+                val newSelectedCategories = selectedCategories.apply {
+                    if (isSelected) {
+                        add(category)
+                    } else {
+                        remove(category)
+                    }
+                }
+                uiState = uiState.copy(
+                    selectedItems = newSelectedCategories.toImmutableList(),
+                    isSelected = newSelectedCategories.isNotEmpty(),
+                    selectedValues = newSelectedCategories.joinToString { it.title.currentLangTitle },
                 )
-            }
-        }
+            },
+            onFilterCategoryChipClicked = {},
+        )
     }
 }
