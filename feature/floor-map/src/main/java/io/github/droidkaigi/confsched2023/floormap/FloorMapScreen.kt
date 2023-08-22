@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -13,6 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
@@ -23,12 +23,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -103,20 +106,29 @@ private fun FloorMapScreen(
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp), // https://stackoverflow.com/a/75962622
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        modifier = Modifier
-            .testTag(FloorMapScreenTestTag)
-            .statusBarsPadding(),
+        modifier = Modifier.testTag(FloorMapScreenTestTag),
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = FloorMapStrings.Title.asString(),
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    if (scrollBehavior.state.overlappedFraction == 0f) {
+                        Text(
+                            text = FloorMapStrings.Title.asString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Medium,
+                        )
+                    } else {
+                        Text(
+                            text = FloorMapStrings.Title.asString(),
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.alpha(scrollBehavior.state.overlappedFraction),
+                        )
+                    }
                 },
+                scrollBehavior = scrollBehavior,
             )
         },
         content = { innerPadding ->
@@ -147,6 +159,7 @@ private fun FloorMapScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(bottom = 56.dp)
+                        .nestedScroll(scrollBehavior.nestedScrollConnection)
                         .fadingEdge(
                             Brush.verticalGradient(
                                 gradientStartRatio to Color.Black,
