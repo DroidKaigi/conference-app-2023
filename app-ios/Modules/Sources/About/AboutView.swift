@@ -32,12 +32,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.schedule.swiftUIImage,
                             title: "日時",
                             content: "2023.09.14(木) 〜 16(土) 3日間"
                         )
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.locationOn.swiftUIImage,
                             title: "場所",
                             content: "ベルサール渋谷ガーデン",
                             action: .init(
