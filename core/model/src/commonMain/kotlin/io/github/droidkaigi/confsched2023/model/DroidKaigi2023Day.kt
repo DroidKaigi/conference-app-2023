@@ -81,5 +81,17 @@ public enum class DroidKaigi2023Day(
         public fun defaultDyamicThemeDate(): Boolean {
             return Day1.start < Clock.System.now()
         }
+
+        /**
+         * @return appropriate initial day for now
+         */
+        fun initialSelectedDay(): DroidKaigi2023Day {
+            val reversedEntries = entries.sortedByDescending { it.day }
+            var selectedDay = reversedEntries.last()
+            for (entry in reversedEntries) {
+                if (Clock.System.now() <= entry.end) selectedDay = entry
+            }
+            return selectedDay
+        }
     }
 }
