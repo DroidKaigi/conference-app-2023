@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct InfoLabel: View {
+struct SessionTag: View {
     
     private let label: String
     private let labelColor: Color

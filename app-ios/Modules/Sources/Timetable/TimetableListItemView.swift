@@ -16,13 +16,13 @@ struct TimetableListItemView: View {
                 Spacer().frame(height: 16)
                 // TODO apply like flexbox layout
                 HStack(spacing: 4) {
-                    InfoLabel(
+                    SessionTag(
                         timetableItem.room.name.currentLangTitle,
                         labelColor: AssetColors.Custom.hallText.swiftUIColor,
                         backgroundColor: timetableItem.room.type.toColor()
                     )
                     ForEach(timetableItem.language.labels, id: \.self) { label in
-                        InfoLabel(
+                        SessionTag(
                             label,
                             labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
                             strokeColor: AssetColors.Outline.outline.swiftUIColor
