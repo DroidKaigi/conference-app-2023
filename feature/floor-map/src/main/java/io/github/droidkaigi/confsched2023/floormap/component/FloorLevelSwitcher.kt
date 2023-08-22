@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
@@ -108,28 +109,15 @@ private fun FloorLevelSwitcherButton(
     }
 }
 
-// TODO Use PreviewParameterProvider to display the Preview once the Linter issue is resolved.
-// https://github.com/DroidKaigi/conference-app-2023/pull/557#discussion_r1295780974
 @MultiThemePreviews
 @Composable
-fun FloorLevelSwitcherGroundPreview() {
+internal fun FloorLevelSwitcherPreview(
+    @PreviewParameter(PreviewFloorMapSwitcherFloorLevelProvider::class) floorLevel: FloorLevel,
+) {
     KaigiTheme {
         Surface {
             FloorLevelSwitcher(
-                selectingFloorLevel = FloorLevel.Ground,
-                onClickFloorLevelSwitcher = {},
-            )
-        }
-    }
-}
-
-@MultiThemePreviews
-@Composable
-fun FloorLevelSwitcherBasementPreview() {
-    KaigiTheme {
-        Surface {
-            FloorLevelSwitcher(
-                selectingFloorLevel = FloorLevel.Basement,
+                selectingFloorLevel = floorLevel,
                 onClickFloorLevelSwitcher = {},
             )
         }
