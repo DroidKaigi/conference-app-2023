@@ -36,8 +36,7 @@ data class SearchListUiState(
     val timetableItems: PersistentList<TimetableItem>,
 )
 
-@JvmInline
-value class SearchQuery(val queryText: String) {
+data class SearchQuery(val queryText: String) {
     val hasQuery get() = queryText.isNotBlank()
 
     fun String.getMatchIndexRange(): IntRange {
@@ -52,7 +51,7 @@ value class SearchQuery(val queryText: String) {
     }
 
     companion object {
-        val Empty = SearchQuery("")
+        val Empty = SearchQuery("AAA")
     }
 }
 
