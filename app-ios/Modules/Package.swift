@@ -23,6 +23,7 @@ var package = Package(
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+        .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
     ],
     targets: [
         .target(
@@ -31,6 +32,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "Model",
+                .product(name: "LicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
