@@ -9,9 +9,7 @@ group = "io.github.droidkaigi.confsched2023.buildlogic"
 repositories {
     google()
     mavenCentral()
-    maven {
-        url = uri("https://plugins.gradle.org/m2/")
-    }
+    gradlePluginPortal()
 }
 
 // If we use jvmToolchain, we need to install JDK 11
