@@ -191,7 +191,7 @@ private fun TimetableScreen(
             TimetableSheet(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 130.dp)
+                    .padding(top = 131.dp)
                     .layout { measurable, constraints ->
                         val placeable = measurable.measure(
                             constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
