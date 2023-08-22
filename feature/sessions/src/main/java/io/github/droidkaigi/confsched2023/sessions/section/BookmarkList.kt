@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Text
@@ -117,12 +118,14 @@ fun BookmarkList(
                                         containerColor = roomChipBackgroundColor,
                                         labelColor = roomChipLabelColor,
                                     ),
+                                    shape = RoundedCornerShape(50.dp),
                                     border = null,
                                 )
                                 Spacer(modifier = Modifier.size(5.dp))
                                 AssistChip(
                                     onClick = { /*Do Nothing*/ },
                                     label = { Text(timetableItem.day?.name.orEmpty()) },
+                                    shape = RoundedCornerShape(50.dp),
                                 )
                             },
                             onClick = onTimetableItemClick,

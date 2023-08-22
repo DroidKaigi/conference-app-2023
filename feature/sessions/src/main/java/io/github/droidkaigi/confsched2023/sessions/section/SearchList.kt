@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
@@ -138,6 +139,7 @@ fun SearchList(
                                 containerColor = roomChipBackgroundColor,
                                 labelColor = roomChipLabelColor,
                             ),
+                            shape = RoundedCornerShape(50.dp),
                             border = null,
                             onClick = { /* Do nothing */ },
                             label = {
@@ -150,6 +152,7 @@ fun SearchList(
                         infoChip.forEach {
                             SuggestionChip(
                                 modifier = Modifier.padding(start = 4.dp),
+                                shape = RoundedCornerShape(50.dp),
                                 onClick = { /* Do nothing */ },
                                 label = {
                                     Text(
