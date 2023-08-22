@@ -32,6 +32,8 @@ multiplatformFirebase = "1.8.1"
 kermit = "1.2.2"
 okHttp = "4.11.0"
 ktorfit = "1.5.0"
+ossLicensesPlugin = "0.10.6"
+ossLicenses = "17.0.1"
 detekt = "1.23.1"
 twitterComposeRule = "0.0.26"
 
@@ -124,6 +126,11 @@ ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = 
 
 # Test
 
+# etc
+
+ossLicenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "ossLicenses" }
+ossLicensesPlugin = { module = "com.google.android.gms:oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
+
 junit = { module = "junit:junit", version.ref = "junit" }
 androidxTestExtJunit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
 androidxTestEspressoEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspresso" }
@@ -143,6 +150,7 @@ roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "r
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
 detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+ossLicensesPlugin = { id = "com.google.android.gms.oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 
 [bundles]
 plugins = [
