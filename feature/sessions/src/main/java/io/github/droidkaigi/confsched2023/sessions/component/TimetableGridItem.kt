@@ -1,8 +1,11 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
@@ -35,6 +39,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
+import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
@@ -44,6 +49,8 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.minus
 import kotlin.math.ceil
@@ -61,6 +68,7 @@ fun TimetableGridItem(
     val localDensity = LocalDensity.current
 
     val speaker = timetableItem.speakers.firstOrNull()
+    val speakers = timetableItem.speakers
 
     val hallColor = hallColors()
     val backgroundColor = timetableItem.room.color
@@ -86,10 +94,10 @@ fun TimetableGridItem(
     Box(
         modifier = modifier
             .background(
-                color = if (speaker != null) {
-                    backgroundColor
-                } else {
+                color = if (speakers.isEmpty()) {
                     MaterialTheme.colorScheme.surfaceVariant
+                } else {
+                    backgroundColor
                 },
                 shape = RoundedCornerShape(4.dp),
             )
@@ -130,29 +138,68 @@ fun TimetableGridItem(
                     .defaultMinSize(minHeight = 8.dp),
             )
 
-            // TODO: Dealing with more than one speaker
-            if (speaker != null) {
-                Row(
-                    modifier = Modifier.height(TimetableGridItemSizes.speakerHeight),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Image(
-                        painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
-                            rememberAsyncImagePainter(speaker.iconUrl)
-                        },
-                        contentDescription = UserIcon.asString(),
-                        modifier = Modifier.clip(RoundedCornerShape(8.dp)),
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = speaker.name,
-                        style = MaterialTheme.typography.labelMedium,
-                        color = textColor,
-                    )
-                }
+            when (speakers.size) {
+                0 -> Unit
+                1 -> SingleSpeaker(speaker = speakers.first(), textColor = textColor)
+                else -> MultiSpeakers(speakers = speakers)
             }
         }
     }
+}
+
+@Composable
+private fun SingleSpeaker(
+    speaker: TimetableSpeaker,
+    textColor: Color,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.height(TimetableGridItemSizes.speakerHeight),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        SpeakerIcon(iconUrl = speaker.iconUrl)
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = speaker.name,
+            style = MaterialTheme.typography.labelMedium,
+            color = textColor,
+        )
+    }
+}
+
+@Composable
+private fun MultiSpeakers(
+    speakers: PersistentList<TimetableSpeaker>,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.height(TimetableGridItemSizes.speakerHeight),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+    ) {
+        speakers.forEach { speaker ->
+            SpeakerIcon(speaker.iconUrl)
+        }
+    }
+}
+
+@Composable
+private fun SpeakerIcon(
+    iconUrl: String,
+    modifier: Modifier = Modifier,
+) {
+    Image(
+        painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Person) }) {
+            rememberAsyncImagePainter(iconUrl)
+        },
+        contentDescription = UserIcon.asString(),
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .border(
+                BorderStroke(1.dp, md_theme_light_outline),
+                RoundedCornerShape(8.dp),
+            ),
+    )
 }
 
 /**
@@ -301,7 +348,8 @@ fun PreviewTimetableGridItem() {
     KaigiTheme {
         Surface {
             TimetableGridItem(
-                timetableItem = Session.fake(),
+                timetableItem = Session.fake()
+                    .copy(speakers = persistentListOf(Session.fake().speakers.first())),
                 onTimetableItemClick = {},
                 gridItemHeightPx = 350,
             )
@@ -329,10 +377,24 @@ fun PreviewTimetableGridLongTitleItem() {
                         jaTitle = it.title.jaTitle.repeat(2),
                         enTitle = it.title.enTitle.repeat(2),
                     )
-                    it.copy(title = longTitle)
+                    it.copy(title = longTitle, speakers = persistentListOf(it.speakers.first()))
                 },
                 onTimetableItemClick = {},
                 gridItemHeightPx = height,
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun PreviewTimetableGridMultiSpeakersItem() {
+    KaigiTheme {
+        Surface {
+            TimetableGridItem(
+                timetableItem = Session.fake(),
+                onTimetableItemClick = {},
+                gridItemHeightPx = 350,
             )
         }
     }
