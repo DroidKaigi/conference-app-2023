@@ -97,6 +97,7 @@ dependencies {
     implementation(libs.accompanistSystemUiController)
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
+    implementation(libs.ossLicenses)
     implementation(libs.kermit)
     testImplementation(projects.core.testing)
 }
