@@ -92,7 +92,10 @@ fun TimetableList(
                     Spacer(modifier = Modifier.size(6.dp))
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
+                        verticalArrangement = Arrangement.spacedBy(
+                            space = 4.dp,
+                            alignment = Alignment.CenterVertically,
+                        )
                     ) {
                         Text(
                             text = timetableItem.startsTimeString,
@@ -100,7 +103,7 @@ fun TimetableList(
                         )
                         Box(
                             modifier = Modifier
-                                .height(16.dp)
+                                .height(12.dp)
                                 .width(1.dp)
                                 .background(MaterialTheme.colorScheme.onSurfaceVariant)
                         )
