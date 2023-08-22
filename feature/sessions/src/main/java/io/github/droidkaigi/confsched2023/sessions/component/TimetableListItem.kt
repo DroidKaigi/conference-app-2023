@@ -38,6 +38,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.designsystem.theme.typography
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -141,8 +142,7 @@ fun TimetableListItem(
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
                         text = speaker.name,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
+                        style = typography().bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
