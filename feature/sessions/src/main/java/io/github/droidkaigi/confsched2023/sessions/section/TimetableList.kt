@@ -102,9 +102,9 @@ fun TimetableList(
                         )
                         Box(
                             modifier = Modifier
-                                .height(12.dp)
-                                .width(1.dp)
-                                .background(MaterialTheme.colorScheme.onSurfaceVariant),
+                                .height(8.dp)
+                                .width(2.dp)
+                                .background(MaterialTheme.colorScheme.outlineVariant),
                         )
                         Text(
                             text = timetableItem.endsTimeString,
