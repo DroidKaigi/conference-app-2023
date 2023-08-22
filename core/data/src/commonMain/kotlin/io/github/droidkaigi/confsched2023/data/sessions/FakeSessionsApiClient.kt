@@ -95,8 +95,8 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                         en = "DroidKaigi App Architecture day$day room${room.name.en} index$index",
                     ),
                     speakers = listOf("1", "2"),
-                    description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n"
-                       + "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                    description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                        "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
                     startsAt = start.toString(),
                     endsAt = end.toString(),
                     language = "JAPANESE",
