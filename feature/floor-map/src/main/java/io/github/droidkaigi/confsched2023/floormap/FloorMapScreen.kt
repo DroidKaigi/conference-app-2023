@@ -37,6 +37,8 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.LargeFloorMapContentUiState
+import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.SmallFloorMapContentUiState
 import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMap
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
@@ -98,10 +100,20 @@ fun FloorMapScreen(
 data class FloorMapScreenUiState(
     val floorLevel: FloorLevel,
     val floorMapUiState: FloorMapUiState,
-    val floorMapSideEventListUiState: FloorMapSideEventListUiState,
-    val basementFloorMapSideEventListUiState: FloorMapSideEventListUiState,
-    val groundFloorMapSideEventListUiState: FloorMapSideEventListUiState,
+    val largeFloorMapContentUiState: LargeFloorMapContentUiState,
+    val smallFloorMapContentUiState: SmallFloorMapContentUiState,
 )
+
+sealed interface FloorMapContentUiState {
+    data class LargeFloorMapContentUiState(
+        val baseSideEventListUiState: FloorMapSideEventListUiState,
+        val groundSideEventListUiState: FloorMapSideEventListUiState,
+    ) : FloorMapContentUiState
+
+    data class SmallFloorMapContentUiState(
+        val sideEventListUiState: FloorMapSideEventListUiState,
+    ) : FloorMapContentUiState
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -184,7 +196,7 @@ private fun MobileContent(
     ) {
         FloorMap(uiState = uiState.floorMapUiState)
         FloorMapSideEventList(
-            uiState = uiState.floorMapSideEventListUiState,
+            uiState = uiState.smallFloorMapContentUiState.sideEventListUiState,
             onSideEventClick = onSideEventClick,
             modifier = Modifier
                 .weight(1f)
@@ -213,7 +225,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Basement))
             FloorMapSideEventList(
-                uiState = uiState.basementFloorMapSideEventListUiState,
+                uiState = uiState.largeFloorMapContentUiState.baseSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -231,7 +243,7 @@ private fun LargeScreenContent(
         ) {
             FloorMap(uiState = FloorMapUiState.of(Ground))
             FloorMapSideEventList(
-                uiState = uiState.groundFloorMapSideEventListUiState,
+                uiState = uiState.largeFloorMapContentUiState.groundSideEventListUiState,
                 onSideEventClick = onSideEventClick,
                 modifier = Modifier
                     .weight(1f)
@@ -256,17 +268,21 @@ fun PreviewFloorMapScreen() {
                 uiState = FloorMapScreenUiState(
                     floorLevel = Basement,
                     floorMapUiState = FloorMapUiState.of(Basement),
-                    floorMapSideEventListUiState = FloorMapSideEventListUiState(
-                        sideEvents = SideEvents.filter { it.floorLevel == Basement }
-                            .toImmutableList(),
+                    largeFloorMapContentUiState = LargeFloorMapContentUiState(
+                        baseSideEventListUiState = FloorMapSideEventListUiState(
+                            sideEvents = SideEvents.filter { it.floorLevel == Basement }
+                                .toImmutableList(),
+                        ),
+                        groundSideEventListUiState = FloorMapSideEventListUiState(
+                            sideEvents = SideEvents.filter { it.floorLevel == Ground }
+                                .toImmutableList(),
+                        ),
                     ),
-                    basementFloorMapSideEventListUiState = FloorMapSideEventListUiState(
-                        sideEvents = SideEvents.filter { it.floorLevel == Basement }
-                            .toImmutableList(),
-                    ),
-                    groundFloorMapSideEventListUiState = FloorMapSideEventListUiState(
-                        sideEvents = SideEvents.filter { it.floorLevel == Ground }
-                            .toImmutableList(),
+                    smallFloorMapContentUiState = SmallFloorMapContentUiState(
+                        sideEventListUiState = FloorMapSideEventListUiState(
+                            sideEvents = SideEvents.filter { it.floorLevel == Basement }
+                                .toImmutableList(),
+                        ),
                     ),
                 ),
                 snackbarHostState = SnackbarHostState(),

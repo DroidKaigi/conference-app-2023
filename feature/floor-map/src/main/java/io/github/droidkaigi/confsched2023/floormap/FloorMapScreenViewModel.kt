@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2023.floormap
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.LargeFloorMapContentUiState
+import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.SmallFloorMapContentUiState
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.model.FloorLevel
@@ -17,15 +19,16 @@ class FloorMapScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(), UserMessageStateHolder by userMessageStateHolder {
     private val floorLevelStateFlow = MutableStateFlow(FloorLevel.Basement)
-    private val floorMapAllSideEventListUiState = FloorMapSideEventListUiState(
+    private val floorMapSideEventListUiState = FloorMapSideEventListUiState(
         sideEvents = SideEvents,
     )
-    private val floorMapSideEventListUiStateFlow = buildUiState(floorLevelStateFlow) { floorLevel ->
-        FloorMapSideEventListUiState(
-            floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == floorLevel }
-                .toImmutableList(),
-        )
-    }
+    private val smallFloorMapSideEventListUiStateFlow =
+        buildUiState(floorLevelStateFlow) { floorLevel ->
+            FloorMapSideEventListUiState(
+                floorMapSideEventListUiState.sideEvents.filter { it.floorLevel == floorLevel }
+                    .toImmutableList(),
+            )
+        }
     private val floorMapUiStateFlow = buildUiState(floorLevelStateFlow) { floorLevel ->
         FloorMapUiState.of(floorLevel)
     }
@@ -33,19 +36,21 @@ class FloorMapScreenViewModel @Inject constructor(
     val uiState = buildUiState(
         floorLevelStateFlow,
         floorMapUiStateFlow,
-        floorMapSideEventListUiStateFlow,
+        smallFloorMapSideEventListUiStateFlow,
     ) { floorLevel, floorMapUiState, floorMapSideEventListUiState ->
         FloorMapScreenUiState(
             floorLevel = floorLevel,
             floorMapUiState = floorMapUiState,
-            floorMapSideEventListUiState = floorMapSideEventListUiState,
-            basementFloorMapSideEventListUiState = FloorMapSideEventListUiState(
-                floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Basement }
-                    .toImmutableList(),
-            ),
-            groundFloorMapSideEventListUiState = FloorMapSideEventListUiState(
-                floorMapAllSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Ground }
-                    .toImmutableList(),
+            smallFloorMapContentUiState = SmallFloorMapContentUiState(sideEventListUiState = floorMapSideEventListUiState),
+            largeFloorMapContentUiState = LargeFloorMapContentUiState(
+                groundSideEventListUiState = FloorMapSideEventListUiState(
+                    this.floorMapSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Basement }
+                        .toImmutableList(),
+                ),
+                baseSideEventListUiState = FloorMapSideEventListUiState(
+                    this.floorMapSideEventListUiState.sideEvents.filter { it.floorLevel == FloorLevel.Ground }
+                        .toImmutableList(),
+                ),
             ),
         )
     }
