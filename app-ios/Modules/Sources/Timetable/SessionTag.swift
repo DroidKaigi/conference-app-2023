@@ -29,7 +29,7 @@ struct SessionTag: View {
             .cornerRadius(50)
             .overlay {
                 if let strokeColor = strokeColor {
-                    RoundedRectangle(cornerRadius: 50)
+                    Capsule()
                         .inset(by: 0.5)
                         .stroke(strokeColor, lineWidth: 1)
                 } else {
