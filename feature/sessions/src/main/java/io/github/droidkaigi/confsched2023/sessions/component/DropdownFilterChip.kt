@@ -72,10 +72,14 @@ fun <T> DropdownFilterChip(
                         dropdownMenuItemText(item)
                     },
                     leadingIcon = dropdownMenuItemLeadingIcon?.let { icon ->
-                        { icon(item) }
+                        {
+                            icon(item)
+                        }
                     },
                     trailingIcon = dropdownMenuItemTrailingIcon?.let { icon ->
-                        { icon(item) }
+                        {
+                            icon(item)
+                        }
                     },
                     onClick = {
                         onSelectedUpdated(
