@@ -7,8 +7,9 @@ plugins {
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
     id("droidkaigi.primitive.android.firebase")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
+    id("droidkaigi.primitive.kover")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -62,7 +63,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -92,7 +93,10 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
+    implementation(libs.composeMaterialWindowSize)
     implementation(libs.accompanistSystemUiController)
     implementation(libs.androidxBrowser)
+    implementation(libs.androidxWindow)
+    implementation(libs.kermit)
     testImplementation(projects.core.testing)
 }

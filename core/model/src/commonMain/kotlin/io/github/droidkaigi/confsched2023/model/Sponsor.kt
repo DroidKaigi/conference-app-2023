@@ -18,18 +18,18 @@ public enum class Plan {
     SUPPORTER,
     ;
 
-    public companion object {
-        public fun ofOrNull(plan: String): Plan? {
-            return entries.firstOrNull { it.name == plan }
-        }
-    }
-
     public val isSupporter: Boolean
         get() = this == SUPPORTER
     public val isPlatinum: Boolean
         get() = this == PLATINUM
     public val isGold: Boolean
         get() = this == GOLD
+
+    public companion object {
+        public fun ofOrNull(plan: String): Plan? {
+            return entries.firstOrNull { it.name == plan }
+        }
+    }
 }
 
 public fun Sponsor.Companion.fakes(): PersistentList<Sponsor> = (

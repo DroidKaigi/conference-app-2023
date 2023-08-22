@@ -7,6 +7,8 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
+import com.github.takahirom.roborazzi.Dump
+import com.github.takahirom.roborazzi.RoborazziOptions
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.data.sessions.fake
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
@@ -39,6 +41,7 @@ class TimetableItemDetailScreenRobot @Inject constructor(
                 TimetableItemDetailScreen(
                     onNavigationIconClick = { },
                     onLinkClick = { },
+                    onCalendarRegistrationClick = { },
                 )
             }
         }
@@ -67,6 +70,18 @@ class TimetableItemDetailScreenRobot @Inject constructor(
         composeTestRule
             .onNode(isRoot())
             .captureRoboImage()
+    }
+
+    fun checkAccessibilityCapture() {
+        composeTestRule
+            .onRoot()
+            .captureRoboImage(
+                roborazziOptions = RoborazziOptions(
+                    captureType = RoborazziOptions.CaptureType.Dump(
+                        explanation = Dump.AccessibilityExplanation,
+                    ),
+                ),
+            )
     }
 
     fun waitUntilIdle() {

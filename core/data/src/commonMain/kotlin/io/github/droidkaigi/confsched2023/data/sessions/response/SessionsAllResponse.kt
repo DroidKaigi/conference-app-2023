@@ -8,7 +8,4 @@ data class SessionsAllResponse(
     val rooms: List<RoomResponse> = emptyList(),
     val speakers: List<SpeakerResponse> = emptyList(),
     val categories: List<CategoryResponse> = emptyList(),
-) {
-    companion object {
-    }
-}
+)

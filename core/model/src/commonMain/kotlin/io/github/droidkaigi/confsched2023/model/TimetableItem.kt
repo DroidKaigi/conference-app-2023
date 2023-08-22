@@ -81,7 +81,7 @@ public sealed class TimetableItem {
     private val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
-        "${minutes}min"
+        "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
     public val formattedDateTimeString: String by lazy {
@@ -96,7 +96,7 @@ public sealed class TimetableItem {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
         val english = if (isJapaneseLocale) "英語" else "English"
         val japaneseWithInterpretation =
-            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with English Interpretation)"
         val englishWithInterpretation =
             if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
 

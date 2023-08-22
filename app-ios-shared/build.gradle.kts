@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     id("droidkaigi.primitive.kmp")
     id("droidkaigi.primitive.kmp.ios")
+    id("droidkaigi.primitive.kover")
 }
 
 kotlin {

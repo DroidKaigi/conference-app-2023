@@ -19,26 +19,19 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.feature.floormap.R
 import io.github.droidkaigi.confsched2023.model.FloorLevel
 
-data class FloorMapUiState(
-    private val floorLevel: FloorLevel,
+enum class FloorMapUiState(
+    val floorLevel: FloorLevel,
+    val floorName: String,
     @DrawableRes val floorMapResId: Int,
 ) {
-    val floorName: String = floorLevel.floorName
+    Basement(FloorLevel.Basement, FloorLevel.Basement.floorName, R.drawable.img_floormap_basement),
+    Ground(FloorLevel.Ground, FloorLevel.Ground.floorName, R.drawable.img_floormap_ground),
+    ;
 
     companion object {
-        fun of(floorLevel: FloorLevel): FloorMapUiState {
-            return when (floorLevel) {
-                FloorLevel.Basement -> FloorMapUiState(
-                    floorLevel = floorLevel,
-                    floorMapResId = R.drawable.img_floormap_basement,
-                )
-
-                FloorLevel.Ground -> FloorMapUiState(
-                    floorLevel = floorLevel,
-                    floorMapResId = R.drawable.img_floormap_ground,
-                )
-            }
-        }
+        fun of(floorLevel: FloorLevel) = values().find {
+            it.floorLevel == floorLevel
+        } ?: error("There's no such floorLevel $floorLevel")
     }
 }
 

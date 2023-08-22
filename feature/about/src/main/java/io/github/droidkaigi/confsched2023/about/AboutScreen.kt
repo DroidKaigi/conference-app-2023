@@ -17,11 +17,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -67,7 +66,7 @@ fun AboutScreen(
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
     onLinkClick: (url: String) -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    // val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
@@ -75,7 +74,7 @@ fun AboutScreen(
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
     AboutScreen(
-        uiState = uiState,
+        // uiState = uiState,
         snackbarHostState = snackbarHostState,
         onAboutItemClick = onAboutItemClick,
         versionName = versionName,
@@ -83,12 +82,12 @@ fun AboutScreen(
     )
 }
 
-class AboutScreenUiState()
+class AboutScreenUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AboutScreen(
-    uiState: AboutScreenUiState,
+    // uiState: AboutScreenUiState,
     snackbarHostState: SnackbarHostState,
     onAboutItemClick: (AboutItem) -> Unit,
     versionName: String?,
@@ -109,8 +108,8 @@ private fun AboutScreen(
                     } else {
                         Text(
                             text = AboutStrings.Title.asString(),
-                            color = Color.Unspecified.copy(alpha = scrollBehavior.state.overlappedFraction),
                             style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.alpha(scrollBehavior.state.overlappedFraction),
                         )
                     }
                 },

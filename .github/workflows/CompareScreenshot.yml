@@ -2,6 +2,8 @@ name: CompareScreenshot
 
 on:
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
@@ -31,12 +33,7 @@ jobs:
           workflow: UnitTest.yml
           branch: main
 
-      - name: compare screenshot test
-        id: compare-screenshot-test
-        uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
-        with:
-          gradle-home-cache-cleanup: true
-          arguments: compareRoborazziDebug compareRoborazziDevDebug --stacktrace -Pscreenshot
+      - run: ./gradlew compareRoborazziDebug compareRoborazziDevDebug --stacktrace -Pscreenshot
 
       - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: ${{ always() }}

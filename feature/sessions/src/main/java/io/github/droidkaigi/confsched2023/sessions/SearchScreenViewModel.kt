@@ -13,12 +13,13 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -69,30 +70,72 @@ class SearchScreenViewModel @Inject constructor(
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
                 searchQuery = SearchQuery(searchQuery),
-                searchFilterUiState = SearchFilterUiState(
-                    selectedDays = filters.days,
-                    selectedCategories = filters.categories,
-                    selectedSessionTypes = filters.sessionTypes,
-                    selectedLanguages = filters.languages,
-                ),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories),
+                searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
             )
         } else {
             SearchScreenUiState.SearchList(
                 searchQuery = SearchQuery(searchQuery),
-                searchFilterUiState = SearchFilterUiState(
-                    categories = sessions.categories,
-                    sessionTypes = sessions.sessionTypes,
-                    selectedDays = filters.days,
-                    selectedCategories = filters.categories,
-                    selectedSessionTypes = filters.sessionTypes,
-                    selectedLanguages = filters.languages,
-                ),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState =
+                searchFilterCategoryUiState(filters.categories, sessions.categories),
+                searchFilterSessionTypeUiState =
+                searchFilterSessionTypeUiState(filters.sessionTypes, sessions.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
                 searchListUiState = SearchListUiState(
                     bookmarkedTimetableItemIds = sessions.bookmarks,
                     timetableItems = searchedSessions.timetableItems,
                 ),
             )
         }
+    }
+
+    private fun searchFilterDayUiState(
+        selectedDays: List<DroidKaigi2023Day>,
+    ): SearchFilterUiState<DroidKaigi2023Day> {
+        return SearchFilterUiState(
+            selectedItems = selectedDays.toImmutableList(),
+            items = DroidKaigi2023Day.entries.toImmutableList(),
+            isSelected = selectedDays.isNotEmpty(),
+            selectedValues = selectedDays.joinToString { it.name },
+        )
+    }
+
+    private fun searchFilterCategoryUiState(
+        selectedCategories: List<TimetableCategory>,
+        categories: List<TimetableCategory>? = null,
+    ): SearchFilterUiState<TimetableCategory> {
+        return SearchFilterUiState(
+            selectedItems = selectedCategories.toImmutableList(),
+            items = categories.orEmpty().toImmutableList(),
+            isSelected = selectedCategories.isNotEmpty(),
+            selectedValues = selectedCategories.joinToString { it.title.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterSessionTypeUiState(
+        selectedSessionTypes: List<TimetableSessionType>,
+        sessionTypes: List<TimetableSessionType>? = null,
+    ): SearchFilterUiState<TimetableSessionType> {
+        return SearchFilterUiState(
+            selectedItems = selectedSessionTypes.toImmutableList(),
+            items = sessionTypes.orEmpty().toImmutableList(),
+            isSelected = selectedSessionTypes.isNotEmpty(),
+            selectedValues = selectedSessionTypes.joinToString { it.label.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterLanguageUiState(
+        selectedLanguages: List<Lang>,
+    ): SearchFilterUiState<Lang> {
+        return SearchFilterUiState(
+            selectedItems = selectedLanguages.toImmutableList(),
+            items = listOf(Lang.JAPANESE, Lang.ENGLISH).toImmutableList(),
+            isSelected = selectedLanguages.isNotEmpty(),
+            selectedValues = selectedLanguages.joinToString { it.tagName },
+        )
     }
 
     fun onSearchQueryChanged(searchQuery: String) {

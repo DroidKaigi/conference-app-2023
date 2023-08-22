@@ -25,9 +25,9 @@ import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenUiState.SearchList
 import io.github.droidkaigi.confsched2023.sessions.component.EmptySearchResultBody
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilter
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.component.SearchTextFieldAppBar
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilter
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchList
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
@@ -37,16 +37,25 @@ const val SearchScreenTestTag = "SearchScreen"
 
 sealed interface SearchScreenUiState {
     val searchQuery: SearchQuery
-    val searchFilterUiState: SearchFilterUiState
+    val searchFilterDayUiState: SearchFilterUiState<DroidKaigi2023Day>
+    val searchFilterCategoryUiState: SearchFilterUiState<TimetableCategory>
+    val searchFilterSessionTypeUiState: SearchFilterUiState<TimetableSessionType>
+    val searchFilterLanguageUiState: SearchFilterUiState<Lang>
 
     data class Empty(
         override val searchQuery: SearchQuery,
-        override val searchFilterUiState: SearchFilterUiState,
+        override val searchFilterDayUiState: SearchFilterUiState<DroidKaigi2023Day>,
+        override val searchFilterCategoryUiState: SearchFilterUiState<TimetableCategory>,
+        override val searchFilterSessionTypeUiState: SearchFilterUiState<TimetableSessionType>,
+        override val searchFilterLanguageUiState: SearchFilterUiState<Lang>,
     ) : SearchScreenUiState
 
     data class SearchList(
         override val searchQuery: SearchQuery,
-        override val searchFilterUiState: SearchFilterUiState,
+        override val searchFilterDayUiState: SearchFilterUiState<DroidKaigi2023Day>,
+        override val searchFilterCategoryUiState: SearchFilterUiState<TimetableCategory>,
+        override val searchFilterSessionTypeUiState: SearchFilterUiState<TimetableSessionType>,
+        override val searchFilterLanguageUiState: SearchFilterUiState<Lang>,
         val searchListUiState: SearchListUiState,
     ) : SearchScreenUiState
 }
@@ -122,7 +131,10 @@ private fun SearchScreen(
                 color = MaterialTheme.colorScheme.outline,
             )
             SearchFilter(
-                searchFilterUiState = uiState.searchFilterUiState,
+                searchFilterDayUiState = uiState.searchFilterDayUiState,
+                searchFilterCategoryUiState = uiState.searchFilterCategoryUiState,
+                searchFilterSessionTypeUiState = uiState.searchFilterSessionTypeUiState,
+                searchFilterLanguageUiState = uiState.searchFilterLanguageUiState,
                 onDaySelected = onDaySelected,
                 onCategoriesSelected = onCategoriesSelected,
                 onSessionTypesSelected = onSessionTypesSelected,

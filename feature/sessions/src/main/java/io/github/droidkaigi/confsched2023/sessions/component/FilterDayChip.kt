@@ -1,90 +1,69 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.testTag
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
+import kotlinx.collections.immutable.toImmutableList
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
+const val FilterDayChipTestTag = "FilterDayChip"
+
 @Composable
 fun FilterDayChip(
-    selectedDays: List<DroidKaigi2023Day>,
-    kaigiDays: List<DroidKaigi2023Day>,
+    searchFilterUiState: SearchFilterUiState<DroidKaigi2023Day>,
     onDaySelected: (DroidKaigi2023Day, Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    isSelected: Boolean = false,
-    selectedDaysValues: String = "",
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    val onDaySelectedUpdated by rememberUpdatedState(newValue = onDaySelected)
+    DropdownFilterChip(
+        searchFilterUiState = searchFilterUiState,
+        onSelected = onDaySelected,
+        filterChipLabelDefaultText = SessionsStrings.EventDay.asString(),
+        dropdownMenuItemText = { kaigiDay ->
+            kaigiDay.getDropDownText(Locale.getDefault().language)
+        },
+        modifier = modifier.testTag(FilterDayChipTestTag),
+    )
+}
 
-    Box(
-        modifier = modifier,
-    ) {
-        FilterChip(
-            selected = isSelected,
-            onClick = { expanded = true },
-            label = { Text(text = selectedDaysValues.ifEmpty { SessionsStrings.EventDay.asString() }) },
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = null,
+@MultiThemePreviews
+@Composable
+fun PreviewFilterDayChip() {
+    var uiState by remember {
+        mutableStateOf(
+            SearchFilterUiState(
+                selectedItems = emptyList<DroidKaigi2023Day>().toImmutableList(),
+                items = DroidKaigi2023Day.entries.toImmutableList(),
+            ),
+        )
+    }
+
+    KaigiTheme {
+        FilterDayChip(
+            searchFilterUiState = uiState,
+            onDaySelected = { kaigiDay, isSelected ->
+                val selectedDays = uiState.selectedItems.toMutableList()
+                val newSelectedDays = selectedDays.apply {
+                    if (isSelected) {
+                        add(kaigiDay)
+                    } else {
+                        remove(kaigiDay)
+                    }
+                }.sortedBy(DroidKaigi2023Day::start)
+                uiState = uiState.copy(
+                    selectedItems = newSelectedDays.toImmutableList(),
+                    isSelected = newSelectedDays.isNotEmpty(),
+                    selectedValues = newSelectedDays.joinToString { it.name },
                 )
             },
         )
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            kaigiDays.forEach { kaigiDay ->
-                DropdownMenuItem(
-                    text = {
-                        Text(
-                            text = kaigiDay.getDropDownText(Locale.getDefault().language),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    },
-                    leadingIcon = {
-                        if (selectedDays.contains(kaigiDay)) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
-                    },
-                    onClick = {
-                        onDaySelectedUpdated(
-                            kaigiDay,
-                            selectedDays
-                                .contains(kaigiDay)
-                                .not(),
-                        )
-                        expanded = false
-                    },
-                )
-            }
-        }
     }
 }

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Trailing icon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

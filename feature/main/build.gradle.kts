@@ -10,16 +10,9 @@ dependencies {
     implementation(projects.core.model)
     testImplementation(projects.core.testing)
 
-    implementation(libs.androidxCoreKtx)
-    implementation(libs.composeUi)
     implementation(libs.composeHiltNavigtation)
-    implementation(libs.composeMaterial)
+    implementation(libs.composeMaterialWindowSize)
     implementation(libs.composeMaterialIcon)
-    implementation(libs.composeUiToolingPreview)
     implementation(libs.composeNavigation)
-    implementation(libs.androidxLifecycleLifecycleRuntimeKtx)
-    implementation(libs.androidxActivityActivityCompose)
-    androidTestImplementation(libs.composeUiTestJunit4)
-    debugImplementation(libs.composeUiTooling)
-    debugImplementation(libs.composeUiTestManifest)
+    implementation(libs.androidxWindow)
 }
