@@ -95,7 +95,7 @@ fun TimetableScreen(
             viewModel.onBookmarkClick(
                 session,
                 bookmarked,
-                onBookmarkIconClick
+                onBookmarkIconClick,
             )
         },
         onBookmarkIconClick = onBookmarkIconClick,
