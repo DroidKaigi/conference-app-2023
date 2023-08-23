@@ -30,10 +30,6 @@ data class SearchFilterUiState<T>(
 )
 
 const val SearchFilterTestTag = "SearchFilter"
-const val SearchFilterDayFilterChipTestTag = "SearchFilterDayFilterChip"
-const val SearchFilterCategoryChipTestTag = "SearchFilterCategoryChipTest"
-const val SearchFilterSessionTypeChipTestTag = "SearchFilterSessionTypeChipTest"
-const val SearchFilterLanguageChipTestTag = "SearchFilterLanguageChipTest"
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -59,8 +55,6 @@ fun SearchFilter(
             FilterDayChip(
                 searchFilterUiState = searchFilterDayUiState,
                 onDaySelected = onDaySelected,
-                modifier = Modifier
-                    .testTag(SearchFilterDayFilterChipTestTag),
             )
         }
         item {
@@ -68,8 +62,6 @@ fun SearchFilter(
                 searchFilterUiState = searchFilterCategoryUiState,
                 onCategoriesSelected = onCategoriesSelected,
                 onFilterCategoryChipClicked = { keyboardController?.hide() },
-                modifier = Modifier
-                    .testTag(SearchFilterCategoryChipTestTag),
             )
         }
         item {
@@ -77,8 +69,6 @@ fun SearchFilter(
                 searchFilterUiState = searchFilterSessionTypeUiState,
                 onSessionTypeSelected = onSessionTypesSelected,
                 onFilterSessionTypeChipClicked = { keyboardController?.hide() },
-                modifier = Modifier
-                    .testTag(SearchFilterSessionTypeChipTestTag),
             )
         }
         item {
@@ -86,8 +76,6 @@ fun SearchFilter(
                 searchFilterUiState = searchFilterLanguageUiState,
                 onLanguagesSelected = onLanguagesSelected,
                 onFilterLanguageChipClicked = { keyboardController?.hide() },
-                modifier = Modifier
-                    .testTag(SearchFilterLanguageChipTestTag),
             )
         }
     }

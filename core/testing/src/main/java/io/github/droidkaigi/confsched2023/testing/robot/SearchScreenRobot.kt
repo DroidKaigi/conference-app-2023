@@ -14,10 +14,10 @@ import io.github.droidkaigi.confsched2023.sessions.SearchScreenEmptyBodyTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenFilterTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenSearchTextFiledTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterCategoryChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterDayFilterChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterLanguageChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterSessionTypeChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterCategoryChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterDayFilterChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterLanguageChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterSessionTypeChipTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
