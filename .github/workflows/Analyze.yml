@@ -7,7 +7,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-latest
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     permissions:
       actions: read
       contents: read
@@ -15,20 +15,41 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'java' ]
+        language: [ 'java', 'swift' ]
 
     steps:
     - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
     - uses: ./.github/actions/setup-java
 
+    - if: matrix.language == 'swift'
+      uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
+      with:
+        bundler-cache: true
+
+    - if: matrix.language == 'swift'
+      uses: ./.github/actions/xcode-select
+
+    - if: matrix.language == 'swift'
+      name: Set up XCFramework arch filter
+      run: echo "arch=x86_64" >> local.properties
+
+    - if: matrix.language == 'swift'
+      uses: ./.github/actions/spm
+
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
 
-    - name: Build project
+    - if: matrix.language == 'java'
+      name: Build android
       run: ./gradlew :app-android:assemble --stacktrace
+
+    - if: matrix.language == 'swift'
+      name: Build ios
+      run: bundle exec fastlane build
+      working-directory: app-ios
 
     - name: Perform analysis
       uses: github/codeql-action/analyze@v2
