@@ -24,7 +24,7 @@ var package = Package(
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.13.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
     ],
     targets: [
         .target(
