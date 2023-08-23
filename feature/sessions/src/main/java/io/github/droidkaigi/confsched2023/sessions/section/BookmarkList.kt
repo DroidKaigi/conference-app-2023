@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -106,10 +107,10 @@ fun BookmarkList(
                                     label = timetableItem.room.name.currentLangTitle,
                                     labelColor = roomChipLabelColor,
                                     backgroundColor = roomChipBackgroundColor,
-                                    borderColor = roomChipBackgroundColor,
                                 )
                                 SessionTag(
                                     label = timetableItem.day?.name.orEmpty(),
+                                    borderColor = MaterialTheme.colorScheme.outline,
                                 )
                             },
                             onClick = onTimetableItemClick,

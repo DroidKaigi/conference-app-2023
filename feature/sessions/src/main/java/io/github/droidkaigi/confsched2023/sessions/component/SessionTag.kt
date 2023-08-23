@@ -25,15 +25,21 @@ fun SessionTag(
     modifier: Modifier = Modifier,
     labelColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     backgroundColor: Color = Color.Transparent,
-    borderColor: Color = MaterialTheme.colorScheme.outline,
+    borderColor: Color? = null
 ) {
     Box(
         modifier = modifier
             .height(24.dp)
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(50.dp),
+            .then(
+                if (borderColor != null) {
+                    Modifier.border(
+                        width = 1.dp,
+                        color = borderColor,
+                        shape = RoundedCornerShape(50.dp),
+                    )
+                } else {
+                    Modifier
+                }
             )
             .background(
                 color = backgroundColor,
