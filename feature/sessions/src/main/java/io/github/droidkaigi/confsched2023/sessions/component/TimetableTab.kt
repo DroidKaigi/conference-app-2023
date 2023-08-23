@@ -77,7 +77,7 @@ fun TimetableTab(
         },
         selectedContentColor = MaterialTheme.colorScheme.onPrimary,
         unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier.heightIn(min = minTabHeight),
+        modifier = modifier.heightIn(min = tabMinHeight, max = tabMaxHeight),
     )
 }
 
@@ -88,7 +88,7 @@ fun TimetableTabIndicator(
     Box(
         modifier
             .zIndex(-1f)
-            .padding(horizontal = tabIndicatorHorizontalSpacing)
+            .padding(horizontal = tabIndicatorHorizontalGap / 2)
             .fillMaxSize()
             .background(
                 color = MaterialTheme.colorScheme.primary,
@@ -114,8 +114,13 @@ fun TimetableTabRow(
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = modifier
-            .height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * tabState.tabCollapseProgress))
-            .padding(horizontal = tabRowHorizontalSpacing),
+            .height(tabRowMaxHeight - ((tabRowMaxHeight - tabRowMinHeight) * tabState.tabCollapseProgress))
+            .padding(
+                start = tabRowHorizontalSpacing,
+                top = tabRowTopSpacing,
+                end = tabRowHorizontalSpacing,
+                bottom = tabRowBottomSpacing,
+            ),
         divider = {},
         indicator = indicator,
         tabs = tabs,
@@ -123,12 +128,13 @@ fun TimetableTabRow(
 }
 
 @Composable
-fun rememberTimetableTabState(): TimetableTabState {
+fun rememberTimetableTabState(initialScrollOffset: Float = 0.0f): TimetableTabState {
     val offsetLimit = LocalDensity.current.run {
-        (maxTabRowHeight - minTabRowHeight).toPx()
+        (tabRowMaxHeight - tabRowMinHeight).toPx()
     }
     return rememberSaveable(saver = TimetableTabState.Saver) {
         TimetableTabState(
+            initialScrollOffset = initialScrollOffset,
             initialOffsetLimit = -offsetLimit,
         )
     }
@@ -179,12 +185,16 @@ class TimetableTabState(
     }
 }
 
-private val minTabHeight = 32.dp
-private val baselineTabHeight = 56.dp
-private val maxTabRowHeight = 84.dp
-private val minTabRowHeight = 56.dp
-private val tabIndicatorHorizontalSpacing = 8.dp
-private val tabRowHorizontalSpacing = (maxTabRowHeight - baselineTabHeight) / 2 - tabIndicatorHorizontalSpacing
+private val tabMinHeight = 32.dp
+private val tabMaxHeight = 56.dp
+
+private val tabIndicatorHorizontalGap = 8.dp
+
+private val tabRowHorizontalSpacing = 16.dp - (tabIndicatorHorizontalGap / 2)
+private val tabRowTopSpacing = 16.dp
+private val tabRowBottomSpacing = 12.dp
+private val tabRowMinHeight = tabMinHeight + tabRowTopSpacing + tabRowBottomSpacing
+private val tabRowMaxHeight = tabMaxHeight + tabRowTopSpacing + tabRowBottomSpacing
 
 @MultiThemePreviews
 // @MultiLanguagePreviews
