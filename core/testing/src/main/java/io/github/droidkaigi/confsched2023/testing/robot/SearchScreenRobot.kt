@@ -1,23 +1,19 @@
 package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.hasTestTag
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SearchScreen
-import io.github.droidkaigi.confsched2023.sessions.SearchScreenEmptyBodyTestTag
-import io.github.droidkaigi.confsched2023.sessions.SearchScreenFilterTestTag
-import io.github.droidkaigi.confsched2023.sessions.SearchScreenSearchTextFiledTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterCategoryChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterDayFilterChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterLanguageChipTestTag
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterSessionTypeChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -28,6 +24,7 @@ class SearchScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
     @Inject lateinit var robotTestRule: RobotTestRule
+
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
 
     operator fun invoke(
@@ -51,66 +48,54 @@ class SearchScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun waitUntilIdle() {
-        composeTestRule.waitForIdle()
-        testDispatcher.scheduler.advanceUntilIdle()
+    fun clickFilterChip(filterChipTestTag: String) {
+        composeTestRule
+            .onNode(hasTestTag(filterChipTestTag))
+            .performClick()
+        waitUntilIdle()
     }
 
-    fun scrollSearchFilterHorizontally() {
+    fun scrollSearchFilterToLeft() {
         composeTestRule
-            .onNode(hasTestTag(SearchScreenFilterTestTag))
+            .onNode(hasTestTag(SearchFilterTestTag))
             .performTouchInput {
                 swipeLeft(
-                    startX = visibleSize.width * 3F / 4,
-                    endX = visibleSize.width / 3F,
+                    startX = visibleSize.width.toFloat(),
+                    endX = visibleSize.width / 2f,
                 )
             }
     }
 
-    fun inputDummyTextSearchTextFieldAppBar() {
+    fun clickFirstDropdownMenuItem() {
         composeTestRule
-            .onNodeWithTag(SearchScreenSearchTextFiledTestTag)
-            .performTextInput("abcdefg")
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
+            .onFirst()
+            .performClick()
+        waitUntilIdle()
+    }
+
+    fun clickLastDropdownMenuItem() {
+        composeTestRule
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
+            .onLast()
+            .performClick()
         waitUntilIdle()
     }
 
     fun checkScreenCapture() {
         composeTestRule
+            .onNode(isRoot())
+            .captureRoboImage()
+    }
+
+    fun checkSearchScreenCapture() {
+        composeTestRule
             .onNode(hasTestTag(SearchScreenTestTag))
             .captureRoboImage()
     }
 
-    fun checkExistEmptyBody() {
-        composeTestRule
-            .onNodeWithTag(SearchScreenEmptyBodyTestTag)
-            .captureRoboImage()
-    }
-
-    fun clickFilterDayChip() {
-        composeTestRule
-            .onNodeWithTag(SearchFilterDayFilterChipTestTag)
-            .performClick()
-        waitUntilIdle()
-    }
-
-    fun clickFilterCategoryChip() {
-        composeTestRule
-            .onNodeWithTag(SearchFilterCategoryChipTestTag)
-            .performClick()
-        waitUntilIdle()
-    }
-
-    fun clickFilterSessionTypeChip() {
-        composeTestRule
-            .onNodeWithTag(SearchFilterSessionTypeChipTestTag)
-            .performClick()
-        waitUntilIdle()
-    }
-
-    fun clickFilterLanguageChip() {
-        composeTestRule
-            .onNodeWithTag(SearchFilterLanguageChipTestTag)
-            .performClick()
-        waitUntilIdle()
+    fun waitUntilIdle() {
+        composeTestRule.waitForIdle()
+        testDispatcher.scheduler.advanceUntilIdle()
     }
 }

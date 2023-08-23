@@ -4,6 +4,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.droidkaigi.confsched2023.sessions.component.FilterCategoryChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.FilterDayChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.FilterLanguageChipTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.FilterSessionTypeChipTestTag
 import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
@@ -23,6 +27,7 @@ import javax.inject.Inject
     qualifiers = RobolectricDeviceQualifiers.NexusOne,
 )
 class SearchScreenTest {
+
     @get:Rule
     @BindValue val robotTestRule: RobotTestRule = RobotTestRule<HiltTestActivity>(this)
 
@@ -42,9 +47,7 @@ class SearchScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFilterDayChipShot() {
         searchScreenRobot {
-            setupSearchScreenContent()
-            clickFilterDayChip()
-            checkScreenCapture()
+            checkFilterChipShot(FilterDayChipTestTag)
         }
     }
 
@@ -52,9 +55,7 @@ class SearchScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFilterCategoryChipShot() {
         searchScreenRobot {
-            setupSearchScreenContent()
-            clickFilterCategoryChip()
-            checkScreenCapture()
+            checkFilterChipShot(FilterCategoryChipTestTag)
         }
     }
 
@@ -62,9 +63,9 @@ class SearchScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFilterSessionTypeChipShot() {
         searchScreenRobot {
-            setupSearchScreenContent()
-            clickFilterSessionTypeChip()
-            checkScreenCapture()
+            checkFilterChipShot(FilterSessionTypeChipTestTag) {
+                scrollSearchFilterToLeft()
+            }
         }
     }
 
@@ -72,21 +73,34 @@ class SearchScreenTest {
     @Category(ScreenshotTests::class)
     fun checkFilterLanguageChipShot() {
         searchScreenRobot {
-            setupSearchScreenContent()
-            scrollSearchFilterHorizontally()
-            clickFilterLanguageChip()
-            checkScreenCapture()
+            checkFilterChipShot(FilterLanguageChipTestTag) {
+                scrollSearchFilterToLeft()
+            }
         }
     }
 
-    @Test
-    @Category(ScreenshotTests::class)
-    fun checkEmptyBodyShot() {
-        searchScreenRobot {
-            setupSearchScreenContent()
-            inputDummyTextSearchTextFieldAppBar()
-            checkExistEmptyBody()
-            checkScreenCapture()
-        }
+    private fun SearchScreenRobot.checkFilterChipShot(
+        filterChipTestTag: String,
+        scrollToLeft: (() -> Unit)? = null,
+    ) {
+        setupSearchScreenContent()
+        scrollToLeft?.invoke()
+
+        // select item
+        clickFilterChip(filterChipTestTag)
+        clickFirstDropdownMenuItem()
+        checkSearchScreenCapture()
+
+        // select other item
+        clickFilterChip(filterChipTestTag)
+        clickLastDropdownMenuItem()
+        checkSearchScreenCapture()
+
+        // remove all items
+        clickFilterChip(filterChipTestTag)
+        clickFirstDropdownMenuItem()
+        clickFilterChip(filterChipTestTag)
+        clickLastDropdownMenuItem()
+        checkSearchScreenCapture()
     }
 }
