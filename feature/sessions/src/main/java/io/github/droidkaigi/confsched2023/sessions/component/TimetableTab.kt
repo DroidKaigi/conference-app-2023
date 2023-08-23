@@ -30,7 +30,6 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
@@ -188,7 +187,7 @@ private val tabIndicatorHorizontalSpacing = 8.dp
 private val tabRowHorizontalSpacing = (maxTabRowHeight - baselineTabHeight) / 2 - tabIndicatorHorizontalSpacing
 
 @MultiThemePreviews
-@MultiLanguagePreviews
+// @MultiLanguagePreviews
 @Composable
 fun TimetableTabPreview() {
     KaigiTheme {
@@ -199,6 +198,55 @@ fun TimetableTabPreview() {
                 onClick = {},
                 scrollState = rememberTimetableTabState(),
             )
+        }
+    }
+}
+
+@MultiThemePreviews
+// @MultiLanguagePreviews
+@Composable
+fun TimetableTabRowPreview() {
+    val scrollState = rememberTimetableTabState()
+    val selectedTabIndex = 0
+    KaigiTheme {
+        Surface {
+            TimetableTabRow(tabState = scrollState, selectedTabIndex = selectedTabIndex) {
+                DroidKaigi2023Day.entries.forEachIndexed { index, day ->
+                    TimetableTab(
+                        day = day,
+                        selected = selectedTabIndex == index,
+                        onClick = {},
+                        scrollState = scrollState,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@MultiThemePreviews
+// @MultiLanguagePreviews
+@Composable
+fun CollapsedTimetableTabRowPreview() {
+    val scrollState = rememberSaveable(saver = TimetableTabState.Saver) {
+        TimetableTabState(
+            initialScrollOffset = -1.0f,
+            initialOffsetLimit = -1.0f,
+        )
+    }
+    val selectedTabIndex = 0
+    KaigiTheme {
+        Surface {
+            TimetableTabRow(tabState = scrollState, selectedTabIndex = selectedTabIndex) {
+                DroidKaigi2023Day.entries.forEachIndexed { index, day ->
+                    TimetableTab(
+                        day = day,
+                        selected = index == selectedTabIndex,
+                        onClick = {},
+                        scrollState = scrollState,
+                    )
+                }
+            }
         }
     }
 }
