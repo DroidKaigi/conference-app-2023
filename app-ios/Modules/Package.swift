@@ -20,12 +20,12 @@ var package = Package(
         .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
         .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
-        .package(url: "https://github.com/realm/SwiftLint", from: "0.51.0"),
+        .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.13.0"),
-        .package(url: "https://github.com/apple/swift-format", from: "508.0.0"),
+        .package(url: "https://github.com/apple/swift-format", from: "508.0.1"),
     ],
     targets: [
         .target(
@@ -249,7 +249,7 @@ package.targets = package.targets.map { target -> Target in
             target.plugins = []
         }
         target.plugins?.append(.plugin(name: "SwiftLintPlugin", package: "SwiftLint"))
-        target.plugins?.append(.plugin(name: "SwiftFormatPlugin", package: "swift-format"))
+        target.plugins?.append(.plugin(name: "FormatPlugin", package: "swift-format"))
     }
 
     return target

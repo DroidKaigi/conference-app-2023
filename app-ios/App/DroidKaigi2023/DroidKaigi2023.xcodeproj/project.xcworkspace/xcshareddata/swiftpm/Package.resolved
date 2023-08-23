@@ -37,15 +37,6 @@
       }
     },
     {
-      "identity" : "licenselist",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cybozu/LicenseList",
-      "state" : {
-        "revision" : "4cbf80b821167042e562639dd875c3b81e8ba1c7",
-        "version" : "0.2.1"
-      }
-    },
-    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
@@ -106,6 +97,15 @@
       "state" : {
         "revision" : "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
         "version" : "1.22.2"
+      }
+    },
+    {
+      "identity" : "licenselist",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/LicenseList",
+      "state" : {
+        "revision" : "4cbf80b821167042e562639dd875c3b81e8ba1c7",
+        "version" : "0.2.1"
       }
     },
     {
