@@ -25,6 +25,7 @@ var package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.13.0"),
+        .package(url: "https://github.com/apple/swift-format", from: "508.0.1"),
     ],
     targets: [
         .target(
@@ -248,6 +249,7 @@ package.targets = package.targets.map { target -> Target in
             target.plugins = []
         }
         target.plugins?.append(.plugin(name: "SwiftLintPlugin", package: "SwiftLint"))
+        target.plugins?.append(.plugin(name: "FormatPlugin", package: "swift-format"))
     }
 
     return target
