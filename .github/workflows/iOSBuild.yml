@@ -9,6 +9,8 @@ concurrency:
   group: ios-build-${{ github.ref }}
   cancel-in-progress: true
 
+run-name: "Build iOS project on ${{ github.event_name}}${{ github.event.pull_request.number && format('#{0}', github.event.pull_request.number) || '' }} by ${{ github.actor }}"
+
 jobs:
   build-ios:
     runs-on: macos-13
@@ -17,19 +19,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
-        with:
-          bundler-cache: true
-
-      - uses: ./.github/actions/xcode-select
-
-      - uses: ./.github/actions/setup-java
-
-      - name: Set up XCFramework arch filter
-        run: echo "arch=x86_64" >> local.properties
-
-      - uses: ./.github/actions/spm
+      - id: ios
+        uses: ./.github/actions/setup-ios
 
       - run: bundle exec fastlane build
-        working-directory: app-ios
+        working-directory: ${{ steps.ios.outputs.working-directory }}

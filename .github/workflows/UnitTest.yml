@@ -8,7 +8,7 @@ on:
     paths-ignore:
       - 'app-ios/**'
 
-run-name: "UnitTest by ${{ github.actor }}"
+run-name: "Run UnitTest on ${{ github.event_name}}${{ github.event.pull_request.number && format('#{0}', github.event.pull_request.number) || '' }} by ${{ github.actor }}"
 
 permissions: { }
 

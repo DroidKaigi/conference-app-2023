@@ -10,6 +10,8 @@ on:
 # Disable all permissions. We have to enable required permissions at job-level.
 permissions: {}
 
+run-name: "Promote a pr artifact to staging; ${{ github.event.workflow_run.name }} - ${{ github.event.workflow_run.head_repository.owner.login }}:${{ github.event.workflow_run.head_branch }}"
+
 jobs:
   stage-epic:
     if: >
