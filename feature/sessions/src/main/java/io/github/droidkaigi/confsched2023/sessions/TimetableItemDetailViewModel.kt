@@ -10,9 +10,12 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
+import io.github.droidkaigi.confsched2023.ui.UserMessageResult
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -46,6 +49,7 @@ class TimetableItemDetailViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = null,
             )
+    private val _event = MutableSharedFlow<TimetableItemDetailEvent>()
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
         buildUiState(timetableItemStateFlow) { timetableItemAndBookmark ->
@@ -59,16 +63,20 @@ class TimetableItemDetailViewModel @Inject constructor(
                 isBookmarked = bookmarked,
             )
         }
+    val event: SharedFlow<TimetableItemDetailEvent> = _event
 
     fun onBookmarkClick(timetableItem: TimetableItem) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(timetableItem.id)
             val bookmarked = timetableItemStateFlow.value?.second ?: return@launch
             if (bookmarked) {
-                userMessageStateHolder.showMessage(
+                val result = userMessageStateHolder.showMessage(
                     TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
                     TimetableItemDetailStrings.ViewBookmarkList.asString(),
                 )
+                if (result == UserMessageResult.ActionPerformed) {
+                    _event.emit(TimetableItemDetailEvent.ViewBookmarkList)
+                }
             }
         }
     }

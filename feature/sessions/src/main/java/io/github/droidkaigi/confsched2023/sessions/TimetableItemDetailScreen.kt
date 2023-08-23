@@ -12,6 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,7 +20,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -36,6 +39,8 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
 const val timetableItemDetailScreenRoute =
@@ -46,12 +51,14 @@ fun NavGraphBuilder.sessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    navigateToBookmarkScreen: () -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
             onCalendarRegistrationClick = onCalendarRegistrationClick,
+            navigateToBookmarkScreen = navigateToBookmarkScreen,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -78,15 +85,30 @@ fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    navigateToBookmarkScreen: () -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
+
+    LaunchedEffect(viewModel, lifecycleOwner) {
+        viewModel.event
+            .flowWithLifecycle(lifecycleOwner.lifecycle)
+            .onEach { event ->
+                when (event) {
+                    is TimetableItemDetailEvent.ViewBookmarkList -> {
+                        navigateToBookmarkScreen()
+                    }
+                }
+            }
+            .launchIn(this)
+    }
 
     TimetableItemDetailScreen(
         uiState = uiState,
