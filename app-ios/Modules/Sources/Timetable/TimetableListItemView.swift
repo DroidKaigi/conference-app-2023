@@ -13,28 +13,27 @@ struct TimetableListItemView: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 0) {
-                Spacer().frame(height: 4)
+                Spacer().frame(height: 16)
                 // TODO apply like flexbox layout
-                LazyHStack(spacing: 4) {
-                    InfoLabel(
+                HStack(spacing: 4) {
+                    SessionTag(
                         timetableItem.room.name.currentLangTitle,
                         labelColor: AssetColors.Custom.hallText.swiftUIColor,
                         backgroundColor: timetableItem.room.type.toColor()
                     )
                     ForEach(timetableItem.language.labels, id: \.self) { label in
-                        InfoLabel(
+                        SessionTag(
                             label,
                             labelColor: AssetColors.Surface.onSurfaceVariant.swiftUIColor,
                             strokeColor: AssetColors.Outline.outline.swiftUIColor
                         )
                     }
                 }
-                Spacer().frame(height: 12)
+                Spacer().frame(height: 8)
                 Text(timetableItem.title.currentLangTitle)
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 22, weight: .medium, design: .default))
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 if let session = timetableItem as? TimetableItem.Session {
                     if let message = session.message {
                         Spacer().frame(height: 8)
@@ -50,12 +49,14 @@ struct TimetableListItemView: View {
                     }
                     if !session.speakers.isEmpty {
                         Spacer().frame(height: 8)
-                        PersonLabel(
-                            speakers: session.speakers
-                        )
+                        VStack {
+                            ForEach(session.speakers, id: \.self) { speaker in
+                                PersonLabel(speaker: speaker)
+                            }
+                        }
                     }
                 }
-                Spacer().frame(height: 8)
+                Spacer().frame(height: 16)
             }
             Button(
                 action: {
@@ -69,7 +70,7 @@ struct TimetableListItemView: View {
                     }
                 }
             )
-            .frame(width: 52, height: 52)
+            .frame(width: 56, height: 56)
             .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
         }
     }
