@@ -49,10 +49,10 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         SpeakerResponse(fullName = "ry", id = "2", isTopSpeaker = true),
     )
     val rooms = listOf(
-        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1, sort = 1),
-        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2, sort = 2),
-        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3, sort = 3),
-        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4, sort = 4),
+        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1),
+        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2),
+        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3),
+        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4),
     )
     val categories = listOf(
         CategoryResponse(
