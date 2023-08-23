@@ -6,5 +6,4 @@ import kotlinx.serialization.Serializable
 data class RoomResponse(
     val name: LocaledResponse,
     val id: Int,
-    val sort: Int,
 )
