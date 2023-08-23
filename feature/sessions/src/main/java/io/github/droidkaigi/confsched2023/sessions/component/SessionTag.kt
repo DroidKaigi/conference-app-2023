@@ -25,7 +25,7 @@ fun SessionTag(
     modifier: Modifier = Modifier,
     labelColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     backgroundColor: Color = Color.Transparent,
-    borderColor: Color? = null
+    borderColor: Color? = null,
 ) {
     Box(
         modifier = modifier
@@ -39,7 +39,7 @@ fun SessionTag(
                     )
                 } else {
                     Modifier
-                }
+                },
             )
             .background(
                 color = backgroundColor,
