@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 repo_root = `git rev-parse --show-toplevel`.chop
 File.open("#{repo_root}/.ruby-version", "r") do |f|
-    ruby f.read.strip
+    ruby file: f
 end
 
 gem 'fastlane', '2.214.0'

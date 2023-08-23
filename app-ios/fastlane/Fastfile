@@ -35,8 +35,9 @@ platform :ios do
   lane :clean_project do
     xcodebuild(
       clean: true,
-      alltargets: true,
-      project: project
+      project: project,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
     )
     sh("rm -rf #{root_dir}/app-ios/build")
     sh("rm -rf ~/Library/Developer/Xcode/DerivedData/#{scheme}-*")
@@ -66,7 +67,7 @@ platform :ios do
   lane :resolved_package do
     xcodebuild(
       xcargs: "-resolvePackageDependencies",
-      workspace: workspace,
+      project: project,
       scheme: scheme,
       derivedDataPath: derived_data_path,
     )
@@ -80,12 +81,14 @@ platform :ios do
   end
 
   desc "Build DroidKaigi2023 project"
-  lane :build_project do
+  lane :build do
+    shared
     xcodebuild(
       xcargs: "-skipPackagePluginValidation",
       project: project,
       scheme: scheme,
-      destination: destination,
+      derivedDataPath: derived_data_path,
+      destination: destination
     )
   end
 
@@ -93,11 +96,12 @@ platform :ios do
   lane :test do
     shared
     scan(
-      workspace: workspace,
+      xcargs: "-skipPackagePluginValidation",
+      project: project,
       scheme: scheme,
       skip_build: true,
       derived_data_path: derived_data_path,
-      devices: ["iPhone 14 Pro"]
+      destination: destination
     )
   end
 end

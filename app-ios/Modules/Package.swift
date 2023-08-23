@@ -23,6 +23,8 @@ var package = Package(
         .package(url: "https://github.com/realm/SwiftLint", from: "0.51.0"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+        .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.13.0"),
         .package(url: "https://github.com/apple/swift-format", from: "508.0.0"),
     ],
     targets: [
@@ -31,9 +33,8 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
-                "shared",
                 "Model",
-                "Theme",
+                .product(name: "LicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
@@ -55,9 +56,23 @@ var package = Package(
         ),
 
         .target(
+            name: "Auth",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
             name: "Component",
             dependencies: [
                 "Theme",
+            ]
+        ),
+        .testTarget(
+            name: "ComponentTests",
+            dependencies: [
+                "Component",
             ]
         ),
 
@@ -68,9 +83,13 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
                 .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "ContributorTests",
+            dependencies: [
+                "Contributor",
             ]
         ),
 
@@ -78,7 +97,6 @@ var package = Package(
             name: "FloorMap",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
             ]
         ),
@@ -92,8 +110,16 @@ var package = Package(
         .target(
             name: "KMPContainer",
             dependencies: [
+                "Auth",
                 "shared",
+                "RemoteConfig",
                 .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "KMPContainerTests",
+            dependencies: [
+                "KMPContainer",
             ]
         ),
 
@@ -104,8 +130,6 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -122,8 +146,12 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
+            ]
+        ),
+        .testTarget(
+            name: "SponsorTests",
+            dependencies: [
+                "Sponsor"
             ]
         ),
 
@@ -131,9 +159,8 @@ var package = Package(
             name: "Stamps",
             dependencies: [
                 "Assets",
-                "KMPContainer",
-                "shared",
                 "Theme",
+                "KMPContainer",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
@@ -150,9 +177,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
-                "shared",
                 "Model",
-                "Theme",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
@@ -179,9 +204,23 @@ var package = Package(
         ),
 
         .target(
+            name: "RemoteConfig",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+        .testTarget(
+            name: "ModelTests",
+            dependencies: [
+                "Model",
             ]
         ),
 
