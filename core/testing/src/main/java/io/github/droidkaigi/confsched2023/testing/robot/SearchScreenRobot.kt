@@ -2,6 +2,8 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -14,6 +16,7 @@ import io.github.droidkaigi.confsched2023.sessions.SearchScreenEmptyBodyTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenFilterTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenSearchTextFiledTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterCategoryChipTestTag
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterDayFilterChipTestTag
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterLanguageChipTestTag
@@ -110,6 +113,34 @@ class SearchScreenRobot @Inject constructor(
     fun clickFilterLanguageChip() {
         composeTestRule
             .onNodeWithTag(SearchFilterLanguageChipTestTag)
+            .performClick()
+        waitUntilIdle()
+    }
+
+    fun clickFilterChip(filterChipTestTag: String) {
+        composeTestRule
+            .onNode(hasTestTag(filterChipTestTag))
+            .performClick()
+        waitUntilIdle()
+    }
+
+    fun checkSearchScreenCapture() {
+        composeTestRule
+            .onNode(hasTestTag(SearchScreenTestTag))
+            .captureRoboImage()
+    }
+    fun clickFirstDropdownMenuItem() {
+        composeTestRule
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
+            .onFirst()
+            .performClick()
+        waitUntilIdle()
+    }
+
+    fun clickLastDropdownMenuItem() {
+        composeTestRule
+            .onAllNodes(hasTestTag(DropdownFilterChipItemTestTag))
+            .onLast()
             .performClick()
         waitUntilIdle()
     }
