@@ -29,6 +29,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
@@ -45,6 +46,7 @@ fun SearchTextFieldAppBar(
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     onBackClick: () -> Unit,
+    testTag: String,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -64,6 +66,8 @@ fun SearchTextFieldAppBar(
             SearchTextField(
                 searchQuery = searchQuery,
                 onSearchQueryChanged = onSearchQueryChanged,
+                modifier = Modifier
+                    .testTag(testTag),
             )
         },
     )
@@ -152,6 +156,7 @@ fun SearchTextFieldAppBarPreview() {
                 searchQuery = "",
                 onSearchQueryChanged = {},
                 onBackClick = {},
+                testTag = "",
             )
         }
     }

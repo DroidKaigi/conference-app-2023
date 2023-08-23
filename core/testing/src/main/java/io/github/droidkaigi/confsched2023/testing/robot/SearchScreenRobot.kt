@@ -5,12 +5,16 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeLeft
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SearchScreen
+import io.github.droidkaigi.confsched2023.sessions.SearchScreenEmptyBodyTestTag
+import io.github.droidkaigi.confsched2023.sessions.SearchScreenSearchTextFiledTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterTestTag
@@ -80,6 +84,19 @@ class SearchScreenRobot @Inject constructor(
             .onLast()
             .performClick()
         waitUntilIdle()
+    }
+
+    fun inputDummyTextSearchTextFieldAppBar() {
+        composeTestRule
+            .onNodeWithTag(SearchScreenSearchTextFiledTestTag)
+            .performTextInput("abcdefg")
+        waitUntilIdle()
+    }
+
+    fun checkExistEmptyBody() {
+        composeTestRule
+            .onNodeWithTag(SearchScreenEmptyBodyTestTag)
+            .captureRoboImage()
     }
 
     fun checkScreenCapture() {

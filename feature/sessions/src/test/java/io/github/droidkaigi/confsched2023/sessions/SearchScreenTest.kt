@@ -79,6 +79,17 @@ class SearchScreenTest {
         }
     }
 
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkEmptyBodyShot() {
+        searchScreenRobot {
+            setupSearchScreenContent()
+            inputDummyTextSearchTextFieldAppBar()
+            checkExistEmptyBody()
+            checkScreenCapture()
+        }
+    }
+
     private fun SearchScreenRobot.checkFilterChipShot(
         filterChipTestTag: String,
         scrollToLeft: (() -> Unit)? = null,
