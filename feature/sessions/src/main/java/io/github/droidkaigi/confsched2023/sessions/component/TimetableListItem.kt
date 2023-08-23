@@ -141,7 +141,7 @@ fun TimetableListItem(
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
                         text = speaker.name,
-                        style = typography().bodyMedium,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 }
