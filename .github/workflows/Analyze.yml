@@ -28,10 +28,7 @@ jobs:
         languages: ${{ matrix.language }}
 
     - name: Build project
-      uses: gradle/gradle-build-action@243af859f8ca30903d9d7f7936897ca0358ba691 # v2
-      with:
-        gradle-home-cache-cleanup: true
-        arguments: assemble --stacktrace
+      run: ./gradlew :app-android:assemble --stacktrace
 
     - name: Perform analysis
       uses: github/codeql-action/analyze@v2
