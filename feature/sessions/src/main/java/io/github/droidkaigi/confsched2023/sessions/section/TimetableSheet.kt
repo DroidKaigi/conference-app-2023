@@ -50,7 +50,7 @@ fun TimetableSheet(
     onFavoriteClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.Day1) }
+    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay()) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
