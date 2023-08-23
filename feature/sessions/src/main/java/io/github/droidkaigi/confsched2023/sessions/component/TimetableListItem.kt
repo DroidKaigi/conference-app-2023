@@ -41,8 +41,10 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import java.lang.Integer.max
 
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
@@ -56,6 +58,7 @@ fun TimetableListItem(
     onBookmarkClick: (TimetableItem) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
+    highlightQuery: SearchQuery = SearchQuery.Empty,
 ) {
     Column(
         modifier
@@ -90,7 +93,23 @@ fun TimetableListItem(
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
-            text = timetableItem.title.currentLangTitle,
+            text = buildAnnotatedString {
+                timetableItem.title.currentLangTitle.let { title ->
+                    val highlightRange = with(highlightQuery) {
+                        title.getMatchIndexRange()
+                    }
+                    append(title.take(highlightRange.first))
+                    withStyle(
+                        SpanStyle(
+                            background = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f),
+                            textDecoration = Companion.Underline,
+                        ),
+                    ) {
+                        append(title.substring(highlightRange))
+                    }
+                    append(title.takeLast(max((title.lastIndex - highlightRange.last), 0)))
+                }
+            },
             fontSize = 22.sp,
             lineHeight = 28.sp,
         )
@@ -163,6 +182,7 @@ fun TimetableListItemPreview() {
             TimetableListItem(
                 timetableItem = Session.fake(),
                 isBookmarked = false,
+                highlightQuery = SearchQuery.Empty,
                 onClick = {},
                 onBookmarkClick = {},
                 chipContent = {

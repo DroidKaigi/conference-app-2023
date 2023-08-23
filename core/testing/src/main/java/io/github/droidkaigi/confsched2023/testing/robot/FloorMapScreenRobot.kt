@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.testing.robot
 
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -14,6 +16,7 @@ import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 class FloorMapScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
@@ -33,6 +36,7 @@ class FloorMapScreenRobot @Inject constructor(
             KaigiTheme {
                 FloorMapScreen(
                     onSideEventClick = { },
+                    windowSize = calculateWindowSizeClass(composeTestRule.activity),
                 )
             }
         }

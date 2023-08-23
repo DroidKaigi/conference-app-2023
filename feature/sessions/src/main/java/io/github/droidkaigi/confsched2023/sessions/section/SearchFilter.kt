@@ -9,6 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
@@ -18,6 +20,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.FilterDayChip
 import io.github.droidkaigi.confsched2023.sessions.component.FilterLanguageChip
 import io.github.droidkaigi.confsched2023.sessions.component.FilterSessionTypeChip
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 data class SearchFilterUiState<T>(
     val selectedItems: ImmutableList<T>,
@@ -76,4 +79,28 @@ fun SearchFilter(
             )
         }
     }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun SearchFilterPreview() {
+    SearchFilter(
+        searchFilterDayUiState = SearchFilterUiState(
+            selectedItems = emptyList<DroidKaigi2023Day>().toImmutableList(),
+            items = DroidKaigi2023Day.entries.toImmutableList(),
+        ),
+        searchFilterCategoryUiState = SearchFilterUiState(
+            selectedItems = emptyList<TimetableCategory>().toImmutableList(),
+            items = emptyList<TimetableCategory>().toImmutableList(),
+        ),
+        searchFilterSessionTypeUiState = SearchFilterUiState(
+            selectedItems = emptyList<TimetableSessionType>().toImmutableList(),
+            items = TimetableSessionType.entries.toImmutableList(),
+        ),
+        searchFilterLanguageUiState = SearchFilterUiState(
+            selectedItems = emptyList<Lang>().toImmutableList(),
+            items = Lang.entries.toImmutableList(),
+        ),
+    )
 }

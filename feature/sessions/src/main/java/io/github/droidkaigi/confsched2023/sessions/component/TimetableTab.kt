@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
@@ -29,6 +30,9 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import kotlin.math.roundToInt
 
@@ -177,3 +181,19 @@ class TimetableTabState(
 private val minTabHeight = 32.dp
 private val maxTabRowHeight = 84.dp
 private val minTabRowHeight = 56.dp
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableTabPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableTab(
+                day = DroidKaigi2023Day.Day1,
+                selected = true,
+                onClick = {},
+                scrollState = rememberTimetableTabState(),
+            )
+        }
+    }
+}
