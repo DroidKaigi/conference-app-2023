@@ -74,6 +74,28 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         ),
     )
 
+    sessions.add(
+        SessionResponse(
+            id = "0570556a-8a53-49d6-916c-26ff85635d86",
+            title = LocaledResponse(ja = "Welcome Talk", en = "Welcome Talk"),
+            description = null,
+            startsAt = "2023-09-14T10:30:00+09:00",
+            endsAt = "2023-09-14T11:00:00+09:00",
+            isServiceSession = true,
+            isPlenumSession = false,
+            speakers = emptyList(),
+            roomId = 1,
+            targetAudience = "TBW",
+            language = "JAPANESE",
+            sessionCategoryItemId = 1,
+            interpretationTarget = false,
+            asset = SessionAssetResponse(videoUrl = null, slideUrl = null),
+            message = null,
+            sessionType = "WELCOME_TALK",
+            levels = listOf("UNSPECIFIED"),
+        ),
+    )
+
     for (day in 0 until 3) {
         val dayOffset = day * 24 * 60 * 60
         for (room in rooms) {
