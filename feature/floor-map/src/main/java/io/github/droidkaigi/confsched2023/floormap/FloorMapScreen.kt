@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.floormap
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,17 +18,29 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -40,8 +52,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.LargeFloorMapContentUiState
 import io.github.droidkaigi.confsched2023.floormap.FloorMapContentUiState.SmallFloorMapContentUiState
 import io.github.droidkaigi.confsched2023.floormap.component.FloorLevelSwitcher
-import io.github.droidkaigi.confsched2023.floormap.section.FloorMap
-import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventList
+import io.github.droidkaigi.confsched2023.floormap.section.FloorMapAndSideEventList
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapSideEventListUiState
 import io.github.droidkaigi.confsched2023.floormap.section.FloorMapUiState
 import io.github.droidkaigi.confsched2023.floormap.section.fadingEdge
@@ -124,26 +135,36 @@ private fun FloorMapScreen(
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp), // https://stackoverflow.com/a/75962622
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        modifier = Modifier
-            .testTag(FloorMapScreenTestTag)
-            .statusBarsPadding(),
+        modifier = Modifier.testTag(FloorMapScreenTestTag),
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = FloorMapStrings.Title.asString(),
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    if (scrollBehavior.state.overlappedFraction == 0f) {
+                        Text(
+                            text = FloorMapStrings.Title.asString(),
+                            style = MaterialTheme.typography.headlineLarge,
+                            fontWeight = FontWeight.Medium,
+                        )
+                    } else {
+                        Text(
+                            text = FloorMapStrings.Title.asString(),
+                            style = MaterialTheme.typography.titleLarge,
+                            modifier = Modifier.alpha(scrollBehavior.state.overlappedFraction),
+                        )
+                    }
                 },
+                scrollBehavior = scrollBehavior,
             )
         },
         content = { innerPadding ->
             FloorMapContent(
                 innerPadding = innerPadding,
                 widthSizeClass = widthSizeClass,
+                nestedScrollConnection = scrollBehavior.nestedScrollConnection,
                 uiState = uiState,
                 onSideEventClick = onSideEventClick,
                 onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
@@ -156,6 +177,7 @@ private fun FloorMapScreen(
 private fun FloorMapContent(
     innerPadding: PaddingValues,
     widthSizeClass: WindowWidthSizeClass,
+    nestedScrollConnection: NestedScrollConnection,
     uiState: FloorMapScreenUiState,
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
@@ -172,15 +194,10 @@ private fun FloorMapContent(
             )
         } else {
             MobileContent(
+                nestedScrollConnection = nestedScrollConnection,
                 uiState = uiState,
                 onSideEventClick = onSideEventClick,
-            )
-            FloorLevelSwitcher(
-                selectingFloorLevel = uiState.floorLevel,
                 onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 24.dp),
             )
         }
     }
@@ -188,25 +205,53 @@ private fun FloorMapContent(
 
 @Composable
 private fun MobileContent(
+    nestedScrollConnection: NestedScrollConnection,
     uiState: FloorMapScreenUiState,
     onSideEventClick: (url: String) -> Unit,
+    onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
+    val density = LocalDensity.current
+    var boxHeight by remember { mutableIntStateOf(0) }
+    var switcherPosition by remember { mutableFloatStateOf(0f) }
+    val gradientStartRatio by remember {
+        derivedStateOf {
+            if (boxHeight == 0 || switcherPosition == 0f) {
+                1f
+            } else {
+                switcherPosition / (boxHeight - with(density) { 24.dp.toPx() })
+            }
+        }
+    }
+    Box(
+        Modifier
+            .onGloballyPositioned {
+                boxHeight = it.size.height
+            },
     ) {
-        FloorMap(uiState = uiState.smallFloorMapContentUiState.floorMapUiState)
-        FloorMapSideEventList(
-            uiState = uiState.smallFloorMapContentUiState.sideEventListUiState,
+        FloorMapAndSideEventList(
+            floorMapUiState = uiState.smallFloorMapContentUiState.floorMapUiState,
+            sideEventListUiState = uiState.smallFloorMapContentUiState.sideEventListUiState,
             onSideEventClick = onSideEventClick,
             modifier = Modifier
-                .weight(1f)
+                .fillMaxSize()
                 .padding(bottom = 56.dp)
+                .nestedScroll(nestedScrollConnection)
                 .fadingEdge(
                     Brush.verticalGradient(
-                        0.85f to Color.Black,
+                        gradientStartRatio to Color.Black,
                         1f to Color.Transparent,
                     ),
                 ),
+        )
+        FloorLevelSwitcher(
+            selectingFloorLevel = uiState.floorLevel,
+            onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 24.dp)
+                .onGloballyPositioned {
+                    switcherPosition = it.positionInParent().y
+                },
         )
     }
 }
@@ -223,36 +268,20 @@ private fun LargeScreenContent(
         Column(
             modifier = Modifier.weight(0.8f),
         ) {
-            FloorMap(uiState = FloorMapUiState.of(Basement))
-            FloorMapSideEventList(
-                uiState = uiState.baseSideEventListUiState,
+            FloorMapAndSideEventList(
+                floorMapUiState = FloorMapUiState.of(Basement),
+                sideEventListUiState = uiState.baseSideEventListUiState,
                 onSideEventClick = onSideEventClick,
-                modifier = Modifier
-                    .weight(1f)
-                    .fadingEdge(
-                        Brush.verticalGradient(
-                            0.85f to Color.Black,
-                            1f to Color.Transparent,
-                        ),
-                    ),
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
         Column(
             modifier = Modifier.weight(0.8f),
         ) {
-            FloorMap(uiState = FloorMapUiState.of(Ground))
-            FloorMapSideEventList(
-                uiState = uiState.groundSideEventListUiState,
+            FloorMapAndSideEventList(
+                floorMapUiState = FloorMapUiState.of(Ground),
+                sideEventListUiState = uiState.groundSideEventListUiState,
                 onSideEventClick = onSideEventClick,
-                modifier = Modifier
-                    .weight(1f)
-                    .fadingEdge(
-                        Brush.verticalGradient(
-                            0.85f to Color.Black,
-                            1f to Color.Transparent,
-                        ),
-                    ),
             )
         }
     }
