@@ -47,14 +47,14 @@ fun NavGraphBuilder.sessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
-    navigateToBookmarkScreen: () -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
             onCalendarRegistrationClick = onCalendarRegistrationClick,
-            navigateToBookmarkScreen = navigateToBookmarkScreen,
+            onNavigateToBookmarkScreenRequested = onNavigateToBookmarkScreenRequested,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -81,7 +81,7 @@ fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
-    navigateToBookmarkScreen: () -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -92,9 +92,9 @@ fun TimetableItemDetailScreen(
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
 
-    LaunchedEffect(uiState.shouldViewBookmarkList) {
-        if (uiState.shouldViewBookmarkList) {
-            navigateToBookmarkScreen()
+    LaunchedEffect(uiState.shouldNavigateToBookmarkList) {
+        if (uiState.shouldNavigateToBookmarkList) {
+            onNavigateToBookmarkScreenRequested()
             viewModel.onViewBookmarkListRequestCompleted()
         }
     }
@@ -118,7 +118,7 @@ sealed class TimetableItemDetailScreenUiState {
         val viewBookmarkListRequestState: ViewBookmarkListRequestState,
     ) : TimetableItemDetailScreenUiState()
 
-    val shouldViewBookmarkList: Boolean
+    val shouldNavigateToBookmarkList: Boolean
         get() = this is Loaded && viewBookmarkListRequestState is ViewBookmarkListRequestState.Requested
 }
 

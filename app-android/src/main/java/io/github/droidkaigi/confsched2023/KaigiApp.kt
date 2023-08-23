@@ -118,7 +118,7 @@ private fun KaigiNavHost(
             onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
             onLinkClick = externalNavController::navigate,
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
-            navigateToBookmarkScreen = navController::navigateToBookmarkScreen,
+            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
         )
         searchScreen(
             onNavigationIconClick = navController::popBackStack,
