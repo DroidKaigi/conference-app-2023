@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableUiType
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableGridUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
+import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -100,9 +101,15 @@ class TimetableScreenViewModel @Inject constructor(
             }
     }
 
-    fun onBookmarkClick(session: TimetableItem) {
+    fun onBookmarkClick(session: TimetableItem, bookmarked: Boolean) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(session.id)
+            if (bookmarked) {
+                userMessageStateHolder.showMessage(
+                    TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
+                    TimetableItemDetailStrings.ViewBookmarkList.asString(),
+                )
+            }
         }
     }
 }

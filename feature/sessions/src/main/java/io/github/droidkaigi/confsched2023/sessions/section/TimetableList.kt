@@ -50,7 +50,7 @@ data class TimetableListUiState(
 fun TimetableList(
     uiState: TimetableListUiState,
     scrollState: LazyListState,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -119,7 +119,7 @@ fun TimetableList(
                             modifier = Modifier.let { if (k >= 1) it.padding(top = 10.dp) else it },
                             isBookmarked = isBookmarked,
                             onClick = onTimetableItemClick,
-                            onBookmarkClick = onBookmarkClick,
+                            onBookmarkClick = { onBookmarkClick(it, !isBookmarked) },
                             chipContent = {
                                 // Chips
 
