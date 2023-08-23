@@ -48,7 +48,7 @@ fun BookmarkList(
     val density = LocalDensity.current
     LazyColumn(
         state = scrollState,
-        modifier = modifier.padding(end = 16.dp),
+        modifier = modifier,
     ) {
         itemsIndexed(timetableItemMap.toList(), key = { _, (key, _) -> key }) { index, (_, values) ->
             var rowHeight by remember { mutableIntStateOf(0) }

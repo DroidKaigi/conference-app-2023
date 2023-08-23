@@ -37,6 +37,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableUiType
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableHeader
@@ -102,6 +103,7 @@ fun TimetableScreen(
 
 data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
+    val timetableUiType: TimetableUiType,
 )
 
 private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
@@ -165,6 +167,7 @@ private fun TimetableScreen(
         },
         topBar = {
             TimetableTopArea(
+                timetableUiType = uiState.timetableUiType,
                 onTimetableUiChangeClick,
                 onSearchClick,
                 onBookmarkIconClick,
@@ -188,7 +191,7 @@ private fun TimetableScreen(
             TimetableSheet(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 130.dp)
+                    .padding(top = 131.dp)
                     .layout { measurable, constraints ->
                         val placeable = measurable.measure(
                             constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
@@ -223,6 +226,7 @@ fun PreviewTimetableScreenDark() {
                         ),
                     ),
                 ),
+                TimetableUiType.Grid,
             ),
             SnackbarHostState(),
             {},

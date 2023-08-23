@@ -5,6 +5,7 @@ import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.Dump
@@ -15,6 +16,7 @@ import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResp
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreen
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBookmarkIconTestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailReadMoreButtonTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -53,6 +55,19 @@ class TimetableItemDetailScreenRobot @Inject constructor(
             .onNode(hasTestTag(TimetableItemDetailBookmarkIconTestTag))
             .performClick()
         waitUntilIdle()
+    }
+
+    fun scrollToDescription() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableItemDetailReadMoreButtonTestTag))
+            .performScrollTo()
+        scroll()
+    }
+
+    fun clickReadMoreButton() {
+        composeTestRule
+            .onNode(hasTestTag(TimetableItemDetailReadMoreButtonTestTag))
+            .performClick()
     }
 
     fun scroll() {

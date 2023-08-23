@@ -170,6 +170,7 @@ private fun NavGraphBuilder.mainScreen(
                 onLinkClick = externalNavController::navigate,
             )
             nestedFloorMapScreen(
+                windowSize = windowSize,
                 onSideEventClick = externalNavController::navigate,
             )
             nestedStampsScreen(
@@ -269,6 +270,7 @@ private class ExternalNavController(
         }
     }
 
+    @Suppress("SwallowedException")
     @RequiresApi(Build.VERSION_CODES.R)
     private fun navigateToNativeAppApi30(context: Context, uri: Uri): Boolean {
         val nativeAppIntent = Intent(Intent.ACTION_VIEW, uri)
