@@ -1,7 +1,10 @@
 import Component
+import Model
+import shared
 import SwiftUI
 
 public struct StaffView: View {
+    @State var presentingURL: IdentifiableURL?
     @ObservedObject var viewModel: StaffViewModel = .init()
 
     public init() {}
@@ -20,10 +23,14 @@ public struct StaffView: View {
                 ScrollView {
                     LazyVStack(spacing: 20) {
                         ForEach(staffs, id: \.id) { staff in
-                            PersonLabel(
-                                name: staff.username,
-                                iconUrlString: staff.iconUrl
-                            )
+                            Button {
+                                presentingURL = IdentifiableURL(string: staff.profileUrl)
+                            } label: {
+                                PersonLabel(
+                                    name: staff.username,
+                                    iconUrlString: staff.iconUrl
+                                )
+                            }
                         }
                     }
                     .padding(16)
@@ -31,6 +38,12 @@ public struct StaffView: View {
             }
         }
         .navigationTitle("Staff")
+        .sheet(item: $presentingURL) { url in
+            if let url = url.id {
+                SafariView(url: url)
+                    .ignoresSafeArea()
+            }
+        }
     }
 }
 
