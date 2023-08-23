@@ -45,10 +45,30 @@ data class SearchListUiState(
     val timetableItems: PersistentList<TimetableItem>,
 )
 
+data class SearchQuery(val queryText: String) {
+    val hasQuery get() = queryText.isNotBlank()
+
+    fun String.getMatchIndexRange(): IntRange {
+        if (!hasQuery) return IntRange.EMPTY
+
+        val startIndex = this.indexOf(queryText, ignoreCase = true)
+        return if (startIndex >= 0) {
+            startIndex until (startIndex + queryText.length)
+        } else {
+            IntRange.EMPTY
+        }
+    }
+
+    companion object {
+        val Empty = SearchQuery("AAA")
+    }
+}
+
 @Composable
 fun SearchList(
     contentPaddingValues: PaddingValues,
     searchListUiState: SearchListUiState,
+    searchQuery: SearchQuery,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
@@ -58,9 +78,7 @@ fun SearchList(
     LazyColumn(
         state = scrollState,
         contentPadding = contentPaddingValues,
-        modifier = modifier
-            .imePadding()
-            .padding(start = 16.dp),
+        modifier = modifier.imePadding(),
     ) {
         itemsIndexed(searchListUiState.timetableItems) { index, timetableItem ->
             var rowHeight by remember { mutableIntStateOf(0) }
@@ -110,6 +128,7 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
+                    highlightQuery = searchQuery,
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()

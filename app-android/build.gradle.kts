@@ -7,7 +7,7 @@ plugins {
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
     id("droidkaigi.primitive.android.firebase")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover")
 }
@@ -63,7 +63,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {

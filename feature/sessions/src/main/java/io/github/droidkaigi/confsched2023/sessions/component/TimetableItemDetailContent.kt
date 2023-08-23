@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -54,6 +55,8 @@ import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.PersistentList
+
+const val TimetableItemDetailReadMoreButtonTestTag = "TimetableItemDetailReadMoreButtonTestTag"
 
 @Composable
 fun TimetableItemDetailContent(
@@ -108,7 +111,9 @@ private fun DescriptionSection(
             if (!isExpanded) {
                 ReadMoreOutlinedButton(
                     onClick = { isExpanded = true },
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                    modifier = Modifier
+                        .testTag(TimetableItemDetailReadMoreButtonTestTag)
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 )
             }
             BorderLine(modifier = Modifier.padding(top = 24.dp))
