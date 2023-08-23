@@ -53,7 +53,7 @@ public struct RootView: View {
                     Label {
                         Text("Stamps")
                     } icon: {
-                        Assets.Icons.badge.swiftUIImage
+                        Assets.Icons.stamp.swiftUIImage
                             .renderingMode(.template)
                     }
                 }
