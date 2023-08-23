@@ -49,10 +49,11 @@ class TimetableItemDetailViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = null,
             )
-    private val viewBookmarkListRequestStateFlow = MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
+    private val viewBookmarkListRequestStateFlow =
+        MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
-        buildUiState(timetableItemStateFlow, viewBookmarkListRequestStateFlow) { timetableItemAndBookmark, viewBookmarkListRequestState->
+        buildUiState(timetableItemStateFlow, viewBookmarkListRequestStateFlow) { timetableItemAndBookmark, viewBookmarkListRequestState ->
             if (timetableItemAndBookmark == null) {
                 return@buildUiState TimetableItemDetailScreenUiState.Loading
             }
