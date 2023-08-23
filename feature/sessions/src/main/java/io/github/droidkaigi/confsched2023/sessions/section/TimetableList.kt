@@ -15,8 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -35,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.sessions.component.SessionTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentMap
@@ -129,30 +128,15 @@ fun TimetableList(
                                 val containerColor = timetableItem.room.color
                                 val labelColor = hallColor.hallText
 
-                                SuggestionChip(
-                                    colors = SuggestionChipDefaults.suggestionChipColors(
-                                        containerColor = containerColor,
-                                        labelColor = labelColor,
-                                    ),
-                                    border = null,
-                                    onClick = { /* Do nothing */ },
-                                    label = {
-                                        Text(
-                                            text = timetableItem.room.name.currentLangTitle,
-                                            style = MaterialTheme.typography.bodyMedium,
-                                        )
-                                    },
+                                SessionTag(
+                                    label = timetableItem.room.name.currentLangTitle,
+                                    labelColor = labelColor,
+                                    backgroundColor = containerColor,
                                 )
                                 timetableItem.language.labels.forEach {
-                                    SuggestionChip(
-                                        modifier = Modifier.padding(start = 4.dp),
-                                        onClick = { /* Do nothing */ },
-                                        label = {
-                                            Text(
-                                                text = it,
-                                                style = MaterialTheme.typography.bodyMedium,
-                                            )
-                                        },
+                                    SessionTag(
+                                        label = it,
+                                        borderColor = MaterialTheme.colorScheme.outline,
                                     )
                                 }
                             },
