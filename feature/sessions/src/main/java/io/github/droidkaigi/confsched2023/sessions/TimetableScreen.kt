@@ -91,7 +91,13 @@ fun TimetableScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = viewModel::onBookmarkClick,
+        onBookmarkClick = { session, bookmarked ->
+            viewModel.onBookmarkClick(
+                session,
+                bookmarked,
+                onBookmarkIconClick
+            )
+        },
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
