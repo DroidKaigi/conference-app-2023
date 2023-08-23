@@ -17,13 +17,14 @@ final class SponsorViewModel: ObservableObject {
         state.planGroupedSponsors = .loading
 
         do {
-            let sponsors = try await sponsorsData.sponsors()
-
-            state.planGroupedSponsors = .loaded(
-                [Plan: [Sponsor]](grouping: sponsors) {
-                    $0.plan
-                }
-            )
+            try await sponsorsData.refresh()
+            for try await sponsors in sponsorsData.sponsors() {
+                state.planGroupedSponsors = .loaded(
+                    [Plan: [Sponsor]](grouping: sponsors) {
+                        $0.plan
+                    }
+                )
+            }
         } catch let error {
             state.planGroupedSponsors = .failed(error)
         }

@@ -17,8 +17,10 @@ final class ContributorViewModel: ObservableObject {
         state.contributors = .loading
 
         do {
-            let contributors = try await contributorsData.contributors()
-            state.contributors = .loaded(contributors)
+            try await contributorsData.refresh()
+            for try await contributors in contributorsData.contributors() {
+                state.contributors = .loaded(contributors)
+            }
         } catch let error {
             state.contributors = .failed(error)
         }

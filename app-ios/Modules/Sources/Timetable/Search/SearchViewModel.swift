@@ -38,8 +38,9 @@ final class SearchViewModel: ObservableObject {
     func load() async {
         state.loadingState = .loading
         do {
-            let timetable = try await sessionsData.timetable()
-            cachedTimetable = timetable
+            for try await timetable in sessionsData.timetable() {
+                cachedTimetable = timetable
+            }
         } catch let error {
             state.loadingState = .failed(error)
         }

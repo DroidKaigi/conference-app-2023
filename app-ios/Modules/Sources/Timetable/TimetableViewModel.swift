@@ -22,8 +22,9 @@ final class TimetableViewModel: ObservableObject {
     func load() async {
         state.timeGroupTimetableItems = .loading
         do {
-            let timetable = try await sessionsData.timetable()
-            cachedTimetable = timetable
+            for try await timetable in sessionsData.timetable() {
+                cachedTimetable = timetable
+            }
         } catch let error {
             state.timeGroupTimetableItems = .failed(error)
         }
