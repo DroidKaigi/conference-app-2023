@@ -8,18 +8,22 @@ import Theme
 enum AboutRouting: Hashable {
     case contributors
     case license
+    case staffs
     case sponsors
 }
 
-public struct AboutView<ContributorView: View, SponsorView: View>: View {
+public struct AboutView<ContributorView: View, StaffView: View, SponsorView: View>: View {
     private let contributorViewProvider: ViewProvider<Void, ContributorView>
+    private let staffViewProvider: ViewProvider<Void, StaffView>
     private let sponsorViewProvider: ViewProvider<Void, SponsorView>
 
     public init(
         contributorViewProvider: @escaping ViewProvider<Void, ContributorView>,
+        staffViewProvider: @escaping ViewProvider<Void, StaffView>,
         sponsorViewProvider: @escaping ViewProvider<Void, SponsorView>
     ) {
         self.contributorViewProvider = contributorViewProvider
+        self.staffViewProvider = staffViewProvider
         self.sponsorViewProvider = sponsorViewProvider
     }
 
@@ -56,10 +60,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     Spacer().frame(height: 32)
                     SectionTitle(title: "Credits")
-                    ListTile(
-                        icon: Assets.Icons.sentimentVerySatisfied.swiftUIImage,
-                        title: "スタッフ"
-                    )
+                    NavigationLink(value: AboutRouting.staffs) {
+                        ListTile(
+                            icon: Assets.Icons.sentimentVerySatisfied.swiftUIImage,
+                            title: "スタッフ"
+                        )
+                    }
                     Divider()
                     NavigationLink(value: AboutRouting.contributors) {
                         ListTile(
@@ -123,6 +129,8 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                 switch routing {
                 case .contributors:
                     contributorViewProvider(())
+                case .staffs:
+                    staffViewProvider(())
                 case .sponsors:
                     sponsorViewProvider(())
                 case .license:
@@ -136,6 +144,7 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
 #Preview {
     AboutView(
         contributorViewProvider: {_ in EmptyView()},
+        staffViewProvider: {_ in EmptyView()},
         sponsorViewProvider: {_ in EmptyView()}
     )
 }
