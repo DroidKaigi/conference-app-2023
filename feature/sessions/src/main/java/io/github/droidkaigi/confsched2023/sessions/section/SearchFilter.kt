@@ -29,7 +29,6 @@ data class SearchFilterUiState<T>(
     val selectedValues: String = "",
 )
 
-const val SearchFilterTestTag = "SearchFilter"
 const val SearchFilterDayFilterChipTestTag = "SearchFilterDayFilterChip"
 const val SearchFilterCategoryChipTestTag = "SearchFilterCategoryChipTest"
 const val SearchFilterSessionTypeChipTestTag = "SearchFilterSessionTypeChipTest"
@@ -51,7 +50,6 @@ fun SearchFilter(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     LazyRow(
-        modifier = modifier.testTag(SearchFilterTestTag),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
     ) {
