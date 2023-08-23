@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
     implementation(projects.core.model)
+    implementation(libs.composeMaterialWindowSize)
     testImplementation(projects.core.testing)
 
     implementation(libs.composeHiltNavigtation)
