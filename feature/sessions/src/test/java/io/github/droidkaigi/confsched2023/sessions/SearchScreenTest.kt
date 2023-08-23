@@ -89,29 +89,4 @@ class SearchScreenTest {
             checkScreenCapture()
         }
     }
-
-    private fun SearchScreenRobot.checkFilterChipShot(
-        filterChipTestTag: String,
-        scrollToLeft: (() -> Unit)? = null,
-    ) {
-        setupSearchScreenContent()
-        scrollToLeft?.invoke()
-
-        // select item
-        clickFilterChip(filterChipTestTag)
-        clickFirstDropdownMenuItem()
-        checkSearchScreenCapture()
-
-        // select other item
-        clickFilterChip(filterChipTestTag)
-        clickLastDropdownMenuItem()
-        checkSearchScreenCapture()
-
-        // remove all items
-        clickFilterChip(filterChipTestTag)
-        clickFirstDropdownMenuItem()
-        clickFilterChip(filterChipTestTag)
-        clickLastDropdownMenuItem()
-        checkSearchScreenCapture()
-    }
 }
