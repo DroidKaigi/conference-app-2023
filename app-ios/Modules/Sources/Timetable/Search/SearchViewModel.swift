@@ -38,8 +38,9 @@ final class SearchViewModel: ObservableObject {
     func load() async {
         state.loadingState = .loading
         do {
-            let timetable = try await sessionsData.timetable()
-            cachedTimetable = timetable
+            for try await timetable in sessionsData.timetable() {
+                cachedTimetable = timetable
+            }
         } catch let error {
             state.loadingState = .failed(error)
         }
@@ -66,7 +67,7 @@ final class SearchViewModel: ObservableObject {
                         itemWithFavorite.timetableItem.startsAt == duration.startsAt && itemWithFavorite.timetableItem.endsAt == duration.endsAt
                     }
                     .sorted {
-                        $0.timetableItem.room.sort < $1.timetableItem.room.sort
+                        $0.timetableItem.room.name.currentLangTitle < $1.timetableItem.room.name.currentLangTitle
                     }
                 return TimetableTimeGroupItems(
                     duration: duration,

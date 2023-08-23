@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023.floormap.section
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -9,6 +11,7 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.floormap.component.FloorMapSideEventItem
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import kotlinx.collections.immutable.ImmutableList
@@ -18,17 +21,27 @@ data class FloorMapSideEventListUiState(
 )
 
 @Composable
-fun FloorMapSideEventList(
-    uiState: FloorMapSideEventListUiState,
+fun FloorMapAndSideEventList(
+    floorMapUiState: FloorMapUiState,
+    sideEventListUiState: FloorMapSideEventListUiState,
     onSideEventClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier) {
-        items(uiState.sideEvents) { sideEvent ->
+    LazyColumn(modifier = modifier) {
+        item {
+            FloorMap(uiState = floorMapUiState)
+        }
+        item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        items(sideEventListUiState.sideEvents) { sideEvent ->
             FloorMapSideEventItem(
                 sideEvent = sideEvent,
                 onSideEventClick = onSideEventClick,
             )
+        }
+        item {
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

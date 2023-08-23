@@ -107,6 +107,8 @@ fun TimetableList(
                         )
                         Text(
                             text = timetableItem.endsTimeString,
+                            color = MaterialTheme.colorScheme.secondary,
+                            fontWeight = FontWeight.Medium,
                         )
                     }
                 }

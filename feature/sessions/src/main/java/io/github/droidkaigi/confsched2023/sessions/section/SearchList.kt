@@ -77,9 +77,7 @@ fun SearchList(
     LazyColumn(
         state = scrollState,
         contentPadding = contentPaddingValues,
-        modifier = modifier
-            .imePadding()
-            .padding(start = 16.dp),
+        modifier = modifier.imePadding(),
     ) {
         itemsIndexed(searchListUiState.timetableItems) { index, timetableItem ->
             var rowHeight by remember { mutableIntStateOf(0) }

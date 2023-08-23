@@ -69,6 +69,18 @@ class TimetableItemDetailScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    fun checkReadMoreExpansionShot() {
+        timetableItemDetailScreenRobot {
+            setupScreenContent()
+            scrollToDescription()
+            checkScreenCapture()
+            clickReadMoreButton()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     fun checkScrollShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()

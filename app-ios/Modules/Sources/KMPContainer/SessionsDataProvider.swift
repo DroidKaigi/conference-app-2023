@@ -2,14 +2,32 @@ import Dependencies
 import shared
 
 public struct SessionsDataProvider {
-    public let timetable: () async throws -> Timetable
+    private static var sessionsRepository: SessionsRepository {
+        Container.shared.get(type: SessionsRepository.self)
+    }
+
+    public let timetable: () -> AsyncThrowingStream<Timetable, Error>
+    public let toggleBookmark: (TimetableItemId) async throws -> Void
 }
 
 extension SessionsDataProvider: DependencyKey {
+    @MainActor
     static public var liveValue: SessionsDataProvider = SessionsDataProvider(
         timetable: {
-            Timetable.companion.fake()
+            sessionsRepository.getTimetableStream().stream()
+        },
+        toggleBookmark: { @MainActor id in
+            try await sessionsRepository.toggleBookmark(id: id)
         }
+    )
+
+    public static var testValue: SessionsDataProvider = SessionsDataProvider(
+        timetable: {
+            .init {
+                Timetable.companion.fake()
+            }
+        },
+        toggleBookmark: {_ in}
     )
 }
 
