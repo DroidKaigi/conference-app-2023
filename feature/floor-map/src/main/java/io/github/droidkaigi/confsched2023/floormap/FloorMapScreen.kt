@@ -271,7 +271,7 @@ private fun LargeScreenContent(
             FloorMapAndSideEventList(
                 floorMapUiState = FloorMapUiState.of(Basement),
                 sideEventListUiState = uiState.baseSideEventListUiState,
-                onSideEventClick = onSideEventClick
+                onSideEventClick = onSideEventClick,
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
@@ -281,7 +281,7 @@ private fun LargeScreenContent(
             FloorMapAndSideEventList(
                 floorMapUiState = FloorMapUiState.of(Ground),
                 sideEventListUiState = uiState.groundSideEventListUiState,
-                onSideEventClick = onSideEventClick
+                onSideEventClick = onSideEventClick,
             )
         }
     }
