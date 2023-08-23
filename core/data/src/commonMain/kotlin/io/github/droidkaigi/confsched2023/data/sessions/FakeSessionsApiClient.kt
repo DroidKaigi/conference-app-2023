@@ -101,11 +101,11 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         for (room in rooms) {
             for (index in 0 until 4) {
                 val start = Instant.fromEpochSeconds(
-                    LocalDateTime.parse("2023-09-14T10:10:00")
+                    LocalDateTime.parse("2023-09-14T11:00:00")
                         .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(TimeZone.of("UTC+9"))
                 val end = Instant.fromEpochSeconds(
-                    LocalDateTime.parse("2023-09-14T10:50:00")
+                    LocalDateTime.parse("2023-09-14T11:40:00")
                         .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
                 ).toLocalDateTime(TimeZone.of("UTC+9"))
 
