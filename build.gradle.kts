@@ -7,6 +7,10 @@ plugins {
     alias(libs.plugins.kotlinxKover) apply false
 }
 
+apply {
+    from("${rootDir}/git-hooks.gradle.kts")
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }

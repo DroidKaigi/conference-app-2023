@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+echo "*******************************"
+echo   "Running git pre-commit hook"
+echo "*******************************"
+
+./gradlew lintDevDebug
+lintDevDebugStatus=$?
+echo "lintDevDebugStatus Result :"
+if [ "$lintDevDebugStatus" = 0 ]; then
+    echo "No issues were found in lintDevDebug"
+else
+    echo 1>&2 "Need to fix issues before commit."
+    exit 1
+fi
+
+
+./gradlew detekt
+detektStatus=$?
+echo "detektStatus Result :"
+if [ "$detektStatus" = 0 ]; then
+    echo "No issues were found, committing changes."
+    exit 0
+else
+    echo 1>&2 "Need to fix issues before commit."
+    exit 1
+fi
