@@ -89,7 +89,7 @@ fun TimetableTabIndicator(
     Box(
         modifier
             .zIndex(-1f)
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = tabIndicatorHorizontalSpacing)
             .fillMaxSize()
             .background(
                 color = MaterialTheme.colorScheme.primary,
@@ -114,7 +114,9 @@ fun TimetableTabRow(
 ) {
     TabRow(
         selectedTabIndex = selectedTabIndex,
-        modifier = modifier.height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * tabState.tabCollapseProgress)),
+        modifier = modifier
+            .height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * tabState.tabCollapseProgress))
+            .padding(horizontal = tabRowHorizontalSpacing),
         divider = {},
         indicator = indicator,
         tabs = tabs,
@@ -179,8 +181,11 @@ class TimetableTabState(
 }
 
 private val minTabHeight = 32.dp
+private val baselineTabHeight = 56.dp
 private val maxTabRowHeight = 84.dp
 private val minTabRowHeight = 56.dp
+private val tabIndicatorHorizontalSpacing = 8.dp
+private val tabRowHorizontalSpacing = (maxTabRowHeight - baselineTabHeight) / 2 - tabIndicatorHorizontalSpacing
 
 @MultiThemePreviews
 @MultiLanguagePreviews
