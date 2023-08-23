@@ -84,7 +84,7 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
             isServiceSession = true,
             isPlenumSession = false,
             speakers = emptyList(),
-            roomId = 1,
+            roomId = 2,
             targetAudience = "TBW",
             language = "JAPANESE",
             sessionCategoryItemId = 1,
