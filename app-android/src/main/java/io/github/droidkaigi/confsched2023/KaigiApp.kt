@@ -9,13 +9,11 @@ import android.os.Build
 import android.provider.CalendarContract
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -82,12 +80,6 @@ fun KaigiApp(
     modifier: Modifier = Modifier,
 ) {
     KaigiTheme {
-        val useDarkIcons = !isSystemInDarkTheme()
-
-        DisposableEffect(useDarkIcons) {
-            onDispose {}
-        }
-
         Surface(
             modifier = modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
