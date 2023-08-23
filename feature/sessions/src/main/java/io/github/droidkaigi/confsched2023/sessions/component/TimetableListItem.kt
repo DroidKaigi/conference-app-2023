@@ -158,7 +158,7 @@ fun TimetableListItem(
                         },
                         contentDescription = null,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(32.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .border(
                                 BorderStroke(1.dp, md_theme_light_outline),

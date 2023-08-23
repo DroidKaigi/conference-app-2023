@@ -56,7 +56,7 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
             //  Shimmer effect on bottom(right)
             Box(
                 modifier = Modifier
-                    .height(40.dp)
+                    .height(32.dp)
                     .width(80.dp)
                     .shimmer(shimmerInstance)
                     .background(Color.LightGray),
