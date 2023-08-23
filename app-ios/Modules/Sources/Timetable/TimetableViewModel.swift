@@ -49,7 +49,7 @@ final class TimetableViewModel: ObservableObject {
                         itemWithFavorite.timetableItem.startsAt == duration.startsAt && itemWithFavorite.timetableItem.endsAt == duration.endsAt
                     }
                     .sorted {
-                        $0.timetableItem.room.sort < $1.timetableItem.room.sort
+                        $0.timetableItem.room.name.currentLangTitie < $1.timetableItem.room.name.currentLangTitle
                     }
                 return TimetableTimeGroupItems(
                     duration: duration,
