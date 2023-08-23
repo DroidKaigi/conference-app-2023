@@ -8,8 +8,8 @@ import Theme
 enum AboutRouting: Hashable {
     case contributors
     case license
-    case staffs
     case sponsors
+    case staffs
 }
 
 public struct AboutView<ContributorView: View, StaffView: View, SponsorView: View>: View {
