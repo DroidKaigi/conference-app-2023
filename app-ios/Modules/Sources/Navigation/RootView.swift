@@ -4,6 +4,7 @@ import Contributor
 import FloorMap
 import Session
 import Sponsor
+import Staff
 import Stamps
 import SwiftUI
 import Theme
@@ -60,6 +61,9 @@ public struct RootView: View {
             AboutView(
                 contributorViewProvider: { _ in
                     ContributorView()
+                },
+                staffViewProvider: { _ in
+                    StaffView()
                 },
                 sponsorViewProvider: { _ in
                     SponsorView()

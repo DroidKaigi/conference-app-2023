@@ -4,7 +4,7 @@ import SwiftUI
 public struct SafariView: UIViewControllerRepresentable {
     private let url: URL
     private let configuration: SFSafariViewController.Configuration
-    
+
     public init(
         url: URL,
         configuration: SFSafariViewController.Configuration? = nil
@@ -14,7 +14,7 @@ public struct SafariView: UIViewControllerRepresentable {
         defaultConfiguration.barCollapsingEnabled = false
         self.configuration = configuration ?? defaultConfiguration
     }
-    
+
     public func makeUIViewController(context: Context) -> some UIViewController {
         let safariViewController = SFSafariViewController(
             url: url,
@@ -22,9 +22,9 @@ public struct SafariView: UIViewControllerRepresentable {
         )
         return safariViewController
     }
-    
+
     public func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        
+
     }
 }
 
