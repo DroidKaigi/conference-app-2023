@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -33,6 +34,7 @@ fun BookmarkIcon(
         composition = lottieComposition,
         isPlaying = isPlaying,
     )
+    val animationRange = 0.1f..1f
 
     Box(
         modifier = modifier
@@ -42,7 +44,7 @@ fun BookmarkIcon(
             },
         contentAlignment = Alignment.Center,
     ) {
-        if (isBookmarked) {
+        if (isBookmarked && progress in animationRange) {
             LottieAnimation(
                 composition = lottieComposition,
                 progress = { progress },
@@ -50,6 +52,13 @@ fun BookmarkIcon(
                     .semantics {
                         onClick(label = contentDescription, action = null)
                     },
+            )
+        } else if (isBookmarked) {
+            // FIXME It appears that Material Icons does not have the same icons as the Lottie animation looks.
+            Icon(
+                modifier = Modifier,
+                imageVector = Icons.Filled.Bookmark,
+                contentDescription = contentDescription,
             )
         } else {
             Icon(
