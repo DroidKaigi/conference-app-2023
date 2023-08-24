@@ -33,8 +33,13 @@ public struct RootView: View {
                     Label {
                         Text("Timetable")
                     } icon: {
-                        Assets.Icons.timetable.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .timeline {
+                            Assets.Icons.timetable.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        } else {
+                            Assets.Icons.timetableFillOff.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        }
                     }
                 }
             FloorMapView()
@@ -43,8 +48,13 @@ public struct RootView: View {
                     Label {
                         Text("FloorMap")
                     } icon: {
-                        Assets.Icons.map.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .floorMap {
+                            Assets.Icons.floorMap.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        } else {
+                            Assets.Icons.floorMapFillOff.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        }
                     }
                 }
             StampsView()
@@ -53,8 +63,13 @@ public struct RootView: View {
                     Label {
                         Text("Stamps")
                     } icon: {
-                        Assets.Icons.stamp.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .stamps {
+                            Assets.Icons.stamp.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        } else {
+                            Assets.Icons.stampFillOff.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        }
                     }
                 }
             AboutView(
@@ -70,8 +85,13 @@ public struct RootView: View {
                     Label {
                         Text("About")
                     } icon: {
-                        Assets.Icons.info.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .about {
+                            Assets.Icons.info.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        } else {
+                            Assets.Icons.infoFillOff.swiftUIImage
+                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        }
                     }
                 }
         }
