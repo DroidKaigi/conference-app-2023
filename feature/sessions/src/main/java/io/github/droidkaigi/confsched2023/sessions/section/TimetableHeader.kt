@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,11 +20,10 @@ import io.github.droidkaigi.confsched2023.feature.sessions.R
 @Composable
 fun TimetableHeader(modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
-            .height(168.dp),
+        modifier = modifier.wrapContentSize(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        Column(Modifier.padding(start = 16.dp)) {
+        Column(Modifier.padding(horizontal = 16.dp)) {
             Text(text = "DroidKaigi\n2023", style = MaterialTheme.typography.displaySmall)
             Spacer(modifier = Modifier.height(2.dp))
             Text(
@@ -32,7 +32,7 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
             )
         }
         Image(
-            modifier = Modifier.size(width = 212.dp, height = 168.dp),
+            modifier = Modifier.size(width = 185.dp, height = 169.dp),
             painter = painterResource(id = R.drawable.img_droid_kun_in_bath),
             contentDescription = null,
         )

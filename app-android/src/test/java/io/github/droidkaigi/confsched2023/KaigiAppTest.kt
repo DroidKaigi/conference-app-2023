@@ -39,6 +39,14 @@ class KaigiAppTest {
     }
 
     @Test
+    @Config(qualifiers = RobolectricDeviceQualifiers.MediumTablet)
+    fun checkMediumTabletLaunchShot() {
+        kaigiAppRobot {
+            capture()
+        }
+    }
+
+    @Test
     fun checkStartup() {
         kaigiAppRobot {
             timetableScreenRobot {
@@ -57,6 +65,15 @@ class KaigiAppTest {
 
     @Test
     fun checkNavigateToFloorMapShot() {
+        kaigiAppRobot {
+            goToFloorMap()
+            capture()
+        }
+    }
+
+    @Test
+    @Config(qualifiers = RobolectricDeviceQualifiers.MediumTablet)
+    fun checkMediumTabletNavigateToFloorMapShot() {
         kaigiAppRobot {
             goToFloorMap()
             capture()

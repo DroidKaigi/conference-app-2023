@@ -8,14 +8,18 @@ import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
+import io.github.droidkaigi.confsched2023.ui.UserMessageResult
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -45,16 +49,20 @@ class TimetableItemDetailViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = null,
             )
+    private val viewBookmarkListRequestStateFlow =
+        MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
-        buildUiState(timetableItemStateFlow) { timetableItemAndBookmark ->
+        buildUiState(timetableItemStateFlow, viewBookmarkListRequestStateFlow) { timetableItemAndBookmark, viewBookmarkListRequestState ->
             if (timetableItemAndBookmark == null) {
                 return@buildUiState TimetableItemDetailScreenUiState.Loading
             }
             val (timetableItem, bookmarked) = timetableItemAndBookmark
             TimetableItemDetailScreenUiState.Loaded(
-                timetableItem,
-                bookmarked,
+                timetableItem = timetableItem,
+                timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(timetableItem),
+                isBookmarked = bookmarked,
+                viewBookmarkListRequestState = viewBookmarkListRequestState,
             )
         }
 
@@ -63,11 +71,20 @@ class TimetableItemDetailViewModel @Inject constructor(
             sessionsRepository.toggleBookmark(timetableItem.id)
             val bookmarked = timetableItemStateFlow.value?.second ?: return@launch
             if (bookmarked) {
-                userMessageStateHolder.showMessage(
+                val result = userMessageStateHolder.showMessage(
                     TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
                     TimetableItemDetailStrings.ViewBookmarkList.asString(),
                 )
+                if (result == UserMessageResult.ActionPerformed) {
+                    viewBookmarkListRequestStateFlow.update { ViewBookmarkListRequestState.Requested }
+                }
             }
+        }
+    }
+
+    fun onViewBookmarkListRequestCompleted() {
+        viewModelScope.launch {
+            viewBookmarkListRequestStateFlow.update { ViewBookmarkListRequestState.NotRequested }
         }
     }
 }

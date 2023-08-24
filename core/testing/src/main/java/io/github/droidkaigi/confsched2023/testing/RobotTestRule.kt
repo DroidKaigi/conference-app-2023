@@ -40,7 +40,7 @@ inline fun <reified A : ComponentActivity> RobotTestRule(
             var activity: A? = null
             rule.scenario.onActivity { activity = it }
             if (activity == null) {
-                throw IllegalStateException("Activity was not set in the ActivityScenarioRule!")
+                error("Activity was not set in the ActivityScenarioRule!")
             }
             return@AndroidComposeTestRule activity!!
         },

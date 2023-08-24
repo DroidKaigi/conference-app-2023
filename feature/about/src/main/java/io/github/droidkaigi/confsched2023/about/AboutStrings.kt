@@ -23,6 +23,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     object License : AboutStrings()
     object PrivacyPolicy : AboutStrings()
     object AppVersion : AboutStrings()
+    object LicenceDescription : AboutStrings()
 
     private object Bindings : StringsBindings<AboutStrings>(
         Lang.Japanese to { item, _ ->
@@ -43,15 +44,16 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 License -> "ライセンス"
                 PrivacyPolicy -> "プライバシーポリシー"
                 AppVersion -> "アプリバージョン"
+                LicenceDescription -> "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License."
             }
         },
         Lang.English to { item, bindings ->
             when (item) {
                 Title -> bindings.defaultBinding(item, bindings)
                 Description -> "DroidKaigi is a conference tailored for Android developers."
-                DateTitle -> "Date & Time"
+                DateTitle -> "Date"
                 DateDescription -> "2023.09.14(Thu) - 16(Sat) 3days"
-                PlaceTitle -> "Location"
+                PlaceTitle -> "Place"
                 PlaceDescription -> "Bellesalle Shibuya Garden"
                 is PlaceLink -> "View Map"
                 CreditsTitle -> bindings.defaultBinding(item, bindings)
@@ -63,6 +65,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 License -> "License"
                 PrivacyPolicy -> "Privacy Policy"
                 AppVersion -> "App Version"
+                LicenceDescription -> bindings.defaultBinding(item, bindings)
             }
         },
         default = Lang.Japanese,

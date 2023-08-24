@@ -13,11 +13,13 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableSessionType
-import io.github.droidkaigi.confsched2023.sessions.component.SearchFilterUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchFilterUiState
 import io.github.droidkaigi.confsched2023.sessions.section.SearchListUiState
+import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,36 +49,41 @@ class SearchScreenViewModel @Inject constructor(
             initialValue = Timetable(),
         )
 
-    private val searchFilterUiState: MutableStateFlow<SearchFilterUiState> = MutableStateFlow(
-        SearchFilterUiState(),
+    private val filterStateFlow: MutableStateFlow<Filters> = MutableStateFlow(
+        Filters(),
     )
 
     val uiState: StateFlow<SearchScreenUiState> = buildUiState(
         searchQuery,
-        searchFilterUiState,
+        filterStateFlow,
         sessionsStateFlow,
-    ) { searchQuery, searchFilterUiState, sessions ->
+    ) { searchQuery, filters, sessions ->
         val searchedSessions = sessions.filtered(
             Filters(
-                days = searchFilterUiState.selectedDays,
-                categories = searchFilterUiState.selectedCategories,
-                sessionTypes = searchFilterUiState.selectedSessionTypes,
-                languages = searchFilterUiState.selectedLanguages,
                 searchWord = searchQuery,
+                days = filters.days,
+                categories = filters.categories,
+                sessionTypes = filters.sessionTypes,
+                languages = filters.languages,
             ),
         )
         if (searchedSessions.isEmpty()) {
             SearchScreenUiState.Empty(
-                searchQuery = searchQuery,
-                searchFilterUiState = searchFilterUiState,
+                searchQuery = SearchQuery(searchQuery),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories),
+                searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
             )
         } else {
             SearchScreenUiState.SearchList(
-                searchQuery = searchQuery,
-                searchFilterUiState = searchFilterUiState.copy(
-                    categories = sessions.categories,
-                    sessionTypes = sessions.sessionTypes,
-                ),
+                searchQuery = SearchQuery(searchQuery),
+                searchFilterDayUiState = searchFilterDayUiState(filters.days),
+                searchFilterCategoryUiState =
+                searchFilterCategoryUiState(filters.categories, sessions.categories),
+                searchFilterSessionTypeUiState =
+                searchFilterSessionTypeUiState(filters.sessionTypes, sessions.sessionTypes),
+                searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
                 searchListUiState = SearchListUiState(
                     bookmarkedTimetableItemIds = sessions.bookmarks,
                     timetableItems = searchedSessions.timetableItems,
@@ -85,14 +92,60 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
+    private fun searchFilterDayUiState(
+        selectedDays: List<DroidKaigi2023Day>,
+    ): SearchFilterUiState<DroidKaigi2023Day> {
+        return SearchFilterUiState(
+            selectedItems = selectedDays.toImmutableList(),
+            items = DroidKaigi2023Day.entries.toImmutableList(),
+            isSelected = selectedDays.isNotEmpty(),
+            selectedValues = selectedDays.joinToString { it.name },
+        )
+    }
+
+    private fun searchFilterCategoryUiState(
+        selectedCategories: List<TimetableCategory>,
+        categories: List<TimetableCategory>? = null,
+    ): SearchFilterUiState<TimetableCategory> {
+        return SearchFilterUiState(
+            selectedItems = selectedCategories.toImmutableList(),
+            items = categories.orEmpty().toImmutableList(),
+            isSelected = selectedCategories.isNotEmpty(),
+            selectedValues = selectedCategories.joinToString { it.title.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterSessionTypeUiState(
+        selectedSessionTypes: List<TimetableSessionType>,
+        sessionTypes: List<TimetableSessionType>? = null,
+    ): SearchFilterUiState<TimetableSessionType> {
+        return SearchFilterUiState(
+            selectedItems = selectedSessionTypes.toImmutableList(),
+            items = sessionTypes.orEmpty().toImmutableList(),
+            isSelected = selectedSessionTypes.isNotEmpty(),
+            selectedValues = selectedSessionTypes.joinToString { it.label.currentLangTitle },
+        )
+    }
+
+    private fun searchFilterLanguageUiState(
+        selectedLanguages: List<Lang>,
+    ): SearchFilterUiState<Lang> {
+        return SearchFilterUiState(
+            selectedItems = selectedLanguages.toImmutableList(),
+            items = listOf(Lang.JAPANESE, Lang.ENGLISH).toImmutableList(),
+            isSelected = selectedLanguages.isNotEmpty(),
+            selectedValues = selectedLanguages.joinToString { it.tagName },
+        )
+    }
+
     fun onSearchQueryChanged(searchQuery: String) {
         savedStateHandle[SEARCH_QUERY] = searchQuery
     }
 
     fun onDaySelected(day: DroidKaigi2023Day, isSelected: Boolean) {
-        val selectedDays = searchFilterUiState.value.selectedDays.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedDays = selectedDays.apply {
+        val selectedDays = filterStateFlow.value.days.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            days = selectedDays.apply {
                 if (isSelected) {
                     add(day)
                 } else {
@@ -103,9 +156,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onCategoriesSelected(category: TimetableCategory, isSelected: Boolean) {
-        val selectedCategories = searchFilterUiState.value.selectedCategories.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedCategories = selectedCategories.apply {
+        val selectedCategories = filterStateFlow.value.categories.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            categories = selectedCategories.apply {
                 if (isSelected) {
                     add(category)
                 } else {
@@ -116,9 +169,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onSessionTypesSelected(sessionType: TimetableSessionType, isSelected: Boolean) {
-        val selectedSessionTypes = searchFilterUiState.value.selectedSessionTypes.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedSessionTypes = selectedSessionTypes.apply {
+        val selectedSessionTypes = filterStateFlow.value.sessionTypes.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            sessionTypes = selectedSessionTypes.apply {
                 if (isSelected) {
                     add(sessionType)
                 } else {
@@ -129,9 +182,9 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     fun onLanguagesSelected(language: Lang, isSelected: Boolean) {
-        val selectedLanguages = searchFilterUiState.value.selectedLanguages.toMutableList()
-        searchFilterUiState.value = searchFilterUiState.value.copy(
-            selectedLanguages = selectedLanguages.apply {
+        val selectedLanguages = filterStateFlow.value.languages.toMutableList()
+        filterStateFlow.value = filterStateFlow.value.copy(
+            languages = selectedLanguages.apply {
                 if (isSelected) {
                     add(language)
                 } else {

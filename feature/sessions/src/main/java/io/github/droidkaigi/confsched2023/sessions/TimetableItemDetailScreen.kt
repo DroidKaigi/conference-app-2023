@@ -5,8 +5,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -14,6 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,24 +20,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.component.LoadingText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
-import io.github.droidkaigi.confsched2023.sessions.component.TimetableLoadingContent
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val timetableItemDetailScreenRouteItemIdParameterName = "timetableItemId"
@@ -49,11 +46,15 @@ fun NavGraphBuilder.sessionScreens(
     onNavigationIconClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
+            onCalendarRegistrationClick = onCalendarRegistrationClick,
+            onNavigateToBookmarkScreenRequested = onNavigateToBookmarkScreenRequested,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -65,12 +66,12 @@ fun NavGraphBuilder.sessionScreens(
 }
 
 fun NavController.navigateToTimetableItemDetailScreen(
-    timetableItemId: TimetableItemId,
+    timetableItem: TimetableItem,
 ) {
     navigate(
         timetableItemDetailScreenRoute.replace(
             "{$timetableItemDetailScreenRouteItemIdParameterName}",
-            timetableItemId.value,
+            timetableItem.id.value,
         ),
     )
 }
@@ -79,6 +80,8 @@ fun NavController.navigateToTimetableItemDetailScreen(
 fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -89,21 +92,39 @@ fun TimetableItemDetailScreen(
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
 
+    LaunchedEffect(uiState.shouldNavigateToBookmarkList) {
+        if (uiState.shouldNavigateToBookmarkList) {
+            onNavigateToBookmarkScreenRequested()
+            viewModel.onViewBookmarkListRequestCompleted()
+        }
+    }
+
     TimetableItemDetailScreen(
         uiState = uiState,
         onNavigationIconClick = onNavigationIconClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onLinkClick = onLinkClick,
+        onCalendarRegistrationClick = onCalendarRegistrationClick,
         snackbarHostState = snackbarHostState,
     )
 }
 
-sealed class TimetableItemDetailScreenUiState() {
+sealed class TimetableItemDetailScreenUiState {
     data object Loading : TimetableItemDetailScreenUiState()
     data class Loaded(
         val timetableItem: TimetableItem,
+        val timetableItemDetailSectionUiState: TimetableItemDetailSectionUiState,
         val isBookmarked: Boolean,
+        val viewBookmarkListRequestState: ViewBookmarkListRequestState,
     ) : TimetableItemDetailScreenUiState()
+
+    val shouldNavigateToBookmarkList: Boolean
+        get() = this is Loaded && viewBookmarkListRequestState is ViewBookmarkListRequestState.Requested
+}
+
+sealed class ViewBookmarkListRequestState {
+    data object NotRequested : ViewBookmarkListRequestState()
+    data object Requested : ViewBookmarkListRequestState()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -113,13 +134,14 @@ private fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onBookmarkClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onCalendarRegistrationClick: (TimetableItem) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+            if (uiState is Loaded) {
                 TimetableItemDetailScreenTopAppBar(
                     title = uiState.timetableItem.title,
                     onNavigationIconClick = onNavigationIconClick,
@@ -128,11 +150,12 @@ private fun TimetableItemDetailScreen(
             }
         },
         bottomBar = {
-            if (uiState is TimetableItemDetailScreenUiState.Loaded) {
+            if (uiState is Loaded) {
                 TimetableItemDetailBottomAppBar(
                     timetableItem = uiState.timetableItem,
                     isBookmarked = uiState.isBookmarked,
                     onBookmarkClick = onBookmarkClick,
+                    onCalendarRegistrationClick = onCalendarRegistrationClick,
                 )
             }
         },
@@ -145,29 +168,18 @@ private fun TimetableItemDetailScreen(
         ) {
             when (it) {
                 TimetableItemDetailScreenUiState.Loading -> {
-                    TimetableLoadingContent(
+                    LoadingText(
                         modifier = Modifier.fillMaxSize(),
                     )
                 }
 
-                is TimetableItemDetailScreenUiState.Loaded -> {
-                    LazyColumn(
+                is Loaded -> {
+                    TimetableItemDetail(
                         modifier = Modifier.fillMaxSize(),
+                        uiState = it.timetableItemDetailSectionUiState,
+                        onLinkClick = onLinkClick,
                         contentPadding = innerPadding,
-                    ) {
-                        item {
-                            TimetableItemDetailSummaryCard(
-                                timetableItem = it.timetableItem,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
-                            )
-                        }
-                        item {
-                            TimetableItemDetailContent(
-                                uiState = it.timetableItem,
-                                onLinkClick = onLinkClick,
-                            )
-                        }
-                    }
+                    )
                 }
             }
         }
@@ -179,19 +191,23 @@ private fun TimetableItemDetailScreen(
 @MultiLanguagePreviews
 fun TimetableItemDetailScreenPreview() {
     var isBookMarked by remember { mutableStateOf(false) }
+    val fakeSession = Session.fake()
 
     KaigiTheme {
         Surface {
             TimetableItemDetailScreen(
                 uiState = Loaded(
-                    timetableItem = Session.fake(),
+                    timetableItem = fakeSession,
+                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
+                    viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
                 ),
                 onNavigationIconClick = {},
                 onBookmarkClick = {
                     isBookMarked = !isBookMarked
                 },
                 onLinkClick = {},
+                onCalendarRegistrationClick = {},
                 snackbarHostState = SnackbarHostState(),
             )
         }

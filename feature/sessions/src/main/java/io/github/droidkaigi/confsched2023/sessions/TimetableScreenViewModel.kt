@@ -87,6 +87,7 @@ class TimetableScreenViewModel @Inject constructor(
     ) { sessionListUiState ->
         TimetableScreenUiState(
             contentUiState = sessionListUiState,
+            timetableUiType = timetableUiTypeStateFlow.value,
         )
     }
 

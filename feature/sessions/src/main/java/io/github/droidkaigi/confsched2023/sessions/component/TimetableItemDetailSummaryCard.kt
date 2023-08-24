@@ -77,7 +77,7 @@ fun TimetableItemDetailSummaryCard(
 @MultiThemePreviews
 @MultiLanguagePreviews
 @Composable
-fun PreviewTimetableItemDetailSummary() {
+fun TimetableItemDetailSummaryPreview() {
     KaigiTheme {
         Surface {
             TimetableItemDetailSummaryCard(timetableItem = Session.fake())

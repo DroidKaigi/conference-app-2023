@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: suzuki-shunsuke/renovate-autoclose-action@cd6f4422e302e717ac34e4f19a86a70381ea98ae
+    - uses: suzuki-shunsuke/renovate-autoclose-action@befe0dc6bbdea6c28a0125be04496180609b52d2
 
   # Just for internal testing of renovate configuration.
   # You have to set your PAT to secrets.

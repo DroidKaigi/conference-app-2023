@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Celebration
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Link
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -41,7 +41,11 @@ import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
 import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Blue
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Purple
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Red
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
@@ -129,7 +133,7 @@ fun FloorMapSideEventItem(
                             shape = RoundedCornerShape(16.dp),
                         ),
                     painter = previewOverride(
-                        previewPainter = { rememberVectorPainter(image = Icons.Default.Person) },
+                        previewPainter = { rememberVectorPainter(image = Icons.Default.Celebration) },
                         painter = { rememberAsyncImagePainter(url) },
                     ),
                     contentScale = ContentScale.Crop,
@@ -149,6 +153,10 @@ private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
     }
     val colorLong = when (color) {
         Pink -> 0xFFDC369A
+        Orange -> 0xFFDA9000
+        Blue -> 0xFF0064DA
+        Red -> 0xFFE84B35
+        Purple -> 0xFFAB26EA
     }
     return icon to Color(colorLong)
 }

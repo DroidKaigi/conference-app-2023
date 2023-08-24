@@ -1,23 +1,29 @@
 import Assets
 import Component
+import LicenseList
 import Model
 import SwiftUI
 import Theme
 
 enum AboutRouting: Hashable {
     case contributors
+    case license
     case sponsors
+    case staffs
 }
 
-public struct AboutView<ContributorView: View, SponsorView: View>: View {
+public struct AboutView<ContributorView: View, StaffView: View, SponsorView: View>: View {
     private let contributorViewProvider: ViewProvider<Void, ContributorView>
+    private let staffViewProvider: ViewProvider<Void, StaffView>
     private let sponsorViewProvider: ViewProvider<Void, SponsorView>
 
     public init(
         contributorViewProvider: @escaping ViewProvider<Void, ContributorView>,
+        staffViewProvider: @escaping ViewProvider<Void, StaffView>,
         sponsorViewProvider: @escaping ViewProvider<Void, SponsorView>
     ) {
         self.contributorViewProvider = contributorViewProvider
+        self.staffViewProvider = staffViewProvider
         self.sponsorViewProvider = sponsorViewProvider
     }
 
@@ -32,12 +38,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.schedule.swiftUIImage,
                             title: "日時",
                             content: "2023.09.14(木) 〜 16(土) 3日間"
                         )
                         InformationRow(
-                            icon: Assets.Icons.info.swiftUIImage,
+                            icon: Assets.Icons.locationOn.swiftUIImage,
                             title: "場所",
                             content: "ベルサール渋谷ガーデン",
                             action: .init(
@@ -54,10 +60,12 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     .clipShape(RoundedRectangle(cornerRadius: 12))
                     Spacer().frame(height: 32)
                     SectionTitle(title: "Credits")
-                    ListTile(
-                        icon: Assets.Icons.sentimentVerySatisfied.swiftUIImage,
-                        title: "スタッフ"
-                    )
+                    NavigationLink(value: AboutRouting.staffs) {
+                        ListTile(
+                            icon: Assets.Icons.sentimentVerySatisfied.swiftUIImage,
+                            title: "スタッフ"
+                        )
+                    }
                     Divider()
                     NavigationLink(value: AboutRouting.contributors) {
                         ListTile(
@@ -74,35 +82,35 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     }
                     Divider()
                     SectionTitle(title: "Others")
-                    ListTile(
-                        icon: Assets.Icons.gavel.swiftUIImage,
-                        title: "行動規範"
-                    )
+                    SafariLink(url: .codeOfConduct) {
+                        ListTile(
+                            icon: Assets.Icons.gavel.swiftUIImage,
+                            title: "行動規範"
+                        )
+                    }
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.fileCopy.swiftUIImage,
-                        title: "ライセンス"
-                    )
+                    NavigationLink(value: AboutRouting.license) {
+                        ListTile(
+                            icon: Assets.Icons.fileCopy.swiftUIImage,
+                            title: "ライセンス"
+                        )
+                    }
                     Divider()
-                    ListTile(
-                        icon: Assets.Icons.privacyTip.swiftUIImage,
-                        title: "プライバシーポリシー"
-                    )
+                    SafariLink(url: .privacyPolicy) {
+                        ListTile(
+                            icon: Assets.Icons.privacyTip.swiftUIImage,
+                            title: "プライバシーポリシー"
+                        )
+                    }
                     Divider()
                     HStack(spacing: 12) {
-                        Button {
-                            // TODO: open youtube
-                        } label: {
+                        SafariLink(url: .youtube) {
                             Assets.Icons.youtube.swiftUIImage
                         }
-                        Button {
-                            // TODO: open Twitter
-                        } label: {
+                        SafariLink(url: .twitter) {
                             Assets.Icons.twitter.swiftUIImage
                         }
-                        Button {
-                            // TODO: open medium
-                        } label: {
+                        SafariLink(url: .medium) {
                             Assets.Icons.medium.swiftUIImage
                         }
                     }
@@ -114,24 +122,29 @@ public struct AboutView<ContributorView: View, SponsorView: View>: View {
                     Text(Bundle.main.formattedVersion)
                         .font(Font.system(size: 14, weight: .medium))
                 }
-                .padding(.horizontal, 16)
+                .padding(16)
             }
             .navigationTitle("About")
             .navigationDestination(for: AboutRouting.self) { routing in
                 switch routing {
                 case .contributors:
                     contributorViewProvider(())
+                case .staffs:
+                    staffViewProvider(())
                 case .sponsors:
                     sponsorViewProvider(())
+                case .license:
+                    LicenseListView()
                 }
             }
         }
     }
 }
 
- #Preview {
-     AboutView(
+#Preview {
+    AboutView(
         contributorViewProvider: {_ in EmptyView()},
+        staffViewProvider: {_ in EmptyView()},
         sponsorViewProvider: {_ in EmptyView()}
-     )
- }
+    )
+}

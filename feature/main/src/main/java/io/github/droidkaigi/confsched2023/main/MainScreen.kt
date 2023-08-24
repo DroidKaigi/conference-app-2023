@@ -1,6 +1,10 @@
+// TODO: Remove when you start using `displayFeatures`
+@file:Suppress("UnusedParameter")
+
 package io.github.droidkaigi.confsched2023.main
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.FastOutLinearInEasing
@@ -10,7 +14,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -22,6 +28,8 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,21 +44,31 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.window.layout.DisplayFeature
 import io.github.droidkaigi.confsched2023.feature.main.R
+import io.github.droidkaigi.confsched2023.main.NavigationType.BOTTOM_NAVIGATION
+import io.github.droidkaigi.confsched2023.main.NavigationType.NAVIGATION_RAIL
 import io.github.droidkaigi.confsched2023.main.component.KaigiBottomBar
+import io.github.droidkaigi.confsched2023.main.component.KaigiNavigationRail
 import io.github.droidkaigi.confsched2023.main.strings.MainStrings
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 
 const val mainScreenRoute = "main"
 const val MainScreenTestTag = "MainScreen"
 
 fun NavGraphBuilder.mainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: PersistentList<DisplayFeature>,
     mainNestedGraphStateHolder: MainNestedGraphStateHolder,
     mainNestedGraph: NavGraphBuilder.(mainNestedNavController: NavController, PaddingValues) -> Unit,
 ) {
     composable(mainScreenRoute) {
         MainScreen(
+            windowSize = windowSize,
+            displayFeatures = displayFeatures,
             mainNestedGraphStateHolder = mainNestedGraphStateHolder,
             mainNestedNavGraph = mainNestedGraph,
         )
@@ -63,14 +81,27 @@ interface MainNestedGraphStateHolder {
     fun onTabSelected(mainNestedNavController: NavController, tab: MainScreenTab)
 }
 
+enum class NavigationType {
+    BOTTOM_NAVIGATION, NAVIGATION_RAIL
+}
+
 @Composable
 fun MainScreen(
+    windowSize: WindowSizeClass,
+    displayFeatures: ImmutableList<DisplayFeature>,
     mainNestedGraphStateHolder: MainNestedGraphStateHolder,
-    viewModel: MainScreenViewModel = hiltViewModel<MainScreenViewModel>(),
+    viewModel: MainScreenViewModel = hiltViewModel(),
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val navigationType: NavigationType = when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> BOTTOM_NAVIGATION
+        WindowWidthSizeClass.Medium -> NAVIGATION_RAIL
+        WindowWidthSizeClass.Expanded -> NAVIGATION_RAIL
+        else -> BOTTOM_NAVIGATION
+    }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -79,6 +110,7 @@ fun MainScreen(
     MainScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
+        navigationType = navigationType,
         routeToTab = mainNestedGraphStateHolder::routeToTab,
         onTabSelected = mainNestedGraphStateHolder::onTabSelected,
         mainNestedNavGraph = mainNestedNavGraph,
@@ -137,6 +169,7 @@ data class MainScreenUiState(
 private fun MainScreen(
     uiState: MainScreenUiState,
     snackbarHostState: SnackbarHostState,
+    navigationType: NavigationType,
     routeToTab: String.() -> MainScreenTab?,
     onTabSelected: (NavController, MainScreenTab) -> Unit,
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
@@ -144,9 +177,9 @@ private fun MainScreen(
     val mainNestedNavController = rememberNavController()
     val navBackStackEntry by mainNestedNavController.currentBackStackEntryAsState()
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
-    Scaffold(
-        bottomBar = {
-            KaigiBottomBar(
+    Row(modifier = Modifier.fillMaxSize()) {
+        AnimatedVisibility(visible = navigationType == NAVIGATION_RAIL) {
+            KaigiNavigationRail(
                 mainScreenTabs = MainScreenTab.entries.toPersistentList(),
                 onTabSelected = { tab ->
                     onTabSelected(mainNestedNavController, tab)
@@ -154,17 +187,31 @@ private fun MainScreen(
                 currentTab = currentTab ?: MainScreenTab.Timetable,
                 isEnableStamps = uiState.isStampsEnabled,
             )
-        },
-        contentWindowInsets = WindowInsets(0.dp),
-    ) { padding ->
-        NavHost(
-            navController = mainNestedNavController,
-            startDestination = "timetable",
-            modifier = Modifier.padding(padding),
-            enterTransition = { materialFadeThroughIn() },
-            exitTransition = { materialFadeThroughOut() },
-        ) {
-            mainNestedNavGraph(mainNestedNavController, padding)
+        }
+        Scaffold(
+            bottomBar = {
+                AnimatedVisibility(visible = navigationType == BOTTOM_NAVIGATION) {
+                    KaigiBottomBar(
+                        mainScreenTabs = MainScreenTab.entries.toPersistentList(),
+                        onTabSelected = { tab ->
+                            onTabSelected(mainNestedNavController, tab)
+                        },
+                        currentTab = currentTab ?: MainScreenTab.Timetable,
+                        isEnableStamps = uiState.isStampsEnabled,
+                    )
+                }
+            },
+            contentWindowInsets = WindowInsets(0.dp),
+        ) { padding ->
+            NavHost(
+                navController = mainNestedNavController,
+                startDestination = "timetable",
+                modifier = Modifier.padding(padding),
+                enterTransition = { materialFadeThroughIn() },
+                exitTransition = { materialFadeThroughOut() },
+            ) {
+                mainNestedNavGraph(mainNestedNavController, padding)
+            }
         }
     }
 }

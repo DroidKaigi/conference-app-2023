@@ -9,9 +9,7 @@ group = "io.github.droidkaigi.confsched2023.buildlogic"
 repositories {
     google()
     mavenCentral()
-    maven {
-        url = uri("https://plugins.gradle.org/m2/")
-    }
+    gradlePluginPortal()
 }
 
 // If we use jvmToolchain, we need to install JDK 11
@@ -92,9 +90,13 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.serialization"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KotlinSerializationPlugin"
         }
-        register("spotless") {
-            id = "droidkaigi.primitive.spotless"
-            implementationClass = "io.github.droidkaigi.confsched2023.primitive.SpotlessPlugin"
+        register("kover") {
+            id = "droidkaigi.primitive.kover"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverPlugin"
+        }
+        register("detekt") {
+            id = "droidkaigi.primitive.detekt"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
         }
 
         // Conventions

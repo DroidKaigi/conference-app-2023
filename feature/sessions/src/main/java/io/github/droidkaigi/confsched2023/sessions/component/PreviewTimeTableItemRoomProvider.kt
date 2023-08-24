@@ -18,6 +18,7 @@ class PreviewTimeTableItemRoomProvider : PreviewParameterProvider<TimetableItem>
             Session.fake().copy(room = Session.fake().room.copy(type = RoomA)),
             Session.fake().copy(room = Session.fake().room.copy(type = RoomB)),
             Session.fake().copy(room = Session.fake().room.copy(type = RoomD)),
+            Session.fake().copy(speakers = persistentListOf(Session.fake().speakers.first())),
             Session.fake().copy(speakers = persistentListOf()),
         )
 }

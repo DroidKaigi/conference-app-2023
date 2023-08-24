@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -58,6 +59,8 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.PersistentList
 import java.net.URLEncoder
 
+const val TimetableItemDetailReadMoreButtonTestTag = "TimetableItemDetailReadMoreButtonTestTag"
+
 @Composable
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
@@ -74,10 +77,12 @@ fun TimetableItemDetailContent(
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
                 SpeakerSection(speakers = uiState.speakers)
-                ArchiveSection(
-                    onViewDocumentClick = {},
-                    onWatchVideoClick = {},
-                )
+                if (uiState.asset.isAvailable) {
+                    ArchiveSection(
+                        onViewDocumentClick = {},
+                        onWatchVideoClick = {},
+                    )
+                }
             }
 
             is Special -> {
@@ -112,7 +117,9 @@ private fun DescriptionSection(
                 OutlinedButton(
                     buttonText = SessionsStrings.ReadMore.asString(),
                     onClick = { isExpanded = true },
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                    modifier = Modifier
+                        .testTag(TimetableItemDetailReadMoreButtonTestTag)
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                 )
             }
             OutlinedButton(
@@ -371,6 +378,20 @@ fun DescriptionSectionPreview() {
             DescriptionSection(
                 description = Session.fake().description,
                 language = Session.fake().language,
+                onLinkClick = {},
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableItemDetailContentPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailContent(
+                uiState = Session.fake(),
                 onLinkClick = {},
             )
         }

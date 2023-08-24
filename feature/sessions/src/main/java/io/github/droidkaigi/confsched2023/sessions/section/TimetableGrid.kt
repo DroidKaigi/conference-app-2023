@@ -32,6 +32,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
@@ -69,6 +71,7 @@ data class TimetableGridUiState(val timetable: Timetable)
 @Composable
 fun TimetableGrid(
     uiState: TimetableGridUiState,
+    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -76,6 +79,7 @@ fun TimetableGrid(
     TimetableGrid(
         timetable = uiState.timetable,
         timetableState = timetableGridState,
+        nestedScrollDispatcher = nestedScrollDispatcher,
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
     ) { timetableItem, itemHeightPx ->
@@ -92,6 +96,7 @@ fun TimetableGrid(
 fun TimetableGrid(
     timetable: Timetable,
     timetableState: TimetableState,
+    nestedScrollDispatcher: NestedScrollDispatcher,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     content: @Composable (TimetableItem, Int) -> Unit,
@@ -159,6 +164,7 @@ fun TimetableGrid(
                                 dragAmount,
                                 change.uptimeMillis,
                                 change.position,
+                                nestedScrollDispatcher,
                             )
                         }
                     },
@@ -251,6 +257,7 @@ fun TimetablePreview() {
         modifier = Modifier.fillMaxSize(),
         timetable = Timetable.fake(),
         timetableState = timetableState,
+        nestedScrollDispatcher = remember { NestedScrollDispatcher() },
     ) { timetableItem, itemHeightPx ->
         TimetableGridItem(
             timetableItem = timetableItem,
@@ -266,12 +273,12 @@ private fun itemProvider(
     itemContent: @Composable (Int) -> Unit,
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
+        override val itemCount: Int get() = itemCount()
+
         @Composable
         override fun Item(index: Int, key: Any) {
             itemContent(index)
         }
-
-        override val itemCount: Int get() = itemCount()
     }
 }
 
@@ -572,14 +579,28 @@ private class TimetableScreen(
         dragAmount: Offset,
         timeMillis: Long,
         position: Offset,
+        nestedScrollDispatcher: NestedScrollDispatcher,
     ) {
-        val nextPossibleX = calculatePossibleScrollX(dragAmount.x)
-        val nextPossibleY = calculatePossibleScrollY(dragAmount.y)
+        val parentConsumed = nestedScrollDispatcher.dispatchPreScroll(
+            available = dragAmount,
+            source = NestedScrollSource.Drag,
+        )
+        val nextPossibleX = calculatePossibleScrollX(dragAmount.x - parentConsumed.x)
+        val nextPossibleY = calculatePossibleScrollY(dragAmount.y - parentConsumed.y)
+        val weConsumed = Offset(
+            nextPossibleX - scrollState.scrollX,
+            nextPossibleY - scrollState.scrollY,
+        )
         scrollState.scroll(
             scrollX = nextPossibleX,
             scrollY = nextPossibleY,
             timeMillis = timeMillis,
             position = position,
+        )
+        nestedScrollDispatcher.dispatchPostScroll(
+            consumed = parentConsumed + weConsumed,
+            available = dragAmount - weConsumed - parentConsumed,
+            source = NestedScrollSource.Drag,
         )
     }
 
