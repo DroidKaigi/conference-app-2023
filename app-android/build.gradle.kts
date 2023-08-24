@@ -98,6 +98,5 @@ dependencies {
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
-    implementation(libs.ossLicenses)
     testImplementation(projects.core.testing)
 }
