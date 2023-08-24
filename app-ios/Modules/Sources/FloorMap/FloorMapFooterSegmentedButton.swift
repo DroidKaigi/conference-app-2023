@@ -1,15 +1,16 @@
 import Assets
 import SwiftUI
 import Theme
+import shared
 
 /// Floor Map Footer Segmented Button
 /// [Figma](https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI?type=design&node-id=56145-70041&mode=dev)
 struct FloorMapFooterSegmentedButton: View {
-    @Binding private var floor: FloorMapView.Floor
+    @Binding private var floor: FloorLevel
     private let width: CGFloat = 104
     private let height: CGFloat = 40
 
-    init(floor: Binding<FloorMapView.Floor>) {
+    init(floor: Binding<FloorLevel>) {
         _floor = floor
     }
 
@@ -17,15 +18,15 @@ struct FloorMapFooterSegmentedButton: View {
         HStack(spacing: 0) {
             // 1F Button
             Button {
-                floor = .first
+                floor = .ground
             } label: {
                 HalfCapsule(
-                    foregroundColor: floor == .first ? AssetColors.Secondary.secondaryContainer.swiftUIColor : AssetColors.floorButtonBg.swiftUIColor
+                    foregroundColor: floor == .ground ? AssetColors.Secondary.secondaryContainer.swiftUIColor : AssetColors.floorButtonBg.swiftUIColor
                 )
                 .rotationEffect(.degrees(180))
                 .overlay(alignment: .center) {
                     HStack(spacing: 8) {
-                        if floor == .first {
+                        if floor == .ground {
                             Assets.Icons.checkmark.swiftUIImage
                         }
                         Text("1F")
@@ -37,14 +38,14 @@ struct FloorMapFooterSegmentedButton: View {
 
             // B1F Button
             Button {
-                floor = .basementFirst
+                floor = .basement
             } label: {
                 HalfCapsule(
-                    foregroundColor: floor == .basementFirst ? AssetColors.Secondary.secondaryContainer.swiftUIColor : AssetColors.floorButtonBg.swiftUIColor
+                    foregroundColor: floor == .basement ? AssetColors.Secondary.secondaryContainer.swiftUIColor : AssetColors.floorButtonBg.swiftUIColor
                 )
                 .overlay(alignment: .center) {
                     HStack(spacing: 8) {
-                        if floor == .basementFirst {
+                        if floor == .basement {
                             Assets.Icons.checkmark.swiftUIImage
                         }
                         Text("B1F")
@@ -98,6 +99,6 @@ struct FloorMapFooterSegmentedButton: View {
 }
 
 #Preview {
-    @State var floor: FloorMapView.Floor = .first
+    @State var floor: FloorLevel = .ground
     return FloorMapFooterSegmentedButton(floor: $floor)
 }
