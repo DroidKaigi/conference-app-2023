@@ -12,6 +12,12 @@ fun DependencyHandlerScope.implementation(
     add("implementation", artifact)
 }
 
+fun DependencyHandlerScope.implementation(
+    project: Project
+) {
+    add("implementation", project)
+}
+
 fun DependencyHandlerScope.debugImplementation(
     artifact: MinimalExternalModuleDependency,
 ) {
