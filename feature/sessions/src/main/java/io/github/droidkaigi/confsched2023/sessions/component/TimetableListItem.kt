@@ -84,7 +84,7 @@ fun TimetableListItem(
                 } else {
                     SessionsStrings.AddToFavorites.asString()
                 },
-                onClick = { onBookmarkClick(timetableItem) }
+                onClick = { onBookmarkClick(timetableItem) },
             )
         }
         Spacer(modifier = Modifier.size(5.dp))

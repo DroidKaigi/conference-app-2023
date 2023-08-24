@@ -49,7 +49,7 @@ fun BookmarkIcon(
                 modifier = Modifier
                     .semantics {
                         onClick(label = contentDescription, action = null)
-                    }
+                    },
             )
         } else {
             Icon(
