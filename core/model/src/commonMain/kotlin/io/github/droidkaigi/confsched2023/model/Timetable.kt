@@ -28,7 +28,7 @@ public data class Timetable(
     }
 
     val rooms: List<TimetableRoom> by lazy {
-        timetableItems.map { it.room }.toSet().sortedBy { it.sort }
+        timetableItems.map { it.room }.toSet().sortedBy { it.name.currentLangTitle }
     }
 
     val categories: List<TimetableCategory> by lazy {
@@ -103,11 +103,11 @@ public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
     val rooms = mutableListOf(
-        TimetableRoom(1, MultiLangText("Arctic Fox", "Arctic Fox"), 0, 0, RoomA),
-        TimetableRoom(2, MultiLangText("Bumblebee", "Bumblebee"), 1, 1, RoomB),
-        TimetableRoom(3, MultiLangText("Chipmunk", "Chipmunk"), 2, 2, RoomC),
-        TimetableRoom(4, MultiLangText("Dolphin", "Dolphin"), 3, 3, RoomD),
-        TimetableRoom(5, MultiLangText("Electric Eel", "Electric Eel"), 4, 4, RoomE),
+        TimetableRoom(1, MultiLangText("Arctic Fox", "Arctic Fox"), RoomA),
+        TimetableRoom(2, MultiLangText("Bumblebee", "Bumblebee"), RoomB),
+        TimetableRoom(3, MultiLangText("Chipmunk", "Chipmunk"), RoomC),
+        TimetableRoom(4, MultiLangText("Dolphin", "Dolphin"), RoomD),
+        TimetableRoom(5, MultiLangText("Electric Eel", "Electric Eel"), RoomE),
     )
     repeat(10) {
         rooms += rooms

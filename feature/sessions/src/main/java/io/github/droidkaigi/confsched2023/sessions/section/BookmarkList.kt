@@ -11,8 +11,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -27,10 +26,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.sessions.component.SessionTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentMap
@@ -104,25 +103,14 @@ fun BookmarkList(
                                 val hallColor = hallColors()
                                 val roomChipBackgroundColor = timetableItem.room.color
                                 val roomChipLabelColor = hallColor.hallText
-                                AssistChip(
-                                    onClick = { /*Do Nothing*/ },
-                                    label = {
-                                        Text(
-                                            timetableItem.room.name.currentLangTitle,
-                                            fontWeight = FontWeight.Medium,
-                                            fontSize = 12.sp,
-                                        )
-                                    },
-                                    colors = AssistChipDefaults.assistChipColors(
-                                        containerColor = roomChipBackgroundColor,
-                                        labelColor = roomChipLabelColor,
-                                    ),
-                                    border = null,
+                                SessionTag(
+                                    label = timetableItem.room.name.currentLangTitle,
+                                    labelColor = roomChipLabelColor,
+                                    backgroundColor = roomChipBackgroundColor,
                                 )
-                                Spacer(modifier = Modifier.size(5.dp))
-                                AssistChip(
-                                    onClick = { /*Do Nothing*/ },
-                                    label = { Text(timetableItem.day?.name.orEmpty()) },
+                                SessionTag(
+                                    label = timetableItem.day?.name.orEmpty(),
+                                    borderColor = MaterialTheme.colorScheme.outline,
                                 )
                             },
                             onClick = onTimetableItemClick,

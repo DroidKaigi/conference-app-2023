@@ -1,16 +1,17 @@
 import Component
 import Model
+import shared
 import SwiftUI
 
-public struct ContributorView: View {
+public struct StaffView: View {
     @State var presentingURL: IdentifiableURL?
-    @ObservedObject var viewModel: ContributorViewModel = .init()
+    @ObservedObject var viewModel: StaffViewModel = .init()
 
     public init() {}
 
     public var body: some View {
         Group {
-            switch viewModel.state.contributors {
+            switch viewModel.state.staffs {
             case .initial, .loading:
                 ProgressView()
                     .task {
@@ -18,18 +19,16 @@ public struct ContributorView: View {
                     }
             case .failed:
                 EmptyView()
-            case .loaded(let contributors):
+            case .loaded(let staffs):
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        ForEach(contributors, id: \.id) { contributor in
+                        ForEach(staffs, id: \.id) { staff in
                             Button {
-                                if let profileUrl = contributor.profileUrl {
-                                    presentingURL = IdentifiableURL(string: profileUrl)
-                                }
+                                presentingURL = IdentifiableURL(string: staff.profileUrl)
                             } label: {
                                 PersonLabel(
-                                    name: contributor.username,
-                                    iconUrlString: contributor.iconUrl
+                                    name: staff.username,
+                                    iconUrlString: staff.iconUrl
                                 )
                             }
                         }
@@ -38,7 +37,7 @@ public struct ContributorView: View {
                 }
             }
         }
-        .navigationTitle("Contributor")
+        .navigationTitle("Staff")
         .sheet(item: $presentingURL) { url in
             if let url = url.id {
                 SafariView(url: url)
@@ -49,5 +48,5 @@ public struct ContributorView: View {
 }
 
 #Preview {
-    ContributorView()
+    StaffView()
 }

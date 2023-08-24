@@ -21,20 +21,27 @@ data class FloorMapSideEventListUiState(
 )
 
 @Composable
-fun FloorMapSideEventList(
-    uiState: FloorMapSideEventListUiState,
+fun FloorMapAndSideEventList(
+    floorMapUiState: FloorMapUiState,
+    sideEventListUiState: FloorMapSideEventListUiState,
     onSideEventClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier) {
-        items(uiState.sideEvents) { sideEvent ->
+    LazyColumn(modifier = modifier) {
+        item {
+            FloorMap(uiState = floorMapUiState)
+        }
+        item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        items(sideEventListUiState.sideEvents) { sideEvent ->
             FloorMapSideEventItem(
                 sideEvent = sideEvent,
                 onSideEventClick = onSideEventClick,
             )
         }
         item {
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
