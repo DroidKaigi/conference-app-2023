@@ -28,7 +28,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
 import co.touchlab.kermit.Logger
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
@@ -262,8 +261,8 @@ private class ExternalNavController(
         }
     }
 
-    fun navigateToLicenseScreen(){
-        context.startActivity(Intent(context,OssLicensesMenuActivity::class.java))
+    fun navigateToLicenseScreen() {
+        context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
     }
 
     @Suppress("SwallowedException")
