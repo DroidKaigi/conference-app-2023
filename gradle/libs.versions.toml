@@ -12,7 +12,7 @@ compose-jb = "1.4.3"
 composeCompiler = "1.5.1"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
-androidxActivity = "1.7.2"
+androidxActivity = "1.8.0-alpha06"
 androidxFragment = "1.6.1"
 kotlinxCoroutines = "1.7.3"
 accompanist = "0.30.1"
@@ -85,7 +85,6 @@ composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", ver
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
-accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
