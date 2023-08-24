@@ -14,10 +14,10 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":core:designsystem"))
-                implementation(project(":core:data"))
+                implementation(projects.core.designsystem)
+                implementation(projects.core.data)
                 implementation(libs.kermit)
-                api(project(":core:common"))
+                api(projects.core.common)
                 api(libs.composeImageLoader)
             }
         }
