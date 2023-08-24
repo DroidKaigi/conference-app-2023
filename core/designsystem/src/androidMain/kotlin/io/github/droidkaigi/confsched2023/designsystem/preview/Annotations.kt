@@ -60,13 +60,13 @@ object MultiLanguagePreviewDefinition {
     object Japanese {
         const val Name = "Japanese"
         const val Locale = "ja_JP"
-        const val LocaleShort = "ja"
+        const val Language = "ja"
     }
 
     object English {
         const val Name = "English"
         const val Locale = "en_US"
-        const val LocaleShort = "en"
+        const val Language = "en"
     }
 }
 
@@ -78,11 +78,11 @@ object MultiLanguagePreviewDefinition {
 @Preview(
     name = MultiLanguagePreviewDefinition.Japanese.Name,
     group = MultiLanguagePreviewDefinition.Group,
-    locale = MultiLanguagePreviewDefinition.Japanese.LocaleShort,
+    locale = MultiLanguagePreviewDefinition.Japanese.Language,
 )
 @Preview(
     name = MultiLanguagePreviewDefinition.English.Name,
     group = MultiLanguagePreviewDefinition.Group,
-    locale = MultiLanguagePreviewDefinition.English.LocaleShort,
+    locale = MultiLanguagePreviewDefinition.English.Language,
 )
 annotation class MultiLanguagePreviews
