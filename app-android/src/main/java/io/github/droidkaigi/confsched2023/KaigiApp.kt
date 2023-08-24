@@ -118,6 +118,7 @@ private fun KaigiNavHost(
             onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
             onLinkClick = externalNavController::navigate,
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
+            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
         )
         searchScreen(
             onNavigationIconClick = navController::popBackStack,
@@ -170,6 +171,7 @@ private fun NavGraphBuilder.mainScreen(
                 onLinkClick = externalNavController::navigate,
             )
             nestedFloorMapScreen(
+                windowSize = windowSize,
                 onSideEventClick = externalNavController::navigate,
             )
             nestedStampsScreen(

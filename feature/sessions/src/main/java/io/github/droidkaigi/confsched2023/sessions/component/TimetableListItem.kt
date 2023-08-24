@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -33,7 +34,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration.Companion
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
@@ -71,7 +71,11 @@ fun TimetableListItem(
             .clickable { onClick(timetableItem) },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            FlowRow(modifier = Modifier.weight(1F)) {
+            FlowRow(
+                modifier = Modifier.weight(1F),
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
                 chipContent()
             }
             IconToggleButton(
@@ -154,7 +158,7 @@ fun TimetableListItem(
                         },
                         contentDescription = null,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(32.dp)
                             .clip(RoundedCornerShape(12.dp))
                             .border(
                                 BorderStroke(1.dp, md_theme_light_outline),
@@ -164,8 +168,7 @@ fun TimetableListItem(
                     Spacer(modifier = Modifier.size(10.dp))
                     Text(
                         text = speaker.name,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface,
                     )
                 }

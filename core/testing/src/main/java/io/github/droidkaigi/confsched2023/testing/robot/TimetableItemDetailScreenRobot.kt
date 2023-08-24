@@ -44,6 +44,7 @@ class TimetableItemDetailScreenRobot @Inject constructor(
                     onNavigationIconClick = { },
                     onLinkClick = { },
                     onCalendarRegistrationClick = { },
+                    onNavigateToBookmarkScreenRequested = { },
                 )
             }
         }
@@ -105,6 +106,6 @@ class TimetableItemDetailScreenRobot @Inject constructor(
     }
 
     companion object {
-        val defaultSessionId: String = SessionsAllResponse.fake().sessions.first().id
+        val defaultSessionId: String = SessionsAllResponse.fake().sessions.find { it.sessionType == "NORMAL" }!!.id
     }
 }

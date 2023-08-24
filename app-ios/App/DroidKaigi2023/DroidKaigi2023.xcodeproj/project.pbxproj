@@ -15,6 +15,7 @@
 		D77DAF8329FAA14A007195DB /* DroidKaigi2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8229FAA14A007195DB /* DroidKaigi2023Tests.swift */; };
 		D77DAF8D29FAA14A007195DB /* DroidKaigi2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */; };
 		D77DAF8F29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */; };
+		E823229C2A93E4BA005C0DBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */; };
 		E8BCCCE72A8011E8004010F7 /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCE62A8011E8004010F7 /* Modules */; };
 		E8BCCCEC2A80123E004010F7 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = E8BCCCEB2A80123E004010F7 /* Navigation */; };
 		E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */; };
@@ -49,6 +50,7 @@
 		D77DAF8829FAA14A007195DB /* DroidKaigi2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DroidKaigi2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8BCCCE62A8011E8004010F7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = ../../Modules; sourceTree = "<group>"; };
 		E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 				D77DAF7429FAA149007195DB /* Assets.xcassets */,
 				D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */,
 				6F7D5C062A918148008FBEB7 /* license-list.plist */,
+				E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */,
 				D77DAF7729FAA149007195DB /* Preview Content */,
 			);
 			path = DroidKaigi2023;
@@ -270,6 +273,7 @@
 				6F7D5C072A918148008FBEB7 /* license-list.plist in Resources */,
 				E8BCCCE72A8011E8004010F7 /* Modules in Resources */,
 				D77DAF7929FAA149007195DB /* Preview Assets.xcassets in Resources */,
+				E823229C2A93E4BA005C0DBD /* GoogleService-Info.plist in Resources */,
 				D77DAF7529FAA149007195DB /* Assets.xcassets in Resources */,
 				E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */,
 			);

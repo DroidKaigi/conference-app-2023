@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct InfoLabel: View {
+struct SessionTag: View {
     
     private let label: String
     private let labelColor: Color
@@ -26,10 +26,10 @@ struct InfoLabel: View {
             .padding(.vertical, 4)
             .foregroundColor(labelColor)
             .background(backgroundColor)
-            .cornerRadius(4)
+            .cornerRadius(50)
             .overlay {
                 if let strokeColor = strokeColor {
-                    RoundedRectangle(cornerRadius: 4)
+                    Capsule()
                         .inset(by: 0.5)
                         .stroke(strokeColor, lineWidth: 1)
                 } else {

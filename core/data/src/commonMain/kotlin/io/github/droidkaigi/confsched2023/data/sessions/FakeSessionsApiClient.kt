@@ -49,10 +49,10 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         SpeakerResponse(fullName = "ry", id = "2", isTopSpeaker = true),
     )
     val rooms = listOf(
-        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1, sort = 1),
-        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2, sort = 2),
-        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3, sort = 3),
-        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4, sort = 4),
+        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1),
+        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2),
+        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3),
+        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4),
     )
     val categories = listOf(
         CategoryResponse(
@@ -71,6 +71,28 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                     sort = 2,
                 ),
             ),
+        ),
+    )
+
+    sessions.add(
+        SessionResponse(
+            id = "0570556a-8a53-49d6-916c-26ff85635d86",
+            title = LocaledResponse(ja = "Welcome Talk", en = "Welcome Talk"),
+            description = null,
+            startsAt = "2023-09-14T10:30:00+09:00",
+            endsAt = "2023-09-14T11:00:00+09:00",
+            isServiceSession = true,
+            isPlenumSession = false,
+            speakers = emptyList(),
+            roomId = 1,
+            targetAudience = "TBW",
+            language = "JAPANESE",
+            sessionCategoryItemId = 1,
+            interpretationTarget = false,
+            asset = SessionAssetResponse(videoUrl = null, slideUrl = null),
+            message = null,
+            sessionType = "WELCOME_TALK",
+            levels = listOf("UNSPECIFIED"),
         ),
     )
 
