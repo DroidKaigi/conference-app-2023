@@ -49,14 +49,17 @@ fun BookmarkList(
         state = scrollState,
         modifier = modifier,
     ) {
-        itemsIndexed(timetableItemMap.toList(), key = { _, (key, _) -> key }) { index, (_, values) ->
+        itemsIndexed(
+            timetableItemMap.toList(),
+            key = { _, (key, _) -> key }) { index, (_, values) ->
             var rowHeight by remember { mutableIntStateOf(0) }
             var timeTextHeight by remember { mutableIntStateOf(0) }
             val timeTextOffset by remember(density) {
                 derivedStateOf {
                     // 15.dp is bottom_margin of TimetableListItem
                     // 1.dp is height of Divider in TimetableListItem
-                    val maxOffset = with(density) { rowHeight - (timeTextHeight + (15.dp + 1.dp).roundToPx()) }
+                    val maxOffset =
+                        with(density) { rowHeight - (timeTextHeight + (15.dp + 1.dp).roundToPx()) }
                     if (index == scrollState.firstVisibleItemIndex) {
                         minOf(scrollState.firstVisibleItemScrollOffset, maxOffset).coerceAtLeast(0)
                     } else {
@@ -65,13 +68,16 @@ fun BookmarkList(
                 }
             }
             Row(
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
-                    rowHeight = it.size.height
-                },
+                modifier = Modifier
+                    .padding(start = 16.dp, top = 10.dp)
+                    .onGloballyPositioned {
+                        rowHeight = it.size.height
+                    },
             ) {
                 Column(
                     modifier = Modifier
-                        .width(58.dp).onGloballyPositioned {
+                        .width(58.dp)
+                        .onGloballyPositioned {
                             timeTextHeight = it.size.height
                         }
                         .offset { IntOffset(0, timeTextOffset) },

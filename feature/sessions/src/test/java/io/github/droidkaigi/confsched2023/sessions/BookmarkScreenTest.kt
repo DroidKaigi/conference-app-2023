@@ -38,4 +38,30 @@ class BookmarkScreenTest {
             checkScreenCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkLaunchShot() {
+        bookmarkScreenRobot {
+            toggleFavorite()
+            setupBookmarkScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipToggleShot() {
+        bookmarkScreenRobot {
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipAll()
+            checkScreenCapture()
+            clickBookmarkFilterChipDay1()
+            checkScreenCapture()
+            clickBookmarkFilterChipDay2()
+            checkScreenCapture()
+            clickBookmarkFilterChipDay3()
+            checkScreenCapture()
+        }
+    }
 }
