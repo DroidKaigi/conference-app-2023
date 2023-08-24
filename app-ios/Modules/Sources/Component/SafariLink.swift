@@ -2,13 +2,13 @@ import SafariServices
 import SwiftUI
 
 public struct SafariLink<Content>: View where Content: View {
-    
+
     @State private var isSheetPresented: Bool = false
-    
+
     private let url: URL
     private let configuration: SFSafariViewController.Configuration
     private let content: () -> Content
-    
+
     public init(
         url: URL,
         configuration: SFSafariViewController.Configuration? = nil,
@@ -20,7 +20,7 @@ public struct SafariLink<Content>: View where Content: View {
         self.configuration = configuration ?? defaultConfiguration
         self.content = content
     }
-    
+
     public var body: some View {
         Button {
             isSheetPresented = true
