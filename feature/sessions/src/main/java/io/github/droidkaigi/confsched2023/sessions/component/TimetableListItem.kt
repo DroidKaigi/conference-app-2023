@@ -15,14 +15,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -78,27 +74,18 @@ fun TimetableListItem(
             ) {
                 chipContent()
             }
-            IconToggleButton(
-                modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
-                checked = isBookmarked,
-                onCheckedChange = { onBookmarkClick(timetableItem) },
-                colors = IconButtonDefaults.iconToggleButtonColors(
-                    checkedContentColor = MaterialTheme.colorScheme.onSurface,
-                ),
-            ) {
-                Icon(
-                    imageVector = if (isBookmarked) {
-                        Icons.Filled.Bookmark
-                    } else {
-                        Icons.Outlined.BookmarkBorder
-                    },
-                    contentDescription = if (isBookmarked) {
-                        SessionsStrings.RemoveFromFavorites.asString()
-                    } else {
-                        SessionsStrings.AddToFavorites.asString()
-                    },
-                )
-            }
+            BookmarkIcon(
+                modifier = Modifier
+                    .size(56.dp)
+                    .testTag(TimetableListItemBookmarkIconTestTag),
+                isBookmarked = isBookmarked,
+                contentDescription = if (isBookmarked) {
+                    SessionsStrings.RemoveFromFavorites.asString()
+                } else {
+                    SessionsStrings.AddToFavorites.asString()
+                },
+                onClick = { onBookmarkClick(timetableItem) }
+            )
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
