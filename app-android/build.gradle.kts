@@ -103,6 +103,8 @@ dependencies {
 // Dependency configuration to aggregate Kover coverage reports
 // TODO: extract report aggregation to build-logic
 dependencies {
+    kover(projects.appIosShared)
+
     kover(projects.feature.about)
     kover(projects.feature.contributors)
     kover(projects.feature.floorMap)
