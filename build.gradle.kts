@@ -12,9 +12,6 @@ tasks.register("clean", Delete::class) {
 }
 
 buildscript {
-    dependencies {
-        classpath(libs.ossLicensesPlugin)
-    }
     configurations.all {
         resolutionStrategy.eachDependency {
             when {

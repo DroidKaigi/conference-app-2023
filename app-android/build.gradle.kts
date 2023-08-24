@@ -10,6 +10,7 @@ plugins {
     id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.osslicenses")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -96,7 +97,7 @@ dependencies {
     implementation(libs.composeMaterialWindowSize)
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
-    implementation(libs.ossLicenses)
     implementation(libs.kermit)
+    implementation(libs.ossLicenses)
     testImplementation(projects.core.testing)
 }
