@@ -34,6 +34,7 @@ okHttp = "4.11.0"
 ktorfit = "1.5.0"
 detekt = "1.23.1"
 twitterComposeRule = "0.0.26"
+lottie = "6.1.0"
 kover = "0.7.3"
 
 [libraries]
@@ -88,6 +89,7 @@ composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", vers
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
+lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
