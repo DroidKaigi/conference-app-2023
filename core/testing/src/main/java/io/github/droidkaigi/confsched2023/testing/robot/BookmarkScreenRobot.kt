@@ -29,6 +29,7 @@ class BookmarkScreenRobot @Inject constructor(
     @Inject lateinit var robotTestRule: RobotTestRule
 
     @Inject lateinit var sessionsApiClient: SessionsApiClient
+
     @Inject lateinit var userDataStore: UserDataStore
 
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
