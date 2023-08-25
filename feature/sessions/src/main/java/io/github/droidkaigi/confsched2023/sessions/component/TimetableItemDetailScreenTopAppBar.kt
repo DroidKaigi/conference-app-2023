@@ -21,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -99,5 +101,17 @@ private fun ResizeableText(
         },
         style = styles[styleIndex],
         modifier = Modifier.padding(end = 16.dp),
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableItemDetailScreenTopAppBarPreview() {
+    TimetableItemDetailScreenTopAppBar(
+        title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
+        onNavigationIconClick = {},
+        scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     )
 }

@@ -81,12 +81,9 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
         .associateBy(
             keySelector = { room -> room.id },
             valueTransform = { room ->
-                val roomSorts = timetableContents.rooms.map { it.sort }.sorted()
                 TimetableRoom(
                     id = room.id,
                     name = room.name.toMultiLangText(),
-                    sort = room.sort,
-                    sortIndex = roomSorts.indexOf(room.sort),
                     type = room.name.toRoomType(),
                 )
             },
@@ -141,7 +138,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
             }
                 .sortedWith(
                     compareBy<TimetableItem> { it.startsAt }
-                        .thenBy { it.room.sort },
+                        .thenBy { it.room.name.currentLangTitle },
                 )
                 .toPersistentList(),
         ),

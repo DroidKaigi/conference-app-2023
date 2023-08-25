@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F7D5C032A9180C5008FBEB7 /* LicenseList in Frameworks */ = {isa = PBXBuildFile; productRef = 6F7D5C022A9180C5008FBEB7 /* LicenseList */; };
+		6F7D5C072A918148008FBEB7 /* license-list.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F7D5C062A918148008FBEB7 /* license-list.plist */; };
 		D77DAF7129FAA148007195DB /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF7029FAA148007195DB /* App.swift */; };
 		D77DAF7529FAA149007195DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77DAF7429FAA149007195DB /* Assets.xcassets */; };
 		D77DAF7929FAA149007195DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D77DAF7829FAA149007195DB /* Preview Assets.xcassets */; };
 		D77DAF8329FAA14A007195DB /* DroidKaigi2023Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8229FAA14A007195DB /* DroidKaigi2023Tests.swift */; };
 		D77DAF8D29FAA14A007195DB /* DroidKaigi2023UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */; };
 		D77DAF8F29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */; };
+		E823229C2A93E4BA005C0DBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */; };
 		E8BCCCE72A8011E8004010F7 /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCE62A8011E8004010F7 /* Modules */; };
 		E8BCCCEC2A80123E004010F7 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = E8BCCCEB2A80123E004010F7 /* Navigation */; };
 		E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */; };
@@ -36,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F7D5C062A918148008FBEB7 /* license-list.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "license-list.plist"; sourceTree = SOURCE_ROOT; };
 		D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroidKaigi2023.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF7029FAA148007195DB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D77DAF7429FAA149007195DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -46,6 +50,7 @@
 		D77DAF8829FAA14A007195DB /* DroidKaigi2023UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DroidKaigi2023UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E8BCCCE62A8011E8004010F7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = ../../Modules; sourceTree = "<group>"; };
 		E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -55,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F7D5C032A9180C5008FBEB7 /* LicenseList in Frameworks */,
 				E8BCCCEC2A80123E004010F7 /* Navigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +118,8 @@
 				D77DAF7029FAA148007195DB /* App.swift */,
 				D77DAF7429FAA149007195DB /* Assets.xcassets */,
 				D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */,
+				6F7D5C062A918148008FBEB7 /* license-list.plist */,
+				E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */,
 				D77DAF7729FAA149007195DB /* Preview Content */,
 			);
 			path = DroidKaigi2023;
@@ -157,6 +165,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D77DAF9229FAA14A007195DB /* Build configuration list for PBXNativeTarget "DroidKaigi2023" */;
 			buildPhases = (
+				6F7D5C082A91816A008FBEB7 /* License List */,
 				D77DAF6929FAA148007195DB /* Sources */,
 				D77DAF6A29FAA148007195DB /* Frameworks */,
 				D77DAF6B29FAA148007195DB /* Resources */,
@@ -168,6 +177,7 @@
 			name = DroidKaigi2023;
 			packageProductDependencies = (
 				E8BCCCEB2A80123E004010F7 /* Navigation */,
+				6F7D5C022A9180C5008FBEB7 /* LicenseList */,
 			);
 			productName = DroidKaigi2023;
 			productReference = D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */;
@@ -242,6 +252,7 @@
 			);
 			mainGroup = D77DAF6429FAA148007195DB;
 			packageReferences = (
+				6F7D5C012A9180C5008FBEB7 /* XCRemoteSwiftPackageReference "LicenseList" */,
 			);
 			productRefGroup = D77DAF6E29FAA148007195DB /* Products */;
 			projectDirPath = "";
@@ -259,8 +270,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F7D5C072A918148008FBEB7 /* license-list.plist in Resources */,
 				E8BCCCE72A8011E8004010F7 /* Modules in Resources */,
 				D77DAF7929FAA149007195DB /* Preview Assets.xcassets in Resources */,
+				E823229C2A93E4BA005C0DBD /* GoogleService-Info.plist in Resources */,
 				D77DAF7529FAA149007195DB /* Assets.xcassets in Resources */,
 				E8BCCCF12A80126D004010F7 /* ci_post_clone.sh in Resources */,
 			);
@@ -281,6 +294,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6F7D5C082A91816A008FBEB7 /* License List */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "License List";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SOURCE_PACKAGES_PATH=`echo ${BUILD_DIR%Build/*}SourcePackages`\n\n# Build SourcePackagesParser\nxcrun --sdk macosx swift build -c release \\\n  --package-path ${SOURCE_PACKAGES_PATH}/checkouts/LicenseList \\\n  --product spp\n\n# Run SourcePackagesParser\n${SOURCE_PACKAGES_PATH}/checkouts/LicenseList/.build/release/spp ${SRCROOT} ${SOURCE_PACKAGES_PATH}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D77DAF6929FAA148007195DB /* Sources */ = {
@@ -644,7 +678,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		6F7D5C012A9180C5008FBEB7 /* XCRemoteSwiftPackageReference "LicenseList" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cybozu/LicenseList";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		6F7D5C022A9180C5008FBEB7 /* LicenseList */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6F7D5C012A9180C5008FBEB7 /* XCRemoteSwiftPackageReference "LicenseList" */;
+			productName = LicenseList;
+		};
 		E8BCCCEB2A80123E004010F7 /* Navigation */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Navigation;

@@ -72,6 +72,15 @@ class KaigiAppTest {
     }
 
     @Test
+    @Config(qualifiers = RobolectricDeviceQualifiers.MediumTablet)
+    fun checkMediumTabletNavigateToFloorMapShot() {
+        kaigiAppRobot {
+            goToFloorMap()
+            capture()
+        }
+    }
+
+    @Test
     fun checkNavigateToStampsShot() {
         kaigiAppRobot {
             goToStamps()

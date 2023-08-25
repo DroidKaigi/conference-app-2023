@@ -12,6 +12,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,12 +47,14 @@ fun NavGraphBuilder.sessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
             onCalendarRegistrationClick = onCalendarRegistrationClick,
+            onNavigateToBookmarkScreenRequested = onNavigateToBookmarkScreenRequested,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -78,6 +81,7 @@ fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -87,6 +91,13 @@ fun TimetableItemDetailScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
+
+    LaunchedEffect(uiState.shouldNavigateToBookmarkList) {
+        if (uiState.shouldNavigateToBookmarkList) {
+            onNavigateToBookmarkScreenRequested()
+            viewModel.onViewBookmarkListRequestCompleted()
+        }
+    }
 
     TimetableItemDetailScreen(
         uiState = uiState,
@@ -104,7 +115,16 @@ sealed class TimetableItemDetailScreenUiState {
         val timetableItem: TimetableItem,
         val timetableItemDetailSectionUiState: TimetableItemDetailSectionUiState,
         val isBookmarked: Boolean,
+        val viewBookmarkListRequestState: ViewBookmarkListRequestState,
     ) : TimetableItemDetailScreenUiState()
+
+    val shouldNavigateToBookmarkList: Boolean
+        get() = this is Loaded && viewBookmarkListRequestState is ViewBookmarkListRequestState.Requested
+}
+
+sealed class ViewBookmarkListRequestState {
+    data object NotRequested : ViewBookmarkListRequestState()
+    data object Requested : ViewBookmarkListRequestState()
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -180,6 +200,7 @@ fun TimetableItemDetailScreenPreview() {
                     timetableItem = fakeSession,
                     timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
+                    viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
                 ),
                 onNavigationIconClick = {},
                 onBookmarkClick = {
