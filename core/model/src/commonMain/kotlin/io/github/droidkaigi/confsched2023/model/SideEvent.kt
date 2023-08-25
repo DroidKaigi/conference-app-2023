@@ -27,7 +27,7 @@ public data class SideEvent(
     public companion object
 }
 
-public val SideEvents = persistentListOf(
+val SideEvents = persistentListOf(
     SideEvent(
         title = MultiLangText(
             jaTitle = "アプリFiresideチャット(これは仮で後で消えます)",
