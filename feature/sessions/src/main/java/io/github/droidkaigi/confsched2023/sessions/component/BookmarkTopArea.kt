@@ -93,8 +93,8 @@ fun BookmarkTopArea(
     )
 
     val topBarHeight = lerp(
-        156.dp,
-        96.dp,
+        132.dp,
+        72.dp,
         fraction,
     )
 
@@ -126,7 +126,7 @@ fun BookmarkTopArea(
             verticalArrangement = Arrangement.Center,
             maxItemsInEachRow = rowNum,
             modifier = Modifier
-                .padding(start = 16.dp, top = 46.dp)
+                .padding(start = 16.dp, top = 22.dp)
                 .fillMaxWidth(),
         ) {
             Icon(
