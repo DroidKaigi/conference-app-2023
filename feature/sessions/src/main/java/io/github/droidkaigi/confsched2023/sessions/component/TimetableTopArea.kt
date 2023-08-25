@@ -36,6 +36,8 @@ fun TimetableTopArea(
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
     onTopAreaBookmarkIconClick: () -> Unit,
+    onReachAnimationEnd: () -> Unit,
+    onBookmarkClickStatus: Boolean?,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -60,6 +62,11 @@ fun TimetableTopArea(
                 modifier = Modifier.testTag(TimetableBookmarksIconTestTag),
                 onClick = { onTopAreaBookmarkIconClick() },
             ) {
+                BookmarkIcon(
+                    contentDescription = Bookmark.asString(),
+                    onBookmarkClickStatus = onBookmarkClickStatus,
+                    onReachAnimationEnd = onReachAnimationEnd,
+                )
                 Icon(
                     imageVector = Icons.Outlined.Bookmarks,
                     contentDescription = Bookmark.asString(),
@@ -96,6 +103,8 @@ fun TimetableTopAreaPreview() {
                 onTimetableUiChangeClick = {},
                 onSearchClick = {},
                 onTopAreaBookmarkIconClick = {},
+                onReachAnimationEnd = {},
+                onBookmarkClickStatus = null,
             )
         }
     }

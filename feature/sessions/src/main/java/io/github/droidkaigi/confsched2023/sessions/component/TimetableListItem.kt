@@ -15,10 +15,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -56,7 +60,7 @@ fun TimetableListItem(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
     onClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     highlightQuery: SearchQuery = SearchQuery.Empty,
@@ -74,18 +78,27 @@ fun TimetableListItem(
             ) {
                 chipContent()
             }
-            BookmarkIcon(
-                modifier = Modifier
-                    .size(56.dp)
-                    .testTag(TimetableListItemBookmarkIconTestTag),
-                isBookmarked = isBookmarked,
-                contentDescription = if (isBookmarked) {
-                    SessionsStrings.RemoveFromFavorites.asString()
-                } else {
-                    SessionsStrings.AddToFavorites.asString()
-                },
-                onClick = { onBookmarkClick(timetableItem) },
-            )
+            IconToggleButton(
+                modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
+                checked = isBookmarked,
+                onCheckedChange = { onBookmarkClick(timetableItem, isBookmarked.not()) },
+                colors = IconButtonDefaults.iconToggleButtonColors(
+                    checkedContentColor = MaterialTheme.colorScheme.onSurface,
+                ),
+            ) {
+                Icon(
+                    imageVector = if (isBookmarked) {
+                        Icons.Filled.Bookmark
+                    } else {
+                        Icons.Outlined.BookmarkBorder
+                    },
+                    contentDescription = if (isBookmarked) {
+                        SessionsStrings.RemoveFromFavorites.asString()
+                    } else {
+                        SessionsStrings.AddToFavorites.asString()
+                    },
+                )
+            }
         }
         Spacer(modifier = Modifier.size(5.dp))
         Text(
@@ -180,7 +193,7 @@ fun TimetableListItemPreview() {
                 isBookmarked = false,
                 highlightQuery = SearchQuery.Empty,
                 onClick = {},
-                onBookmarkClick = {},
+                onBookmarkClick = { _, _ -> },
                 chipContent = {
                 },
             )

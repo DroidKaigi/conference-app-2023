@@ -64,7 +64,7 @@ fun BookmarkSheet(
     uiState: BookmarkSheetUiState,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,

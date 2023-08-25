@@ -49,7 +49,7 @@ data class TimetableListUiState(
 fun TimetableList(
     uiState: TimetableListUiState,
     scrollState: LazyListState,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {

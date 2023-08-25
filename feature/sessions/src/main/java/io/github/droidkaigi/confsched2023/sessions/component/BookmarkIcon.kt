@@ -1,12 +1,11 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,32 +18,41 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import io.github.droidkaigi.confsched2023.feature.sessions.R
+import io.github.droidkaigi.confsched2023.feature.sessions.R.raw
 
 @Composable
 fun BookmarkIcon(
-    isBookmarked: Boolean,
     contentDescription: String,
-    onClick: () -> Unit,
+    onBookmarkClickStatus: Boolean?,
+    onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val lottieComposition by rememberLottieComposition(RawRes(raw.add_to_bookmark_lottie))
+    val animationRange = 0.1f..1f
     var isPlaying by remember { mutableStateOf(false) }
-    val lottieComposition by rememberLottieComposition(RawRes(R.raw.add_to_bookmark_lottie))
+
     val progress by animateLottieCompositionAsState(
         composition = lottieComposition,
         isPlaying = isPlaying,
+        restartOnPlay = true,
     )
-    val animationRange = 0.1f..1f
+
+    LaunchedEffect(onBookmarkClickStatus) {
+        if (onBookmarkClickStatus != null) {
+            isPlaying = true
+        }
+    }
+
+    if (progress == 1f) {
+        isPlaying = false
+        onReachAnimationEnd()
+    }
 
     Box(
-        modifier = modifier
-            .clickable {
-                isPlaying = isBookmarked.not()
-                onClick()
-            },
+        modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (isBookmarked && progress in animationRange) {
+        if (progress in animationRange) {
             LottieAnimation(
                 composition = lottieComposition,
                 progress = { progress },
@@ -53,17 +61,10 @@ fun BookmarkIcon(
                         onClick(label = contentDescription, action = null)
                     },
             )
-        } else if (isBookmarked) {
-            // FIXME It appears that Material Icons does not have the same icons as the Lottie animation looks.
-            Icon(
-                modifier = Modifier,
-                imageVector = Icons.Filled.Bookmark,
-                contentDescription = contentDescription,
-            )
         } else {
             Icon(
                 modifier = Modifier,
-                imageVector = Icons.Outlined.BookmarkBorder,
+                imageVector = Icons.Outlined.Bookmarks,
                 contentDescription = contentDescription,
             )
         }
