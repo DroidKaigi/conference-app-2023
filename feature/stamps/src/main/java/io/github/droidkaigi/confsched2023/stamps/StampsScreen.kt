@@ -1,9 +1,7 @@
 package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -31,6 +29,7 @@ fun NavGraphBuilder.nestedStampsScreen(
     composable(stampsScreenRoute) {
         StampsScreen(
             onStampsClick = onStampsClick,
+            contentPadding = contentPadding,
         )
     }
 }
@@ -47,6 +46,7 @@ const val StampsScreenTestTag = "StampsScreen"
 @Composable
 fun StampsScreen(
     onStampsClick: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
     viewModel: StampsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -60,6 +60,7 @@ fun StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         onStampsClick = onStampsClick,
+        contentPadding = contentPadding,
     )
 }
 
@@ -72,21 +73,23 @@ private fun StampsScreen(
     uiState: StampsScreenUiState,
     snackbarHostState: SnackbarHostState,
     onStampsClick: () -> Unit,
+    contentPadding: PaddingValues,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(StampsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        content = { padding ->
-            val layoutDirection = LocalLayoutDirection.current
-
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
+        content = { innerPadding ->
             StampList(
                 stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
-                modifier = Modifier.padding(
-                    top = padding.calculateTopPadding(),
-                    start = padding.calculateStartPadding(layoutDirection),
-                    end = padding.calculateEndPadding(layoutDirection),
-                ),
+                contentPadding = innerPadding,
             )
         },
     )
