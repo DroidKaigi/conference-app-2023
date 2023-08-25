@@ -5,6 +5,7 @@ import android.content.pm.PackageManager.PackageInfoFlags
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -47,6 +48,7 @@ fun NavGraphBuilder.nestedAboutScreen(
         AboutScreen(
             onAboutItemClick = onAboutItemClick,
             onLinkClick = onLinkClick,
+            contentPadding = contentPadding,
         )
     }
 }
@@ -64,6 +66,7 @@ const val AboutScreenTestTag = "AboutScreen"
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
+    contentPadding: PaddingValues = PaddingValues(),
     onLinkClick: (url: String) -> Unit,
 ) {
     // val uiState by viewModel.uiState.collectAsState()
@@ -81,6 +84,7 @@ fun AboutScreen(
         onAboutItemClick = onAboutItemClick,
         versionName = versionName,
         onLinkClick = onLinkClick,
+        contentPadding = contentPadding,
     )
 }
 
@@ -94,8 +98,10 @@ private fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     versionName: String?,
     onLinkClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val layoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(AboutScreenTestTag),
         topBar = {
@@ -119,15 +125,17 @@ private fun AboutScreen(
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
         content = { padding ->
             LazyColumn(
                 Modifier
-                    .padding(
-                        top = padding.calculateTopPadding(),
-                        start = padding.calculateStartPadding(LocalLayoutDirection.current),
-                        end = padding.calculateEndPadding(LocalLayoutDirection.current),
-                    )
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
+                contentPadding = padding,
             ) {
                 item {
                     AboutDroidKaigiDetail(
