@@ -20,8 +20,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
@@ -74,6 +76,7 @@ fun BookmarkSheet(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -86,12 +89,21 @@ fun BookmarkSheet(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
-            modifier = Modifier,
+            modifier = Modifier.padding(
+                start = contentPadding.calculateLeftPadding(layoutDirection),
+                end = contentPadding.calculateRightPadding(layoutDirection),
+                top = contentPadding.calculateTopPadding()
+            ),
+        )
+        val padding = PaddingValues(
+            start = contentPadding.calculateLeftPadding(layoutDirection),
+            end = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
         )
         when (uiState) {
             is Empty -> {
                 EmptyView(
-                    modifier = Modifier.padding(contentPadding)
+                    modifier = Modifier.padding(padding)
                 )
             }
 
@@ -102,7 +114,7 @@ fun BookmarkSheet(
                     timetableItemMap = uiState.timetableItemMap,
                     onTimetableItemClick = onTimetableItemClick,
                     onBookmarkIconClick = onBookmarkClick,
-                    contentPadding = contentPadding,
+                    contentPadding = padding,
                 )
             }
         }
