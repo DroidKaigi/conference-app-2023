@@ -135,13 +135,13 @@ private fun NavGraphBuilder.mainScreen(
         windowSize = windowSize,
         displayFeatures = displayFeatures,
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, paddingValues ->
+        mainNestedGraph = { mainNestedNavController, contentPadding ->
             nestedSessionScreens(
                 modifier = Modifier,
                 onSearchClick = navController::navigateSearchScreen,
                 onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
                 onBookmarkIconClick = navController::navigateToBookmarkScreen,
-                contentPadding = paddingValues,
+                contentPadding = contentPadding,
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
@@ -158,18 +158,18 @@ private fun NavGraphBuilder.mainScreen(
                     }
                 },
                 onLinkClick = externalNavController::navigate,
-                contentPadding = paddingValues,
+                contentPadding = contentPadding,
             )
             nestedFloorMapScreen(
                 windowSize = windowSize,
                 onSideEventClick = externalNavController::navigate,
-                contentPadding = paddingValues,
+                contentPadding = contentPadding,
             )
             nestedStampsScreen(
                 onStampsClick = {
                     TODO()
                 },
-                contentPadding = paddingValues,
+                contentPadding = contentPadding,
             )
             // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
@@ -177,7 +177,7 @@ private fun NavGraphBuilder.mainScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
                     onNavigationIconClick = navController::popBackStack,
                     onContributorItemClick = externalNavController::navigate,
-                    contentPadding = paddingValues,
+                    contentPadding = contentPadding,
                 )
             }
         },
