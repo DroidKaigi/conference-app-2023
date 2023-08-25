@@ -78,7 +78,7 @@ kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0
 
 composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.0" }
+composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.1" }
 composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.1" }
 composeMaterialWindowSize = { module = "androidx.compose.material3:material3-window-size-class", version = "1.1.1" }
