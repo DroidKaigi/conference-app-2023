@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material3.Icon
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -63,7 +65,8 @@ fun BookmarkIcon(
             )
         } else {
             Icon(
-                modifier = Modifier,
+                modifier = Modifier
+                    .padding(12.dp),
                 imageVector = Icons.Outlined.Bookmarks,
                 contentDescription = contentDescription,
             )
