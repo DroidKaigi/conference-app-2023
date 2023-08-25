@@ -60,6 +60,7 @@ daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler"
 
 # for iOS
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kmpNativeCoroutines = { module = "com.rickclephas.kmp:kmp-nativecoroutines-gradle-plugin", version = "1.0.0-ALPHA-17" }
 
 kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 
@@ -156,4 +157,5 @@ plugins = [
     "kotlinxSerializationGradlePlugin",
     "completeKotlinPlugin",
     "detektGradlePlugin",
+    "kmpNativeCoroutines",
 ]

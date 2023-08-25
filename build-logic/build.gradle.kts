@@ -74,6 +74,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.compose"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpComposePlugin"
         }
+        register("kotlinMppNativeCoroutines") {
+            id = "droidkaigi.primitive.kmp.native.coroutines"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpNativeCoroutinesPlugin"
+        }
         register("kotlinMppKtorfit") {
             id = "droidkaigi.primitive.kmp.ktorfit"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KmpKtorfitPlugin"
@@ -98,6 +102,7 @@ gradlePlugin {
             id = "droidkaigi.primitive.detekt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
         }
+
 
         // Conventions
         register("androidFeature") {

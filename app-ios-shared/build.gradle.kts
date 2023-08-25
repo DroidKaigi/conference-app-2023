@@ -6,6 +6,7 @@ plugins {
     id("droidkaigi.primitive.kmp")
     id("droidkaigi.primitive.kmp.ios")
     id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.kmp.native.coroutines")
 }
 
 kotlin {
