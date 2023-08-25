@@ -4,8 +4,11 @@ import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,6 +29,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -61,6 +65,7 @@ fun NavGraphBuilder.nestedSessionScreens(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
             onBookmarkIconClick = onBookmarkIconClick,
+            contentPadding = contentPadding,
             modifier = modifier,
         )
     }
@@ -81,6 +86,7 @@ fun TimetableScreen(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -98,6 +104,7 @@ fun TimetableScreen(
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
+        contentPadding = contentPadding,
         modifier = modifier,
     )
 }
@@ -139,8 +146,10 @@ private fun TimetableScreen(
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     val state = rememberTimetableScreenScrollState()
+    val layoutDirection = LocalLayoutDirection.current
     val gradientEndRatio =
         if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
             0.2f
@@ -174,11 +183,16 @@ private fun TimetableScreen(
                 onBookmarkIconClick,
             )
         },
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
         containerColor = Color.Transparent,
-        contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
         Box(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
         ) {
             TimetableHeader(
                 modifier = Modifier
@@ -208,6 +222,11 @@ private fun TimetableScreen(
                 uiState = uiState.contentUiState,
                 timetableScreenScrollState = state,
                 onFavoriteClick = onBookmarkClick,
+                windowInsetsPadding = PaddingValues(
+                    bottom = innerPadding.calculateBottomPadding(),
+                    start = innerPadding.calculateStartPadding(layoutDirection),
+                    end = innerPadding.calculateEndPadding(layoutDirection),
+                ),
             )
         }
     }
