@@ -13,10 +13,10 @@ struct SideEventRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     // Icon & Title
                     HStack(alignment: .top, spacing: 8) {
-                        sideEvent.markIcon
+                        sideEvent.icon
                             .renderingMode(.template)
                             .frame(width: 16, height: 16)
-                            .foregroundStyle(sideEvent.markIconColor)
+                            .foregroundStyle(sideEvent.iconColor)
 
                         Text(sideEvent.title.currentLangTitle)
                             .font(.system(size: 14, weight: .bold))
@@ -66,17 +66,21 @@ struct SideEventRow: View {
 }
 
 private extension SideEvent {
-    var markIcon: Image {
+    var icon: Image {
         switch self.mark {
-        case .mark1: return Assets.Icons.favorite.swiftUIImage
+        case .favorite: return Assets.Icons.favorite.swiftUIImage
         default: return Assets.Icons.favorite.swiftUIImage
         }
     }
     
-    var markIconColor: Color {
-        switch self.mark {
-        case .mark1: return AssetColors.pink.swiftUIColor
-        default: return AssetColors.pink.swiftUIColor
+    var iconColor: Color {
+        switch self.mark.color {
+        case .pink: return  AssetColors.MarkColor.pink.swiftUIColor
+        case .blue: return AssetColors.MarkColor.blue.swiftUIColor
+        case .orange: return AssetColors.MarkColor.orange.swiftUIColor
+        case .red: return AssetColors.MarkColor.red.swiftUIColor
+        case .purple: return AssetColors.MarkColor.purple.swiftUIColor
+        default: return AssetColors.MarkColor.pink.swiftUIColor
         }
     }
 }
@@ -97,8 +101,9 @@ private extension SideEvent {
                 enTitle: "DAY1-DAY2 10:00-11:00"
             ),
             floorLevel: .basement,
-            mark: .mark1,
-            link: "https://github.com/DroidKaigi/conference-app-2023"
+            mark: .favorite,
+            link: "https://github.com/DroidKaigi/conference-app-2023",
+            imageLink: "https://github.com/DroidKaigi/conference-app-2023, imageLink=https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jp"
         )
     )
 }
