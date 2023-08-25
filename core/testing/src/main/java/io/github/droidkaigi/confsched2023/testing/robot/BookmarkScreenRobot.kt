@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
@@ -12,10 +13,10 @@ import io.github.droidkaigi.confsched2023.data.sessions.toTimetable
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.BookmarkScreen
-import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilterChipAllTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilterChipDay1TestTag
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilterChipDay2TestTag
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkFilterChipDay3TestTag
+import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -61,12 +62,6 @@ class BookmarkScreenRobot @Inject constructor(
             .captureRoboImage()
     }
 
-    fun clickBookmarkFilterChipAll() {
-        composeTestRule
-            .onNode(hasTestTag(BookmarkFilterChipAllTestTag))
-            .performClick()
-    }
-
     fun clickBookmarkFilterChipDay1() {
         composeTestRule
             .onNode(hasTestTag(BookmarkFilterChipDay1TestTag))
@@ -85,9 +80,17 @@ class BookmarkScreenRobot @Inject constructor(
             .performClick()
     }
 
-    fun toggleFavorite() = runTest(testDispatcher) {
-        SessionsAllResponse.fake().toTimetable().bookmarks.forEach {
-            userDataStore.toggleFavorite(it)
+    fun clickFirstSessionBookmark() {
+        composeTestRule
+            .onAllNodes(hasTestTag(TimetableListItemBookmarkIconTestTag))
+            .onFirst()
+            .performClick()
+        waitUntilIdle()
+    }
+
+    fun toggleFavorites() = runTest(testDispatcher) {
+        SessionsAllResponse.fake().toTimetable().timetableItems.forEach {
+            userDataStore.toggleFavorite(it.id)
         }
     }
 
