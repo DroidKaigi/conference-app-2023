@@ -1,11 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.ViewTimeline
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
