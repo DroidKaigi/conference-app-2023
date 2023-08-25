@@ -34,6 +34,9 @@ var package = Package(
                 "Component",
                 "Model",
                 .product(name: "LicenseList", package: "LicenseList")
+            ],
+            plugins: [
+                .plugin(name: "PrepareLicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
