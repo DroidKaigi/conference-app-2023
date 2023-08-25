@@ -111,7 +111,7 @@ fun BookmarkSheet(
 
 @Composable
 private fun EmptyView(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
