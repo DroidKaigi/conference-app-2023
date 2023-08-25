@@ -1,12 +1,12 @@
-import SwiftUI
 import Assets
 import Component
 import shared
+import SwiftUI
 import Theme
 
 struct SideEventRow: View {
     var sideEvent: SideEvent
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading, spacing: 8) {
@@ -29,15 +29,15 @@ struct SideEventRow: View {
                 HStack(alignment: .center, spacing: 4) {
                     Assets.Icons.accessTime.swiftUIImage
                         .frame(width: 16, height: 16)
-                    
+
                     Text(sideEvent.timeText.currentLangTitle)
                         .font(.system(size: 12, weight: .medium))
                 }
             }
             .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-            
-             Spacer(minLength: 0)
-            
+
+            Spacer(minLength: 0)
+
             // Image
             if let imageLink = sideEvent.link {
                 CacheAsyncImage(url: URL(string: imageLink)!) { image in
@@ -72,7 +72,7 @@ private extension SideEvent {
         default: return Assets.Icons.favorite.swiftUIImage
         }
     }
-    
+
     var iconColor: Color {
         switch self.mark.color {
         case .pink: return  AssetColors.MarkColor.pink.swiftUIColor

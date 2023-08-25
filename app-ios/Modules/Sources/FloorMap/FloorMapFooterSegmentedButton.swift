@@ -1,7 +1,7 @@
 import Assets
+import shared
 import SwiftUI
 import Theme
-import shared
 
 /// Floor Map Footer Segmented Button
 /// [Figma](https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI?type=design&node-id=56145-70041&mode=dev)

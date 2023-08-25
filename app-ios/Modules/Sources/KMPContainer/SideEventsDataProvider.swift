@@ -9,7 +9,7 @@ extension SideEventsDataProvider: DependencyKey {
     public static var liveValue: SideEventsDataProvider = SideEventsDataProvider(
         sideEvents: {
             return SideEventKt.SideEvents
-    })
+        })
 }
 
 public extension DependencyValues {

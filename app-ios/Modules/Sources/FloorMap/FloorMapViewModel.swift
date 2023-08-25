@@ -17,10 +17,10 @@ final class FloorMapViewModel: ObservableObject {
         var basement: [SideEvent]
         var ground: [SideEvent]
     }
-    
+
     func load() async {
         state.sideEvents = .loading
-        
+
         do {
             let sideEvents = try await sideEventsData.sideEvents()
             let floorSideEvent = FloorSideEvent(
@@ -33,5 +33,3 @@ final class FloorMapViewModel: ObservableObject {
         }
     }
 }
-
-

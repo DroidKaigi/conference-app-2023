@@ -1,7 +1,7 @@
 import Assets
+import shared
 import SwiftUI
 import Theme
-import shared
 
 public struct FloorMapView: View {
     @ObservedObject var viewModel: FloorMapViewModel = .init()
@@ -52,7 +52,7 @@ public struct FloorMapView: View {
                     .resizable()
                     .scaledToFit()
             }
-            
+
             sideEventList(sideEvents: sideEvents)
         }
         .padding(.horizontal, 16)
@@ -68,12 +68,12 @@ public struct FloorMapView: View {
                     .resizable()
                     .scaledToFit()
             }
-            
+
             sideEventList(sideEvents: sideEvents)
         }
         .padding(.horizontal, 16)
     }
-    
+
     /// Side Events List
     private func sideEventList(sideEvents: [SideEvent]) -> some View {
         LazyVStack(spacing: 16) {
