@@ -36,6 +36,7 @@ class KmpAndroidPlugin : Plugin<Project> {
                     }
                 }
             }
+            // https://slack-chats.kotlinlang.org/t/13166064/been-discovering-that-the-task-kspcommonmainkotlinmetadata-i#9a50fa1b-1ec5-47c2-9172-2a5780a1900e
             tasks.withType<KspTaskMetadata>().configureEach {
                 notCompatibleWithConfigurationCache("Configuration cache not supported due to serialization")
             }
