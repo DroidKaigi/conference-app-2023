@@ -54,6 +54,7 @@ fun NavGraphBuilder.nestedSessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues,
 ) {
     composable(timetableScreenRoute) {
         TimetableScreen(

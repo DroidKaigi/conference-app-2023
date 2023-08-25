@@ -201,12 +201,11 @@ private fun MainScreen(
                     )
                 }
             },
-            contentWindowInsets = WindowInsets(0.dp),
         ) { padding ->
             NavHost(
                 navController = mainNestedNavController,
                 startDestination = "timetable",
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 enterTransition = { materialFadeThroughIn() },
                 exitTransition = { materialFadeThroughOut() },
             ) {

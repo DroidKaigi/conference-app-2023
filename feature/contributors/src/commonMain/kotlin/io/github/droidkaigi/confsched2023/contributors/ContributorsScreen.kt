@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.contributors
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +36,8 @@ data class ContributorsUiState(val contributors: PersistentList<Contributor>)
 fun ContributorsScreen(
     viewModel: ContributorsViewModel,
     onNavigationIconClick: () -> Unit,
-    onContributorItemClick: (url: String) -> Unit
+    onContributorItemClick: (url: String) -> Unit,
+    contentPadding: PaddingValues
 ) {
     val uiState by viewModel.uiState.collectAsState()
     ContributorsScreen(

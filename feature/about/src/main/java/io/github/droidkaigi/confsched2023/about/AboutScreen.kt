@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -17,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -41,6 +41,7 @@ const val aboutScreenRoute = "about"
 fun NavGraphBuilder.nestedAboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     composable(aboutScreenRoute) {
         AboutScreen(

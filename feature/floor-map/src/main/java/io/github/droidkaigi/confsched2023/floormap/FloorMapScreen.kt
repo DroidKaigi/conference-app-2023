@@ -67,6 +67,7 @@ const val floorMapScreenRoute = "floorMap"
 fun NavGraphBuilder.nestedFloorMapScreen(
     windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     composable(floorMapScreenRoute) {
         FloorMapScreen(
