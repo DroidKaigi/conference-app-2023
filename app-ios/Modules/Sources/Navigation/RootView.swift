@@ -36,10 +36,10 @@ public struct RootView: View {
                     } icon: {
                         if selection == .timeline {
                             Assets.Icons.timetable.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         } else {
                             Assets.Icons.timetableFillOff.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         }
                     }
                 }
@@ -51,10 +51,10 @@ public struct RootView: View {
                     } icon: {
                         if selection == .floorMap {
                             Assets.Icons.floorMap.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         } else {
                             Assets.Icons.floorMapFillOff.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         }
                     }
                 }
@@ -66,10 +66,10 @@ public struct RootView: View {
                     } icon: {
                         if selection == .stamps {
                             Assets.Icons.stamp.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         } else {
                             Assets.Icons.stampFillOff.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         }
                     }
                 }
@@ -91,10 +91,10 @@ public struct RootView: View {
                     } icon: {
                         if selection == .about {
                             Assets.Icons.info.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         } else {
                             Assets.Icons.infoFillOff.swiftUIImage
-                                .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                                .renderingMode(.template)
                         }
                     }
                 }
