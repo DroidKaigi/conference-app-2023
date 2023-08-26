@@ -45,6 +45,36 @@ class SearchScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    @Config(fontScale = 0.5f)
+    fun smallFontScaleShot() {
+        searchScreenRobot {
+            setupSearchScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 1.5f)
+    fun largeFontScaleShot() {
+        searchScreenRobot {
+            setupSearchScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 2.0f)
+    fun hugeFontScaleShot() {
+        searchScreenRobot {
+            setupSearchScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     fun checkFilterDayChipShot() {
         searchScreenRobot {
             checkFilterChipShot(FilterDayChipTestTag)
