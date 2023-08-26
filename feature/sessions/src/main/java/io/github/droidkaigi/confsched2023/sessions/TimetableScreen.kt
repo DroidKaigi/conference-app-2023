@@ -222,7 +222,7 @@ private fun TimetableScreen(
                 uiState = uiState.contentUiState,
                 timetableScreenScrollState = state,
                 onFavoriteClick = onBookmarkClick,
-                windowInsetsPadding = PaddingValues(
+                contentPadding = PaddingValues(
                     bottom = innerPadding.calculateBottomPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),
                     end = innerPadding.calculateEndPadding(layoutDirection),

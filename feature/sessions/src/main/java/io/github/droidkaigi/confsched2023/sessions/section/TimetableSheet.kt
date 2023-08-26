@@ -53,7 +53,7 @@ fun TimetableSheet(
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onFavoriteClick: (TimetableItem) -> Unit,
-    windowInsetsPadding: PaddingValues,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay()) }
@@ -63,7 +63,7 @@ fun TimetableSheet(
     )
     val layoutDirection = LocalLayoutDirection.current
     Surface(
-        modifier = modifier.padding(windowInsetsPadding.calculateTopPadding()),
+        modifier = modifier.padding(contentPadding.calculateTopPadding()),
         shape = RoundedCornerShape(topStart = corner.dp, topEnd = corner.dp),
     ) {
         val timetableSheetContentScrollState = rememberTimetableSheetContentScrollState()
@@ -74,8 +74,8 @@ fun TimetableSheet(
         ) {
             TimetableTabRow(
                 modifier = Modifier.padding(
-                    start = windowInsetsPadding.calculateStartPadding(layoutDirection),
-                    end = windowInsetsPadding.calculateEndPadding(layoutDirection),
+                    start = contentPadding.calculateStartPadding(layoutDirection),
+                    end = contentPadding.calculateEndPadding(layoutDirection),
                 ),
                 tabState = timetableSheetContentScrollState.tabScrollState,
                 selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
@@ -98,9 +98,9 @@ fun TimetableSheet(
                             .weight(1f)
                             .fillMaxSize(),
                         contentPadding = PaddingValues(
-                            bottom = windowInsetsPadding.calculateBottomPadding(),
-                            start = windowInsetsPadding.calculateStartPadding(layoutDirection),
-                            end = windowInsetsPadding.calculateEndPadding(layoutDirection),
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
                         ),
                     )
                 }
@@ -115,9 +115,9 @@ fun TimetableSheet(
                             .fillMaxSize()
                             .weight(1f),
                         contentPadding = PaddingValues(
-                            bottom = windowInsetsPadding.calculateBottomPadding(),
-                            start = windowInsetsPadding.calculateStartPadding(layoutDirection),
-                            end = windowInsetsPadding.calculateEndPadding(layoutDirection),
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
                         ),
                     )
                 }
@@ -136,9 +136,9 @@ fun TimetableSheet(
                             )
                             .weight(1f),
                         contentPadding = PaddingValues(
-                            bottom = windowInsetsPadding.calculateBottomPadding(),
-                            start = windowInsetsPadding.calculateStartPadding(layoutDirection),
-                            end = windowInsetsPadding.calculateEndPadding(layoutDirection),
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
                         ),
                     )
                 }
