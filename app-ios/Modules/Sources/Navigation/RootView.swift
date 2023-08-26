@@ -34,8 +34,13 @@ public struct RootView: View {
                     Label {
                         Text("Timetable")
                     } icon: {
-                        Assets.Icons.timetable.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .timeline {
+                            Assets.Icons.timetable.swiftUIImage
+                                .renderingMode(.template)
+                        } else {
+                            Assets.Icons.timetableFillOff.swiftUIImage
+                                .renderingMode(.template)
+                        }
                     }
                 }
             FloorMapView()
@@ -44,8 +49,13 @@ public struct RootView: View {
                     Label {
                         Text("FloorMap")
                     } icon: {
-                        Assets.Icons.map.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .floorMap {
+                            Assets.Icons.floorMap.swiftUIImage
+                                .renderingMode(.template)
+                        } else {
+                            Assets.Icons.floorMapFillOff.swiftUIImage
+                                .renderingMode(.template)
+                        }
                     }
                 }
             StampsView()
@@ -54,8 +64,13 @@ public struct RootView: View {
                     Label {
                         Text("Stamps")
                     } icon: {
-                        Assets.Icons.badge.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .stamps {
+                            Assets.Icons.stamp.swiftUIImage
+                                .renderingMode(.template)
+                        } else {
+                            Assets.Icons.stampFillOff.swiftUIImage
+                                .renderingMode(.template)
+                        }
                     }
                 }
             AboutView(
@@ -74,8 +89,13 @@ public struct RootView: View {
                     Label {
                         Text("About")
                     } icon: {
-                        Assets.Icons.info.swiftUIImage
-                            .renderingMode(.template)
+                        if selection == .about {
+                            Assets.Icons.info.swiftUIImage
+                                .renderingMode(.template)
+                        } else {
+                            Assets.Icons.infoFillOff.swiftUIImage
+                                .renderingMode(.template)
+                        }
                     }
                 }
         }

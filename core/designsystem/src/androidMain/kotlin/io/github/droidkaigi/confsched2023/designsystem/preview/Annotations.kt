@@ -60,25 +60,29 @@ object MultiLanguagePreviewDefinition {
     object Japanese {
         const val Name = "Japanese"
         const val Locale = "ja_JP"
+        const val Language = "ja"
     }
 
     object English {
         const val Name = "English"
         const val Locale = "en_US"
+        const val Language = "en"
     }
 }
 
 /**
  * Annotation for previewing multiple languages.
+ *
+ * Note: locale param need to follow [locale qualifier](https://developer.android.com/guide/topics/resources/providing-resources#LocaleQualifier).
  */
 @Preview(
     name = MultiLanguagePreviewDefinition.Japanese.Name,
     group = MultiLanguagePreviewDefinition.Group,
-    locale = MultiLanguagePreviewDefinition.Japanese.Locale,
+    locale = MultiLanguagePreviewDefinition.Japanese.Language,
 )
 @Preview(
     name = MultiLanguagePreviewDefinition.English.Name,
     group = MultiLanguagePreviewDefinition.Group,
-    locale = MultiLanguagePreviewDefinition.English.Locale,
+    locale = MultiLanguagePreviewDefinition.English.Language,
 )
 annotation class MultiLanguagePreviews
