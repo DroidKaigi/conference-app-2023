@@ -13,7 +13,6 @@ import androidx.compose.ui.test.swipeLeft
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SearchScreen
-import io.github.droidkaigi.confsched2023.sessions.SearchScreenEmptyBodyTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenSearchTextFiledTestTag
 import io.github.droidkaigi.confsched2023.sessions.SearchScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.DropdownFilterChipItemTestTag
