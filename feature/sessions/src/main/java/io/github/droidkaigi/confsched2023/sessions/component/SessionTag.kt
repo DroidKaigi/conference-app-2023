@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -29,7 +29,7 @@ fun SessionTag(
 ) {
     Box(
         modifier = modifier
-            .height(24.dp)
+            .defaultMinSize(minHeight = 24.dp)
             .then(
                 if (borderColor != null) {
                     Modifier.border(
