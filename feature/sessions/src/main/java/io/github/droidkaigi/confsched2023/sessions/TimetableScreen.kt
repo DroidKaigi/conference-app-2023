@@ -23,12 +23,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -148,6 +151,7 @@ private fun TimetableScreen(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
+    val density = LocalDensity.current
     val state = rememberTimetableScreenScrollState()
     val layoutDirection = LocalLayoutDirection.current
     val gradientEndRatio =
@@ -156,17 +160,27 @@ private fun TimetableScreen(
         } else {
             0.5f
         }
+    val timetableTopGradient = timetableTopGradient()
+    val bottomPaddingPx = with(density) { contentPadding.calculateBottomPadding().toPx() }
     Scaffold(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
             .nestedScroll(state.screenNestedScrollConnection)
             .background(timetableTopBackground())
-            .background(
-                Brush.verticalGradient(
-                    0f to timetableTopGradient(),
-                    gradientEndRatio to Color.Transparent,
-                ),
-            ),
+            .drawWithCache {
+                onDrawBehind {
+                    drawRect(
+                        brush = Brush.verticalGradient(
+                            0f to timetableTopGradient,
+                            gradientEndRatio to Color.Transparent,
+                        ),
+                        size = Size(
+                            size.width,
+                            size.height - bottomPaddingPx,
+                        ),
+                    )
+                }
+            },
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
