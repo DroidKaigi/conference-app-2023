@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -92,7 +91,6 @@ private fun SearchTextField(
         value = searchQuery,
         onValueChange = onSearchQueryChanged,
         modifier = modifier
-            .height(56.0.dp)
             .fillMaxWidth(1.0f)
             .focusRequester(focusRequester),
         enabled = enabled,
