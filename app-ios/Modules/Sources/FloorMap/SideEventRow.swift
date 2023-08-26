@@ -39,8 +39,8 @@ struct SideEventRow: View {
             Spacer(minLength: 0)
 
             // Image
-            if let imageLink = sideEvent.link {
-                CacheAsyncImage(url: URL(string: imageLink)!) { image in
+            if let imageLink = sideEvent.link, let imageUrl = URL(string: imageLink) {
+                CacheAsyncImage(url: imageUrl) { image in
                     image.resizable()
                 } placeholder: {
                     Color.gray
