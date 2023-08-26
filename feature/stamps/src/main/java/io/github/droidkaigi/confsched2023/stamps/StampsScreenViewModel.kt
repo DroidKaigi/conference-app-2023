@@ -60,7 +60,7 @@ class StampsScreenViewModel @Inject constructor(
     }
 
     fun onStampClick(
-        stamp: Stamp
+        stamp: Stamp,
     ) {
         stampLottieRawResStateFlow.value = stamp.lottieRawId
     }

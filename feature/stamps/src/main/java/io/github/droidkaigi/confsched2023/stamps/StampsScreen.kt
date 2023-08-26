@@ -63,7 +63,7 @@ fun StampsScreen(
             onStampsClick()
             viewModel.onStampClick(stamp)
         },
-        onReachAnimationEnd = viewModel::onReachAnimationEnd
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 

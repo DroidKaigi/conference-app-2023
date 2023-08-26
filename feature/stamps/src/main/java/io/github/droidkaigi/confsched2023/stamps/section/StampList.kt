@@ -43,9 +43,9 @@ fun StampList(
                     Color(0xFF37383D)
                 } else {
                     Color.Transparent
-                }
+                },
             )
-            .fillMaxSize()
+            .fillMaxSize(),
     ) {
         if (stampLottieRawId != null) {
             val lottieComposition by rememberLottieComposition(RawRes(stampLottieRawId))
