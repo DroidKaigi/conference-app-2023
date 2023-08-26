@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SuggestionChip
-import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -34,6 +32,7 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.sessions.component.SessionTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentList
@@ -45,10 +44,30 @@ data class SearchListUiState(
     val timetableItems: PersistentList<TimetableItem>,
 )
 
+data class SearchQuery(val queryText: String) {
+    val hasQuery get() = queryText.isNotBlank()
+
+    fun String.getMatchIndexRange(): IntRange {
+        if (!hasQuery) return IntRange.EMPTY
+
+        val startIndex = this.indexOf(queryText, ignoreCase = true)
+        return if (startIndex >= 0) {
+            startIndex until (startIndex + queryText.length)
+        } else {
+            IntRange.EMPTY
+        }
+    }
+
+    companion object {
+        val Empty = SearchQuery("AAA")
+    }
+}
+
 @Composable
 fun SearchList(
     contentPaddingValues: PaddingValues,
     searchListUiState: SearchListUiState,
+    searchQuery: SearchQuery,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem) -> Unit,
@@ -58,9 +77,7 @@ fun SearchList(
     LazyColumn(
         state = scrollState,
         contentPadding = contentPaddingValues,
-        modifier = modifier
-            .imePadding()
-            .padding(start = 16.dp),
+        modifier = modifier.imePadding(),
     ) {
         itemsIndexed(searchListUiState.timetableItems) { index, timetableItem ->
             var rowHeight by remember { mutableIntStateOf(0) }
@@ -110,6 +127,7 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
+                    highlightQuery = searchQuery,
                     chipContent = {
                         // Chips
                         val infoChip = mutableListOf<String>()
@@ -133,30 +151,15 @@ fun SearchList(
                         val hallColor = hallColors()
                         val roomChipBackgroundColor = timetableItem.room.color
                         val roomChipLabelColor = hallColor.hallText
-                        SuggestionChip(
-                            colors = SuggestionChipDefaults.suggestionChipColors(
-                                containerColor = roomChipBackgroundColor,
-                                labelColor = roomChipLabelColor,
-                            ),
-                            border = null,
-                            onClick = { /* Do nothing */ },
-                            label = {
-                                Text(
-                                    text = timetableItem.room.name.currentLangTitle,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                )
-                            },
+                        SessionTag(
+                            label = timetableItem.room.name.currentLangTitle,
+                            labelColor = roomChipLabelColor,
+                            backgroundColor = roomChipBackgroundColor,
                         )
                         infoChip.forEach {
-                            SuggestionChip(
-                                modifier = Modifier.padding(start = 4.dp),
-                                onClick = { /* Do nothing */ },
-                                label = {
-                                    Text(
-                                        text = it,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                    )
-                                },
+                            SessionTag(
+                                label = it,
+                                borderColor = MaterialTheme.colorScheme.outline,
                             )
                         }
                     },

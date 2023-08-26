@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
@@ -29,6 +30,8 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import kotlin.math.roundToInt
 
@@ -74,7 +77,7 @@ fun TimetableTab(
         },
         selectedContentColor = MaterialTheme.colorScheme.onPrimary,
         unselectedContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier.heightIn(min = minTabHeight),
+        modifier = modifier.heightIn(min = tabMinHeight, max = tabMaxHeight),
     )
 }
 
@@ -85,7 +88,7 @@ fun TimetableTabIndicator(
     Box(
         modifier
             .zIndex(-1f)
-            .padding(horizontal = 8.dp)
+            .padding(horizontal = tabIndicatorHorizontalGap / 2)
             .fillMaxSize()
             .background(
                 color = MaterialTheme.colorScheme.primary,
@@ -110,7 +113,14 @@ fun TimetableTabRow(
 ) {
     TabRow(
         selectedTabIndex = selectedTabIndex,
-        modifier = modifier.height(maxTabRowHeight - ((maxTabRowHeight - minTabRowHeight) * tabState.tabCollapseProgress)),
+        modifier = modifier
+            .height(tabRowMaxHeight - ((tabRowMaxHeight - tabRowMinHeight) * tabState.tabCollapseProgress))
+            .padding(
+                start = tabRowHorizontalSpacing,
+                top = tabRowTopSpacing,
+                end = tabRowHorizontalSpacing,
+                bottom = tabRowBottomSpacing,
+            ),
         divider = {},
         indicator = indicator,
         tabs = tabs,
@@ -118,12 +128,13 @@ fun TimetableTabRow(
 }
 
 @Composable
-fun rememberTimetableTabState(): TimetableTabState {
+fun rememberTimetableTabState(initialScrollOffset: Float = 0.0f): TimetableTabState {
     val offsetLimit = LocalDensity.current.run {
-        (maxTabRowHeight - minTabRowHeight).toPx()
+        (tabRowMaxHeight - tabRowMinHeight).toPx()
     }
     return rememberSaveable(saver = TimetableTabState.Saver) {
         TimetableTabState(
+            initialScrollOffset = initialScrollOffset,
             initialOffsetLimit = -offsetLimit,
         )
     }
@@ -174,6 +185,78 @@ class TimetableTabState(
     }
 }
 
-private val minTabHeight = 32.dp
-private val maxTabRowHeight = 84.dp
-private val minTabRowHeight = 56.dp
+private val tabMinHeight = 32.dp
+private val tabMaxHeight = 56.dp
+
+private val tabIndicatorHorizontalGap = 8.dp
+
+private val tabRowHorizontalSpacing = 16.dp - (tabIndicatorHorizontalGap / 2)
+private val tabRowTopSpacing = 16.dp
+private val tabRowBottomSpacing = 12.dp
+private val tabRowMinHeight = tabMinHeight + tabRowTopSpacing + tabRowBottomSpacing
+private val tabRowMaxHeight = tabMaxHeight + tabRowTopSpacing + tabRowBottomSpacing
+
+@MultiThemePreviews
+// @MultiLanguagePreviews
+@Composable
+fun TimetableTabPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableTab(
+                day = DroidKaigi2023Day.Day1,
+                selected = true,
+                onClick = {},
+                scrollState = rememberTimetableTabState(),
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+// @MultiLanguagePreviews
+@Composable
+fun TimetableTabRowPreview() {
+    val scrollState = rememberTimetableTabState()
+    val selectedTabIndex = 0
+    KaigiTheme {
+        Surface {
+            TimetableTabRow(tabState = scrollState, selectedTabIndex = selectedTabIndex) {
+                DroidKaigi2023Day.entries.forEachIndexed { index, day ->
+                    TimetableTab(
+                        day = day,
+                        selected = selectedTabIndex == index,
+                        onClick = {},
+                        scrollState = scrollState,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@MultiThemePreviews
+// @MultiLanguagePreviews
+@Composable
+fun CollapsedTimetableTabRowPreview() {
+    val scrollState = rememberSaveable(saver = TimetableTabState.Saver) {
+        TimetableTabState(
+            initialScrollOffset = -1.0f,
+            initialOffsetLimit = -1.0f,
+        )
+    }
+    val selectedTabIndex = 0
+    KaigiTheme {
+        Surface {
+            TimetableTabRow(tabState = scrollState, selectedTabIndex = selectedTabIndex) {
+                DroidKaigi2023Day.entries.forEachIndexed { index, day ->
+                    TimetableTab(
+                        day = day,
+                        selected = index == selectedTabIndex,
+                        onClick = {},
+                        scrollState = scrollState,
+                    )
+                }
+            }
+        }
+    }
+}

@@ -9,8 +9,8 @@ struct TimetableListView: View {
             ForEach(timetableTimeGroupItems) { timetableTimeGroupItem in
                 HStack(alignment: .top, spacing: 16) {
                     SessionTimeView(
-                        startsAt: timetableTimeGroupItem.startsAt,
-                        endsAt: timetableTimeGroupItem.endsAt
+                        startsTimeString: timetableTimeGroupItem.startsTimeString,
+                        endsTimeString: timetableTimeGroupItem.endsTimeString
                     )
                     VStack(spacing: 0) {
                         ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
@@ -37,10 +37,8 @@ import shared
     TimetableListView(
         timetableTimeGroupItems: [
             TimetableTimeGroupItems(
-                duration: .init(
-                    startsAt: Timetable.companion.fake().contents.first!.timetableItem.startsAt,
-                    endsAt: Timetable.companion.fake().contents.first!.timetableItem.endsAt
-                ),
+                startsTimeString: Timetable.companion.fake().contents.first!.timetableItem.startsTimeString,
+                endsTimeString: Timetable.companion.fake().contents.first!.timetableItem.endsTimeString,
                 items: [Timetable.companion.fake().contents.first!]
             ),
         ]

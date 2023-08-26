@@ -23,6 +23,8 @@ var package = Package(
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+        .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
     ],
     targets: [
         .target(
@@ -31,6 +33,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "Model",
+                .product(name: "LicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
@@ -48,6 +51,14 @@ var package = Package(
             ],
             plugins: [
                 .plugin(name: "SwiftGenPlugin", package: "SwiftGenPlugin"),
+            ]
+        ),
+
+        .target(
+            name: "Auth",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
             ]
         ),
 
@@ -98,7 +109,9 @@ var package = Package(
         .target(
             name: "KMPContainer",
             dependencies: [
+                "Auth",
                 "shared",
+                "RemoteConfig",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
@@ -132,12 +145,32 @@ var package = Package(
                 "Component",
                 "KMPContainer",
                 "Model",
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
             name: "SponsorTests",
             dependencies: [
                 "Sponsor"
+            ]
+        ),
+
+        .target(
+            name: "Staff",
+            dependencies: [
+                "Assets",
+                "Component",
+                "KMPContainer",
+                "Model",
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "StaffTests",
+            dependencies: [
+                "Staff"
             ]
         ),
 
@@ -183,9 +216,18 @@ var package = Package(
                 "FloorMap",
                 "Session",
                 "Sponsor",
+                "Staff",
                 "Stamps",
                 "Theme",
                 "Timetable",
+            ]
+        ),
+
+        .target(
+            name: "RemoteConfig",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
             ]
         ),
 

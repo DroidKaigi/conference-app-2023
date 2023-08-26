@@ -127,8 +127,6 @@ public fun Session.Companion.fake(): Session {
         room = TimetableRoom(
             id = 1,
             name = MultiLangText("Room1", "Room2"),
-            sort = 1,
-            sortIndex = 0,
             type = RoomA,
         ),
         targetAudience = "For App developer アプリ開発者向け",

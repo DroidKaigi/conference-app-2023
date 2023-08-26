@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.1.0"
+androidGradlePlugin = "8.1.1"
 # For updating Kotlin and Compose Compiler version, see:
 # https://github.com/JetBrains/compose-multiplatform/blob/master/VERSIONING.md#kotlin-compatibility
 # https://developer.android.com/jetpack/androidx/releases/compose-kotlin?#pre-release_kotlin_compatibility
@@ -12,7 +12,7 @@ compose-jb = "1.4.3"
 composeCompiler = "1.5.1"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
-androidxActivity = "1.7.2"
+androidxActivity = "1.8.0-alpha06"
 androidxFragment = "1.6.1"
 kotlinxCoroutines = "1.7.3"
 accompanist = "0.30.1"
@@ -34,6 +34,7 @@ okHttp = "4.11.0"
 ktorfit = "1.5.0"
 detekt = "1.23.1"
 twitterComposeRule = "0.0.26"
+kover = "0.7.3"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -49,6 +50,7 @@ completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version
 detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
+koverPlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 
@@ -85,7 +87,6 @@ composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", ver
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
-accompanistSystemUiController = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
@@ -141,7 +142,7 @@ kotlinGradlePlugin = { id = "org.jetbrains.kotlin.android", version.ref = "kotli
 hiltGradlePlugin = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.3" }
+kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 [bundles]
@@ -157,4 +158,5 @@ plugins = [
     "kotlinxSerializationGradlePlugin",
     "completeKotlinPlugin",
     "detektGradlePlugin",
+    "koverPlugin"
 ]
