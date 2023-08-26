@@ -93,12 +93,6 @@ class SearchScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun checkExistEmptyBody() {
-        composeTestRule
-            .onNodeWithTag(SearchScreenEmptyBodyTestTag)
-            .captureRoboImage()
-    }
-
     fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())

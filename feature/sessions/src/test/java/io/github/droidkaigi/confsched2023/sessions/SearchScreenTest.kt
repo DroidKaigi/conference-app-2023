@@ -85,7 +85,6 @@ class SearchScreenTest {
         searchScreenRobot {
             setupSearchScreenContent()
             inputDummyTextSearchTextFieldAppBar()
-            checkExistEmptyBody()
             checkScreenCapture()
         }
     }
