@@ -247,6 +247,7 @@ private fun MobileContent(
     Box(
         Modifier
             .fillMaxSize()
+            .padding(contentPadding)
             .onGloballyPositioned {
                 boxHeight = it.size.height
             },
@@ -265,18 +266,14 @@ private fun MobileContent(
                         1f to Color.Transparent,
                     ),
                 ),
-            contentPadding = contentPadding,
+            contentPadding = PaddingValues(),
         )
         FloorLevelSwitcher(
             selectingFloorLevel = uiState.floorLevel,
             onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(
-                    start = contentPadding.calculateStartPadding(layoutDirection),
-                    end = contentPadding.calculateEndPadding(layoutDirection),
-                )
-                .padding(bottom = switcherBottomPadding + contentPadding.calculateBottomPadding())
+                .padding(bottom = switcherBottomPadding)
                 .onGloballyPositioned {
                     switcherPosition = it.positionInParent().y
                 },
