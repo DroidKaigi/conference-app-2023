@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
@@ -92,7 +91,7 @@ fun BookmarkSheet(
             modifier = Modifier.padding(
                 start = contentPadding.calculateLeftPadding(layoutDirection),
                 end = contentPadding.calculateRightPadding(layoutDirection),
-                top = contentPadding.calculateTopPadding()
+                top = contentPadding.calculateTopPadding(),
             ),
         )
         val padding = PaddingValues(
@@ -103,7 +102,7 @@ fun BookmarkSheet(
         when (uiState) {
             is Empty -> {
                 EmptyView(
-                    modifier = Modifier.padding(padding)
+                    modifier = Modifier.padding(padding),
                 )
             }
 

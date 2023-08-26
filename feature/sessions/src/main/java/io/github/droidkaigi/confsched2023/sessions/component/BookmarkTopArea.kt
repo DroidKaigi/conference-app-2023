@@ -117,7 +117,7 @@ fun BookmarkTopArea(
             .background(backgroundColor)
             .windowInsetsPadding(
                 WindowInsets.systemBars
-                    .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+                    .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top),
             )
             .height(topBarHeight),
     ) {

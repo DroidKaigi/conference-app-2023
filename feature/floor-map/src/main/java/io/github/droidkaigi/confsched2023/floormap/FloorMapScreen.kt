@@ -75,7 +75,7 @@ fun NavGraphBuilder.nestedFloorMapScreen(
         FloorMapScreen(
             windowSize = windowSize,
             onSideEventClick = onSideEventClick,
-            contentPadding = contentPadding
+            contentPadding = contentPadding,
         )
     }
 }
@@ -217,7 +217,7 @@ private fun FloorMapContent(
                 uiState = uiState,
                 onSideEventClick = onSideEventClick,
                 onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
-                contentPadding = childContentPadding
+                contentPadding = childContentPadding,
             )
         }
     }
