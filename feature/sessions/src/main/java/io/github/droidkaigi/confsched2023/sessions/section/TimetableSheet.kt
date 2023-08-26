@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.movableContentOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -60,28 +61,33 @@ fun TimetableSheet(
         shape = RoundedCornerShape(topStart = corner.dp, topEnd = corner.dp),
     ) {
         val timetableSheetContentScrollState = rememberTimetableSheetContentScrollState()
+        val timetableBottomSheetHeader = remember {
+            movableContentOf {
+                TimetableTabRow(
+                    tabState = timetableSheetContentScrollState.tabScrollState,
+                    selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
+                ) {
+                    DroidKaigi2023Day.entries.forEach { day ->
+                        TimetableTab(
+                            day = day,
+                            selected = day == selectedDay,
+                            onClick = {
+                                selectedDay = day
+                            },
+                            scrollState = timetableSheetContentScrollState.tabScrollState,
+                        )
+                    }
+                }
+            }
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(timetableSheetContentScrollState.nestedScrollConnection),
         ) {
-            TimetableTabRow(
-                tabState = timetableSheetContentScrollState.tabScrollState,
-                selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
-            ) {
-                DroidKaigi2023Day.entries.forEach { day ->
-                    TimetableTab(
-                        day = day,
-                        selected = day == selectedDay,
-                        onClick = {
-                            selectedDay = day
-                        },
-                        scrollState = timetableSheetContentScrollState.tabScrollState,
-                    )
-                }
-            }
             when (uiState) {
                 is Empty -> {
+                    timetableBottomSheetHeader()
                     TimetableShimmerList(
                         modifier = Modifier
                             .fillMaxSize()
@@ -95,6 +101,7 @@ fun TimetableSheet(
                         scrollState = rememberLazyListState(),
                         onTimetableItemClick = onTimetableItemClick,
                         onBookmarkClick = onFavoriteClick,
+                        bottomSheetHeader = timetableBottomSheetHeader,
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
@@ -103,6 +110,7 @@ fun TimetableSheet(
 
                 is GridTimetable -> {
                     val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
+                    timetableBottomSheetHeader()
                     TimetableGrid(
                         uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
                         nestedScrollDispatcher = nestedScrollDispatcher,
