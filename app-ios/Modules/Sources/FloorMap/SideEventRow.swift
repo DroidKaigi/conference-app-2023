@@ -39,28 +39,24 @@ struct SideEventRow: View {
             Spacer(minLength: 0)
 
             // Image
-            if let imageLink = sideEvent.link, let imageUrl = URL(string: imageLink) {
-                CacheAsyncImage(url: imageUrl) { image in
-                    image.resizable()
-                } placeholder: {
+            Group {
+                if let imageLink = sideEvent.imageLink, let imageUrl = URL(string: imageLink) {
+                    CacheAsyncImage(url: imageUrl) { image in
+                        image.resizable()
+                    } placeholder: {
+                        Color.gray
+                    }
+                } else {
                     Color.gray
                 }
-                .frame(width: 88, height: 88)
-                .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
-                )
-            } else {
-                Color.gray
-                    .frame(width: 88, height: 88)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
-                    )
             }
+            .frame(width: 88, height: 88)
+            .scaledToFill()
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
+            )
         }
     }
 }
