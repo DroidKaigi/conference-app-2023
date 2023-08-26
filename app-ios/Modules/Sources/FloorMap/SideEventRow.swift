@@ -99,7 +99,7 @@ private extension SideEvent {
             floorLevel: .basement,
             mark: .favorite,
             link: "https://github.com/DroidKaigi/conference-app-2023",
-            imageLink: "https://github.com/DroidKaigi/conference-app-2023, imageLink=https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jp"
+            imageLink: "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg"
         )
     )
 }
