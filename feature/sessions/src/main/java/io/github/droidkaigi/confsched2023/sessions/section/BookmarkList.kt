@@ -96,7 +96,7 @@ fun BookmarkList(
                     }
                 }
                 Column {
-                    values.forEachIndexed { k, timetableItem ->
+                    values.forEach { timetableItem ->
                         TimetableListItem(
                             modifier = Modifier
                                 .clickable { onTimetableItemClick(timetableItem) }

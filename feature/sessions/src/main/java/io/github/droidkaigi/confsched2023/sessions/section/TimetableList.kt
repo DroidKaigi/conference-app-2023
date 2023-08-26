@@ -115,7 +115,7 @@ fun TimetableList(
                     }
                 }
                 Column {
-                    timetableItems.forEachIndexed { k, timetableItem ->
+                    timetableItems.forEach { timetableItem ->
                         val isBookmarked = uiState.timetable.bookmarks.contains(timetableItem.id)
                         TimetableListItem(
                             timetableItem,
