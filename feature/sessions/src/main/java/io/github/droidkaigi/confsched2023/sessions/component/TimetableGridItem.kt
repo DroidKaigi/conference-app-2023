@@ -13,9 +13,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.Icon
@@ -44,6 +46,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.ScheduleIcon
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.UserIcon
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
@@ -130,6 +133,27 @@ fun TimetableGridItem(
                     style = MaterialTheme.typography.bodySmall,
                     color = textColor,
                 )
+            }
+
+            if (timetableItem is Session) {
+                timetableItem.message?.let {
+                    Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Error,
+                            contentDescription = SessionsStrings.ErrorIcon.asString(),
+                            tint = MaterialTheme.colorScheme.errorContainer,
+                            modifier = Modifier.size(TimetableGridItemSizes.scheduleHeight),
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = it.currentLangTitle,
+                            color = MaterialTheme.colorScheme.errorContainer,
+                            fontSize = TimetableGridItemSizes.minTitleFontSize,
+                            lineHeight = TimetableGridItemSizes.minTitleLineHeight,
+                        )
+                    }
+                }
             }
 
             Spacer(

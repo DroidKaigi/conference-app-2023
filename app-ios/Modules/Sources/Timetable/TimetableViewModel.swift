@@ -41,19 +41,17 @@ final class TimetableViewModel: ObservableObject {
         }
         let timetableTimeGroupItems = cachedTimetable.dayTimetable(droidKaigi2023Day: state.selectedDay)
             .timetableItems
-            .map {
-                TimetableTimeGroupItems.Duration(startsAt: $0.startsAt, endsAt: $0.endsAt)
-            }
-            .map { duration in
+            .map { item in
                 let items = cachedTimetable.contents
                     .filter { itemWithFavorite in
-                        itemWithFavorite.timetableItem.startsAt == duration.startsAt && itemWithFavorite.timetableItem.endsAt == duration.endsAt
+                        itemWithFavorite.timetableItem.startsTimeString == item.startsTimeString && itemWithFavorite.timetableItem.endsTimeString == item.endsTimeString
                     }
                     .sorted {
                         $0.timetableItem.room.name.currentLangTitle < $1.timetableItem.room.name.currentLangTitle
                     }
                 return TimetableTimeGroupItems(
-                    duration: duration,
+                    startsTimeString: item.startsTimeString,
+                    endsTimeString: item.endsTimeString,
                     items: items
                 )
             }
