@@ -39,7 +39,7 @@ fun BookmarkScreen(
         onBackPressClick = onBackPressClick,
         onTimetableItemClick = onTimetableItemClick,
         onBookmarkClick = { timetableItem, _ ->
-            viewModel.updateBookmark(timetableItem)
+            viewModel.onBookmarkClick(timetableItem)
         },
         onAllFilterChipClick = viewModel::onAllFilterChipClick,
         onDayFirstChipClick = viewModel::onDayFirstChipClick,
