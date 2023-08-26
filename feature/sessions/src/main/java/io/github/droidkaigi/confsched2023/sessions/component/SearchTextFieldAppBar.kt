@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -37,6 +38,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import io.github.droidkaigi.confsched2023.ui.isTest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,13 +49,14 @@ fun SearchTextFieldAppBar(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
     TopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
         navigationIcon = {
-            IconButton(onClick = onBackClick) {
+            IconButton(onClick = { handleOnClickIfNotNavigating(lifecycleOwner, onBackClick) }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = null,
