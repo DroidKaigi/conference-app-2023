@@ -44,7 +44,7 @@ class TimetableScreenViewModel @Inject constructor(
     private val timetableUiTypeStateFlow: MutableStateFlow<TimetableUiType> =
         MutableStateFlow(TimetableUiType.List)
 
-    private val onBookmarkClickStateFlow: MutableStateFlow<Boolean?> =
+    private val bookmarkAnimationStartStateFlow: MutableStateFlow<Boolean?> =
         MutableStateFlow(null)
 
     private val timetableSheetUiState: StateFlow<TimetableSheetUiState> = buildUiState(
@@ -87,12 +87,12 @@ class TimetableScreenViewModel @Inject constructor(
 
     val uiState: StateFlow<TimetableScreenUiState> = buildUiState(
         timetableSheetUiState,
-        onBookmarkClickStateFlow,
+        bookmarkAnimationStartStateFlow,
     ) { sessionListUiState, _ ->
         TimetableScreenUiState(
             contentUiState = sessionListUiState,
             timetableUiType = timetableUiTypeStateFlow.value,
-            onBookmarkIconClickStatus = onBookmarkClickStateFlow.value,
+            onBookmarkIconClickStatus = bookmarkAnimationStartStateFlow.value,
         )
     }
 
@@ -113,11 +113,11 @@ class TimetableScreenViewModel @Inject constructor(
             sessionsRepository.toggleBookmark(session.id)
         }
         if (isBookmarked) {
-            onBookmarkClickStateFlow.value = true
+            bookmarkAnimationStartStateFlow.value = true
         }
     }
 
     fun onReachAnimationEnd() {
-        onBookmarkClickStateFlow.value = false
+        bookmarkAnimationStartStateFlow.value = false
     }
 }
