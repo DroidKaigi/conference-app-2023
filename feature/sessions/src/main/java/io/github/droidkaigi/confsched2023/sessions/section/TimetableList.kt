@@ -121,7 +121,7 @@ fun TimetableList(
                             timetableItem,
                             modifier = Modifier
                                 .clickable { onTimetableItemClick(timetableItem) }
-                                .padding(top = if (k >= 1) 20.dp else 10.dp),
+                                .padding(top = 10.dp),
                             isBookmarked = isBookmarked,
                             onBookmarkClick = onBookmarkClick,
                             chipContent = {

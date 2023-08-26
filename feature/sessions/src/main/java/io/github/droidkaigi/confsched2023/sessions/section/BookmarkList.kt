@@ -100,7 +100,7 @@ fun BookmarkList(
                         TimetableListItem(
                             modifier = Modifier
                                 .clickable { onTimetableItemClick(timetableItem) }
-                                .padding(top = if (k >= 1) 20.dp else 10.dp),
+                                .padding(top = 10.dp),
                             timetableItem = timetableItem,
                             isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                             chipContent = {
