@@ -15,6 +15,12 @@ public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
 
+    // Determines whether or not to collapse.
+    private let verticalOffsetThreshold = -142.0
+
+    // When offset value is exceed the threshold, TimetableDayHeader collapse with animation.
+    @State private var shouldCollapse = false
+
     public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {
         self.sessionViewBuilder = sessionViewBuilder
     }
@@ -48,22 +54,31 @@ public struct TimetableView<SessionView: View>: View {
                             Spacer()
                         }
                     }
-                    ScrollView(.vertical) {
-                        Spacer().frame(height: 130)
-                        LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
-                            Section(
-                                header: TimetableDayHeader(
-                                    selectedDay: viewModel.state.selectedDay
+                    ScrollViewWithVerticalOffset(
+                        onOffsetChange: { offset in
+                            shouldCollapse = (offset < verticalOffsetThreshold)
+                        },
+                        content: {
+                            Spacer().frame(height: 130)
+                            LazyVStack(spacing: 0, pinnedViews: .sectionHeaders) {
+                                Section(
+                                    header: TimetableDayHeader(
+                                        selectedDay: viewModel.state.selectedDay,
+                                        shouldCollapse: shouldCollapse,
+                                        onSelect: {
+                                            viewModel.selectDay(day: $0)
+                                        }
+                                    )
+                                    .frame(height: shouldCollapse ? 48 : 82)
+                                    .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
-                                    viewModel.selectDay(day: $0)
+                                    TimetableListView(timetableTimeGroupItems: state)
                                 }
-                            ) {
-                                TimetableListView(timetableTimeGroupItems: state)
                             }
+                            .background(AssetColors.Surface.surface.swiftUIColor)
+                            .clipShape(RoundedCornersShape(corners: [.topLeft, .topRight], cornerRadius: 40))
                         }
-                        .background(AssetColors.Surface.surface.swiftUIColor)
-                        .clipShape(RoundedCornersShape(corners: [.topLeft, .topRight], cornerRadius: 40))
-                    }
+                    )
                     .navigationDestination(for: TimetableRouting.self) { routing in
                         switch routing {
                         case .bookmark:
