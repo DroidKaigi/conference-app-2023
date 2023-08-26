@@ -53,7 +53,8 @@ struct BookmarkView<SessionView: View>: View {
                         }
                         ScrollView {
                             TimetableListView(
-                                timetableTimeGroupItems: timetableItems
+                                timetableTimeGroupItems: timetableItems,
+                                searchWord: ""
                             )
                         }
                         .padding(.horizontal, 16)
