@@ -40,6 +40,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -231,7 +232,7 @@ private fun MobileContent(
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
     contentPadding: PaddingValues,
 ) {
-    val layoutDirection = LocalLayoutDirection.current
+    val density = LocalDensity.current
     var boxHeight by remember { mutableIntStateOf(0) }
     var switcherPosition by remember { mutableFloatStateOf(0f) }
     val switcherBottomPadding = 24.dp
@@ -240,7 +241,7 @@ private fun MobileContent(
             if (boxHeight == 0 || switcherPosition == 0f) {
                 1f
             } else {
-                switcherPosition / (boxHeight)
+                switcherPosition / (boxHeight - with(density) { switcherBottomPadding.toPx() })
             }
         }
     }
