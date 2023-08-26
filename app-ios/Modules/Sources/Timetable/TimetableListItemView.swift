@@ -58,6 +58,7 @@ struct TimetableListItemView: View {
                 }
                 Spacer().frame(height: 16)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             Button(
                 action: {
                     // TODO: favorite action

@@ -37,21 +37,12 @@
       }
     },
     {
-      "identity" : "licenselist",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cybozu/LicenseList",
-      "state" : {
-        "revision" : "4cbf80b821167042e562639dd875c3b81e8ba1c7",
-        "version" : "0.2.1"
-      }
-    },
-    {
       "identity" : "firebase-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
-        "revision" : "df2171b0c6afb9e9d4f7e07669d558c510b9f6be",
-        "version" : "10.13.0"
+        "revision" : "2bfe6abe1014aafe5cf28401708f7d39f9926a76",
+        "version" : "10.14.0"
       }
     },
     {
@@ -100,12 +91,30 @@
       }
     },
     {
+      "identity" : "interop-ios-for-google-sdks",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/interop-ios-for-google-sdks.git",
+      "state" : {
+        "revision" : "2d12673670417654f08f5f90fdd62926dc3a2648",
+        "version" : "100.0.0"
+      }
+    },
+    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",
       "state" : {
         "revision" : "0706abcc6b0bd9cedfbb015ba840e4a780b5159b",
         "version" : "1.22.2"
+      }
+    },
+    {
+      "identity" : "licenselist",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/LicenseList",
+      "state" : {
+        "revision" : "4cbf80b821167042e562639dd875c3b81e8ba1c7",
+        "version" : "0.2.1"
       }
     },
     {
@@ -149,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",
       "state" : {
-        "revision" : "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
-        "version" : "1.2.2"
+        "revision" : "8f4d2753f0e4778c76d5f05ad16c74f707390531",
+        "version" : "1.2.3"
       }
     },
     {

@@ -94,9 +94,30 @@ dependencies {
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterialWindowSize)
-    implementation(libs.accompanistSystemUiController)
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
     testImplementation(projects.core.testing)
+}
+
+// Dependency configuration to aggregate Kover coverage reports
+// TODO: extract report aggregation to build-logic
+dependencies {
+    kover(projects.appIosShared)
+
+    kover(projects.feature.about)
+    kover(projects.feature.contributors)
+    kover(projects.feature.floorMap)
+    kover(projects.feature.main)
+    kover(projects.feature.sessions)
+    kover(projects.feature.sponsors)
+    kover(projects.feature.staff)
+    kover(projects.feature.stamps)
+
+    kover(projects.core.common)
+    kover(projects.core.data)
+    kover(projects.core.designsystem)
+    kover(projects.core.model)
+    kover(projects.core.testing)
+    kover(projects.core.ui)
 }
