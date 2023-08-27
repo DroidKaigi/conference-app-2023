@@ -14,7 +14,7 @@ class DefaultRemoteConfigApi : RemoteConfigApi {
 //    init {
 //        CoroutineScope(Dispatchers.IO).launch {
 //            firebaseRemoteConfig.settings {
-//                minimumFetchIntervalInSeconds = 12 * 3600L
+//                minimumFetchIntervalInSeconds = 10
 //            }
 //        }
 //    }

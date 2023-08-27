@@ -70,6 +70,7 @@ fun StampsScreen(
 data class StampsScreenUiState(
     val lottieRawRes: Int?,
     val stamps: ImmutableList<Stamp>,
+    val detailDescription: String,
 )
 
 @Composable
@@ -89,6 +90,7 @@ private fun StampsScreen(
 
             StampList(
                 stamps = uiState.stamps,
+                detailDescription = uiState.detailDescription,
                 onStampsClick = onStampsClick,
                 onReachAnimationEnd = onReachAnimationEnd,
                 stampLottieRawId = stampLottieRawId,
