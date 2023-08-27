@@ -19,6 +19,9 @@ android {
     namespace = "io.github.droidkaigi.confsched2023"
 
     flavorDimensions += "network"
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         versionCode = 1
         versionName = "0.0.1"
@@ -48,6 +51,11 @@ android {
             isDefault = true
             applicationIdSuffix = ".dev"
             dimension = "network"
+            buildConfigField(
+                type = "String",
+                name = "SERVER_URL",
+                value = "\"https://ssot-api-staging.an.r.appspot.com/\""
+            )
         }
         create("prod") {
             dimension = "network"
@@ -56,6 +64,11 @@ android {
             } else {
                 signingConfigs.getByName("dev")
             }
+            buildConfigField(
+                type = "String",
+                name = "SERVER_URL",
+                value = "\"https://ssot-api.droidkaigi.jp\""
+            )
         }
     }
     buildTypes {
