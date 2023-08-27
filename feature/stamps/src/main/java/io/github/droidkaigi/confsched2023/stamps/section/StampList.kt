@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2023.stamps.section
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.EaseInOut
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +14,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -36,15 +41,17 @@ fun StampList(
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val bgColor: Color by animateColorAsState(
+        if (stampLottieRawId != null) {
+            Color(0xFF37383D)
+        } else {
+            Color.Transparent
+        },
+        animationSpec = tween(400, easing = EaseInOut), label = ""
+    )
     Box(
         modifier = Modifier
-            .background(
-                if (stampLottieRawId != null) {
-                    Color(0xFF37383D)
-                } else {
-                    Color.Transparent
-                },
-            )
+            .background(bgColor)
             .fillMaxSize(),
     ) {
         if (stampLottieRawId != null) {
@@ -61,6 +68,7 @@ fun StampList(
                 composition = lottieComposition,
                 progress = { progress },
             )
+
         }
         LazyVerticalGrid(
             columns = Fixed(StampListColumns),
