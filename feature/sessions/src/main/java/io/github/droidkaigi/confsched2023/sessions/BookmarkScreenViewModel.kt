@@ -119,7 +119,7 @@ class BookmarkScreenViewModel @Inject constructor(
         }
     }
 
-    fun updateBookmark(timetableItem: TimetableItem) {
+    fun onBookmarkClick(timetableItem: TimetableItem) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(timetableItem.id)
         }

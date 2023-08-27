@@ -66,6 +66,7 @@ public struct SessionView: View {
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
                     VStack(alignment: .leading, spacing: 16) {
                         Text(session.description_)
+                            .textSelection(.enabled)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
                             .background {
                                 ViewThatFits(in: .vertical) {

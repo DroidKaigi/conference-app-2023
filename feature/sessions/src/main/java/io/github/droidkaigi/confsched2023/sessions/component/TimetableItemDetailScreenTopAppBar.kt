@@ -18,12 +18,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.MultiLangText
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -40,6 +42,7 @@ fun TimetableItemDetailScreenTopAppBar(
             scrollBehavior.state.collapsedFraction >= 0.5f
         }
     }
+    val lifecycleOwner = LocalLifecycleOwner.current
     LargeTopAppBar(
         title = {
             // TODO: Need some better way to switch these text styles
@@ -65,7 +68,9 @@ fun TimetableItemDetailScreenTopAppBar(
             }
         },
         navigationIcon = {
-            IconButton(onClick = onNavigationIconClick) {
+            IconButton(onClick = {
+                handleOnClickIfNotNavigating(lifecycleOwner, onNavigationIconClick)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = null,
