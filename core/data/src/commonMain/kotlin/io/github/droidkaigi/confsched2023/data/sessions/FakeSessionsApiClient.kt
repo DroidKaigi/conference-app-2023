@@ -117,7 +117,9 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                         en = "DroidKaigi App Architecture day$day room${room.name.en} index$index",
                     ),
                     speakers = listOf("1", "2"),
-                    description = LocaledResponse(
+                    description = "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\" +\n" +
+                        "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\",",
+                    i18nDesc = LocaledResponse(
                         ja = "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\" +\n" +
                             "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\",",
                         en = "\"This is a description\\nThis is a description\\nThis is a description\\n\" +\n" +
