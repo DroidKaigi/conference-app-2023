@@ -46,6 +46,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
@@ -61,14 +62,20 @@ const val TimetableItemDetailReadMoreButtonTestTag = "TimetableItemDetailReadMor
 @Composable
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
+    selectedLanguage: Lang,
     modifier: Modifier = Modifier,
     onLinkClick: (url: String) -> Unit,
 ) {
     Column(modifier = modifier) {
         when (uiState) {
             is Session -> {
+                val description = when (selectedLanguage) {
+                    Lang.MIXED -> ""
+                    Lang.JAPANESE -> uiState.description.jaTitle
+                    Lang.ENGLISH -> uiState.description.enTitle
+                }
                 DescriptionSection(
-                    description = uiState.description.currentLangTitle,
+                    description = description,
                     onLinkClick = onLinkClick,
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
@@ -351,6 +358,7 @@ fun TimetableItemDetailContentPreview() {
         Surface {
             TimetableItemDetailContent(
                 uiState = Session.fake(),
+                selectedLanguage = Lang.JAPANESE,
                 onLinkClick = {},
             )
         }

@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailContent
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailSummaryCard
@@ -18,6 +19,7 @@ data class TimetableItemDetailSectionUiState(
 internal fun TimetableItemDetail(
     uiState: TimetableItemDetailSectionUiState,
     contentPadding: PaddingValues,
+    selectedLanguage: Lang,
     onLinkClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -35,6 +37,7 @@ internal fun TimetableItemDetail(
         item {
             TimetableItemDetailContent(
                 uiState = uiState.timetableItem,
+                selectedLanguage = selectedLanguage,
                 onLinkClick = onLinkClick,
             )
         }
