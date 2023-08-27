@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.stamps
 
+import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -57,11 +58,17 @@ fun StampsScreen(
     StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        onStampsClick = onStampsClick,
+        stampLottieRawId = uiState.lottieRawRes,
+        onStampsClick = { stamp ->
+            onStampsClick()
+            viewModel.onStampClick(stamp)
+        },
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 
 data class StampsScreenUiState(
+    val lottieRawRes: Int?,
     val stamps: ImmutableList<Stamp>,
 )
 
@@ -69,7 +76,10 @@ data class StampsScreenUiState(
 private fun StampsScreen(
     uiState: StampsScreenUiState,
     snackbarHostState: SnackbarHostState,
-    onStampsClick: () -> Unit,
+    @RawRes
+    stampLottieRawId: Int?,
+    onStampsClick: (Stamp) -> Unit,
+    onReachAnimationEnd: () -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.testTag(StampsScreenTestTag),
@@ -80,6 +90,8 @@ private fun StampsScreen(
             StampList(
                 stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
+                onReachAnimationEnd = onReachAnimationEnd,
+                stampLottieRawId = stampLottieRawId,
                 modifier = Modifier.padding(
                     top = padding.calculateTopPadding(),
                     start = padding.calculateStartPadding(layoutDirection),
