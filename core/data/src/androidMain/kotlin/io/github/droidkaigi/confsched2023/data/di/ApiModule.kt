@@ -134,13 +134,14 @@ class RemoteConfigModule {
     fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
         return Firebase.remoteConfig
     }
+
     @Provides
     @Singleton
     fun provideRemoteConfigApi(
         firebaseRemoteConfig: FirebaseRemoteConfig,
     ): RemoteConfigApi {
         return DefaultRemoteConfigApi(
-            firebaseRemoteConfig = firebaseRemoteConfig
+            firebaseRemoteConfig = firebaseRemoteConfig,
         )
     }
 }

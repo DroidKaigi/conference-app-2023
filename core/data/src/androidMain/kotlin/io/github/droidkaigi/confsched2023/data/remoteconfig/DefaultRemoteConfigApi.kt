@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.remoteconfig
 
+import co.touchlab.kermit.Logger
 import dev.gitlive.firebase.remoteconfig.FirebaseRemoteConfig
 import dev.gitlive.firebase.remoteconfig.get
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class DefaultRemoteConfigApi @Inject constructor(
         try {
             firebaseRemoteConfig.fetchAndActivate()
         } catch (e: Exception) {
-            // handle or log exception
+            Logger.e(e.message ?: "FirebaseRemoteConfig fetchAndActivate failed")
         }
     }
 }
