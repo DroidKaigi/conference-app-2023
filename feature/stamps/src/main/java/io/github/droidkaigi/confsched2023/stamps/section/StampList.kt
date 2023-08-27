@@ -14,8 +14,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -47,7 +45,8 @@ fun StampList(
         } else {
             Color.Transparent
         },
-        animationSpec = tween(400, easing = EaseInOut), label = ""
+        animationSpec = tween(400, easing = EaseInOut),
+        label = "",
     )
     Box(
         modifier = Modifier
@@ -68,7 +67,6 @@ fun StampList(
                 composition = lottieComposition,
                 progress = { progress },
             )
-
         }
         LazyVerticalGrid(
             columns = Fixed(StampListColumns),
