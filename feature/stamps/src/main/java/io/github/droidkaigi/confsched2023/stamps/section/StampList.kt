@@ -45,7 +45,10 @@ fun StampList(
         } else {
             Color.Transparent
         },
-        animationSpec = tween(400, easing = EaseInOut),
+        animationSpec = tween(
+            delayMillis = 2,
+            durationMillis = 400, easing = EaseInOut
+        ),
         label = "",
     )
     Box(
