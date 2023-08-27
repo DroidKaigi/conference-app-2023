@@ -108,8 +108,8 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         ),
                         asset = apiSession.asset.toTimetableAsset(),
                         description = if (
-                            apiSession.i18nDesc?.ja == null
-                            && apiSession.i18nDesc?.en == null
+                            apiSession.i18nDesc?.ja == null &&
+                            apiSession.i18nDesc?.en == null
                         ) {
                             MultiLangText(
                                 jaTitle = apiSession.description ?: "",
