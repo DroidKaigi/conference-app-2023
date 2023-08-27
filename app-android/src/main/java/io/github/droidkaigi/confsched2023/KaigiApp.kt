@@ -72,6 +72,7 @@ import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
@@ -172,6 +173,12 @@ private fun NavGraphBuilder.mainScreen(
             composable(contributorsScreenRoute) {
                 ContributorsScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
+                    onNavigationIconClick = {
+                        handleOnClickIfNotNavigating(
+                            lifecycleOwner,
+                            mainNestedNavController::popBackStack,
+                        )
+                    },
                     onContributorItemClick = externalNavController::navigate,
                 )
             }
