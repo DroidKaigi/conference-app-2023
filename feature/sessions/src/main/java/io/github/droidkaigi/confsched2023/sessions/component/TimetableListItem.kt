@@ -58,7 +58,6 @@ const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconT
 fun TimetableListItem(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
-    onBookmarkClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
@@ -189,7 +188,7 @@ fun TimetableListItemPreview() {
                 timetableItem = Session.fake(),
                 isBookmarked = false,
                 highlightQuery = SearchQuery.Empty,
-                onBookmarkClick = {},
+                onBookmarkClick = { _, _ -> },
                 chipContent = {
                 },
             )
