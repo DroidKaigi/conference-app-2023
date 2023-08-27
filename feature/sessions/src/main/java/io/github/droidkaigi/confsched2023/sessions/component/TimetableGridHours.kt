@@ -12,7 +12,11 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
@@ -22,6 +26,7 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.section.ScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
+import io.github.droidkaigi.confsched2023.sessions.section.detectDragGestures
 import kotlin.math.roundToInt
 
 @Composable
@@ -68,10 +73,25 @@ fun TimetableGridHours(
         )
     }
     val visibleItemLayouts by remember(hoursScreen) { hoursScreen.visibleItemLayouts }
+    val lineColor = MaterialTheme.colorScheme.surfaceVariant
+    val linePxSize = with(timetableState.density) { lineStrokeSize.toPx() }
+    val lineOffset = with(density) { 67.dp.roundToPx() }
+    val lineEnd = with(density) { hoursWidth.roundToPx() }
 
     LazyLayout(
         modifier = modifier
-            .width(hoursWidth),
+            .width(hoursWidth)
+            .clipToBounds()
+            .drawBehind {
+                hoursScreen.timeHorizontalLines.value.forEach {
+                    drawLine(
+                        lineColor,
+                        Offset(lineOffset.toFloat(), it),
+                        Offset(lineEnd.toFloat(), it),
+                        linePxSize
+                    )
+                }
+            },
         itemProvider = itemProvider
     ) {constraints ->
         data class ItemData(val placeable: Placeable, val hoursItem: HoursItemLayout)
