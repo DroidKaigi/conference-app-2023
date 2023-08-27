@@ -93,14 +93,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@f6a2580ed520ae15da6076e7410b088d1c5dddd9 # v2.7.0
+      - uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2.8.0
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}
           recreate: true
           message: >
             Hi @${{ github.event.workflow_run.actor.login }}!
-            Codes seem to be unformatted. To resolve this issue, please run `./gradlew spotlessKotlinApply` and fix the results of ./gradlew lintDebug..
+            Codes seem to be unformatted. To resolve this issue, please run `./gradlew detekt --auto-correct` and fix the results of ./gradlew lintDebug..
             Thank you for your contribution.
 
 
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: marocchino/sticky-pull-request-comment@f6a2580ed520ae15da6076e7410b088d1c5dddd9 # v2.7.0
+      - uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2.8.0
         with:
           header: ping-format
           number: ${{ fromJSON(needs.linked-pull-request.outputs.pull-request).number }}

@@ -38,4 +38,21 @@ class AboutScreenTest {
             checkScreenCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkScrollShot() {
+        aboutScreenRobot {
+            setupAboutScreenContent()
+            // Take a screenshot of Credits
+            scrollAboutScreen()
+            checkScreenCapture()
+            // Take a screenshot of the Others
+            scrollAboutScreen()
+            checkScreenCapture()
+            // Take a screenshot of the Footer Links
+            scrollAboutScreen()
+            checkScreenCapture()
+        }
+    }
 }

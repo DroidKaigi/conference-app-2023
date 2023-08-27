@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.NORMAL
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
@@ -16,6 +18,7 @@ public sealed class TimetableItem {
     public abstract val startsAt: Instant
     public abstract val endsAt: Instant
     public abstract val category: TimetableCategory
+    public abstract val sessionType: TimetableSessionType
     public abstract val room: TimetableRoom
     public abstract val targetAudience: String
     public abstract val language: TimetableLanguage
@@ -31,6 +34,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
+        override val sessionType: TimetableSessionType,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -50,6 +54,7 @@ public sealed class TimetableItem {
         override val startsAt: Instant,
         override val endsAt: Instant,
         override val category: TimetableCategory,
+        override val sessionType: TimetableSessionType,
         override val room: TimetableRoom,
         override val targetAudience: String,
         override val language: TimetableLanguage,
@@ -76,7 +81,7 @@ public sealed class TimetableItem {
     private val minutesString: String by lazy {
         val minutes = (endsAt - startsAt)
             .toComponents { minutes, _, _ -> minutes }
-        "${minutes}min"
+        "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
     public val formattedDateTimeString: String by lazy {
@@ -91,7 +96,7 @@ public sealed class TimetableItem {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
         val english = if (isJapaneseLocale) "英語" else "English"
         val japaneseWithInterpretation =
-            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with Japanese Interpretation)"
+            if (isJapaneseLocale) "日本語 (英語通訳あり)" else "Japanese (with English Interpretation)"
         val englishWithInterpretation =
             if (isJapaneseLocale) "英語 (日本語通訳あり)" else "English (with Japanese Interpretation)"
 
@@ -118,11 +123,11 @@ public fun Session.Companion.fake(): Session {
                 "Android Framework and Jetpack",
             ),
         ),
+        sessionType = NORMAL,
         room = TimetableRoom(
             id = 1,
             name = MultiLangText("Room1", "Room2"),
-            sort = 1,
-            sortIndex = 1,
+            type = RoomA,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(
@@ -149,7 +154,7 @@ public fun Session.Companion.fake(): Session {
                 tagLine = "iOS Engineer",
             ),
         ).toPersistentList(),
-        description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。",
+        description = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
             enTitle = "This session has been cancelled due to circumstances.",

@@ -15,7 +15,7 @@ public struct PersonLabel: View {
     public var body: some View {
         HStack(alignment: .center, spacing: 24) {
             HStack(spacing: -8) {
-                AsyncImage(url: URL(string: iconUrlString)) { image in
+                CacheAsyncImage(url: URL(string: iconUrlString)) { image in
                     image.resizable()
                 } placeholder: {
                     Color.gray
@@ -25,7 +25,7 @@ public struct PersonLabel: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                 )
             }
 

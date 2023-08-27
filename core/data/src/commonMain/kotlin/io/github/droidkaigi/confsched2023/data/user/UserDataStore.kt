@@ -17,6 +17,10 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class UserDataStore(private val dataStore: DataStore<Preferences>) {
+
+    private val mutableIdToken = MutableStateFlow<String?>(null)
+    public val idToken: StateFlow<String?> = mutableIdToken
+
     fun getFavoriteSessionStream(): Flow<PersistentSet<TimetableItemId>> {
         return dataStore.data
             .catch { exception ->
@@ -67,8 +71,6 @@ class UserDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    private val mutableIdToken = MutableStateFlow<String?>(null)
-    public val idToken: StateFlow<String?> = mutableIdToken
     public suspend fun setIdToken(token: String): Unit = mutableIdToken.emit(token)
 
     public fun deviceId(): Flow<String?> {

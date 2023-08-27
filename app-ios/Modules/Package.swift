@@ -12,6 +12,7 @@ var package = Package(
         .library(name: "Component", targets: ["Component"]),
         .library(name: "FloorMap", targets: ["FloorMap"]),
         .library(name: "Session", targets: ["Session"]),
+        .library(name: "Sponsor", targets: ["Sponsor"]),
         .library(name: "Timetable", targets: ["Timetable"]),
         .library(name: "Navigation", targets: ["Navigation"]),
     ],
@@ -21,6 +22,9 @@ var package = Package(
         .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+        .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
     ],
     targets: [
         .target(
@@ -28,9 +32,8 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
-                "shared",
                 "Model",
-                "Theme",
+                .product(name: "LicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
@@ -52,9 +55,40 @@ var package = Package(
         ),
 
         .target(
+            name: "Auth",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
             name: "Component",
             dependencies: [
                 "Theme",
+            ]
+        ),
+        .testTarget(
+            name: "ComponentTests",
+            dependencies: [
+                "Component",
+            ]
+        ),
+
+        .target(
+            name: "Contributor",
+            dependencies: [
+                "Assets",
+                "Component",
+                "KMPContainer",
+                "Model",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "ContributorTests",
+            dependencies: [
+                "Contributor",
             ]
         ),
 
@@ -62,7 +96,6 @@ var package = Package(
             name: "FloorMap",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
             ]
         ),
@@ -74,13 +107,28 @@ var package = Package(
         ),
 
         .target(
+            name: "KMPContainer",
+            dependencies: [
+                "Auth",
+                "shared",
+                "RemoteConfig",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "KMPContainerTests",
+            dependencies: [
+                "KMPContainer",
+            ]
+        ),
+
+        .target(
             name: "Session",
             dependencies: [
                 "Assets",
                 "Component",
+                "KMPContainer",
                 "Model",
-                "shared",
-                "Theme",
             ]
         ),
         .testTarget(
@@ -91,13 +139,38 @@ var package = Package(
         ),
 
         .target(
-            name: "Contributor",
+            name: "Sponsor",
             dependencies: [
                 "Assets",
                 "Component",
+                "KMPContainer",
                 "Model",
                 "shared",
-                "Theme",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "SponsorTests",
+            dependencies: [
+                "Sponsor"
+            ]
+        ),
+
+        .target(
+            name: "Staff",
+            dependencies: [
+                "Assets",
+                "Component",
+                "KMPContainer",
+                "Model",
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+        .testTarget(
+            name: "StaffTests",
+            dependencies: [
+                "Staff"
             ]
         ),
 
@@ -105,8 +178,9 @@ var package = Package(
             name: "Stamps",
             dependencies: [
                 "Assets",
-                "shared",
                 "Theme",
+                "KMPContainer",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
@@ -120,9 +194,10 @@ var package = Package(
             name: "Timetable",
             dependencies: [
                 "Assets",
-                "shared",
+                "Component",
+                "KMPContainer",
                 "Model",
-                "Theme",
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
         .testTarget(
@@ -137,12 +212,22 @@ var package = Package(
             dependencies: [
                 "About",
                 "Assets",
+                "Contributor",
                 "FloorMap",
                 "Session",
+                "Sponsor",
+                "Staff",
                 "Stamps",
-                "Contributor",
                 "Theme",
                 "Timetable",
+            ]
+        ),
+
+        .target(
+            name: "RemoteConfig",
+            dependencies: [
+                "shared",
+                .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
             ]
         ),
 
@@ -150,6 +235,12 @@ var package = Package(
             name: "Model",
             dependencies: [
                 "shared",
+            ]
+        ),
+        .testTarget(
+            name: "ModelTests",
+            dependencies: [
+                "Model",
             ]
         ),
 

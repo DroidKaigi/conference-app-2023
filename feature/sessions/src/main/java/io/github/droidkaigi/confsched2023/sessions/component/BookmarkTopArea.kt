@@ -11,24 +11,32 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlin.math.min
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -74,8 +82,8 @@ fun BookmarkTopArea(
     )
 
     val backgroundColor = lerp(
-        Color(0xFFF8FAF6),
-        Color(0xFFCEE9DB),
+        MaterialTheme.colorScheme.surface,
+        MaterialTheme.colorScheme.surfaceColorAtElevation(3.dp),
         fraction,
     )
 
@@ -97,6 +105,8 @@ fun BookmarkTopArea(
         fraction,
     )
 
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     Box(
         modifier = modifier
             .height(topBarHeight)
@@ -115,9 +125,7 @@ fun BookmarkTopArea(
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {
-                        onBackPressClick()
-                    },
+                    .clickable { handleOnClickIfNotNavigating(lifecycleOwner, onBackPressClick) },
             )
             Text(
                 text = SessionsStrings.Bookmark.asString(),
@@ -126,6 +134,20 @@ fun BookmarkTopArea(
                     start = titlePaddingStart,
                     top = titlePaddingTop,
                 ),
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun BookmarkTopAreaPreview() {
+    KaigiTheme {
+        Surface {
+            BookmarkTopArea(
+                scrollState = rememberLazyListState(),
+                onBackPressClick = {},
             )
         }
     }

@@ -1,4 +1,6 @@
+import Dependencies
 import Foundation
+import KMPContainer
 import Model
 import shared
 
@@ -9,31 +11,20 @@ struct TimetableState: ViewModelState {
 
 @MainActor
 final class TimetableViewModel: ObservableObject {
+    @Dependency(\.sessionsData) var sessionsData
     @Published private(set) var state: TimetableState = .init()
-    private var cachedTimeGroupTimetableItems: [TimetableTimeGroupItems]?
+    private var cachedTimetable: Timetable? {
+        didSet {
+            applySelectedDayToState()
+        }
+    }
 
     func load() async {
         state.timeGroupTimetableItems = .loading
         do {
-            let timetable = try await Timetable.companion.fake()
-            let timetableTimeGroupItems = timetable.timetableItems.map {
-                    TimetableTimeGroupItems.Duration(startsAt: $0.startsAt, endsAt: $0.endsAt)
-                }
-                .map { duration in
-                    let items = timetable.contents
-                        .filter { itemWithFavorite in
-                            itemWithFavorite.timetableItem.startsAt == duration.startsAt && itemWithFavorite.timetableItem.endsAt == duration.endsAt
-                        }
-                        .sorted {
-                            $0.timetableItem.room.sort < $1.timetableItem.room.sort
-                        }
-                    return TimetableTimeGroupItems(
-                        duration: duration,
-                        items: items
-                    )
-                }
-            cachedTimeGroupTimetableItems = timetableTimeGroupItems
-            applySelectedDayToState()
+            for try await timetable in sessionsData.timetable() {
+                cachedTimetable = timetable
+            }
         } catch let error {
             state.timeGroupTimetableItems = .failed(error)
         }
@@ -45,13 +36,27 @@ final class TimetableViewModel: ObservableObject {
     }
 
     private func applySelectedDayToState() {
-        guard let cachedTimeGroupTimetableItems = cachedTimeGroupTimetableItems else {
+        guard let cachedTimetable = cachedTimetable else {
             return
         }
-        state.timeGroupTimetableItems = .loaded(
-            cachedTimeGroupTimetableItems.filter {
-                $0.items.first?.timetableItem.day == state.selectedDay
+        let timetableTimeGroupItems = cachedTimetable.dayTimetable(droidKaigi2023Day: state.selectedDay)
+            .timetableItems
+            .map { item in
+                let items = cachedTimetable.contents
+                    .filter { itemWithFavorite in
+                        itemWithFavorite.timetableItem.startsTimeString == item.startsTimeString && itemWithFavorite.timetableItem.endsTimeString == item.endsTimeString
+                    }
+                    .sorted {
+                        $0.timetableItem.room.name.currentLangTitle < $1.timetableItem.room.name.currentLangTitle
+                    }
+                return TimetableTimeGroupItems(
+                    startsTimeString: item.startsTimeString,
+                    endsTimeString: item.endsTimeString,
+                    items: items
+                )
             }
+        state.timeGroupTimetableItems = .loaded(
+            timetableTimeGroupItems
         )
     }
 }

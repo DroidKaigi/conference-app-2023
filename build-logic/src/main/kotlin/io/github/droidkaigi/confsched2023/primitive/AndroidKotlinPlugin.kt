@@ -32,9 +32,9 @@ class AndroidKotlinPlugin : Plugin<Project> {
                 }
             }
             dependencies {
-                implementation(libs.findLibrary("kotlinxCoroutinesCore"))
+                implementation(libs.library("kotlinxCoroutinesCore"))
                 // Fix https://youtrack.jetbrains.com/issue/KT-41821
-                implementation(libs.findLibrary("kotlinxAtomicfu"))
+                implementation(libs.library("kotlinxAtomicfu"))
             }
         }
     }

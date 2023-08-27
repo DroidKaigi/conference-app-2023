@@ -3,21 +3,22 @@ package io.github.droidkaigi.confsched2023.sessions.section
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -46,10 +47,10 @@ fun TimetableSheet(
     uiState: TimetableSheetUiState,
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onFavoriteClick: (TimetableItem) -> Unit,
+    onFavoriteClick: (TimetableItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var selectedDay by remember { mutableStateOf(DroidKaigi2023Day.Day1) }
+    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay()) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
@@ -66,9 +67,9 @@ fun TimetableSheet(
         ) {
             TimetableTabRow(
                 tabState = timetableSheetContentScrollState.tabScrollState,
-                selectedTabIndex = DroidKaigi2023Day.values().indexOf(selectedDay),
+                selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
             ) {
-                DroidKaigi2023Day.values().forEach { day ->
+                DroidKaigi2023Day.entries.forEach { day ->
                     TimetableTab(
                         day = day,
                         selected = day == selectedDay,
@@ -81,15 +82,17 @@ fun TimetableSheet(
             }
             when (uiState) {
                 is Empty -> {
-                    Text(
-                        text = "empty",
-                        modifier = Modifier.testTag("empty"),
+                    TimetableShimmerList(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
                     )
                 }
 
                 is ListTimetable -> {
                     TimetableList(
                         uiState = requireNotNull(uiState.timetableListUiStates[selectedDay]),
+                        scrollState = rememberLazyListState(),
                         onTimetableItemClick = onTimetableItemClick,
                         onBookmarkClick = onFavoriteClick,
                         modifier = Modifier
@@ -99,12 +102,18 @@ fun TimetableSheet(
                 }
 
                 is GridTimetable -> {
+                    val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
                     TimetableGrid(
                         uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
                         day = selectedDay,
+                        nestedScrollDispatcher = nestedScrollDispatcher,
                         onTimetableItemClick = onTimetableItemClick,
                         modifier = Modifier
                             .fillMaxSize()
+                            .nestedScroll(
+                                timetableSheetContentScrollState.nestedScrollConnection,
+                                nestedScrollDispatcher,
+                            )
                             .weight(1f),
                     )
                 }

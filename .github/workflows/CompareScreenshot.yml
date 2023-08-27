@@ -2,6 +2,8 @@ name: CompareScreenshot
 
 on:
   pull_request:
+    paths-ignore:
+      - 'app-ios/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
@@ -12,7 +14,7 @@ permissions: { }
 jobs:
   compare-screenshot-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
 
     permissions:
       contents: read # for clone
@@ -22,17 +24,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3.12.0
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@a4cf152f482c7ca97ef56ead29bf08bcd953284c # v2.7.0
-        with:
-          gradle-version: wrapper
-
+      - uses: ./.github/actions/setup-java
 
       - uses: dawidd6/action-download-artifact@v2
         continue-on-error: true
@@ -41,12 +33,9 @@ jobs:
           workflow: UnitTest.yml
           branch: main
 
-      - name: compare screenshot test
-        id: compare-screenshot-test
-        run: |
-          ./gradlew compareRoborazziDebug compareRoborazziDevDebug --stacktrace -Pscreenshot
+      - run: ./gradlew compareRoborazziDebug compareRoborazziDevDebug --stacktrace -Pscreenshot
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: ${{ always() }}
         with:
           name: screenshot-diff
@@ -54,7 +43,7 @@ jobs:
             **/build/outputs/roborazzi
           retention-days: 30
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: ${{ always() }}
         with:
           name: screenshot-diff-reports
@@ -62,7 +51,7 @@ jobs:
             **/build/reports
           retention-days: 30
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: ${{ always() }}
         with:
           name: screenshot-diff-test-results
@@ -75,7 +64,7 @@ jobs:
         run: |
           mkdir -p ./pr
           echo ${{ github.event.number }} > ./pr/NR
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         with:
           name: pr
           path: pr/

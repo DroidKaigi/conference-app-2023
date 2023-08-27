@@ -1,0 +1,99 @@
+complexity:
+  # Temporarily disabled because setting value is difficult
+  active: false
+
+coroutines:
+  active: true
+
+empty-blocks:
+  active: true
+
+exceptions:
+  active: true
+  TooGenericExceptionCaught:
+    active: false
+
+naming:
+  active: true
+  FunctionNaming:
+    # Composable fun is excluded because it starts with a capital letter
+    ignoreAnnotated:
+      - 'Composable'
+  MatchingDeclarationName:
+    active: false
+  PackageNaming:
+    active: false
+  TopLevelPropertyNaming:
+    active: false
+
+performance:
+  active: true
+  SpreadOperator:
+    # Disabled because using the spread operator can increase readability in some cases
+    active: false
+
+style:
+  active: true
+  MaxLineLength:
+    active: false
+  MagicNumber:
+    # After installing Compose, it became difficult to control Magic Number, so disabled it.
+    active: false
+  ReturnCount:
+    # Disable the limit on the number of early returns because it seems to be fine
+    active: false
+  ThrowsCount:
+    # Disabled because it seems that there is no limit on the number of throws
+    active: false
+  LoopWithTooManyJumpStatements:
+    # Disabled because it seems that there is no limit on the number of breaks
+    active: false
+  ForbiddenComment:
+    # Disabled because there is no need to delete development comments
+    active: false
+  DestructuringDeclarationWithTooManyEntries:
+    # Disabled because it may be used in Compose's ConstraintLayout#createRefs etc.
+    active: false
+  # Force empty... when representing an empty collection
+  UseEmptyCounterpart:
+    active: true
+  # Enforce the order of properties, methods, companion objects
+  ClassOrdering:
+    active: true
+  # Multi-line if statements force curly braces
+  BracesOnIfStatements:
+    active: true
+  # Multiline for, while... forces curly braces
+  MandatoryBracesLoops:
+    active: true
+  UnusedPrivateMember:
+    active: true
+    # Disable Compose's Preview function and anything mocked in Test
+    ignoreAnnotated:
+      - 'RelaxedMockK'
+      - 'InjectMockKs'
+      - 'Preview'
+
+potential-bugs:
+  active: true
+
+formatting:
+  active: true
+  autoCorrect: true
+  MaximumLineLength:
+    active: false
+  ArgumentListWrapping:
+    maxLineLength: 999
+  ParameterListWrapping:
+    maxLineLength: 999
+  # Do not use wildcards
+  NoWildcardImports:
+    active: false
+  # Force TrailingComma at definition
+  TrailingCommaOnDeclarationSite:
+    active: true
+  # Enforce TrailingComma at call sites
+  TrailingCommaOnCallSite:
+    active: true
+  PackageName:
+    active: false

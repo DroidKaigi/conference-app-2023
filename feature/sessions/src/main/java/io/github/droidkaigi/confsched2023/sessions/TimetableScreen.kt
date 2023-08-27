@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -7,30 +10,42 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContent
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.TimetableUiType
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableTopArea
 import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableHeader
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import kotlinx.collections.immutable.toPersistentMap
 import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
@@ -45,12 +60,16 @@ fun NavGraphBuilder.nestedSessionScreens(
             onSearchClick = onSearchClick,
             onTimetableItemClick = onTimetableItemClick,
             onBookmarkIconClick = onBookmarkIconClick,
+            modifier = modifier,
         )
     }
 }
 
 fun NavController.navigateTimetableScreen() {
-    navigate(timetableScreenRoute)
+    navigate(timetableScreenRoute) {
+        launchSingleTop = true
+        restoreState = true
+    }
 }
 
 const val TimetableScreenTestTag = "TimetableScreen"
@@ -64,7 +83,7 @@ fun TimetableScreen(
     viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val snackbarHostState = SnackbarHostState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
@@ -78,30 +97,69 @@ fun TimetableScreen(
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
+        modifier = modifier,
     )
 }
 
 data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
+    val timetableUiType: TimetableUiType,
+    val onBookmarkIconClickStatus: Boolean?,
 )
+
+private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
+private val timetableTopBackgroundDark = Color(0xFF2D4625)
+
+@Composable
+@ReadOnlyComposable
+private fun timetableTopBackground() = if (!isSystemInDarkTheme()) {
+    timetableTopBackgroundLight
+} else {
+    timetableTopBackgroundDark
+}
+
+private val timetableTopGradientLight = Color(0xFFA9E5FF)
+private val timetableTopGradientDark = Color(0xFF050D10)
+
+@Composable
+@ReadOnlyComposable
+private fun timetableTopGradient() = if (!isSystemInDarkTheme()) {
+    timetableTopGradientLight
+} else {
+    timetableTopGradientDark
+}
 
 @Composable
 private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onBookmarkIconClick: () -> Unit,
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
+    onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state = rememberTimetableScreenScrollState()
-
+    val gradientEndRatio =
+        if (LocalConfiguration.current.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            0.2f
+        } else {
+            0.5f
+        }
     Scaffold(
         modifier = modifier
             .testTag(TimetableScreenTestTag)
-            .nestedScroll(state.screenNestedScrollConnection),
+            .nestedScroll(state.screenNestedScrollConnection)
+            .background(timetableTopBackground())
+            .background(
+                Brush.verticalGradient(
+                    0f to timetableTopGradient(),
+                    gradientEndRatio to Color.Transparent,
+                ),
+            ),
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
@@ -112,12 +170,15 @@ private fun TimetableScreen(
         },
         topBar = {
             TimetableTopArea(
-                onTimetableUiChangeClick,
-                onSearchClick,
-                onBookmarkIconClick,
+                timetableUiType = uiState.timetableUiType,
+                onTimetableUiChangeClick = onTimetableUiChangeClick,
+                onSearchClick = onSearchClick,
+                onTopAreaBookmarkIconClick = onBookmarkIconClick,
+                onBookmarkClickStatus = uiState.onBookmarkIconClickStatus,
+                onReachAnimationEnd = onReachAnimationEnd,
             )
         },
-        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+        containerColor = Color.Transparent,
         contentWindowInsets = WindowInsets(0.dp),
     ) { innerPadding ->
         Box(
@@ -135,7 +196,7 @@ private fun TimetableScreen(
             TimetableSheet(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 130.dp)
+                    .padding(top = 131.dp)
                     .layout { measurable, constraints ->
                         val placeable = measurable.measure(
                             constraints.copy(maxHeight = constraints.maxHeight - state.sheetScrollOffset.roundToInt()),
@@ -153,5 +214,34 @@ private fun TimetableScreen(
                 onFavoriteClick = onBookmarkClick,
             )
         }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun PreviewTimetableScreenDark() {
+    KaigiTheme {
+        TimetableScreen(
+            TimetableScreenUiState(
+                TimetableSheetUiState.ListTimetable(
+                    mapOf(
+                        DroidKaigi2023Day.Day1 to TimetableListUiState(
+                            mapOf<String, List<TimetableItem>>().toPersistentMap(),
+                            Timetable(),
+                        ),
+                    ),
+                ),
+                TimetableUiType.Grid,
+                null,
+            ),
+            SnackbarHostState(),
+            {},
+            { _, _ -> },
+            {},
+            {},
+            {},
+            {},
+            Modifier.statusBarsPadding(),
+        )
     }
 }

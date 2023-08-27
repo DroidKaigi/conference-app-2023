@@ -89,7 +89,7 @@ public struct SessionView: View {
                                     .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
                                     .overlay {
                                         Capsule()
-                                            .stroke(AssetColors.outline.swiftUIColor)
+                                            .stroke(AssetColors.Outline.outline.swiftUIColor)
                                     }
                             }
                         }
@@ -121,7 +121,7 @@ public struct SessionView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(viewModel.timetableItem.speakers, id: \.id) { speaker in
                             HStack(spacing: 24) {
-                                AsyncImage(url: URL(string: speaker.iconUrl)) { image in
+                                CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
                                     image.resizable()
                                 } placeholder: {
                                     Color.gray
@@ -131,7 +131,7 @@ public struct SessionView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .stroke(AssetColors.outline.swiftUIColor, lineWidth: 1)
+                                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                                 )
                                 VStack(alignment: .leading, spacing: 0) {
                                     Text(speaker.name)

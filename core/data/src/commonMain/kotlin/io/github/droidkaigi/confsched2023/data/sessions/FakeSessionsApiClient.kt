@@ -49,7 +49,10 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         SpeakerResponse(fullName = "ry", id = "2", isTopSpeaker = true),
     )
     val rooms = listOf(
-        RoomResponse(name = LocaledResponse(ja = "Room1", en = "Room2"), id = 1, sort = 1),
+        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1),
+        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2),
+        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3),
+        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4),
     )
     val categories = listOf(
         CategoryResponse(
@@ -71,44 +74,69 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         ),
     )
 
+    sessions.add(
+        SessionResponse(
+            id = "0570556a-8a53-49d6-916c-26ff85635d86",
+            title = LocaledResponse(ja = "Welcome Talk", en = "Welcome Talk"),
+            description = null,
+            startsAt = "2023-09-14T10:30:00+09:00",
+            endsAt = "2023-09-14T11:00:00+09:00",
+            isServiceSession = true,
+            isPlenumSession = false,
+            speakers = emptyList(),
+            roomId = 2,
+            targetAudience = "TBW",
+            language = "JAPANESE",
+            sessionCategoryItemId = 1,
+            interpretationTarget = false,
+            asset = SessionAssetResponse(videoUrl = null, slideUrl = null),
+            message = null,
+            sessionType = "WELCOME_TALK",
+            levels = listOf("UNSPECIFIED"),
+        ),
+    )
+
     for (day in 0 until 3) {
         val dayOffset = day * 24 * 60 * 60
-        for (index in 0 until 4) {
-            val start = Instant.fromEpochSeconds(
-                LocalDateTime.parse("2023-09-14T10:10:00")
-                    .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
-            ).toLocalDateTime(TimeZone.of("UTC+9"))
-            val end = Instant.fromEpochSeconds(
-                LocalDateTime.parse("2023-09-14T10:50:00")
-                    .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 25 * 60 + dayOffset,
-            ).toLocalDateTime(TimeZone.of("UTC+9"))
+        for (room in rooms) {
+            for (index in 0 until 4) {
+                val start = Instant.fromEpochSeconds(
+                    LocalDateTime.parse("2023-09-14T11:00:00")
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 30 * 60 + dayOffset,
+                ).toLocalDateTime(TimeZone.of("UTC+9"))
+                val end = Instant.fromEpochSeconds(
+                    LocalDateTime.parse("2023-09-14T11:30:00")
+                        .toInstant(TimeZone.of("UTC+9")).epochSeconds + index * 30 * 60 + dayOffset,
+                ).toLocalDateTime(TimeZone.of("UTC+9"))
 
-            val session = SessionResponse(
-                id = "$day$index",
-                isServiceSession = false,
-                title = LocaledResponse(
-                    ja = "DroidKaigiのアプリのアーキテクチャ day$day index$index",
-                    en = "DroidKaigi App Architecture day$day index$index",
-                ),
-                speakers = listOf("1", "2"),
-                description = "これはディスクリプションです。\nこれはディスクリプションです。",
-                startsAt = start.toString(),
-                endsAt = end.toString(),
-                language = "JAPANESE",
-                roomId = 1,
-                sessionCategoryItemId = 1,
-                sessionType = "NORMAL",
-                message = null,
-                isPlenumSession = false,
-                targetAudience = "For App developer アプリ開発者向け",
-                interpretationTarget = false,
-                asset = SessionAssetResponse(
-                    videoUrl = "https://www.youtube.com/watch?v=hFdKCyJ-Z9A",
-                    slideUrl = "https://droidkaigi.jp/2021/",
-                ),
-                levels = listOf("INTERMEDIATE"),
-            )
-            sessions.add(session)
+                val session = SessionResponse(
+                    id = "$day$room$index",
+                    isServiceSession = false,
+                    title = LocaledResponse(
+                        ja = "DroidKaigiのアプリのアーキテクチャ day$day room${room.name.ja} index$index",
+                        en = "DroidKaigi App Architecture day$day room${room.name.en} index$index",
+                    ),
+                    speakers = listOf("1", "2"),
+                    description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                        "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                    startsAt = start.toString(),
+                    endsAt = end.toString(),
+                    language = "JAPANESE",
+                    roomId = room.id,
+                    sessionCategoryItemId = 1,
+                    sessionType = "NORMAL",
+                    message = null,
+                    isPlenumSession = false,
+                    targetAudience = "For App developer アプリ開発者向け",
+                    interpretationTarget = false,
+                    asset = SessionAssetResponse(
+                        videoUrl = "https://www.youtube.com/watch?v=hFdKCyJ-Z9A",
+                        slideUrl = "https://droidkaigi.jp/2021/",
+                    ),
+                    levels = listOf("INTERMEDIATE"),
+                )
+                sessions.add(session)
+            }
         }
     }
 

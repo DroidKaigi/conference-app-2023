@@ -23,7 +23,7 @@ public struct StampsView: View {
                 .padding(16)
             }
             .background(AssetColors.Surface.surface.swiftUIColor)
-            .navigationTitle("Badges")
+            .navigationTitle("Stamps")
         }
     }
 }

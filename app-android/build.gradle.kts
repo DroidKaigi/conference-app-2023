@@ -7,8 +7,10 @@ plugins {
     id("droidkaigi.primitive.android.compose")
     id("droidkaigi.primitive.android.hilt")
     id("droidkaigi.primitive.android.firebase")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
+    id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.osslicenses")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -62,7 +64,7 @@ android {
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
         debug {
@@ -85,12 +87,39 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
+    implementation(projects.feature.stamps)
+    implementation(projects.feature.staff)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
-    implementation(libs.accompanistSystemUiController)
+    implementation(libs.composeMaterialWindowSize)
     implementation(libs.androidxBrowser)
+    implementation(libs.androidxWindow)
+    implementation(libs.kermit)
     testImplementation(projects.core.testing)
+}
+
+// Dependency configuration to aggregate Kover coverage reports
+// TODO: extract report aggregation to build-logic
+dependencies {
+    kover(projects.appIosShared)
+
+    kover(projects.feature.about)
+    kover(projects.feature.contributors)
+    kover(projects.feature.floorMap)
+    kover(projects.feature.main)
+    kover(projects.feature.sessions)
+    kover(projects.feature.sponsors)
+    kover(projects.feature.staff)
+    kover(projects.feature.stamps)
+
+    kover(projects.core.common)
+    kover(projects.core.data)
+    kover(projects.core.designsystem)
+    kover(projects.core.model)
+    kover(projects.core.testing)
+    kover(projects.core.ui)
 }

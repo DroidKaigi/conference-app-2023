@@ -9,6 +9,7 @@ import io.github.droidkaigi.confsched2023.model.Filters
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.sessions.section.BookmarkSheetUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -41,14 +42,17 @@ class BookmarkScreenViewModel @Inject constructor(
         )
 
     private val currentDayFilter = MutableStateFlow(
-        DroidKaigi2023Day.values().map { it },
+        DroidKaigi2023Day.entries.map { it },
     )
+
+    private val allFilterChipSelected = MutableStateFlow(true)
 
     val uiState: StateFlow<BookmarkScreenUiState> =
         buildUiState(
             sessionsStateFlow,
             currentDayFilter,
-        ) { sessions, currentDayFilter ->
+            allFilterChipSelected,
+        ) { sessions, currentDayFilter, allFilterChipSelected ->
             val sortAndGroupedBookmarkedTimetableItems = sessions.filtered(
                 Filters(
                     days = currentDayFilter,
@@ -63,43 +67,59 @@ class BookmarkScreenViewModel @Inject constructor(
             }.toPersistentMap()
 
             if (sortAndGroupedBookmarkedTimetableItems.isEmpty()) {
-                BookmarkScreenUiState.Empty(
-                    currentDayFilter.toPersistentList(),
+                BookmarkScreenUiState(
+                    contentUiState = BookmarkSheetUiState.Empty(
+                        false,
+                        currentDayFilter.toPersistentList(),
+                    ),
                 )
             } else {
-                BookmarkScreenUiState.ListBookmark(
-                    sessions.bookmarks,
-                    sortAndGroupedBookmarkedTimetableItems,
-                    currentDayFilter.toPersistentList(),
+                BookmarkScreenUiState(
+                    contentUiState = BookmarkSheetUiState.ListBookmark(
+                        sessions.bookmarks,
+                        sortAndGroupedBookmarkedTimetableItems,
+                        allFilterChipSelected,
+                        currentDayFilter.toPersistentList(),
+                    ),
                 )
             }
         }
 
     fun onAllFilterChipClick() {
         currentDayFilter.update {
-            DroidKaigi2023Day.values().toList()
+            DroidKaigi2023Day.entries.toList()
+        }
+        allFilterChipSelected.update {
+            true
         }
     }
 
-    fun onDayFirstChipClick() {
+    fun onDayFirstChipClick() = onDayChipClick(DroidKaigi2023Day.Day1)
+
+    fun onDaySecondChipClick() = onDayChipClick(DroidKaigi2023Day.Day2)
+
+    fun onDayThirdChipClick() = onDayChipClick(DroidKaigi2023Day.Day3)
+
+    private fun onDayChipClick(day: DroidKaigi2023Day) {
         currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day1)
+            when {
+                it.size == DroidKaigi2023Day.entries.size && allFilterChipSelected.value -> {
+                    listOf(day)
+                }
+
+                it.contains(day) -> if (it.size > 1) it.minus(day) else it
+
+                else -> {
+                    it.plus(day)
+                }
+            }
+        }
+        allFilterChipSelected.update {
+            false
         }
     }
 
-    fun onDaySecondChipClick() {
-        currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day2)
-        }
-    }
-
-    fun onDayThirdChipClick() {
-        currentDayFilter.update {
-            listOf(DroidKaigi2023Day.Day3)
-        }
-    }
-
-    fun updateBookmark(timetableItem: TimetableItem) {
+    fun onBookmarkClick(timetableItem: TimetableItem) {
         viewModelScope.launch {
             sessionsRepository.toggleBookmark(timetableItem.id)
         }

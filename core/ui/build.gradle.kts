@@ -4,19 +4,20 @@ plugins {
     id("droidkaigi.primitive.kmp.ios")
     id("droidkaigi.primitive.kmp.compose")
     id("droidkaigi.primitive.kmp.android.hilt")
-    id("droidkaigi.primitive.spotless")
+    id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.detekt")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.ui"
 
-kotlin{
+kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(project(":core:designsystem"))
-                implementation(project(":core:data"))
+                implementation(projects.core.designsystem)
+                implementation(projects.core.data)
                 implementation(libs.kermit)
-                api(project(":core:common"))
+                api(projects.core.common)
                 api(libs.composeImageLoader)
             }
         }

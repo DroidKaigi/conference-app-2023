@@ -7,12 +7,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Drawable
+import io.github.droidkaigi.confsched2023.main.IconRepresentation.Vector
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
+import kotlinx.collections.immutable.PersistentList
 
 @Composable
 fun KaigiBottomBar(
-    mainScreenTabs: List<MainScreenTab>,
+    mainScreenTabs: PersistentList<MainScreenTab>,
     onTabSelected: (MainScreenTab) -> Unit,
     currentTab: MainScreenTab,
     isEnableStamps: Boolean,
@@ -22,17 +26,25 @@ fun KaigiBottomBar(
         modifier = modifier,
     ) {
         mainScreenTabs.forEach { tab ->
-            if (tab == MainScreenTab.Stamps && isEnableStamps.not()) return@forEach
+            if (tab == MainScreenTab.Badges && isEnableStamps.not()) return@forEach
             val selected = currentTab == tab
+            val targetIcon = if (selected) tab.selectedIcon else tab.icon
             NavigationBarItem(
                 modifier = Modifier.testTag(tab.testTag),
                 selected = selected,
                 onClick = { onTabSelected(tab) },
                 icon = {
-                    Icon(
-                        imageVector = if (selected) tab.selectedIcon else tab.icon,
-                        contentDescription = tab.contentDescription,
-                    )
+                    when (targetIcon) {
+                        is Drawable -> Icon(
+                            painterResource(id = targetIcon.drawableId),
+                            contentDescription = tab.contentDescription,
+                        )
+
+                        is Vector -> Icon(
+                            imageVector = targetIcon.imageVector,
+                            contentDescription = tab.contentDescription,
+                        )
+                    }
                 },
                 label = {
                     Text(

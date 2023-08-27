@@ -1,4 +1,6 @@
 import Combine
+import Dependencies
+import KMPContainer
 import Model
 import shared
 
@@ -8,14 +10,17 @@ struct ContributorViewState: ViewModelState {
 
 @MainActor
 final class ContributorViewModel: ObservableObject {
+    @Dependency(\.contributorsData) var contributorsData
     @Published var state: ContributorViewState = .init()
 
     func load() async {
         state.contributors = .loading
 
         do {
-            let contributors = try await FakeContributorsApiClient().contributors()
-            state.contributors = .loaded(contributors)
+            try await contributorsData.refresh()
+            for try await contributors in contributorsData.contributors() {
+                state.contributors = .loaded(contributors)
+            }
         } catch let error {
             state.contributors = .failed(error)
         }

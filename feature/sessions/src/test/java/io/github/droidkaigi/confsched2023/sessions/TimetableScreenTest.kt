@@ -60,6 +60,15 @@ class TimetableScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    fun checkLaunchAccessibilityShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkAccessibilityCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     fun checkBookmarkToggleShot() {
         timetableScreenRobot {
             setupTimetableScreenContent()
@@ -98,6 +107,36 @@ class TimetableScreenTest {
             clickTimetableUiTypeChangeButton()
             scrollTimetable()
             checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 0.5f)
+    fun checkSmallFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 1.5f)
+    fun checkLargeFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 2.0f)
+    fun checkHugeFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
         }
     }
 }

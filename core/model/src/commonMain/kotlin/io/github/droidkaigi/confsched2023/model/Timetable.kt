@@ -1,5 +1,10 @@
 package io.github.droidkaigi.confsched2023.model
 
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
@@ -23,7 +28,21 @@ public data class Timetable(
     }
 
     val rooms: List<TimetableRoom> by lazy {
-        timetableItems.map { it.room }.toSet().sortedBy { it.sort }
+        timetableItems.map { it.room }.toSet().sortedBy { it.name.currentLangTitle }
+    }
+
+    val categories: List<TimetableCategory> by lazy {
+        timetableItems.map { it.category }.toSet().sortedBy { it.id }
+    }
+
+    val sessionTypes: List<TimetableSessionType> by lazy {
+        timetableItems.map { it.sessionType }.toSet().sorted()
+    }
+
+    val languages: List<TimetableLanguage> by lazy {
+        timetableItems.map { it.language }.toSet()
+            .sortedBy { it.langOfSpeaker }
+            .sortedBy { it.isInterpretationTarget }
     }
 
     public fun dayTimetable(droidKaigi2023Day: DroidKaigi2023Day): Timetable {
@@ -46,13 +65,21 @@ public data class Timetable(
                 filters.categories.contains(timetableItem.category)
             }
         }
+        if (filters.sessionTypes.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.sessionTypes.contains(timetableItem.sessionType)
+            }
+        }
+        if (filters.languages.isNotEmpty()) {
+            timetableItems = timetableItems.filter { timetableItem ->
+                filters.languages.contains(timetableItem.language.toLang()) ||
+                    timetableItem.language.isInterpretationTarget
+            }
+        }
         if (filters.filterFavorite) {
             timetableItems = timetableItems.filter { timetableItem ->
                 bookmarks.contains(timetableItem.id)
             }
-        }
-        if (filters.filterSession) {
-            timetableItems = timetableItems.filterIsInstance<Session>()
         }
         if (filters.searchWord.isNotBlank()) {
             timetableItems = timetableItems.filter { timetableItem ->
@@ -75,13 +102,14 @@ public data class Timetable(
 public fun Timetable?.orEmptyContents(): Timetable = this ?: Timetable()
 
 public fun Timetable.Companion.fake(): Timetable {
-    var rooms = listOf(
-        TimetableRoom(1, MultiLangText("App Bar", "App Bar"), 0, 0),
-        TimetableRoom(2, MultiLangText("Backdrop", "Backdrop"), 1, 1),
-        TimetableRoom(3, MultiLangText("Cards", "Cards"), 2, 2),
-        TimetableRoom(4, MultiLangText("Dialogs", "Dialogs"), 3, 3),
+    val rooms = mutableListOf(
+        TimetableRoom(1, MultiLangText("Arctic Fox", "Arctic Fox"), RoomA),
+        TimetableRoom(2, MultiLangText("Bumblebee", "Bumblebee"), RoomB),
+        TimetableRoom(3, MultiLangText("Chipmunk", "Chipmunk"), RoomC),
+        TimetableRoom(4, MultiLangText("Dolphin", "Dolphin"), RoomD),
+        TimetableRoom(5, MultiLangText("Electric Eel", "Electric Eel"), RoomE),
     )
-    (0..10).forEach { _ ->
+    repeat(10) {
         rooms += rooms
     }
     val roomsIterator = rooms.iterator()
@@ -98,6 +126,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(
@@ -128,8 +157,8 @@ public fun Timetable.Companion.fake(): Timetable {
                 ),
             ),
         )
-        (-1..1).forEach { day ->
-            (0..20).forEach { index ->
+        for (day in -1..1) {
+            for (index in 0..20) {
                 val dayOffset = day * 24 * 60 * 60
                 val start = Instant.fromEpochSeconds(
                     LocalDateTime.parse("2023-09-15T10:10:00")
@@ -174,6 +203,7 @@ public fun Timetable.Companion.fake(): Timetable {
                     id = 28657,
                     title = MultiLangText("その他", "Other"),
                 ),
+                sessionType = TimetableSessionType.NORMAL,
                 room = roomsIterator.next(),
                 targetAudience = "TBW",
                 language = TimetableLanguage(

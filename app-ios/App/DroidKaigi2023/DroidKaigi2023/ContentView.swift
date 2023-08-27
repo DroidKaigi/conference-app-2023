@@ -18,7 +18,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
-            Text(EntryPoint().echo())
+            // Text(EntryPoint().echo())
             ComposeView()
         }
         .padding()

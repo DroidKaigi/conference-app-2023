@@ -40,7 +40,7 @@ jobs:
           echo "pull_request_number=$(cat NR)" >> "$GITHUB_OUTPUT"
       - name: main checkout
         id: checkout-main
-        uses: actions/checkout@v3
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
         with:
           ref: main
       - id: switch-companion-branch
@@ -114,11 +114,12 @@ jobs:
           for file in $files; do
             # Get the file name and insert newlines every 20 characters
             fileName=$(basename "$file" | sed -r 's/(.{20})/\1<br>/g')
-            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$BRANCH_NAME/$file) | ![](https://github.com/${{ github.repository }}/blob/$BRANCH_NAME/$file?raw=true) |" >> "$GITHUB_OUTPUT"
+            urlPart="${BRANCH_NAME//#/%23}/${file//#/%23}"
+            echo "| [$fileName](https://github.com/${{ github.repository }}/blob/$urlPart) | ![](https://github.com/${{ github.repository }}/blob/$urlPart?raw=true) |" >> "$GITHUB_OUTPUT"
           done
           echo "${delimiter}" >> "$GITHUB_OUTPUT"
       - name: Find Comment
-        uses: peter-evans/find-comment@v2
+        uses: peter-evans/find-comment@a54c31d7fa095754bfef525c0c8e5e5674c4b4b1 # v2
         id: fc
         if: steps.generate-diff-reports.outputs.reports != ''
         with:
@@ -127,7 +128,7 @@ jobs:
           body-includes: Snapshot diff report
 
       - name: Add or update comment on PR
-        uses: peter-evans/create-or-update-comment@v3
+        uses: peter-evans/create-or-update-comment@c6c9a1a66007646a28c153e2a8580a5bad27bcfa # v3
         if: steps.generate-diff-reports.outputs.reports != ''
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}

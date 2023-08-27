@@ -24,6 +24,7 @@ platform :ios do
   workspace = "app-ios.xcworkspace"
   scheme = "DroidKaigi2023"
   project = "App/DroidKaigi2023/DroidKaigi2023.xcodeproj"
+  destination = "platform=iOS Simulator,name=iPhone 14 Pro,OS=17.0"
 
   desc "returns project root dir"
   lane :root_dir do
@@ -34,8 +35,9 @@ platform :ios do
   lane :clean_project do
     xcodebuild(
       clean: true,
-      alltargets: true,
-      project: project
+      project: project,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
     )
     sh("rm -rf #{root_dir}/app-ios/build")
     sh("rm -rf ~/Library/Developer/Xcode/DerivedData/#{scheme}-*")
@@ -65,7 +67,7 @@ platform :ios do
   lane :resolved_package do
     xcodebuild(
       xcargs: "-resolvePackageDependencies",
-      workspace: workspace,
+      project: project,
       scheme: scheme,
       derivedDataPath: derived_data_path,
     )
@@ -78,15 +80,28 @@ platform :ios do
     end
   end
 
+  desc "Build DroidKaigi2023 project"
+  lane :build do
+    shared
+    xcodebuild(
+      xcargs: "-skipPackagePluginValidation",
+      project: project,
+      scheme: scheme,
+      derivedDataPath: derived_data_path,
+      destination: destination
+    )
+  end
+
   desc "run test"
   lane :test do
     shared
     scan(
-      workspace: workspace,
+      xcargs: "-skipPackagePluginValidation",
+      project: project,
       scheme: scheme,
       skip_build: true,
       derived_data_path: derived_data_path,
-      devices: ["iPhone 14 Pro"]
+      destination: destination
     )
   end
 end

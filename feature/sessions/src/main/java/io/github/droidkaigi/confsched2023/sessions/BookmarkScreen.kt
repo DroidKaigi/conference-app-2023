@@ -8,19 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
-import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.sessions.component.BookmarkTopArea
 import io.github.droidkaigi.confsched2023.sessions.section.BookmarkSheet
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.PersistentMap
-import kotlinx.collections.immutable.PersistentSet
+import io.github.droidkaigi.confsched2023.sessions.section.BookmarkSheetUiState
 
 const val bookmarkScreenRoute = "bookmark"
 
@@ -28,28 +23,9 @@ fun NavController.navigateToBookmarkScreen() {
     navigate(bookmarkScreenRoute)
 }
 
-sealed interface BookmarkScreenUiState {
-
-    val currentDayFilter: PersistentList<DroidKaigi2023Day>
-    val isAll: Boolean
-        get() = currentDayFilter.size == DroidKaigi2023Day.values().size
-    val isDayFirst: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day1
-    val isDaySecond: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day2
-    val isDayThird: Boolean
-        get() = currentDayFilter.size == 1 && currentDayFilter.first() == DroidKaigi2023Day.Day3
-
-    data class Empty(
-        override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
-    ) : BookmarkScreenUiState
-
-    data class ListBookmark(
-        val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
-        val timetableItemMap: PersistentMap<String, List<TimetableItem>>,
-        override val currentDayFilter: PersistentList<DroidKaigi2023Day>,
-    ) : BookmarkScreenUiState
-}
+data class BookmarkScreenUiState(
+    val contentUiState: BookmarkSheetUiState,
+)
 
 @Composable
 fun BookmarkScreen(
@@ -62,11 +38,13 @@ fun BookmarkScreen(
         uiState = uiState,
         onBackPressClick = onBackPressClick,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = { viewModel.updateBookmark(it) },
-        onAllFilterChipClick = { viewModel.onAllFilterChipClick() },
-        onDayFirstChipClick = { viewModel.onDayFirstChipClick() },
-        onDaySecondChipClick = { viewModel.onDaySecondChipClick() },
-        onDayThirdChipClick = { viewModel.onDayThirdChipClick() },
+        onBookmarkClick = { timetableItem, _ ->
+            viewModel.onBookmarkClick(timetableItem)
+        },
+        onAllFilterChipClick = viewModel::onAllFilterChipClick,
+        onDayFirstChipClick = viewModel::onDayFirstChipClick,
+        onDaySecondChipClick = viewModel::onDaySecondChipClick,
+        onDayThirdChipClick = viewModel::onDayThirdChipClick,
     )
 }
 
@@ -77,7 +55,7 @@ private fun BookmarkScreen(
     uiState: BookmarkScreenUiState,
     onBackPressClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,
@@ -92,7 +70,6 @@ private fun BookmarkScreen(
                 onBackPressClick = onBackPressClick,
             )
         },
-        containerColor = Color(0xFFF8FAF6),
         contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookmarkSheet(
@@ -104,7 +81,7 @@ private fun BookmarkScreen(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
-            uiState = uiState,
+            uiState = uiState.contentUiState,
         )
     }
 }

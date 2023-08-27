@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,9 +18,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.MultiLangText
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +42,7 @@ fun TimetableItemDetailScreenTopAppBar(
             scrollBehavior.state.collapsedFraction >= 0.5f
         }
     }
+    val lifecycleOwner = LocalLifecycleOwner.current
     LargeTopAppBar(
         title = {
             // TODO: Need some better way to switch these text styles
@@ -49,8 +58,8 @@ fun TimetableItemDetailScreenTopAppBar(
                     text = title.currentLangTitle,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-                    styles = listOf(
-                        MaterialTheme.typography.headlineSmall,
+                    styles = persistentListOf(
+                        MaterialTheme.typography.headlineMedium,
                         MaterialTheme.typography.titleLarge,
                         MaterialTheme.typography.titleMedium,
                         MaterialTheme.typography.titleSmall,
@@ -59,7 +68,9 @@ fun TimetableItemDetailScreenTopAppBar(
             }
         },
         navigationIcon = {
-            IconButton(onClick = onNavigationIconClick) {
+            IconButton(onClick = {
+                handleOnClickIfNotNavigating(lifecycleOwner, onNavigationIconClick)
+            }) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = null,
@@ -78,7 +89,7 @@ fun TimetableItemDetailScreenTopAppBar(
 private fun ResizeableText(
     text: String,
     maxLines: Int,
-    styles: List<TextStyle>,
+    styles: ImmutableList<TextStyle>,
     overflow: TextOverflow,
 ) {
     var styleIndex by remember(text) { mutableStateOf(0) }
@@ -94,5 +105,18 @@ private fun ResizeableText(
             }
         },
         style = styles[styleIndex],
+        modifier = Modifier.padding(end = 16.dp),
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableItemDetailScreenTopAppBarPreview() {
+    TimetableItemDetailScreenTopAppBar(
+        title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
+        onNavigationIconClick = {},
+        scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     )
 }

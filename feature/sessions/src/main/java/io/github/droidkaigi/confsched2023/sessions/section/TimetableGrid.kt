@@ -34,6 +34,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
@@ -47,11 +49,12 @@ import androidx.compose.ui.semantics.horizontalScrollAxisRange
 import androidx.compose.ui.semantics.scrollBy
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.verticalScrollAxisRange
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -75,12 +78,14 @@ data class TimetableGridUiState(val timetable: Timetable)
 fun TimetableGrid(
     uiState: TimetableGridUiState,
     day: DroidKaigi2023Day,
+    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TimetableGrid(
         timetable = uiState.timetable,
         day = day,
+        nestedScrollDispatcher = nestedScrollDispatcher,
         onTimetableItemClick = onTimetableItemClick,
         modifier = modifier
     )
@@ -90,6 +95,7 @@ fun TimetableGrid(
 fun TimetableGrid(
     timetable: Timetable,
     day: DroidKaigi2023Day,
+    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -122,12 +128,14 @@ fun TimetableGrid(
             TimetableGrid(
                 timetable = timetable,
                 timetableState = timetableGridState,
+                nestedScrollDispatcher = nestedScrollDispatcher,
                 modifier = modifier,
                 contentPadding = PaddingValues(16.dp),
-            ) { timetableItem ->
+            ) { timetableItem, itemHeightPx ->
                 TimetableGridItem(
                     timetableItem = timetableItem,
                     onTimetableItemClick = onTimetableItemClick,
+                    gridItemHeightPx = itemHeightPx,
                 )
             }
         }
@@ -139,15 +147,12 @@ fun TimetableGrid(
 fun TimetableGrid(
     timetable: Timetable,
     timetableState: TimetableState,
+    nestedScrollDispatcher: NestedScrollDispatcher,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    content: @Composable (TimetableItem) -> Unit,
+    content: @Composable (TimetableItem, Int) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
-        val timetableItemWithFavorite = timetable.contents[index]
-        content(timetableItemWithFavorite.timetableItem)
-    }
     val density = timetableState.density
     val verticalScale = timetableState.screenScaleState.verticalScale
     val timetableLayout = remember(timetable, verticalScale) {
@@ -164,6 +169,12 @@ fun TimetableGrid(
     val visibleItemLayouts by remember(timetableScreen) { timetableScreen.visibleItemLayouts }
     val lineColor = MaterialTheme.colorScheme.surfaceVariant
     val linePxSize = with(timetableState.density) { TimetableSizes.lineStrokeSize.toPx() }
+
+    val itemProvider = itemProvider({ timetable.timetableItems.size }) { index ->
+        val timetableItemWithFavorite = timetable.contents[index]
+        val itemHeightPx = timetableLayout.timetableLayouts[index].height
+        content(timetableItemWithFavorite.timetableItem, itemHeightPx)
+    }
 
     LazyLayout(
         modifier = modifier
@@ -198,6 +209,7 @@ fun TimetableGrid(
                                 dragAmount,
                                 change.uptimeMillis,
                                 change.position,
+                                nestedScrollDispatcher,
                             )
                         }
                     },
@@ -281,14 +293,16 @@ fun TimetableGrid(
     }
 }
 
-@Preview
+@MultiThemePreviews
+@MultiLanguagePreviews
 @Composable
 fun TimetablePreview() {
     TimetableGrid(
         timetable = Timetable.fake(),
         day = DroidKaigi2023Day.Day1,
+        nestedScrollDispatcher = remember { NestedScrollDispatcher() },
+        onTimetableItemClick = {},
         modifier = Modifier.fillMaxSize(),
-        onTimetableItemClick ={}
     )
 }
 
@@ -298,12 +312,12 @@ private fun itemProvider(
     itemContent: @Composable (Int) -> Unit,
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
+        override val itemCount: Int get() = itemCount()
+
         @Composable
         override fun Item(index: Int, key: Any) {
             itemContent(index)
         }
-
-        override val itemCount: Int get() = itemCount()
     }
 }
 
@@ -624,14 +638,28 @@ private class TimetableScreen(
         dragAmount: Offset,
         timeMillis: Long,
         position: Offset,
+        nestedScrollDispatcher: NestedScrollDispatcher,
     ) {
-        val nextPossibleX = calculatePossibleScrollX(dragAmount.x)
-        val nextPossibleY = calculatePossibleScrollY(dragAmount.y)
+        val parentConsumed = nestedScrollDispatcher.dispatchPreScroll(
+            available = dragAmount,
+            source = NestedScrollSource.Drag,
+        )
+        val nextPossibleX = calculatePossibleScrollX(dragAmount.x - parentConsumed.x)
+        val nextPossibleY = calculatePossibleScrollY(dragAmount.y - parentConsumed.y)
+        val weConsumed = Offset(
+            nextPossibleX - scrollState.scrollX,
+            nextPossibleY - scrollState.scrollY,
+        )
         scrollState.scroll(
             scrollX = nextPossibleX,
             scrollY = nextPossibleY,
             timeMillis = timeMillis,
             position = position,
+        )
+        nestedScrollDispatcher.dispatchPostScroll(
+            consumed = parentConsumed + weConsumed,
+            available = dragAmount - weConsumed - parentConsumed,
+            source = NestedScrollSource.Drag,
         )
     }
 

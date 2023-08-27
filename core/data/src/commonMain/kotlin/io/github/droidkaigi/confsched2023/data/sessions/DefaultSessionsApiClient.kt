@@ -8,6 +8,11 @@ import io.github.droidkaigi.confsched2023.data.sessions.response.SessionAssetRes
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionMessageResponse
 import io.github.droidkaigi.confsched2023.data.sessions.response.SessionsAllResponse
 import io.github.droidkaigi.confsched2023.model.MultiLangText
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
 import io.github.droidkaigi.confsched2023.model.TimetableCategory
@@ -18,6 +23,8 @@ import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import io.github.droidkaigi.confsched2023.model.TimetableItemList
 import io.github.droidkaigi.confsched2023.model.TimetableLanguage
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType.Companion
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.datetime.Instant
@@ -70,19 +77,17 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                 )
             }.first()
         }
-    val roomIdToRoom = timetableContents.rooms
-        .groupBy { it.id }
-        .mapValues { (_, apiRooms) ->
-            apiRooms.map { apiRoom ->
-                val roomSorts = apiRooms.map { it.sort }.sorted()
+    val roomIdToRoom: Map<Int, TimetableRoom> = timetableContents.rooms
+        .associateBy(
+            keySelector = { room -> room.id },
+            valueTransform = { room ->
                 TimetableRoom(
-                    id = apiRoom.id,
-                    name = apiRoom.name.toMultiLangText(),
-                    sort = apiRoom.sort,
-                    sortIndex = roomSorts.indexOf(apiRoom.sort),
+                    id = room.id,
+                    name = room.name.toMultiLangText(),
+                    type = room.name.toRoomType(),
                 )
-            }.first()
-        }
+            },
+        )
 
     return Timetable(
         TimetableItemList(
@@ -94,6 +99,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = TimetableSessionType.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
@@ -115,6 +121,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                         startsAt = apiSession.startsAt.toInstantAsJST(),
                         endsAt = apiSession.endsAt.toInstantAsJST(),
                         category = categoryIdToCategory[apiSession.sessionCategoryItemId]!!,
+                        sessionType = Companion.ofOrNull(apiSession.sessionType)!!,
                         room = roomIdToRoom[apiSession.roomId]!!,
                         targetAudience = apiSession.targetAudience,
                         language = TimetableLanguage(
@@ -131,7 +138,7 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
             }
                 .sortedWith(
                     compareBy<TimetableItem> { it.startsAt }
-                        .thenBy { it.room.sort },
+                        .thenBy { it.room.name.currentLangTitle },
                 )
                 .toPersistentList(),
         ),
@@ -141,6 +148,14 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
 private fun LocaledResponse.toMultiLangText() = MultiLangText(jaTitle = ja, enTitle = en)
 private fun SessionMessageResponse.toMultiLangText() = MultiLangText(jaTitle = ja, enTitle = en)
 private fun SessionAssetResponse.toTimetableAsset() = TimetableAsset(videoUrl, slideUrl)
+private fun LocaledResponse.toRoomType() = when (en.lowercase()) {
+    "arctic fox" -> RoomA
+    "bumblebee" -> RoomB
+    "chipmunk" -> RoomC
+    "dolphin" -> RoomD
+    "electric eel" -> RoomE
+    else -> RoomA
+}
 
 internal fun String.toInstantAsJST(): Instant {
     val (date, _) = split("+")
