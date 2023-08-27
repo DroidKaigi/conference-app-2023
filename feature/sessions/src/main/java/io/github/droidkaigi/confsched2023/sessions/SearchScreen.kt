@@ -95,7 +95,9 @@ fun SearchScreen(
         onSessionTypesSelected = viewModel::onSessionTypesSelected,
         onLanguagesSelected = viewModel::onLanguagesSelected,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = viewModel::onClickTimetableItemBookmark,
+        onBookmarkClick = { timetableItem, _ ->
+            viewModel.onClickTimetableItemBookmark(timetableItem)
+        },
     )
 }
 
@@ -110,7 +112,7 @@ private fun SearchScreen(
     onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
     onLanguagesSelected: (Lang, Boolean) -> Unit = { _, _ -> },
     onTimetableItemClick: (TimetableItem) -> Unit = {},
-    onBookmarkClick: (TimetableItem) -> Unit = {},
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit = { _, _ -> },
 ) {
     val scrollState = rememberLazyListState()
     Scaffold(

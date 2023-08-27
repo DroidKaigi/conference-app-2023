@@ -47,7 +47,7 @@ fun TimetableSheet(
     uiState: TimetableSheetUiState,
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onFavoriteClick: (TimetableItem) -> Unit,
+    onFavoriteClick: (TimetableItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay()) }

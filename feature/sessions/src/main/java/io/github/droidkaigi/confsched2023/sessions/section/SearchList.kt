@@ -70,7 +70,7 @@ fun SearchList(
     searchQuery: SearchQuery,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: (TimetableItem) -> Unit,
+    onBookmarkIconClick: (TimetableItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current

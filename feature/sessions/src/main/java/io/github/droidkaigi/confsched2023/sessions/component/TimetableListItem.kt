@@ -60,7 +60,7 @@ fun TimetableListItem(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
     onClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     highlightQuery: SearchQuery = SearchQuery.Empty,
@@ -81,7 +81,7 @@ fun TimetableListItem(
             IconToggleButton(
                 modifier = Modifier.testTag(TimetableListItemBookmarkIconTestTag),
                 checked = isBookmarked,
-                onCheckedChange = { onBookmarkClick(timetableItem) },
+                onCheckedChange = { onBookmarkClick(timetableItem, isBookmarked.not()) },
                 colors = IconButtonDefaults.iconToggleButtonColors(
                     checkedContentColor = MaterialTheme.colorScheme.onSurface,
                 ),
@@ -193,7 +193,7 @@ fun TimetableListItemPreview() {
                 isBookmarked = false,
                 highlightQuery = SearchQuery.Empty,
                 onClick = {},
-                onBookmarkClick = {},
+                onBookmarkClick = { _, _ -> },
                 chipContent = {
                 },
             )
