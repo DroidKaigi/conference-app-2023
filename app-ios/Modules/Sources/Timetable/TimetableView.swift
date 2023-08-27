@@ -69,7 +69,7 @@ public struct TimetableView<SessionView: View>: View {
                                             viewModel.selectDay(day: $0)
                                         }
                                     )
-                                    .frame(height: shouldCollapse ? 48 : 82)
+                                    .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
                                     TimetableListView(timetableTimeGroupItems: state, searchWord: "")

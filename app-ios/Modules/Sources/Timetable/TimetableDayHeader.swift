@@ -73,7 +73,7 @@ struct TimetableDayHeader: View {
     }
 
     private func calculateButtonHeight() -> CGFloat {
-        return shouldCollapse ? CGFloat(27) : CGFloat(56)
+        return shouldCollapse ? CGFloat(32) : CGFloat(56)
     }
 
     private func getIndexBySelectedDay() -> Int {
