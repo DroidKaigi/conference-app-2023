@@ -101,6 +101,7 @@ fun TimetableSheet(
                 is GridTimetable -> {
                     TimetableGrid(
                         uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
+                        day = selectedDay,
                         onTimetableItemClick = onTimetableItemClick,
                         modifier = Modifier
                             .fillMaxSize()

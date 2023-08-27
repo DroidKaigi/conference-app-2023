@@ -74,11 +74,13 @@ data class TimetableGridUiState(val timetable: Timetable)
 @Composable
 fun TimetableGrid(
     uiState: TimetableGridUiState,
+    day: DroidKaigi2023Day,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TimetableGrid(
         timetable = uiState.timetable,
+        day = day,
         onTimetableItemClick = onTimetableItemClick,
         modifier = modifier
     )
@@ -87,6 +89,7 @@ fun TimetableGrid(
 @Composable
 fun TimetableGrid(
     timetable: Timetable,
+    day: DroidKaigi2023Day,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -101,7 +104,10 @@ fun TimetableGrid(
             end = contentPadding.calculateEndPadding(layoutDirection),
         )
     ) {
-        TimetableGridHours { hour ->
+        TimetableGridHours(
+            timetableState = timetableGridState,
+            day = day
+        ) { hour ->
             HoursItem(hour = hour)
         }
         Column {
@@ -279,6 +285,7 @@ fun TimetableGrid(
 fun TimetablePreview() {
     TimetableGrid(
         timetable = Timetable.fake(),
+        day = DroidKaigi2023Day.Day1,
         modifier = Modifier.fillMaxSize(),
         onTimetableItemClick ={}
     )
