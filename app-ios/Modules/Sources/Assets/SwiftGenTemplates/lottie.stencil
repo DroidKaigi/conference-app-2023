@@ -1,0 +1,56 @@
+// swiftlint:disable all
+// Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+
+{% if files %}
+{% set accessModifier %}{% if param.publicAccess %}public{% else %}public{% endif %}{% endset %}
+{% set enumName %}{{param.enumName|default:"Lottie"}}{% endset %}
+import Foundation
+import Lottie
+
+// swiftlint:disable superfluous_disable_command
+// swiftlint:disable file_length
+
+// MARK: - Lottie Files Enum
+
+// swiftlint:disable identifier_name line_length number_separator type_body_length
+{{accessModifier}} enum {{enumName}} {
+  {% for file in files %}
+  {{accessModifier}} static let {{file.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = LottieDocument(name: "{{file.name}}.json").filePath
+  {% endfor %}
+}
+// swiftlint:enable identifier_name line_length number_separator type_body_length
+
+// MARK: - Implementation Details
+
+func filePathFromName(name: String) -> String {
+    if #available(iOS 16.0, *) {
+        return BundleToken.bundle.bundleURL.appending(path: name).relativePath
+    } else {
+        return BundleToken.bundle.bundleURL.appendingPathComponent(name).relativePath
+    }
+}
+
+public struct LottieDocument {
+  let filePath: String
+
+  init(name: String) {
+    self.filePath = filePathFromName(name: name)
+  }
+}
+
+// swiftlint:disable convenience_type
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.myModule
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+// swiftlint:enable convenience_type
+
+{% else %}
+// No files found
+{% endif %}
+// swiftlint:enable all
