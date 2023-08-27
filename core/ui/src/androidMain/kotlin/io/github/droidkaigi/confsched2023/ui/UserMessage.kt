@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.ui
 
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SnackbarResult.ActionPerformed
@@ -25,10 +26,18 @@ fun SnackbarMessageEffect(
 ) {
     userMessageStateHolder.messageUiState.userMessages.firstOrNull()?.let { userMessage ->
         LaunchedEffect(userMessage) {
-            val snackbarResult: SnackbarResult = snackbarHostState.showSnackbar(
-                message = userMessage.message,
-                actionLabel = userMessage.actionLabel,
-            )
+            val snackbarResult: SnackbarResult = if (userMessage.duration == null) {
+                snackbarHostState.showSnackbar(
+                    message = userMessage.message,
+                    actionLabel = userMessage.actionLabel,
+                )
+            } else {
+                snackbarHostState.showSnackbar(
+                    message = userMessage.message,
+                    actionLabel = userMessage.actionLabel,
+                    duration = userMessage.duration,
+                )
+            }
             userMessageStateHolder.messageShown(
                 messageId = userMessage.id,
                 userMessageResult = when (snackbarResult) {
@@ -43,6 +52,7 @@ fun SnackbarMessageEffect(
 data class UserMessage(
     val message: String,
     val actionLabel: String? = null,
+    val duration: SnackbarDuration? = null,
     val id: Long = UUID.randomUUID().mostSignificantBits,
     val userMessageResult: UserMessageResult? = null,
 )
@@ -65,9 +75,13 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
         _messageUiState = _messageUiState.copy(userMessages = messages)
     }
 
-    override suspend fun showMessage(message: String, actionLabel: String?): UserMessageResult {
+    override suspend fun showMessage(
+        message: String,
+        actionLabel: String?,
+        duration: SnackbarDuration?,
+    ): UserMessageResult {
         val messages = _messageUiState.userMessages.toMutableList()
-        val newMessage = UserMessage(message, actionLabel = actionLabel)
+        val newMessage = UserMessage(message, actionLabel = actionLabel, duration = duration)
         messages.add(newMessage)
         _messageUiState = _messageUiState.copy(userMessages = messages)
         val messageResult = snapshotFlow {
@@ -99,7 +113,11 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
 interface UserMessageStateHolder {
     val messageUiState: MessageUiState
     fun messageShown(messageId: Long, userMessageResult: UserMessageResult)
-    suspend fun showMessage(message: String, actionLabel: String? = null): UserMessageResult
+    suspend fun showMessage(
+        message: String,
+        actionLabel: String? = null,
+        duration: SnackbarDuration? = null,
+    ): UserMessageResult
 }
 
 enum class UserMessageResult {
