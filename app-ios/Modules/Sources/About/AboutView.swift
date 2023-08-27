@@ -138,7 +138,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                 case .sponsors:
                     sponsorViewProvider(())
                 case .license:
-                    LicenseListView()
+                    LicenseListView(bundle: .module)
                 }
             }
         }
