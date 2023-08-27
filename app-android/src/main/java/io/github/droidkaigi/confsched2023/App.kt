@@ -8,6 +8,6 @@ import io.github.droidkaigi.confsched2023.data.di.ServerEnvironmentModule
 class App : Application(), ServerEnvironmentModule.HasServerEnvironment {
     override val serverEnvironment: ServerEnvironmentModule.ServerEnvironment =
         ServerEnvironmentModule.ServerEnvironment(
-            BuildConfig.SERVER_URL
+            BuildConfig.SERVER_URL,
         )
 }

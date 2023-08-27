@@ -54,7 +54,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "SERVER_URL",
-                value = "\"https://ssot-api-staging.an.r.appspot.com/\""
+                value = "\"https://ssot-api-staging.an.r.appspot.com/\"",
             )
         }
         create("prod") {
@@ -67,7 +67,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "SERVER_URL",
-                value = "\"https://ssot-api.droidkaigi.jp\""
+                value = "\"https://ssot-api.droidkaigi.jp\"",
             )
         }
     }
