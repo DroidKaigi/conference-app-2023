@@ -5,9 +5,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import de.jensklingenberg.ktorfit.Ktorfit
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.remoteconfig.FirebaseRemoteConfig
-import dev.gitlive.firebase.remoteconfig.remoteConfig
 import io.github.droidkaigi.confsched2023.data.NetworkService
 import io.github.droidkaigi.confsched2023.data.auth.AndroidAuthenticator
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
@@ -129,19 +126,10 @@ class AuthenticatorModule {
 @InstallIn(SingletonComponent::class)
 @Module
 class RemoteConfigModule {
-    @Provides
-    @Singleton
-    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
-        return Firebase.remoteConfig
-    }
 
     @Provides
     @Singleton
-    fun provideRemoteConfigApi(
-        firebaseRemoteConfig: FirebaseRemoteConfig,
-    ): RemoteConfigApi {
-        return DefaultRemoteConfigApi(
-            firebaseRemoteConfig = firebaseRemoteConfig,
-        )
+    fun provideRemoteConfigApi(): RemoteConfigApi {
+        return DefaultRemoteConfigApi()
     }
 }

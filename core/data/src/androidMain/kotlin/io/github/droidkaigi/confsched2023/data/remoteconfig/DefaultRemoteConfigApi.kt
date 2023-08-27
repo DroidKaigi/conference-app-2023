@@ -1,15 +1,27 @@
 package io.github.droidkaigi.confsched2023.data.remoteconfig
 
 import co.touchlab.kermit.Logger
-import dev.gitlive.firebase.remoteconfig.FirebaseRemoteConfig
+import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.remoteconfig.get
-import javax.inject.Inject
-import javax.inject.Singleton
+import dev.gitlive.firebase.remoteconfig.remoteConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-@Singleton
-class DefaultRemoteConfigApi @Inject constructor(
-    private val firebaseRemoteConfig: FirebaseRemoteConfig,
-) : RemoteConfigApi {
+class DefaultRemoteConfigApi : RemoteConfigApi {
+
+    private val firebaseRemoteConfig = Firebase.remoteConfig
+
+    /**
+     * If you want to change the interval time to fetch, please change it here
+     */
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            firebaseRemoteConfig.settings {
+                minimumFetchIntervalInSeconds = 1 * 60
+            }
+        }
+    }
 
     override suspend fun getBoolean(key: String): Boolean {
         fetchConfig()
