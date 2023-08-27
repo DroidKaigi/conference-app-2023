@@ -97,6 +97,8 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Theme",
+                "Component",
+                "KMPContainer"
             ]
         ),
         .testTarget(
