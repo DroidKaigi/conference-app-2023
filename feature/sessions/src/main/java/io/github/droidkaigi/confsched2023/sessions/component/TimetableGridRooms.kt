@@ -228,15 +228,6 @@ private class RoomScreen(
         }
     }
 
-    override fun toString(): String {
-        return "RoomScreen(" +
-            "width=$width, " +
-            "height=$height, " +
-            "visibleItemLayouts=$visibleItemLayouts, " +
-            "verticalLines=$verticalLines" +
-            ")"
-    }
-
     fun enableHorizontalScroll(dragX: Float): Boolean {
         val nextPossibleX = calculatePossibleScrollX(dragX)
         return (scrollState.maxX < nextPossibleX && nextPossibleX < 0f)
