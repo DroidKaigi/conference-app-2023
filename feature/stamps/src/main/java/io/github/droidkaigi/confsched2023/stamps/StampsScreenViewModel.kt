@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.stamps
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,8 +43,6 @@ class StampsScreenViewModel @Inject constructor(
         stampLottieRawResStateFlow,
         stampDetailDescriptionStateFlow,
     ) { rawRes, detailDescription ->
-        Log.d("StampsScreenViewModel", "rawRes: $rawRes")
-        Log.d("StampsScreenViewModel", "detailDescription: $detailDescription")
         StampsScreenUiState(
             lottieRawRes = rawRes,
             stamps = persistentListOf(
