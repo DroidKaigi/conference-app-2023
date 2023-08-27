@@ -38,7 +38,9 @@ fun BookmarkScreen(
         uiState = uiState,
         onBackPressClick = onBackPressClick,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = viewModel::updateBookmark,
+        onBookmarkClick = { timetableItem, _ ->
+            viewModel.onBookmarkClick(timetableItem)
+        },
         onAllFilterChipClick = viewModel::onAllFilterChipClick,
         onDayFirstChipClick = viewModel::onDayFirstChipClick,
         onDaySecondChipClick = viewModel::onDaySecondChipClick,
@@ -53,7 +55,7 @@ private fun BookmarkScreen(
     uiState: BookmarkScreenUiState,
     onBackPressClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onAllFilterChipClick: () -> Unit,
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,

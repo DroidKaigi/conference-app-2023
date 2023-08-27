@@ -72,7 +72,7 @@ public struct TimetableView<SessionView: View>: View {
                                     .frame(height: shouldCollapse ? 48 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
-                                    TimetableListView(timetableTimeGroupItems: state)
+                                    TimetableListView(timetableTimeGroupItems: state, searchWord: "")
                                 }
                             }
                             .background(AssetColors.Surface.surface.swiftUIColor)

@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -27,6 +28,7 @@ import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheet
 import io.github.droidkaigi.confsched2023.staff.section.StaffSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 
 const val staffScreenRoute = "staff"
 
@@ -76,12 +78,15 @@ private fun StaffScreen(
     onBackClick: () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val lifecycleOwner = LocalLifecycleOwner.current
     Scaffold(
         topBar = {
             LargeTopAppBar(
                 title = { Text(text = "Staff") },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
+                    IconButton(onClick = {
+                        handleOnClickIfNotNavigating(lifecycleOwner, onBackClick)
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",

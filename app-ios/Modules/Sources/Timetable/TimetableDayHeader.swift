@@ -9,12 +9,12 @@ struct TimetableDayHeader: View {
     let shouldCollapse: Bool
     let onSelect: (DroidKaigi2023Day) -> Void
 
-    // Define margin values to calculate holizontal position for capsule rectangle
+    // Define margin values to calculate horizontal position for capsule rectangle
     private let buttonAreaLeadingMargin = 16.0
     private let buttonTrailingMargin = 16.0
     private let betweenButtonMargin = 8.0
 
-    // Define all button count to calculate holizontal position for capsule rectangle
+    // Define all button count to calculate horizontal position for capsule rectangle
     private var buttonsCount: Int {
         Int(DroidKaigi2023Day.values().size)
     }
@@ -82,11 +82,11 @@ struct TimetableDayHeader: View {
 
     private func calculateButtonWidth(deviceWidth: CGFloat) -> CGFloat {
         // Calculate button width considering related margins
-        let excludeTotalMagin = calculateExcludeTotalMagin()
-        return (deviceWidth - excludeTotalMagin) / CGFloat(buttonsCount)
+        let excludeTotalMargin = calculateExcludeTotalMargin()
+        return (deviceWidth - excludeTotalMargin) / CGFloat(buttonsCount)
     }
 
-    private func calculateExcludeTotalMagin() -> CGFloat {
+    private func calculateExcludeTotalMargin() -> CGFloat {
         let totalBetweenButtonMargin = betweenButtonMargin * CGFloat(buttonsCount - 1)
         return buttonAreaLeadingMargin + buttonTrailingMargin + totalBetweenButtonMargin
     }
