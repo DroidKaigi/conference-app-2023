@@ -106,7 +106,8 @@ fun TimetableGrid(
     ) {
         TimetableGridHours(
             timetableState = timetableGridState,
-            day = day
+            coroutineScope = coroutineScope,
+            day = day,
         ) { hour ->
             HoursItem(hour = hour)
         }
@@ -469,6 +470,16 @@ class ScreenScrollState(
             _scrollY.animateDecay(
                 velocity.y / 2f,
                 exponentialDecay(),
+            )
+        }
+    }
+
+    suspend fun flingYIfPossible() = coroutineScope {
+        val velocity = velocityTracker.calculateVelocity()
+        launch {
+            _scrollY.animateDecay(
+                velocity.y / 2f,
+                exponentialDecay()
             )
         }
     }

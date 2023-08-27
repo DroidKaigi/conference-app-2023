@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
@@ -27,6 +28,8 @@ import io.github.droidkaigi.confsched2023.sessions.section.ScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
 import io.github.droidkaigi.confsched2023.sessions.section.detectDragGestures
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @Composable
@@ -46,6 +49,7 @@ fun HoursItem(
 @Composable
 fun TimetableGridHours(
     timetableState: TimetableState,
+    coroutineScope: CoroutineScope,
     day: DroidKaigi2023Day,
     modifier: Modifier = Modifier,
     content: @Composable (String) -> Unit,
@@ -91,6 +95,28 @@ fun TimetableGridHours(
                         linePxSize
                     )
                 }
+            }
+            .pointerInput(Unit) {
+                detectDragGestures(
+                    onDrag = { change, dragAmount ->
+                        if (change.positionChange() != Offset.Zero) change.consume()
+                        coroutineScope.launch {
+                            hoursScreen.scroll(
+                                dragAmount,
+                                change.uptimeMillis,
+                                change.position
+                            )
+                        }
+                    },
+                    onDragCancel = {
+                        scrollState.resetTracking()
+                    },
+                    onDragEnd = {
+                        coroutineScope.launch {
+                            scrollState.flingYIfPossible()
+                        }
+                    }
+                )
             },
         itemProvider = itemProvider
     ) {constraints ->
