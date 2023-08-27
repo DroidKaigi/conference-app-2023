@@ -6,10 +6,16 @@ import androidx.compose.foundation.lazy.layout.LazyLayoutItemProvider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.sessions.section.ScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
 import kotlin.math.roundToInt
@@ -90,6 +96,59 @@ private data class HoursItemLayout(
         val yInside =
             top in screenTop..screenBottom || bottom in screenTop..screenBottom
         return yInside
+    }
+}
+
+private class HoursScreen(
+    val hoursLayout: HoursLayout,
+    val scrollState: ScreenScrollState,
+    day: DroidKaigi2023Day,
+    density: Density,
+) {
+    var width = 0
+        private set
+    var height = 0
+        private set
+
+    val visibleItemLayouts: State<List<IndexedValue<HoursItemLayout>>> =
+        derivedStateOf {
+            hoursLayout.visibleItemLayouts(
+                height,
+                scrollState.scrollY.toInt()
+            )
+        }
+
+    val offset = with(density) { horizontalLineTopOffset.roundToPx() }
+    val timeHorizontalLines = derivedStateOf {
+        (0..10).map {
+            scrollState.scrollY + hoursLayout.minutePx * 60 * it + offset
+        }
+    }
+
+    fun updateBounds(width: Int, height: Int) {
+        this.width = width
+        this.height = height
+    }
+    
+    suspend fun scroll(
+        dragAmount: Offset,
+        timeMillis: Long,
+        position: Offset,
+    ) {
+        val nextPossibleY = calculatePossibleScrollY(dragAmount.y)
+        scrollState.scroll(
+            scrollX = scrollState.scrollX,
+            scrollY = nextPossibleY,
+            timeMillis = timeMillis,
+            position = position,
+        )
+    }
+
+    private fun calculatePossibleScrollY(scrollY: Float): Float {
+        val currentValue = scrollState.scrollY
+        val nextValue = currentValue + scrollY
+        val maxScroll = scrollState.maxY
+        return maxOf(minOf(nextValue, 0f), maxScroll)
     }
 }
 
