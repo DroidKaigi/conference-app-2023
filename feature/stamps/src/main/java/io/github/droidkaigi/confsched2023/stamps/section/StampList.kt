@@ -47,7 +47,8 @@ fun StampList(
         },
         animationSpec = tween(
             delayMillis = 2,
-            durationMillis = 400, easing = EaseInOut
+            durationMillis = 400,
+            easing = EaseInOut,
         ),
         label = "",
     )
