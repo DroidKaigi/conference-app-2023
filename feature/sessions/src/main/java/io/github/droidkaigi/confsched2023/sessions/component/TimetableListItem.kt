@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -59,16 +58,13 @@ const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconT
 fun TimetableListItem(
     timetableItem: TimetableItem,
     isBookmarked: Boolean,
-    onClick: (TimetableItem) -> Unit,
     onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     chipContent: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
     highlightQuery: SearchQuery = SearchQuery.Empty,
 ) {
     Column(
-        modifier
-            .testTag(TimetableListItemTestTag)
-            .clickable { onClick(timetableItem) },
+        modifier.testTag(TimetableListItemTestTag),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             FlowRow(
@@ -192,7 +188,6 @@ fun TimetableListItemPreview() {
                 timetableItem = Session.fake(),
                 isBookmarked = false,
                 highlightQuery = SearchQuery.Empty,
-                onClick = {},
                 onBookmarkClick = { _, _ -> },
                 chipContent = {
                 },
