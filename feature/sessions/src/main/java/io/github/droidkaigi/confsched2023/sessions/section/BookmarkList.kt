@@ -42,7 +42,7 @@ fun BookmarkList(
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: (TimetableItem) -> Unit,
+    onBookmarkIconClick: (TimetableItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
