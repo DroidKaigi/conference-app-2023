@@ -68,7 +68,7 @@ fun TimetableItemDetailContent(
         when (uiState) {
             is Session -> {
                 DescriptionSection(
-                    description = uiState.description,
+                    description = uiState.description.currentLangTitle,
                     onLinkClick = onLinkClick,
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
@@ -336,7 +336,7 @@ fun DescriptionSectionPreview() {
     KaigiTheme {
         Surface {
             DescriptionSection(
-                description = Session.fake().description,
+                description = Session.fake().description.currentLangTitle,
                 onLinkClick = {},
             )
         }

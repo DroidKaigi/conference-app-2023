@@ -107,7 +107,10 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
                             isInterpretationTarget = apiSession.interpretationTarget,
                         ),
                         asset = apiSession.asset.toTimetableAsset(),
-                        description = apiSession.description ?: "",
+                        description = apiSession.description?.toMultiLangText() ?: MultiLangText(
+                            jaTitle = "",
+                            enTitle = "",
+                        ),
                         speakers = apiSession.speakers
                             .map { speakerIdToSpeaker[it]!! }
                             .toPersistentList(),
@@ -145,10 +148,10 @@ internal fun SessionsAllResponse.toTimetable(): Timetable {
     )
 }
 
-private fun LocaledResponse.toMultiLangText() = MultiLangText(jaTitle = ja, enTitle = en)
+private fun LocaledResponse.toMultiLangText() = MultiLangText(jaTitle = ja ?: "", enTitle = en ?: "")
 private fun SessionMessageResponse.toMultiLangText() = MultiLangText(jaTitle = ja, enTitle = en)
 private fun SessionAssetResponse.toTimetableAsset() = TimetableAsset(videoUrl, slideUrl)
-private fun LocaledResponse.toRoomType() = when (en.lowercase()) {
+private fun LocaledResponse.toRoomType() = when (en?.lowercase()) {
     "arctic fox" -> RoomA
     "bumblebee" -> RoomB
     "chipmunk" -> RoomC

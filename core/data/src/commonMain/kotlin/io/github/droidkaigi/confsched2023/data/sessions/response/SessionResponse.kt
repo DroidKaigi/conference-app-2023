@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.sessions.response
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,7 +9,8 @@ data class SessionResponse(
     val isServiceSession: Boolean,
     val title: LocaledResponse,
     val speakers: List<String>,
-    val description: String?,
+    @SerialName("i18nDesc")
+    val description: LocaledResponse? = null,
     val startsAt: String,
     val endsAt: String,
     val language: String,

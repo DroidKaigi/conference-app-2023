@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LocaledResponse(
-    val ja: String,
-    val en: String,
+    val ja: String?,
+    val en: String?,
 )
