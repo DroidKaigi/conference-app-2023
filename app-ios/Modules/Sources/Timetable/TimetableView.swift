@@ -58,7 +58,7 @@ public struct TimetableView<SessionView: View>: View {
                                     viewModel.selectDay(day: $0)
                                 }
                             ) {
-                                TimetableListView(timetableTimeGroupItems: state)
+                                TimetableListView(timetableTimeGroupItems: state, searchWord: "")
                             }
                         }
                         .background(AssetColors.Surface.surface.swiftUIColor)

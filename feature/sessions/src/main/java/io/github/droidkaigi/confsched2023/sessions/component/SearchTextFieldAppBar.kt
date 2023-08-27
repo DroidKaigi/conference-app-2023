@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -28,7 +27,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
@@ -37,6 +38,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import io.github.droidkaigi.confsched2023.ui.isTest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,15 +47,17 @@ fun SearchTextFieldAppBar(
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     onBackClick: () -> Unit,
+    testTag: String,
     modifier: Modifier = Modifier,
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
     TopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
         navigationIcon = {
-            IconButton(onClick = onBackClick) {
+            IconButton(onClick = { handleOnClickIfNotNavigating(lifecycleOwner, onBackClick) }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = null,
@@ -64,6 +68,8 @@ fun SearchTextFieldAppBar(
             SearchTextField(
                 searchQuery = searchQuery,
                 onSearchQueryChanged = onSearchQueryChanged,
+                modifier = Modifier
+                    .testTag(testTag),
             )
         },
     )
@@ -92,7 +98,6 @@ private fun SearchTextField(
         value = searchQuery,
         onValueChange = onSearchQueryChanged,
         modifier = modifier
-            .height(56.0.dp)
             .fillMaxWidth(1.0f)
             .focusRequester(focusRequester),
         enabled = enabled,
@@ -152,6 +157,7 @@ fun SearchTextFieldAppBarPreview() {
                 searchQuery = "",
                 onSearchQueryChanged = {},
                 onBackClick = {},
+                testTag = "",
             )
         }
     }

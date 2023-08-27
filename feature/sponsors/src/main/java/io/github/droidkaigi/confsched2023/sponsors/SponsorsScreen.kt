@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -28,6 +29,7 @@ import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.sponsors.section.SponsorList
 import io.github.droidkaigi.confsched2023.sponsors.section.SponsorListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(
@@ -82,6 +84,7 @@ private fun SponsorsScreen(
     onSponsorClick: (Sponsor) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val lifecycleOwner = LocalLifecycleOwner.current
     Scaffold(
         modifier = Modifier
             .nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -92,9 +95,9 @@ private fun SponsorsScreen(
                     Text(text = SponsorsStrings.Sponsor.asString())
                 },
                 navigationIcon = {
-                    IconButton(
-                        onClick = onBackClick,
-                    ) {
+                    IconButton(onClick = {
+                        handleOnClickIfNotNavigating(lifecycleOwner, onBackClick)
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",

@@ -34,6 +34,8 @@ import io.github.droidkaigi.confsched2023.sessions.section.SearchQuery
 
 const val searchScreenRoute = "search"
 const val SearchScreenTestTag = "SearchScreen"
+const val SearchScreenSearchTextFiledTestTag = "SearchTextFiled"
+const val SearchScreenEmptyBodyTestTag = "SearchScreenEmptySearchResultBody"
 
 sealed interface SearchScreenUiState {
     val searchQuery: SearchQuery
@@ -95,7 +97,9 @@ fun SearchScreen(
         onSessionTypesSelected = viewModel::onSessionTypesSelected,
         onLanguagesSelected = viewModel::onLanguagesSelected,
         onTimetableItemClick = onTimetableItemClick,
-        onBookmarkClick = viewModel::onClickTimetableItemBookmark,
+        onBookmarkClick = { timetableItem, _ ->
+            viewModel.onClickTimetableItemBookmark(timetableItem)
+        },
     )
 }
 
@@ -110,7 +114,7 @@ private fun SearchScreen(
     onSessionTypesSelected: (TimetableSessionType, Boolean) -> Unit = { _, _ -> },
     onLanguagesSelected: (Lang, Boolean) -> Unit = { _, _ -> },
     onTimetableItemClick: (TimetableItem) -> Unit = {},
-    onBookmarkClick: (TimetableItem) -> Unit = {},
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit = { _, _ -> },
 ) {
     val scrollState = rememberLazyListState()
     Scaffold(
@@ -120,6 +124,7 @@ private fun SearchScreen(
                 searchQuery = uiState.searchQuery.queryText,
                 onSearchQueryChanged = onSearchQueryChanged,
                 onBackClick = onBackClick,
+                testTag = SearchScreenSearchTextFiledTestTag,
             )
         },
     ) { innerPadding ->
@@ -141,7 +146,11 @@ private fun SearchScreen(
                 onLanguagesSelected = onLanguagesSelected,
             )
             when (uiState) {
-                is Empty -> EmptySearchResultBody(missedQuery = uiState.searchQuery.queryText)
+                is Empty -> EmptySearchResultBody(
+                    missedQuery = uiState.searchQuery.queryText,
+                    modifier = Modifier
+                        .testTag(SearchScreenEmptyBodyTestTag),
+                )
                 is SearchList -> SearchList(
                     contentPaddingValues = PaddingValues(
                         bottom = innerPadding.calculateBottomPadding(),

@@ -10,6 +10,7 @@ plugins {
     id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover")
+    id("droidkaigi.primitive.osslicenses")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -91,6 +92,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterialWindowSize)

@@ -98,6 +98,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.detekt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
         }
+        register("oss-licenses") {
+            id = "droidkaigi.primitive.osslicenses"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.OssLicensesPlugin"
+        }
 
         // Conventions
         register("androidFeature") {

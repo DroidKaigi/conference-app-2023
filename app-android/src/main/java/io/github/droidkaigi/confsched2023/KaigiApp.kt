@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -27,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.window.layout.DisplayFeature
 import co.touchlab.kermit.Logger
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
@@ -71,6 +73,7 @@ import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
@@ -148,7 +151,7 @@ private fun NavGraphBuilder.mainScreen(
                         Sponsors -> navController.navigateSponsorsScreen()
                         CodeOfConduct -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/code-of-conduct")
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
-                        License -> TODO()
+                        License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
                         Staff -> navController.navigateStaffScreen()
@@ -164,14 +167,20 @@ private fun NavGraphBuilder.mainScreen(
             )
             nestedStampsScreen(
                 onStampsClick = {
-                    TODO()
+                    // TODO
                 },
             )
             // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
+                val lifecycleOwner = LocalLifecycleOwner.current
                 ContributorsScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
-                    onNavigationIconClick = navController::popBackStack,
+                    onNavigationIconClick = {
+                        handleOnClickIfNotNavigating(
+                            lifecycleOwner,
+                            mainNestedNavController::popBackStack,
+                        )
+                    },
                     onContributorItemClick = externalNavController::navigate,
                 )
             }
@@ -257,6 +266,10 @@ private class ExternalNavController(
         }.onFailure {
             Logger.e("Fail startActivity in navigateToCalendarRegistration", it)
         }
+    }
+
+    fun navigateToLicenseScreen() {
+        context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
     }
 
     @Suppress("SwallowedException")

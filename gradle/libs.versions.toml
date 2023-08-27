@@ -32,8 +32,11 @@ multiplatformFirebase = "1.8.1"
 kermit = "1.2.2"
 okHttp = "4.11.0"
 ktorfit = "1.5.0"
+ossLicensesPlugin = "0.10.6"
+ossLicenses = "17.0.1"
 detekt = "1.23.1"
 twitterComposeRule = "0.0.26"
+lottie = "6.1.0"
 kover = "0.7.3"
 
 [libraries]
@@ -50,6 +53,7 @@ completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version
 detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
+ossLicensesPlugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 koverPlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
 
 androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -88,6 +92,7 @@ composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", vers
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
+lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -125,6 +130,8 @@ ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = 
 
 # Test
 
+ossLicenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "ossLicenses" }
+
 junit = { module = "junit:junit", version.ref = "junit" }
 androidxTestExtJunit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
 androidxTestEspressoEspressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "androidxTestEspresso" }
@@ -144,6 +151,7 @@ roborazziGradlePlugin = { id = "io.github.takahirom.roborazzi", version.ref = "r
 kspGradlePlugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+ossLicensesPlugin = { id = "com.google.android.gms.oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 
 [bundles]
 plugins = [
@@ -158,5 +166,6 @@ plugins = [
     "kotlinxSerializationGradlePlugin",
     "completeKotlinPlugin",
     "detektGradlePlugin",
+    "ossLicensesPlugin",
     "koverPlugin"
 ]
