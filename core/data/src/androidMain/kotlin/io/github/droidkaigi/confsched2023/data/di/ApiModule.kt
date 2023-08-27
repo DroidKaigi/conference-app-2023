@@ -131,17 +131,16 @@ class AuthenticatorModule {
 class RemoteConfigModule {
     @Provides
     @Singleton
+    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
+        return Firebase.remoteConfig
+    }
+    @Provides
+    @Singleton
     fun provideRemoteConfigApi(
         firebaseRemoteConfig: FirebaseRemoteConfig,
     ): RemoteConfigApi {
         return DefaultRemoteConfigApi(
             firebaseRemoteConfig = firebaseRemoteConfig
         )
-    }
-
-    @Provides
-    @Singleton
-    fun provideFirebaseRemoteConfig(): FirebaseRemoteConfig {
-        return Firebase.remoteConfig
     }
 }
