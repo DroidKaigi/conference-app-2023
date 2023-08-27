@@ -6,6 +6,7 @@ import Theme
 
 struct TimetableDayHeader: View {
     let selectedDay: DroidKaigi2023Day
+    let shouldCollapse: Bool
     let onSelect: (DroidKaigi2023Day) -> Void
 
     // Define margin values to calculate horizontal position for capsule rectangle
@@ -32,9 +33,11 @@ struct TimetableDayHeader: View {
                         VStack(spacing: 0) {
                             Text(day.name)
                                 .font(Font.system(size: 12, weight: .semibold))
-                            Text("\(day.dayOfMonth)")
-                                .font(Font.system(size: 24, weight: .semibold))
-                                .frame(height: 32)
+                            if !shouldCollapse {
+                                Text("\(day.dayOfMonth)")
+                                    .font(Font.system(size: 24, weight: .semibold))
+                                    .frame(height: 32)
+                            }
                         }
                         .padding(4)
                         .frame(maxWidth: .infinity)
@@ -51,7 +54,10 @@ struct TimetableDayHeader: View {
                 GeometryReader { geometry in
                     Capsule()
                         .fill(AssetColors.Primary.primary.swiftUIColor)
-                        .frame(width: calculateButtonWidth(deviceWidth: geometry.size.width), height: 56)
+                        .frame(
+                            width: calculateButtonWidth(deviceWidth: geometry.size.width),
+                            height: calculateButtonHeight()
+                        )
                         .offset(x: calculateDynamicTabHorizontalOffset(deviceWidth: geometry.size.width), y: 10)
                         .animation(.easeInOut(duration: 0.16), value: selectedDay)
                 }
@@ -64,6 +70,10 @@ struct TimetableDayHeader: View {
         // Get the index value corresponding to `selectedDay` and use it for calculation
         let indexBySelectedDay = getIndexBySelectedDay()
         return buttonAreaLeadingMargin + (betweenButtonMargin + buttonAreaWidth) * CGFloat(indexBySelectedDay)
+    }
+
+    private func calculateButtonHeight() -> CGFloat {
+        return shouldCollapse ? CGFloat(32) : CGFloat(56)
     }
 
     private func getIndexBySelectedDay() -> Int {
@@ -83,5 +93,5 @@ struct TimetableDayHeader: View {
 }
 
 #Preview {
-    TimetableDayHeader(selectedDay: .day1, onSelect: { _ in })
+    TimetableDayHeader(selectedDay: .day1, shouldCollapse: false, onSelect: { _ in })
 }
