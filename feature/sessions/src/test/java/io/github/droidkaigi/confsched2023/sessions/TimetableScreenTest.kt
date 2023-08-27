@@ -109,4 +109,34 @@ class TimetableScreenTest {
             checkTimetableListCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 0.5f)
+    fun checkSmallFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 1.5f)
+    fun checkLargeFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 2.0f)
+    fun checkHugeFontScaleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            checkScreenCapture()
+        }
+    }
 }
