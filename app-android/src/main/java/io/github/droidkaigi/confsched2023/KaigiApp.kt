@@ -17,7 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat.startActivity
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -73,6 +73,7 @@ import io.github.droidkaigi.confsched2023.staff.staffScreen
 import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
 @Composable
@@ -171,9 +172,15 @@ private fun NavGraphBuilder.mainScreen(
             )
             // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
+                val lifecycleOwner = LocalLifecycleOwner.current
                 ContributorsScreen(
                     viewModel = hiltViewModel<ContributorsViewModel>(),
-                    onNavigationIconClick = navController::popBackStack,
+                    onNavigationIconClick = {
+                        handleOnClickIfNotNavigating(
+                            lifecycleOwner,
+                            mainNestedNavController::popBackStack,
+                        )
+                    },
                     onContributorItemClick = externalNavController::navigate,
                 )
             }
