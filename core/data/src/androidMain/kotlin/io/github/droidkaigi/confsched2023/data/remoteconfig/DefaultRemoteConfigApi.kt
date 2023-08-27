@@ -23,4 +23,9 @@ class DefaultRemoteConfigApi : RemoteConfigApi {
         firebaseRemoteConfig.fetchAndActivate()
         return firebaseRemoteConfig[key]
     }
+
+    override suspend fun getString(key: String): String {
+        firebaseRemoteConfig.fetchAndActivate()
+        return firebaseRemoteConfig[key]
+    }
 }
