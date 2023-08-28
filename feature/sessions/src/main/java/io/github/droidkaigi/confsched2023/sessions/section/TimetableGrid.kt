@@ -87,7 +87,7 @@ fun TimetableGrid(
         day = day,
         nestedScrollDispatcher = nestedScrollDispatcher,
         onTimetableItemClick = onTimetableItemClick,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -108,7 +108,7 @@ fun TimetableGrid(
             top = contentPadding.calculateTopPadding(),
             start = contentPadding.calculateStartPadding(layoutDirection),
             end = contentPadding.calculateEndPadding(layoutDirection),
-        )
+        ),
     ) {
         TimetableGridHours(
             timetableState = timetableGridState,
@@ -493,7 +493,7 @@ class ScreenScrollState(
         launch {
             _scrollY.animateDecay(
                 velocity.y / 2f,
-                exponentialDecay()
+                exponentialDecay(),
             )
         }
     }
@@ -503,7 +503,7 @@ class ScreenScrollState(
         launch {
             _scrollX.animateDecay(
                 velocity.x / 2f,
-                exponentialDecay()
+                exponentialDecay(),
             )
         }
     }

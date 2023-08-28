@@ -34,11 +34,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun RoomItem(
     room: TimetableRoom,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = room.name.currentLangTitle,
@@ -63,7 +63,7 @@ fun TimetableGridRooms(
     val roomsLayout = remember(rooms) {
         RoomsLayout(
             rooms = rooms,
-            density = density
+            density = density,
         )
     }
 
@@ -71,7 +71,7 @@ fun TimetableGridRooms(
         RoomScreen(
             roomsLayout = roomsLayout,
             scrollState = scrollState,
-            density = density
+            density = density,
         )
     }
 
@@ -90,7 +90,7 @@ fun TimetableGridRooms(
                         lineColor,
                         Offset(it, 0f),
                         Offset(it, roomsScreen.height.toFloat()),
-                        linePxSize
+                        linePxSize,
                     )
                 }
 
@@ -98,7 +98,7 @@ fun TimetableGridRooms(
                     lineColor,
                     Offset(0f, roomsScreen.height.toFloat()),
                     Offset(roomsScreen.width.toFloat(), roomsScreen.height.toFloat()),
-                    linePxSize
+                    linePxSize,
                 )
             }
             .pointerInput(Unit) {
@@ -111,7 +111,7 @@ fun TimetableGridRooms(
                             roomsScreen.scroll(
                                 dragAmount,
                                 change.uptimeMillis,
-                                change.position
+                                change.position,
                             )
                         }
                     },
@@ -122,11 +122,11 @@ fun TimetableGridRooms(
                         coroutineScope.launch {
                             scrollState.flingXIfPossible()
                         }
-                    }
+                    },
                 )
             },
-        itemProvider = itemProvider
-    ) {constraints ->
+        itemProvider = itemProvider,
+    ) { constraints ->
         data class ItemData(val placeable: Placeable, val roomItem: RoomItemLayout)
         roomsScreen.updateBounds(width = constraints.maxWidth, height = constraints.maxHeight)
 
@@ -136,10 +136,10 @@ fun TimetableGridRooms(
                     index = index,
                     constraints = Constraints.fixed(
                         width = roomLayout.width,
-                        height = roomLayout.height
-                    )
+                        height = roomLayout.height,
+                    ),
                 )[0],
-                roomItem = roomLayout
+                roomItem = roomLayout,
             )
         }
 
@@ -147,7 +147,7 @@ fun TimetableGridRooms(
             items.forEach { (placeable, roomLayout) ->
                 placeable.place(
                     roomLayout.left + roomsScreen.scrollState.scrollX.toInt(),
-                    roomLayout.top
+                    roomLayout.top,
                 )
             }
         }
@@ -156,14 +156,14 @@ fun TimetableGridRooms(
 
 private data class RoomsLayout(
     val rooms: List<TimetableRoom>,
-    val density: Density
+    val density: Density,
 ) {
     var roomsWidth = 0
     var roomsHeight = 0
     val roomsLayouts = List(rooms.size) { index ->
         val itemLayout = RoomItemLayout(
             index = index,
-            density = density
+            density = density,
         )
 
         roomsHeight = maxOf(roomsHeight, itemLayout.height)
@@ -173,7 +173,7 @@ private data class RoomsLayout(
 
     fun visibleItemLayouts(
         screenWidth: Int,
-        scrollX: Int
+        scrollX: Int,
     ): List<IndexedValue<RoomItemLayout>> {
         return roomsLayouts.withIndex().filter { (_, layout) ->
             layout.isVisible(screenWidth, scrollX)
@@ -193,7 +193,7 @@ private data class RoomItemLayout(
 
     fun isVisible(
         screenWidth: Int,
-        scrollX: Int
+        scrollX: Int,
     ): Boolean {
         val screenStart = -scrollX
         val screenEnd = -scrollX + screenWidth
@@ -216,7 +216,7 @@ private class RoomScreen(
         derivedStateOf {
             roomsLayout.visibleItemLayouts(
                 width,
-                scrollState.scrollX.toInt()
+                scrollState.scrollX.toInt(),
             )
         }
 
@@ -248,7 +248,7 @@ private class RoomScreen(
             scrollX = nextPossibleX,
             scrollY = scrollState.scrollY,
             timeMillis = timeMillis,
-            position = position
+            position = position,
         )
     }
 
@@ -263,7 +263,7 @@ private class RoomScreen(
 @OptIn(ExperimentalFoundationApi::class)
 private fun itemProvider(
     itemCount: () -> Int,
-    itemContent: @Composable (Int) -> Unit
+    itemContent: @Composable (Int) -> Unit,
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
         @Composable

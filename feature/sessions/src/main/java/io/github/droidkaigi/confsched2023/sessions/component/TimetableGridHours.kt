@@ -14,7 +14,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
@@ -41,7 +40,7 @@ fun HoursItem(
         text = hour,
         modifier = modifier,
         textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.titleMedium
+        style = MaterialTheme.typography.titleMedium,
     )
 }
 
@@ -73,7 +72,7 @@ fun TimetableGridHours(
             hoursLayout,
             scrollState,
             day,
-            density
+            density,
         )
     }
     val visibleItemLayouts by remember(hoursScreen) { hoursScreen.visibleItemLayouts }
@@ -92,7 +91,7 @@ fun TimetableGridHours(
                         lineColor,
                         Offset(lineOffset.toFloat(), it),
                         Offset(lineEnd.toFloat(), it),
-                        linePxSize
+                        linePxSize,
                     )
                 }
             }
@@ -104,7 +103,7 @@ fun TimetableGridHours(
                             hoursScreen.scroll(
                                 dragAmount,
                                 change.uptimeMillis,
-                                change.position
+                                change.position,
                             )
                         }
                     },
@@ -115,11 +114,11 @@ fun TimetableGridHours(
                         coroutineScope.launch {
                             scrollState.flingYIfPossible()
                         }
-                    }
+                    },
                 )
             },
-        itemProvider = itemProvider
-    ) {constraints ->
+        itemProvider = itemProvider,
+    ) { constraints ->
         data class ItemData(val placeable: Placeable, val hoursItem: HoursItemLayout)
         hoursScreen.updateBounds(width = constraints.maxWidth, height = constraints.maxHeight)
 
@@ -129,17 +128,17 @@ fun TimetableGridHours(
                     index,
                     Constraints.fixed(
                         width = hoursLayout.width,
-                        height = hoursLayout.height
-                    )
+                        height = hoursLayout.height,
+                    ),
                 )[0],
-                hoursItem = hoursLayout
+                hoursItem = hoursLayout,
             )
         }
         layout(constraints.maxWidth, constraints.maxHeight) {
             items.forEach { (placable, hoursLayout) ->
                 placable.place(
                     hoursLayout.left,
-                    hoursLayout.top + hoursScreen.scrollState.scrollY.toInt()
+                    hoursLayout.top + hoursScreen.scrollState.scrollY.toInt(),
                 )
             }
         }
@@ -158,7 +157,7 @@ private data class HoursLayout(
         HoursItemLayout(
             density = density,
             minutePx = minutePx,
-            index = index
+            index = index,
         ).apply {
             hoursHeight = maxOf(hoursHeight, this.height)
             hoursWidth = maxOf(hoursWidth, this.width)
@@ -167,7 +166,7 @@ private data class HoursLayout(
 
     fun visibleItemLayouts(
         screenHeight: Int,
-        scrollY: Int
+        scrollY: Int,
     ): List<IndexedValue<HoursItemLayout>> {
         return hoursLayouts.withIndex().filter { (_, layout) ->
             layout.isVisible(screenHeight, scrollY)
@@ -178,7 +177,7 @@ private data class HoursLayout(
 private data class HoursItemLayout(
     val density: Density,
     val minutePx: Float,
-    val index: Int
+    val index: Int,
 ) {
     val topOffset = with(density) { horizontalLineTopOffset.roundToPx() }
     val itemOffset = with(density) { hoursItemTopOffset.roundToPx() }
@@ -190,7 +189,7 @@ private data class HoursItemLayout(
 
     fun isVisible(
         screenHeight: Int,
-        scrollY: Int
+        scrollY: Int,
     ): Boolean {
         val screenTop = -scrollY
         val screenBottom = -scrollY + screenHeight
@@ -215,7 +214,7 @@ private class HoursScreen(
         derivedStateOf {
             hoursLayout.visibleItemLayouts(
                 height,
-                scrollState.scrollY.toInt()
+                scrollState.scrollY.toInt(),
             )
         }
 
@@ -256,7 +255,7 @@ private class HoursScreen(
 @OptIn(ExperimentalFoundationApi::class)
 private fun itemProvider(
     itemCount: () -> Int,
-    itemContent: @Composable (Int) -> Unit
+    itemContent: @Composable (Int) -> Unit,
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
         @Composable
