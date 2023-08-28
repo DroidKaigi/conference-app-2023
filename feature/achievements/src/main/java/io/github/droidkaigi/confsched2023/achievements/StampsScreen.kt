@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.stamps
+package io.github.droidkaigi.confsched2023.achievements
 
 import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,8 +21,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.stamps.section.StampList
-import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
+import io.github.droidkaigi.confsched2023.achievements.section.StampList
+import io.github.droidkaigi.confsched2023.achievements.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val stampsScreenRoute = "stamps"

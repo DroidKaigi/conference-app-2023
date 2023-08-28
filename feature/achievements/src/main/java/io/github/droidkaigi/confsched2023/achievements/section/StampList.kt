@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.stamps.section
+package io.github.droidkaigi.confsched2023.achievements.section
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOut
@@ -24,9 +24,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import io.github.droidkaigi.confsched2023.achievements.component.StampImage
+import io.github.droidkaigi.confsched2023.achievements.component.StampsDetail
 import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.stamps.component.StampImage
-import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
 import kotlinx.collections.immutable.ImmutableList
 
 private const val StampListColumns = 2

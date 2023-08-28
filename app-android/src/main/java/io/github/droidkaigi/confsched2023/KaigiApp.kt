@@ -72,9 +72,9 @@ import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
 import io.github.droidkaigi.confsched2023.staff.staffScreen
-import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
+import io.github.droidkaigi.confsched2023.achievements.navigateStampsScreen
+import io.github.droidkaigi.confsched2023.achievements.nestedStampsScreen
+import io.github.droidkaigi.confsched2023.achievements.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 

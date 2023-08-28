@@ -1,13 +1,13 @@
-package io.github.droidkaigi.confsched2023.stamps
+package io.github.droidkaigi.confsched2023.achievements
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
-import io.github.droidkaigi.confsched2023.feature.stamps.R
+import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
+import io.github.droidkaigi.confsched2023.achievements.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry

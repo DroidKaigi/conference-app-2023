@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.stamps.component
+package io.github.droidkaigi.confsched2023.achievements.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
