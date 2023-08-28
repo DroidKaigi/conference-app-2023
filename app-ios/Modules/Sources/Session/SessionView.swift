@@ -45,7 +45,8 @@ public struct SessionView: View {
                     InformationRow(
                         icon: Assets.Icons.language.swiftUIImage,
                         title: "対応言語",
-                        content: viewModel.timetableItem.language.langOfSpeaker
+                        // condition (Locale.current == Locale(identifier: "ja_JP")) always return false. we have to compare identifier string.
+                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: (Locale.current.identifier == "ja_JP"))
                     )
                     InformationRow(
                         icon: Assets.Icons.category.swiftUIImage,
