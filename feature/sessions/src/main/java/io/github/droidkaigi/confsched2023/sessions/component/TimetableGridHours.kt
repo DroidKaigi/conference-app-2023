@@ -22,7 +22,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.section.ScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
@@ -49,7 +48,6 @@ fun HoursItem(
 fun TimetableGridHours(
     timetableState: TimetableState,
     coroutineScope: CoroutineScope,
-    day: DroidKaigi2023Day,
     modifier: Modifier = Modifier,
     content: @Composable (String) -> Unit,
 ) {

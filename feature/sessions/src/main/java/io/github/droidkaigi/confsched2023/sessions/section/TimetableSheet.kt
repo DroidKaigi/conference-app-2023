@@ -105,7 +105,6 @@ fun TimetableSheet(
                     val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
                     TimetableGrid(
                         uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
-                        day = selectedDay,
                         nestedScrollDispatcher = nestedScrollDispatcher,
                         onTimetableItemClick = onTimetableItemClick,
                         modifier = Modifier
