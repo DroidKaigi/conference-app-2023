@@ -1,9 +1,11 @@
 import Model
+import shared
 import SwiftUI
 
 struct TimetableListView: View {
     let timetableTimeGroupItems: [TimetableTimeGroupItems]
     let searchWord: String
+    let onToggleBookmark: (TimetableItemId) -> Void
 
     var body: some View {
         VStack(spacing: 0) {
@@ -18,7 +20,10 @@ struct TimetableListView: View {
                             NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
                                 TimetableListItemView(
                                     timetableItemWithFavorite: timetableItemWithFavorite,
-                                    searchWord: searchWord
+                                    searchWord: searchWord,
+                                    onToggleBookmark: {
+                                        onToggleBookmark(timetableItemWithFavorite.timetableItem.id)
+                                    }
                                 )
                             }
                         }
@@ -33,8 +38,6 @@ struct TimetableListView: View {
 }
 
 #if DEBUG
-import shared
-
 #Preview {
     TimetableListView(
         timetableTimeGroupItems: [
@@ -44,8 +47,8 @@ import shared
                 items: [Timetable.companion.fake().contents.first!]
             ),
         ],
-        searchWord: ""
+        searchWord: "",
+        onToggleBookmark: {_ in}
     )
 }
-
 #endif

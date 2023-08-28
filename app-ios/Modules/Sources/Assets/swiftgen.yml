@@ -17,7 +17,9 @@ json:
   inputs:
     - Lottie
   outputs:
-    enumName: LottieAssets
     templatePath: SwiftGenTemplates/lottie.stencil
     output: Lottie.generated.swift
+    params:
+      enumName: LottieAssets
+      publicAccess: true
 

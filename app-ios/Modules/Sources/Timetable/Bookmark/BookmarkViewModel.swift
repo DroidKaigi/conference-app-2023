@@ -18,21 +18,34 @@ final class BookmarkViewModel: ObservableObject {
             applySelectedDayToState()
         }
     }
+    private var loadTask: Task<Void, Error>?
+
+    deinit {
+        loadTask?.cancel()
+    }
 
     func load() async {
         state.timeGroupTimetableItems = .loading
-        do {
-            for try await timetable in sessionsData.timetable() {
-                cachedTimetable = timetable
+        loadTask = Task {
+            do {
+                for try await timetable in sessionsData.timetable() {
+                    cachedTimetable = timetable
+                }
+            } catch let error {
+                state.timeGroupTimetableItems = .failed(error)
             }
-        } catch let error {
-            state.timeGroupTimetableItems = .failed(error)
         }
     }
 
     func selectDay(day: DroidKaigi2023Day?) {
         state.selectedDay = day
         applySelectedDayToState()
+    }
+
+    func toggleBookmark(_ id: TimetableItemId) {
+        Task {
+            try await self.sessionsData.toggleBookmark(id)
+        }
     }
 
     private func applySelectedDayToState() {
@@ -43,7 +56,6 @@ final class BookmarkViewModel: ObservableObject {
             cachedTimetable.dayTimetable(droidKaigi2023Day: day).contents
         } ?? cachedTimetable.contents
         let timetableTimeGroupItems = timetableContents
-//            .filter { cachedTimetable.bookmarks.contains($0.timetableItem.id) }
             .map { content in
                 let items = timetableContents
                     .filter { itemWithFavorite in

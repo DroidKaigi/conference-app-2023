@@ -22,7 +22,7 @@ var package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
-        .package(url: "https://github.com/airbnb/lottie-ios", from: "4.2.0"),
+        .package(url: "https://github.com/airbnb/lottie-spm", from: "4.2.0"),
     ],
     targets: [
         .target(
@@ -47,7 +47,7 @@ var package = Package(
         .target(
             name: "Assets",
             dependencies: [
-                .product(name: "Lottie", package: "lottie-ios"),
+                .product(name: "Lottie", package: "lottie-spm"),
             ], resources: [
                 .process("Resources"),
                 .process("swiftgen.yml"),
