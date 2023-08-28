@@ -71,7 +71,6 @@ fun TimetableGridHours(
         HoursScreen(
             hoursLayout,
             scrollState,
-            day,
             density,
         )
     }
@@ -202,7 +201,6 @@ private data class HoursItemLayout(
 private class HoursScreen(
     val hoursLayout: HoursLayout,
     val scrollState: ScreenScrollState,
-    day: DroidKaigi2023Day,
     density: Density,
 ) {
     var width = 0
