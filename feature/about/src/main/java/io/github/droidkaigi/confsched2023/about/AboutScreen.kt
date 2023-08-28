@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.pm.PackageManager.PackageInfoFlags
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -41,11 +40,13 @@ const val aboutScreenRoute = "about"
 fun NavGraphBuilder.nestedAboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     composable(aboutScreenRoute) {
         AboutScreen(
             onAboutItemClick = onAboutItemClick,
             onLinkClick = onLinkClick,
+            contentPadding = contentPadding,
         )
     }
 }
@@ -63,6 +64,7 @@ const val AboutScreenTestTag = "AboutScreen"
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
+    contentPadding: PaddingValues = PaddingValues(),
     onLinkClick: (url: String) -> Unit,
 ) {
     // val uiState by viewModel.uiState.collectAsState()
@@ -80,6 +82,7 @@ fun AboutScreen(
         onAboutItemClick = onAboutItemClick,
         versionName = versionName,
         onLinkClick = onLinkClick,
+        contentPadding = contentPadding,
     )
 }
 
@@ -93,8 +96,10 @@ private fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
     versionName: String?,
     onLinkClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val layoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(AboutScreenTestTag),
         topBar = {
@@ -118,15 +123,17 @@ private fun AboutScreen(
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
         content = { padding ->
             LazyColumn(
                 Modifier
-                    .padding(
-                        top = padding.calculateTopPadding(),
-                        start = padding.calculateStartPadding(LocalLayoutDirection.current),
-                        end = padding.calculateEndPadding(LocalLayoutDirection.current),
-                    )
                     .nestedScroll(scrollBehavior.nestedScrollConnection),
+                contentPadding = padding,
             ) {
                 item {
                     AboutDroidKaigiDetail(

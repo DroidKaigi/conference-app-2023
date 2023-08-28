@@ -1,7 +1,5 @@
 package io.github.droidkaigi.confsched2023.sessions
 
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -9,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -70,10 +67,9 @@ private fun BookmarkScreen(
                 onBackPressClick = onBackPressClick,
             )
         },
-        contentWindowInsets = WindowInsets(0.dp),
     ) { padding ->
         BookmarkSheet(
-            modifier = Modifier.padding(padding),
+            modifier = Modifier,
             scrollState = scrollState,
             onTimetableItemClick = onTimetableItemClick,
             onBookmarkClick = onBookmarkClick,
@@ -81,6 +77,7 @@ private fun BookmarkScreen(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
+            contentPadding = padding,
             uiState = uiState.contentUiState,
         )
     }
