@@ -49,7 +49,7 @@ private class TabIndicatorOffsetElement(private val currentTabPosition: TabPosit
     }
 
     override fun InspectorInfo.inspectableProperties() {
-        name = "tabIndicatorOffset"
+        name = "tabIndicatorOffsetModifierNode"
         value = currentTabPosition
     }
 }
