@@ -258,12 +258,12 @@ private fun itemProvider(
     itemContent: @Composable (Int) -> Unit,
 ): LazyLayoutItemProvider {
     return object : LazyLayoutItemProvider {
+        override val itemCount: Int get() = itemCount()
+
         @Composable
         override fun Item(index: Int, key: Any) {
             itemContent(index)
         }
-
-        override val itemCount: Int get() = itemCount()
     }
 }
 
