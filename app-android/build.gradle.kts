@@ -68,7 +68,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "SERVER_URL",
-                value = "\"https://ssot-api.droidkaigi.jp\"",
+                value = "\"https://ssot-api.droidkaigi.jp/\"",
             )
         }
     }
