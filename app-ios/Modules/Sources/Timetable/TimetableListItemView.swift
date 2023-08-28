@@ -5,6 +5,7 @@ import Theme
 
 struct TimetableListItemView: View {
     let timetableItemWithFavorite: TimetableItemWithFavorite
+    let searchWord: String
 
     var timetableItem: TimetableItem {
         self.timetableItemWithFavorite.timetableItem
@@ -30,7 +31,7 @@ struct TimetableListItemView: View {
                     }
                 }
                 Spacer().frame(height: 8)
-                Text(timetableItem.title.currentLangTitle)
+                Text(addHighlightAttributes(title: timetableItem.title.currentLangTitle, searchWord: searchWord))
                     .multilineTextAlignment(.leading)
                     .font(Font.system(size: 22, weight: .medium, design: .default))
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
@@ -75,6 +76,15 @@ struct TimetableListItemView: View {
             .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
         }
     }
+
+    private func addHighlightAttributes(title: String, searchWord: String) -> AttributedString {
+        var attributedString = AttributedString(title)
+        if let range = attributedString.range(of: searchWord, options: .caseInsensitive) {
+            attributedString[range].underlineStyle = .single
+            attributedString[range].backgroundColor = AssetColors.Secondary.secondaryContainer.swiftUIColor
+        }
+        return attributedString
+    }
 }
 
 private extension RoomType {
@@ -93,6 +103,6 @@ private extension RoomType {
 
 #Preview {
     TimetableListItemView(
-        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake()
+        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake(), searchWord: ""
     )
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct TimetableListView: View {
     let timetableTimeGroupItems: [TimetableTimeGroupItems]
+    let searchWord: String
 
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +17,8 @@ struct TimetableListView: View {
                         ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
                             NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
                                 TimetableListItemView(
-                                    timetableItemWithFavorite: timetableItemWithFavorite
+                                    timetableItemWithFavorite: timetableItemWithFavorite,
+                                    searchWord: searchWord
                                 )
                             }
                         }
@@ -41,7 +43,8 @@ import shared
                 endsTimeString: Timetable.companion.fake().contents.first!.timetableItem.endsTimeString,
                 items: [Timetable.companion.fake().contents.first!]
             ),
-        ]
+        ],
+        searchWord: ""
     )
 }
 

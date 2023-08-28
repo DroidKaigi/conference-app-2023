@@ -6,14 +6,15 @@ import Theme
 
 struct TimetableDayHeader: View {
     let selectedDay: DroidKaigi2023Day
+    let shouldCollapse: Bool
     let onSelect: (DroidKaigi2023Day) -> Void
 
-    // Define margin values to calculate holizontal position for capsule rectangle
+    // Define margin values to calculate horizontal position for capsule rectangle
     private let buttonAreaLeadingMargin = 16.0
     private let buttonTrailingMargin = 16.0
     private let betweenButtonMargin = 8.0
 
-    // Define all button count to calculate holizontal position for capsule rectangle
+    // Define all button count to calculate horizontal position for capsule rectangle
     private var buttonsCount: Int {
         Int(DroidKaigi2023Day.values().size)
     }
@@ -32,9 +33,11 @@ struct TimetableDayHeader: View {
                         VStack(spacing: 0) {
                             Text(day.name)
                                 .font(Font.system(size: 12, weight: .semibold))
-                            Text("\(day.dayOfMonth)")
-                                .font(Font.system(size: 24, weight: .semibold))
-                                .frame(height: 32)
+                            if !shouldCollapse {
+                                Text("\(day.dayOfMonth)")
+                                    .font(Font.system(size: 24, weight: .semibold))
+                                    .frame(height: 32)
+                            }
                         }
                         .padding(4)
                         .frame(maxWidth: .infinity)
@@ -51,7 +54,10 @@ struct TimetableDayHeader: View {
                 GeometryReader { geometry in
                     Capsule()
                         .fill(AssetColors.Primary.primary.swiftUIColor)
-                        .frame(width: calculateButtonWidth(deviceWidth: geometry.size.width), height: 56)
+                        .frame(
+                            width: calculateButtonWidth(deviceWidth: geometry.size.width),
+                            height: calculateButtonHeight()
+                        )
                         .offset(x: calculateDynamicTabHorizontalOffset(deviceWidth: geometry.size.width), y: 10)
                         .animation(.easeInOut(duration: 0.16), value: selectedDay)
                 }
@@ -66,22 +72,26 @@ struct TimetableDayHeader: View {
         return buttonAreaLeadingMargin + (betweenButtonMargin + buttonAreaWidth) * CGFloat(indexBySelectedDay)
     }
 
+    private func calculateButtonHeight() -> CGFloat {
+        return shouldCollapse ? CGFloat(32) : CGFloat(56)
+    }
+
     private func getIndexBySelectedDay() -> Int {
         Int(selectedDay.ordinal)
     }
 
     private func calculateButtonWidth(deviceWidth: CGFloat) -> CGFloat {
         // Calculate button width considering related margins
-        let excludeTotalMagin = calculateExcludeTotalMagin()
-        return (deviceWidth - excludeTotalMagin) / CGFloat(buttonsCount)
+        let excludeTotalMargin = calculateExcludeTotalMargin()
+        return (deviceWidth - excludeTotalMargin) / CGFloat(buttonsCount)
     }
 
-    private func calculateExcludeTotalMagin() -> CGFloat {
+    private func calculateExcludeTotalMargin() -> CGFloat {
         let totalBetweenButtonMargin = betweenButtonMargin * CGFloat(buttonsCount - 1)
         return buttonAreaLeadingMargin + buttonTrailingMargin + totalBetweenButtonMargin
     }
 }
 
 #Preview {
-    TimetableDayHeader(selectedDay: .day1, onSelect: { _ in })
+    TimetableDayHeader(selectedDay: .day1, shouldCollapse: false, onSelect: { _ in })
 }
