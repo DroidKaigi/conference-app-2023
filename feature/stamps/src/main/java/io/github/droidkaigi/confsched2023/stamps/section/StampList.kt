@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
@@ -36,9 +39,11 @@ fun StampList(
     @androidx.annotation.RawRes
     stampLottieRawId: Int?,
     onStampsClick: (Stamp) -> Unit,
+    contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     val bgColor: Color by animateColorAsState(
         if (stampLottieRawId != null) {
             Color(0xFF37383D)
@@ -76,8 +81,10 @@ fun StampList(
             columns = Fixed(StampListColumns),
             modifier = modifier,
             contentPadding = PaddingValues(
-                horizontal = 16.dp,
-                vertical = 20.dp,
+                start = 16.dp + contentPadding.calculateStartPadding(layoutDirection),
+                end = 16.dp + contentPadding.calculateEndPadding(layoutDirection),
+                top = 20.dp + contentPadding.calculateTopPadding(),
+                bottom = 20.dp + contentPadding.calculateBottomPadding(),
             ),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
