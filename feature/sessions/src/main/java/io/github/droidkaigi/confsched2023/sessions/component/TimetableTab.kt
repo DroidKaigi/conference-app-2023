@@ -14,7 +14,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -107,7 +106,7 @@ fun TimetableTabRow(
         if (selectedTabIndex < tabPositions.size) {
             TimetableTabIndicator(
 //                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                Modifier.tabIndicatorOffsetModifierNode(tabPositions[selectedTabIndex])
+                Modifier.tabIndicatorOffsetModifierNode(tabPositions[selectedTabIndex]),
             )
         }
     },

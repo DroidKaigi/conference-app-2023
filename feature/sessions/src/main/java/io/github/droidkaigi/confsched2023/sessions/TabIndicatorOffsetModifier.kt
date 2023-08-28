@@ -25,18 +25,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.constrain
 import kotlinx.coroutines.launch
 
-fun Modifier.tabIndicatorOffsetModifierNode(currentTabPosition: TabPosition)
-    = this
-        .fillMaxWidth()
-        .wrapContentSize(Alignment.BottomStart)
-        .then(TabIndicatorOffsetElement(currentTabPosition = currentTabPosition))
+fun Modifier.tabIndicatorOffsetModifierNode(currentTabPosition: TabPosition) = this
+    .fillMaxWidth()
+    .wrapContentSize(Alignment.BottomStart)
+    .then(TabIndicatorOffsetElement(currentTabPosition = currentTabPosition))
 
-private class TabIndicatorOffsetElement(private val currentTabPosition: TabPosition)
-    : ModifierNodeElement<TabIndicatorOffsetNode>() {
+private class TabIndicatorOffsetElement(private val currentTabPosition: TabPosition) :
+    ModifierNodeElement<TabIndicatorOffsetNode>() {
     override fun create(): TabIndicatorOffsetNode = TabIndicatorOffsetNode(currentTabPosition)
 
     override fun update(node: TabIndicatorOffsetNode) {
-        node.update(currentTabPosition = currentTabPosition)
+        node.targetTabWidth = currentTabPosition.width
+        node.targetIndicatorOffset = currentTabPosition.left
     }
 
     override fun equals(other: Any?): Boolean {
@@ -59,22 +59,16 @@ private class TabIndicatorOffsetElement(private val currentTabPosition: TabPosit
 
 private class TabIndicatorOffsetNode(
     currentTabPosition: TabPosition,
-): LayoutModifierNode, Modifier.Node() {
-    //
-    private var targetTabWidth by mutableStateOf(currentTabPosition.width)
-    private var targetIndicatorOffset by mutableStateOf(currentTabPosition.left)
+) : LayoutModifierNode, Modifier.Node() {
+    var targetTabWidth by mutableStateOf(currentTabPosition.width)
+    var targetIndicatorOffset by mutableStateOf(currentTabPosition.left)
 
     private var tabWidthAnimatable: Animatable<Dp, AnimationVector1D>? = null
     private var indicatorOffsetAnimatable: Animatable<Dp, AnimationVector1D>? = null
 
-    fun update(currentTabPosition: TabPosition) {
-        this.targetTabWidth = currentTabPosition.width
-        this.targetIndicatorOffset = currentTabPosition.left
-    }
-
     override fun MeasureScope.measure(
         measurable: Measurable,
-        constraints: Constraints
+        constraints: Constraints,
     ): MeasureResult {
         val tabWidthAnim = tabWidthAnimatable?.also {
             if (targetTabWidth != it.targetValue) {
@@ -83,7 +77,7 @@ private class TabIndicatorOffsetNode(
                     // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material/material/src/commonMain/kotlin/androidx/compose/material/TabRow.kt%3Bl=401?q=tabIndicatorOffset&sq=
                     it.animateTo(
                         targetTabWidth,
-                        tween(durationMillis = 250, easing = FastOutSlowInEasing)
+                        tween(durationMillis = 250, easing = FastOutSlowInEasing),
                     )
                 }
             }
@@ -101,8 +95,8 @@ private class TabIndicatorOffsetNode(
         val wrappedConstraints = constraints.constrain(
             Constraints(
                 minWidth = minWidth,
-                maxWidth = maxWidth
-            )
+                maxWidth = maxWidth,
+            ),
         )
         val placeable = measurable.measure(wrappedConstraints)
 
@@ -114,7 +108,7 @@ private class TabIndicatorOffsetNode(
                         // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material/material/src/commonMain/kotlin/androidx/compose/material/TabRow.kt%3Bl=401?q=tabIndicatorOffset&sq=
                         it.animateTo(
                             targetValue = targetIndicatorOffset,
-                            animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing)
+                            animationSpec = tween(durationMillis = 250, easing = FastOutSlowInEasing),
                         )
                     }
                 }
