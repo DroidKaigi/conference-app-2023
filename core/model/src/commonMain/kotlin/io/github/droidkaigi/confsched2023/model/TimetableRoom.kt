@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.model
 
-
 @Immutable
 data class TimetableRooms(val rooms: List<TimetableRoom>)
 
