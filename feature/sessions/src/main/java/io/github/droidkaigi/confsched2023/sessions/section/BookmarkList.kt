@@ -52,7 +52,8 @@ fun BookmarkList(
     ) {
         itemsIndexed(
             timetableItemMap.toList(),
-            key = { _, (key, _) -> key }) { index, (_, values) ->
+            key = { _, (key, _) -> key },
+        ) { index, (_, values) ->
             var rowHeight by remember { mutableIntStateOf(0) }
             var timeTextHeight by remember { mutableIntStateOf(0) }
             val timeTextOffset by remember(density) {
