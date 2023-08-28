@@ -59,12 +59,14 @@ import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableRooms
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.component.HoursItem
 import io.github.droidkaigi.confsched2023.sessions.component.RoomItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridHours
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridItem
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableGridRooms
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
@@ -119,7 +121,7 @@ fun TimetableGrid(
         }
         Column {
             TimetableGridRooms(
-                rooms = timetable.rooms,
+                timetableRooms = TimetableRooms(timetable.rooms),
                 timetableState = timetableGridState,
                 coroutineScope = coroutineScope,
             ) { room ->

@@ -1,6 +1,10 @@
 package io.github.droidkaigi.confsched2023.model
 
-public data class TimetableRoom(
+
+@Immutable
+data class TimetableRooms(val rooms: List<TimetableRoom>)
+
+data class TimetableRoom(
     val id: Int,
     val name: MultiLangText,
     val type: RoomType,

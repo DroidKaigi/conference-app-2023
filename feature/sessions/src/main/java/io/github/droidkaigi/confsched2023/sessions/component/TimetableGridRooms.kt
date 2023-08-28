@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableRooms
 import io.github.droidkaigi.confsched2023.sessions.section.ScreenScrollState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSizes
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
@@ -49,12 +50,13 @@ fun RoomItem(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TimetableGridRooms(
-    rooms: List<TimetableRoom>,
+    timetableRooms: TimetableRooms,
     timetableState: TimetableState,
     coroutineScope: CoroutineScope,
     modifier: Modifier = Modifier,
     content: @Composable (TimetableRoom) -> Unit,
 ) {
+    val rooms = timetableRooms.rooms
     val itemProvider = itemProvider({ rooms.size }) { index ->
         content(rooms[index])
     }
