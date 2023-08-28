@@ -32,6 +32,7 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
+import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loading
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailBottomAppBar
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableItemDetailScreenTopAppBar
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetail
@@ -164,10 +165,11 @@ private fun TimetableItemDetailScreen(
         AnimatedContent(
             targetState = uiState,
             transitionSpec = { fadeIn().togetherWith(fadeOut()) },
+            contentKey = { uiState is Loaded },
             label = "TimetableItemDetailScreen",
         ) {
             when (it) {
-                TimetableItemDetailScreenUiState.Loading -> {
+                Loading -> {
                     LoadingText(
                         modifier = Modifier.fillMaxSize(),
                     )
