@@ -61,7 +61,7 @@ style:
   ClassOrdering:
     active: true
   # Multi-line if statements force curly braces
-  MandatoryBracesIfStatements:
+  BracesOnIfStatements:
     active: true
   # Multiline for, while... forces curly braces
   MandatoryBracesLoops:

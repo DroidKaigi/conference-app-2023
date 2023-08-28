@@ -98,7 +98,7 @@ class TimetableItemDetailScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     @Config(fontScale = 0.5f)
-    fun smallFontScaleShot() {
+    fun checkSmallFontScaleShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()
             checkScreenCapture()
@@ -108,7 +108,7 @@ class TimetableItemDetailScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     @Config(fontScale = 1.5f)
-    fun largeFontScaleShot() {
+    fun checkLargeFontScaleShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()
             checkScreenCapture()
@@ -118,7 +118,7 @@ class TimetableItemDetailScreenTest {
     @Test
     @Category(ScreenshotTests::class)
     @Config(fontScale = 2.0f)
-    fun hugeFontScaleShot() {
+    fun checkHugeFontScaleShot() {
         timetableItemDetailScreenRobot {
             setupScreenContent()
             checkScreenCapture()

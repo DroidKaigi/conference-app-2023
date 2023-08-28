@@ -17,6 +17,8 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
     private let staffViewProvider: ViewProvider<Void, StaffView>
     private let sponsorViewProvider: ViewProvider<Void, SponsorView>
 
+    @Environment(\.openURL) private var openURL
+
     public init(
         contributorViewProvider: @escaping ViewProvider<Void, ContributorView>,
         staffViewProvider: @escaping ViewProvider<Void, StaffView>,
@@ -49,7 +51,9 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                             action: .init(
                                 label: "地図を見る",
                                 action: {
-                                    // TODO: Open map
+                                    if let googleMapUrl = URL(string: "https://goo.gl/maps/vv9sE19JvRjYKtSP9") {
+                                        openURL(googleMapUrl)
+                                    }
                                 }
                             )
                         )
@@ -134,7 +138,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                 case .sponsors:
                     sponsorViewProvider(())
                 case .license:
-                    LicenseListView()
+                    LicenseListView(bundle: .module)
                 }
             }
         }

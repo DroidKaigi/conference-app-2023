@@ -1,16 +1,22 @@
 package io.github.droidkaigi.confsched2023.about.component
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.FileCopy
 import androidx.compose.material.icons.outlined.Gavel
 import androidx.compose.material.icons.outlined.PrivacyTip
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.about.AboutStrings
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 const val AboutOthersCodeOfConductItemTestTag = "AboutOthersCodeOfConductItem"
 const val AboutOthersLicenseItemTestTag = "AboutOthersLicenseItem"
@@ -68,5 +74,22 @@ fun LazyListScope.aboutOthers(
                     horizontal = 16.dp,
                 ),
         )
+    }
+}
+
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+internal fun AboutOthersPreview() {
+    KaigiTheme {
+        Surface {
+            LazyColumn {
+                aboutOthers(
+                    onCodeOfConductItemClick = {},
+                    onLicenseItemClick = {},
+                    onPrivacyPolicyItemClick = {},
+                )
+            }
+        }
     }
 }

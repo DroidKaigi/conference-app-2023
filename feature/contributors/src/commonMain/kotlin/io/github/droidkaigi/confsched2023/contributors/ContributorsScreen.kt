@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -62,11 +63,13 @@ private fun ContributorsScreen(
                 },
                 navigationIcon = {
                     IconButton(
+                        modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
                         onClick = onBackClick,
+                        enabled = scrollBehavior.state.collapsedFraction < 1f,
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back", // TODO: transparent
+                            contentDescription = "Back",
                         )
                     }
                 },
