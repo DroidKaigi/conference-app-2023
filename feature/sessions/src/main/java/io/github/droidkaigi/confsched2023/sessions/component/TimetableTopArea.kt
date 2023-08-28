@@ -1,8 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.ViewTimeline
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +36,8 @@ fun TimetableTopArea(
     onTimetableUiChangeClick: () -> Unit,
     onSearchClick: () -> Unit,
     onTopAreaBookmarkIconClick: () -> Unit,
+    onReachAnimationEnd: () -> Unit,
+    onBookmarkClickStatus: Boolean?,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -56,15 +58,14 @@ fun TimetableTopArea(
                     contentDescription = Search.asString(),
                 )
             }
-            IconButton(
-                modifier = Modifier.testTag(TimetableBookmarksIconTestTag),
-                onClick = { onTopAreaBookmarkIconClick() },
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Bookmarks,
-                    contentDescription = Bookmark.asString(),
-                )
-            }
+            BookmarkIcon(
+                modifier = Modifier
+                    .testTag(TimetableBookmarksIconTestTag)
+                    .clickable { onTopAreaBookmarkIconClick() },
+                contentDescription = Bookmark.asString(),
+                onBookmarkClickStatus = onBookmarkClickStatus,
+                onReachAnimationEnd = onReachAnimationEnd,
+            )
             IconButton(
                 modifier = Modifier.testTag(TimetableUiTypeChangeButtonTestTag),
                 onClick = { onTimetableUiChangeClick() },
@@ -96,6 +97,8 @@ fun TimetableTopAreaPreview() {
                 onTimetableUiChangeClick = {},
                 onSearchClick = {},
                 onTopAreaBookmarkIconClick = {},
+                onReachAnimationEnd = {},
+                onBookmarkClickStatus = null,
             )
         }
     }

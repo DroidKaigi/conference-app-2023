@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions
 
+import androidx.compose.material3.SnackbarDuration.Short
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -72,8 +73,9 @@ class TimetableItemDetailViewModel @Inject constructor(
             val bookmarked = timetableItemStateFlow.value?.second ?: return@launch
             if (bookmarked) {
                 val result = userMessageStateHolder.showMessage(
-                    TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
-                    TimetableItemDetailStrings.ViewBookmarkList.asString(),
+                    message = TimetableItemDetailStrings.BookmarkedSuccessfully.asString(),
+                    actionLabel = TimetableItemDetailStrings.ViewBookmarkList.asString(),
+                    duration = Short,
                 )
                 if (result == UserMessageResult.ActionPerformed) {
                     viewBookmarkListRequestStateFlow.update { ViewBookmarkListRequestState.Requested }

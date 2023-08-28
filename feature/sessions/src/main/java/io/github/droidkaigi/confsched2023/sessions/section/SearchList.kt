@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -70,7 +71,7 @@ fun SearchList(
     searchQuery: SearchQuery,
     scrollState: LazyListState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: (TimetableItem) -> Unit,
+    onBookmarkIconClick: (TimetableItem, Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
@@ -95,14 +96,16 @@ fun SearchList(
                 }
             }
             Row(
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
+                modifier = Modifier.padding(start = 16.dp).onGloballyPositioned {
                     rowHeight = it.size.height
                 },
             ) {
                 Column(
-                    modifier = Modifier.width(58.dp).onGloballyPositioned {
-                        timeTextHeight = it.size.height
-                    }.offset { IntOffset(0, timeTextOffset) },
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .width(58.dp)
+                        .onGloballyPositioned { timeTextHeight = it.size.height }
+                        .offset { IntOffset(0, timeTextOffset) },
                     verticalArrangement = Arrangement.Center,
                 ) {
                     if (index == 0) {
@@ -127,6 +130,9 @@ fun SearchList(
                     isBookmarked = searchListUiState.bookmarkedTimetableItemIds.contains(
                         timetableItem.id,
                     ),
+                    modifier = Modifier
+                        .clickable { onTimetableItemClick(timetableItem) }
+                        .padding(top = 10.dp),
                     highlightQuery = searchQuery,
                     chipContent = {
                         // Chips
@@ -163,7 +169,6 @@ fun SearchList(
                             )
                         }
                     },
-                    onClick = onTimetableItemClick,
                     onBookmarkClick = onBookmarkIconClick,
                 )
             }

@@ -2,6 +2,10 @@ package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.annotation.RawRes
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -59,12 +63,18 @@ fun StampsScreen(
     StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
-        onStampsClick = onStampsClick,
         contentPadding = contentPadding,
+        stampLottieRawId = uiState.lottieRawRes,
+        onStampsClick = { stamp ->
+            onStampsClick()
+            viewModel.onStampClick(stamp)
+        },
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 
 data class StampsScreenUiState(
+    val lottieRawRes: Int?,
     val stamps: ImmutableList<Stamp>,
 )
 
@@ -72,8 +82,11 @@ data class StampsScreenUiState(
 private fun StampsScreen(
     uiState: StampsScreenUiState,
     snackbarHostState: SnackbarHostState,
-    onStampsClick: () -> Unit,
+    @RawRes
+    stampLottieRawId: Int?,
+    onStampsClick: (Stamp) -> Unit,
     contentPadding: PaddingValues,
+    onReachAnimationEnd: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -90,6 +103,13 @@ private fun StampsScreen(
                 stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
                 contentPadding = innerPadding,
+                onReachAnimationEnd = onReachAnimationEnd,
+                stampLottieRawId = stampLottieRawId,
+                modifier = Modifier.padding(
+                    top = innerPadding.calculateTopPadding(),
+                    start = innerPadding.calculateStartPadding(layoutDirection),
+                    end = innerPadding.calculateEndPadding(layoutDirection),
+                ),
             )
         },
     )

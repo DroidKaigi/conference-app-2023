@@ -52,7 +52,7 @@ fun TimetableSheet(
     uiState: TimetableSheetUiState,
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onFavoriteClick: (TimetableItem) -> Unit,
+    onFavoriteClick: (TimetableItem, Boolean) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {

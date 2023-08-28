@@ -92,6 +92,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
     implementation(libs.composeNavigation)
     implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterialWindowSize)

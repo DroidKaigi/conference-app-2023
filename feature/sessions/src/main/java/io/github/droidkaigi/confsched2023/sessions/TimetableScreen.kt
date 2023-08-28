@@ -107,6 +107,7 @@ fun TimetableScreen(
         onBookmarkIconClick = onBookmarkIconClick,
         onSearchClick = onSearchClick,
         onTimetableUiChangeClick = viewModel::onUiTypeChange,
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
         contentPadding = contentPadding,
         modifier = modifier,
     )
@@ -115,6 +116,7 @@ fun TimetableScreen(
 data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
     val timetableUiType: TimetableUiType,
+    val onBookmarkIconClickStatus: Boolean?,
 )
 
 private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
@@ -144,10 +146,11 @@ private fun TimetableScreen(
     uiState: TimetableScreenUiState,
     snackbarHostState: SnackbarHostState,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onBookmarkIconClick: () -> Unit,
     onSearchClick: () -> Unit,
     onTimetableUiChangeClick: () -> Unit,
+    onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
@@ -192,9 +195,11 @@ private fun TimetableScreen(
         topBar = {
             TimetableTopArea(
                 timetableUiType = uiState.timetableUiType,
-                onTimetableUiChangeClick,
-                onSearchClick,
-                onBookmarkIconClick,
+                onTimetableUiChangeClick = onTimetableUiChangeClick,
+                onSearchClick = onSearchClick,
+                onTopAreaBookmarkIconClick = onBookmarkIconClick,
+                onBookmarkClickStatus = uiState.onBookmarkIconClickStatus,
+                onReachAnimationEnd = onReachAnimationEnd,
             )
         },
         contentWindowInsets = WindowInsets(
@@ -261,9 +266,11 @@ fun PreviewTimetableScreenDark() {
                     ),
                 ),
                 TimetableUiType.Grid,
+                null,
             ),
             SnackbarHostState(),
             {},
+            { _, _ -> },
             {},
             {},
             {},

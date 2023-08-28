@@ -17,9 +17,6 @@ var package = Package(
         .library(name: "Navigation", targets: ["Navigation"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-collections.git", from: "1.0.4"),
-        .package(url: "https://github.com/apple/swift-algorithms.git", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-async-algorithms.git", from: "0.1.0"),
         .package(url: "https://github.com/realm/SwiftLint", from: "0.52.4"),
         .package(url: "https://github.com/SwiftGen/SwiftGenPlugin", from: "6.6.2"),
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
@@ -34,6 +31,9 @@ var package = Package(
                 "Component",
                 "Model",
                 .product(name: "LicenseList", package: "LicenseList")
+            ],
+            plugins: [
+                .plugin(name: "PrepareLicenseList", package: "LicenseList")
             ]
         ),
         .testTarget(
@@ -97,6 +97,8 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Theme",
+                "Component",
+                "KMPContainer"
             ]
         ),
         .testTarget(

@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +51,7 @@ data class TimetableListUiState(
 fun TimetableList(
     uiState: TimetableListUiState,
     scrollState: LazyListState,
-    onBookmarkClick: (TimetableItem) -> Unit,
+    onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
@@ -77,12 +78,13 @@ fun TimetableList(
                 }
             }
             Row(
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
+                modifier = Modifier.padding(start = 16.dp).onGloballyPositioned {
                     rowHeight = it.size.height
                 },
             ) {
                 Column(
                     modifier = Modifier
+                        .padding(top = 10.dp)
                         .width(58.dp).onGloballyPositioned {
                             timeTextHeight = it.size.height
                         }
@@ -116,13 +118,14 @@ fun TimetableList(
                     }
                 }
                 Column {
-                    timetableItems.forEachIndexed { k, timetableItem ->
+                    timetableItems.forEach { timetableItem ->
                         val isBookmarked = uiState.timetable.bookmarks.contains(timetableItem.id)
                         TimetableListItem(
                             timetableItem,
-                            modifier = Modifier.let { if (k >= 1) it.padding(top = 10.dp) else it },
+                            modifier = Modifier
+                                .clickable { onTimetableItemClick(timetableItem) }
+                                .padding(top = 10.dp),
                             isBookmarked = isBookmarked,
-                            onClick = onTimetableItemClick,
                             onBookmarkClick = onBookmarkClick,
                             chipContent = {
                                 // Chips

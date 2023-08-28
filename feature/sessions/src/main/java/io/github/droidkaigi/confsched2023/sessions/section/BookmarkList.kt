@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,7 +43,7 @@ fun BookmarkList(
     bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    onBookmarkIconClick: (TimetableItem) -> Unit,
+    onBookmarkIconClick: (TimetableItem, Boolean) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
@@ -68,12 +69,13 @@ fun BookmarkList(
                 }
             }
             Row(
-                modifier = Modifier.padding(start = 16.dp, top = 10.dp).onGloballyPositioned {
+                modifier = Modifier.padding(start = 16.dp).onGloballyPositioned {
                     rowHeight = it.size.height
                 },
             ) {
                 Column(
                     modifier = Modifier
+                        .padding(top = 10.dp)
                         .width(58.dp).onGloballyPositioned {
                             timeTextHeight = it.size.height
                         }
@@ -97,9 +99,11 @@ fun BookmarkList(
                     }
                 }
                 Column {
-                    values.forEachIndexed { k, timetableItem ->
+                    values.forEach { timetableItem ->
                         TimetableListItem(
-                            modifier = Modifier.let { if (k >= 1) it.padding(top = 10.dp) else it },
+                            modifier = Modifier
+                                .clickable { onTimetableItemClick(timetableItem) }
+                                .padding(top = 10.dp),
                             timetableItem = timetableItem,
                             isBookmarked = bookmarkedTimetableItemIds.contains(timetableItem.id),
                             chipContent = {
@@ -116,7 +120,6 @@ fun BookmarkList(
                                     borderColor = MaterialTheme.colorScheme.outline,
                                 )
                             },
-                            onClick = onTimetableItemClick,
                             onBookmarkClick = onBookmarkIconClick,
                         )
                     }

@@ -37,11 +37,11 @@ import androidx.compose.ui.text.lerp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlin.math.min
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -134,14 +134,7 @@ fun BookmarkTopArea(
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {
-                        // Ignore click events when you've started navigating to another screen
-                        // https://stackoverflow.com/a/76386604/4339442
-                        val currentState = lifecycleOwner.lifecycle.currentState
-                        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                            onBackPressClick()
-                        }
-                    },
+                    .clickable { handleOnClickIfNotNavigating(lifecycleOwner, onBackPressClick) },
             )
             Text(
                 text = SessionsStrings.Bookmark.asString(),
