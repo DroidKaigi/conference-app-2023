@@ -6,10 +6,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
@@ -88,8 +93,8 @@ fun BookmarkTopArea(
     )
 
     val topBarHeight = lerp(
-        156.dp,
-        96.dp,
+        132.dp,
+        72.dp,
         fraction,
     )
 
@@ -109,15 +114,19 @@ fun BookmarkTopArea(
 
     Box(
         modifier = modifier
-            .height(topBarHeight)
-            .background(backgroundColor),
+            .background(backgroundColor)
+            .windowInsetsPadding(
+                WindowInsets.systemBars
+                    .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top),
+            )
+            .height(topBarHeight),
     ) {
         FlowRow(
             horizontalArrangement = Arrangement.Start,
             verticalArrangement = Arrangement.Center,
             maxItemsInEachRow = rowNum,
             modifier = Modifier
-                .padding(start = 16.dp, top = 46.dp)
+                .padding(start = 16.dp, top = 22.dp)
                 .fillMaxWidth(),
         ) {
             Icon(

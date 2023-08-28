@@ -2,7 +2,11 @@ package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
@@ -19,6 +23,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -48,6 +53,7 @@ fun TimetableSheet(
     timetableScreenScrollState: TimetableScreenScrollState,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onFavoriteClick: (TimetableItem, Boolean) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay()) }
@@ -55,8 +61,9 @@ fun TimetableSheet(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",
     )
+    val layoutDirection = LocalLayoutDirection.current
     Surface(
-        modifier = modifier,
+        modifier = modifier.padding(contentPadding.calculateTopPadding()),
         shape = RoundedCornerShape(topStart = corner.dp, topEnd = corner.dp),
     ) {
         val timetableSheetContentScrollState = rememberTimetableSheetContentScrollState()
@@ -66,6 +73,10 @@ fun TimetableSheet(
                 .nestedScroll(timetableSheetContentScrollState.nestedScrollConnection),
         ) {
             TimetableTabRow(
+                modifier = Modifier.padding(
+                    start = contentPadding.calculateStartPadding(layoutDirection),
+                    end = contentPadding.calculateEndPadding(layoutDirection),
+                ),
                 tabState = timetableSheetContentScrollState.tabScrollState,
                 selectedTabIndex = DroidKaigi2023Day.entries.indexOf(selectedDay),
             ) {
@@ -84,8 +95,13 @@ fun TimetableSheet(
                 is Empty -> {
                     TimetableShimmerList(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .weight(1f),
+                            .weight(1f)
+                            .fillMaxSize(),
+                        contentPadding = PaddingValues(
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
+                        ),
                     )
                 }
 
@@ -98,6 +114,11 @@ fun TimetableSheet(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
+                        contentPadding = PaddingValues(
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
+                        ),
                     )
                 }
 
@@ -114,6 +135,11 @@ fun TimetableSheet(
                                 nestedScrollDispatcher,
                             )
                             .weight(1f),
+                        contentPadding = PaddingValues(
+                            bottom = contentPadding.calculateBottomPadding(),
+                            start = contentPadding.calculateStartPadding(layoutDirection),
+                            end = contentPadding.calculateEndPadding(layoutDirection),
+                        ),
                     )
                 }
             }
