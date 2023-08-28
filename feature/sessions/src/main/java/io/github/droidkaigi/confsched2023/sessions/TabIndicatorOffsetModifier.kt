@@ -19,6 +19,7 @@ import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.node.LayoutModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.platform.InspectorInfo
+import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.constrain
@@ -49,8 +50,10 @@ private class TabIndicatorOffsetElement(private val currentTabPosition: TabPosit
     }
 
     override fun InspectorInfo.inspectableProperties() {
-        name = "tabIndicatorOffsetModifierNode"
-        value = currentTabPosition
+        debugInspectorInfo {
+            name = "tabIndicatorOffsetModifierNode"
+            value = currentTabPosition
+        }
     }
 }
 
