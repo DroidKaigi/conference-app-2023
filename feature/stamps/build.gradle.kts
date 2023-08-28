@@ -2,7 +2,7 @@ plugins {
     id("droidkaigi.convention.androidfeature")
 }
 
-android.namespace = "io.github.droidkaigi.confsched2023.feature.stamps"
+android.namespace = "io.github.droidkaigi.confsched2023.feature.achievements"
 
 dependencies {
     implementation(projects.core.designsystem)
