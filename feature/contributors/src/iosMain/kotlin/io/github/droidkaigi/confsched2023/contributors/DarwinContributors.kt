@@ -5,6 +5,7 @@ import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
 import io.github.droidkaigi.confsched2023.data.contributors.FakeContributorsApiClient
+import io.github.droidkaigi.confsched2023.ui.FakeUserMessageStateHolder
 import platform.UIKit.UIViewController
 
 @Suppress("UNUSED")
@@ -14,7 +15,8 @@ fun viewController(): UIViewController = ComposeUIViewController {
         // FIXME: Tentatively passing FakeRepository
         DefaultContributorsRepository(
             FakeContributorsApiClient()
-        )
+        ),
+        FakeUserMessageStateHolder()
     )
     val uiViewController = LocalUIViewController.current
     LaunchedEffect(uiViewController) {
