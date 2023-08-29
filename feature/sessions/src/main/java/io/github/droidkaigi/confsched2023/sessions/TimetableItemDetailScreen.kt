@@ -119,7 +119,7 @@ sealed class TimetableItemDetailScreenUiState {
         val timetableItemDetailSectionUiState: TimetableItemDetailSectionUiState,
         val isBookmarked: Boolean,
         val viewBookmarkListRequestState: ViewBookmarkListRequestState,
-        val currentLang: Lang,
+        val currentLang: Lang?,
     ) : TimetableItemDetailScreenUiState()
 
     val shouldNavigateToBookmarkList: Boolean

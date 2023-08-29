@@ -19,7 +19,7 @@ data class TimetableItemDetailSectionUiState(
 internal fun TimetableItemDetail(
     uiState: TimetableItemDetailSectionUiState,
     contentPadding: PaddingValues,
-    selectedLanguage: Lang,
+    selectedLanguage: Lang?,
     onLinkClick: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {

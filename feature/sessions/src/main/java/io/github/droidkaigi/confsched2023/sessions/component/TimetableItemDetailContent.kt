@@ -62,7 +62,7 @@ const val TimetableItemDetailReadMoreButtonTestTag = "TimetableItemDetailReadMor
 @Composable
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
-    selectedLanguage: Lang,
+    selectedLanguage: Lang?,
     modifier: Modifier = Modifier,
     onLinkClick: (url: String) -> Unit,
 ) {
@@ -70,9 +70,11 @@ fun TimetableItemDetailContent(
         when (uiState) {
             is Session -> {
                 val description = when (selectedLanguage) {
-                    Lang.MIXED -> ""
                     Lang.JAPANESE -> uiState.description.jaTitle
                     Lang.ENGLISH -> uiState.description.enTitle
+                    Lang.MIXED,
+                    null,
+                    -> ""
                 }
                 DescriptionSection(
                     description = description,
