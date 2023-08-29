@@ -10,7 +10,6 @@ import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.model.defaultLang
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageResult
@@ -54,8 +53,8 @@ class TimetableItemDetailViewModel @Inject constructor(
             )
     private val viewBookmarkListRequestStateFlow =
         MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
-    private val currentDescriptionLanguageStateFlow: MutableStateFlow<Lang?>
-    = MutableStateFlow(null)
+    private val currentDescriptionLanguageStateFlow: MutableStateFlow<Lang?> =
+        MutableStateFlow(null)
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
         buildUiState(
