@@ -1,29 +1,48 @@
 package io.github.droidkaigi.confsched2023.stamps
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.feature.stamps.R
 import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class StampsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
+    private val stampsRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
     private val stampLottieRawResStateFlow: MutableStateFlow<Int?> =
         MutableStateFlow(null)
 
+    private val isDisplayedDialogFlow: StateFlow<Boolean?> =
+        stampsRepository.getIsDisplayedDialogStream()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = null,
+            )
+
     val uiState = buildUiState(
         stampLottieRawResStateFlow,
-    ) { rawRes ->
+        isDisplayedDialogFlow,
+    ) { rawRes, isDisplayedDialog ->
+        Log.d("TESTTEST", "viewmodel:$isDisplayedDialog")
         StampsScreenUiState(
             lottieRawRes = rawRes,
+            isShowDialog = isDisplayedDialog?.not() ?: false,
             stamps = persistentListOf(
                 Stamp(
                     hasDrawableResId = R.drawable.img_stamp_a_on,
@@ -67,5 +86,11 @@ class StampsScreenViewModel @Inject constructor(
 
     fun onReachAnimationEnd() {
         stampLottieRawResStateFlow.value = null
+    }
+
+    fun onDisplayedDialog() {
+        viewModelScope.launch {
+            stampsRepository.displayedDialog()
+        }
     }
 }

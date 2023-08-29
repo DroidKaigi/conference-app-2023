@@ -5,4 +5,8 @@ import kotlinx.coroutines.flow.Flow
 interface StampRepository {
 
     fun getStampEnabledStream(): Flow<Boolean>
+
+    fun getIsDisplayedDialogStream(): Flow<Boolean?>
+
+    suspend fun displayedDialog()
 }

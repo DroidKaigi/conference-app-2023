@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.stamps
 
+import android.util.Log
 import androidx.annotation.RawRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -17,12 +18,10 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
@@ -83,11 +82,13 @@ fun StampsScreen(
             viewModel.onStampClick(stamp)
         },
         onReachAnimationEnd = viewModel::onReachAnimationEnd,
+        onDisplayedDialog = viewModel::onDisplayedDialog,
     )
 }
 
 data class StampsScreenUiState(
     val lottieRawRes: Int?,
+    val isShowDialog: Boolean,
     val stamps: ImmutableList<Stamp>,
 )
 
@@ -100,6 +101,7 @@ private fun StampsScreen(
     onStampsClick: (Stamp) -> Unit,
     contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
+    onDisplayedDialog: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -112,10 +114,15 @@ private fun StampsScreen(
             bottom = contentPadding.calculateBottomPadding(),
         ),
         content = { innerPadding ->
-            var showDialog by rememberSaveable { mutableStateOf(true) }
-            val onDismiss = { showDialog = false }
+            val onDismiss = {
+                onDisplayedDialog()
+            }
 
-            if (showDialog) {
+            SideEffect {
+                Log.d("TESTTEST", "uiState.isDisplayedDialog:${uiState.isShowDialog}")
+            }
+
+            if (uiState.isShowDialog) {
                 StampsScreenDialog(
                     onDismissRequest = onDismiss,
                 )
