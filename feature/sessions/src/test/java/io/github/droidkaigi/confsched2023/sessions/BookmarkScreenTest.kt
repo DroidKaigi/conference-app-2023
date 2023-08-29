@@ -32,9 +32,99 @@ class BookmarkScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
-    fun checkLaunchShot() {
+    fun checkLaunchEmptyShot() {
         bookmarkScreenRobot {
             setupBookmarkScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkLaunchNotEmptyShot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay1Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay1()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay2Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay2()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay3Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay3()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay1AndDay2Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay1()
+            clickBookmarkFilterChipDay2()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay1AndDay3Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay1()
+            clickBookmarkFilterChipDay3()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkFilterChipDay2AndDay3Shot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickBookmarkFilterChipDay2()
+            clickBookmarkFilterChipDay3()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkBookmarkToggleShot() {
+        bookmarkScreenRobot {
+            toggleFavorites()
+            setupBookmarkScreenContent()
+            clickFirstSessionBookmark()
             checkScreenCapture()
         }
     }
