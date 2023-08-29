@@ -99,7 +99,10 @@ var package = Package(
         ),
 
         .target(
-            name: "Event"
+            name: "Event",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
         ),
 
         .target(
