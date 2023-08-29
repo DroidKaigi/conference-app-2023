@@ -21,6 +21,9 @@ local.properties
 .classpath
 .project
 
+# Windows thumbnail db
+Thumbs.db
+
 # IDEA/Android Studio project files, because
 # the project can be imported from settings.gradle.kts
 *.iml
