@@ -11,6 +11,7 @@ plugins {
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover")
     id("droidkaigi.primitive.android.osslicenses")
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -118,6 +119,8 @@ dependencies {
 // Dependency configuration to aggregate Kover coverage reports
 // TODO: extract report aggregation to build-logic
 dependencies {
+    baselineProfile(projects.baselineprofile)
+    implementation(libs.profileinstaller)
     kover(projects.appIosShared)
 
     kover(projects.feature.about)
