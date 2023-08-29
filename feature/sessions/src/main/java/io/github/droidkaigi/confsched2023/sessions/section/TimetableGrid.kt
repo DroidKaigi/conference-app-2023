@@ -73,15 +73,22 @@ fun TimetableGrid(
     uiState: TimetableGridUiState,
     nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     val timetableGridState = rememberTimetableGridState()
+    val layoutDirection = LocalLayoutDirection.current
     TimetableGrid(
         timetable = uiState.timetable,
         timetableState = timetableGridState,
         nestedScrollDispatcher = nestedScrollDispatcher,
         modifier = modifier,
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(
+            top = 16.dp + contentPadding.calculateTopPadding(),
+            bottom = 16.dp + contentPadding.calculateBottomPadding(),
+            start = 16.dp + contentPadding.calculateStartPadding(layoutDirection),
+            end = 16.dp + contentPadding.calculateEndPadding(layoutDirection),
+        ),
     ) { timetableItem, itemHeightPx ->
         TimetableGridItem(
             timetableItem = timetableItem,

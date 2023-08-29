@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -52,12 +53,14 @@ fun TimetableList(
     scrollState: LazyListState,
     onBookmarkClick: (TimetableItem, Boolean) -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
     LazyColumn(
         modifier = modifier.testTag(TimetableListTestTag),
         state = scrollState,
+        contentPadding = contentPadding,
     ) {
         itemsIndexed(uiState.timetableItemMap.toList(), key = { _, (key, _) -> key }) { index, (_, timetableItems) ->
             var rowHeight by remember { mutableIntStateOf(0) }

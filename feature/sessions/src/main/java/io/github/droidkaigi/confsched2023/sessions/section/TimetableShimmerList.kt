@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -14,9 +15,13 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableShimmerLis
 const val TimetableShimmerListTestTag = "TimetableShimmerList"
 
 @Composable
-fun TimetableShimmerList(modifier: Modifier = Modifier) {
+fun TimetableShimmerList(
+    contentPadding: PaddingValues,
+    modifier: Modifier = Modifier,
+) {
     LazyColumn(
         modifier = modifier.testTag(TimetableShimmerListTestTag),
+        contentPadding = contentPadding,
     ) {
         items(10) {
             Row(modifier = Modifier.padding(start = 16.dp, top = 10.dp, end = 16.dp)) {

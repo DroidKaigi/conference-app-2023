@@ -101,11 +101,13 @@ public struct TimetableView<SessionView: View>: View {
                             NavigationLink(value: TimetableRouting.search) {
                                 Assets.Icons.search.swiftUIImage
                             }
+                            .buttonStyle(.plain)
                         }
                         ToolbarItem {
                             NavigationLink(value: TimetableRouting.bookmark) {
                                 Assets.Icons.bookmarks.swiftUIImage
                             }
+                            .buttonStyle(.plain)
                         }
                         ToolbarItem {
                             Assets.Icons.gridView.swiftUIImage

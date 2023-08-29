@@ -138,12 +138,13 @@ private fun NavGraphBuilder.mainScreen(
         windowSize = windowSize,
         displayFeatures = displayFeatures,
         mainNestedGraphStateHolder = KaigiAppMainNestedGraphStateHolder(),
-        mainNestedGraph = { mainNestedNavController, _ ->
+        mainNestedGraph = { mainNestedNavController, contentPadding ->
             nestedSessionScreens(
                 modifier = Modifier,
                 onSearchClick = navController::navigateSearchScreen,
                 onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
                 onBookmarkIconClick = navController::navigateToBookmarkScreen,
+                contentPadding = contentPadding,
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
@@ -160,15 +161,18 @@ private fun NavGraphBuilder.mainScreen(
                     }
                 },
                 onLinkClick = externalNavController::navigate,
+                contentPadding = contentPadding,
             )
             nestedFloorMapScreen(
                 windowSize = windowSize,
                 onSideEventClick = externalNavController::navigate,
+                contentPadding = contentPadding,
             )
             nestedStampsScreen(
                 onStampsClick = {
                     // TODO
                 },
+                contentPadding = contentPadding,
             )
             // For KMP, we are not using navigation abstraction for contributors screen
             composable(contributorsScreenRoute) {
@@ -182,6 +186,7 @@ private fun NavGraphBuilder.mainScreen(
                         )
                     },
                     onContributorItemClick = externalNavController::navigate,
+                    contentPadding = contentPadding,
                 )
             }
         },
