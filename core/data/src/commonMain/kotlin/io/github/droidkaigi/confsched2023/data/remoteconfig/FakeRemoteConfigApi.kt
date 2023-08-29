@@ -5,13 +5,13 @@ import androidx.datastore.core.IOException
 class FakeRemoteConfigApi : RemoteConfigApi {
 
     sealed interface Status : RemoteConfigApi {
-        object Default : Status {
+        data object Default : Status {
             override suspend fun getBoolean(key: String): Boolean {
                 return true
             }
         }
 
-        object ThrowException : Status {
+        data object ThrowException : Status {
             override suspend fun getBoolean(key: String): Boolean {
                 throw IOException("FakeRemoteConfigApi throws exception")
             }
