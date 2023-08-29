@@ -142,6 +142,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
+                "Event",
                 "KMPContainer",
                 "Model",
             ]
