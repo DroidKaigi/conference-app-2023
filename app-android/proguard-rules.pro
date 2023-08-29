@@ -22,5 +22,5 @@
 
 -dontwarn org.slf4j.impl.StaticLoggerBinder
 
-## Firebase
+# Jetpack DataStore
 -keep class androidx.datastore.*.** {*;}
