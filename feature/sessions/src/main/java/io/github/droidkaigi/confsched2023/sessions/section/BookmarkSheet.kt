@@ -4,9 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -69,8 +72,10 @@ fun BookmarkSheet(
     onDayFirstChipClick: () -> Unit,
     onDaySecondChipClick: () -> Unit,
     onDayThirdChipClick: () -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Column(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -83,11 +88,22 @@ fun BookmarkSheet(
             onDayFirstChipClick = onDayFirstChipClick,
             onDaySecondChipClick = onDaySecondChipClick,
             onDayThirdChipClick = onDayThirdChipClick,
-            modifier = Modifier,
+            modifier = Modifier.padding(
+                start = contentPadding.calculateLeftPadding(layoutDirection),
+                end = contentPadding.calculateRightPadding(layoutDirection),
+                top = contentPadding.calculateTopPadding(),
+            ),
+        )
+        val padding = PaddingValues(
+            start = contentPadding.calculateLeftPadding(layoutDirection),
+            end = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
         )
         when (uiState) {
             is Empty -> {
-                EmptyView()
+                EmptyView(
+                    modifier = Modifier.padding(padding),
+                )
             }
 
             is ListBookmark -> {
@@ -97,6 +113,7 @@ fun BookmarkSheet(
                     timetableItemMap = uiState.timetableItemMap,
                     onTimetableItemClick = onTimetableItemClick,
                     onBookmarkIconClick = onBookmarkClick,
+                    contentPadding = padding,
                 )
             }
         }
@@ -104,9 +121,11 @@ fun BookmarkSheet(
 }
 
 @Composable
-private fun EmptyView() {
+private fun EmptyView(
+    modifier: Modifier = Modifier,
+) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {

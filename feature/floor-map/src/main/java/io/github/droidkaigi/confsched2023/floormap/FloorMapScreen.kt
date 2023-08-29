@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -39,6 +41,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -67,11 +70,13 @@ const val floorMapScreenRoute = "floorMap"
 fun NavGraphBuilder.nestedFloorMapScreen(
     windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     composable(floorMapScreenRoute) {
         FloorMapScreen(
             windowSize = windowSize,
             onSideEventClick = onSideEventClick,
+            contentPadding = contentPadding,
         )
     }
 }
@@ -89,6 +94,7 @@ const val FloorMapScreenTestTag = "FloorMapScreen"
 fun FloorMapScreen(
     windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
     viewModel: FloorMapScreenViewModel = hiltViewModel<FloorMapScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -105,6 +111,7 @@ fun FloorMapScreen(
         snackbarHostState = snackbarHostState,
         onSideEventClick = onSideEventClick,
         onClickFloorLevelSwitcher = viewModel::onClickFloorLevelSwitcher,
+        contentPadding = contentPadding,
     )
 }
 
@@ -134,10 +141,11 @@ private fun FloorMapScreen(
     snackbarHostState: SnackbarHostState,
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val layoutDirection = LocalLayoutDirection.current
     Scaffold(
-        contentWindowInsets = WindowInsets(0.dp), // https://stackoverflow.com/a/75962622
         snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier.testTag(FloorMapScreenTestTag),
         topBar = {
@@ -160,9 +168,15 @@ private fun FloorMapScreen(
                 scrollBehavior = scrollBehavior,
             )
         },
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
         content = { innerPadding ->
             FloorMapContent(
-                innerPadding = innerPadding,
+                contentPadding = innerPadding,
                 widthSizeClass = widthSizeClass,
                 nestedScrollConnection = scrollBehavior.nestedScrollConnection,
                 uiState = uiState,
@@ -175,22 +189,28 @@ private fun FloorMapScreen(
 
 @Composable
 private fun FloorMapContent(
-    innerPadding: PaddingValues,
+    contentPadding: PaddingValues,
     widthSizeClass: WindowWidthSizeClass,
     nestedScrollConnection: NestedScrollConnection,
     uiState: FloorMapScreenUiState,
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
+    val childContentPadding = PaddingValues(
+        start = contentPadding.calculateStartPadding(layoutDirection) + 16.dp,
+        top = contentPadding.calculateTopPadding(),
+        end = contentPadding.calculateEndPadding(layoutDirection) + 16.dp,
+        bottom = contentPadding.calculateBottomPadding(),
+    )
     BoxWithConstraints(
-        Modifier
-            .padding(innerPadding)
-            .padding(horizontal = 16.dp),
+        Modifier,
     ) {
         if (widthSizeClass != WindowWidthSizeClass.Compact) {
             LargeScreenContent(
                 uiState = uiState.largeFloorMapContentUiState,
                 onSideEventClick = onSideEventClick,
+                contentPadding = childContentPadding,
             )
         } else {
             MobileContent(
@@ -198,6 +218,7 @@ private fun FloorMapContent(
                 uiState = uiState,
                 onSideEventClick = onSideEventClick,
                 onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
+                contentPadding = childContentPadding,
             )
         }
     }
@@ -209,21 +230,25 @@ private fun MobileContent(
     uiState: FloorMapScreenUiState,
     onSideEventClick: (url: String) -> Unit,
     onClickFloorLevelSwitcher: (FloorLevel) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     val density = LocalDensity.current
     var boxHeight by remember { mutableIntStateOf(0) }
     var switcherPosition by remember { mutableFloatStateOf(0f) }
+    val switcherBottomPadding = 24.dp
     val gradientStartRatio by remember {
         derivedStateOf {
             if (boxHeight == 0 || switcherPosition == 0f) {
                 1f
             } else {
-                switcherPosition / (boxHeight - with(density) { 24.dp.toPx() })
+                switcherPosition / (boxHeight - with(density) { switcherBottomPadding.toPx() })
             }
         }
     }
     Box(
         Modifier
+            .fillMaxSize()
+            .padding(contentPadding)
             .onGloballyPositioned {
                 boxHeight = it.size.height
             },
@@ -242,13 +267,14 @@ private fun MobileContent(
                         1f to Color.Transparent,
                     ),
                 ),
+            contentPadding = PaddingValues(),
         )
         FloorLevelSwitcher(
             selectingFloorLevel = uiState.floorLevel,
             onClickFloorLevelSwitcher = onClickFloorLevelSwitcher,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 24.dp)
+                .padding(bottom = switcherBottomPadding)
                 .onGloballyPositioned {
                     switcherPosition = it.positionInParent().y
                 },
@@ -259,12 +285,15 @@ private fun MobileContent(
 @Composable
 private fun LargeScreenContent(
     uiState: LargeFloorMapContentUiState,
+    contentPadding: PaddingValues,
     onSideEventClick: (url: String) -> Unit,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Row(
         Modifier
             .fillMaxSize(),
     ) {
+        Spacer(modifier = Modifier.width(contentPadding.calculateStartPadding(layoutDirection)))
         Column(
             modifier = Modifier.weight(0.8f),
         ) {
@@ -272,6 +301,10 @@ private fun LargeScreenContent(
                 floorMapUiState = FloorMapUiState.of(Basement),
                 sideEventListUiState = uiState.baseSideEventListUiState,
                 onSideEventClick = onSideEventClick,
+                contentPadding = PaddingValues(
+                    top = contentPadding.calculateTopPadding(),
+                    bottom = contentPadding.calculateBottomPadding(),
+                ),
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
@@ -282,8 +315,13 @@ private fun LargeScreenContent(
                 floorMapUiState = FloorMapUiState.of(Ground),
                 sideEventListUiState = uiState.groundSideEventListUiState,
                 onSideEventClick = onSideEventClick,
+                contentPadding = PaddingValues(
+                    top = contentPadding.calculateTopPadding(),
+                    bottom = contentPadding.calculateBottomPadding(),
+                ),
             )
         }
+        Spacer(modifier = Modifier.width(contentPadding.calculateEndPadding(layoutDirection)))
     }
 }
 
@@ -294,6 +332,7 @@ fun PreviewFloorMapScreen() {
     KaigiTheme {
         Surface {
             FloorMapScreen(
+                widthSizeClass = WindowWidthSizeClass.Compact,
                 uiState = FloorMapScreenUiState(
                     floorLevel = Basement,
                     largeFloorMapContentUiState = LargeFloorMapContentUiState(
@@ -317,7 +356,6 @@ fun PreviewFloorMapScreen() {
                 snackbarHostState = SnackbarHostState(),
                 onSideEventClick = {},
                 onClickFloorLevelSwitcher = {},
-                widthSizeClass = WindowWidthSizeClass.Compact,
             )
         }
     }
