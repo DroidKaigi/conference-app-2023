@@ -151,12 +151,13 @@ private fun NavGraphBuilder.mainScreen(
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
                         CodeOfConduct -> {
-                            val url = if(defaultLang() == JAPANESE) {
+                            val url = if (defaultLang() == JAPANESE) {
                                 "https://portal.droidkaigi.jp/about/code-of-conduct"
-                            }else{
+                            } else {
                                 "https://portal.droidkaigi.jp/en/about/code-of-conduct"
                             }
-                            externalNavController.navigate(url = url)}
+                            externalNavController.navigate(url = url)
+                        }
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
