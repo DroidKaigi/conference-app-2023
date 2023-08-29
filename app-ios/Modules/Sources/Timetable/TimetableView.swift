@@ -16,7 +16,7 @@ public struct TimetableView<SessionView: View>: View {
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
     let gradient = Gradient(stops: [
         .init(color: AssetColors.Surface.surfaceGradientTop.swiftUIColor, location: 0.0),
-        .init(color: AssetColors.Surface.surfaceGradientBottom.swiftUIColor, location: 0.2)
+        .init(color: AssetColors.Surface.surfaceGradientBottom.swiftUIColor, location: 0.15)
     ])
 
     // Determines whether or not to collapse.
