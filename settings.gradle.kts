@@ -26,6 +26,7 @@ include(
     ":feature:contributors",
     ":feature:stamps",
     ":feature:staff",
+    ":feature:licenses",
     ":core:designsystem",
     ":core:data",
     ":core:model",
