@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions.component
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,11 +26,11 @@ class TimetableScreenScrollState(
     initialSheetScrollOffset: Float = 0f,
 ) {
     // This value will be like -418.0
-    private var sheetScrollOffsetLimit by mutableStateOf(initialSheetOffsetLimit)
+    private var sheetScrollOffsetLimit by mutableFloatStateOf(initialSheetOffsetLimit)
 
     val isScreenLayoutCalculating get() = sheetScrollOffsetLimit == 0f
 
-    private val _sheetScrollOffset = mutableStateOf(initialSheetScrollOffset)
+    private val _sheetScrollOffset = mutableFloatStateOf(initialSheetScrollOffset)
 
     /**
      * If sheetScrollOffset is 0f, the sheet is fully collapsed.
