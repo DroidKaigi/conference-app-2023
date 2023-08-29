@@ -5,9 +5,6 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -47,7 +44,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
@@ -61,7 +57,6 @@ import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
-import io.github.droidkaigi.confsched2023.sessions.TimetableItemDetailScreenUiState.Loaded
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.PersistentList
@@ -112,7 +107,7 @@ private fun DescriptionSection(
                 targetState = isExpanded,
                 transitionSpec = {
                     fadeIn(
-                        animationSpec = tween(1000)
+                        animationSpec = tween(1000),
                     ).togetherWith(fadeOut())
                 },
                 contentKey = { isExpanded },
