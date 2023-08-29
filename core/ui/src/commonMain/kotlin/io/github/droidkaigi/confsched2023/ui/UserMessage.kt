@@ -124,20 +124,3 @@ enum class UserMessageResult {
     Dismissed,
     ActionPerformed,
 }
-
-class FakeUserMessageStateHolder : UserMessageStateHolder {
-    private var _messageUiState by mutableStateOf(MessageUiState())
-    override val messageUiState get() = _messageUiState
-    override fun messageShown(messageId: Int, userMessageResult: UserMessageResult) {
-        // fake
-    }
-
-    override suspend fun showMessage(
-        message: String,
-        actionLabel: String?,
-        duration: SnackbarDuration?,
-    ): UserMessageResult {
-        // fake
-        return UserMessageResult.Dismissed
-    }
-}
