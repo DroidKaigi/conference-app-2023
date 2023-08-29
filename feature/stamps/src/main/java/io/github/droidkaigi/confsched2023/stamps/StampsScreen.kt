@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +27,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -155,15 +153,15 @@ fun StampsScreenDialog(
             Column {
                 OrderedListText(
                     order = 1,
-                    text = StampsStrings.DialogDescription1.asString()
+                    text = StampsStrings.DialogDescription1.asString(),
                 )
                 OrderedListText(
                     order = 2,
-                    text = StampsStrings.DialogDescription2.asString()
+                    text = StampsStrings.DialogDescription2.asString(),
                 )
                 OrderedListText(
                     order = 3,
-                    text = StampsStrings.DialogDescription3.asString()
+                    text = StampsStrings.DialogDescription3.asString(),
                 )
             }
         },
@@ -176,7 +174,7 @@ fun StampsScreenDialog(
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.primary,
             )
-        }
+        },
     )
 }
 

@@ -14,13 +14,13 @@ sealed class StampsStrings : Strings<StampsStrings>(Bindings) {
 
     data object DialogTitle : StampsStrings()
 
-    data object DialogConfirmButton: StampsStrings()
+    data object DialogConfirmButton : StampsStrings()
 
-    data object DialogDescription1: StampsStrings()
+    data object DialogDescription1 : StampsStrings()
 
-    data object DialogDescription2: StampsStrings()
+    data object DialogDescription2 : StampsStrings()
 
-    data object DialogDescription3: StampsStrings()
+    data object DialogDescription3 : StampsStrings()
 
     private object Bindings : StringsBindings<StampsStrings>(
         Lang.Japanese to { item, _ ->
