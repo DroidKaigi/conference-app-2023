@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.stamps
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +38,6 @@ class StampsScreenViewModel @Inject constructor(
         stampLottieRawResStateFlow,
         isDisplayedDialogFlow,
     ) { rawRes, isDisplayedDialog ->
-        Log.d("TESTTEST", "viewmodel:$isDisplayedDialog")
         StampsScreenUiState(
             lottieRawRes = rawRes,
             isShowDialog = isDisplayedDialog?.not() ?: false,

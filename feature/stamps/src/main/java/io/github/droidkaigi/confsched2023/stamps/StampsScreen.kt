@@ -118,10 +118,6 @@ private fun StampsScreen(
                 onDisplayedDialog()
             }
 
-            SideEffect {
-                Log.d("TESTTEST", "uiState.isDisplayedDialog:${uiState.isShowDialog}")
-            }
-
             if (uiState.isShowDialog) {
                 StampsScreenDialog(
                     onDismissRequest = onDismiss,
