@@ -44,16 +44,6 @@ class StampsScreenViewModel @Inject constructor(
         stampDetailDescriptionStateFlow,
     ) { detailDescription ->
         StampListUiState(
-            detailDescription = detailDescription,
-        )
-    }
-
-    val uiState = buildUiState(
-        stampLottieRawResStateFlow,
-        stampListState,
-    ) { rawRes, stampListUiState ->
-        StampsScreenUiState(
-            lottieRawRes = rawRes,
             stamps = persistentListOf(
                 Stamp(
                     hasDrawableResId = R.drawable.img_stamp_a_on,
@@ -86,6 +76,16 @@ class StampsScreenViewModel @Inject constructor(
                     contentDescription = "StampE image",
                 ),
             ),
+            detailDescription = detailDescription,
+        )
+    }
+
+    val uiState = buildUiState(
+        stampLottieRawResStateFlow,
+        stampListState,
+    ) { rawRes, stampListUiState ->
+        StampsScreenUiState(
+            lottieRawRes = rawRes,
             stampListUiState = stampListUiState,
         )
     }
