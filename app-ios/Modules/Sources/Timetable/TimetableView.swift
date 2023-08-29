@@ -14,6 +14,10 @@ enum TimetableRouting: Hashable {
 public struct TimetableView<SessionView: View>: View {
     @ObservedObject var viewModel: TimetableViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
+    let gradient = Gradient(stops: [
+        .init(color: AssetColors.Surface.surfaceGradientTop.swiftUIColor, location: 0.0),
+        .init(color: AssetColors.Surface.surfaceGradientBottom.swiftUIColor, location: 0.2)
+    ])
 
     // Determines whether or not to collapse.
     private let verticalOffsetThreshold = -142.0
@@ -90,7 +94,7 @@ public struct TimetableView<SessionView: View>: View {
                         }
                     }
                 }
-                .background(AssetColors.Surface.surfaceVariant.swiftUIColor)
+                .background(LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom))
                 .toolbarBackground(AssetColors.Surface.surfaceVariant.swiftUIColor, for: .navigationBar)
                 .toolbar {
                     Group {
