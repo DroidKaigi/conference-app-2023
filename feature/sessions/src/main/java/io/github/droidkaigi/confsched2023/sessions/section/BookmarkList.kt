@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.sessions.section
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
@@ -43,12 +44,14 @@ fun BookmarkList(
     timetableItemMap: PersistentMap<String, List<TimetableItem>>,
     onTimetableItemClick: (TimetableItem) -> Unit,
     onBookmarkIconClick: (TimetableItem, Boolean) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
     LazyColumn(
         state = scrollState,
         modifier = modifier,
+        contentPadding = contentPadding,
     ) {
         itemsIndexed(timetableItemMap.toList(), key = { _, (key, _) -> key }) { index, (_, values) ->
             var rowHeight by remember { mutableIntStateOf(0) }

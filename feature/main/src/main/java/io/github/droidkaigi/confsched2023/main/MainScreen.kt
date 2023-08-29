@@ -15,7 +15,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -36,7 +35,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -201,12 +199,11 @@ private fun MainScreen(
                     )
                 }
             },
-            contentWindowInsets = WindowInsets(0.dp),
         ) { padding ->
             NavHost(
                 navController = mainNestedNavController,
                 startDestination = "timetable",
-                modifier = Modifier.padding(padding),
+                modifier = Modifier,
                 enterTransition = { materialFadeThroughIn() },
                 exitTransition = { materialFadeThroughOut() },
             ) {

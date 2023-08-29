@@ -1,9 +1,9 @@
 package io.github.droidkaigi.confsched2023.contributors
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -19,9 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.contributors.component.ContributorListItem
 import io.github.droidkaigi.confsched2023.model.Contributor
 import kotlinx.collections.immutable.PersistentList
@@ -35,13 +36,15 @@ data class ContributorsUiState(val contributors: PersistentList<Contributor>)
 fun ContributorsScreen(
     viewModel: ContributorsViewModel,
     onNavigationIconClick: () -> Unit,
-    onContributorItemClick: (url: String) -> Unit
+    onContributorItemClick: (url: String) -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     ContributorsScreen(
         uiState = uiState,
         onBackClick = onNavigationIconClick,
-        onContributorItemClick = onContributorItemClick
+        onContributorItemClick = onContributorItemClick,
+        contentPadding = contentPadding,
     )
 }
 
@@ -51,8 +54,10 @@ private fun ContributorsScreen(
     uiState: ContributorsUiState,
     onBackClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val localLayoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(ContributorsScreenTestTag),
         topBar = {
@@ -62,26 +67,33 @@ private fun ContributorsScreen(
                 },
                 navigationIcon = {
                     IconButton(
+                        modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
                         onClick = onBackClick,
+                        enabled = scrollBehavior.state.collapsedFraction < 1f,
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back", // TODO: transparent
+                            contentDescription = "Back",
                         )
                     }
                 },
                 scrollBehavior = scrollBehavior
             )
         },
-        contentWindowInsets = WindowInsets(0.dp),
-    ) { padding ->
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(localLayoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(localLayoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
+    ) { innerContentPadding ->
         Contributors(
             contributors = uiState.contributors,
             onContributorItemClick = onContributorItemClick,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
+                .nestedScroll(scrollBehavior.nestedScrollConnection),
+            contentPadding = innerContentPadding,
         )
     }
 }
@@ -91,10 +103,11 @@ private fun Contributors(
     contributors: PersistentList<Contributor>,
     onContributorItemClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues,
 ) {
-    // FIXME: Bottom Inset not implemented
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
+        contentPadding = contentPadding,
     ) {
         items(contributors) {
             ContributorListItem(

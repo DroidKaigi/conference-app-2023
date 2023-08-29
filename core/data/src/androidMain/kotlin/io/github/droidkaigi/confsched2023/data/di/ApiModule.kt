@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.di
 
+import android.app.Application
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,7 @@ import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
+import io.github.droidkaigi.confsched2023.data.di.ServerEnvironmentModule.ServerEnvironment
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
@@ -90,11 +92,12 @@ public class KtorfitModule {
     @Singleton
     public fun provideKtorfit(
         httpClient: HttpClient,
+        serverEnvironment: ServerEnvironment,
     ): Ktorfit {
         return Ktorfit
             .Builder()
             .httpClient(httpClient)
-            .baseUrl("https://ssot-api-staging.an.r.appspot.com/")
+            .baseUrl(serverEnvironment.baseUrl)
             .build()
     }
 }
@@ -130,5 +133,23 @@ class RemoteConfigModule {
     @Singleton
     fun provideFirebaseRemoteConfig(): RemoteConfigApi {
         return DefaultRemoteConfigApi()
+    }
+}
+
+@InstallIn(SingletonComponent::class)
+@Module
+class ServerEnvironmentModule {
+    class ServerEnvironment(
+        val baseUrl: String,
+    )
+
+    interface HasServerEnvironment {
+        val serverEnvironment: ServerEnvironment
+    }
+
+    @Provides
+    @Singleton
+    fun provideServerEnvironment(application: Application): ServerEnvironment {
+        return (application as HasServerEnvironment).serverEnvironment
     }
 }
