@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.stamps.R
 import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -39,10 +40,18 @@ class StampsScreenViewModel @Inject constructor(
     private val stampLottieRawResStateFlow: MutableStateFlow<Int?> =
         MutableStateFlow(null)
 
+    private val stampListState = buildUiState(
+        stampDetailDescriptionStateFlow,
+    ) { detailDescription ->
+        StampListUiState(
+            detailDescription = detailDescription,
+        )
+    }
+
     val uiState = buildUiState(
         stampLottieRawResStateFlow,
-        stampDetailDescriptionStateFlow,
-    ) { rawRes, detailDescription ->
+        stampListState,
+    ) { rawRes, stampListUiState ->
         StampsScreenUiState(
             lottieRawRes = rawRes,
             stamps = persistentListOf(
@@ -77,7 +86,7 @@ class StampsScreenViewModel @Inject constructor(
                     contentDescription = "StampE image",
                 ),
             ),
-            detailDescription = detailDescription,
+            stampListUiState = stampListUiState,
         )
     }
 

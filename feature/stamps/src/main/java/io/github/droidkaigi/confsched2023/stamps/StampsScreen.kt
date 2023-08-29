@@ -20,6 +20,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.stamps.section.StampList
+import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.ImmutableList
 
@@ -70,7 +71,7 @@ fun StampsScreen(
 data class StampsScreenUiState(
     val lottieRawRes: Int?,
     val stamps: ImmutableList<Stamp>,
-    val detailDescription: String,
+    val stampListUiState: StampListUiState,
 )
 
 @Composable
@@ -90,7 +91,7 @@ private fun StampsScreen(
 
             StampList(
                 stamps = uiState.stamps,
-                detailDescription = uiState.detailDescription,
+                uiState = uiState.stampListUiState,
                 onStampsClick = onStampsClick,
                 onReachAnimationEnd = onReachAnimationEnd,
                 stampLottieRawId = stampLottieRawId,

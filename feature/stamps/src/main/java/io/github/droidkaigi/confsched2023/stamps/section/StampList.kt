@@ -30,10 +30,14 @@ private const val StampListColumns = 2
 private const val SingleItemSpanCount = 2
 private const val DoubleItemSpanCount = 2 / 2
 
+data class StampListUiState(
+    val detailDescription: String,
+)
+
 @Composable
 fun StampList(
+    uiState: StampListUiState,
     stamps: ImmutableList<Stamp>,
-    detailDescription: String,
     @androidx.annotation.RawRes
     stampLottieRawId: Int?,
     onStampsClick: (Stamp) -> Unit,
@@ -87,7 +91,7 @@ fun StampList(
                 key = "stamps_header",
                 span = { GridItemSpan(SingleItemSpanCount) },
             ) {
-                StampsDetail(detailDescription)
+                StampsDetail(uiState.detailDescription)
             }
             items(
                 items = stamps,
