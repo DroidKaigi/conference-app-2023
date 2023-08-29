@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 -dontwarn org.slf4j.impl.StaticLoggerBinder
+
+## Firebase
+-keep class androidx.datastore.*.** {*;}
