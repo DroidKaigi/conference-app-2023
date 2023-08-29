@@ -9,8 +9,6 @@ public class RemoteConfigApiImpl: RemoteConfigApi {
         )
     }
     public func getString(key: String) async throws -> String {
-        .init(
-            string: RemoteConfig.remoteConfig().configValue(forKey: key)
-        )
+        return RemoteConfig.remoteConfig().configValue(forKey: key).stringValue ?? ""
     }
 }
