@@ -99,6 +99,10 @@ var package = Package(
         ),
 
         .target(
+            name: "Event"
+        ),
+
+        .target(
             name: "FloorMap",
             dependencies: [
                 "Assets",
