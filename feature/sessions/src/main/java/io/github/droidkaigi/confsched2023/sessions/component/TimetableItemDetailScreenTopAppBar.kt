@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -105,7 +106,7 @@ private fun ResizeableText(
             }
         },
         style = styles[styleIndex],
-        modifier = Modifier.padding(end = 16.dp),
+        modifier = Modifier.padding(end = 16.dp).heightIn(max = 88.dp),
     )
 }
 
