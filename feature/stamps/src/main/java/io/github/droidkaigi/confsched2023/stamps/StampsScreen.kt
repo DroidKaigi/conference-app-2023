@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2023.stamps
 
 import androidx.annotation.RawRes
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
@@ -26,10 +28,12 @@ import kotlinx.collections.immutable.ImmutableList
 const val stampsScreenRoute = "stamps"
 fun NavGraphBuilder.nestedStampsScreen(
     onStampsClick: () -> Unit,
+    contentPadding: PaddingValues,
 ) {
     composable(stampsScreenRoute) {
         StampsScreen(
             onStampsClick = onStampsClick,
+            contentPadding = contentPadding,
         )
     }
 }
@@ -46,6 +50,7 @@ const val StampsScreenTestTag = "StampsScreen"
 @Composable
 fun StampsScreen(
     onStampsClick: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(),
     viewModel: StampsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -58,6 +63,7 @@ fun StampsScreen(
     StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
+        contentPadding = contentPadding,
         stampLottieRawId = uiState.lottieRawRes,
         onStampsClick = { stamp ->
             onStampsClick()
@@ -79,23 +85,30 @@ private fun StampsScreen(
     @RawRes
     stampLottieRawId: Int?,
     onStampsClick: (Stamp) -> Unit,
+    contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(StampsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        content = { padding ->
-            val layoutDirection = LocalLayoutDirection.current
-
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(layoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(layoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
+        content = { innerPadding ->
             StampList(
                 stamps = uiState.stamps,
                 onStampsClick = onStampsClick,
+                contentPadding = innerPadding,
                 onReachAnimationEnd = onReachAnimationEnd,
                 stampLottieRawId = stampLottieRawId,
                 modifier = Modifier.padding(
-                    top = padding.calculateTopPadding(),
-                    start = padding.calculateStartPadding(layoutDirection),
-                    end = padding.calculateEndPadding(layoutDirection),
+                    top = innerPadding.calculateTopPadding(),
+                    start = innerPadding.calculateStartPadding(layoutDirection),
+                    end = innerPadding.calculateEndPadding(layoutDirection),
                 ),
             )
         },

@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.floormap.section
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,9 +26,13 @@ fun FloorMapAndSideEventList(
     floorMapUiState: FloorMapUiState,
     sideEventListUiState: FloorMapSideEventListUiState,
     onSideEventClick: (url: String) -> Unit,
+    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding,
+    ) {
         item {
             FloorMap(uiState = floorMapUiState)
         }
