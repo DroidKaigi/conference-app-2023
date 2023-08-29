@@ -112,7 +112,7 @@ private fun DescriptionSection(
                 },
                 contentKey = { isExpanded },
                 label = "TimetableItemDetailContentDescriptionSection",
-            ) { _ ->
+            ) { isExpanded ->
                 ClickableLinkText(
                     style = MaterialTheme.typography.bodyLarge
                         .copy(color = MaterialTheme.colorScheme.onSurface),
