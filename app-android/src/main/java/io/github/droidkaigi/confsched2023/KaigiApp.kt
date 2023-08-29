@@ -117,9 +117,7 @@ private fun KaigiNavHost(
         )
         sponsorsScreen(
             onNavigationIconClick = navController::popBackStack,
-            onSponsorClick = { sponsor ->
-                TODO()
-            },
+            onSponsorClick = externalNavController::navigate,
         )
         staffScreen(
             onBackClick = navController::popBackStack,
