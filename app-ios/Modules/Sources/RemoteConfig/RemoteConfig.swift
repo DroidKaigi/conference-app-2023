@@ -8,7 +8,7 @@ public class RemoteConfigApiImpl: RemoteConfigApi {
             bool: RemoteConfig.remoteConfig().configValue(forKey: key).boolValue
         )
     }
-    public func getString(key: String) async throws -> KotlinString {
+    public func getString(key: String) async throws -> String {
         .init(
             string: RemoteConfig.remoteConfig().configValue(forKey: key)
         )
