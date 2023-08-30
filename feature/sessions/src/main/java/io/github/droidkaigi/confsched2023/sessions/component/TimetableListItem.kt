@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -68,7 +69,7 @@ fun TimetableListItem(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             FlowRow(
-                modifier = Modifier.weight(1F),
+                modifier = Modifier.weight(1F).padding(top = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -93,6 +94,7 @@ fun TimetableListItem(
                     } else {
                         SessionsStrings.AddToFavorites.asString()
                     },
+                    modifier = Modifier.padding(top = 4.dp),
                 )
             }
         }

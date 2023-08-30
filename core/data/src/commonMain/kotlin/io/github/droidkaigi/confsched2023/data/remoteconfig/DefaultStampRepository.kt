@@ -9,15 +9,27 @@ class DefaultStampRepository(
     private val remoteConfigApi: RemoteConfigApi,
 ) : StampRepository {
     private val isStampsEnabledStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val stampDetailDescriptionStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+
     private suspend fun fetchStampsEnabled() {
         isStampsEnabledStateFlow.value = remoteConfigApi.getBoolean(IS_STAMPS_ENABLED_KEY)
+    }
+
+    private suspend fun fetchStampDetailDescription() {
+        stampDetailDescriptionStateFlow.value =
+            remoteConfigApi.getString(STAMP_DETAIL_DESCRIPTION_KEY)
     }
 
     override fun getStampEnabledStream(): Flow<Boolean> {
         return isStampsEnabledStateFlow.onStart { fetchStampsEnabled() }
     }
 
+    override fun getStampDetailDescriptionStream(): Flow<String> {
+        return stampDetailDescriptionStateFlow.onStart { fetchStampDetailDescription() }
+    }
+
     companion object {
         const val IS_STAMPS_ENABLED_KEY = "is_stamps_enable"
+        const val STAMP_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"
     }
 }

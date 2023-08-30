@@ -1,7 +1,9 @@
 package io.github.droidkaigi.confsched2023.primitive
 
+import com.google.devtools.ksp.gradle.KspTaskMetadata
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.withType
 
 @Suppress("unused")
 class KmpAndroidPlugin : Plugin<Project> {
@@ -33,6 +35,10 @@ class KmpAndroidPlugin : Plugin<Project> {
                         res.srcDirs("src/androidUnitTest/res")
                     }
                 }
+            }
+            // https://slack-chats.kotlinlang.org/t/13166064/been-discovering-that-the-task-kspcommonmainkotlinmetadata-i#9a50fa1b-1ec5-47c2-9172-2a5780a1900e
+            tasks.withType<KspTaskMetadata>().configureEach {
+                notCompatibleWithConfigurationCache("Configuration cache not supported due to serialization")
             }
         }
     }
