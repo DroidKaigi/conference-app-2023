@@ -25,12 +25,13 @@ import com.valentinilk.shimmer.shimmer
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.ui.isTest
 
 const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = if (isRobolectric().not()) {
+    val shimmerInstance = if (isTest().not()) {
         rememberShimmer(shimmerBounds = ShimmerBounds.View)
     } else {
         null
@@ -84,16 +85,6 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.size(15.dp))
         Divider()
-    }
-}
-
-private fun isRobolectric(): Boolean {
-    @Suppress("SwallowedException")
-    return try {
-        Class.forName("org.robolectric.Robolectric")
-        true
-    } catch (e: ClassNotFoundException) {
-        false
     }
 }
 
