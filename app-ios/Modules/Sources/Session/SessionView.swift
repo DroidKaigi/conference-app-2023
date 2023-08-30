@@ -166,10 +166,9 @@ public struct SessionView: View {
         )
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Button {
-                    // TODO: Share
-                } label: {
-                    Assets.Icons.share.swiftUIImage
+                if let url = URL(string: "https://2023.droidkaigi.jp/timetable/\(viewModel.timetableItem.id.value)/") {
+                    ShareLink(item: url,
+                              label: { Assets.Icons.share.swiftUIImage })
                 }
             }
             ToolbarItem(placement: .bottomBar) {
