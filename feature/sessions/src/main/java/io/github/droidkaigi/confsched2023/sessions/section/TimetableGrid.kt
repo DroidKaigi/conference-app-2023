@@ -80,7 +80,6 @@ fun TimetableGrid(
     uiState: TimetableGridUiState,
     nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
     TimetableGrid(
