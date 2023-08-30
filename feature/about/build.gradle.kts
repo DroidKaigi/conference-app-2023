@@ -1,21 +1,8 @@
-import io.github.droidkaigi.confsched2023.primitive.android
-import io.github.droidkaigi.confsched2023.primitive.kotlinOptions
-
 plugins {
     id("droidkaigi.convention.androidfeature")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.feature.about"
-
-android {
-    kotlinOptions {
-        freeCompilerArgs = freeCompilerArgs + listOf(
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" +
-                project.buildDir.absolutePath + "/compose_metrics",
-        )
-    }
-}
 
 dependencies {
     implementation(projects.core.designsystem)
