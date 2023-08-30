@@ -5,8 +5,8 @@ import android.content.Context
 import androidx.core.app.ShareCompat
 import co.touchlab.kermit.Logger
 
-class AndroidShareManager(private val context: Context) : ShareManager {
-    override fun share(text: String) {
+class ShareNavigator(private val context: Context) {
+    fun share(text: String) {
         try {
             ShareCompat.IntentBuilder(context)
                 .setText(text)
