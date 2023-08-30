@@ -21,3 +21,6 @@ mint run LicenseList $CI_DERIVED_DATA_PATH $CI_DERIVED_DATA_PATH
 
 export DERIVED_SOURCES_DIR="$CI_WORKSPACE/app-ios/Modules/Sources/Assets/"
 mint run SwiftGen --config "$CI_WORKSPACE/app-ios/Modules/Sources/Assets/swiftgen.yml"
+
+export DERIVED_SOURCES_DIR="$CI_WORKSPACE/app-ios/Modules/Sources/Theme/"
+mint run SwiftGen --config "$CI_WORKSPACE/app-ios/Modules/Sources/Theme/swiftgen.yml"
