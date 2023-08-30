@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -219,7 +218,7 @@ private fun SpeakerIcon(
         },
         contentDescription = UserIcon.asString(),
         modifier = modifier
-            .aspectRatio(ratio = 1f)
+            .size(TimetableGridItemSizes.speakerHeight)
             .clip(RoundedCornerShape(8.dp))
             .border(
                 BorderStroke(1.dp, md_theme_light_outline),
