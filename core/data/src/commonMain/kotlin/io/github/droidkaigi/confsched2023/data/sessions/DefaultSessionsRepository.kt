@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
-class DefaultSessionsRepository(
+public class DefaultSessionsRepository(
     private val sessionsApi: SessionsApiClient,
     private val userDataStore: UserDataStore,
     private val sessionCacheDataStore: SessionCacheDataStore,

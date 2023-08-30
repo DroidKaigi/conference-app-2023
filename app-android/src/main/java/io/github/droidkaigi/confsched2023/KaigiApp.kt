@@ -57,7 +57,9 @@ import io.github.droidkaigi.confsched2023.model.AboutItem.Sponsors
 import io.github.droidkaigi.confsched2023.model.AboutItem.Staff
 import io.github.droidkaigi.confsched2023.model.AboutItem.X
 import io.github.droidkaigi.confsched2023.model.AboutItem.YouTube
+import io.github.droidkaigi.confsched2023.model.Lang.JAPANESE
 import io.github.droidkaigi.confsched2023.model.TimetableItem
+import io.github.droidkaigi.confsched2023.model.defaultLang
 import io.github.droidkaigi.confsched2023.sessions.navigateSearchScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateTimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.navigateToBookmarkScreen
@@ -117,9 +119,7 @@ private fun KaigiNavHost(
         )
         sponsorsScreen(
             onNavigationIconClick = navController::popBackStack,
-            onSponsorClick = { sponsor ->
-                TODO()
-            },
+            onSponsorClick = externalNavController::navigate,
         )
         staffScreen(
             onBackClick = navController::popBackStack,
@@ -150,7 +150,14 @@ private fun NavGraphBuilder.mainScreen(
                 onAboutItemClick = { aboutItem ->
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/code-of-conduct")
+                        CodeOfConduct -> {
+                            val url = if (defaultLang() == JAPANESE) {
+                                "https://portal.droidkaigi.jp/about/code-of-conduct"
+                            } else {
+                                "https://portal.droidkaigi.jp/en/about/code-of-conduct"
+                            }
+                            externalNavController.navigate(url = url)
+                        }
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")

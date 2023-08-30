@@ -33,9 +33,14 @@ private const val StampListColumns = 2
 private const val SingleItemSpanCount = 2
 private const val DoubleItemSpanCount = 2 / 2
 
+data class StampListUiState(
+    val stamps: ImmutableList<Stamp>,
+    val detailDescription: String,
+)
+
 @Composable
 fun StampList(
-    stamps: ImmutableList<Stamp>,
+    uiState: StampListUiState,
     @androidx.annotation.RawRes
     stampLottieRawId: Int?,
     onStampsClick: (Stamp) -> Unit,
@@ -93,14 +98,14 @@ fun StampList(
                 key = "stamps_header",
                 span = { GridItemSpan(SingleItemSpanCount) },
             ) {
-                StampsDetail()
+                StampsDetail(uiState.detailDescription)
             }
             items(
-                items = stamps,
+                items = uiState.stamps,
                 key = { stamp -> stamp.hasDrawableResId },
                 span = { stamp ->
                     GridItemSpan(
-                        if (stamp == stamps.last() && stamps.size % StampListColumns != 0) {
+                        if (stamp == uiState.stamps.last() && uiState.stamps.size % StampListColumns != 0) {
                             SingleItemSpanCount
                         } else {
                             DoubleItemSpanCount
