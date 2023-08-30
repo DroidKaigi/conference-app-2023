@@ -53,19 +53,19 @@ class TimetableItemDetailViewModel @Inject constructor(
             )
     private val viewBookmarkListRequestStateFlow =
         MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
-    private val currentDescriptionLanguageStateFlow: MutableStateFlow<Lang?> =
+    private val selectedDescriptionLanguageStateFlow: MutableStateFlow<Lang?> =
         MutableStateFlow(null)
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
         buildUiState(
             timetableItemStateFlow,
             viewBookmarkListRequestStateFlow,
-            currentDescriptionLanguageStateFlow,
-        ) { timetableItemAndBookmark, viewBookmarkListRequestState, currentLang ->
+            selectedDescriptionLanguageStateFlow,
+        ) { timetableItemAndBookmark, viewBookmarkListRequestState, selectedLang ->
             if (timetableItemAndBookmark == null) {
                 return@buildUiState TimetableItemDetailScreenUiState.Loading
             }
-            if (currentLang == null) {
+            if (selectedLang == null) {
                 onSelectDescriptionLanguage(Lang.valueOf(timetableItemAndBookmark.first.language.langOfSpeaker))
             }
             val (timetableItem, bookmarked) = timetableItemAndBookmark
@@ -74,7 +74,7 @@ class TimetableItemDetailViewModel @Inject constructor(
                 timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(timetableItem),
                 isBookmarked = bookmarked,
                 viewBookmarkListRequestState = viewBookmarkListRequestState,
-                currentLang = currentLang,
+                currentLang = selectedLang,
             )
         }
 
@@ -104,6 +104,6 @@ class TimetableItemDetailViewModel @Inject constructor(
     fun onSelectDescriptionLanguage(
         language: Lang,
     ) {
-        currentDescriptionLanguageStateFlow.value = language
+        selectedDescriptionLanguageStateFlow.value = language
     }
 }
