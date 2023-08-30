@@ -14,7 +14,6 @@ import androidx.compose.runtime.snapshotFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import java.util.UUID
 
 /**
  * SnackbarMessageEffect shows a snackbar message when a [UserMessage] is emitted by [userMessageStateHolder].
@@ -53,17 +52,18 @@ data class UserMessage(
     val message: String,
     val actionLabel: String? = null,
     val duration: SnackbarDuration? = null,
-    val id: Long = UUID.randomUUID().mostSignificantBits,
+    val id: Int = randomUUIDHash(),
     val userMessageResult: UserMessageResult? = null,
 )
 
 data class MessageUiState(
     val userMessages: List<UserMessage> = emptyList(),
 )
+
 class UserMessageStateHolderImpl : UserMessageStateHolder {
     private var _messageUiState by mutableStateOf(MessageUiState())
     override val messageUiState get() = _messageUiState
-    override fun messageShown(messageId: Long, userMessageResult: UserMessageResult) {
+    override fun messageShown(messageId: Int, userMessageResult: UserMessageResult) {
         val messages = _messageUiState.userMessages.toMutableList()
         messages.indexOfFirst { it.id == messageId }.let { userMessageIndex ->
             if (userMessageIndex == -1) return@let
@@ -112,7 +112,7 @@ class UserMessageStateHolderImpl : UserMessageStateHolder {
 
 interface UserMessageStateHolder {
     val messageUiState: MessageUiState
-    fun messageShown(messageId: Long, userMessageResult: UserMessageResult)
+    fun messageShown(messageId: Int, userMessageResult: UserMessageResult)
     suspend fun showMessage(
         message: String,
         actionLabel: String? = null,

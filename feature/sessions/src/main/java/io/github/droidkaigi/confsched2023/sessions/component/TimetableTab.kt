@@ -19,7 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -146,12 +146,12 @@ class TimetableTabState(
     initialScrollOffset: Float = 0f,
 ) {
 
-    private val scrollOffsetLimit by mutableStateOf(initialOffsetLimit)
+    private val scrollOffsetLimit by mutableFloatStateOf(initialOffsetLimit)
 
     val tabCollapseProgress: Float
         get() = scrollOffset / scrollOffsetLimit
 
-    private val _scrollOffset = mutableStateOf(initialScrollOffset)
+    private val _scrollOffset = mutableFloatStateOf(initialScrollOffset)
 
     var scrollOffset: Float
         get() = _scrollOffset.value

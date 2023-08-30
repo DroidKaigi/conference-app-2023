@@ -113,7 +113,15 @@ fun StampList(
                     )
                 },
             ) { stamp ->
-                StampImage(stamp = stamp, onStampClick = onStampsClick)
+                val onStampClick = if (stampLottieRawId != null) {
+                    {} // Prevents clicks during animation playback.
+                } else {
+                    onStampsClick
+                }
+                StampImage(
+                    stamp = stamp,
+                    onStampClick = onStampClick,
+                )
             }
         }
     }
