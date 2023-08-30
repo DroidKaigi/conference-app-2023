@@ -1,11 +1,11 @@
 package io.github.droidkaigi.confsched2023.model
 
-data class Stamp(
+data class Achievement(
     val hasDrawableResId: Int,
     val lottieRawId: Int,
     val notHasDrawableResId: Int,
-    val hasStamp: Boolean = false,
+    val hasAchievement: Boolean = false,
     val contentDescription: String,
 ) {
-    fun getDrawableResId() = if (hasStamp) hasDrawableResId else notHasDrawableResId
+    fun getDrawableResId() = if (hasAchievement) hasDrawableResId else notHasDrawableResId
 }

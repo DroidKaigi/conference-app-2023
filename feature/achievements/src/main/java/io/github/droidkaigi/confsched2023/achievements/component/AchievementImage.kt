@@ -7,19 +7,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.model.Achievement
 
 @Composable
-fun StampImage(
-    stamp: Stamp,
-    onStampClick: (Stamp) -> Unit,
+fun AchievementImage(
+    achievement: Achievement,
+    onAchievementClick: (Achievement) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Image(
-        painter = painterResource(id = stamp.getDrawableResId()),
-        contentDescription = stamp.contentDescription,
+        painter = painterResource(id = achievement.getDrawableResId()),
+        contentDescription = achievement.contentDescription,
         modifier = modifier
-            .clickable { onStampClick(stamp) }
+            .clickable { onAchievementClick(achievement) }
             .padding(horizontal = 21.dp),
     )
 }

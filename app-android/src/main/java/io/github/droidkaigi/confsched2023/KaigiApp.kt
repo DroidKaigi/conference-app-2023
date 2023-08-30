@@ -72,9 +72,9 @@ import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
 import io.github.droidkaigi.confsched2023.staff.staffScreen
-import io.github.droidkaigi.confsched2023.achievements.navigateStampsScreen
-import io.github.droidkaigi.confsched2023.achievements.nestedStampsScreen
-import io.github.droidkaigi.confsched2023.achievements.stampsScreenRoute
+import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
+import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
+import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
@@ -174,8 +174,8 @@ private fun NavGraphBuilder.mainScreen(
                 onSideEventClick = externalNavController::navigate,
                 contentPadding = contentPadding,
             )
-            nestedStampsScreen(
-                onStampsClick = {
+            nestedAchievementsScreen(
+                onAchievementsClick = {
                     // TODO
                 },
                 contentPadding = contentPadding,
@@ -207,7 +207,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             timetableScreenRoute -> Timetable
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            stampsScreenRoute -> Badges
+            achievementsScreenRoute -> Badges
             else -> null
         }
     }
@@ -220,7 +220,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Badges -> mainNestedNavController.navigateStampsScreen()
+            Badges -> mainNestedNavController.navigateAchievementsScreen()
         }
     }
 }

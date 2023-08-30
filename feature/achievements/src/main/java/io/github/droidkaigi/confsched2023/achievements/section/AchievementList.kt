@@ -24,33 +24,33 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import io.github.droidkaigi.confsched2023.achievements.component.StampImage
-import io.github.droidkaigi.confsched2023.achievements.component.StampsDetail
-import io.github.droidkaigi.confsched2023.model.Stamp
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImage
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementsDetail
+import io.github.droidkaigi.confsched2023.model.Achievement
 import kotlinx.collections.immutable.ImmutableList
 
-private const val StampListColumns = 2
+private const val AchievementsListColumns = 2
 private const val SingleItemSpanCount = 2
 private const val DoubleItemSpanCount = 2 / 2
 
-data class StampListUiState(
-    val stamps: ImmutableList<Stamp>,
+data class AchievementListUiState(
+    val achievements: ImmutableList<Achievement>,
     val detailDescription: String,
 )
 
 @Composable
-fun StampList(
-    uiState: StampListUiState,
+fun AchievementList(
+    uiState: AchievementListUiState,
     @androidx.annotation.RawRes
-    stampLottieRawId: Int?,
-    onStampsClick: (Stamp) -> Unit,
+    achievementLottieRawId: Int?,
+    onAchievementsClick: (Achievement) -> Unit,
     contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     val bgColor: Color by animateColorAsState(
-        if (stampLottieRawId != null) {
+        if (achievementLottieRawId != null) {
             Color(0xFF37383D)
         } else {
             Color.Transparent
@@ -67,8 +67,8 @@ fun StampList(
             .background(bgColor)
             .fillMaxSize(),
     ) {
-        if (stampLottieRawId != null) {
-            val lottieComposition by rememberLottieComposition(RawRes(stampLottieRawId))
+        if (achievementLottieRawId != null) {
+            val lottieComposition by rememberLottieComposition(RawRes(achievementLottieRawId))
             val progress by animateLottieCompositionAsState(
                 composition = lottieComposition,
                 isPlaying = true,
@@ -83,7 +83,7 @@ fun StampList(
             )
         }
         LazyVerticalGrid(
-            columns = Fixed(StampListColumns),
+            columns = Fixed(AchievementsListColumns),
             modifier = modifier,
             contentPadding = PaddingValues(
                 start = 16.dp + contentPadding.calculateStartPadding(layoutDirection),
@@ -95,32 +95,32 @@ fun StampList(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             item(
-                key = "stamps_header",
+                key = "achievements_header",
                 span = { GridItemSpan(SingleItemSpanCount) },
             ) {
-                StampsDetail(uiState.detailDescription)
+                AchievementsDetail(uiState.detailDescription)
             }
             items(
-                items = uiState.stamps,
-                key = { stamp -> stamp.hasDrawableResId },
-                span = { stamp ->
+                items = uiState.achievements,
+                key = { achievement -> achievement.hasDrawableResId },
+                span = { achievement ->
                     GridItemSpan(
-                        if (stamp == uiState.stamps.last() && uiState.stamps.size % StampListColumns != 0) {
+                        if (achievement == uiState.achievements.last() && uiState.achievements.size % AchievementsListColumns != 0) {
                             SingleItemSpanCount
                         } else {
                             DoubleItemSpanCount
                         },
                     )
                 },
-            ) { stamp ->
-                val onStampClick = if (stampLottieRawId != null) {
+            ) { achievement ->
+                val onAchievementClick = if (achievementLottieRawId != null) {
                     {} // Prevents clicks during animation playback.
                 } else {
-                    onStampsClick
+                    onAchievementsClick
                 }
-                StampImage(
-                    stamp = stamp,
-                    onStampClick = onStampClick,
+                AchievementImage(
+                    achievement = achievement,
+                    onAchievementClick = onAchievementClick,
                 )
             }
         }

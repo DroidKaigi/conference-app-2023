@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.achievements.R
-import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.achievements.section.StampListUiState
+import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -19,13 +19,13 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class StampsScreenViewModel @Inject constructor(
+class AchievementsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
     stampRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
-    private val stampDetailDescriptionStateFlow: StateFlow<String> =
+    private val achievementDetailDescriptionStateFlow: StateFlow<String> =
         stampRepository.getStampDetailDescriptionStream()
             .handleErrorAndRetry(
                 AppStrings.Retry,
@@ -37,43 +37,43 @@ class StampsScreenViewModel @Inject constructor(
                 initialValue = "",
             )
 
-    private val stampLottieRawResStateFlow: MutableStateFlow<Int?> =
+    private val achievementLottieRawResStateFlow: MutableStateFlow<Int?> =
         MutableStateFlow(null)
 
-    private val stampListState = buildUiState(
-        stampDetailDescriptionStateFlow,
+    private val achievementListState = buildUiState(
+        achievementDetailDescriptionStateFlow,
     ) { detailDescription ->
-        StampListUiState(
-            stamps = persistentListOf(
-                Stamp(
+        AchievementListUiState(
+            achievements = persistentListOf(
+                Achievement(
                     hasDrawableResId = R.drawable.img_stamp_a_on,
                     lottieRawId = R.raw.stamp_a_lottie,
                     notHasDrawableResId = R.drawable.img_stamp_a_off,
-                    contentDescription = "StampA image",
+                    contentDescription = "AchievementA image",
                 ),
-                Stamp(
+                Achievement(
                     hasDrawableResId = R.drawable.img_stamp_b_on,
                     lottieRawId = R.raw.stamp_b_lottie,
                     notHasDrawableResId = R.drawable.img_stamp_b_off,
-                    contentDescription = "StampB image",
+                    contentDescription = "AchievementB image",
                 ),
-                Stamp(
+                Achievement(
                     hasDrawableResId = R.drawable.img_stamp_c_on,
                     lottieRawId = R.raw.stamp_c_lottie,
                     notHasDrawableResId = R.drawable.img_stamp_c_off,
-                    contentDescription = "StampC image",
+                    contentDescription = "AchievementC image",
                 ),
-                Stamp(
+                Achievement(
                     hasDrawableResId = R.drawable.img_stamp_d_on,
                     lottieRawId = R.raw.stamp_d_lottie,
                     notHasDrawableResId = R.drawable.img_stamp_d_off,
-                    contentDescription = "StampD image",
+                    contentDescription = "AchievementD image",
                 ),
-                Stamp(
+                Achievement(
                     hasDrawableResId = R.drawable.img_stamp_e_on,
                     lottieRawId = R.raw.stamp_e_lottie,
                     notHasDrawableResId = R.drawable.img_stamp_e_off,
-                    contentDescription = "StampE image",
+                    contentDescription = "AchievementE image",
                 ),
             ),
             detailDescription = detailDescription,
@@ -81,22 +81,22 @@ class StampsScreenViewModel @Inject constructor(
     }
 
     val uiState = buildUiState(
-        stampLottieRawResStateFlow,
-        stampListState,
-    ) { rawRes, stampListUiState ->
-        StampsScreenUiState(
+        achievementLottieRawResStateFlow,
+        achievementListState,
+    ) { rawRes, achievementListUiState ->
+        AchievementsScreenUiState(
             lottieRawRes = rawRes,
-            stampListUiState = stampListUiState,
+            achievementListUiState = achievementListUiState,
         )
     }
 
-    fun onStampClick(
-        stamp: Stamp,
+    fun onAchievementClick(
+        achievement: Achievement,
     ) {
-        stampLottieRawResStateFlow.value = stamp.lottieRawId
+        achievementLottieRawResStateFlow.value = achievement.lottieRawId
     }
 
     fun onReachAnimationEnd() {
-        stampLottieRawResStateFlow.value = null
+        achievementLottieRawResStateFlow.value = null
     }
 }

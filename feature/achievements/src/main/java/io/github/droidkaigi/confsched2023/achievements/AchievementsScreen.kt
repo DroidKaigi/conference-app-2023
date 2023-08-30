@@ -20,38 +20,38 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.achievements.section.StampList
-import io.github.droidkaigi.confsched2023.achievements.section.StampListUiState
+import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
-const val stampsScreenRoute = "stamps"
-fun NavGraphBuilder.nestedStampsScreen(
-    onStampsClick: () -> Unit,
+const val achievementsScreenRoute = "achievements"
+fun NavGraphBuilder.nestedAchievementsScreen(
+    onAchievementsClick: () -> Unit,
     contentPadding: PaddingValues,
 ) {
-    composable(stampsScreenRoute) {
-        StampsScreen(
-            onStampsClick = onStampsClick,
+    composable(achievementsScreenRoute) {
+        AchievementsScreen(
+            onAchievementsClick = onAchievementsClick,
             contentPadding = contentPadding,
         )
     }
 }
 
-fun NavController.navigateStampsScreen() {
-    navigate(stampsScreenRoute) {
+fun NavController.navigateAchievementsScreen() {
+    navigate(achievementsScreenRoute) {
         launchSingleTop = true
         restoreState = true
     }
 }
 
-const val StampsScreenTestTag = "StampsScreen"
+const val AchievementsScreenTestTag = "AchievementsScreen"
 
 @Composable
-fun StampsScreen(
-    onStampsClick: () -> Unit,
+fun AchievementsScreen(
+    onAchievementsClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
-    viewModel: StampsScreenViewModel = hiltViewModel(),
+    viewModel: AchievementsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -60,37 +60,37 @@ fun StampsScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
-    StampsScreen(
+    AchievementsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
-        stampLottieRawId = uiState.lottieRawRes,
-        onStampsClick = { stamp ->
-            onStampsClick()
-            viewModel.onStampClick(stamp)
+        achievementLottieRawId = uiState.lottieRawRes,
+        onAchievementsClick = { achievement ->
+            onAchievementsClick()
+            viewModel.onAchievementClick(achievement)
         },
         onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 
-data class StampsScreenUiState(
+data class AchievementsScreenUiState(
     val lottieRawRes: Int?,
-    val stampListUiState: StampListUiState,
+    val achievementListUiState: AchievementListUiState,
 )
 
 @Composable
-private fun StampsScreen(
-    uiState: StampsScreenUiState,
+private fun AchievementsScreen(
+    uiState: AchievementsScreenUiState,
     snackbarHostState: SnackbarHostState,
     @RawRes
-    stampLottieRawId: Int?,
-    onStampsClick: (Stamp) -> Unit,
+    achievementLottieRawId: Int?,
+    onAchievementsClick: (Achievement) -> Unit,
     contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
-        modifier = Modifier.testTag(StampsScreenTestTag),
+        modifier = Modifier.testTag(AchievementsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         contentWindowInsets = WindowInsets(
             left = contentPadding.calculateLeftPadding(layoutDirection),
@@ -99,12 +99,12 @@ private fun StampsScreen(
             bottom = contentPadding.calculateBottomPadding(),
         ),
         content = { innerPadding ->
-            StampList(
-                uiState = uiState.stampListUiState,
-                onStampsClick = onStampsClick,
+            AchievementList(
+                uiState = uiState.achievementListUiState,
+                onAchievementsClick = onAchievementsClick,
                 contentPadding = innerPadding,
                 onReachAnimationEnd = onReachAnimationEnd,
-                stampLottieRawId = stampLottieRawId,
+                achievementLottieRawId = achievementLottieRawId,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),
