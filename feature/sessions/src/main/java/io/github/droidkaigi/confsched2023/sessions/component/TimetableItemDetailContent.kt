@@ -47,6 +47,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
@@ -62,14 +63,22 @@ const val TimetableItemDetailReadMoreButtonTestTag = "TimetableItemDetailReadMor
 @Composable
 fun TimetableItemDetailContent(
     uiState: TimetableItem,
+    selectedLanguage: Lang?,
     modifier: Modifier = Modifier,
     onLinkClick: (url: String) -> Unit,
 ) {
     Column(modifier = modifier) {
         when (uiState) {
             is Session -> {
+                val description = when (selectedLanguage) {
+                    Lang.JAPANESE -> uiState.description.jaTitle
+                    Lang.ENGLISH -> uiState.description.enTitle
+                    Lang.MIXED,
+                    null,
+                    -> ""
+                }
                 DescriptionSection(
-                    description = uiState.description,
+                    description = description,
                     onLinkClick = onLinkClick,
                 )
                 TargetAudienceSection(targetAudienceString = uiState.targetAudience)
@@ -343,7 +352,7 @@ fun DescriptionSectionPreview() {
     KaigiTheme {
         Surface {
             DescriptionSection(
-                description = Session.fake().description,
+                description = Session.fake().description.currentLangTitle,
                 onLinkClick = {},
             )
         }
@@ -358,6 +367,7 @@ fun TimetableItemDetailContentPreview() {
         Surface {
             TimetableItemDetailContent(
                 uiState = Session.fake(),
+                selectedLanguage = Lang.JAPANESE,
                 onLinkClick = {},
             )
         }
