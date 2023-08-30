@@ -120,10 +120,10 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                     description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
                         "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
                     i18nDesc = LocaledResponse(
-                        ja = "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\" +\n" +
-                            "\"これはディスクリプションです。\\nこれはディスクリプションです。\\nこれはディスクリプションです。\\n\",",
-                        en = "\"This is a description\\nThis is a description\\nThis is a description\\n\" +\n" +
-                            "\"This is a description\\nThis is a description\\nThis is a description\\n\",",
+                        ja = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                            "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                        en = "This is a description\nThis is a description\nThis is a description\n" +
+                            "This is a description\nThis is a description\nThis is a description\n",
                     ),
                     startsAt = start.toString(),
                     endsAt = end.toString(),
