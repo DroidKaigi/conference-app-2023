@@ -297,7 +297,7 @@ private class ExternalNavController(
         shareManager.share(
             "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
                 "${timeTableItem.title.currentLangTitle}\n" +
-                "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}"
+                "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}",
         )
     }
 
