@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.GTranslate
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,11 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.model.Lang
+import io.github.droidkaigi.confsched2023.model.Lang.MIXED
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.ImmutableList
@@ -35,6 +41,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun TimetableItemDetailScreenTopAppBar(
     title: MultiLangText,
     onNavigationIconClick: () -> Unit,
+    onSelectedLanguage: (Lang) -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
 ) {
@@ -76,6 +83,42 @@ fun TimetableItemDetailScreenTopAppBar(
                     imageVector = Icons.Filled.ArrowBack,
                     contentDescription = null,
                 )
+            }
+        },
+        actions = {
+            var expanded by remember { mutableStateOf(false) }
+
+            val expandMenu = { expanded = true }
+            val shrinkMenu = { expanded = false }
+
+            IconButton(onClick = expandMenu) {
+                Icon(
+                    imageVector = Icons.Outlined.GTranslate,
+                    contentDescription = null,
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = shrinkMenu,
+            ) {
+                Lang.entries.forEach { lang ->
+                    if (lang != MIXED) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = lang.tagName,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            },
+                            onClick = {
+                                onSelectedLanguage(lang)
+                                shrinkMenu()
+                            },
+                            modifier = Modifier.testTag(DropdownFilterChipItemTestTag),
+                        )
+                    }
+                }
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
@@ -124,6 +167,7 @@ fun TimetableItemDetailScreenTopAppBarPreview() {
     TimetableItemDetailScreenTopAppBar(
         title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
         onNavigationIconClick = {},
+        onSelectedLanguage = {},
         scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     )
 }

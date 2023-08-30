@@ -41,7 +41,7 @@ public sealed class TimetableItem {
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
         override val speakers: PersistentList<TimetableSpeaker>,
-        val description: String,
+        val description: MultiLangText,
         val message: MultiLangText?,
     ) : TimetableItem() {
         public companion object
@@ -154,7 +154,10 @@ public fun Session.Companion.fake(): Session {
                 tagLine = "iOS Engineer",
             ),
         ).toPersistentList(),
-        description = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
+        description = MultiLangText(
+            jaTitle = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
+            enTitle = "This is a description.\nThis is a description.\nhttps://github.com/DroidKaigi/conference-app-2023 This is a URL.\nThis is a description.",
+        ),
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
             enTitle = "This session has been cancelled due to circumstances.",
