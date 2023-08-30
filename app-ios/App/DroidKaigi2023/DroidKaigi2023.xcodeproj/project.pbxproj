@@ -46,6 +46,7 @@
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E869BBA32A9FBBCA00EF9FA2 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		E8BCCCE62A8011E8004010F7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = ../../Modules; sourceTree = "<group>"; };
 		E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */,
+				E869BBA32A9FBBCA00EF9FA2 /* ci_pre_xcodebuild.sh */,
 			);
 			path = ci_scripts;
 			sourceTree = "<group>";
