@@ -17,6 +17,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,6 +25,11 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
+
+const val BookmarkFilterChipAllTestTag = "BookmarkFilterChipAllTestTag"
+const val BookmarkFilterChipDay1TestTag = "BookmarkFilterChipDay1TestTag"
+const val BookmarkFilterChipDay2TestTag = "BookmarkFilterChipDay2TestTag"
+const val BookmarkFilterChipDay3TestTag = "BookmarkFilterChipDay3TestTag"
 
 @Composable
 fun BookmarkFilters(
@@ -46,24 +52,28 @@ fun BookmarkFilters(
             labelText = SessionsStrings.BookmarkFilterAllChip.asString(),
             isSelected = isAll,
             onClick = onAllFilterChipClick,
+            modifier = Modifier.testTag(BookmarkFilterChipAllTestTag),
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day1.name,
             isSelected = isDayFirst,
             onClick = onDayFirstChipClick,
+            modifier = Modifier.testTag(BookmarkFilterChipDay1TestTag),
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day2.name,
             isSelected = isDaySecond,
             onClick = onDaySecondChipClick,
+            modifier = Modifier.testTag(BookmarkFilterChipDay2TestTag),
         )
         Spacer(modifier = Modifier.size(8.dp))
         BookmarkFilterChip(
             labelText = DroidKaigi2023Day.Day3.name,
             isSelected = isDayThird,
             onClick = onDayThirdChipClick,
+            modifier = Modifier.testTag(BookmarkFilterChipDay3TestTag),
         )
     }
 }
@@ -74,6 +84,7 @@ private fun BookmarkFilterChip(
     labelText: String,
     isSelected: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val selectedChipColor = FilterChipDefaults.filterChipColors(
         containerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -88,6 +99,7 @@ private fun BookmarkFilterChip(
         label = {
             ChipInnerText(labelText)
         },
+        modifier = modifier,
         leadingIcon = {
             if (isSelected) {
                 Icon(

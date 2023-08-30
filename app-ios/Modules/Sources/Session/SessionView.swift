@@ -45,7 +45,7 @@ public struct SessionView: View {
                     InformationRow(
                         icon: Assets.Icons.language.swiftUIImage,
                         title: "対応言語",
-                        content: viewModel.timetableItem.language.langOfSpeaker
+                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: (Locale.current.language.languageCode?.identifier == "ja"))
                     )
                     InformationRow(
                         icon: Assets.Icons.category.swiftUIImage,

@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -148,7 +149,13 @@ private fun ResizeableText(
             }
         },
         style = styles[styleIndex],
-        modifier = Modifier.padding(end = 16.dp),
+        modifier = Modifier
+            .padding(end = 16.dp)
+            // title heights of LargeTopAppBar will use `TopAppBarLargeTokens.ContainerHeight`, `TopAppBarSmallTokens.ContainerHeight` and `scroll offset`.
+            // because of this, this height become taller than our expectation.
+            // we want to fix max height, but `ContainerHeight`s are internal values in material3.
+            // so set as constant dp. (Large - Small)
+            .heightIn(max = 88.dp),
     )
 }
 

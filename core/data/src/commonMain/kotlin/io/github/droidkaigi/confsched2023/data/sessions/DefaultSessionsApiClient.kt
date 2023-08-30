@@ -51,7 +51,7 @@ class DefaultSessionsApiClient internal constructor(
     }
 }
 
-internal fun SessionsAllResponse.toTimetable(): Timetable {
+fun SessionsAllResponse.toTimetable(): Timetable {
     val timetableContents = this
     val speakerIdToSpeaker: Map<String, TimetableSpeaker> = timetableContents.speakers
         .groupBy { it.id }

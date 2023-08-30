@@ -99,7 +99,7 @@ gradlePlugin {
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
         }
         register("oss-licenses") {
-            id = "droidkaigi.primitive.osslicenses"
+            id = "droidkaigi.primitive.android.osslicenses"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.OssLicensesPlugin"
         }
 

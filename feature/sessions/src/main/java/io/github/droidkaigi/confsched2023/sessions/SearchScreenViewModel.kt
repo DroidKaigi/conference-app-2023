@@ -71,8 +71,8 @@ class SearchScreenViewModel @Inject constructor(
             SearchScreenUiState.Empty(
                 searchQuery = SearchQuery(searchQuery),
                 searchFilterDayUiState = searchFilterDayUiState(filters.days),
-                searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories),
-                searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes),
+                searchFilterCategoryUiState = searchFilterCategoryUiState(filters.categories, sessions.categories),
+                searchFilterSessionTypeUiState = searchFilterSessionTypeUiState(filters.sessionTypes, sessions.sessionTypes),
                 searchFilterLanguageUiState = searchFilterLanguageUiState(filters.languages),
             )
         } else {
@@ -105,11 +105,11 @@ class SearchScreenViewModel @Inject constructor(
 
     private fun searchFilterCategoryUiState(
         selectedCategories: List<TimetableCategory>,
-        categories: List<TimetableCategory>? = null,
+        categories: List<TimetableCategory>,
     ): SearchFilterUiState<TimetableCategory> {
         return SearchFilterUiState(
             selectedItems = selectedCategories.toImmutableList(),
-            items = categories.orEmpty().toImmutableList(),
+            items = categories.toImmutableList(),
             isSelected = selectedCategories.isNotEmpty(),
             selectedValues = selectedCategories.joinToString { it.title.currentLangTitle },
         )
@@ -117,11 +117,11 @@ class SearchScreenViewModel @Inject constructor(
 
     private fun searchFilterSessionTypeUiState(
         selectedSessionTypes: List<TimetableSessionType>,
-        sessionTypes: List<TimetableSessionType>? = null,
+        sessionTypes: List<TimetableSessionType>,
     ): SearchFilterUiState<TimetableSessionType> {
         return SearchFilterUiState(
             selectedItems = selectedSessionTypes.toImmutableList(),
-            items = sessionTypes.orEmpty().toImmutableList(),
+            items = sessionTypes.toImmutableList(),
             isSelected = selectedSessionTypes.isNotEmpty(),
             selectedValues = selectedSessionTypes.joinToString { it.label.currentLangTitle },
         )
