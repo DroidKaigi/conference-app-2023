@@ -19,5 +19,5 @@ mint install SwiftGen/SwiftGen
 
 mint run LicenseList $CI_DERIVED_DATA_PATH $CI_DERIVED_DATA_PATH
 
-DERIVED_SOURCES_DIR="$CI_WORKSPACE/app-ios/Modules/Sources/Assets/"
+export DERIVED_SOURCES_DIR="$CI_WORKSPACE/app-ios/Modules/Sources/Assets/"
 mint run SwiftGen --config "$CI_WORKSPACE/app-ios/Modules/Sources/Assets/swiftgen.yml"
