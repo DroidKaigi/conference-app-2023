@@ -46,6 +46,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.model.TimetableAsset
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Special
@@ -75,8 +76,9 @@ fun TimetableItemDetailContent(
                 SpeakerSection(speakers = uiState.speakers)
                 if (uiState.asset.isAvailable) {
                     ArchiveSection(
-                        onViewDocumentClick = {},
-                        onWatchVideoClick = {},
+                        timeTableAsset = uiState.asset,
+                        onViewDocumentClick = onLinkClick,
+                        onWatchVideoClick = onLinkClick,
                     )
                 }
             }
@@ -196,8 +198,9 @@ private fun SpeakerSection(
 
 @Composable
 private fun ArchiveSection(
-    onViewDocumentClick: () -> Unit,
-    onWatchVideoClick: () -> Unit,
+    timeTableAsset: TimetableAsset,
+    onViewDocumentClick: (slideUrl: String) -> Unit,
+    onWatchVideoClick: (videoUrl: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.padding(vertical = 24.dp, horizontal = 16.dp)) {
@@ -211,47 +214,51 @@ private fun ArchiveSection(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 8.dp),
         ) {
-            ArchiveSectionIconButton(
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Description,
-                        contentDescription = null,
-                        modifier = Modifier.size(width = 18.dp, height = 18.dp),
-                    )
-                },
-                label = {
-                    Text(
-                        text = SessionsStrings.ViewDocument.asString(),
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Center,
-                    )
-                },
-                onClick = { onViewDocumentClick() },
-                modifier = Modifier
-                    .width(0.dp)
-                    .weight(1F),
-            )
+            timeTableAsset.slideUrl?.let { slideUrl ->
+                ArchiveSectionIconButton(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Description,
+                            contentDescription = null,
+                            modifier = Modifier.size(width = 18.dp, height = 18.dp),
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = SessionsStrings.ViewDocument.asString(),
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                    },
+                    onClick = { onViewDocumentClick(slideUrl) },
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1F),
+                )
+            }
 
-            ArchiveSectionIconButton(
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.PlayCircle,
-                        contentDescription = null,
-                        modifier = Modifier.size(width = 18.dp, height = 18.dp),
-                    )
-                },
-                label = {
-                    Text(
-                        text = SessionsStrings.WatchVideo.asString(),
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Center,
-                    )
-                },
-                onClick = { onWatchVideoClick() },
-                modifier = Modifier
-                    .width(0.dp)
-                    .weight(1F),
-            )
+            timeTableAsset.videoUrl?.let { videoUrl ->
+                ArchiveSectionIconButton(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Outlined.PlayCircle,
+                            contentDescription = null,
+                            modifier = Modifier.size(width = 18.dp, height = 18.dp),
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = SessionsStrings.WatchVideo.asString(),
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                    },
+                    onClick = { onWatchVideoClick(videoUrl) },
+                    modifier = Modifier
+                        .width(0.dp)
+                        .weight(1F),
+                )
+            }
         }
         Spacer(modifier = Modifier.height(24.dp))
     }
