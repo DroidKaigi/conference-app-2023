@@ -10,7 +10,7 @@ plugins {
     id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover")
-    id("droidkaigi.primitive.osslicenses")
+    id("droidkaigi.primitive.android.osslicenses")
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -68,7 +68,7 @@ android {
             buildConfigField(
                 type = "String",
                 name = "SERVER_URL",
-                value = "\"https://ssot-api.droidkaigi.jp\"",
+                value = "\"https://ssot-api.droidkaigi.jp/\"",
             )
         }
     }

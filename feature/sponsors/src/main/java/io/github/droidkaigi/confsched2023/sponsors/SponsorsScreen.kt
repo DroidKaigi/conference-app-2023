@@ -34,7 +34,7 @@ import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 const val sponsorsScreenRoute = "sponsors"
 fun NavGraphBuilder.sponsorsScreen(
     onNavigationIconClick: () -> Unit,
-    onSponsorClick: (Sponsor) -> Unit,
+    onSponsorClick: (url: String) -> Unit,
 ) {
     composable(sponsorsScreenRoute) {
         SponsorsScreen(
@@ -53,7 +53,7 @@ const val SponsorsScreenTestTag = "SponsorsScreen"
 @Composable
 fun SponsorsScreen(
     onNavigationIconClick: () -> Unit,
-    onSponsorClick: (Sponsor) -> Unit,
+    onSponsorClick: (url: String) -> Unit,
     viewModel: SponsorsScreenViewModel = hiltViewModel<SponsorsScreenViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -81,7 +81,7 @@ private fun SponsorsScreen(
     uiState: SponsorsScreenUiState,
     onBackClick: () -> Unit,
     snackbarHostState: SnackbarHostState,
-    onSponsorClick: (Sponsor) -> Unit,
+    onSponsorClick: (url: String) -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val lifecycleOwner = LocalLifecycleOwner.current
