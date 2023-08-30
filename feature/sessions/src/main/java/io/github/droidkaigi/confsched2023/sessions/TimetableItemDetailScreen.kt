@@ -28,6 +28,7 @@ import io.github.droidkaigi.confsched2023.designsystem.component.LoadingText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -110,6 +111,7 @@ fun TimetableItemDetailScreen(
         onLinkClick = onLinkClick,
         onCalendarRegistrationClick = onCalendarRegistrationClick,
         onShareClick = onShareClick,
+        onSelectedLanguage = viewModel::onSelectDescriptionLanguage,
         snackbarHostState = snackbarHostState,
     )
 }
@@ -121,6 +123,7 @@ sealed class TimetableItemDetailScreenUiState {
         val timetableItemDetailSectionUiState: TimetableItemDetailSectionUiState,
         val isBookmarked: Boolean,
         val viewBookmarkListRequestState: ViewBookmarkListRequestState,
+        val currentLang: Lang?,
     ) : TimetableItemDetailScreenUiState()
 
     val shouldNavigateToBookmarkList: Boolean
@@ -141,6 +144,7 @@ private fun TimetableItemDetailScreen(
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
     onShareClick: (TimetableItem) -> Unit,
+    onSelectedLanguage: (Lang) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -151,6 +155,7 @@ private fun TimetableItemDetailScreen(
                 TimetableItemDetailScreenTopAppBar(
                     title = uiState.timetableItem.title,
                     onNavigationIconClick = onNavigationIconClick,
+                    onSelectedLanguage = onSelectedLanguage,
                     scrollBehavior = scrollBehavior,
                 )
             }
@@ -185,6 +190,7 @@ private fun TimetableItemDetailScreen(
                     TimetableItemDetail(
                         modifier = Modifier.fillMaxSize(),
                         uiState = it.timetableItemDetailSectionUiState,
+                        selectedLanguage = it.currentLang,
                         onLinkClick = onLinkClick,
                         contentPadding = innerPadding,
                     )
@@ -209,6 +215,7 @@ fun TimetableItemDetailScreenPreview() {
                     timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
                     viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
+                    currentLang = Lang.JAPANESE,
                 ),
                 onNavigationIconClick = {},
                 onBookmarkClick = {
@@ -217,6 +224,7 @@ fun TimetableItemDetailScreenPreview() {
                 onLinkClick = {},
                 onCalendarRegistrationClick = {},
                 onShareClick = {},
+                onSelectedLanguage = {},
                 snackbarHostState = SnackbarHostState(),
             )
         }
