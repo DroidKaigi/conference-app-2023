@@ -296,7 +296,9 @@ package.targets = package.targets.map { target in
     if let ciEnvPointer = getenv("CI") {
         let ciEnv = String(cString: ciEnvPointer)
         if ciEnv == "TRUE" {
-            target.plugins = []
+            if target.type == .regular || target.type == .test {
+                target.plugins = []
+            }
         }
     }
 
