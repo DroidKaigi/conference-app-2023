@@ -242,6 +242,7 @@ private fun SpeakerIcon(
         },
         contentDescription = UserIcon.asString(),
         modifier = modifier
+            .size(TimetableGridItemSizes.speakerHeight)
             .clip(RoundedCornerShape(8.dp))
             .border(
                 BorderStroke(1.dp, md_theme_light_outline),
