@@ -13,10 +13,20 @@ This is a video of an app in development, and it will be updated as needed.
 
 # Try it out!
 
+## Android
+
 The app is currently in preparation for release on Google Play and the App Store. In the meantime, you can try the app on DeployGate. Stay tuned for updates!
 
 [<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
 
+## iOS
+
+Beta version of this app is available on TestFlight.
+You can try and test this app with following public link.
+
+https://testflight.apple.com/join/1dxiwjX0
+
+In this project, distribute beta version with [Xcode Cloud](https://developer.apple.com/jp/xcode-cloud/).
 # Contributing
 
 We always welcome any and all contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
