@@ -161,7 +161,14 @@ private fun NavGraphBuilder.mainScreen(
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
+                        PrivacyPolicy -> {
+                            val url = if (defaultLang() == JAPANESE) {
+                                "https://portal.droidkaigi.jp/about/privacy"
+                            } else {
+                                "https://portal.droidkaigi.jp/en/about/privacy"
+                            }
+                            externalNavController.navigate(url = url)
+                        }
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
