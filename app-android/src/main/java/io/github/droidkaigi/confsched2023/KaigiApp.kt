@@ -268,6 +268,7 @@ private class ExternalNavController(
                     CalendarContract.EXTRA_EVENT_BEGIN_TIME to timeTableItem.startsAt.toEpochMilliseconds(),
                     CalendarContract.EXTRA_EVENT_END_TIME to timeTableItem.endsAt.toEpochMilliseconds(),
                     CalendarContract.Events.TITLE to "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.title.currentLangTitle}",
+                    CalendarContract.Events.DESCRIPTION to timeTableItem.url,
                     CalendarContract.Events.EVENT_LOCATION to timeTableItem.room.name.currentLangTitle,
                 ),
             )
