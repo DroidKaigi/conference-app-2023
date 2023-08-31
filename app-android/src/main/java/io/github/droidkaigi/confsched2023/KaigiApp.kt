@@ -78,7 +78,6 @@ import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
 import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
-import java.util.Locale
 
 @Composable
 fun KaigiApp(
@@ -295,10 +294,8 @@ private class ExternalNavController(
 
     fun onShareClick(timeTableItem: TimetableItem) {
         shareNavigator.share(
-            "${timeTableItem.day?.getDropDownText(
-                language = Locale.getDefault().language,
-            )} ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
-                "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.title.currentLangTitle}\n" +
+            "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
+                "${timeTableItem.title.currentLangTitle}\n" +
                 "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}",
         )
     }
