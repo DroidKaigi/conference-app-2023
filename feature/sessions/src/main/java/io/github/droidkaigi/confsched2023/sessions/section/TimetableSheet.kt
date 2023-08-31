@@ -90,7 +90,7 @@ fun TimetableSheet(
                             selectedDay = day
                         },
                         scrollState = timetableSheetContentScrollState.tabScrollState,
-                        modifier = Modifier.testTag(TimetableTabTestTag.plus(day.day))
+                        modifier = Modifier.testTag(TimetableTabTestTag.plus(day.day)),
                     )
                 }
             }
