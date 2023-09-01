@@ -88,9 +88,7 @@ public sealed class TimetableItem {
         "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
     }
 
-    public val speakerString: String by lazy {
-        speakers.joinToString(", ") { it.name }
-    }
+    public val url: String get() = "https://2023.droidkaigi.jp/timetable/${id.value}"
 
     fun getSupportedLangString(isJapaneseLocale: Boolean): String {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
