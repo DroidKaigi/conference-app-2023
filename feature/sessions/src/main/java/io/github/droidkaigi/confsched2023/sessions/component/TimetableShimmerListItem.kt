@@ -31,6 +31,8 @@ const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
+    // process gets stuck waiting indefinitely when run in a Unit Test (Robolectric)
+    // see: https://github.com/DroidKaigi/conference-app-2023/issues/778
     val shimmerInstance = if (isTest().not()) {
         rememberShimmer(shimmerBounds = ShimmerBounds.View)
     } else {
