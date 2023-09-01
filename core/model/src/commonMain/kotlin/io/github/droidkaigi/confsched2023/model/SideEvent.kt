@@ -2,8 +2,11 @@ package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Blue
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Circle
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Favorite
 import kotlinx.collections.immutable.persistentListOf
 
 public data class SideEvent(
@@ -11,13 +14,15 @@ public data class SideEvent(
     val description: MultiLangText,
     val timeText: MultiLangText,
     val floorLevel: FloorLevel,
-    val mark: Mark,
+    val markColor: MarkColor,
+    val markShape: MarkShape,
     val link: String?,
     val imageLink: String?,
 ) {
-
-    enum class Mark(val color: MarkColor) {
-        Favorite(Pink),
+    enum class MarkShape {
+        Favorite,
+        Circle,
+        Square,
     }
 
     enum class MarkColor {
@@ -42,7 +47,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Pink,
+        markShape = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
         imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
@@ -60,7 +66,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Blue,
+        markShape = Circle,
         link = null,
         imageLink = null,
     ),
@@ -78,7 +85,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Orange,
+        markShape = Circle,
         link = "https://github.com/DroidKaigi/conference-app-2023",
         imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
@@ -96,7 +104,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Pink,
+        markShape = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
         imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
@@ -114,7 +123,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Pink,
+        markShape = Favorite,
         link = null,
         imageLink = null,
     ),
@@ -132,7 +142,8 @@ val SideEvents = persistentListOf(
             jaTitle = "DAY1-DAY2 10:00-11:00",
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
-        mark = Favorite,
+        markColor = Pink,
+        markShape = Favorite,
         link = "https://github.com/DroidKaigi/conference-app-2023",
         imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
     ),
