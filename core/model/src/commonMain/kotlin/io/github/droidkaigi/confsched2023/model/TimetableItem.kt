@@ -88,7 +88,11 @@ public sealed class TimetableItem {
         "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
     }
 
-    public val url: String get() = "https://2023.droidkaigi.jp/timetable/${id.value}"
+    public val url: String get() = if (defaultLang() == Lang.JAPANESE) {
+        "https://2023.droidkaigi.jp/timetable/${id.value}"
+    } else {
+        "https://2023.droidkaigi.jp/en/timetable/${id.value}"
+    }
 
     fun getSupportedLangString(isJapaneseLocale: Boolean): String {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"

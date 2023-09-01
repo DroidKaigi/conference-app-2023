@@ -150,27 +150,18 @@ private fun NavGraphBuilder.mainScreen(
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
+                    val portalBaseUrl = if (defaultLang() == JAPANESE) {
+                        "https://portal.droidkaigi.jp"
+                    } else {
+                        "https://portal.droidkaigi.jp/en"
+                    }
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> {
-                            val url = if (defaultLang() == JAPANESE) {
-                                "https://portal.droidkaigi.jp/about/code-of-conduct"
-                            } else {
-                                "https://portal.droidkaigi.jp/en/about/code-of-conduct"
-                            }
-                            externalNavController.navigate(url = url)
-                        }
+                        CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> {
-                            val url = if (defaultLang() == JAPANESE) {
-                                "https://portal.droidkaigi.jp/about/privacy"
-                            } else {
-                                "https://portal.droidkaigi.jp/en/about/privacy"
-                            }
-                            externalNavController.navigate(url = url)
-                        }
+                        PrivacyPolicy -> { externalNavController.navigate(url = "$portalBaseUrl/about/privacy") }
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -304,7 +295,7 @@ private class ExternalNavController(
         shareNavigator.share(
             "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
                 "${timeTableItem.title.currentLangTitle}\n" +
-                "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}",
+                timeTableItem.url,
         )
     }
 
