@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import io.github.droidkaigi.confsched2023.testing.robot.KaigiAppRobot
@@ -134,6 +135,18 @@ class KaigiAppTest {
                 clickBookmarkButton()
             }
             capture()
+        }
+    }
+
+    @Test
+    fun checkTimetableTabs() {
+        kaigiAppRobot {
+            timetableScreenRobot {
+                DroidKaigi2023Day.entries.forEach { dayEntry ->
+                    clickTimetableTab(dayEntry.day)
+                    capture()
+                }
+            }
         }
     }
 }

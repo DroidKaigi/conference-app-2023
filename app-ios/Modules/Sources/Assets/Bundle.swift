@@ -1,5 +1,6 @@
 // Workaround: https://developer.apple.com/forums/thread/664295
 import Foundation
+import Lottie
 
 private class CurrentBundleFinder {}
 

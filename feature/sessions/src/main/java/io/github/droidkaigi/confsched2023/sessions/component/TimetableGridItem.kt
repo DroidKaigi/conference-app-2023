@@ -6,11 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.TextUnit
@@ -94,7 +93,7 @@ fun TimetableGridItem(
         it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = textColor)
     }
 
-    Box(
+    Column(
         modifier = modifier
             .background(
                 color = if (speakers.isEmpty()) {
@@ -111,14 +110,24 @@ fun TimetableGridItem(
             }
             .padding(TimetableGridItemSizes.padding),
     ) {
-        Column {
+        Column(
+            modifier = Modifier.weight(3f),
+            verticalArrangement = Arrangement.Top,
+        ) {
             Text(
+                modifier = Modifier.weight(2f, fill = false),
                 text = timetableItem.title.currentLangTitle,
                 style = titleTextStyle,
+                overflow = TextOverflow.Ellipsis,
             )
-            Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
-            Row(modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight)) {
+
+            Row(
+                modifier = Modifier
+                    .weight(1.5f, fill = false)
+                    .padding(top = TimetableGridItemSizes.titleToSchedulePadding),
+            ) {
                 Icon(
+                    modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight),
                     imageVector = Icons.Default.Schedule,
                     tint = if (speaker != null) {
                         hallColor.hallText
@@ -128,44 +137,58 @@ fun TimetableGridItem(
                     contentDescription = ScheduleIcon.asString(),
                 )
                 Spacer(modifier = Modifier.width(4.dp))
+                var scheduleTextStyle = MaterialTheme.typography.bodySmall
+                if (titleTextStyle.fontSize < scheduleTextStyle.fontSize) {
+                    scheduleTextStyle = scheduleTextStyle.copy(fontSize = titleTextStyle.fontSize)
+                }
                 Text(
                     text = "${timetableItem.startsTimeString} - ${timetableItem.endsTimeString}",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = scheduleTextStyle,
                     color = textColor,
                 )
             }
+        }
 
-            if (timetableItem is Session) {
-                timetableItem.message?.let {
-                    Spacer(modifier = Modifier.height(TimetableGridItemSizes.titleToScheduleSpaceHeight))
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Error,
-                            contentDescription = SessionsStrings.ErrorIcon.asString(),
-                            tint = MaterialTheme.colorScheme.errorContainer,
-                            modifier = Modifier.size(TimetableGridItemSizes.scheduleHeight),
+        val shouldShowError = timetableItem is Session && timetableItem.message != null
+
+        if (speakers.isNotEmpty() || shouldShowError) {
+            Row(
+                modifier = Modifier.weight(1f, fill = false),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                if (speakers.isNotEmpty()) {
+                    val speakerModifier = Modifier.weight(1f)
+                    if (speakers.size == 1) {
+                        var speakerTextStyle = MaterialTheme.typography.labelMedium
+                        if (titleTextStyle.fontSize < speakerTextStyle.fontSize) {
+                            speakerTextStyle =
+                                speakerTextStyle.copy(fontSize = titleTextStyle.fontSize)
+                        }
+                        SingleSpeaker(
+                            speaker = speakers.first(),
+                            textColor = textColor,
+                            textStyle = speakerTextStyle,
+                            modifier = speakerModifier,
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = it.currentLangTitle,
-                            color = MaterialTheme.colorScheme.errorContainer,
-                            fontSize = TimetableGridItemSizes.minTitleFontSize,
-                            lineHeight = TimetableGridItemSizes.minTitleLineHeight,
+                    } else {
+                        MultiSpeakers(
+                            speakers = speakers,
+                            modifier = speakerModifier,
                         )
                     }
+                } else {
+                    Spacer(modifier = Modifier.weight(1f))
                 }
-            }
 
-            Spacer(
-                modifier = Modifier
-                    .weight(1f)
-                    .defaultMinSize(minHeight = 8.dp),
-            )
-
-            when (speakers.size) {
-                0 -> Unit
-                1 -> SingleSpeaker(speaker = speakers.first(), textColor = textColor)
-                else -> MultiSpeakers(speakers = speakers)
+                if (shouldShowError) {
+                    Icon(
+                        modifier = Modifier
+                            .size(TimetableGridItemSizes.errorHeight),
+                        imageVector = Icons.Default.Error,
+                        contentDescription = SessionsStrings.ErrorIcon.asString(),
+                        tint = MaterialTheme.colorScheme.errorContainer,
+                    )
+                }
             }
         }
     }
@@ -175,6 +198,7 @@ fun TimetableGridItem(
 private fun SingleSpeaker(
     speaker: TimetableSpeaker,
     textColor: Color,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -185,7 +209,7 @@ private fun SingleSpeaker(
         Spacer(modifier = Modifier.width(8.dp))
         Text(
             text = speaker.name,
-            style = MaterialTheme.typography.labelMedium,
+            style = textStyle,
             color = textColor,
         )
     }
@@ -218,6 +242,7 @@ private fun SpeakerIcon(
         },
         contentDescription = UserIcon.asString(),
         modifier = modifier
+            .size(TimetableGridItemSizes.speakerHeight)
             .clip(RoundedCornerShape(8.dp))
             .border(
                 BorderStroke(1.dp, md_theme_light_outline),
@@ -248,19 +273,16 @@ private fun calculateFontSizeAndLineHeight(
 ): Pair<TextUnit, TextUnit> {
     // The height of the title that should be displayed.
     val titleToScheduleSpaceHeightPx = with(localDensity) {
-        TimetableGridItemSizes.titleToScheduleSpaceHeight.toPx()
+        TimetableGridItemSizes.titleToSchedulePadding.toPx()
     }
     val scheduleHeightPx = with(localDensity) {
         TimetableGridItemSizes.scheduleHeight.toPx()
-    }
-    val scheduleToSpeakerSpaceHeightPx = with(localDensity) {
-        TimetableGridItemSizes.scheduleToSpeakerSpaceMinHeight.toPx()
     }
     val horizontalPaddingPx = with(localDensity) {
         (TimetableGridItemSizes.padding * 2).toPx()
     }
     var displayTitleHeight =
-        gridItemHeightPx - titleToScheduleSpaceHeightPx - scheduleHeightPx - scheduleToSpeakerSpaceHeightPx - horizontalPaddingPx
+        gridItemHeightPx - titleToScheduleSpaceHeightPx - scheduleHeightPx - horizontalPaddingPx
     displayTitleHeight -= if (speaker != null) {
         with(localDensity) { TimetableGridItemSizes.speakerHeight.toPx() }
     } else {
@@ -357,9 +379,9 @@ private fun calculateTitleHeight(
 object TimetableGridItemSizes {
     val width = 192.dp
     val padding = 12.dp
-    val titleToScheduleSpaceHeight = 4.dp
+    val titleToSchedulePadding = 4.dp
     val scheduleHeight = 16.dp
-    val scheduleToSpeakerSpaceMinHeight = 8.dp
+    val errorHeight = 16.dp
     val speakerHeight = 32.dp
     val minTitleFontSize = 10.sp
     val middleTitleLineHeight = 16.sp // base on MaterialTheme.typography.labelSmall.lineHeight

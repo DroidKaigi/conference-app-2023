@@ -24,6 +24,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.model.TimetableItem
@@ -36,6 +37,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.GridTimetable
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.ListTimetable
 
+const val TimetableTabTestTag = "TimetableTab"
 sealed interface TimetableSheetUiState {
     data object Empty : TimetableSheetUiState
     data class ListTimetable(
@@ -88,6 +90,7 @@ fun TimetableSheet(
                             selectedDay = day
                         },
                         scrollState = timetableSheetContentScrollState.tabScrollState,
+                        modifier = Modifier.testTag(TimetableTabTestTag.plus(day.day)),
                     )
                 }
             }
