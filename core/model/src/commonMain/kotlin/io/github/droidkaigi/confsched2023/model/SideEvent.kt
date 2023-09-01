@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Circle
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Favorite
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Square
 import kotlinx.collections.immutable.persistentListOf
 
 public data class SideEvent(
@@ -67,7 +68,7 @@ val SideEvents = persistentListOf(
             enTitle = "DAY1-DAY2 10:00-11:00",
         ),
         markColor = Blue,
-        markShape = Circle,
+        markShape = Square,
         link = null,
         imageLink = null,
     ),
