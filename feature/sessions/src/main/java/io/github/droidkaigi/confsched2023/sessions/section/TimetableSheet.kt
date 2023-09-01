@@ -138,11 +138,6 @@ fun TimetableSheet(
                                 nestedScrollDispatcher,
                             )
                             .weight(1f),
-                        contentPadding = PaddingValues(
-                            bottom = contentPadding.calculateBottomPadding(),
-                            start = contentPadding.calculateStartPadding(layoutDirection),
-                            end = contentPadding.calculateEndPadding(layoutDirection),
-                        ),
                     )
                 }
             }
