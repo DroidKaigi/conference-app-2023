@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -47,6 +48,7 @@ fun StampList(
     contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
+    id: String? = null,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     val bgColor: Color by animateColorAsState(
@@ -99,6 +101,9 @@ fun StampList(
                 span = { GridItemSpan(SingleItemSpanCount) },
             ) {
                 StampsDetail(uiState.detailDescription)
+            }
+            item {
+                Text(text = id ?: "id is null")
             }
             items(
                 items = uiState.stamps,
