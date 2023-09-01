@@ -68,6 +68,7 @@ import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
+import io.github.droidkaigi.confsched2023.share.ShareNavigator
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
@@ -109,9 +110,10 @@ private fun KaigiNavHost(
         sessionScreens(
             onNavigationIconClick = navController::popBackStack,
             onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
+            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
             onLinkClick = externalNavController::navigate,
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
-            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
+            onShareClick = externalNavController::onShareClick,
         )
         searchScreen(
             onNavigationIconClick = navController::popBackStack,
@@ -242,13 +244,19 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
 @Composable
 private fun rememberExternalNavController(): ExternalNavController {
     val context = LocalContext.current
+    val shareNavigator = ShareNavigator(context)
+
     return remember(context) {
-        ExternalNavController(context = context)
+        ExternalNavController(
+            context = context,
+            shareNavigator = shareNavigator,
+        )
     }
 }
 
 private class ExternalNavController(
     private val context: Context,
+    private val shareNavigator: ShareNavigator,
 ) {
 
     fun navigate(url: String) {
@@ -290,6 +298,14 @@ private class ExternalNavController(
 
     fun navigateToLicenseScreen() {
         context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+    }
+
+    fun onShareClick(timeTableItem: TimetableItem) {
+        shareNavigator.share(
+            "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
+                "${timeTableItem.title.currentLangTitle}\n" +
+                "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}",
+        )
     }
 
     @Suppress("SwallowedException")
