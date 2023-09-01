@@ -163,7 +163,14 @@ private fun NavGraphBuilder.mainScreen(
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
+                        PrivacyPolicy -> {
+                            val url = if (defaultLang() == JAPANESE) {
+                                "https://portal.droidkaigi.jp/about/privacy"
+                            } else {
+                                "https://portal.droidkaigi.jp/en/about/privacy"
+                            }
+                            externalNavController.navigate(url = url)
+                        }
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -276,6 +283,7 @@ private class ExternalNavController(
                     CalendarContract.EXTRA_EVENT_BEGIN_TIME to timeTableItem.startsAt.toEpochMilliseconds(),
                     CalendarContract.EXTRA_EVENT_END_TIME to timeTableItem.endsAt.toEpochMilliseconds(),
                     CalendarContract.Events.TITLE to "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.title.currentLangTitle}",
+                    CalendarContract.Events.DESCRIPTION to timeTableItem.url,
                     CalendarContract.Events.EVENT_LOCATION to timeTableItem.room.name.currentLangTitle,
                 ),
             )
