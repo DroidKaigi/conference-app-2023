@@ -41,8 +41,6 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
 import io.github.droidkaigi.confsched2023.model.SideEvent
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Square
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Blue
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
