@@ -15,8 +15,8 @@ val fontMap: HashMap<String, FontFamily?> = HashMap()
 
 // https://ishroid.medium.com/custom-font-loading-in-kmp-compose-multiplatform-2eb19865f61b
 // FIXME We initially planned to use this implementation on the iOS side.
-//However, when shared.swift is output by XCFramework, methods with Compose annotations are not output.
-//Therefore, this implementation cannot be referenced from the iOS side.
+// However, when shared.swift is output by XCFramework, methods with Compose annotations are not output.
+// Therefore, this implementation cannot be referenced from the iOS side.
 @ExperimentalResourceApi
 @Composable
 actual fun fontFamilyResource(fontResource: FontResource): FontFamily? {
