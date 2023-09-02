@@ -1,4 +1,5 @@
 import SwiftUI
+import Assets
 
 struct SessionTag: View {
     
@@ -21,7 +22,8 @@ struct SessionTag: View {
     
     var body: some View {
         Text(label)
-            .font(Font.system(size: 12, weight: .medium))
+            .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
+            .fontWeight(.medium)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .foregroundColor(labelColor)

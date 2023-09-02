@@ -32,10 +32,12 @@ struct TimetableDayHeader: View {
                     } label: {
                         VStack(spacing: 0) {
                             Text(day.name)
-                                .font(Font.system(size: 12, weight: .semibold))
+                                .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
+                                .fontWeight(.semibold)
                             if !shouldCollapse {
                                 Text("\(day.dayOfMonth)")
-                                    .font(Font.system(size: 24, weight: .semibold))
+                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
+                                    .fontWeight(.semibold)
                                     .frame(height: 32)
                             }
                         }

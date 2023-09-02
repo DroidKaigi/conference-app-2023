@@ -9,7 +9,7 @@ public struct StampsView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     Text("会場の各部屋に設置されたNFCタグにスマホをかざしてバッジを集めてみましょう。イベント最終日には、全てのバッジを集めた方にDroidKaigiのオリジナルグッズをプレゼントします。")
-                        .font(Font.system(size: 16))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     LazyVGrid(columns: [.init(), .init()]) {
                         Assets.Images.stampArcticFox.swiftUIImage

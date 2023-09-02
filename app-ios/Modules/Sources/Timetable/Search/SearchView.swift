@@ -205,7 +205,8 @@ private struct SearchEmptyView: View {
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
                 .clipShape(RoundedRectangle(cornerRadius: 24))
             Text("「\(inputText)」と一致する検索結果がありません")
-                .font(Font.system(size: 16, weight: .medium))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }

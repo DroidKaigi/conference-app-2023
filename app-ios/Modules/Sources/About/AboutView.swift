@@ -37,7 +37,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     Assets.Images.aboutKeyVisual.swiftUIImage
                     Spacer().frame(height: 16)
                     Text("DroidKaigiはAndroid技術情報の共有とコミュニケーションを目的に開催されるエンジニアが主役のAndroidカンファレンスです。")
-                        .font(Font.system(size: 16))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
                         InformationRow(
@@ -122,10 +122,12 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     .padding(.vertical, 24)
 
                     Text("アプリバージョン")
-                        .font(Font.system(size: 14, weight: .medium))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .fontWeight(.medium)
                     Spacer().frame(height: 8)
                     Text(Bundle.main.formattedVersion)
-                        .font(Font.system(size: 14, weight: .medium))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .fontWeight(.medium)
                 }
                 .padding(16)
             }

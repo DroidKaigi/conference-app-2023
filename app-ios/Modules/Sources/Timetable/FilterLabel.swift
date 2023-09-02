@@ -22,7 +22,8 @@ struct FilterLabel: View {
                     Assets.Icons.check.swiftUIImage
                 }
                 Text(title)
-                    .font(Font.system(size: 14, weight: .medium))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                    .fontWeight(.medium)
                 if isSelection {
                     Assets.Icons.arrowDropDown.swiftUIImage
                 }

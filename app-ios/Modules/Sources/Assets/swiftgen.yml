@@ -23,3 +23,11 @@ json:
       enumName: LottieAssets
       publicAccess: true
 
+fonts:
+  inputs: ../../../../../core/designsystem/src/commonMain/resources/font
+  outputs:
+    templateName: swift5
+    output: Fonts.swift
+    params:
+      enumName: FontAssets
+      publicAccess: true

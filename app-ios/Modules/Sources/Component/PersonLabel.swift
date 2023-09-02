@@ -1,5 +1,6 @@
 import SwiftUI
 import Theme
+import Assets
 
 public struct PersonLabel: View {
     let name: String
@@ -32,12 +33,13 @@ public struct PersonLabel: View {
             VStack(alignment: .leading) {
                 Text(name)
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                    .font(Font.system(size: 16, weight: .medium))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                    .fontWeight(.medium)
                     .lineLimit(2)
                 if let notes = notes {
                     Text(notes)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-                        .font(Font.system(size: 12))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
                 }
             }
         }

@@ -1,5 +1,6 @@
 import SwiftUI
 import Theme
+import Assets
 
 public struct InformationRow: View {
     private let icon: Image
@@ -34,16 +35,19 @@ public struct InformationRow: View {
             icon
             HStack(spacing: 12) {
                 Text(title)
-                    .font(Font.system(size: 14, weight: .semibold))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                    .fontWeight(.semibold)
                 HStack {
                     Text(content)
-                        .font(Font.system(size: 14, weight: .semibold))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .fontWeight(.semibold)
                     if let action = action {
                         Button {
                             action.action()
                         } label: {
                             Text(action.label)
-                                .font(Font.system(size: 14, weight: .semibold))
+                                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                                .fontWeight(.semibold)
                                 .underline()
                                 .foregroundStyle(
                                     AssetColors.Primary.primary.swiftUIColor

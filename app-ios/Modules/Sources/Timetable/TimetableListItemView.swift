@@ -34,7 +34,8 @@ struct TimetableListItemView: View {
                 Spacer().frame(height: 8)
                 Text(addHighlightAttributes(title: timetableItem.title.currentLangTitle, searchWord: searchWord))
                     .multilineTextAlignment(.leading)
-                    .font(Font.system(size: 22, weight: .medium, design: .default))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
+                    .fontWeight(.medium)
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 if let session = timetableItem as? TimetableItem.Session {
                     if let message = session.message {
@@ -44,7 +45,8 @@ struct TimetableListItemView: View {
                                 .renderingMode(.template)
                             Text(message.currentLangTitle)
                                 .multilineTextAlignment(.leading)
-                                .font(Font.system(size: 12, weight: .regular, design: .default))
+                                .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
+                                .fontWeight(.regular)
                         }
                         .foregroundStyle(AssetColors.Error.error.swiftUIColor)
                         Spacer().frame(height: 4)

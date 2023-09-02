@@ -2,6 +2,7 @@ import Component
 import shared
 import SwiftUI
 import Theme
+import Assets
 
 struct PersonLabel: View {
     let speaker: TimetableSpeaker
@@ -23,7 +24,8 @@ struct PersonLabel: View {
 
             Text(speaker.name)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                .font(Font.system(size: 14, weight: .medium))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                .fontWeight(.medium)
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

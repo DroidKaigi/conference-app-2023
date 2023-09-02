@@ -25,7 +25,8 @@ public struct SessionView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text(viewModel.timetableItem.title.currentLangTitle)
-                    .font(Font.system(size: 24, weight: .medium))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
+                    .fontWeight(.medium)
                     .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
@@ -85,7 +86,8 @@ public struct SessionView: View {
                                 canBeExpanded = false
                             } label: {
                                 Text("続きを読む")
-                                    .font(Font.system(size: 14, weight: .medium))
+                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                                    .fontWeight(.medium)
                                     .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
                                     .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
                                     .overlay {
@@ -103,10 +105,11 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("対象者")
-                        .font(Font.system(size: 14, weight: .semibold))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .fontWeight(.semibold)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     Text(viewModel.timetableItem.targetAudience)
-                        .font(Font.system(size: 16))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                         .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 }
                 .padding(.vertical, 24)
@@ -116,7 +119,8 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("スピーカー")
-                        .font(Font.system(size: 14, weight: .semibold))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .fontWeight(.semibold)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
                     VStack(alignment: .leading, spacing: 8) {
@@ -136,10 +140,10 @@ public struct SessionView: View {
                                 )
                                 VStack(alignment: .leading, spacing: 0) {
                                     Text(speaker.name)
-                                        .font(Font.system(size: 16))
+                                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                                         .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                                     Text(speaker.tagLine)
-                                        .font(Font.system(size: 12))
+                                        .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
                                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                                 }
                             }
