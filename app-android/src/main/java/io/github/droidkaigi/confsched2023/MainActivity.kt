@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.window.layout.DisplayFeature
 import androidx.window.layout.WindowInfoTracker
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,8 +23,9 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         enableEdgeToEdge()
+
+        installSplashScreen()
 
         setContent {
             val windowSize = calculateWindowSizeClass(this)

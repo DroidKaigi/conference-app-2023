@@ -112,6 +112,7 @@ dependencies {
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
+    implementation(libs.androidxSplashScreen)
     testImplementation(projects.core.testing)
 }
 
