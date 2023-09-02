@@ -14,13 +14,19 @@ public struct ContributorView: View {
         ContributorComposeView(
             viewModel.getRepositoryForCompose(),
             onNavigationIconClick: {
-                
+
             },
             onContributorItemClick: { contributorUrl in
-                NSLog("contributorUrl:"+contributorUrl)
+                presentingURL = IdentifiableURL(string: contributorUrl)
             }
         )
         .navigationTitle("Contributor")
+        .sheet(item: $presentingURL) { url in
+            if let url = url.id {
+                SafariView(url: url)
+                    .ignoresSafeArea()
+            }
+        }
     }
 }
 
