@@ -65,12 +65,12 @@ public struct SessionView: View {
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(session.description_)
+                        Text(session.description_.currentLangTitle)
                             .textSelection(.enabled)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
                             .background {
                                 ViewThatFits(in: .vertical) {
-                                    Text(session.description_)
+                                    Text(session.description_.currentLangTitle)
                                         .hidden()
                                     // Just for receiving onAppear event if the description exceeds its line limit
                                     Color.clear
@@ -166,10 +166,9 @@ public struct SessionView: View {
         )
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Button {
-                    // TODO: Share
-                } label: {
-                    Assets.Icons.share.swiftUIImage
+                if let url = URL(string: "https://2023.droidkaigi.jp/timetable/\(viewModel.timetableItem.id.value)/") {
+                    ShareLink(item: url,
+                              label: { Assets.Icons.share.swiftUIImage })
                 }
             }
             ToolbarItem(placement: .bottomBar) {

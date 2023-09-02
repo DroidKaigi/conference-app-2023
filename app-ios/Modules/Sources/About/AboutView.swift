@@ -2,6 +2,7 @@ import Assets
 import Component
 import LicenseList
 import Model
+import shared
 import SwiftUI
 import Theme
 
@@ -86,7 +87,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     }
                     Divider()
                     SectionTitle(title: "Others")
-                    SafariLink(url: .codeOfConduct) {
+                    SafariLink(url: LocaleKt.getDefaultLocale() == .japan ? .codeOfConduct : .codeOfConductEn) {
                         ListTile(
                             icon: Assets.Icons.gavel.swiftUIImage,
                             title: "行動規範"
@@ -100,7 +101,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                         )
                     }
                     Divider()
-                    SafariLink(url: .privacyPolicy) {
+                    SafariLink(url: LocaleKt.getDefaultLocale() == .japan ? .privacyPolicy : .privacyPolicyEn) {
                         ListTile(
                             icon: Assets.Icons.privacyTip.swiftUIImage,
                             title: "プライバシーポリシー"

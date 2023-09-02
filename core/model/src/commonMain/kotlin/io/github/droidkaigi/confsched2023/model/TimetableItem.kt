@@ -41,7 +41,7 @@ public sealed class TimetableItem {
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
         override val speakers: PersistentList<TimetableSpeaker>,
-        val description: String,
+        val description: MultiLangText,
         val message: MultiLangText?,
     ) : TimetableItem() {
         public companion object
@@ -88,9 +88,7 @@ public sealed class TimetableItem {
         "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
     }
 
-    public val speakerString: String by lazy {
-        speakers.joinToString(", ") { it.name }
-    }
+    public val url: String get() = "https://2023.droidkaigi.jp/timetable/${id.value}"
 
     fun getSupportedLangString(isJapaneseLocale: Boolean): String {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
@@ -154,7 +152,10 @@ public fun Session.Companion.fake(): Session {
                 tagLine = "iOS Engineer",
             ),
         ).toPersistentList(),
-        description = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
+        description = MultiLangText(
+            jaTitle = "これはディスクリプションです。\nこれはディスクリプションです。\nhttps://github.com/DroidKaigi/conference-app-2023 これはURLです。\nこれはディスクリプションです。",
+            enTitle = "This is a description.\nThis is a description.\nhttps://github.com/DroidKaigi/conference-app-2023 This is a URL.\nThis is a description.",
+        ),
         message = MultiLangText(
             jaTitle = "このセッションは事情により中止となりました",
             enTitle = "This session has been cancelled due to circumstances.",

@@ -12,3 +12,14 @@ xcassets:
       enumName: Assets
       publicAccess: true
       bundle: Bundle.myModule
+
+json:
+  inputs:
+    - Lottie
+  outputs:
+    templatePath: SwiftGenTemplates/lottie.stencil
+    output: Lottie.generated.swift
+    params:
+      enumName: LottieAssets
+      publicAccess: true
+
