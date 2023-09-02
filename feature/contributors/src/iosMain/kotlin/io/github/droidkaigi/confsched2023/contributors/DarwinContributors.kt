@@ -12,6 +12,7 @@ import platform.UIKit.UIViewController
 @Suppress("UNUSED")
 fun contributorViewController(
     contributorsRepository: ContributorsRepository,
+    isTopAppBarHidden: Boolean,
     onNavigationIconClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
 ): UIViewController = ComposeUIViewController {
@@ -28,6 +29,7 @@ fun contributorViewController(
 
     ContributorsScreen(
         viewModel = viewModel,
+        isTopAppBarHidden = isTopAppBarHidden,
         onNavigationIconClick = onNavigationIconClick,
         onContributorItemClick = onContributorItemClick,
     )

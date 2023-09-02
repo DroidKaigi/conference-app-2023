@@ -41,6 +41,7 @@ struct ContributorComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
         let vc = DarwinContributorsKt.contributorViewController(
             contributorsRepository: contributorsRepository,
+            isTopAppBarHidden: true,
             onNavigationIconClick: onNavigationIconClick,
             onContributorItemClick: onContributorItemClick
         )
