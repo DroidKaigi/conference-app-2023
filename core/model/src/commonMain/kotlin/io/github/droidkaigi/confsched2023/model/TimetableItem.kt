@@ -84,8 +84,12 @@ public sealed class TimetableItem {
         "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
+    public val formattedTimeString: String by lazy {
+        "$startsTimeString ~ $endsTimeString"
+    }
+
     public val formattedDateTimeString: String by lazy {
-        "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
+        "$startsDateString / $formattedTimeString ($minutesString)"
     }
 
     public val url: String get() = "https://2023.droidkaigi.jp/timetable/${id.value}"
