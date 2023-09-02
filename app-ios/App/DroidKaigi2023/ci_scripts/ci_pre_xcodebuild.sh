@@ -12,7 +12,7 @@ mint install cybozu/LicenseList
 mint install SwiftGen/SwiftGen
 
 SOURCE_PACKAGES_PATH="$CI_WORKSPACE/app-ios/SourcePackages"
-xcodebuild -resolvePackageDependencies -project $CI_PROJECT_FILE_PATH -scheme DroidKaigi2023 -derivedDataPath $CI_DERIVED_DATA_PATH -clonedSourcePackagesDirPath ./SourcePackages
+xcodebuild -resolvePackageDependencies -project $CI_PROJECT_FILE_PATH -scheme DroidKaigi2023 -derivedDataPath $CI_DERIVED_DATA_PATH -clonedSourcePackagesDirPath $SOURCE_PACKAGES_PATH
 
 mint run LicenseList "$CI_WORKSPACE/app-ios/Modules/Sources/About/Resources" $SOURCE_PACKAGES_PATH
 
