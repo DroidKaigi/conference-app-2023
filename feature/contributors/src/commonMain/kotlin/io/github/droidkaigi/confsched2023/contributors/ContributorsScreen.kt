@@ -39,6 +39,7 @@ data class ContributorsUiState(val contributors: PersistentList<Contributor>)
 @Composable
 fun ContributorsScreen(
     viewModel: ContributorsViewModel,
+    isTopAppBarHidden: Boolean = false,
     onNavigationIconClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
@@ -52,6 +53,7 @@ fun ContributorsScreen(
     )
     ContributorsScreen(
         uiState = uiState,
+        isTopAppBarHidden = isTopAppBarHidden,
         snackbarHostState = snackbarHostState,
         onBackClick = onNavigationIconClick,
         onContributorItemClick = onContributorItemClick,
@@ -67,31 +69,39 @@ private fun ContributorsScreen(
     onBackClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
     contentPadding: PaddingValues,
+    isTopAppBarHidden: Boolean,
 ) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val scrollBehavior =
+        if (!isTopAppBarHidden) {
+            TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+        } else {
+            null
+        }
     val localLayoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(ContributorsScreenTestTag),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    Text(text = "Contributor")
-                },
-                navigationIcon = {
-                    IconButton(
-                        modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
-                        onClick = onBackClick,
-                        enabled = scrollBehavior.state.collapsedFraction < 1f,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                        )
-                    }
-                },
-                scrollBehavior = scrollBehavior
-            )
+            if (scrollBehavior != null) {
+                LargeTopAppBar(
+                    title = {
+                        Text(text = "Contributor")
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
+                            onClick = onBackClick,
+                            enabled = scrollBehavior.state.collapsedFraction < 1f,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                            )
+                        }
+                    },
+                    scrollBehavior = scrollBehavior
+                )
+            }
         },
         contentWindowInsets = WindowInsets(
             left = contentPadding.calculateLeftPadding(localLayoutDirection),
@@ -105,7 +115,13 @@ private fun ContributorsScreen(
             onContributorItemClick = onContributorItemClick,
             modifier = Modifier
                 .fillMaxSize()
-                .nestedScroll(scrollBehavior.nestedScrollConnection),
+                .let {
+                    if (scrollBehavior != null) {
+                        it.nestedScroll(scrollBehavior.nestedScrollConnection)
+                    } else {
+                        it
+                    }
+                },
             contentPadding = innerContentPadding,
         )
     }
