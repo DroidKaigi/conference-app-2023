@@ -13,9 +13,6 @@ public struct ContributorView: View {
     public var body: some View {
         ContributorComposeView(
             viewModel.getRepositoryForCompose(),
-            onNavigationIconClick: {
-
-            },
             onContributorItemClick: { contributorUrl in
                 presentingURL = IdentifiableURL(string: contributorUrl)
             }
@@ -36,20 +33,16 @@ public struct ContributorView: View {
 
 struct ContributorComposeView: UIViewControllerRepresentable {
     let contributorsRepository: ContributorsRepository
-    let onNavigationIconClick: () -> Void
     let onContributorItemClick: (String) -> Void
 
-    init(_ contributorsRepository: ContributorsRepository, onNavigationIconClick: @escaping () -> Void, onContributorItemClick: @escaping (String) -> Void) {
+    init(_ contributorsRepository: ContributorsRepository, onContributorItemClick: @escaping (String) -> Void) {
         self.contributorsRepository = contributorsRepository
-        self.onNavigationIconClick = onNavigationIconClick
         self.onContributorItemClick = onContributorItemClick
     }
 
     func makeUIViewController(context: Context) -> UIViewController {
         let vc = DarwinContributorsKt.contributorViewController(
             contributorsRepository: contributorsRepository,
-            isTopAppBarHidden: true,
-            onNavigationIconClick: onNavigationIconClick,
             onContributorItemClick: onContributorItemClick
         )
         vc.overrideUserInterfaceStyle = .light

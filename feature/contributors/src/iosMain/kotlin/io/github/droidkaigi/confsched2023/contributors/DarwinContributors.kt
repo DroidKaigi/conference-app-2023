@@ -3,8 +3,6 @@ package io.github.droidkaigi.confsched2023.contributors
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
-import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
-import io.github.droidkaigi.confsched2023.data.contributors.FakeContributorsApiClient
 import io.github.droidkaigi.confsched2023.model.ContributorsRepository
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolderImpl
 import platform.UIKit.UIViewController
@@ -12,8 +10,6 @@ import platform.UIKit.UIViewController
 @Suppress("UNUSED")
 fun contributorViewController(
     contributorsRepository: ContributorsRepository,
-    isTopAppBarHidden: Boolean,
-    onNavigationIconClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
 ): UIViewController = ComposeUIViewController {
     val viewModel = ContributorsViewModel(
@@ -29,8 +25,8 @@ fun contributorViewController(
 
     ContributorsScreen(
         viewModel = viewModel,
-        isTopAppBarHidden = isTopAppBarHidden,
-        onNavigationIconClick = onNavigationIconClick,
+        isTopAppBarHidden = true,
+        onNavigationIconClick = { /** no action for iOS side **/ },
         onContributorItemClick = onContributorItemClick,
     )
 }
