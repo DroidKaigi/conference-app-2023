@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -10,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.window.layout.DisplayFeature
 import androidx.window.layout.WindowInfoTracker
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +26,21 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        // FIXME
+        //  On a device that can switch between 3-button navigation and gesture navigation,
+        //  the color of the navigation bar does not match KaigiBottomBar container color
+        //  when using 3-button navigation.
+        //  Devices with only 3-button navigation do not have the above problem.
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.Transparent.toArgb(),
+                darkScrim = Color.Transparent.toArgb(),
+            ),
+            navigationBarStyle = SystemBarStyle.auto(
+                lightScrim = Color.Transparent.toArgb(),
+                darkScrim = Color.Transparent.toArgb(),
+            ),
+        )
 
         setContent {
             val windowSize = calculateWindowSizeClass(this)
