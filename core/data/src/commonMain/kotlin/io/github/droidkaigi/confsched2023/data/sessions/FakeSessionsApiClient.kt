@@ -53,12 +53,12 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         RoomResponse(
             name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"),
             id = 2,
-            sort = 2
+            sort = 2,
         ),
         RoomResponse(
             name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"),
             id = 3,
-            sort = 3
+            sort = 3,
         ),
         RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4, sort = 3),
     )

@@ -26,7 +26,7 @@ public class DefaultSessionsRepository(
                 .catch { e ->
                     Logger.d(
                         "DefaultSessionsRepository sessionCacheDataStore.getTimetableStream catch",
-                        e
+                        e,
                     )
                     sessionCacheDataStore.save(sessionsApi.sessionsAllResponse())
                     emitAll(sessionCacheDataStore.getTimetableStream())
