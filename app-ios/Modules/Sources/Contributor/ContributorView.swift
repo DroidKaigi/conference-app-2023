@@ -1,6 +1,6 @@
 import Component
-import Model
 import KMPContainer
+import Model
 import shared
 import SwiftUI
 
@@ -20,6 +20,7 @@ public struct ContributorView: View {
                 NSLog("contributorUrl:"+contributorUrl)
             }
         )
+        .navigationTitle("Contributor")
     }
 }
 
