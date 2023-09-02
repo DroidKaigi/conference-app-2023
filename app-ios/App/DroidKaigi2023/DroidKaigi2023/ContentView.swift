@@ -1,9 +1,9 @@
 import shared
 import SwiftUI
 
-struct ComposeView: UIViewControllerRepresentable {
+struct ContributorComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> UIViewController {
-        let vc = DarwinContributorsKt.viewController()
+        let vc = DarwinContributorsKt.contributorViewController()
         vc.overrideUserInterfaceStyle = .light
         return vc
     }
@@ -19,7 +19,7 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
             // Text(EntryPoint().echo())
-            ComposeView()
+            ContributorComposeView()
         }
         .padding()
     }

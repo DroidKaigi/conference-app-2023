@@ -84,6 +84,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
+                "shared",
                 "Model",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]

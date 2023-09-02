@@ -1,5 +1,7 @@
 import Component
 import Model
+import KMPContainer
+import shared
 import SwiftUI
 
 public struct ContributorView: View {
@@ -9,45 +11,42 @@ public struct ContributorView: View {
     public init() {}
 
     public var body: some View {
-        Group {
-            switch viewModel.state.contributors {
-            case .initial, .loading:
-                ProgressView()
-                    .task {
-                        await viewModel.load()
-                    }
-            case .failed:
-                EmptyView()
-            case .loaded(let contributors):
-                ScrollView {
-                    LazyVStack(spacing: 20) {
-                        ForEach(contributors, id: \.id) { contributor in
-                            Button {
-                                if let profileUrl = contributor.profileUrl {
-                                    presentingURL = IdentifiableURL(string: profileUrl)
-                                }
-                            } label: {
-                                PersonLabel(
-                                    name: contributor.username,
-                                    iconUrlString: contributor.iconUrl
-                                )
-                            }
-                        }
-                    }
-                    .padding(16)
-                }
+        ContributorComposeView(
+            viewModel.getRepositoryForCompose(),
+            onNavigationIconClick: {
+                
+            },
+            onContributorItemClick: { contributorUrl in
+                NSLog("contributorUrl:"+contributorUrl)
             }
-        }
-        .navigationTitle("Contributor")
-        .sheet(item: $presentingURL) { url in
-            if let url = url.id {
-                SafariView(url: url)
-                    .ignoresSafeArea()
-            }
-        }
+        )
     }
 }
 
 #Preview {
     ContributorView()
+}
+
+struct ContributorComposeView: UIViewControllerRepresentable {
+    let contributorsRepository: ContributorsRepository
+    let onNavigationIconClick: () -> Void
+    let onContributorItemClick: (String) -> Void
+
+    init(_ contributorsRepository: ContributorsRepository, onNavigationIconClick: @escaping () -> Void, onContributorItemClick: @escaping (String) -> Void) {
+        self.contributorsRepository = contributorsRepository
+        self.onNavigationIconClick = onNavigationIconClick
+        self.onContributorItemClick = onContributorItemClick
+    }
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        let vc = DarwinContributorsKt.contributorViewController(
+            contributorsRepository: contributorsRepository,
+            onNavigationIconClick: onNavigationIconClick,
+            onContributorItemClick: onContributorItemClick
+        )
+        vc.overrideUserInterfaceStyle = .light
+        return vc
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 }
