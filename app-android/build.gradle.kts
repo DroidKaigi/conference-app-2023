@@ -102,6 +102,7 @@ dependencies {
     implementation(projects.feature.floorMap)
     implementation(projects.feature.stamps)
     implementation(projects.feature.staff)
+    implementation(projects.feature.completeAchievement)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
@@ -129,6 +130,7 @@ dependencies {
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
     kover(projects.feature.stamps)
+    kover(projects.feature.completeAchievement)
 
     kover(projects.core.common)
     kover(projects.core.data)
