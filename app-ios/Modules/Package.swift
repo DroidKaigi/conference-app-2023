@@ -5,6 +5,7 @@ import PackageDescription
 
 var package = Package(
     name: "Modules",
+    defaultLocalization: "ja",
     platforms: [
         .iOS(.v16),
     ],
@@ -84,6 +85,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
+                "shared",
                 "Model",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
