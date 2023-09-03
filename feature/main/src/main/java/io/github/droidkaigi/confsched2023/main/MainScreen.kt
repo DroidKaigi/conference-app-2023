@@ -137,8 +137,8 @@ enum class MainScreenTab(
         contentDescription = MainStrings.FloorMap.asString(),
     ),
     Achievements(
-        icon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_outline),
-        selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_fill),
+        icon = IconRepresentation.Drawable(drawableId = R.drawable.icon_achievement_outline),
+        selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_achievement_fill),
         label = MainStrings.Achievements.asString(),
         contentDescription = MainStrings.Achievements.asString(),
     ),
