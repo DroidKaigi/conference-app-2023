@@ -158,6 +158,7 @@ private fun NavGraphBuilder.mainScreen(
                             }
                             externalNavController.navigate(url = url)
                         }
+
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")

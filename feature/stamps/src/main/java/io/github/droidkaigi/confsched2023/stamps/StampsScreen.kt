@@ -25,8 +25,8 @@ import io.github.droidkaigi.confsched2023.stamps.section.StampList
 import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
-const val stampsScreenRoute = "stamps?id={id}"
-const val uri = "https://github.com/DroidKaigi/conference-app-2023"
+const val stampsScreenRoute = "stamps"
+const val uri = "https://droidkaigi.jp/apps/achievements"
 fun NavGraphBuilder.nestedStampsScreen(
     onStampsClick: () -> Unit,
     contentPadding: PaddingValues,
@@ -35,14 +35,13 @@ fun NavGraphBuilder.nestedStampsScreen(
         stampsScreenRoute,
         deepLinks = listOf(
             androidx.navigation.navDeepLink {
-                uriPattern = "$uri/$stampsScreenRoute"
+                uriPattern = "$uri/*"
             },
         ),
     ) {
         StampsScreen(
             onStampsClick = onStampsClick,
             contentPadding = contentPadding,
-            id = it.arguments?.getString("id"),
         )
     }
 }
@@ -59,7 +58,6 @@ const val StampsScreenTestTag = "StampsScreen"
 @Composable
 fun StampsScreen(
     onStampsClick: () -> Unit,
-    id: String? = null,
     contentPadding: PaddingValues = PaddingValues(),
     viewModel: StampsScreenViewModel = hiltViewModel(),
 ) {
@@ -80,7 +78,6 @@ fun StampsScreen(
             viewModel.onStampClick(stamp)
         },
         onReachAnimationEnd = viewModel::onReachAnimationEnd,
-        id = id,
     )
 }
 
@@ -98,7 +95,6 @@ private fun StampsScreen(
     onStampsClick: (Stamp) -> Unit,
     contentPadding: PaddingValues,
     onReachAnimationEnd: () -> Unit,
-    id: String? = null,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -117,7 +113,6 @@ private fun StampsScreen(
                 contentPadding = innerPadding,
                 onReachAnimationEnd = onReachAnimationEnd,
                 stampLottieRawId = stampLottieRawId,
-                id = id,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),
