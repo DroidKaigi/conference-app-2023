@@ -13,7 +13,7 @@ import okio.source
 import javax.inject.Inject
 
 public interface OssLicenseRepository {
-    public fun sponsors(): Flow<PersistentList<OssLicense>>
+    public fun sponsors(): Flow<PersistentList<License>>
 
     public fun refresh(): Unit
 }
@@ -22,16 +22,16 @@ internal class OssLicenseRepositoryImpl @Inject constructor(
     private val context: Context,
 ) : OssLicenseRepository {
 
-    private val ossLicenseStateFlow =
-        MutableStateFlow<PersistentList<OssLicense>>(persistentListOf())
+    private val licenseStateFlow =
+        MutableStateFlow<PersistentList<License>>(persistentListOf())
 
-    override fun sponsors(): Flow<PersistentList<OssLicense>> {
+    override fun sponsors(): Flow<PersistentList<License>> {
         refresh()
-        return ossLicenseStateFlow
+        return licenseStateFlow
     }
 
     override fun refresh() {
-        ossLicenseStateFlow.value = readLicensesMetaFile()
+        licenseStateFlow.value = readLicensesMetaFile()
             .toRowList()
             .parseToLibraryItem()
             .toPersistentList()
@@ -43,11 +43,11 @@ internal class OssLicenseRepositoryImpl @Inject constructor(
             .buffer()
     }
 
-    private fun List<String>.parseToLibraryItem(): List<OssLicense> {
+    private fun List<String>.parseToLibraryItem(): List<License> {
         return map {
             val (position, name) = it.split(' ', limit = 2)
             val (offset, length) = position.split(':').map { it.toInt() }
-            OssLicense(name, offset, length)
+            License(name, offset, length)
         }
     }
 
