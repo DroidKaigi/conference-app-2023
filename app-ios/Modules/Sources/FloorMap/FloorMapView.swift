@@ -28,6 +28,7 @@ public struct FloorMapView: View {
                             case .basement: basementMapView(sideEvents: floorSideEvent.basement)
                             default: groundMapView(sideEvents: floorSideEvent.ground)
                             }
+                            Spacer().frame(height: 8 + 40 + 24) // row bottom padding + button height + button bottom padding 
                         }
                         .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
                         VStack(spacing: 0) {

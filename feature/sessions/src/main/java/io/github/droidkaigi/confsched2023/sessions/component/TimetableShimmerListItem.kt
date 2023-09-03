@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,12 +22,22 @@ import androidx.compose.ui.unit.dp
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.ui.isTest
 
 const val TimetableShimmerListItemTestTag = "TimetableShimmerListItemList"
 
 @Composable
 fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
-    val shimmerInstance = rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    // process gets stuck waiting indefinitely when run in a Unit Test (Robolectric)
+    // see: https://github.com/DroidKaigi/conference-app-2023/issues/778
+    val shimmerInstance = if (isTest().not()) {
+        rememberShimmer(shimmerBounds = ShimmerBounds.View)
+    } else {
+        null
+    }
     Column(
         modifier = modifier.testTag(TimetableShimmerListItemTestTag),
     ) {
@@ -37,9 +48,13 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .height(50.dp)
                     .fillMaxWidth()
-                    .shimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     .background(Color.LightGray),
-            ) {}
+            )
         }
         Spacer(modifier = Modifier.size(12.dp))
         Row {
@@ -49,16 +64,24 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
                     .height(40.dp)
                     .width(40.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .shimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     .background(Color.LightGray),
-            ) {}
+            )
             Spacer(modifier = Modifier.size(10.dp))
             //  Shimmer effect on bottom(right)
             Box(
                 modifier = Modifier
                     .height(32.dp)
                     .width(80.dp)
-                    .shimmer(shimmerInstance)
+                    .run {
+                        shimmerInstance?.let {
+                            shimmer(shimmerInstance)
+                        } ?: this
+                    }
                     .background(Color.LightGray),
             )
         }
@@ -67,14 +90,13 @@ fun TimetableShimmerListItem(modifier: Modifier = Modifier) {
     }
 }
 
-// TODO: Need to resolve CI unit test failures due to TimetableShimmerListItemPreview()
-// @MultiThemePreviews
-// @MultiLanguagePreviews
-// @Composable
-// fun TimetableShimmerListItemPreview() {
-//    KaigiTheme {
-//        Surface {
-//            TimetableShimmerListItem()
-//        }
-//    }
-// }
+@MultiThemePreviews
+@MultiLanguagePreviews
+@Composable
+fun TimetableShimmerListItemPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableShimmerListItem()
+        }
+    }
+}

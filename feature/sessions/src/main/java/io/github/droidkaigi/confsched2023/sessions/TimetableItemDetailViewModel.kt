@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
+import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
@@ -52,11 +53,20 @@ class TimetableItemDetailViewModel @Inject constructor(
             )
     private val viewBookmarkListRequestStateFlow =
         MutableStateFlow<ViewBookmarkListRequestState>(ViewBookmarkListRequestState.NotRequested)
+    private val selectedDescriptionLanguageStateFlow: MutableStateFlow<Lang?> =
+        MutableStateFlow(null)
 
     val uiState: StateFlow<TimetableItemDetailScreenUiState> =
-        buildUiState(timetableItemStateFlow, viewBookmarkListRequestStateFlow) { timetableItemAndBookmark, viewBookmarkListRequestState ->
+        buildUiState(
+            timetableItemStateFlow,
+            viewBookmarkListRequestStateFlow,
+            selectedDescriptionLanguageStateFlow,
+        ) { timetableItemAndBookmark, viewBookmarkListRequestState, selectedLang ->
             if (timetableItemAndBookmark == null) {
                 return@buildUiState TimetableItemDetailScreenUiState.Loading
+            }
+            if (selectedLang == null) {
+                onSelectDescriptionLanguage(Lang.valueOf(timetableItemAndBookmark.first.language.langOfSpeaker))
             }
             val (timetableItem, bookmarked) = timetableItemAndBookmark
             TimetableItemDetailScreenUiState.Loaded(
@@ -64,6 +74,7 @@ class TimetableItemDetailViewModel @Inject constructor(
                 timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(timetableItem),
                 isBookmarked = bookmarked,
                 viewBookmarkListRequestState = viewBookmarkListRequestState,
+                currentLang = selectedLang,
             )
         }
 
@@ -88,5 +99,11 @@ class TimetableItemDetailViewModel @Inject constructor(
         viewModelScope.launch {
             viewBookmarkListRequestStateFlow.update { ViewBookmarkListRequestState.NotRequested }
         }
+    }
+
+    fun onSelectDescriptionLanguage(
+        language: Lang,
+    ) {
+        selectedDescriptionLanguageStateFlow.value = language
     }
 }

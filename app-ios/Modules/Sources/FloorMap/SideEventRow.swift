@@ -63,14 +63,20 @@ struct SideEventRow: View {
 
 private extension SideEvent {
     var icon: Image {
-        switch self.mark {
+        switch self.markShape {
         case .favorite: return Assets.Icons.favorite.swiftUIImage
+        case .circle: return
+            Assets.Icons.circle
+            .swiftUIImage
+        case .square: return
+            Assets.Icons.square
+            .swiftUIImage
         default: return Assets.Icons.favorite.swiftUIImage
         }
     }
 
     var iconColor: Color {
-        switch self.mark.color {
+        switch self.markColor {
         case .pink: return  AssetColors.MarkColor.pink.swiftUIColor
         case .blue: return AssetColors.MarkColor.blue.swiftUIColor
         case .orange: return AssetColors.MarkColor.orange.swiftUIColor
@@ -97,7 +103,8 @@ private extension SideEvent {
                 enTitle: "DAY1-DAY2 10:00-11:00"
             ),
             floorLevel: .basement,
-            mark: .favorite,
+            markColor: .pink,
+            markShape: .favorite,
             link: "https://github.com/DroidKaigi/conference-app-2023",
             imageLink: "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg"
         )
