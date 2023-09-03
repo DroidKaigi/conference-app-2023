@@ -54,7 +54,10 @@ struct BookmarkView<SessionView: View>: View {
                         ScrollView {
                             TimetableListView(
                                 timetableTimeGroupItems: timetableItems,
-                                searchWord: ""
+                                searchWord: "",
+                                onToggleBookmark: { id in
+                                    viewModel.toggleBookmark(id)
+                                }
                             )
                         }
                         .padding(.horizontal, 16)

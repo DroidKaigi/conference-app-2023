@@ -47,9 +47,10 @@ const val timetableItemDetailScreenRoute =
 fun NavGraphBuilder.sessionScreens(
     onNavigationIconClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
+    onNavigateToBookmarkScreenRequested: () -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
-    onNavigateToBookmarkScreenRequested: () -> Unit,
+    onShareClick: (TimetableItem) -> Unit,
 ) {
     composable(timetableItemDetailScreenRoute) {
         TimetableItemDetailScreen(
@@ -57,6 +58,7 @@ fun NavGraphBuilder.sessionScreens(
             onLinkClick = onLinkClick,
             onCalendarRegistrationClick = onCalendarRegistrationClick,
             onNavigateToBookmarkScreenRequested = onNavigateToBookmarkScreenRequested,
+            onShareClick = onShareClick,
         )
     }
     composable(bookmarkScreenRoute) {
@@ -84,6 +86,7 @@ fun TimetableItemDetailScreen(
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
     onNavigateToBookmarkScreenRequested: () -> Unit,
+    onShareClick: (TimetableItem) -> Unit,
     viewModel: TimetableItemDetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -107,6 +110,7 @@ fun TimetableItemDetailScreen(
         onBookmarkClick = viewModel::onBookmarkClick,
         onLinkClick = onLinkClick,
         onCalendarRegistrationClick = onCalendarRegistrationClick,
+        onShareClick = onShareClick,
         onSelectedLanguage = viewModel::onSelectDescriptionLanguage,
         snackbarHostState = snackbarHostState,
     )
@@ -139,6 +143,7 @@ private fun TimetableItemDetailScreen(
     onBookmarkClick: (TimetableItem) -> Unit,
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onShareClick: (TimetableItem) -> Unit,
     onSelectedLanguage: (Lang) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
@@ -162,6 +167,7 @@ private fun TimetableItemDetailScreen(
                     isBookmarked = uiState.isBookmarked,
                     onBookmarkClick = onBookmarkClick,
                     onCalendarRegistrationClick = onCalendarRegistrationClick,
+                    onShareClick = onShareClick,
                 )
             }
         },
@@ -217,6 +223,7 @@ fun TimetableItemDetailScreenPreview() {
                 },
                 onLinkClick = {},
                 onCalendarRegistrationClick = {},
+                onShareClick = {},
                 onSelectedLanguage = {},
                 snackbarHostState = SnackbarHostState(),
             )

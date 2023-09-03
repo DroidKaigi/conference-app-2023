@@ -84,12 +84,18 @@ public sealed class TimetableItem {
         "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
-    public val formattedDateTimeString: String by lazy {
-        "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
+    public val formattedTimeString: String by lazy {
+        "$startsTimeString ~ $endsTimeString"
     }
 
-    public val speakerString: String by lazy {
-        speakers.joinToString(", ") { it.name }
+    public val formattedDateTimeString: String by lazy {
+        "$startsDateString / $formattedTimeString ($minutesString)"
+    }
+
+    public val url: String get() = if (defaultLang() == Lang.JAPANESE) {
+        "https://2023.droidkaigi.jp/timetable/${id.value}"
+    } else {
+        "https://2023.droidkaigi.jp/en/timetable/${id.value}"
     }
 
     fun getSupportedLangString(isJapaneseLocale: Boolean): String {
@@ -128,6 +134,7 @@ public fun Session.Companion.fake(): Session {
             id = 1,
             name = MultiLangText("Room1", "Room2"),
             type = RoomA,
+            sort = 1,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(

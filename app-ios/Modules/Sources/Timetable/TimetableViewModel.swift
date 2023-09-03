@@ -5,8 +5,13 @@ import Model
 import shared
 
 struct TimetableState: ViewModelState {
+    struct LoadedState: Equatable {
+        var timeGroupTimetableItems: [TimetableTimeGroupItems]
+        var bookmarks: Set<TimetableItemId>
+    }
+
     var selectedDay: DroidKaigi2023Day = .day1
-    var timeGroupTimetableItems: LoadingState<[TimetableTimeGroupItems]> = .initial
+    var loadedState: LoadingState<LoadedState> = .initial
 }
 
 @MainActor
@@ -18,21 +23,34 @@ final class TimetableViewModel: ObservableObject {
             applySelectedDayToState()
         }
     }
+    private var loadTask: Task<Void, Error>?
 
-    func load() async {
-        state.timeGroupTimetableItems = .loading
-        do {
-            for try await timetable in sessionsData.timetable() {
-                cachedTimetable = timetable
+    deinit {
+        loadTask?.cancel()
+    }
+
+    func load() {
+        state.loadedState = .loading
+        loadTask = Task.detached { @MainActor in
+            do {
+                for try await timetable in self.sessionsData.timetable() {
+                    self.cachedTimetable = timetable
+                }
+            } catch let error {
+                self.state.loadedState = .failed(error)
             }
-        } catch let error {
-            state.timeGroupTimetableItems = .failed(error)
         }
     }
 
     func selectDay(day: DroidKaigi2023Day) {
         state.selectedDay = day
         applySelectedDayToState()
+    }
+
+    func toggleBookmark(_ id: TimetableItemId) {
+        Task.detached {
+            try await self.sessionsData.toggleBookmark(id)
+        }
     }
 
     private func applySelectedDayToState() {
@@ -55,8 +73,11 @@ final class TimetableViewModel: ObservableObject {
                     items: items
                 )
             }
-        state.timeGroupTimetableItems = .loaded(
-            timetableTimeGroupItems
+        state.loadedState = .loaded(
+            .init(
+                timeGroupTimetableItems: timetableTimeGroupItems,
+                bookmarks: cachedTimetable.bookmarks
+            )
         )
     }
 }

@@ -6,6 +6,7 @@ import Theme
 struct TimetableListItemView: View {
     let timetableItemWithFavorite: TimetableItemWithFavorite
     let searchWord: String
+    let onToggleBookmark: () -> Void
 
     var timetableItem: TimetableItem {
         self.timetableItemWithFavorite.timetableItem
@@ -61,9 +62,7 @@ struct TimetableListItemView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             Button(
-                action: {
-                    // TODO: favorite action
-                },
+                action: onToggleBookmark,
                 label: {
                     if timetableItemWithFavorite.isFavorited {
                         Assets.Icons.bookmark.swiftUIImage
@@ -103,6 +102,8 @@ private extension RoomType {
 
 #Preview {
     TimetableListItemView(
-        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake(), searchWord: ""
+        timetableItemWithFavorite: TimetableItemWithFavorite.companion.fake(),
+        searchWord: "",
+        onToggleBookmark: {}
     )
 }

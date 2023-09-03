@@ -43,7 +43,6 @@ import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -68,6 +67,7 @@ import io.github.droidkaigi.confsched2023.sessions.nestedSessionScreens
 import io.github.droidkaigi.confsched2023.sessions.searchScreen
 import io.github.droidkaigi.confsched2023.sessions.sessionScreens
 import io.github.droidkaigi.confsched2023.sessions.timetableScreenRoute
+import io.github.droidkaigi.confsched2023.share.ShareNavigator
 import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
@@ -109,9 +109,10 @@ private fun KaigiNavHost(
         sessionScreens(
             onNavigationIconClick = navController::popBackStack,
             onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
+            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
             onLinkClick = externalNavController::navigate,
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
-            onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
+            onShareClick = externalNavController::onShareClick,
         )
         searchScreen(
             onNavigationIconClick = navController::popBackStack,
@@ -148,21 +149,18 @@ private fun NavGraphBuilder.mainScreen(
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
+                    val portalBaseUrl = if (defaultLang() == JAPANESE) {
+                        "https://portal.droidkaigi.jp"
+                    } else {
+                        "https://portal.droidkaigi.jp/en"
+                    }
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> {
-                            val url = if (defaultLang() == JAPANESE) {
-                                "https://portal.droidkaigi.jp/about/code-of-conduct"
-                            } else {
-                                "https://portal.droidkaigi.jp/en/about/code-of-conduct"
-                            }
-                            externalNavController.navigate(url = url)
-                        }
-
+                        CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> externalNavController.navigate(url = "https://portal.droidkaigi.jp/about/privacy")
+                        PrivacyPolicy -> { externalNavController.navigate(url = "$portalBaseUrl/about/privacy") }
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -204,7 +202,6 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     override fun routeToTab(route: String): MainScreenTab? {
         return when (route) {
             timetableScreenRoute -> Timetable
-            contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
             stampsScreenRoute -> Badges
@@ -220,11 +217,6 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute) {
-                launchSingleTop = true
-                restoreState = true
-            }
-
             Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }
@@ -233,13 +225,19 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
 @Composable
 private fun rememberExternalNavController(): ExternalNavController {
     val context = LocalContext.current
+    val shareNavigator = ShareNavigator(context)
+
     return remember(context) {
-        ExternalNavController(context = context)
+        ExternalNavController(
+            context = context,
+            shareNavigator = shareNavigator,
+        )
     }
 }
 
 private class ExternalNavController(
     private val context: Context,
+    private val shareNavigator: ShareNavigator,
 ) {
 
     fun navigate(url: String) {
@@ -266,6 +264,7 @@ private class ExternalNavController(
                     CalendarContract.EXTRA_EVENT_BEGIN_TIME to timeTableItem.startsAt.toEpochMilliseconds(),
                     CalendarContract.EXTRA_EVENT_END_TIME to timeTableItem.endsAt.toEpochMilliseconds(),
                     CalendarContract.Events.TITLE to "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.title.currentLangTitle}",
+                    CalendarContract.Events.DESCRIPTION to timeTableItem.url,
                     CalendarContract.Events.EVENT_LOCATION to timeTableItem.room.name.currentLangTitle,
                 ),
             )
@@ -280,6 +279,14 @@ private class ExternalNavController(
 
     fun navigateToLicenseScreen() {
         context.startActivity(Intent(context, OssLicensesMenuActivity::class.java))
+    }
+
+    fun onShareClick(timeTableItem: TimetableItem) {
+        shareNavigator.share(
+            "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
+                "${timeTableItem.title.currentLangTitle}\n" +
+                timeTableItem.url,
+        )
     }
 
     @Suppress("SwallowedException")
