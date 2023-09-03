@@ -102,7 +102,6 @@ dependencies {
     implementation(projects.feature.floorMap)
     implementation(projects.feature.stamps)
     implementation(projects.feature.staff)
-    implementation(projects.feature.licenses)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
