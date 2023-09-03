@@ -2,12 +2,12 @@ import SwiftUI
 import Assets
 
 struct SessionTag: View {
-    
+
     private let label: String
     private let labelColor: Color
     private let strokeColor: Color?
     private let backgroundColor: Color
-    
+
     public init(
         _ label: String,
         labelColor: Color,
@@ -19,7 +19,7 @@ struct SessionTag: View {
         self.strokeColor = strokeColor
         self.backgroundColor = backgroundColor
     }
-    
+
     var body: some View {
         Text(label)
             .font(Font.custom(FontAssets.Montserrat.medium, size: 12))

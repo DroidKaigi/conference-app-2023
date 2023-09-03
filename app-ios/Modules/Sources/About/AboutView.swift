@@ -128,6 +128,12 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     Text(Bundle.main.formattedVersion)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                         .fontWeight(.medium)
+                    Spacer().frame(height: 8)
+                    Text("The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.")
+                        .foregroundStyle(AssetColors.About.androidRobotDescription.swiftUIColor)
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 11))
+                        .fontWeight(.medium)
+                        .multilineTextAlignment(.center)
                 }
                 .padding(16)
             }

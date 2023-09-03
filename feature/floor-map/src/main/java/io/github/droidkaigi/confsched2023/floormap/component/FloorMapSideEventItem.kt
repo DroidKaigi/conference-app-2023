@@ -40,6 +40,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
+import io.github.droidkaigi.confsched2023.model.FakeSideEvents
 import io.github.droidkaigi.confsched2023.model.SideEvent
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Blue
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
@@ -49,7 +50,6 @@ import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Red
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Circle
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Square
-import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
@@ -173,7 +173,7 @@ fun PreviewFloorMapSideEventItem() {
     KaigiTheme {
         Surface {
             FloorMapSideEventItem(
-                sideEvent = SideEvents.first(),
+                sideEvent = FakeSideEvents.first(),
                 onSideEventClick = {},
             )
         }

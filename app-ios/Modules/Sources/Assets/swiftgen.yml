@@ -31,3 +31,13 @@ fonts:
     params:
       enumName: FontAssets
       publicAccess: true
+
+strings:
+  inputs:
+    - Strings/ja.lproj
+  outputs:
+    templateName: structured-swift5
+    output: Strings.generated.swift
+    params:
+      publicAccess: true
+      bundle: Bundle.myModule
