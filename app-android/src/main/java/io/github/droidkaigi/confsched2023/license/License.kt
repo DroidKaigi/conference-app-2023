@@ -7,6 +7,7 @@ data class License(
     val name: String,
     val ossSet: Int,
     val length: Int,
+    val detail:String = "",
 )
 
 data class OssLicenseGroup(

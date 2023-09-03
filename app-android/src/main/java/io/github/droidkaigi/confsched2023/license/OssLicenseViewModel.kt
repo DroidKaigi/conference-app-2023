@@ -18,16 +18,24 @@ class OssLicenseViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val licenseStateFlow: StateFlow<PersistentList<License>> =
-        ossLicenseRepository.sponsors()
+        ossLicenseRepository.licenseMetaData()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = persistentListOf(),
             )
 
+    private val licenseDetailStateFlow: StateFlow<List<String>> =
+        ossLicenseRepository.licenseDetailData()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = emptyList(),
+            )
+
     internal val uiState: StateFlow<OssLicenseScreenUiState> =
-        buildUiState(licenseStateFlow) { licenses ->
-            val groupList = licenses.distinctBy { it.name }.groupByCategory()
+        buildUiState(licenseStateFlow, licenseDetailStateFlow) { metadata, detail ->
+            val groupList = metadata.distinctBy { it.name }.groupByCategory(detail)
                 .map {
                     OssLicenseGroup(
                         title = it.key,
@@ -37,7 +45,7 @@ class OssLicenseViewModel @Inject constructor(
             OssLicenseScreenUiState(ossLicense = OssLicense(groupList))
         }
 
-    private fun List<License>.groupByCategory(): Map<String, List<License>> {
+    private fun List<License>.groupByCategory(detail: List<String>): Map<String, List<License>> {
         val categoryList = listOf(
             "Android Support",
             "Android Datastore",
@@ -50,12 +58,17 @@ class OssLicenseViewModel @Inject constructor(
             "AndroidX "
         )
         val map = mutableMapOf<String, List<License>>()
-        forEach {license ->
+        forEach { license ->
             val group = categoryList.firstOrNull() {
-                 license.name.startsWith(it)
+                license.name.startsWith(it)
             } ?: "etc"
             map[group] = map.getOrDefault(group, emptyList()).toMutableList().apply {
-                add(license)
+                add(license.copy(
+                    detail = detail.subList(license.ossSet, license.length + license.ossSet)
+                        .fold("") { i, i2 ->
+                            i + i2
+                        }
+                ))
             }
         }
         return map

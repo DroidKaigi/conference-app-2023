@@ -13,7 +13,9 @@ import okio.source
 import javax.inject.Inject
 
 public interface OssLicenseRepository {
-    public fun sponsors(): Flow<PersistentList<License>>
+    public fun licenseMetaData(): Flow<PersistentList<License>>
+
+    public fun licenseDetailData(): Flow<List<String>>
 
     public fun refresh(): Unit
 }
@@ -22,23 +24,40 @@ internal class OssLicenseRepositoryImpl @Inject constructor(
     private val context: Context,
 ) : OssLicenseRepository {
 
-    private val licenseStateFlow =
+    private val licenseMetaStateFlow =
         MutableStateFlow<PersistentList<License>>(persistentListOf())
 
-    override fun sponsors(): Flow<PersistentList<License>> {
+    private val licenseDetailStateFlow = MutableStateFlow<List<String>>(emptyList())
+
+    override fun licenseMetaData(): Flow<PersistentList<License>> {
         refresh()
-        return licenseStateFlow
+        return licenseMetaStateFlow
     }
 
+    override fun licenseDetailData(): Flow<List<String>> {
+        refresh()
+        return licenseDetailStateFlow
+    }
+
+
     override fun refresh() {
-        licenseStateFlow.value = readLicensesMetaFile()
+        licenseMetaStateFlow.value = readLicensesMetaFile()
             .toRowList()
             .parseToLibraryItem()
             .toPersistentList()
+
+        licenseDetailStateFlow.value = readLicensesFile()
+            .toRowList()
     }
 
     private fun readLicensesMetaFile(): BufferedSource {
         return context.resources.openRawResource(R.raw.third_party_license_metadata)
+            .source()
+            .buffer()
+    }
+
+    private fun readLicensesFile(): BufferedSource {
+        return context.resources.openRawResource(R.raw.third_party_licenses)
             .source()
             .buffer()
     }
