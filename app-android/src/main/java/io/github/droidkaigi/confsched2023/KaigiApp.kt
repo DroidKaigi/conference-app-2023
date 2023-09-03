@@ -127,6 +127,7 @@ private fun KaigiNavHost(
             onBackClick = navController::popBackStack,
             onStaffClick = externalNavController::navigate,
         )
+        ossLicenseScreen()
     }
 }
 
@@ -159,7 +160,7 @@ private fun NavGraphBuilder.mainScreen(
                         Sponsors -> navController.navigateSponsorsScreen()
                         CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
-                        License -> externalNavController.navigateToLicenseScreen()
+                        License -> navController.navigateOssLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> { externalNavController.navigate(url = "$portalBaseUrl/about/privacy") }
                         Staff -> navController.navigateStaffScreen()
