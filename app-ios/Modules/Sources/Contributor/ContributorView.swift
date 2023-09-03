@@ -7,17 +7,33 @@ import SwiftUI
 public struct ContributorView: View {
     @State var presentingURL: IdentifiableURL?
 
+    @State private var selection: ViewType = .swiftUi
+    private enum ViewType: Hashable {
+        case swiftUi
+        case compose
+    }
+
     public init() {}
 
     public var body: some View {
-        Group {
-//            ContributorSwiftUIView { url in
-//                presentingURL = .init(string: url)
-//            }
-
-            ContributorComposeView { url in
-                presentingURL = .init(string: url)
+        VStack {
+            Picker("select view type", selection: $selection) {
+                Text("SwiftUI").tag(ViewType.swiftUi)
+                Text("Compose").tag(ViewType.compose)
             }
+            .pickerStyle(.segmented)
+
+            switch selection {
+            case .swiftUi:
+                ContributorSwiftUIView { url in
+                    presentingURL = .init(string: url)
+                }
+            case .compose:
+                ContributorComposeView { url in
+                    presentingURL = .init(string: url)
+                }
+            }
+            Spacer()
         }
         .navigationTitle("Contributor")
         .sheet(item: $presentingURL) { url in
