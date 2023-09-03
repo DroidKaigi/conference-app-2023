@@ -32,8 +32,8 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.stamps.section.StampList
+import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
-import kotlinx.collections.immutable.ImmutableList
 
 const val stampsScreenRoute = "stamps"
 fun NavGraphBuilder.nestedStampsScreen(
@@ -88,6 +88,7 @@ data class StampsScreenUiState(
     val lottieRawRes: Int?,
     val isShowDialog: Boolean,
     val stamps: ImmutableList<Stamp>,
+    val stampListUiState: StampListUiState,
 )
 
 @Composable
@@ -122,7 +123,7 @@ private fun StampsScreen(
                 )
             }
             StampList(
-                stamps = uiState.stamps,
+                uiState = uiState.stampListUiState,
                 onStampsClick = onStampsClick,
                 contentPadding = innerPadding,
                 onReachAnimationEnd = onReachAnimationEnd,

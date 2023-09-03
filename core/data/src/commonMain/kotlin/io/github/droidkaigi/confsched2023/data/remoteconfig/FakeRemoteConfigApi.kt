@@ -5,14 +5,22 @@ import androidx.datastore.core.IOException
 class FakeRemoteConfigApi : RemoteConfigApi {
 
     sealed interface Status : RemoteConfigApi {
-        object Default : Status {
+        data object Default : Status {
             override suspend fun getBoolean(key: String): Boolean {
                 return true
             }
+
+            override suspend fun getString(key: String): String {
+                return "default"
+            }
         }
 
-        object ThrowException : Status {
+        data object ThrowException : Status {
             override suspend fun getBoolean(key: String): Boolean {
+                throw IOException("FakeRemoteConfigApi throws exception")
+            }
+
+            override suspend fun getString(key: String): String {
                 throw IOException("FakeRemoteConfigApi throws exception")
             }
         }
@@ -26,5 +34,9 @@ class FakeRemoteConfigApi : RemoteConfigApi {
 
     override suspend fun getBoolean(key: String): Boolean {
         return status.getBoolean(key)
+    }
+
+    override suspend fun getString(key: String): String {
+        return status.getString(key)
     }
 }

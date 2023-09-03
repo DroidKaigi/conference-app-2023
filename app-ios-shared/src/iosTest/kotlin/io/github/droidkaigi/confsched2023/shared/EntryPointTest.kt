@@ -25,6 +25,10 @@ class EntryPointTest {
                 override suspend fun getBoolean(key: String): Boolean {
                     return true
                 }
+
+                override suspend fun getString(key: String): String {
+                    return "default"
+                }
             },
             authenticator = object : Authenticator {
                 override suspend fun currentUser(): User? {

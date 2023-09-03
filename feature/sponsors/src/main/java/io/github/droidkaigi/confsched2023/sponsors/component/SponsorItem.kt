@@ -27,7 +27,7 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 fun SponsorItem(
     sponsor: Sponsor,
     modifier: Modifier = Modifier,
-    onSponsorClick: (Sponsor) -> Unit,
+    onSponsorClick: (url: String) -> Unit,
 ) {
     Image(
         painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Image) }) {
@@ -41,7 +41,7 @@ fun SponsorItem(
             )
             .background(color = Color.White)
             .clip(RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp))
-            .clickable { onSponsorClick(sponsor) }
+            .clickable { onSponsorClick(sponsor.link) }
             .fillMaxSize(),
     )
 }

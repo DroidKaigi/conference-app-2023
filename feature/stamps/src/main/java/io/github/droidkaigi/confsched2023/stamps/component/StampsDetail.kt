@@ -13,6 +13,7 @@ import io.github.droidkaigi.confsched2023.stamps.StampsStrings
 
 @Composable
 fun StampsDetail(
+    description: String,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -25,7 +26,7 @@ fun StampsDetail(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = StampsStrings.Description.asString(),
+            text = description,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.fillMaxWidth(),
         )

@@ -41,7 +41,7 @@ data class SponsorListUiState(
 fun SponsorList(
     uiState: SponsorListUiState,
     modifier: Modifier = Modifier,
-    onSponsorClick: (Sponsor) -> Unit = {},
+    onSponsorClick: (url: String) -> Unit = {},
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(SponsorListColumns),

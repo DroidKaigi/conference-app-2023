@@ -1,8 +1,12 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.GTranslate
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -14,16 +18,20 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
+import io.github.droidkaigi.confsched2023.model.Lang
+import io.github.droidkaigi.confsched2023.model.Lang.MIXED
 import io.github.droidkaigi.confsched2023.model.MultiLangText
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.ImmutableList
@@ -34,6 +42,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun TimetableItemDetailScreenTopAppBar(
     title: MultiLangText,
     onNavigationIconClick: () -> Unit,
+    onSelectedLanguage: (Lang) -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
 ) {
@@ -77,6 +86,42 @@ fun TimetableItemDetailScreenTopAppBar(
                 )
             }
         },
+        actions = {
+            var expanded by remember { mutableStateOf(false) }
+
+            val expandMenu = { expanded = true }
+            val shrinkMenu = { expanded = false }
+
+            IconButton(onClick = expandMenu) {
+                Icon(
+                    imageVector = Icons.Outlined.GTranslate,
+                    contentDescription = null,
+                )
+            }
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = shrinkMenu,
+            ) {
+                Lang.entries.forEach { lang ->
+                    if (lang != MIXED) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    text = lang.tagName,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            },
+                            onClick = {
+                                onSelectedLanguage(lang)
+                                shrinkMenu()
+                            },
+                            modifier = Modifier.testTag(DropdownFilterChipItemTestTag),
+                        )
+                    }
+                }
+            }
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant,
         ),
@@ -92,7 +137,7 @@ private fun ResizeableText(
     styles: ImmutableList<TextStyle>,
     overflow: TextOverflow,
 ) {
-    var styleIndex by remember(text) { mutableStateOf(0) }
+    var styleIndex by remember(text) { mutableIntStateOf(0) }
     Text(
         text = text,
         overflow = overflow,
@@ -105,7 +150,13 @@ private fun ResizeableText(
             }
         },
         style = styles[styleIndex],
-        modifier = Modifier.padding(end = 16.dp),
+        modifier = Modifier
+            .padding(end = 16.dp)
+            // title heights of LargeTopAppBar will use `TopAppBarLargeTokens.ContainerHeight`, `TopAppBarSmallTokens.ContainerHeight` and `scroll offset`.
+            // because of this, this height become taller than our expectation.
+            // we want to fix max height, but `ContainerHeight`s are internal values in material3.
+            // so set as constant dp. (Large - Small)
+            .heightIn(max = 88.dp),
     )
 }
 
@@ -117,6 +168,7 @@ fun TimetableItemDetailScreenTopAppBarPreview() {
     TimetableItemDetailScreenTopAppBar(
         title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
         onNavigationIconClick = {},
+        onSelectedLanguage = {},
         scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
     )
 }
