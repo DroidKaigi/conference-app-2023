@@ -1,12 +1,12 @@
 import SwiftUI
 
 public struct CacheAsyncImage<Content, PlaceHolder>: View where Content: View, PlaceHolder: View {
-    
+
     private let url: URL?
     private let scale: CGFloat
     private let contentImage: (Image) -> Content
     private let placeholder: () -> PlaceHolder
-    
+
     public init(
         url: URL?,
         scale: CGFloat = 1.0,
@@ -18,7 +18,7 @@ public struct CacheAsyncImage<Content, PlaceHolder>: View where Content: View, P
         self.contentImage = contentImage
         self.placeholder = placeholder
     }
-    
+
     public var body: some View {
         if let cachedImage = ImageCache[url] {
             contentImage(cachedImage)
@@ -44,7 +44,7 @@ private extension CacheAsyncImage {
 
 private class ImageCache {
     static private var cache: [URL: Image] = [:]
-    
+
     static subscript(url: URL?) -> Image? {
         get {
             guard let url else { return nil }

@@ -11,6 +11,7 @@ struct ContributorViewState: ViewModelState {
 @MainActor
 final class ContributorViewModel: ObservableObject {
     @Dependency(\.contributorsData) var contributorsData
+    @Dependency(\.contributorsRepository) var contributorsRepository
     @Published var state: ContributorViewState = .init()
 
     func load() async {
@@ -24,5 +25,9 @@ final class ContributorViewModel: ObservableObject {
         } catch let error {
             state.contributors = .failed(error)
         }
+    }
+    
+    func getRepositoryForCompose() -> ContributorsRepository{
+        return contributorsRepository
     }
 }

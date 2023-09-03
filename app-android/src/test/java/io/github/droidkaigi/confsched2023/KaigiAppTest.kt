@@ -101,14 +101,6 @@ class KaigiAppTest {
     }
 
     @Test
-    fun checkNavigateToContributorShot() {
-        kaigiAppRobot {
-            goToContributor()
-            capture()
-        }
-    }
-
-    @Test
     fun checkNavigateToTimetableItemDetailShot() {
         kaigiAppRobot {
             timetableScreenRobot {

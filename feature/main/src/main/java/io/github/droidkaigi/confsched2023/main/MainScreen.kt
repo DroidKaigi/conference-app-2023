@@ -18,10 +18,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material3.Scaffold
@@ -149,12 +147,6 @@ enum class MainScreenTab(
         selectedIcon = IconRepresentation.Vector(Icons.Filled.Info),
         label = MainStrings.About.asString(),
         contentDescription = MainStrings.About.asString(),
-    ),
-    Contributor(
-        icon = IconRepresentation.Vector(Icons.Outlined.Group),
-        selectedIcon = IconRepresentation.Vector(Icons.Filled.Group),
-        label = MainStrings.Contributors.asString(),
-        contentDescription = MainStrings.Contributors.asString(),
     ),
 }
 

@@ -84,11 +84,19 @@ public sealed class TimetableItem {
         "$minutes" + MultiLangText(jaTitle = "分", enTitle = "min").currentLangTitle
     }
 
-    public val formattedDateTimeString: String by lazy {
-        "$startsDateString / $startsTimeString ~ $endsTimeString ($minutesString)"
+    public val formattedTimeString: String by lazy {
+        "$startsTimeString ~ $endsTimeString"
     }
 
-    public val url: String get() = "https://2023.droidkaigi.jp/timetable/${id.value}"
+    public val formattedDateTimeString: String by lazy {
+        "$startsDateString / $formattedTimeString ($minutesString)"
+    }
+
+    public val url: String get() = if (defaultLang() == Lang.JAPANESE) {
+        "https://2023.droidkaigi.jp/timetable/${id.value}"
+    } else {
+        "https://2023.droidkaigi.jp/en/timetable/${id.value}"
+    }
 
     fun getSupportedLangString(isJapaneseLocale: Boolean): String {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
