@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.stamps
 
-import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -20,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.stamps.section.StampList
 import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -28,7 +26,6 @@ import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 const val stampsScreenRoute = "stamps"
 const val uri = "https://droidkaigi.jp/apps/achievements"
 fun NavGraphBuilder.nestedStampsScreen(
-    onStampsClick: () -> Unit,
     contentPadding: PaddingValues,
 ) {
     composable(
@@ -40,7 +37,6 @@ fun NavGraphBuilder.nestedStampsScreen(
         ),
     ) {
         StampsScreen(
-            onStampsClick = onStampsClick,
             contentPadding = contentPadding,
         )
     }
@@ -57,7 +53,6 @@ const val StampsScreenTestTag = "StampsScreen"
 
 @Composable
 fun StampsScreen(
-    onStampsClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
     viewModel: StampsScreenViewModel = hiltViewModel(),
 ) {
@@ -72,16 +67,10 @@ fun StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
-        stampLottieRawId = uiState.lottieRawRes,
-        onStampsClick = { stamp ->
-            onStampsClick()
-        },
-        onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 
 data class StampsScreenUiState(
-    val lottieRawRes: Int?,
     val stampListUiState: StampListUiState,
 )
 
@@ -89,11 +78,7 @@ data class StampsScreenUiState(
 private fun StampsScreen(
     uiState: StampsScreenUiState,
     snackbarHostState: SnackbarHostState,
-    @RawRes
-    stampLottieRawId: Int?,
-    onStampsClick: (Stamp) -> Unit,
     contentPadding: PaddingValues,
-    onReachAnimationEnd: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -108,10 +93,7 @@ private fun StampsScreen(
         content = { innerPadding ->
             StampList(
                 uiState = uiState.stampListUiState,
-                onStampsClick = onStampsClick,
                 contentPadding = innerPadding,
-                onReachAnimationEnd = onReachAnimationEnd,
-                stampLottieRawId = stampLottieRawId,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),

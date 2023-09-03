@@ -1,11 +1,14 @@
 package io.github.droidkaigi.confsched2023.completeachievement
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
@@ -46,21 +49,27 @@ fun AnimationScreen(
     uiState: AnimationScreenUiState,
     onFinished: () -> Unit,
     onReachAnimationEnd: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    if (uiState.rawId != null) {
-        val lottieComposition by rememberLottieComposition(RawRes(uiState.rawId))
-        val progress by animateLottieCompositionAsState(
-            composition = lottieComposition,
-            isPlaying = true,
-            restartOnPlay = true,
-        )
-        if (progress == 1f) {
-            onReachAnimationEnd()
-            onFinished()
+    Box(
+        modifier = modifier
+            .fillMaxSize(),
+    ) {
+        if (uiState.rawId != null) {
+            val lottieComposition by rememberLottieComposition(RawRes(uiState.rawId))
+            val progress by animateLottieCompositionAsState(
+                composition = lottieComposition,
+                isPlaying = true,
+                restartOnPlay = true,
+            )
+            if (progress == 1f) {
+                onReachAnimationEnd()
+                onFinished()
+            }
+            LottieAnimation(
+                composition = lottieComposition,
+                progress = { progress },
+            )
         }
-        LottieAnimation(
-            composition = lottieComposition,
-            progress = { progress },
-        )
     }
 }

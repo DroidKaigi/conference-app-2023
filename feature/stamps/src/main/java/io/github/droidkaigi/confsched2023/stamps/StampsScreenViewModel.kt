@@ -20,7 +20,6 @@ import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentSetOf
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -56,9 +55,6 @@ class StampsScreenViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = persistentSetOf(),
             )
-
-    private val stampLottieRawResStateFlow: MutableStateFlow<Int?> =
-        MutableStateFlow(null)
 
     private val stampListState = buildUiState(
         stampDetailDescriptionStateFlow,
@@ -107,16 +103,10 @@ class StampsScreenViewModel @Inject constructor(
     }
 
     val uiState = buildUiState(
-        stampLottieRawResStateFlow,
         stampListState,
-    ) { rawRes, stampListUiState ->
+    ) { stampListUiState ->
         StampsScreenUiState(
-            lottieRawRes = rawRes,
             stampListUiState = stampListUiState,
         )
-    }
-
-    fun onReachAnimationEnd() {
-        stampLottieRawResStateFlow.value = null
     }
 }

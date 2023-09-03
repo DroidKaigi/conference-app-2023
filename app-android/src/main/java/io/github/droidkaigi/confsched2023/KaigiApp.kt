@@ -177,9 +177,6 @@ private fun NavGraphBuilder.mainScreen(
                 contentPadding = contentPadding,
             )
             nestedStampsScreen(
-                onStampsClick = {
-                    // TODO
-                },
                 contentPadding = contentPadding,
             )
             // For KMP, we are not using navigation abstraction for contributors screen
