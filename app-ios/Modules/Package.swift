@@ -5,6 +5,7 @@ import PackageDescription
 
 var package = Package(
     name: "Modules",
+    defaultLocalization: "ja",
     platforms: [
         .iOS(.v16),
     ],
