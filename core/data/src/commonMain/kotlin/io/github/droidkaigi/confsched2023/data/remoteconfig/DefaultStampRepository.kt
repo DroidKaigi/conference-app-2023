@@ -14,6 +14,8 @@ class DefaultStampRepository(
 ) : StampRepository {
     private val isStampsEnabledStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val stampDetailDescriptionStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val isResetAchievementsEnabledStateFlow: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
 
     private suspend fun fetchStampsEnabled() {
         isStampsEnabledStateFlow.value = remoteConfigApi.getBoolean(IS_STAMPS_ENABLED_KEY)
@@ -24,12 +26,21 @@ class DefaultStampRepository(
             remoteConfigApi.getString(STAMP_DETAIL_DESCRIPTION_KEY)
     }
 
+    private suspend fun fetchResetAchievementsEnabled() {
+        isResetAchievementsEnabledStateFlow.value =
+            remoteConfigApi.getBoolean(IS_RESET_ACHIEVEMENTS_ENABLED_KEY)
+    }
+
     override fun getStampEnabledStream(): Flow<Boolean> {
         return isStampsEnabledStateFlow.onStart { fetchStampsEnabled() }
     }
 
     override fun getStampDetailDescriptionStream(): Flow<String> {
         return stampDetailDescriptionStateFlow.onStart { fetchStampDetailDescription() }
+    }
+
+    override fun getResetAchievementsEnabledStream(): Flow<Boolean> {
+        return isResetAchievementsEnabledStateFlow.onStart { fetchResetAchievementsEnabled() }
     }
 
     override fun getAchievementsStream(): Flow<PersistentSet<AchievementsItemId>> {
@@ -47,5 +58,6 @@ class DefaultStampRepository(
     companion object {
         const val IS_STAMPS_ENABLED_KEY = "is_stamps_enable"
         const val STAMP_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"
+        const val IS_RESET_ACHIEVEMENTS_ENABLED_KEY = "is_reset_achievements_enable"
     }
 }

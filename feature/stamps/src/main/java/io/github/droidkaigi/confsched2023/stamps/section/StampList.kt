@@ -29,6 +29,7 @@ private const val DoubleItemSpanCount = 2 / 2
 data class StampListUiState(
     val stamps: ImmutableList<Stamp>,
     val detailDescription: String,
+    val isResetButtonEnabled: Boolean,
 )
 
 @Composable
@@ -78,15 +79,17 @@ fun StampList(
                     stamp = stamp,
                 )
             }
-            item(
-                key = "reset_button",
-                span = { GridItemSpan(SingleItemSpanCount) },
-            ) {
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = onReset
+            if (uiState.isResetButtonEnabled) {
+                item(
+                    key = "reset_button",
+                    span = { GridItemSpan(SingleItemSpanCount) },
                 ) {
-                    Text(text = "Reset")
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = onReset
+                    ) {
+                        Text(text = "Reset")
+                    }
                 }
             }
         }

@@ -8,6 +8,7 @@ interface StampRepository {
 
     fun getStampEnabledStream(): Flow<Boolean>
     fun getStampDetailDescriptionStream(): Flow<String>
+    fun getResetAchievementsEnabledStream(): Flow<Boolean>
     fun getAchievementsStream(): Flow<PersistentSet<AchievementsItemId>>
     suspend fun saveAchievements(id: AchievementsItemId)
     suspend fun resetAchievements()

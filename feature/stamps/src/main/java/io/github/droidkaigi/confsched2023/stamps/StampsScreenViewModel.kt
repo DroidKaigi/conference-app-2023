@@ -57,10 +57,23 @@ class StampsScreenViewModel @Inject constructor(
                 initialValue = persistentSetOf(),
             )
 
+    private val resetAchievementsEnabledStateFlow: StateFlow<Boolean> =
+        stampRepository.getResetAchievementsEnabledStream()
+            .handleErrorAndRetry(
+                AppStrings.Retry,
+                userMessageStateHolder,
+            )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false,
+            )
+
     private val stampListState = buildUiState(
         stampDetailDescriptionStateFlow,
         achievementsStateFlow,
-    ) { detailDescription, achievements ->
+        resetAchievementsEnabledStateFlow,
+    ) { detailDescription, achievements, isResetAchievementsEnable ->
         StampListUiState(
             stamps = persistentListOf(
                 Stamp(
@@ -100,6 +113,7 @@ class StampsScreenViewModel @Inject constructor(
                 ),
             ),
             detailDescription = detailDescription,
+            isResetButtonEnabled = isResetAchievementsEnable,
         )
     }
 
