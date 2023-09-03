@@ -43,6 +43,8 @@ import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Achievements
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -207,7 +209,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             timetableScreenRoute -> Timetable
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            achievementsScreenRoute -> Badges
+            achievementsScreenRoute -> Achievements
             else -> null
         }
     }
@@ -220,7 +222,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Badges -> mainNestedNavController.navigateAchievementsScreen()
+            Achievements -> mainNestedNavController.navigateAchievementsScreen()
         }
     }
 }

@@ -136,11 +136,11 @@ enum class MainScreenTab(
         label = MainStrings.FloorMap.asString(),
         contentDescription = MainStrings.FloorMap.asString(),
     ),
-    Badges(
+    Achievements(
         icon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_outline),
         selectedIcon = IconRepresentation.Drawable(drawableId = R.drawable.icon_stamp_fill),
-        label = MainStrings.Stamps.asString(),
-        contentDescription = MainStrings.Stamps.asString(),
+        label = MainStrings.Achievements.asString(),
+        contentDescription = MainStrings.Achievements.asString(),
     ),
     About(
         icon = IconRepresentation.Vector(Icons.Outlined.Info),
@@ -151,7 +151,7 @@ enum class MainScreenTab(
 }
 
 data class MainScreenUiState(
-    val isStampsEnabled: Boolean = false,
+    val isAchievementsEnabled: Boolean = false,
 )
 
 @Composable
@@ -174,7 +174,7 @@ private fun MainScreen(
                     onTabSelected(mainNestedNavController, tab)
                 },
                 currentTab = currentTab ?: MainScreenTab.Timetable,
-                isEnableStamps = uiState.isStampsEnabled,
+                isEnableAchievements = uiState.isAchievementsEnabled,
             )
         }
         Scaffold(
@@ -186,7 +186,7 @@ private fun MainScreen(
                             onTabSelected(mainNestedNavController, tab)
                         },
                         currentTab = currentTab ?: MainScreenTab.Timetable,
-                        isEnableStamps = uiState.isStampsEnabled,
+                        isEnableAchievements = uiState.isAchievementsEnabled,
                     )
                 }
             },

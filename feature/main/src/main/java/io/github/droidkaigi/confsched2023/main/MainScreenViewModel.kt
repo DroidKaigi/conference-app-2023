@@ -19,7 +19,7 @@ class MainScreenViewModel @Inject constructor(
     stampRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val isStampsEnabledStateFlow: StateFlow<Boolean> = stampRepository.getStampEnabledStream()
+    private val isAchievementsEnabledStateFlow: StateFlow<Boolean> = stampRepository.getStampEnabledStream()
         .handleErrorAndRetry(
             AppStrings.Retry,
             userMessageStateHolder,
@@ -31,10 +31,10 @@ class MainScreenViewModel @Inject constructor(
         )
 
     val uiState: StateFlow<MainScreenUiState> = buildUiState(
-        isStampsEnabledStateFlow,
-    ) { isStampsEnabled ->
+        isAchievementsEnabledStateFlow,
+    ) { isAchievementsEnabled ->
         MainScreenUiState(
-            isStampsEnabled = isStampsEnabled,
+            isAchievementsEnabled = isAchievementsEnabled,
         )
     }
 }
