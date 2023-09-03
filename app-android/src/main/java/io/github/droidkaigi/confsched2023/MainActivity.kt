@@ -1,5 +1,7 @@
 package io.github.droidkaigi.confsched2023
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
@@ -26,11 +28,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // FIXME
-        //  On a device that can switch between 3-button navigation and gesture navigation,
-        //  the color of the navigation bar does not match KaigiBottomBar container color
-        //  when using 3-button navigation.
-        //  Devices with only 3-button navigation do not have the above problem.
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.auto(
                 lightScrim = Color.Transparent.toArgb(),
@@ -41,6 +38,12 @@ class MainActivity : ComponentActivity() {
                 darkScrim = Color.Transparent.toArgb(),
             ),
         )
+
+        // For SDK29 or higher and 3-button navigation,
+        // the following code must be written to make the navigation color completely transparent.
+        if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+            window.isNavigationBarContrastEnforced = false
+        }
 
         setContent {
             val windowSize = calculateWindowSizeClass(this)
