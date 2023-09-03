@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -28,8 +27,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
-import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.stamps.section.StampList
 import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
@@ -202,10 +199,10 @@ fun OrderedListText(
 }
 
 // FIXME The dialog preview test does not pass.
-//　If you know how to fix it, I would appreciate it if you could respond.
-//@MultiLanguagePreviews
-//@Composable
-//fun StampsScreenDialogPreview() {
+// 　If you know how to fix it, I would appreciate it if you could respond.
+// @MultiLanguagePreviews
+// @Composable
+// fun StampsScreenDialogPreview() {
 //    KaigiTheme {
 //        Surface {
 //            StampsScreenDialog(
@@ -213,4 +210,4 @@ fun OrderedListText(
 //            )
 //        }
 //    }
-//}
+// }
