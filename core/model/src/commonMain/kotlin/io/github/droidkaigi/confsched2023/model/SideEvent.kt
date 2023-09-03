@@ -1,5 +1,8 @@
 package io.github.droidkaigi.confsched2023.model
 
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
+
 public data class SideEvent(
     val title: MultiLangText,
     val description: MultiLangText,
@@ -23,7 +26,7 @@ public data class SideEvent(
     public companion object
 }
 
-val SideEvents = emptyList<SideEvent>()
+val SideEvents: PersistentList<SideEvent> = persistentListOf()
 // Sample
 // = persistentListOf(
 //    SideEvent(
