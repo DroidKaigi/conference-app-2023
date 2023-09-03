@@ -85,6 +85,7 @@ fun SessionsAllResponse.toTimetable(): Timetable {
                     id = room.id,
                     name = room.name.toMultiLangText(),
                     type = room.name.toRoomType(),
+                    sort = room.sort,
                 )
             },
         )
@@ -148,7 +149,7 @@ fun SessionsAllResponse.toTimetable(): Timetable {
             }
                 .sortedWith(
                     compareBy<TimetableItem> { it.startsAt }
-                        .thenBy { it.room.name.currentLangTitle },
+                        .thenBy { it.room },
                 )
                 .toPersistentList(),
         ),
