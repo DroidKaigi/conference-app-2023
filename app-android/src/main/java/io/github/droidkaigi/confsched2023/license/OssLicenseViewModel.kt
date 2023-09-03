@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OssLicenseViewModel @Inject constructor(
-    ossLicenseRepository: OssLicenseRepository,
+    private val ossLicenseRepository: OssLicenseRepository,
 ) : ViewModel() {
 
     private val ossLicenseStateFlow: StateFlow<PersistentList<OssLicense>> =
@@ -25,11 +25,11 @@ class OssLicenseViewModel @Inject constructor(
             )
 
     internal val uiState: StateFlow<OssLicenseScreenUiState> =
-        buildUiState(ossLicenseStateFlow) { staffs ->
-            OssLicenseScreenUiState()
+        buildUiState(ossLicenseStateFlow) { licenses ->
+            OssLicenseScreenUiState(licenseList = licenses.toMutableList())
         }
 
     fun loadLicenseList() {
-        // TODO implement load logic
+        ossLicenseRepository.refresh()
     }
 }

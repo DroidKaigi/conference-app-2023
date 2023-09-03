@@ -39,6 +39,8 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.floorMapScreenRoute
 import io.github.droidkaigi.confsched2023.floormap.navigateFloorMapScreen
 import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
+import io.github.droidkaigi.confsched2023.license.navigateOssLicenseScreen
+import io.github.droidkaigi.confsched2023.license.ossLicenseScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
