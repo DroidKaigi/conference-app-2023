@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023
+package io.github.droidkaigi.confsched2023.license
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
