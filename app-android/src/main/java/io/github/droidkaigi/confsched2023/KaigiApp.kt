@@ -43,7 +43,6 @@ import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -206,7 +205,6 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     override fun routeToTab(route: String): MainScreenTab? {
         return when (route) {
             timetableScreenRoute -> Timetable
-            contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
             stampsScreenRoute -> Badges
@@ -222,11 +220,6 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute) {
-                launchSingleTop = true
-                restoreState = true
-            }
-
             Badges -> mainNestedNavController.navigateStampsScreen()
         }
     }

@@ -59,13 +59,6 @@ class KaigiAppRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun goToContributor() {
-        composeTestRule
-            .onNode(hasTestTag(MainScreenTab.Contributor.testTag))
-            .performClick()
-        waitUntilIdle()
-    }
-
     fun waitUntilIdle() {
         composeTestRule.waitForIdle()
         testDispatcher.scheduler.advanceUntilIdle()
