@@ -7,23 +7,23 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.stamps.StampsScreen
+import io.github.droidkaigi.confsched2023.achievements.AchievementsScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
-class StampsScreenRobot @Inject constructor(
+class AchievementsScreenRobot @Inject constructor(
     private val testDispatcher: TestDispatcher,
 ) {
     @Inject lateinit var robotTestRule: RobotTestRule
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
     operator fun invoke(
-        block: StampsScreenRobot.() -> Unit,
+        block: AchievementsScreenRobot.() -> Unit,
     ) {
         runTestWithLogging(timeout = 30.seconds) {
-            this@StampsScreenRobot.composeTestRule = robotTestRule.composeTestRule
+            this@AchievementsScreenRobot.composeTestRule = robotTestRule.composeTestRule
             block()
         }
     }
@@ -31,8 +31,8 @@ class StampsScreenRobot @Inject constructor(
     fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-                StampsScreen(
-                    onStampsClick = { },
+                AchievementsScreen(
+                    onAchievementsClick = { },
                 )
             }
         }
