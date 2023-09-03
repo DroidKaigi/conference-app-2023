@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.completeachievement
+package io.github.droidkaigi.confsched2023.animation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

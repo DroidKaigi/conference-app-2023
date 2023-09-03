@@ -1,10 +1,10 @@
-package io.github.droidkaigi.confsched2023.completeachievement
+package io.github.droidkaigi.confsched2023.animation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
-import io.github.droidkaigi.confsched2023.feature.completeachievement.R
+import io.github.droidkaigi.confsched2023.feature.animation.R
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_A
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_B

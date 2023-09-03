@@ -26,7 +26,7 @@ include(
     ":feature:contributors",
     ":feature:stamps",
     ":feature:staff",
-    ":feature:complete-achievement",
+    ":feature:animation",
     ":core:designsystem",
     ":core:data",
     ":core:model",
