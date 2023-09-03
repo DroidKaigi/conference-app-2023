@@ -36,4 +36,7 @@ extension ContributorsDataProvider: DependencyKey {
         get { self[ContributorsDataProvider.self] }
         set { self[ContributorsDataProvider.self] = newValue }
     }
+     var contributorsRepository: ContributorsRepository {
+         return Container.shared.get(type: ContributorsRepository.self)
+     }
 }
