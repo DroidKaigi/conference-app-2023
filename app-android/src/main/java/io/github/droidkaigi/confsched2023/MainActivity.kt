@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Navigation color can be changed since API 26(O)
+        // Navigation icon color can be changed since API 26(O)
         if (VERSION.SDK_INT < VERSION_CODES.O) {
             enableEdgeToEdge()
         } else {
