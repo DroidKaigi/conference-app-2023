@@ -19,11 +19,6 @@ public struct ContributorView: View {
                 presentingURL = .init(string: url)
             }
         }
-        ContributorComposeView(
-            onContributorItemClick: { contributorUrl in
-                presentingURL = IdentifiableURL(string: contributorUrl)
-            }
-        )
         .navigationTitle("Contributor")
         .sheet(item: $presentingURL) { url in
             if let url = url.id {
