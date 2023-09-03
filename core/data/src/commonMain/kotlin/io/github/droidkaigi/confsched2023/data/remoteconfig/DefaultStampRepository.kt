@@ -26,7 +26,7 @@ class DefaultStampRepository(
         return isStampsEnabledStateFlow.onStart { fetchStampsEnabled() }
     }
 
-    override fun getIsDisplayedDialogStream(): Flow<Boolean?> {
+    override fun getIsDisplayedDialogStream(): Flow<Boolean> {
         return stampDataStore.isDisplayedStream()
     }
 

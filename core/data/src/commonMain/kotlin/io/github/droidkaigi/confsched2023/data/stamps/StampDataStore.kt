@@ -21,7 +21,7 @@ class StampDataStore(
         }
     }
 
-    public fun isDisplayedStream(): Flow<Boolean?> {
+    public fun isDisplayedStream(): Flow<Boolean> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -31,7 +31,7 @@ class StampDataStore(
                 }
             }
             .map { preferences: Preferences ->
-                preferences[DATA_STORE_STAMPS_KEY]?.toBoolean()
+                preferences[DATA_STORE_STAMPS_KEY]?.toBoolean() ?: false
             }
     }
 

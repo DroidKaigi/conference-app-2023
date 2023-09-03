@@ -21,6 +21,9 @@ annotation class UserDataStoreQualifier
 @Qualifier
 annotation class SessionCacheDataStoreQualifier
 
+@Qualifier
+annotation class StampDataStoreQualifier
+
 @InstallIn(SingletonComponent::class)
 @Module
 class DataStoreModule {
@@ -45,9 +48,21 @@ class DataStoreModule {
         producePath = { context.cacheDir.resolve(DATA_STORE_CACHE_PREFERENCE_FILE_NAME).path },
     )
 
+    @StampDataStoreQualifier
+    @Provides
+    @Singleton
+    fun provideStampDataStore(
+        @ApplicationContext context: Context,
+    ): DataStore<Preferences> = createDataStore(
+        coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
+        producePath = { context.cacheDir.resolve(DATA_STORE_STAMP_PREFERENCE_FILE_NAME).path },
+    )
+
     companion object {
         private const val DATA_STORE_PREFERENCE_FILE_NAME = "confsched2023.preferences_pb"
         private const val DATA_STORE_CACHE_PREFERENCE_FILE_NAME =
             "confsched2023.cache.preferences_pb"
+        private const val DATA_STORE_STAMP_PREFERENCE_FILE_NAME =
+            "confsched2023.stamp.preferences_pb"
     }
 }

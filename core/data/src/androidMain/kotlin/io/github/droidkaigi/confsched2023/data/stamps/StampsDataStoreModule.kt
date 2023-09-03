@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.droidkaigi.confsched2023.data.user.UserDataStoreQualifier
+import io.github.droidkaigi.confsched2023.data.user.StampDataStoreQualifier
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -16,7 +16,7 @@ class StampsDataStoreModule {
     @Provides
     @Singleton
     fun provideStampsDataStore(
-        @UserDataStoreQualifier
+        @StampDataStoreQualifier
         dataStore: DataStore<Preferences>,
     ): StampDataStore {
         return StampDataStore(dataStore)
