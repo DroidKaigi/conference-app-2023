@@ -28,21 +28,26 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge(
-            statusBarStyle = SystemBarStyle.auto(
-                lightScrim = Color.Transparent.toArgb(),
-                darkScrim = Color.Transparent.toArgb(),
-            ),
-            navigationBarStyle = SystemBarStyle.auto(
-                lightScrim = Color.Transparent.toArgb(),
-                darkScrim = Color.Transparent.toArgb(),
-            ),
-        )
+        // Navigation color can be changed since API 26(O)
+        if (VERSION.SDK_INT < VERSION_CODES.O) {
+            enableEdgeToEdge()
+        } else {
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    lightScrim = Color.Transparent.toArgb(),
+                    darkScrim = Color.Transparent.toArgb(),
+                ),
+                navigationBarStyle = SystemBarStyle.auto(
+                    lightScrim = Color.Transparent.toArgb(),
+                    darkScrim = Color.Transparent.toArgb(),
+                ),
+            )
 
-        // For SDK29 or higher and 3-button navigation,
-        // the following code must be written to make the navigation color completely transparent.
-        if (VERSION.SDK_INT >= VERSION_CODES.Q) {
-            window.isNavigationBarContrastEnforced = false
+            // For API29(Q) or higher and 3-button navigation,
+            // the following code must be written to make the navigation color completely transparent.
+            if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+            }
         }
 
         setContent {
