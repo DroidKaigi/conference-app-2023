@@ -23,12 +23,13 @@ import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class StampsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    stampRepository: StampRepository,
+    private val stampRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
@@ -108,5 +109,11 @@ class StampsScreenViewModel @Inject constructor(
         StampsScreenUiState(
             stampListUiState = stampListUiState,
         )
+    }
+
+    fun onReset() {
+        viewModelScope.launch {
+            stampRepository.resetAchievements()
+        }
     }
 }

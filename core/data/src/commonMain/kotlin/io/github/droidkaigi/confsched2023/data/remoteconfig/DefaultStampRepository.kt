@@ -40,6 +40,10 @@ class DefaultStampRepository(
         achievementsDataStore.saveAchievements(id)
     }
 
+    override suspend fun resetAchievements() {
+        achievementsDataStore.resetAchievements()
+    }
+
     companion object {
         const val IS_STAMPS_ENABLED_KEY = "is_stamps_enable"
         const val STAMP_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"

@@ -67,6 +67,7 @@ fun StampsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
+        onReset = viewModel::onReset,
     )
 }
 
@@ -79,6 +80,7 @@ private fun StampsScreen(
     uiState: StampsScreenUiState,
     snackbarHostState: SnackbarHostState,
     contentPadding: PaddingValues,
+    onReset: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -94,6 +96,7 @@ private fun StampsScreen(
             StampList(
                 uiState = uiState.stampListUiState,
                 contentPadding = innerPadding,
+                onReset= onReset,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),

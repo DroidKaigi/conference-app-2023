@@ -38,6 +38,12 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    suspend fun resetAchievements() {
+        dataStore.edit { preferences ->
+            preferences[KEY_ACHIEVEMENTS] = ""
+        }
+    }
+
     companion object {
         private val KEY_ACHIEVEMENTS = stringPreferencesKey("KEY_ACHIEVEMENTS")
     }

@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells.Fixed
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -32,6 +35,7 @@ data class StampListUiState(
 fun StampList(
     uiState: StampListUiState,
     contentPadding: PaddingValues,
+    onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -73,6 +77,17 @@ fun StampList(
                 StampImage(
                     stamp = stamp,
                 )
+            }
+            item(
+                key = "reset_button",
+                span = { GridItemSpan(SingleItemSpanCount) },
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onReset
+                ) {
+                    Text(text = "Reset")
+                }
             }
         }
     }
