@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.data
 
 import de.jensklingenberg.ktorfit.Ktorfit
+import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient
@@ -92,6 +93,22 @@ public val dataModule: Module = module {
         )
         SessionCacheDataStore(dataStore, get())
     }
+    single {
+        val dataStore = createDataStore(
+            coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
+            producePath = {
+                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+                requireNotNull(documentDirectory).path + "/confsched2023.achievements.preferences_pb"
+            },
+        )
+        AchievementsDataStore(dataStore)
+    }
 
     singleOf(::DefaultAuthApi) bind AuthApi::class
     singleOf(::DefaultSessionsApiClient) bind SessionsApiClient::class
@@ -105,4 +122,5 @@ public val dataModule: Module = module {
     singleOf(::DefaultStampRepository) bind StampRepository::class
     singleOf(::DefaultStaffRepository) bind StaffRepository::class
     singleOf(::DefaultSponsorsRepository) bind SponsorsRepository::class
+    singleOf(::DefaultStampRepository) bind StampRepository::class
 }

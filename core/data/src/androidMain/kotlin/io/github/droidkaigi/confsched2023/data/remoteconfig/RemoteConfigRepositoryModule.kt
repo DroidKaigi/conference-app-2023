@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import javax.inject.Singleton
 
@@ -14,9 +15,11 @@ class RemoteConfigRepositoryModule {
     @Singleton
     fun provideRemoteConfigRepository(
         remoteConfigApi: RemoteConfigApi,
+        achievementsDataStore: AchievementsDataStore,
     ): StampRepository {
         return DefaultStampRepository(
             remoteConfigApi = remoteConfigApi,
+            achievementsDataStore = achievementsDataStore
         )
     }
 }

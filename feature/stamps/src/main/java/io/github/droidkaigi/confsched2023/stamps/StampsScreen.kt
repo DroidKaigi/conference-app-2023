@@ -75,7 +75,6 @@ fun StampsScreen(
         stampLottieRawId = uiState.lottieRawRes,
         onStampsClick = { stamp ->
             onStampsClick()
-            viewModel.onStampClick(stamp)
         },
         onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
