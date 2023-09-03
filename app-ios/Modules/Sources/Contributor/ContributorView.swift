@@ -8,7 +8,7 @@ public struct ContributorView: View {
     @State var presentingURL: IdentifiableURL?
 
     @State private var selection: ViewType = .swiftUi
-    private enum ViewType: Hashable {
+    private enum ViewType {
         case swiftUi
         case compose
     }
