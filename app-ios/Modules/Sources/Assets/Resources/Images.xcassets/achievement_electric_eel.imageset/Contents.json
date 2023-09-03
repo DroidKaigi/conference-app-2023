@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "stamp_electric_eel.png",
+      "filename" : "achievement_electric_eel.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "stamp_electric_eel@2x.png",
+      "filename" : "achievement_electric_eel@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "stamp_electric_eel@3x.png",
+      "filename" : "achievement_electric_eel@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
