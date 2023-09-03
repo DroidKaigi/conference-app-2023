@@ -3,11 +3,11 @@ package io.github.droidkaigi.confsched2023.achievements
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Achievement
-import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry

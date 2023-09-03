@@ -3,10 +3,10 @@ package io.github.droidkaigi.confsched2023.data
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
+import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
-import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultAchievementRepository

@@ -20,9 +20,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
+import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val achievementsScreenRoute = "achievements"
