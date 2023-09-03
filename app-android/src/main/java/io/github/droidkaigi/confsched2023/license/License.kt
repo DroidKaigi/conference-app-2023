@@ -7,15 +7,15 @@ data class License(
     val name: String,
     val ossSet: Int,
     val length: Int,
-    val detail:String = "",
+    val detail: String = "",
 )
 
 data class OssLicenseGroup(
     val title: String,
-    val licenses:List<License>,
-    val expand:Boolean = false,
+    val licenses: List<License>,
+    val expand: Boolean = false,
 )
 
 data class OssLicense(
-    val groupList:PersistentList<OssLicenseGroup> = persistentListOf()
+    val groupList: PersistentList<OssLicenseGroup> = persistentListOf(),
 )

@@ -39,7 +39,6 @@ internal class OssLicenseRepositoryImpl @Inject constructor(
         return licenseDetailStateFlow
     }
 
-
     override fun refresh() {
         licenseMetaStateFlow.value = readLicensesMetaFile()
             .toRowList()

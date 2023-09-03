@@ -39,7 +39,7 @@ class OssLicenseViewModel @Inject constructor(
                 .map {
                     OssLicenseGroup(
                         title = it.key,
-                        licenses = it.value
+                        licenses = it.value,
                     )
                 }.toPersistentList()
             OssLicenseScreenUiState(ossLicense = OssLicense(groupList))
@@ -55,20 +55,22 @@ class OssLicenseViewModel @Inject constructor(
             "Compose ",
             "ktor",
             "AndroidX lifecycle",
-            "AndroidX "
+            "AndroidX ",
         )
         val map = mutableMapOf<String, List<License>>()
         forEach { license ->
-            val group = categoryList.firstOrNull() {
+            val group = categoryList.firstOrNull {
                 license.name.startsWith(it)
             } ?: "etc"
             map[group] = map.getOrDefault(group, emptyList()).toMutableList().apply {
-                add(license.copy(
-                    detail = detail.subList(license.ossSet, license.length + license.ossSet)
-                        .fold("") { i, i2 ->
-                            i + i2
-                        }
-                ))
+                add(
+                    license.copy(
+                        detail = detail.subList(license.ossSet, license.length + license.ossSet)
+                            .fold("") { i, i2 ->
+                                i + i2
+                            },
+                    ),
+                )
             }
         }
         return map
@@ -76,8 +78,5 @@ class OssLicenseViewModel @Inject constructor(
 
     fun loadLicenseList() {
         ossLicenseRepository.refresh()
-    }
-
-    fun onLibraryGroupClick(ossLicenseGroup: OssLicenseGroup) {
     }
 }
