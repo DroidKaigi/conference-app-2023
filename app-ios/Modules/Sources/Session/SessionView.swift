@@ -15,7 +15,8 @@ private let startDateFormatter: DateFormatter = {
 public struct SessionView: View {
     let viewModel: SessionViewModel
     @State private var isDescriptionExpanded: Bool = false
-    @State private var canBeExpanded = false
+    @State private var canBeExpanded: Bool = false
+    @State private var presentingURL: IdentifiableURL?
 
     public init(timetableItem: TimetableItem) {
         self.viewModel = .init(timetableItem: timetableItem)
@@ -65,12 +66,12 @@ public struct SessionView: View {
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(session.description_)
+                        Text(.init(session.description_.currentLangTitle))
                             .textSelection(.enabled)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
                             .background {
                                 ViewThatFits(in: .vertical) {
-                                    Text(session.description_)
+                                    Text(session.description_.currentLangTitle)
                                         .hidden()
                                     // Just for receiving onAppear event if the description exceeds its line limit
                                     Color.clear
@@ -166,10 +167,9 @@ public struct SessionView: View {
         )
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                Button {
-                    // TODO: Share
-                } label: {
-                    Assets.Icons.share.swiftUIImage
+                if let url = URL(string: "https://2023.droidkaigi.jp/timetable/\(viewModel.timetableItem.id.value)/") {
+                    ShareLink(item: url,
+                              label: { Assets.Icons.share.swiftUIImage })
                 }
             }
             ToolbarItem(placement: .bottomBar) {
@@ -190,7 +190,16 @@ public struct SessionView: View {
                 }
             }
         }
-
+        .sheet(item: $presentingURL) { url in
+            if let url = url.id {
+                SafariView(url: url)
+                    .ignoresSafeArea()
+            }
+        }
+        .environment(\.openURL, OpenURLAction { url in
+            presentingURL = IdentifiableURL(url)
+            return .handled
+        })
     }
 }
 

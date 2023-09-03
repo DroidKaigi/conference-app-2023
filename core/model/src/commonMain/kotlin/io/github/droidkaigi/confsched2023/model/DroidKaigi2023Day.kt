@@ -78,10 +78,6 @@ public enum class DroidKaigi2023Day(
             }
         }
 
-        public fun defaultDyamicThemeDate(): Boolean {
-            return Day1.start < Clock.System.now()
-        }
-
         /**
          * @return appropriate initial day for now
          */

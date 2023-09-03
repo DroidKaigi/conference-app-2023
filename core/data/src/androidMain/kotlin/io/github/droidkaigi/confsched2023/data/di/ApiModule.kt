@@ -129,9 +129,10 @@ class AuthenticatorModule {
 @InstallIn(SingletonComponent::class)
 @Module
 class RemoteConfigModule {
+
     @Provides
     @Singleton
-    fun provideFirebaseRemoteConfig(): RemoteConfigApi {
+    fun provideRemoteConfigApi(): RemoteConfigApi {
         return DefaultRemoteConfigApi()
     }
 }

@@ -239,10 +239,11 @@
 			};
 			buildConfigurationList = D77DAF6829FAA148007195DB /* Build configuration list for PBXProject "DroidKaigi2023" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 				Base,
 			);
 			mainGroup = D77DAF6429FAA148007195DB;

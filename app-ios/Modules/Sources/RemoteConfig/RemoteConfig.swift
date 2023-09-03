@@ -8,4 +8,7 @@ public class RemoteConfigApiImpl: RemoteConfigApi {
             bool: RemoteConfig.remoteConfig().configValue(forKey: key).boolValue
         )
     }
+    public func getString(key: String) async throws -> String {
+        return RemoteConfig.remoteConfig().configValue(forKey: key).stringValue ?? ""
+    }
 }

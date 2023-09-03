@@ -1,5 +1,8 @@
-![readme-banner](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/22efb1a7-5a43-469c-a493-fa619034863e)
-
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/136104152/264391682-ae2b1067-966f-47a2-aa10-4e1ee4d09418.png">
+  <source media="(prefers-color-scheme: light)" srcset="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/22efb1a7-5a43-469c-a493-fa619034863e">
+  <img alt="readme-banner" src="https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/22efb1a7-5a43-469c-a493-fa619034863e">
+</picture>
 
 # DroidKaigi 2023 official app
 

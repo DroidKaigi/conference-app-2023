@@ -1,6 +1,6 @@
 <SmellBaseline>
-  <Blacklist>
-  </Blacklist>
-  <Whitelist>
-  </Whitelist>
+  <SuppressedFalsePositive>
+  </SuppressedFalsePositive>
+  <TemporarySuppressedIssues>
+  </TemporarySuppressedIssues>
 </SmellBaseline>

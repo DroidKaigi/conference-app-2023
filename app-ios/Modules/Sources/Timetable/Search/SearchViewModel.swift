@@ -34,15 +34,22 @@ final class SearchViewModel: ObservableObject {
             applyFiltersToState()
         }
     }
+    private var loadTask: Task<Void, Error>?
+
+    deinit {
+        loadTask?.cancel()
+    }
 
     func load() async {
         state.loadingState = .loading
-        do {
-            for try await timetable in sessionsData.timetable() {
-                cachedTimetable = timetable
+        loadTask = Task {
+            do {
+                for try await timetable in sessionsData.timetable() {
+                    cachedTimetable = timetable
+                }
+            } catch let error {
+                state.loadingState = .failed(error)
             }
-        } catch let error {
-            state.loadingState = .failed(error)
         }
     }
 
@@ -50,6 +57,12 @@ final class SearchViewModel: ObservableObject {
         let newFilters = apply(state.filters)
         state.filters = newFilters
         applyFiltersToState()
+    }
+
+    func toggleBookmark(_ id: TimetableItemId) {
+        Task {
+            try await self.sessionsData.toggleBookmark(id)
+        }
     }
 
     private func applyFiltersToState() {
