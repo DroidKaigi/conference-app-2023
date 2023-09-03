@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.achievements
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
+import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Achievement
@@ -21,12 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class AchievementsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    stampRepository: StampRepository,
+    achievementRepository: AchievementRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
     private val achievementDetailDescriptionStateFlow: StateFlow<String> =
-        stampRepository.getStampDetailDescriptionStream()
+        achievementRepository.getAchievementDetailDescriptionStream()
             .handleErrorAndRetry(
                 AppStrings.Retry,
                 userMessageStateHolder,

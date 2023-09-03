@@ -6,10 +6,10 @@ import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
-import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
+import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
-import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultStampRepository
+import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsRepository
 import io.github.droidkaigi.confsched2023.data.sessions.SessionCacheDataStore
@@ -102,7 +102,7 @@ public val dataModule: Module = module {
     singleOf(::NetworkService)
     singleOf(::DefaultSessionsRepository) bind SessionsRepository::class
     singleOf(::DefaultContributorsRepository) bind ContributorsRepository::class
-    singleOf(::DefaultStampRepository) bind StampRepository::class
+    singleOf(::DefaultAchievementRepository) bind AchievementRepository::class
     singleOf(::DefaultStaffRepository) bind StaffRepository::class
     singleOf(::DefaultSponsorsRepository) bind SponsorsRepository::class
 }
