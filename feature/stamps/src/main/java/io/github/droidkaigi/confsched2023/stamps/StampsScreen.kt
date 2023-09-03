@@ -87,7 +87,6 @@ fun StampsScreen(
 data class StampsScreenUiState(
     val lottieRawRes: Int?,
     val isShowDialog: Boolean,
-    val stamps: ImmutableList<Stamp>,
     val stampListUiState: StampListUiState,
 )
 

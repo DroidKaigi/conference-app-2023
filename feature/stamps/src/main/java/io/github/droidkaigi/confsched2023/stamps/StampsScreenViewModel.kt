@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StampsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    private val stampsRepository: StampRepository,
+    private val stampRepository: StampRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
@@ -42,20 +42,13 @@ class StampsScreenViewModel @Inject constructor(
         MutableStateFlow(null)
 
     private val isDisplayedDialogFlow: StateFlow<Boolean?> =
-        stampsRepository.getIsDisplayedDialogStream()
+        stampRepository.getIsDisplayedDialogStream()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = null,
             )
 
-    val uiState = buildUiState(
-        stampLottieRawResStateFlow,
-        isDisplayedDialogFlow,
-    ) { rawRes, isDisplayedDialog ->
-        StampsScreenUiState(
-            lottieRawRes = rawRes,
-            isShowDialog = isDisplayedDialog?.not() ?: false,
     private val stampListState = buildUiState(
         stampDetailDescriptionStateFlow,
     ) { detailDescription ->
@@ -98,10 +91,12 @@ class StampsScreenViewModel @Inject constructor(
 
     val uiState = buildUiState(
         stampLottieRawResStateFlow,
+        isDisplayedDialogFlow,
         stampListState,
-    ) { rawRes, stampListUiState ->
+    ) { rawRes, isDisplayedDialog, stampListUiState ->
         StampsScreenUiState(
             lottieRawRes = rawRes,
+            isShowDialog = isDisplayedDialog?.not() ?: false,
             stampListUiState = stampListUiState,
         )
     }
@@ -118,7 +113,7 @@ class StampsScreenViewModel @Inject constructor(
 
     fun onDisplayedDialog() {
         viewModelScope.launch {
-            stampsRepository.displayedDialog()
+            stampRepository.displayedDialog()
         }
     }
 }
