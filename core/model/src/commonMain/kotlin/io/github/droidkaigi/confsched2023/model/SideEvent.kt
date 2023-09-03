@@ -25,7 +25,7 @@ public data class SideEvent(
 
 val SideEvents = emptyList<SideEvent>()
 // Sample
-//= persistentListOf(
+// = persistentListOf(
 //    SideEvent(
 //        title = MultiLangText(
 //            jaTitle = "アプリFiresideチャット(これは仮で後で消えます)",
@@ -140,4 +140,4 @@ val SideEvents = emptyList<SideEvent>()
 //        link = "https://github.com/DroidKaigi/conference-app-2023",
 //        imageLink = "https://2023.droidkaigi.jp/static/12059b53c8c9813a85c1c44f8692a2c0/img_04.jpg",
 //    ),
-//)
+// )
