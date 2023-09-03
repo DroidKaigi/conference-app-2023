@@ -27,6 +27,14 @@ class AnimationScreenViewModel @Inject constructor(
     private val animationLottieRawResStateFlow: MutableStateFlow<Pair<AchievementsItemId, Int?>> =
         MutableStateFlow(AchievementsItemId(null) to null)
 
+    val uiState = buildUiState(
+        animationLottieRawResStateFlow,
+    ) { rawRes ->
+        AnimationScreenUiState(
+            rawId = rawRes.second,
+        )
+    }
+
     fun onReadDeeplinkHash(deepLink: String) {
         val achievementHash = lastSegmentOfUrl(deepLink)
         animationLottieRawResStateFlow.value = when (achievementHash) {
@@ -54,14 +62,6 @@ class AnimationScreenViewModel @Inject constructor(
             stampRepository.saveAchievements(animationLottieRawResStateFlow.value.first)
             animationLottieRawResStateFlow.value = AchievementsItemId(null) to null
         }
-    }
-
-    val uiState = buildUiState(
-        animationLottieRawResStateFlow,
-    ) { rawRes ->
-        AnimationScreenUiState(
-            rawId = rawRes.second
-        )
     }
 }
 

@@ -86,7 +86,7 @@ fun StampList(
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = onReset
+                        onClick = onReset,
                     ) {
                         Text(text = "Reset")
                     }

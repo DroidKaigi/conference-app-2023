@@ -96,7 +96,7 @@ private fun StampsScreen(
             StampList(
                 uiState = uiState.stampListUiState,
                 contentPadding = innerPadding,
-                onReset= onReset,
+                onReset = onReset,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),

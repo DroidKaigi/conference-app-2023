@@ -19,7 +19,7 @@ class RemoteConfigRepositoryModule {
     ): StampRepository {
         return DefaultStampRepository(
             remoteConfigApi = remoteConfigApi,
-            achievementsDataStore = achievementsDataStore
+            achievementsDataStore = achievementsDataStore,
         )
     }
 }

@@ -40,7 +40,7 @@ fun AnimationScreen(
     AnimationScreen(
         uiState = uiState,
         onFinished = onFinished,
-        onReachAnimationEnd = viewModel::onReachAnimationEnd
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
     )
 }
 
