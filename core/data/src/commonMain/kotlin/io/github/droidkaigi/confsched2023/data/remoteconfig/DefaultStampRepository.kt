@@ -12,7 +12,7 @@ class DefaultStampRepository(
     private val stampDetailDescriptionStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     private fun fetchStampsEnabled() {
-    //  isStampsEnabledStateFlow.value = remoteConfigApi.getBoolean(IS_STAMPS_ENABLED_KEY)
+        //  isStampsEnabledStateFlow.value = remoteConfigApi.getBoolean(IS_STAMPS_ENABLED_KEY)
         isStampsEnabledStateFlow.value = false
     }
 
