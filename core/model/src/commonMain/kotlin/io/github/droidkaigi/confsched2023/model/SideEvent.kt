@@ -30,7 +30,6 @@ public data class SideEvent(
 }
 
 val SideEvents: PersistentList<SideEvent> = persistentListOf()
-
 val FakeSideEvents
     get() = persistentListOf(
         SideEvent(

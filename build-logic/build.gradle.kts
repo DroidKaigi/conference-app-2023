@@ -50,6 +50,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidHiltPlugin"
         }
+        register("androidCrashlytics") {
+            id = "droidkaigi.primitive.android.crashlytics"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidCrashlyticsPlugin"
+        }
         register("androidFirebase") {
             id = "droidkaigi.primitive.android.firebase"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidFirebasePlugin"
