@@ -35,7 +35,7 @@ class DefaultStampRepository(
         stampDataStore.save(true)
         isDisplayedDialogFlow.value = true
     }
-      
+
     override fun getStampDetailDescriptionStream(): Flow<String> {
         return stampDetailDescriptionStateFlow.onStart { fetchStampDetailDescription() }
     }
