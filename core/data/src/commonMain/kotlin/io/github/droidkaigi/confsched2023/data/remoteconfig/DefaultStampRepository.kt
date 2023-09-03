@@ -11,7 +11,6 @@ class DefaultStampRepository(
     private val stampDataStore: StampDataStore,
 ) : StampRepository {
     private val isStampsEnabledStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val isDisplayedDialogFlow: MutableStateFlow<Boolean?> = MutableStateFlow(false)
     private val stampDetailDescriptionStateFlow: MutableStateFlow<String> = MutableStateFlow("")
 
     private suspend fun fetchStampsEnabled() {
@@ -28,12 +27,11 @@ class DefaultStampRepository(
     }
 
     override fun getIsDisplayedDialogStream(): Flow<Boolean?> {
-        return isDisplayedDialogFlow.onStart { stampDataStore.isDisplayedStream() }
+        return stampDataStore.isDisplayedStream()
     }
 
     override suspend fun displayedDialog() {
         stampDataStore.save(true)
-        isDisplayedDialogFlow.value = true
     }
 
     override fun getStampDetailDescriptionStream(): Flow<String> {
