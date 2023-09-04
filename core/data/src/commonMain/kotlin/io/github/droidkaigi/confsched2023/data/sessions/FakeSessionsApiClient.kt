@@ -49,10 +49,18 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
         SpeakerResponse(fullName = "ry", id = "2", isTopSpeaker = true),
     )
     val rooms = listOf(
-        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1),
-        RoomResponse(name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"), id = 2),
-        RoomResponse(name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"), id = 3),
-        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4),
+        RoomResponse(name = LocaledResponse(ja = "Chipmunk ja", en = "Chipmunk"), id = 1, sort = 1),
+        RoomResponse(
+            name = LocaledResponse(ja = "Arctic Fox ja", en = "Arctic Fox"),
+            id = 2,
+            sort = 2,
+        ),
+        RoomResponse(
+            name = LocaledResponse(ja = "Bumblebee ja", en = "Bumblebee"),
+            id = 3,
+            sort = 3,
+        ),
+        RoomResponse(name = LocaledResponse(ja = "Dolphin ja", en = "Dolphin"), id = 4, sort = 3),
     )
     val categories = listOf(
         CategoryResponse(
@@ -119,6 +127,12 @@ fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
                     speakers = listOf("1", "2"),
                     description = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
                         "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                    i18nDesc = LocaledResponse(
+                        ja = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                            "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                        en = "This is a description\nThis is a description\nThis is a description\n" +
+                            "This is a description\nThis is a description\nThis is a description\n",
+                    ),
                     startsAt = start.toString(),
                     endsAt = end.toString(),
                     language = "JAPANESE",

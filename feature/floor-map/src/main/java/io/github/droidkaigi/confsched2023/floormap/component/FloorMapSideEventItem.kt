@@ -15,9 +15,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Celebration
+import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Square
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -38,15 +40,16 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.FloorMapStrings
+import io.github.droidkaigi.confsched2023.model.FakeSideEvents
 import io.github.droidkaigi.confsched2023.model.SideEvent
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark
-import io.github.droidkaigi.confsched2023.model.SideEvent.Mark.Favorite
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Blue
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Orange
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Purple
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Red
-import io.github.droidkaigi.confsched2023.model.SideEvents
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Circle
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Favorite
+import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Square
 import io.github.droidkaigi.confsched2023.ui.previewOverride
 import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 
@@ -70,7 +73,7 @@ fun FloorMapSideEventItem(
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    val (iconVector, iconColor) = sideEvent.mark.iconResAndColor()
+                    val (iconVector, iconColor) = sideEvent.iconResAndColor()
                     Icon(
                         imageVector = iconVector,
                         contentDescription = FloorMapStrings.FavoriteIcon.asString(),
@@ -147,11 +150,13 @@ fun FloorMapSideEventItem(
 }
 
 @Composable
-private fun Mark.iconResAndColor(): Pair<ImageVector, Color> {
-    val icon = when (this) {
+private fun SideEvent.iconResAndColor(): Pair<ImageVector, Color> {
+    val icon = when (markShape) {
         Favorite -> Icons.Filled.Favorite
+        Circle -> Icons.Filled.Circle
+        Square -> Icons.Filled.Square
     }
-    val colorLong = when (color) {
+    val colorLong = when (markColor) {
         Pink -> 0xFFDC369A
         Orange -> 0xFFDA9000
         Blue -> 0xFF0064DA
@@ -168,7 +173,7 @@ fun PreviewFloorMapSideEventItem() {
     KaigiTheme {
         Surface {
             FloorMapSideEventItem(
-                sideEvent = SideEvents.first(),
+                sideEvent = FakeSideEvents.first(),
                 onSideEventClick = {},
             )
         }

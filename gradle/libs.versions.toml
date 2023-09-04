@@ -8,8 +8,8 @@ kotlin = "1.9.0"
 androidxCore = "1.10.1"
 androidDesugarJdkLibs = "2.0.3"
 compose = "1.5.0"
-compose-jb = "1.4.3"
-composeCompiler = "1.5.1"
+compose-jb = "1.5.0"
+composeCompiler = "1.5.2"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.1"
 androidxActivity = "1.8.0-alpha07"
@@ -122,6 +122,7 @@ firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebase" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version.ref = "multiplatformFirebase" }
+firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.9.9" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
@@ -167,5 +168,6 @@ plugins = [
     "completeKotlinPlugin",
     "detektGradlePlugin",
     "ossLicensesPlugin",
-    "koverPlugin"
+    "koverPlugin",
+    "firebaseCrashlytics"
 ]

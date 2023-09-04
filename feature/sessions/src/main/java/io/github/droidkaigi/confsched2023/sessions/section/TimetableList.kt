@@ -29,6 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -99,10 +102,14 @@ fun TimetableList(
                             space = 4.dp,
                             alignment = Alignment.CenterVertically,
                         ),
+                        modifier = Modifier.semantics(mergeDescendants = true) {
+                            contentDescription = timetableItem.formattedTimeString
+                        },
                     ) {
                         Text(
                             text = timetableItem.startsTimeString,
                             fontWeight = FontWeight.Medium,
+                            modifier = Modifier.clearAndSetSemantics {},
                         )
                         Box(
                             modifier = Modifier
@@ -114,6 +121,7 @@ fun TimetableList(
                             text = timetableItem.endsTimeString,
                             color = MaterialTheme.colorScheme.secondary,
                             fontWeight = FontWeight.Medium,
+                            modifier = Modifier.clearAndSetSemantics {},
                         )
                     }
                 }

@@ -5,8 +5,10 @@ import PackageDescription
 
 var package = Package(
     name: "Modules",
+    defaultLocalization: "ja",
     platforms: [
         .iOS(.v16),
+        .macOS(.v12),
     ],
     products: [
         .library(name: "Component", targets: ["Component"]),
@@ -22,6 +24,7 @@ var package = Package(
         .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
+        .package(url: "https://github.com/airbnb/lottie-spm", from: "4.2.0"),
     ],
     targets: [
         .target(
@@ -45,7 +48,9 @@ var package = Package(
 
         .target(
             name: "Assets",
-            resources: [
+            dependencies: [
+                .product(name: "Lottie", package: "lottie-spm"),
+            ], resources: [
                 .process("Resources"),
                 .process("swiftgen.yml"),
             ],
@@ -81,6 +86,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
+                "shared",
                 "Model",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
@@ -177,7 +183,7 @@ var package = Package(
         ),
 
         .target(
-            name: "Stamps",
+            name: "Achievements",
             dependencies: [
                 "Assets",
                 "Theme",
@@ -186,9 +192,9 @@ var package = Package(
             ]
         ),
         .testTarget(
-            name: "StampsTests",
+            name: "AchievementsTests",
             dependencies: [
-                "Stamps"
+                "Achievements"
             ]
         ),
 
@@ -213,13 +219,13 @@ var package = Package(
             name: "Navigation",
             dependencies: [
                 "About",
+                "Achievements",
                 "Assets",
                 "Contributor",
                 "FloorMap",
                 "Session",
                 "Sponsor",
                 "Staff",
-                "Stamps",
                 "Theme",
                 "Timetable",
             ]
@@ -286,3 +292,27 @@ package.targets = package.targets.map { target in
 
     return target
 }
+
+#if canImport(Darwin)
+import Darwin
+
+// Disable plugins on Xcode Cloud CI
+package.targets = package.targets.map { target in
+    if let ciEnvPointer = getenv("CI") {
+        let ciEnv = String(cString: ciEnvPointer)
+        if ciEnv == "TRUE" {
+            if target.name == "About" {
+                target.resources = [
+                    .process("Resources")
+                ]
+            }
+
+            if target.type == .regular || target.type == .test {
+                target.plugins = []
+            }
+        }
+    }
+
+    return target
+}
+#endif

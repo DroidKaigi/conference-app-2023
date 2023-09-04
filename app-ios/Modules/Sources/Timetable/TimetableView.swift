@@ -12,6 +12,7 @@ enum TimetableRouting: Hashable {
 }
 
 public struct TimetableView<SessionView: View>: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var viewModel: TimetableViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
     let gradient = Gradient(stops: [
@@ -24,17 +25,18 @@ public struct TimetableView<SessionView: View>: View {
 
     // When offset value is exceed the threshold, TimetableDayHeader collapse with animation.
     @State private var shouldCollapse = false
+    @State private var shouldTickBookmark = false
 
     public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {
         self.sessionViewBuilder = sessionViewBuilder
     }
 
     public var body: some View {
-        switch viewModel.state.timeGroupTimetableItems {
+        switch viewModel.state.loadedState {
         case .initial, .loading:
             ProgressView()
-                .task {
-                    await viewModel.load()
+                .onAppear {
+                    viewModel.load()
                 }
         case .failed:
             EmptyView()
@@ -76,7 +78,13 @@ public struct TimetableView<SessionView: View>: View {
                                     .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
-                                    TimetableListView(timetableTimeGroupItems: state, searchWord: "")
+                                    TimetableListView(
+                                        timetableTimeGroupItems: state.timeGroupTimetableItems,
+                                        searchWord: "",
+                                        onToggleBookmark: { id in
+                                            viewModel.toggleBookmark(id)
+                                        }
+                                    )
                                 }
                             }
                             .background(AssetColors.Surface.surface.swiftUIColor)
@@ -109,13 +117,28 @@ public struct TimetableView<SessionView: View>: View {
                         }
                         ToolbarItem {
                             NavigationLink(value: TimetableRouting.bookmark) {
-                                Assets.Icons.bookmarks.swiftUIImage
+                                ZStack {
+                                    Assets.Icons.bookmarks.swiftUIImage
+                                    if shouldTickBookmark {
+                                        (colorScheme == .light
+                                            ? LottieAssets.addToBookmarkLightJson
+                                            : LottieAssets.addToBookmarkDarkJson)
+                                        .swiftUIAnimation(loopMode: .playOnce) { _ in
+                                            shouldTickBookmark = false
+                                        }
+                                    }
+                                }
                             }
                             .buttonStyle(.plain)
                         }
                         ToolbarItem {
                             Assets.Icons.gridView.swiftUIImage
                         }
+                    }
+                }
+                .onChangeWithPrevious(of: state.bookmarks) { previous, newValue in
+                    if (previous?.count ?? 0) < newValue.count {
+                        shouldTickBookmark = true
                     }
                 }
             }

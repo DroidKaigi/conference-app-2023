@@ -32,12 +32,13 @@ fun TimetableItemDetailBottomAppBar(
     isBookmarked: Boolean,
     onBookmarkClick: (TimetableItem) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
+    onShareClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     BottomAppBar(
         modifier = modifier,
         actions = {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { onShareClick(timetableItem) }) {
                 Icon(
                     imageVector = Icons.Filled.Share,
                     contentDescription = SessionsStrings.Share.asString(),
@@ -84,6 +85,7 @@ fun TimetableItemDetailBottomAppBarPreview() {
                 isBookmarked = true,
                 onBookmarkClick = {},
                 onCalendarRegistrationClick = {},
+                onShareClick = {},
             )
         }
     }

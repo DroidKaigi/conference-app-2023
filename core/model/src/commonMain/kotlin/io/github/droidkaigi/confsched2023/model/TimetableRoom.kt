@@ -1,10 +1,21 @@
 package io.github.droidkaigi.confsched2023.model
 
-public data class TimetableRoom(
+@Immutable
+data class TimetableRooms(val rooms: List<TimetableRoom>)
+
+data class TimetableRoom(
     val id: Int,
     val name: MultiLangText,
     val type: RoomType,
-)
+    val sort: Int,
+) : Comparable<TimetableRoom> {
+    override fun compareTo(other: TimetableRoom): Int {
+        if (sort < 900 && other.sort < 900) {
+            return name.currentLangTitle.compareTo(other.name.currentLangTitle)
+        }
+        return sort.compareTo(other.sort)
+    }
+}
 
 val TimetableRoom.nameAndFloor: String
     get() {

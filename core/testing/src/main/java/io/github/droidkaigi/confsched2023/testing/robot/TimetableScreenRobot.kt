@@ -22,6 +22,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableBookmarksI
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemBookmarkIconTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItemTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChangeButtonTestTag
+import io.github.droidkaigi.confsched2023.sessions.section.TimetableTabTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
 import kotlinx.coroutines.test.TestDispatcher
@@ -106,6 +107,15 @@ class TimetableScreenRobot @Inject constructor(
         composeTestRule
             .onNode(hasTestTag(TimetableBookmarksIconTestTag))
             .performClick()
+    }
+
+    fun clickTimetableTab(
+        day: Int,
+    ) {
+        composeTestRule
+            .onNode(hasTestTag(TimetableTabTestTag.plus(day)))
+            .performClick()
+        waitUntilIdle()
     }
 
     fun scrollTimetable() {

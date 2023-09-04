@@ -155,7 +155,10 @@ struct SearchView<SessionView: View>: View {
                         ScrollView {
                             TimetableListView(
                                 timetableTimeGroupItems: state.timeGroupTimetableItems,
-                                searchWord: viewModel.state.filters.searchWord
+                                searchWord: viewModel.state.filters.searchWord,
+                                onToggleBookmark: { id in
+                                    viewModel.toggleBookmark(id)
+                                }
                             )
                         }
                         .padding(.horizontal, 16)
