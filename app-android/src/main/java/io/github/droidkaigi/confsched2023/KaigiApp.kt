@@ -32,6 +32,9 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
+import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
+import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
+import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
@@ -42,7 +45,7 @@ import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Achievements
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -72,9 +75,6 @@ import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
 import io.github.droidkaigi.confsched2023.staff.staffScreen
-import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
@@ -174,8 +174,8 @@ private fun NavGraphBuilder.mainScreen(
                 onSideEventClick = externalNavController::navigate,
                 contentPadding = contentPadding,
             )
-            nestedStampsScreen(
-                onStampsClick = {
+            nestedAchievementsScreen(
+                onAchievementsClick = {
                     // TODO
                 },
                 contentPadding = contentPadding,
@@ -207,7 +207,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             timetableScreenRoute -> Timetable
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            stampsScreenRoute -> Badges
+            achievementsScreenRoute -> Achievements
             else -> null
         }
     }
@@ -220,7 +220,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Badges -> mainNestedNavController.navigateStampsScreen()
+            Achievements -> mainNestedNavController.navigateAchievementsScreen()
         }
     }
 }
