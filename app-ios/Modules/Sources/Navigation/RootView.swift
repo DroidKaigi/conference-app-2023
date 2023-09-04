@@ -1,11 +1,11 @@
 import About
+import Achievements
 import Assets
 import Contributor
 import FloorMap
 import Session
 import Sponsor
 import Staff
-import Stamps
 import SwiftUI
 import Theme
 import Timetable
@@ -13,7 +13,7 @@ import Timetable
 enum Tab {
     case timeline
     case floorMap
-    case stamps
+    case achievements
     case about
 }
 
@@ -58,17 +58,17 @@ public struct RootView: View {
                         }
                     }
                 }
-            StampsView()
-                .tag(Tab.stamps)
+            AchievementsView()
+                .tag(Tab.achievements)
                 .tabItem {
                     Label {
-                        Text("Stamps")
+                        Text("Achievements")
                     } icon: {
-                        if selection == .stamps {
-                            Assets.Icons.stamp.swiftUIImage
+                        if selection == .achievements {
+                            Assets.Icons.achievements.swiftUIImage
                                 .renderingMode(.template)
                         } else {
-                            Assets.Icons.stampFillOff.swiftUIImage
+                            Assets.Icons.achievementsFillOff.swiftUIImage
                                 .renderingMode(.template)
                         }
                     }
