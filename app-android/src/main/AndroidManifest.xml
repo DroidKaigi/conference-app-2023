@@ -46,7 +46,9 @@
 
         <activity
             android:name=".ResolveDynamicLinksActivity"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true"
+            android:taskAffinity="droidkaigi.affinities.dynamic_links">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
