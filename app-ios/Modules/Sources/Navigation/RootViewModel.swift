@@ -4,7 +4,7 @@ import KMPContainer
 import Model
 
 struct RootViewState: ViewModelState {
-    var isStampEnabled: LoadingState<Bool> = .initial
+    var isAchivementEnabled: LoadingState<Bool> = .initial
 }
 
 @MainActor
@@ -13,14 +13,14 @@ class RootViewModel: ObservableObject {
     @Published var state: RootViewState = .init()
 
     func load() async {
-        state.isStampEnabled = .loading
+        state.isAchivementEnabled = .loading
 
         do {
             for try await isStampEnabled in stampData.stampEnabled() {
-                state.isStampEnabled = .loaded(isStampEnabled)
+                state.isAchivementEnabled = .loaded(isStampEnabled)
             }
         } catch {
-            state.isStampEnabled = .failed(error)
+            state.isAchivementEnabled = .failed(error)
         }
     }
 }
