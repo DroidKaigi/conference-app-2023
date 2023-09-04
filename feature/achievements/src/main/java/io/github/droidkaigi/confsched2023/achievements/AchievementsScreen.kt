@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.stamps
+package io.github.droidkaigi.confsched2023.achievements
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -19,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/StampsScreen.kt
 import io.github.droidkaigi.confsched2023.stamps.section.StampList
 import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
@@ -37,24 +38,44 @@ fun NavGraphBuilder.nestedStampsScreen(
         ),
     ) {
         StampsScreen(
+=======
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
+import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
+import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+
+const val achievementsScreenRoute = "achievements"
+fun NavGraphBuilder.nestedAchievementsScreen(
+    onAchievementsClick: () -> Unit,
+    contentPadding: PaddingValues,
+) {
+    composable(achievementsScreenRoute) {
+        AchievementsScreen(
+            onAchievementsClick = onAchievementsClick,
+>>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/AchievementsScreen.kt
             contentPadding = contentPadding,
         )
     }
 }
 
-fun NavController.navigateStampsScreen() {
-    navigate(stampsScreenRoute) {
+fun NavController.navigateAchievementsScreen() {
+    navigate(achievementsScreenRoute) {
         launchSingleTop = true
         restoreState = true
     }
 }
 
-const val StampsScreenTestTag = "StampsScreen"
+const val AchievementsScreenTestTag = "AchievementsScreen"
 
 @Composable
+<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/StampsScreen.kt
 fun StampsScreen(
+=======
+fun AchievementsScreen(
+    onAchievementsClick: () -> Unit,
+>>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/AchievementsScreen.kt
     contentPadding: PaddingValues = PaddingValues(),
-    viewModel: StampsScreenViewModel = hiltViewModel(),
+    viewModel: AchievementsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -63,28 +84,49 @@ fun StampsScreen(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
-    StampsScreen(
+    AchievementsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
+<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/StampsScreen.kt
         onReset = viewModel::onReset,
     )
 }
 
 data class StampsScreenUiState(
     val stampListUiState: StampListUiState,
+=======
+        achievementLottieRawId = uiState.lottieRawRes,
+        onAchievementsClick = { achievement ->
+            onAchievementsClick()
+            viewModel.onAchievementClick(achievement)
+        },
+        onReachAnimationEnd = viewModel::onReachAnimationEnd,
+    )
+}
+
+data class AchievementsScreenUiState(
+    val lottieRawRes: Int?,
+    val achievementListUiState: AchievementListUiState,
+>>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/AchievementsScreen.kt
 )
 
 @Composable
-private fun StampsScreen(
-    uiState: StampsScreenUiState,
+private fun AchievementsScreen(
+    uiState: AchievementsScreenUiState,
     snackbarHostState: SnackbarHostState,
+<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/StampsScreen.kt
+=======
+    @RawRes
+    achievementLottieRawId: Int?,
+    onAchievementsClick: (Achievement) -> Unit,
+>>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/AchievementsScreen.kt
     contentPadding: PaddingValues,
     onReset: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
-        modifier = Modifier.testTag(StampsScreenTestTag),
+        modifier = Modifier.testTag(AchievementsScreenTestTag),
         snackbarHost = { SnackbarHost(snackbarHostState) },
         contentWindowInsets = WindowInsets(
             left = contentPadding.calculateLeftPadding(layoutDirection),
@@ -93,10 +135,19 @@ private fun StampsScreen(
             bottom = contentPadding.calculateBottomPadding(),
         ),
         content = { innerPadding ->
+<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/StampsScreen.kt
             StampList(
                 uiState = uiState.stampListUiState,
                 contentPadding = innerPadding,
                 onReset = onReset,
+=======
+            AchievementList(
+                uiState = uiState.achievementListUiState,
+                onAchievementsClick = onAchievementsClick,
+                contentPadding = innerPadding,
+                onReachAnimationEnd = onReachAnimationEnd,
+                achievementLottieRawId = achievementLottieRawId,
+>>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/AchievementsScreen.kt
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),

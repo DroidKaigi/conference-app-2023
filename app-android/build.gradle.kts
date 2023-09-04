@@ -101,7 +101,7 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
-    implementation(projects.feature.stamps)
+    implementation(projects.feature.achievements)
     implementation(projects.feature.staff)
     implementation(projects.feature.animation)
     implementation(projects.core.model)
@@ -130,8 +130,12 @@ dependencies {
     kover(projects.feature.sessions)
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
+<<<<<<< HEAD
     kover(projects.feature.stamps)
     kover(projects.feature.animation)
+=======
+    kover(projects.feature.achievements)
+>>>>>>> origin/main
 
     kover(projects.core.common)
     kover(projects.core.data)

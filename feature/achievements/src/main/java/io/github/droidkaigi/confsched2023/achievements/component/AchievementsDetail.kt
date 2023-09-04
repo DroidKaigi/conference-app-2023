@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.stamps.component
+package io.github.droidkaigi.confsched2023.achievements.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,16 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.stamps.StampsStrings
+import io.github.droidkaigi.confsched2023.achievements.AchievementsStrings
 
 @Composable
-fun StampsDetail(
+fun AchievementsDetail(
     description: String,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         Text(
-            text = StampsStrings.Title.asString(),
+            text = AchievementsStrings.Title.asString(),
             style = MaterialTheme.typography.headlineLarge,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -34,7 +34,7 @@ fun StampsDetail(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = StampsStrings.DescriptionNotes.asString(),
+            text = AchievementsStrings.DescriptionNotes.asString(),
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.fillMaxWidth(),
         )
