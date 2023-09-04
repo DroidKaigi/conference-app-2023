@@ -31,9 +31,7 @@ class StampsScreenRobot @Inject constructor(
     fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-                StampsScreen(
-                    onStampsClick = { },
-                )
+                StampsScreen()
             }
         }
         waitUntilIdle()
