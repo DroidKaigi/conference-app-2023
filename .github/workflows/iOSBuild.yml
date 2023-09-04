@@ -1,3 +1,4 @@
+
 name: iOS Build
 
 on:
@@ -14,6 +15,23 @@ jobs:
     runs-on: macos-13
 
     steps:
+      - name: Print current working directory
+        run: pwd
+
+      - name: List directory contents
+        run: ls -la
+
+      - name: Print GITHUB_WORKSPACE
+        run: echo $GITHUB_WORKSPACE
+
+      - name: Check existence of font directory
+        run: |
+          if [ -d "../../../../../core/designsystem/src/commonMain/resources/font" ]; then
+            echo "Font directory exists"
+          else
+            echo "Font directory does NOT exist"
+          fi
+
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
