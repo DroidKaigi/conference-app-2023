@@ -25,10 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.contributors.component.ContributorListItem
 import io.github.droidkaigi.confsched2023.model.Contributor
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
 const val contributorsScreenRoute = "contributors"
@@ -78,6 +80,7 @@ private fun ContributorsScreen(
             null
         }
     val localLayoutDirection = LocalLayoutDirection.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     Scaffold(
         modifier = Modifier.testTag(ContributorsScreenTestTag),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -89,9 +92,7 @@ private fun ContributorsScreen(
                     },
                     navigationIcon = {
                         IconButton(
-                            modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
-                            onClick = onBackClick,
-                            enabled = scrollBehavior.state.collapsedFraction < 1f,
+                            onClick = { handleOnClickIfNotNavigating(lifecycleOwner, onBackClick) },
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
