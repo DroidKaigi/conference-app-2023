@@ -32,6 +32,15 @@ jobs:
             echo "Font directory does NOT exist"
           fi
 
+      - name: Find and print relative path to font directory
+        run: |
+          found_path=$(find . -type d -name "font" | grep "core/designsystem/src/commonMain/resources/font")
+          if [[ -n "$found_path" ]]; then
+            echo "Relative path to font directory: $found_path"
+          else
+            echo "Font directory not found."
+          fi
+
       - name: Checkout
         uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
