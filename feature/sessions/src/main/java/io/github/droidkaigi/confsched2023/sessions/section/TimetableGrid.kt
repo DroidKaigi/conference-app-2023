@@ -70,7 +70,12 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.math.roundToInt
 
 data class TimetableGridUiState(val timetable: Timetable)
@@ -330,13 +335,17 @@ private data class TimetableItemLayout(
     val minutePx: Float,
     val dayToStartTime: MutableMap<DroidKaigi2023Day, Instant>,
 ) {
+    val tz = TimeZone.of("UTC+9")
     val dayStart = dayToStartTime[timetableItem.day] ?: dayStartTime
+    val gridStartTime = LocalTime(hour = 10, minute = 0)
+    val gridStart =
+        LocalDateTime(date = dayStart.toLocalDateTime(tz).date, time = gridStartTime).toInstant(tz)
     private val displayEndsAt = timetableItem.endsAt.minus(1, DateTimeUnit.MINUTE)
     val height =
         ((displayEndsAt - timetableItem.startsAt).inWholeMinutes * minutePx).roundToInt()
     val width = with(density) { TimetableSizes.columnWidth.roundToPx() }
     val left = rooms.indexOf(timetableItem.room) * width
-    val top = ((timetableItem.startsAt - dayStart).inWholeMinutes * minutePx).toInt()
+    val top = ((timetableItem.startsAt - gridStart).inWholeMinutes * minutePx).toInt()
     val right = left + width
     val bottom = top + height
 
@@ -749,6 +758,5 @@ internal suspend fun PointerInputScope.detectDragGestures(
 object TimetableSizes {
     val columnWidth = 192.dp
     val lineStrokeSize = 1.dp
-    val currentTimeCircleRadius = 6.dp
     val minuteHeight = 4.dp
 }
