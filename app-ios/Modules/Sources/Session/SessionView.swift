@@ -16,6 +16,7 @@ public struct SessionView: View {
     @ObservedObject private(set) var viewModel: SessionViewModel
     @State private var isDescriptionExpanded: Bool = false
     @State private var canBeExpanded: Bool = false
+    @State private var isAddingToCalendarConfirming: Bool = false
     @State private var presentingURL: IdentifiableURL?
 
     public init(timetableItem: TimetableItem) {
@@ -175,7 +176,9 @@ public struct SessionView: View {
             ToolbarItem(placement: .bottomBar) {
                 Button {
                     Task {
-                        await viewModel.requestAddingToCalendar()
+                        if await viewModel.requestEventAccessIfNeeded() {
+                            isAddingToCalendarConfirming.toggle()
+                        }
                     }
                 } label: {
                     Assets.Icons.calendarAddOn.swiftUIImage
@@ -192,13 +195,13 @@ public struct SessionView: View {
                 }
             }
         }
-        .confirmationDialog("", isPresented: $viewModel.isAddingToCalendarConfirming) {
+        .confirmationDialog("", isPresented: $isAddingToCalendarConfirming) {
             Button("Add to your calendar") {
                 viewModel.addToCalendar()
             }
 
             Button("Cancel", role: .cancel) {
-                viewModel.isAddingToCalendarConfirming = false
+                isAddingToCalendarConfirming = false
             }
         }
         .sheet(item: $presentingURL) { url in

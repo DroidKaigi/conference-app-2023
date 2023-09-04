@@ -6,20 +6,18 @@ import shared
 @MainActor
 final class SessionViewModel: ObservableObject {
     @Dependency(\.eventKitClient) var eventKitClient
-    @Published var isAddingToCalendarConfirming: Bool = false
     let timetableItem: TimetableItem
 
     init(timetableItem: TimetableItem) {
         self.timetableItem = timetableItem
     }
 
-    func requestAddingToCalendar() async {
+    func requestEventAccessIfNeeded() async -> Bool {
         do {
-            if try await eventKitClient.requestAccessIfNeeded() {
-                isAddingToCalendarConfirming.toggle()
-            }
+            return try await eventKitClient.requestAccessIfNeeded()
         } catch {
             print(error.localizedDescription)
+            return false
         }
     }
 
