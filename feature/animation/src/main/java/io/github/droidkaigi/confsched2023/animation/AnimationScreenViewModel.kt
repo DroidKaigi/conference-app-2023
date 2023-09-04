@@ -5,12 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.feature.animation.R
+import io.github.droidkaigi.confsched2023.model.Achievements
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_A
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_B
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_C
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_D
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_E
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,22 +32,23 @@ class AnimationScreenViewModel @Inject constructor(
     }
 
     fun onReadDeeplinkHash(deepLink: String) {
-        val achievementHash = lastSegmentOfUrl(deepLink)
+        val achievementId = lastSegmentOfUrl(deepLink)
+        val achievementHash = idToSha256(achievementId)
         animationLottieRawResStateFlow.value = when (achievementHash) {
-            idToSha256(ACHIEVEMENT_A) ->
-                AchievementsItemId(ACHIEVEMENT_A) to R.raw.stamp_a_lottie
+            Achievements.ArcticFox.sha256 ->
+                AchievementsItemId(Achievements.ArcticFox.id) to R.raw.stamp_a_lottie
 
-            idToSha256(ACHIEVEMENT_B) ->
-                AchievementsItemId(ACHIEVEMENT_B) to R.raw.stamp_b_lottie
+            Achievements.Bumblebee.sha256 ->
+                AchievementsItemId(Achievements.Bumblebee.id) to R.raw.stamp_b_lottie
 
-            idToSha256(ACHIEVEMENT_C) ->
-                AchievementsItemId(ACHIEVEMENT_C) to R.raw.stamp_c_lottie
+            Achievements.Chipmunk.sha256 ->
+                AchievementsItemId(Achievements.Chipmunk.id) to R.raw.stamp_c_lottie
 
-            idToSha256(ACHIEVEMENT_D) ->
-                AchievementsItemId(ACHIEVEMENT_D) to R.raw.stamp_d_lottie
+            Achievements.Dolphin.sha256 ->
+                AchievementsItemId(Achievements.Dolphin.id) to R.raw.stamp_d_lottie
 
-            idToSha256(ACHIEVEMENT_E) ->
-                AchievementsItemId(ACHIEVEMENT_E) to R.raw.stamp_e_lottie
+            Achievements.ElectricEel.sha256 ->
+                AchievementsItemId(Achievements.ElectricEel.id) to R.raw.stamp_e_lottie
 
             else -> AchievementsItemId(null) to null
         }

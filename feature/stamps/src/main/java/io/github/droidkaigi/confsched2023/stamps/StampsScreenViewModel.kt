@@ -6,12 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.stamps.R
+import io.github.droidkaigi.confsched2023.model.Achievements
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_A
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_B
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_C
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_D
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId.Companion.ACHIEVEMENT_E
 import io.github.droidkaigi.confsched2023.model.Stamp
 import io.github.droidkaigi.confsched2023.stamps.section.StampListUiState
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
@@ -77,38 +73,38 @@ class StampsScreenViewModel @Inject constructor(
         StampListUiState(
             stamps = persistentListOf(
                 Stamp(
-                    id = AchievementsItemId(ACHIEVEMENT_A),
+                    id = AchievementsItemId(Achievements.ArcticFox.id),
                     hasDrawableResId = R.drawable.img_stamp_a_on,
                     notHasDrawableResId = R.drawable.img_stamp_a_off,
-                    hasStamp = achievements.contains(AchievementsItemId(ACHIEVEMENT_A)),
+                    hasStamp = achievements.contains(AchievementsItemId(Achievements.ArcticFox.id)),
                     contentDescription = "StampA image",
                 ),
                 Stamp(
-                    id = AchievementsItemId(ACHIEVEMENT_B),
+                    id = AchievementsItemId(Achievements.Bumblebee.id),
                     hasDrawableResId = R.drawable.img_stamp_b_on,
                     notHasDrawableResId = R.drawable.img_stamp_b_off,
-                    hasStamp = achievements.contains(AchievementsItemId(ACHIEVEMENT_B)),
+                    hasStamp = achievements.contains(AchievementsItemId(Achievements.Bumblebee.id)),
                     contentDescription = "StampB image",
                 ),
                 Stamp(
-                    id = AchievementsItemId(ACHIEVEMENT_C),
+                    id = AchievementsItemId(Achievements.Chipmunk.id),
                     hasDrawableResId = R.drawable.img_stamp_c_on,
                     notHasDrawableResId = R.drawable.img_stamp_c_off,
-                    hasStamp = achievements.contains(AchievementsItemId(ACHIEVEMENT_C)),
+                    hasStamp = achievements.contains(AchievementsItemId(Achievements.Chipmunk.id)),
                     contentDescription = "StampC image",
                 ),
                 Stamp(
-                    id = AchievementsItemId(ACHIEVEMENT_D),
+                    id = AchievementsItemId(Achievements.Dolphin.id),
                     hasDrawableResId = R.drawable.img_stamp_d_on,
                     notHasDrawableResId = R.drawable.img_stamp_d_off,
-                    hasStamp = achievements.contains(AchievementsItemId(ACHIEVEMENT_D)),
+                    hasStamp = achievements.contains(AchievementsItemId(Achievements.Dolphin.id)),
                     contentDescription = "StampD image",
                 ),
                 Stamp(
-                    id = AchievementsItemId(ACHIEVEMENT_E),
+                    id = AchievementsItemId(Achievements.ElectricEel.id),
                     hasDrawableResId = R.drawable.img_stamp_e_on,
                     notHasDrawableResId = R.drawable.img_stamp_e_off,
-                    hasStamp = achievements.contains(AchievementsItemId(ACHIEVEMENT_E)),
+                    hasStamp = achievements.contains(AchievementsItemId(Achievements.ElectricEel.id)),
                     contentDescription = "StampE image",
                 ),
             ),
