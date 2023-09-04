@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "stamp_dolphin_active.png",
+      "filename" : "achievement_dolphin_active.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "stamp_dolphin_active@2x.png",
+      "filename" : "achievement_dolphin_active@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "stamp_dolphin_active@3x.png",
+      "filename" : "achievement_dolphin_active@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

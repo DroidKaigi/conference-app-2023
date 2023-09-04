@@ -2,7 +2,7 @@ import Assets
 import SwiftUI
 import Theme
 
-public struct StampsView: View {
+public struct AchievementsView: View {
     public init() {}
     public var body: some View {
         NavigationStack {
@@ -12,22 +12,22 @@ public struct StampsView: View {
                         .font(Font.system(size: 16))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     LazyVGrid(columns: [.init(), .init()]) {
-                        Assets.Images.stampArcticFox.swiftUIImage
-                        Assets.Images.stampBumblebee.swiftUIImage
-                        Assets.Images.stampChipmunk.swiftUIImage
-                        Assets.Images.stampDolphin.swiftUIImage
+                        Assets.Images.achievementArcticFox.swiftUIImage
+                        Assets.Images.achievementBumblebee.swiftUIImage
+                        Assets.Images.achievementChipmunk.swiftUIImage
+                        Assets.Images.achievementDolphin.swiftUIImage
                         // TODO: Find good render way
-                        Assets.Images.stampElectricEel.swiftUIImage
+                        Assets.Images.achievementElectricEel.swiftUIImage
                     }
                 }
                 .padding(16)
             }
             .background(AssetColors.Surface.surface.swiftUIColor)
-            .navigationTitle("Stamps")
+            .navigationTitle("Achievements")
         }
     }
 }
 
 // #Preview {
-//     StampsView()
+//     AchievementsView()
 // }
