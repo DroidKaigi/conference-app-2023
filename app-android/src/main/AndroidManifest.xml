@@ -56,9 +56,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="confsched2023.page.link"
-                    android:scheme="https" />
+                <data android:scheme="https" />
+                <data android:host="confsched2023.page.link" />
+                <data android:host="droidkaigiapp.page.link" />
             </intent-filter>
         </activity>
 
