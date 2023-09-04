@@ -24,33 +24,35 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
                     handleDeepLink(deepLink)
                 }
             }
+            .addOnFailureListener {
+                finishAndRemoveTask()
+            }
     }
 
     private fun handleDeepLink(deepLink: Uri?) {
-        if (deepLink != null) {
-            if (deepLink.host != "2023.droidkaigi.jp") {
-                // For a security reason.
-                // Activities that can handle ACTION_VIEW must check the authority of Uri.
-                finishAndRemoveTask()
-                return
+        if (deepLink == null) return finishAndRemoveTask()
+        if (deepLink.host != "2023.droidkaigi.jp") {
+            // For a security reason.
+            // Activities that can handle ACTION_VIEW must check the authority of Uri.
+            finishAndRemoveTask()
+            return
+        }
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, deepLink).apply {
+                // Disable showing up chooser dialog and don't allow open this link by other apps even if users choose the default app manually.
+                `package` = packageName
+                addCategory(CATEGORY_BROWSABLE)
+                // new task is important for gateway activities like this
+                flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_REQUIRE_DEFAULT
             }
-            try {
-                val intent = Intent(Intent.ACTION_VIEW, deepLink).apply {
-                    // Disable showing up chooser dialog and don't allow open this link by other apps even if users choose the default app manually.
-                    `package` = packageName
-                    addCategory(CATEGORY_BROWSABLE)
-                    // new task is important for gateway activities like this
-                    flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_REQUIRE_DEFAULT
-                }
-                startActivity(intent)
-            } catch (ignore: ActivityNotFoundException) {
-                val intent = Intent(this, MainActivity::class.java).apply {
-                    flags = FLAG_ACTIVITY_NEW_TASK
-                }
-                startActivity(intent)
-            } finally {
-                finishAndRemoveTask()
+            startActivity(intent)
+        } catch (ignore: ActivityNotFoundException) {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = FLAG_ACTIVITY_NEW_TASK
             }
+            startActivity(intent)
+        } finally {
+            finishAndRemoveTask()
         }
     }
 }
