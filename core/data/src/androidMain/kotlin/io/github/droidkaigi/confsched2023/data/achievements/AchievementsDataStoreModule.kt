@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.user.AchievementsDataStoreQualifier
 import javax.inject.Singleton
 

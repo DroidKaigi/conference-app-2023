@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.shared
 
-import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.User

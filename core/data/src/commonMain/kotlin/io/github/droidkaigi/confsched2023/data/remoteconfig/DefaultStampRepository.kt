@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.remoteconfig
 
-import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
 import kotlinx.collections.immutable.PersistentSet

@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.data.achivements
+package io.github.droidkaigi.confsched2023.data.achievements
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

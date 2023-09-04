@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2023.data
 
 import de.jensklingenberg.ktorfit.Ktorfit
-import io.github.droidkaigi.confsched2023.data.achivements.AchievementsDataStore
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient

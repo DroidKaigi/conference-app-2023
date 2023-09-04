@@ -38,8 +38,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="droidkaigi.jp"
-                    android:pathPrefix="/apps/achivements/"
+                    android:host="2023.droidkaigi.jp"
+                    android:pathPrefix="/apps/achievements/"
                     android:scheme="https" />
             </intent-filter>
         </activity>
