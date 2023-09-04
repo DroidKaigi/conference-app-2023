@@ -1,5 +1,5 @@
-import SwiftUI
 import Assets
+import SwiftUI
 
 struct SessionTag: View {
 

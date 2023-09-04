@@ -1,6 +1,6 @@
+import Assets
 import SwiftUI
 import Theme
-import Assets
 
 public struct InformationRow: View {
     private let icon: Image

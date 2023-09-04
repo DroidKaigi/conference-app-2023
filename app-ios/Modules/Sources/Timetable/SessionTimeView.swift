@@ -1,7 +1,7 @@
+import Assets
 import Model
 import SwiftUI
 import Theme
-import Assets
 
 struct SessionTimeView: View {
     var startsTimeString: String

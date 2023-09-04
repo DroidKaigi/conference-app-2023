@@ -1,9 +1,9 @@
+import Assets
 import Component
 import Model
 import shared
 import SwiftUI
 import Theme
-import Assets
 
 struct SponsorGridView: View {
 

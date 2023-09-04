@@ -1,8 +1,8 @@
+import Assets
 import Component
 import shared
 import SwiftUI
 import Theme
-import Assets
 
 struct PersonLabel: View {
     let speaker: TimetableSpeaker

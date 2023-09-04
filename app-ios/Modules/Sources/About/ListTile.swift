@@ -1,6 +1,6 @@
+import Assets
 import SwiftUI
 import Theme
-import Assets
 
 struct ListTile: View {
     let icon: Image

@@ -1,6 +1,6 @@
+import Assets
 import SwiftUI
 import Theme
-import Assets
 
 public struct PersonLabel: View {
     let name: String
