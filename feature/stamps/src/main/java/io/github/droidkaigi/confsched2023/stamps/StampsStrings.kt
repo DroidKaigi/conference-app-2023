@@ -13,7 +13,7 @@ sealed class StampsStrings : Strings<StampsStrings>(Bindings) {
     private object Bindings : StringsBindings<StampsStrings>(
         Lang.Japanese to { item, _ ->
             when (item) {
-                Title -> "Stamps"
+                Title -> "Achievements"
                 DescriptionNotes -> "※ この企画は変更または中止になる可能性があります"
             }
         },

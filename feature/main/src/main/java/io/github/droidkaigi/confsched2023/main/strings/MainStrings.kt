@@ -17,7 +17,7 @@ sealed class MainStrings : Strings<MainStrings>(Bindings) {
             when (item) {
                 Timetable -> "Timetable"
                 FloorMap -> "Floor Map"
-                Stamps -> "Stamps"
+                Stamps -> "Achievements"
                 About -> "About"
                 Contributors -> "Contributors"
                 is Time -> "${item.hours}時${item.minutes}分"
