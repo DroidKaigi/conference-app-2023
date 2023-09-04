@@ -18,11 +18,9 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
-                if (pendingDynamicLinkData != null) {
-                    val deepLink = pendingDynamicLinkData.link
+                val deepLink = pendingDynamicLinkData.link
 
-                    handleDeepLink(deepLink)
-                }
+                handleDeepLink(deepLink)
             }
             .addOnFailureListener {
                 finishAndRemoveTask()
@@ -30,13 +28,14 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
     }
 
     private fun handleDeepLink(deepLink: Uri?) {
-        if (deepLink == null) return finishAndRemoveTask()
-        if (deepLink.host != "2023.droidkaigi.jp") {
+        if (deepLink == null || deepLink.host != "2023.droidkaigi.jp") {
             // For a security reason.
             // Activities that can handle ACTION_VIEW must check the authority of Uri.
             finishAndRemoveTask()
             return
         }
+        val mainIntent = Intent(this, MainActivity::class.java)
+        startActivity(mainIntent)
         try {
             val intent = Intent(Intent.ACTION_VIEW, deepLink).apply {
                 // Disable showing up chooser dialog and don't allow open this link by other apps even if users choose the default app manually.

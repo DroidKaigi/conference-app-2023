@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,9 +26,7 @@ class CompleteAchievementActivity : ComponentActivity() {
                     AnimationScreen(
                         deepLink = intent.data.toString(),
                         onFinished = {
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
-                            finishAndRemoveTask()
+                            finish()
                         },
                     )
                 }
