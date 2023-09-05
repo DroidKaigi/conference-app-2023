@@ -10,7 +10,7 @@ import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsA
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
-import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultAchievementRepository
+import io.github.droidkaigi.confsched2023.data.achievements.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsRepository
 import io.github.droidkaigi.confsched2023.data.sessions.SessionCacheDataStore

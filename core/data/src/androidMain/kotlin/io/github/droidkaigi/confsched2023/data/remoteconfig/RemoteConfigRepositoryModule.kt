@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
+import io.github.droidkaigi.confsched2023.data.achievements.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import javax.inject.Singleton
 

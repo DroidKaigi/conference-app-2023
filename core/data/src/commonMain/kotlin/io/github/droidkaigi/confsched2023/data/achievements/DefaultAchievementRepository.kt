@@ -1,7 +1,7 @@
-package io.github.droidkaigi.confsched2023.data.remoteconfig
+package io.github.droidkaigi.confsched2023.data.achievements
 
-import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
+import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +18,9 @@ class DefaultAchievementRepository(
         MutableStateFlow(false)
 
     private suspend fun fetchAchievementsEnabled() {
-        isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(IS_ACHIEVEMENTS_ENABLED_KEY)
+        isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(
+            IS_ACHIEVEMENTS_ENABLED_KEY
+        )
     }
 
     private suspend fun fetchAchievementDetailDescription() {
