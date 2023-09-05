@@ -19,7 +19,7 @@ class DefaultAchievementRepository(
 
     private suspend fun fetchAchievementsEnabled() {
         isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(
-            IS_ACHIEVEMENTS_ENABLED_KEY
+            IS_ACHIEVEMENTS_ENABLED_KEY,
         )
     }
 
