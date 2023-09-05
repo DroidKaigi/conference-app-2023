@@ -389,7 +389,7 @@ private data class TimetableLayout(
             val dayStartLocalTime = startTime.toLocalDateTime(tz)
             LocalDateTime(
                 date = dayStartLocalTime.date,
-                time = LocalTime(dayStartLocalTime.hour, 0)
+                time = LocalTime(dayStartLocalTime.hour, 0),
             ).toInstant(tz)
         }
     }
