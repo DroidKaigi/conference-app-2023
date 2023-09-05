@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
@@ -39,6 +39,15 @@ class KaigiAppRobot @Inject constructor(
             .captureRoboImage()
     }
 
+    // FIXME I am doing this because capture() does not take a screenshot of the Achievement screen.
+    // If you know how to fix it, please fix it.
+    fun captureWhenAchievementScreen()  {
+        composeTestRule
+            .onAllNodes(isRoot())
+            .onFirst()
+            .captureRoboImage()
+    }
+
     fun goToAbout() {
         composeTestRule
             .onNode(hasTestTag(MainScreenTab.About.testTag))
@@ -55,8 +64,11 @@ class KaigiAppRobot @Inject constructor(
 
     fun goToAchievements() {
         composeTestRule
-            .onAllNodes(isRoot())
-            .onLast()
+            .onAllNodes(
+                matcher = hasTestTag(MainScreenTab.Achievements.testTag),
+                useUnmergedTree = true
+            )
+            .onFirst()
             .performClick()
         waitUntilIdle()
     }
