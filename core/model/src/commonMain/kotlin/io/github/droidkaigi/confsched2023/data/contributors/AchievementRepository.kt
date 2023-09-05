@@ -10,6 +10,6 @@ interface AchievementRepository {
     fun getAchievementDetailDescriptionStream(): Flow<String>
     fun getResetAchievementsEnabledStream(): Flow<Boolean>
     fun getAchievementsStream(): Flow<PersistentSet<Achievement>>
-    suspend fun saveAchievements(id: Achievement)
+    suspend fun saveAchievements(achievement: Achievement)
     suspend fun resetAchievements()
 }

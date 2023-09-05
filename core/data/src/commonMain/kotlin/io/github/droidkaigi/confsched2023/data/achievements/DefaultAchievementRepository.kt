@@ -44,8 +44,8 @@ class DefaultAchievementRepository(
         return achievementsDataStore.getAchievementsStream()
     }
 
-    override suspend fun saveAchievements(id: Achievement) {
-        achievementsDataStore.saveAchievements(id)
+    override suspend fun saveAchievements(achievement: Achievement) {
+        achievementsDataStore.saveAchievements(achievement)
     }
 
     override suspend fun resetAchievements() {
