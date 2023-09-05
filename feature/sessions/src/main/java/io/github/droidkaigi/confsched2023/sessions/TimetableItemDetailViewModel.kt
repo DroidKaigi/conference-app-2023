@@ -74,7 +74,7 @@ class TimetableItemDetailViewModel @Inject constructor(
                 timetableItem = timetableItem,
                 timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(timetableItem),
                 isBookmarked = bookmarked,
-                isSelectableLang = timetableItem.sessionType == TimetableSessionType.NORMAL,
+                isLangSelectable = timetableItem.sessionType == TimetableSessionType.NORMAL,
                 viewBookmarkListRequestState = viewBookmarkListRequestState,
                 currentLang = selectedLang,
             )

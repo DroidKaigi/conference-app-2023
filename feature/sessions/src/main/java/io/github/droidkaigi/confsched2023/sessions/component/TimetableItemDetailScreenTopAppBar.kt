@@ -41,7 +41,7 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 fun TimetableItemDetailScreenTopAppBar(
     title: MultiLangText,
-    isSelectableLang: Boolean,
+    isLangSelectable: Boolean,
     onNavigationIconClick: () -> Unit,
     onSelectedLanguage: (Lang) -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
@@ -93,7 +93,7 @@ fun TimetableItemDetailScreenTopAppBar(
             val expandMenu = { expanded = true }
             val shrinkMenu = { expanded = false }
 
-            if (isSelectableLang) {
+            if (isLangSelectable) {
                 IconButton(onClick = expandMenu) {
                     Icon(
                         imageVector = Icons.Outlined.GTranslate,
@@ -170,7 +170,7 @@ private fun ResizeableText(
 fun TimetableItemDetailScreenTopAppBarPreview() {
     TimetableItemDetailScreenTopAppBar(
         title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
-        isSelectableLang = true,
+        isLangSelectable = true,
         onNavigationIconClick = {},
         onSelectedLanguage = {},
         scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
@@ -183,7 +183,7 @@ fun TimetableItemDetailScreenTopAppBarPreview() {
 fun TimetableItemDetailScreenTopAppBarUnSelectableLangPreview() {
     TimetableItemDetailScreenTopAppBar(
         title = MultiLangText(jaTitle = "タイトル", enTitle = "title"),
-        isSelectableLang = false,
+        isLangSelectable = false,
         onNavigationIconClick = {},
         onSelectedLanguage = {},
         scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),

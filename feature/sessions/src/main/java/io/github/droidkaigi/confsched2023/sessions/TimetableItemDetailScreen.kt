@@ -122,7 +122,7 @@ sealed class TimetableItemDetailScreenUiState {
         val timetableItem: TimetableItem,
         val timetableItemDetailSectionUiState: TimetableItemDetailSectionUiState,
         val isBookmarked: Boolean,
-        val isSelectableLang: Boolean,
+        val isLangSelectable: Boolean,
         val viewBookmarkListRequestState: ViewBookmarkListRequestState,
         val currentLang: Lang?,
     ) : TimetableItemDetailScreenUiState()
@@ -155,7 +155,7 @@ private fun TimetableItemDetailScreen(
             if (uiState is Loaded) {
                 TimetableItemDetailScreenTopAppBar(
                     title = uiState.timetableItem.title,
-                    isSelectableLang = uiState.isSelectableLang,
+                    isLangSelectable = uiState.isLangSelectable,
                     onNavigationIconClick = onNavigationIconClick,
                     onSelectedLanguage = onSelectedLanguage,
                     scrollBehavior = scrollBehavior,
@@ -216,7 +216,7 @@ fun TimetableItemDetailScreenPreview() {
                     timetableItem = fakeSession,
                     timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
-                    isSelectableLang = true,
+                    isLangSelectable = true,
                     viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
                     currentLang = Lang.JAPANESE,
                 ),
