@@ -15,7 +15,7 @@ import java.security.MessageDigest
 import javax.inject.Inject
 
 @HiltViewModel
-class AnimationScreenViewModel @Inject constructor(
+class AchievementAnimationScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
     private val achievementRepository: AchievementRepository,
 ) : ViewModel(),

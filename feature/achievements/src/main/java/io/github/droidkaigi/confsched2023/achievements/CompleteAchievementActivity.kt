@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.droidkaigi.confsched2023.achievements.animation.AnimationScreen
+import io.github.droidkaigi.confsched2023.achievements.animation.AchievementAnimationScreen
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @AndroidEntryPoint
@@ -23,7 +23,7 @@ class CompleteAchievementActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    AnimationScreen(
+                    AchievementAnimationScreen(
                         deepLink = intent.data.toString(),
                         onFinished = {
                             finish()

@@ -22,10 +22,10 @@ data class AnimationScreenUiState(
 )
 
 @Composable
-fun AnimationScreen(
+fun AchievementAnimationScreen(
     deepLink: String,
     onFinished: () -> Unit,
-    viewModel: AnimationScreenViewModel = hiltViewModel(),
+    viewModel: AchievementAnimationScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -37,7 +37,7 @@ fun AnimationScreen(
     LaunchedEffect(Unit) {
         viewModel.onReadDeeplinkHash(deepLink)
     }
-    AnimationScreen(
+    AchievementAnimationScreen(
         uiState = uiState,
         onFinished = onFinished,
         onReachAnimationEnd = viewModel::onReachAnimationEnd,
@@ -45,7 +45,7 @@ fun AnimationScreen(
 }
 
 @Composable
-fun AnimationScreen(
+fun AchievementAnimationScreen(
     uiState: AnimationScreenUiState,
     onFinished: () -> Unit,
     onReachAnimationEnd: () -> Unit,
