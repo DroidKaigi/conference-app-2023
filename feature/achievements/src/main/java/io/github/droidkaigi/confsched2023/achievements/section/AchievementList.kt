@@ -74,9 +74,9 @@ fun AchievementList(
                         },
                     )
                 },
-            ) { achievement ->
+            ) { achievementAnimation ->
                 AchievementImage(
-                    achievementAnimation = achievement,
+                    achievementAnimation = achievementAnimation,
                 )
             }
             if (uiState.isResetButtonEnabled) {

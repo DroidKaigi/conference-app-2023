@@ -20,7 +20,8 @@ enum class Achievement(val id: String, val sha256: String) {
     ElectricEel(
         id = "Electric Eel",
         sha256 = "4e52d5a2f091279b365576319ee18384b3340e61f6c97a549ad8a7940c51d0bb",
-    );
+    ),
+    ;
     companion object {
         fun ofOrNull(id: String): Achievement? {
             return entries.find { it.id == id }
