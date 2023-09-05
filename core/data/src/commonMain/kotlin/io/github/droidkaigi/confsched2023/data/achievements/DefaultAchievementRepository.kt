@@ -13,36 +13,31 @@ class DefaultAchievementRepository(
     private val achievementsDataStore: AchievementsDataStore,
 ) : AchievementRepository {
     private val isAchievementsEnabledStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val achievementDetailDescriptionStateFlow: MutableStateFlow<String> = MutableStateFlow("")
+    private val achievementDetailDescriptionStateFlow: MutableStateFlow<String> =
+        MutableStateFlow("")
     private val isResetAchievementsEnabledStateFlow: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
 
-    private suspend fun fetchAchievementsEnabled() {
-        isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(
-            IS_ACHIEVEMENTS_ENABLED_KEY,
-        )
-    }
-
-    private suspend fun fetchAchievementDetailDescription() {
-        achievementDetailDescriptionStateFlow.value =
-            remoteConfigApi.getString(ACHIEVEMENT_DETAIL_DESCRIPTION_KEY)
-    }
-
-    private suspend fun fetchResetAchievementsEnabled() {
-        isResetAchievementsEnabledStateFlow.value =
-            remoteConfigApi.getBoolean(IS_RESET_ACHIEVEMENTS_ENABLED_KEY)
-    }
-
     override fun getAchievementEnabledStream(): Flow<Boolean> {
-        return isAchievementsEnabledStateFlow.onStart { fetchAchievementsEnabled() }
+        return isAchievementsEnabledStateFlow.onStart {
+            isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(
+                IS_ACHIEVEMENTS_ENABLED_KEY,
+            )
+        }
     }
 
     override fun getAchievementDetailDescriptionStream(): Flow<String> {
-        return achievementDetailDescriptionStateFlow.onStart { fetchAchievementDetailDescription() }
+        return achievementDetailDescriptionStateFlow.onStart {
+            achievementDetailDescriptionStateFlow.value =
+                remoteConfigApi.getString(ACHIEVEMENT_DETAIL_DESCRIPTION_KEY)
+        }
     }
 
     override fun getResetAchievementsEnabledStream(): Flow<Boolean> {
-        return isResetAchievementsEnabledStateFlow.onStart { fetchResetAchievementsEnabled() }
+        return isResetAchievementsEnabledStateFlow.onStart {
+            isResetAchievementsEnabledStateFlow.value =
+                remoteConfigApi.getBoolean(IS_RESET_ACHIEVEMENTS_ENABLED_KEY)
+        }
     }
 
     override fun getAchievementsStream(): Flow<PersistentSet<AchievementsItemId>> {
