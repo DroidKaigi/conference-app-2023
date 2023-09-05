@@ -36,7 +36,8 @@ fun AchievementAnimationScreen(
     )
     LaunchedEffect(Unit) {
         viewModel.onReadDeeplinkHash(
-            deepLink = deepLink, onReadFail = onFinished
+            deepLink = deepLink,
+            onReadFail = onFinished,
         )
     }
     AchievementAnimationScreen(
