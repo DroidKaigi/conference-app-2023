@@ -3,6 +3,8 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
+import androidx.compose.ui.test.onChild
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
@@ -54,7 +56,8 @@ class KaigiAppRobot @Inject constructor(
 
     fun goToAchievements() {
         composeTestRule
-            .onNode(hasTestTag(MainScreenTab.Achievements.testTag))
+            .onRoot()
+            .onChild()
             .performClick()
         waitUntilIdle()
     }
