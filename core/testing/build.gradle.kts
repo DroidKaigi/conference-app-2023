@@ -18,7 +18,7 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
-    implementation(projects.feature.stamps)
+    implementation(projects.feature.achievements)
     implementation(projects.feature.staff)
     implementation(libs.daggerHiltAndroidTesting)
     implementation(libs.roborazzi)
