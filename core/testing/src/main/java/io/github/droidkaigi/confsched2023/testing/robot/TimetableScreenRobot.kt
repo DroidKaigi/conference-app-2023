@@ -123,7 +123,7 @@ class TimetableScreenRobot @Inject constructor(
             .onNode(hasTestTag(TimetableScreenTestTag))
             .performTouchInput {
                 swipeUp(
-                    startY = visibleSize.height * 3F / 4,
+                    startY = visibleSize.height * 4F / 5,
                     endY = visibleSize.height / 2F,
                 )
             }
