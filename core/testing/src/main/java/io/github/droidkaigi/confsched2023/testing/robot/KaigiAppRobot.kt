@@ -41,7 +41,7 @@ class KaigiAppRobot @Inject constructor(
 
     // FIXME I am doing this because capture() does not take a screenshot of the Achievement screen.
     // If you know how to fix it, please fix it.
-    fun captureWhenAchievementScreen()  {
+    fun captureWhenAchievementScreen() {
         composeTestRule
             .onAllNodes(isRoot())
             .onFirst()
@@ -66,7 +66,7 @@ class KaigiAppRobot @Inject constructor(
         composeTestRule
             .onAllNodes(
                 matcher = hasTestTag(MainScreenTab.Achievements.testTag),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             )
             .onFirst()
             .performClick()
