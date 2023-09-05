@@ -13,9 +13,10 @@ private let startDateFormatter: DateFormatter = {
 }()
 
 public struct SessionView: View {
-    let viewModel: SessionViewModel
+    @ObservedObject private(set) var viewModel: SessionViewModel
     @State private var isDescriptionExpanded: Bool = false
     @State private var canBeExpanded: Bool = false
+    @State private var isAddingToCalendarConfirming: Bool = false
     @State private var presentingURL: IdentifiableURL?
 
     public init(timetableItem: TimetableItem) {
@@ -174,7 +175,11 @@ public struct SessionView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    // TODO: Add to Calendar
+                    Task {
+                        if await viewModel.requestEventAccessIfNeeded() {
+                            isAddingToCalendarConfirming.toggle()
+                        }
+                    }
                 } label: {
                     Assets.Icons.calendarAddOn.swiftUIImage
                 }
@@ -188,6 +193,15 @@ public struct SessionView: View {
                 } label: {
                     Assets.Icons.bookmarkBorder.swiftUIImage
                 }
+            }
+        }
+        .confirmationDialog("", isPresented: $isAddingToCalendarConfirming) {
+            Button("Add to your calendar") {
+                viewModel.addToCalendar()
+            }
+
+            Button("Cancel", role: .cancel) {
+                isAddingToCalendarConfirming = false
             }
         }
         .sheet(item: $presentingURL) { url in
