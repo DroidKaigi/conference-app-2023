@@ -3,6 +3,16 @@
     {
       "filename" : "trailing-icon 3.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "grid-view-Icon-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
