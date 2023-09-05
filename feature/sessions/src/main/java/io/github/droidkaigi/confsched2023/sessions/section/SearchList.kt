@@ -32,13 +32,11 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
-import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 import io.github.droidkaigi.confsched2023.sessions.component.SessionTag
 import io.github.droidkaigi.confsched2023.sessions.component.TimetableListItem
 import io.github.droidkaigi.confsched2023.sessions.component.color
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.PersistentSet
-import java.util.Locale
 
 data class SearchListUiState(
     val bookmarkedTimetableItemIds: PersistentSet<TimetableItemId>,
@@ -136,24 +134,7 @@ fun SearchList(
                     highlightQuery = searchQuery,
                     chipContent = {
                         // Chips
-                        val infoChip = mutableListOf<String>()
-
-                        infoChip.add(timetableItem.day?.name.orEmpty())
-                        infoChip.add(timetableItem.category.title.currentLangTitle)
-                        infoChip.add(
-                            timetableItem.language.langOfSpeaker.let {
-                                when (it) {
-                                    "MIXED" -> it
-                                    else -> {
-                                        it.take(2).uppercase(Locale.ENGLISH)
-                                    }
-                                }
-                            },
-                        )
-                        if (timetableItem.language.isInterpretationTarget) {
-                            infoChip.add(SessionsStrings.InterpretationTarget.asString())
-                        }
-
+                        // only room name and day name
                         val hallColor = hallColors()
                         val roomChipBackgroundColor = timetableItem.room.color
                         val roomChipLabelColor = hallColor.hallText
@@ -162,12 +143,10 @@ fun SearchList(
                             labelColor = roomChipLabelColor,
                             backgroundColor = roomChipBackgroundColor,
                         )
-                        infoChip.forEach {
-                            SessionTag(
-                                label = it,
-                                borderColor = MaterialTheme.colorScheme.outline,
-                            )
-                        }
+                        SessionTag(
+                            label = timetableItem.day?.name.orEmpty(),
+                            borderColor = MaterialTheme.colorScheme.outline,
+                        )
                     },
                     onBookmarkClick = onBookmarkIconClick,
                 )
