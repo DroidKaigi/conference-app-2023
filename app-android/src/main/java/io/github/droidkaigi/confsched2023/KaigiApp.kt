@@ -126,6 +126,20 @@ private fun KaigiNavHost(
             onBackClick = navController::popBackStack,
             onStaffClick = externalNavController::navigate,
         )
+        // For KMP, we are not using navigation abstraction for contributors screen
+        composable(contributorsScreenRoute) {
+            val lifecycleOwner = LocalLifecycleOwner.current
+            ContributorsScreen(
+                viewModel = hiltViewModel<ContributorsViewModel>(),
+                onNavigationIconClick = {
+                    handleOnClickIfNotNavigating(
+                        lifecycleOwner,
+                        navController::popBackStack,
+                    )
+                },
+                onContributorItemClick = externalNavController::navigate,
+            )
+        }
     }
 }
 
@@ -156,11 +170,8 @@ private fun NavGraphBuilder.mainScreen(
                     }
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> {
-                            externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct")
-                        }
-
-                        Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
+                        CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
+                        Contributors -> navController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> {
@@ -183,21 +194,6 @@ private fun NavGraphBuilder.mainScreen(
             nestedAchievementsScreen(
                 contentPadding = contentPadding,
             )
-            // For KMP, we are not using navigation abstraction for contributors screen
-            composable(contributorsScreenRoute) {
-                val lifecycleOwner = LocalLifecycleOwner.current
-                ContributorsScreen(
-                    viewModel = hiltViewModel<ContributorsViewModel>(),
-                    onNavigationIconClick = {
-                        handleOnClickIfNotNavigating(
-                            lifecycleOwner,
-                            mainNestedNavController::popBackStack,
-                        )
-                    },
-                    onContributorItemClick = externalNavController::navigate,
-                    contentPadding = contentPadding,
-                )
-            }
         },
     )
 }
