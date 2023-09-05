@@ -52,13 +52,14 @@ class AchievementAnimationScreenViewModel @Inject constructor(
 
             else -> AchievementsItemId(null) to null
         }
+
+        viewModelScope.launch {
+            achievementRepository.saveAchievements(animationLottieRawResStateFlow.value.first)
+        }
     }
 
     fun onReachAnimationEnd() {
-        viewModelScope.launch {
-            achievementRepository.saveAchievements(animationLottieRawResStateFlow.value.first)
-            animationLottieRawResStateFlow.value = AchievementsItemId(null) to null
-        }
+        animationLottieRawResStateFlow.value = AchievementsItemId(null) to null
     }
 }
 
