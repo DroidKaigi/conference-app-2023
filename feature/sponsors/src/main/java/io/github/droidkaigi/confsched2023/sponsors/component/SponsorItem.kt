@@ -14,14 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.Sponsor
 import io.github.droidkaigi.confsched2023.model.fakes
-import io.github.droidkaigi.confsched2023.ui.previewOverride
-import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
+import io.github.droidkaigi.confsched2023.ui.isTest
 
 @Composable
 fun SponsorItem(
@@ -29,21 +30,35 @@ fun SponsorItem(
     modifier: Modifier = Modifier,
     onSponsorClick: (url: String) -> Unit,
 ) {
-    Image(
-        painter = previewOverride(previewPainter = { rememberVectorPainter(image = Icons.Default.Image) }) {
-            rememberAsyncImagePainter(sponsor.logo)
-        },
-        contentDescription = sponsor.name,
-        modifier = modifier
-            .padding(
-                top = if (sponsor.plan.isPlatinum) 0.dp else 8.dp,
-                bottom = if (sponsor.plan.isPlatinum) 12.dp else 8.dp,
-            )
-            .background(color = Color.White)
-            .clip(RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp))
-            .clickable { onSponsorClick(sponsor.link) }
-            .fillMaxSize(),
-    )
+    if (LocalInspectionMode.current || isTest()) {
+        Image(
+            painter = rememberVectorPainter(image = Icons.Default.Image),
+            contentDescription = sponsor.name,
+            modifier = modifier
+                .padding(
+                    top = if (sponsor.plan.isPlatinum) 0.dp else 8.dp,
+                    bottom = if (sponsor.plan.isPlatinum) 12.dp else 8.dp,
+                )
+                .background(color = Color.White)
+                .clip(RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp))
+                .clickable { onSponsorClick(sponsor.link) }
+                .fillMaxSize(),
+        )
+    } else {
+        AsyncImage(
+            model = sponsor.logo,
+            contentDescription = sponsor.name,
+            modifier = modifier
+                .padding(
+                    top = if (sponsor.plan.isPlatinum) 0.dp else 8.dp,
+                    bottom = if (sponsor.plan.isPlatinum) 12.dp else 8.dp,
+                )
+                .background(color = Color.White)
+                .clip(RoundedCornerShape(if (sponsor.plan.isSupporter) 4.dp else 8.dp))
+                .clickable { onSponsorClick(sponsor.link) }
+                .fillMaxSize(),
+        )
+    }
 }
 
 @MultiThemePreviews
