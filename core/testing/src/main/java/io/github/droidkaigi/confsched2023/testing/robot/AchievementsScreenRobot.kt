@@ -31,13 +31,7 @@ class AchievementsScreenRobot @Inject constructor(
     fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-<<<<<<< HEAD:core/testing/src/main/java/io/github/droidkaigi/confsched2023/testing/robot/StampsScreenRobot.kt
-                StampsScreen()
-=======
-                AchievementsScreen(
-                    onAchievementsClick = { },
-                )
->>>>>>> origin/main:core/testing/src/main/java/io/github/droidkaigi/confsched2023/testing/robot/AchievementsScreenRobot.kt
+                AchievementsScreen()
             }
         }
         waitUntilIdle()

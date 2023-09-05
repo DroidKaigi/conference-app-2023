@@ -130,12 +130,8 @@ dependencies {
     kover(projects.feature.sessions)
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
-<<<<<<< HEAD
-    kover(projects.feature.stamps)
     kover(projects.feature.animation)
-=======
     kover(projects.feature.achievements)
->>>>>>> origin/main
 
     kover(projects.core.common)
     kover(projects.core.data)

@@ -17,19 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/section/StampList.kt
-import io.github.droidkaigi.confsched2023.model.Stamp
-import io.github.droidkaigi.confsched2023.stamps.component.StampImage
-import io.github.droidkaigi.confsched2023.stamps.component.StampsDetail
-=======
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementImage
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementsDetail
 import io.github.droidkaigi.confsched2023.model.Achievement
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/section/AchievementList.kt
 import kotlinx.collections.immutable.ImmutableList
 
 private const val AchievementsListColumns = 2
@@ -43,59 +33,17 @@ data class AchievementListUiState(
 )
 
 @Composable
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/section/StampList.kt
-fun StampList(
-    uiState: StampListUiState,
-=======
 fun AchievementList(
     uiState: AchievementListUiState,
-    @androidx.annotation.RawRes
-    achievementLottieRawId: Int?,
-    onAchievementsClick: (Achievement) -> Unit,
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/section/AchievementList.kt
     contentPadding: PaddingValues,
     onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val layoutDirection = LocalLayoutDirection.current
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/section/StampList.kt
-=======
-    val bgColor: Color by animateColorAsState(
-        if (achievementLottieRawId != null) {
-            Color(0xFF37383D)
-        } else {
-            Color.Transparent
-        },
-        animationSpec = tween(
-            delayMillis = 2,
-            durationMillis = 400,
-            easing = EaseInOut,
-        ),
-        label = "",
-    )
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/section/AchievementList.kt
     Box(
         modifier = Modifier
             .fillMaxSize(),
     ) {
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/section/StampList.kt
-=======
-        if (achievementLottieRawId != null) {
-            val lottieComposition by rememberLottieComposition(RawRes(achievementLottieRawId))
-            val progress by animateLottieCompositionAsState(
-                composition = lottieComposition,
-                isPlaying = true,
-                restartOnPlay = true,
-            )
-            if (progress == 1f) {
-                onReachAnimationEnd()
-            }
-            LottieAnimation(
-                composition = lottieComposition,
-                progress = { progress },
-            )
-        }
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/section/AchievementList.kt
         LazyVerticalGrid(
             columns = Fixed(AchievementsListColumns),
             modifier = modifier,
@@ -126,21 +74,9 @@ fun AchievementList(
                         },
                     )
                 },
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/section/StampList.kt
-            ) { stamp ->
-                StampImage(
-                    stamp = stamp,
-=======
             ) { achievement ->
-                val onAchievementClick = if (achievementLottieRawId != null) {
-                    {} // Prevents clicks during animation playback.
-                } else {
-                    onAchievementsClick
-                }
                 AchievementImage(
                     achievement = achievement,
-                    onAchievementClick = onAchievementClick,
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/section/AchievementList.kt
                 )
             }
             if (uiState.isResetButtonEnabled) {

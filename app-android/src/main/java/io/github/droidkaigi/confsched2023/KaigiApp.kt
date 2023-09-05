@@ -156,11 +156,17 @@ private fun NavGraphBuilder.mainScreen(
                     }
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
+                        CodeOfConduct -> {
+                            externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct")
+                        }
+
                         Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> { externalNavController.navigate(url = "$portalBaseUrl/about/privacy") }
+                        PrivacyPolicy -> {
+                            externalNavController.navigate(url = "$portalBaseUrl/about/privacy")
+                        }
+
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -174,14 +180,7 @@ private fun NavGraphBuilder.mainScreen(
                 onSideEventClick = externalNavController::navigate,
                 contentPadding = contentPadding,
             )
-<<<<<<< HEAD
-            nestedStampsScreen(
-=======
             nestedAchievementsScreen(
-                onAchievementsClick = {
-                    // TODO
-                },
->>>>>>> origin/main
                 contentPadding = contentPadding,
             )
             // For KMP, we are not using navigation abstraction for contributors screen

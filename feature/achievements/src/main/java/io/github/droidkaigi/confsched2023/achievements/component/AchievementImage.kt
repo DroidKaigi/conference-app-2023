@@ -9,24 +9,14 @@ import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.model.Achievement
 
 @Composable
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/component/StampImage.kt
-fun StampImage(
-    stamp: Stamp,
-=======
 fun AchievementImage(
     achievement: Achievement,
-    onAchievementClick: (Achievement) -> Unit,
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/component/AchievementImage.kt
     modifier: Modifier = Modifier,
 ) {
     Image(
         painter = painterResource(id = achievement.getDrawableResId()),
         contentDescription = achievement.contentDescription,
         modifier = modifier
-<<<<<<< HEAD:feature/stamps/src/main/java/io/github/droidkaigi/confsched2023/stamps/component/StampImage.kt
-=======
-            .clickable { onAchievementClick(achievement) }
->>>>>>> origin/main:feature/achievements/src/main/java/io/github/droidkaigi/confsched2023/achievements/component/AchievementImage.kt
             .padding(horizontal = 21.dp),
     )
 }
