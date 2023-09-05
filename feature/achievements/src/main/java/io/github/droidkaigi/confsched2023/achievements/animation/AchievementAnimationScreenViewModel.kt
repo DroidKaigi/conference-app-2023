@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.achievements.animation
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -64,7 +65,11 @@ class AchievementAnimationScreenViewModel @Inject constructor(
 }
 
 fun lastSegmentOfUrl(url: String): String? {
-    return url.trim().split("/").lastOrNull()?.takeIf { it.isNotEmpty() }
+    return try {
+        Uri.parse(url).path?.split("/")?.lastOrNull()?.takeIf { it.isNotEmpty() }
+    } catch (e: Exception) {
+        null
+    }
 }
 
 fun idToSha256(id: String?): String {
