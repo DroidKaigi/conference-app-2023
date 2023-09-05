@@ -24,7 +24,8 @@ json:
       publicAccess: true
 
 fonts:
-  inputs: ../../../../../core/designsystem/src/commonMain/resources/font
+  inputs:
+    - Font
   outputs:
     templateName: swift5
     output: Fonts.swift
