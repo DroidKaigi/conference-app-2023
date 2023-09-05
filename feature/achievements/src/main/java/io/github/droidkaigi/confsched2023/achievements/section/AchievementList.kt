@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementImage
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementsDetail
-import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 import kotlinx.collections.immutable.ImmutableList
 
 private const val AchievementsListColumns = 2
@@ -27,7 +27,7 @@ private const val SingleItemSpanCount = 2
 private const val DoubleItemSpanCount = 2 / 2
 
 data class AchievementListUiState(
-    val achievements: ImmutableList<Achievement>,
+    val achievements: ImmutableList<AchievementAnimation>,
     val detailDescription: String,
     val isResetButtonEnabled: Boolean,
 )
@@ -76,7 +76,7 @@ fun AchievementList(
                 },
             ) { achievement ->
                 AchievementImage(
-                    achievement = achievement,
+                    achievementAnimation = achievement,
                 )
             }
             if (uiState.isResetButtonEnabled) {

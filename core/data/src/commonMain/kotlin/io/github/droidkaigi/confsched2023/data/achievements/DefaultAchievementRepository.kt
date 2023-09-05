@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2023.data.achievements
 
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId
+import io.github.droidkaigi.confsched2023.model.Achievement
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,11 +40,11 @@ class DefaultAchievementRepository(
         }
     }
 
-    override fun getAchievementsStream(): Flow<PersistentSet<AchievementsItemId>> {
+    override fun getAchievementsStream(): Flow<PersistentSet<Achievement>> {
         return achievementsDataStore.getAchievementsStream()
     }
 
-    override suspend fun saveAchievements(id: AchievementsItemId) {
+    override suspend fun saveAchievements(id: Achievement) {
         achievementsDataStore.saveAchievements(id)
     }
 

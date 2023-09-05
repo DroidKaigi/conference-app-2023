@@ -1,7 +1,7 @@
 package io.github.droidkaigi.confsched2023.model
 
-data class Achievement(
-    val id: AchievementsItemId,
+data class AchievementAnimation(
+    val achievement: Achievement,
     val hasDrawableResId: Int,
     val notHasDrawableResId: Int,
     val hasAchievement: Boolean = false,

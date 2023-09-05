@@ -22,7 +22,7 @@ import javax.inject.Inject
 @Config(
     qualifiers = RobolectricDeviceQualifiers.NexusOne,
 )
-class AchievementsScreenTest {
+class AchievementAnimationScreenTest {
 
     @get:Rule
     @BindValue val robotTestRule: RobotTestRule = RobotTestRule<HiltTestActivity>(this)

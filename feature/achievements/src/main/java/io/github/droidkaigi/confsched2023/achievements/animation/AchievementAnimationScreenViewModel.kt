@@ -6,8 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.feature.achievements.R
-import io.github.droidkaigi.confsched2023.model.Achievements
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId
+import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,49 +20,52 @@ class AchievementAnimationScreenViewModel @Inject constructor(
     private val achievementRepository: AchievementRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val animationLottieRawResStateFlow: MutableStateFlow<Pair<AchievementsItemId, Int?>> =
-        MutableStateFlow(AchievementsItemId(null) to null)
+    private val animationLottieRawResStateFlow: MutableStateFlow<Int?> =
+        MutableStateFlow(null)
 
     val uiState = buildUiState(
         animationLottieRawResStateFlow,
     ) { rawRes ->
         AnimationScreenUiState(
-            rawId = rawRes.second,
+            rawId = rawRes,
         )
     }
 
     fun onReadDeeplinkHash(deepLink: String, onReadFail: () -> Unit) {
         val achievementId = lastSegmentOfUrl(deepLink)
         val achievementHash = idToSha256(achievementId)
-        animationLottieRawResStateFlow.value = when (achievementHash) {
-            Achievements.ArcticFox.sha256 ->
-                AchievementsItemId(Achievements.ArcticFox.id) to R.raw.achievement_a_lottie
+        val (achievement, animation) = when (achievementHash) {
+            Achievement.ArcticFox.sha256 ->
+                Achievement.ArcticFox to R.raw.achievement_a_lottie
 
-            Achievements.Bumblebee.sha256 ->
-                AchievementsItemId(Achievements.Bumblebee.id) to R.raw.achievement_b_lottie
+            Achievement.Bumblebee.sha256 ->
+                Achievement.Bumblebee to R.raw.achievement_b_lottie
 
-            Achievements.Chipmunk.sha256 ->
-                AchievementsItemId(Achievements.Chipmunk.id) to R.raw.achievement_c_lottie
+            Achievement.Chipmunk.sha256 ->
+                Achievement.Chipmunk to R.raw.achievement_c_lottie
 
-            Achievements.Dolphin.sha256 ->
-                AchievementsItemId(Achievements.Dolphin.id) to R.raw.achievement_d_lottie
+            Achievement.Dolphin.sha256 ->
+                Achievement.Dolphin to R.raw.achievement_d_lottie
 
-            Achievements.ElectricEel.sha256 ->
-                AchievementsItemId(Achievements.ElectricEel.id) to R.raw.achievement_e_lottie
+            Achievement.ElectricEel.sha256 ->
+                Achievement.ElectricEel to R.raw.achievement_e_lottie
 
             else -> {
                 onReadFail()
-                AchievementsItemId(null) to null
+                null to null
             }
         }
+        animationLottieRawResStateFlow.value = animation
 
         viewModelScope.launch {
-            achievementRepository.saveAchievements(animationLottieRawResStateFlow.value.first)
+            achievement?.let {
+                achievementRepository.saveAchievements(achievement)
+            }
         }
     }
 
     fun onReachAnimationEnd() {
-        animationLottieRawResStateFlow.value = AchievementsItemId(null) to null
+        animationLottieRawResStateFlow.value = null
     }
 }
 

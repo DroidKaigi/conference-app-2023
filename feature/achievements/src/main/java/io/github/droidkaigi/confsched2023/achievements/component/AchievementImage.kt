@@ -6,16 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 
 @Composable
 fun AchievementImage(
-    achievement: Achievement,
+    achievementAnimation: AchievementAnimation,
     modifier: Modifier = Modifier,
 ) {
     Image(
-        painter = painterResource(id = achievement.getDrawableResId()),
-        contentDescription = achievement.contentDescription,
+        painter = painterResource(id = achievementAnimation.getDrawableResId()),
+        contentDescription = achievementAnimation.contentDescription,
         modifier = modifier
             .padding(horizontal = 21.dp),
     )

@@ -8,12 +8,7 @@ import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepositor
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Achievement
-import io.github.droidkaigi.confsched2023.model.Achievements.ArcticFox
-import io.github.droidkaigi.confsched2023.model.Achievements.Bumblebee
-import io.github.droidkaigi.confsched2023.model.Achievements.Chipmunk
-import io.github.droidkaigi.confsched2023.model.Achievements.Dolphin
-import io.github.droidkaigi.confsched2023.model.Achievements.ElectricEel
-import io.github.droidkaigi.confsched2023.model.AchievementsItemId
+import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
@@ -45,7 +40,7 @@ class AchievementsScreenViewModel @Inject constructor(
                 initialValue = "",
             )
 
-    private val achievementsStateFlow: StateFlow<PersistentSet<AchievementsItemId>> =
+    private val achievementsStateFlow: StateFlow<PersistentSet<Achievement>> =
         achievementRepository.getAchievementsStream()
             .handleErrorAndRetry(
                 AppStrings.Retry,
@@ -69,46 +64,46 @@ class AchievementsScreenViewModel @Inject constructor(
                 initialValue = false,
             )
 
-    private val achievementListState = buildUiState(
+    private val achievementAnimationListState = buildUiState(
         achievementDetailDescriptionStateFlow,
         achievementsStateFlow,
         resetAchievementsEnabledStateFlow,
     ) { detailDescription, achievements, isResetAchievementsEnable ->
         AchievementListUiState(
             achievements = persistentListOf(
-                Achievement(
-                    id = AchievementsItemId(ArcticFox.id),
+                AchievementAnimation(
+                    achievement = Achievement.ArcticFox,
                     hasDrawableResId = R.drawable.img_achievement_a_on,
                     notHasDrawableResId = R.drawable.img_achievement_a_off,
-                    hasAchievement = achievements.contains(AchievementsItemId(ArcticFox.id)),
+                    hasAchievement = achievements.contains(Achievement.ArcticFox),
                     contentDescription = "AchievementA image",
                 ),
-                Achievement(
-                    id = AchievementsItemId(Bumblebee.id),
+                AchievementAnimation(
+                    achievement = Achievement.Bumblebee,
                     hasDrawableResId = R.drawable.img_achievement_b_on,
                     notHasDrawableResId = R.drawable.img_achievement_b_off,
-                    hasAchievement = achievements.contains(AchievementsItemId(Bumblebee.id)),
+                    hasAchievement = achievements.contains(Achievement.Bumblebee),
                     contentDescription = "AchievementB image",
                 ),
-                Achievement(
-                    id = AchievementsItemId(Chipmunk.id),
+                AchievementAnimation(
+                    achievement = Achievement.Chipmunk,
                     hasDrawableResId = R.drawable.img_achievement_c_on,
                     notHasDrawableResId = R.drawable.img_achievement_c_off,
-                    hasAchievement = achievements.contains(AchievementsItemId(Chipmunk.id)),
+                    hasAchievement = achievements.contains(Achievement.Chipmunk),
                     contentDescription = "AchievementC image",
                 ),
-                Achievement(
-                    id = AchievementsItemId(Dolphin.id),
+                AchievementAnimation(
+                    achievement = Achievement.Dolphin,
                     hasDrawableResId = R.drawable.img_achievement_d_on,
                     notHasDrawableResId = R.drawable.img_achievement_d_off,
-                    hasAchievement = achievements.contains(AchievementsItemId(Dolphin.id)),
+                    hasAchievement = achievements.contains(Achievement.Dolphin),
                     contentDescription = "AchievementD image",
                 ),
-                Achievement(
-                    id = AchievementsItemId(ElectricEel.id),
+                AchievementAnimation(
+                    achievement = Achievement.ElectricEel,
                     hasDrawableResId = R.drawable.img_achievement_e_on,
                     notHasDrawableResId = R.drawable.img_achievement_e_off,
-                    hasAchievement = achievements.contains(AchievementsItemId(ElectricEel.id)),
+                    hasAchievement = achievements.contains(Achievement.ElectricEel),
                     contentDescription = "AchievementE image",
                 ),
             ),
@@ -118,7 +113,7 @@ class AchievementsScreenViewModel @Inject constructor(
     }
 
     val uiState = buildUiState(
-        achievementListState,
+        achievementAnimationListState,
     ) { achievementListUiState ->
         AchievementsScreenUiState(
             achievementListUiState = achievementListUiState,
