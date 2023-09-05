@@ -32,7 +32,7 @@ class AchievementAnimationScreenViewModel @Inject constructor(
         )
     }
 
-    fun onReadDeeplinkHash(deepLink: String) {
+    fun onReadDeeplinkHash(deepLink: String, onReadFail: () -> Unit) {
         val achievementId = lastSegmentOfUrl(deepLink)
         val achievementHash = idToSha256(achievementId)
         animationLottieRawResStateFlow.value = when (achievementHash) {
@@ -51,7 +51,10 @@ class AchievementAnimationScreenViewModel @Inject constructor(
             Achievements.ElectricEel.sha256 ->
                 AchievementsItemId(Achievements.ElectricEel.id) to R.raw.achievement_e_lottie
 
-            else -> AchievementsItemId(null) to null
+            else -> {
+                onReadFail()
+                AchievementsItemId(null) to null
+            }
         }
 
         viewModelScope.launch {
@@ -65,11 +68,7 @@ class AchievementAnimationScreenViewModel @Inject constructor(
 }
 
 fun lastSegmentOfUrl(url: String): String? {
-    return try {
-        Uri.parse(url).path?.split("/")?.lastOrNull()?.takeIf { it.isNotEmpty() }
-    } catch (e: Exception) {
-        null
-    }
+    return Uri.parse(url).path?.split("/")?.lastOrNull()?.takeIf { it.isNotEmpty() }
 }
 
 fun idToSha256(id: String?): String {

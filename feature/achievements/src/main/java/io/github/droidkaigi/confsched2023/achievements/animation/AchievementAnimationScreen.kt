@@ -35,7 +35,9 @@ fun AchievementAnimationScreen(
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
     LaunchedEffect(Unit) {
-        viewModel.onReadDeeplinkHash(deepLink)
+        viewModel.onReadDeeplinkHash(
+            deepLink = deepLink, onReadFail = onFinished
+        )
     }
     AchievementAnimationScreen(
         uiState = uiState,
