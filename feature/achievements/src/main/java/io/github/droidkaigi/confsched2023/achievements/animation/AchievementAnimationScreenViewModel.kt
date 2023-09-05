@@ -67,17 +67,18 @@ class AchievementAnimationScreenViewModel @Inject constructor(
     fun onReachAnimationEnd() {
         animationLottieRawResStateFlow.value = null
     }
+
+    private fun lastSegmentOfUrl(url: String): String? {
+        return Uri.parse(url).path?.split("/")?.lastOrNull()?.takeIf { it.isNotEmpty() }
+    }
+
+    private fun idToSha256(id: String?): String {
+        if (id == null) return ""
+        return MessageDigest.getInstance("SHA-256")
+            .digest(id.toByteArray())
+            .joinToString(separator = "") {
+                "%02x".format(it)
+            }
+    }
 }
 
-fun lastSegmentOfUrl(url: String): String? {
-    return Uri.parse(url).path?.split("/")?.lastOrNull()?.takeIf { it.isNotEmpty() }
-}
-
-fun idToSha256(id: String?): String {
-    if (id == null) return ""
-    return MessageDigest.getInstance("SHA-256")
-        .digest(id.toByteArray())
-        .joinToString(separator = "") {
-            "%02x".format(it)
-        }
-}
