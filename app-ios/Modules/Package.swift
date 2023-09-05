@@ -99,6 +99,13 @@ var package = Package(
         ),
 
         .target(
+            name: "Event",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
+            ]
+        ),
+
+        .target(
             name: "FloorMap",
             dependencies: [
                 "Assets",
@@ -135,6 +142,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
+                "Event",
                 "KMPContainer",
                 "Model",
             ]

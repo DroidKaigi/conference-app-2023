@@ -12,4 +12,5 @@ dependencies {
 
     implementation(libs.composeHiltNavigtation)
     implementation(libs.composeMaterialIcon)
+    implementation(libs.composeCoil)
 }
