@@ -1,10 +1,10 @@
-package io.github.droidkaigi.confsched2023.animation
+package io.github.droidkaigi.confsched2023.achievements.animation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
-import io.github.droidkaigi.confsched2023.feature.animation.R
+import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Achievements
 import io.github.droidkaigi.confsched2023.model.AchievementsItemId
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder

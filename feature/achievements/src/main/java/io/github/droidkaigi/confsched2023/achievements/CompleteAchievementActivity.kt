@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023
+package io.github.droidkaigi.confsched2023.achievements
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import io.github.droidkaigi.confsched2023.animation.AnimationScreen
+import io.github.droidkaigi.confsched2023.achievements.animation.AnimationScreen
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 
 @AndroidEntryPoint

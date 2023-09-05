@@ -103,7 +103,6 @@ dependencies {
     implementation(projects.feature.floorMap)
     implementation(projects.feature.achievements)
     implementation(projects.feature.staff)
-    implementation(projects.feature.animation)
     implementation(projects.core.model)
     implementation(projects.core.data)
     implementation(projects.core.designsystem)
@@ -130,7 +129,6 @@ dependencies {
     kover(projects.feature.sessions)
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
-    kover(projects.feature.animation)
     kover(projects.feature.achievements)
 
     kover(projects.core.common)
