@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.Intent.CATEGORY_BROWSABLE
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
@@ -34,7 +33,9 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
             finishAndRemoveTask()
             return
         }
-        val mainIntent = Intent(this, MainActivity::class.java)
+        val mainIntent = Intent(this, MainActivity::class.java).apply {
+            flags = FLAG_ACTIVITY_NEW_TASK
+        }
         startActivity(mainIntent)
         try {
             val intent = Intent(Intent.ACTION_VIEW, deepLink).apply {
@@ -43,11 +44,6 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
                 addCategory(CATEGORY_BROWSABLE)
                 // new task is important for gateway activities like this
                 flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_REQUIRE_DEFAULT
-            }
-            startActivity(intent)
-        } catch (ignore: ActivityNotFoundException) {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                flags = FLAG_ACTIVITY_NEW_TASK
             }
             startActivity(intent)
         } finally {
