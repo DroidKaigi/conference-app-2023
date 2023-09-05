@@ -333,19 +333,15 @@ private data class TimetableItemLayout(
     val dayStartTime: Instant,
     val density: Density,
     val minutePx: Float,
-    val dayToStartTime: MutableMap<DroidKaigi2023Day, Instant>,
+    val dayToStartTime: Map<DroidKaigi2023Day, Instant>,
 ) {
-    val tz = TimeZone.of("UTC+9")
     val dayStart = dayToStartTime[timetableItem.day] ?: dayStartTime
-    val gridStartTime = LocalTime(hour = 10, minute = 0)
-    val gridStart =
-        LocalDateTime(date = dayStart.toLocalDateTime(tz).date, time = gridStartTime).toInstant(tz)
     private val displayEndsAt = timetableItem.endsAt.minus(1, DateTimeUnit.MINUTE)
     val height =
         ((displayEndsAt - timetableItem.startsAt).inWholeMinutes * minutePx).roundToInt()
     val width = with(density) { TimetableSizes.columnWidth.roundToPx() }
     val left = rooms.indexOf(timetableItem.room) * width
-    val top = ((timetableItem.startsAt - gridStart).inWholeMinutes * minutePx).toInt()
+    val top = ((timetableItem.startsAt - dayStart).inWholeMinutes * minutePx).toInt()
     val right = left + width
     val bottom = top + height
 
@@ -388,7 +384,14 @@ private data class TimetableLayout(
                 )
             }
         }
-        dayToStartTime
+        dayToStartTime.mapValues { (_, startTime) ->
+            val tz = TimeZone.of("UTC+9")
+            val dayStartLocalTime = startTime.toLocalDateTime(tz)
+            LocalDateTime(
+                date = dayStartLocalTime.date,
+                time = LocalTime(dayStartLocalTime.hour, 0)
+            ).toInstant(tz)
+        }
     }
     val timetableLayouts = timetable.timetableItems.map {
         val timetableItemLayout = TimetableItemLayout(
