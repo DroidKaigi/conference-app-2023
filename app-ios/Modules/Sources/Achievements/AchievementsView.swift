@@ -25,16 +25,37 @@ public struct AchievementsView: View {
                             .font(Font.system(size: 16))
                             .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                         LazyVGrid(columns: [.init(), .init()]) {
-                            if state.achievements.contains(AchievementsItemId) {
-                                Assets.Images.achievementArcticFoxActive.swiftUIImage
-                            } else {
-                                Assets.Images.achievementArcticFox.swiftUIImage
-                            }
-                            Assets.Images.achievementBumblebee.swiftUIImage
-                            Assets.Images.achievementChipmunk.swiftUIImage
-                            Assets.Images.achievementDolphin.swiftUIImage
+                            AchievementImage(
+                                target: Achievement.arcticfox,
+                                savedAchievements: state.achievements,
+                                activeImage: Assets.Images.achievementArcticFoxActive,
+                                inactiveImage: Assets.Images.achievementArcticFox
+                            )
+                            AchievementImage(
+                                target: Achievement.bumblebee,
+                                savedAchievements: state.achievements,
+                                activeImage: Assets.Images.achievementBumbleBeeActive,
+                                inactiveImage: Assets.Images.achievementBumblebee
+                            )
+                            AchievementImage(
+                                target: Achievement.chipmunk,
+                                savedAchievements: state.achievements,
+                                activeImage: Assets.Images.achievementChipmunkActive,
+                                inactiveImage: Assets.Images.achievementChipmunk
+                            )
+                            AchievementImage(
+                                target: Achievement.dolphin,
+                                savedAchievements: state.achievements,
+                                activeImage: Assets.Images.achievementDolphinActive,
+                                inactiveImage: Assets.Images.achievementDolphin
+                            )
                             // TODO: Find good render way
-                            Assets.Images.achievementElectricEel.swiftUIImage
+                            AchievementImage(
+                                target: Achievement.chipmunk,
+                                savedAchievements: state.achievements,
+                                activeImage: Assets.Images.achievementElectricEelActive,
+                                inactiveImage: Assets.Images.achievementElectricEel
+                            )
                         }
                     }
                     .padding(16)
@@ -42,6 +63,21 @@ public struct AchievementsView: View {
                 .background(AssetColors.Surface.surface.swiftUIColor)
                 .navigationTitle("Achievements")
             }
+        }
+    }
+}
+
+struct AchievementImage: View {
+    let target: Achievement
+    let savedAchievements: Set<Achievement>
+    let activeImage: ImageAsset
+    let inactiveImage: ImageAsset
+
+    var body: some View {
+        if savedAchievements.contains(target) {
+            activeImage.swiftUIImage
+        } else {
+            inactiveImage.swiftUIImage
         }
     }
 }

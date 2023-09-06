@@ -8,7 +8,7 @@ import shared
 struct AchievementsViewState: ViewModelState {
     struct LoadedState: Equatable {
         var description: String
-        var achievements: Set<AchievementsItemId>
+        var achievements: Set<Achievement>
     }
 
     var loadedState: LoadingState<LoadedState> = .initial
@@ -16,7 +16,7 @@ struct AchievementsViewState: ViewModelState {
 
 @MainActor
 class AchievementsViewModel: ObservableObject {
-    @Dependency(\.stampData) var stampData
+    @Dependency(\.achievementData) var achievementData
     @Published var state: AchievementsViewState = .init()
     private var loadTask: Task<Void, Error>?
 
@@ -30,12 +30,12 @@ class AchievementsViewModel: ObservableObject {
         loadTask = Task.detached { @MainActor in
             do {
                 for try await (description, achievements) in combineLatest(
-                    self.stampData.stampDetailDescription(),
-                    self.stampData.achievements()
+                    self.achievementData.achievementDetailDescription(),
+                    self.achievementData.achievements()
                 ) {
                     self.state.loadedState = .loaded(
                         .init(
-                            description: description, 
+                            description: description,
                             achievements: achievements
                         )
                     )
