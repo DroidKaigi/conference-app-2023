@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -22,7 +23,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
@@ -47,23 +50,51 @@ fun TimetableItemDetailScreenTopAppBar(
     scrollBehavior: TopAppBarScrollBehavior,
     modifier: Modifier = Modifier,
 ) {
-    val isCollapsed: Boolean by remember {
-        derivedStateOf {
-            scrollBehavior.state.collapsedFraction >= 0.5f
-        }
-    }
     val lifecycleOwner = LocalLifecycleOwner.current
     LargeTopAppBar(
         title = {
-            // TODO: Need some better way to switch these text styles
-            if (isCollapsed) {
+            Box(
+                contentAlignment = Alignment.CenterStart,
+            ) {
+                // If default animation of top app bar is used and Text and ResizeableText are shown/hidden with a flag,
+                // the animation behaviour is little weird, so alpha value of composables are calculated independently for smoother animation.
+                val textAlpha: Float by remember {
+                    derivedStateOf {
+                        val alphaBase = 0.65
+                        if (scrollBehavior.state.collapsedFraction > alphaBase) {
+                            // Calculate an alpha value when collapsedFraction is equal to
+                            // ・fractionBase, the alpha value is 0
+                            // ・1(headline is completely hidden), the alpha value is 1
+                            ((scrollBehavior.state.collapsedFraction - alphaBase) / (1 - alphaBase)).toFloat()
+                        } else {
+                            0f
+                        }
+                    }
+                }
                 Text(
                     text = title.currentLangTitle,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                     style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.alpha(textAlpha),
                 )
-            } else {
+
+                val resizedTextAlpha: Float by remember {
+                    derivedStateOf {
+                        // The alphaBase value is different from Text to create a state
+                        // where both the ResizedText and Text are hidden,
+                        // so the composables does not overlap each other.
+                        val alphaBase = 0.55
+                        if (scrollBehavior.state.collapsedFraction < alphaBase) {
+                            // Calculate an alpha value when collapsedFraction is equal to
+                            // ・fractionBase, the alpha value is 0
+                            // ・0(headline is completely shown), the alpha value is 1
+                            (1 - (scrollBehavior.state.collapsedFraction / alphaBase)).toFloat()
+                        } else {
+                            0f
+                        }
+                    }
+                }
                 ResizeableText(
                     text = title.currentLangTitle,
                     overflow = TextOverflow.Ellipsis,
@@ -74,6 +105,7 @@ fun TimetableItemDetailScreenTopAppBar(
                         MaterialTheme.typography.titleMedium,
                         MaterialTheme.typography.titleSmall,
                     ),
+                    alpha = (resizedTextAlpha),
                 )
             }
         },
@@ -137,6 +169,7 @@ fun TimetableItemDetailScreenTopAppBar(
 private fun ResizeableText(
     text: String,
     maxLines: Int,
+    alpha: Float,
     styles: ImmutableList<TextStyle>,
     overflow: TextOverflow,
 ) {
@@ -154,6 +187,7 @@ private fun ResizeableText(
         },
         style = styles[styleIndex],
         modifier = Modifier
+            .alpha(alpha)
             .padding(end = 16.dp)
             // title heights of LargeTopAppBar will use `TopAppBarLargeTokens.ContainerHeight`, `TopAppBarSmallTokens.ContainerHeight` and `scroll offset`.
             // because of this, this height become taller than our expectation.
