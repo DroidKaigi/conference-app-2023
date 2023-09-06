@@ -49,7 +49,7 @@ class AchievementsViewModel: ObservableObject {
         }
     }
 
-    func read() async {
+    func read() async -> Achievement? {
         do {
             if let urlString = try await nfcReader.read(), let url = URL(string: urlString) {
                 let hashedString = idToSha256(id: url.lastPathComponent)
@@ -61,6 +61,8 @@ class AchievementsViewModel: ObservableObject {
                     Achievement.bumblebee
                 case Achievement.chipmunk.sha256:
                     Achievement.chipmunk
+                case Achievement.dolphin.sha256:
+                    Achievement.dolphin
                 case Achievement.electriceel.sha256:
                     Achievement.electriceel
                 default:
@@ -69,11 +71,13 @@ class AchievementsViewModel: ObservableObject {
 
                 if let achievement = target {
                     try await achievementData.saveAchievement(achievement)
+                    return achievement
                 }
             }
         } catch {
             print(error)
         }
+        return nil
     }
 
     private func idToSha256(id: String) -> String? {
