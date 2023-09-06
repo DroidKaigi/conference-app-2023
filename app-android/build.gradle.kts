@@ -25,7 +25,7 @@ android {
         buildConfig = true
     }
     defaultConfig {
-        versionCode = 2
+        versionCode = 3
         versionName = "1.0.0"
     }
     signingConfigs {
@@ -101,7 +101,7 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
-    implementation(projects.feature.stamps)
+    implementation(projects.feature.achievements)
     implementation(projects.feature.staff)
     implementation(projects.core.model)
     implementation(projects.core.data)
@@ -128,7 +128,7 @@ dependencies {
     kover(projects.feature.sessions)
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
-    kover(projects.feature.stamps)
+    kover(projects.feature.achievements)
 
     kover(projects.core.common)
     kover(projects.core.data)

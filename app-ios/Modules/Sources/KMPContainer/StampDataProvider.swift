@@ -2,8 +2,8 @@ import Dependencies
 import shared
 
 public struct StampDataProvider {
-    private static var stampRepository: StampRepository {
-        Container.shared.get(type: StampRepository.self)
+    private static var stampRepository: AchievementRepository {
+        Container.shared.get(type: AchievementRepository.self)
     }
 
     public let stampEnabled: () -> AsyncThrowingStream<Bool, Error>
@@ -13,7 +13,7 @@ extension StampDataProvider: DependencyKey {
     @MainActor
     public static var liveValue: StampDataProvider = StampDataProvider(
         stampEnabled: {
-            stampRepository.getStampEnabledStream().stream()
+            stampRepository.getAchievementEnabledStream().stream()
         }
     )
 
