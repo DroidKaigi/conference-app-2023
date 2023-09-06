@@ -6,5 +6,7 @@
 	<false/>
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Achievement の読み取りに使用します。</string>
 </dict>
 </plist>

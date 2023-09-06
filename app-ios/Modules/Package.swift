@@ -197,6 +197,7 @@ var package = Package(
                 "Assets",
                 "Theme",
                 "KMPContainer",
+                "NFC",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
             ]
@@ -238,6 +239,13 @@ var package = Package(
                 "Staff",
                 "Theme",
                 "Timetable",
+            ]
+        ),
+
+        .target(
+            name: "NFC",
+            dependencies: [
+                "Model",
             ]
         ),
 

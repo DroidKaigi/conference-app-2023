@@ -57,6 +57,13 @@ public struct AchievementsView: View {
                                 inactiveImage: Assets.Images.achievementElectricEel
                             )
                         }
+                        Button {
+                            Task {
+                                await viewModel.read()
+                            }
+                        } label: {
+                            Text("Scan!")
+                        }
                     }
                     .padding(16)
                 }

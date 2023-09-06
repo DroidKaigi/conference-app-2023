@@ -1,8 +1,10 @@
 import AsyncAlgorithms
+import CryptoKit
 import Dependencies
 import Foundation
 import KMPContainer
 import Model
+import NFC
 import shared
 
 struct AchievementsViewState: ViewModelState {
@@ -18,6 +20,7 @@ struct AchievementsViewState: ViewModelState {
 class AchievementsViewModel: ObservableObject {
     @Dependency(\.achievementData) var achievementData
     @Published var state: AchievementsViewState = .init()
+    private let nfcReader = NFCReader()
     private var loadTask: Task<Void, Error>?
 
     deinit {
@@ -44,5 +47,40 @@ class AchievementsViewModel: ObservableObject {
                 self.state.loadedState = .failed(error)
             }
         }
+    }
+
+    func read() async {
+        do {
+            if let urlString = try await nfcReader.read(), let url = URL(string: urlString) {
+                let hashedString = idToSha256(id: url.lastPathComponent)
+
+                let target: Achievement? = switch hashedString {
+                case Achievement.arcticfox.sha256:
+                    Achievement.arcticfox
+                case Achievement.bumblebee.sha256:
+                    Achievement.bumblebee
+                case Achievement.chipmunk.sha256:
+                    Achievement.chipmunk
+                case Achievement.electriceel.sha256:
+                    Achievement.electriceel
+                default:
+                    nil
+                }
+
+                if let achievement = target {
+                    try await achievementData.saveAchievement(achievement)
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+
+    private func idToSha256(id: String) -> String? {
+        guard let data = id.data(using: .utf8) else {
+            return nil
+        }
+        let digest = SHA256.hash(data: data)
+        return digest.compactMap { String(format: "%02x", $0) }.joined()
     }
 }
