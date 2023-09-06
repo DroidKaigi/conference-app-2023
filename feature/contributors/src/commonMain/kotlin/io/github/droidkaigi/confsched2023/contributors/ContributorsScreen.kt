@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -72,8 +71,6 @@ private fun ContributorsScreen(
     contentPadding: PaddingValues,
     isTopAppBarHidden: Boolean,
 ) {
-    println(contentPadding)
-    println(contentPadding.calculateTopPadding())
     val scrollBehavior =
         if (!isTopAppBarHidden) {
             TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -106,13 +103,18 @@ private fun ContributorsScreen(
                 )
             }
         },
-    ) { padding ->
+        contentWindowInsets = WindowInsets(
+            left = contentPadding.calculateLeftPadding(localLayoutDirection),
+            top = contentPadding.calculateTopPadding(),
+            right = contentPadding.calculateRightPadding(localLayoutDirection),
+            bottom = contentPadding.calculateBottomPadding(),
+        ),
+    ) { innerContentPadding ->
         Contributors(
             contributors = uiState.contributors,
             onContributorItemClick = onContributorItemClick,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
                 .let {
                     if (scrollBehavior != null) {
                         it.nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -120,6 +122,7 @@ private fun ContributorsScreen(
                         it
                     }
                 },
+            contentPadding = innerContentPadding,
         )
     }
 }
@@ -129,9 +132,11 @@ private fun Contributors(
     contributors: PersistentList<Contributor>,
     onContributorItemClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues,
 ) {
     LazyColumn(
         modifier = modifier,
+        contentPadding = contentPadding,
     ) {
         items(contributors) {
             ContributorListItem(
