@@ -123,9 +123,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "StampsTests"
-               BuildableName = "StampsTests"
-               BlueprintName = "StampsTests"
+               BlueprintIdentifier = "TimetableTests"
+               BuildableName = "TimetableTests"
+               BlueprintName = "TimetableTests"
                ReferencedContainer = "container:../../Modules">
             </BuildableReference>
          </TestableReference>
@@ -133,9 +133,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "TimetableTests"
-               BuildableName = "TimetableTests"
-               BlueprintName = "TimetableTests"
+               BlueprintIdentifier = "AchievementsTests"
+               BuildableName = "AchievementsTests"
+               BlueprintName = "AchievementsTests"
+               ReferencedContainer = "container:../../Modules">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "StaffTests"
+               BuildableName = "StaffTests"
+               BlueprintName = "StaffTests"
                ReferencedContainer = "container:../../Modules">
             </BuildableReference>
          </TestableReference>
