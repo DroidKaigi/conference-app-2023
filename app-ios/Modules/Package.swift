@@ -25,6 +25,7 @@ var package = Package(
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
         .package(url: "https://github.com/airbnb/lottie-spm", from: "4.2.0"),
+        .package(url: "https://github.com/apple/swift-async-algorithms", from: "0.1.0"),
     ],
     targets: [
         .target(
@@ -197,6 +198,7 @@ var package = Package(
                 "Theme",
                 "KMPContainer",
                 .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
             ]
         ),
         .testTarget(
