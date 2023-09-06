@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DroidKaigi.SplashTheme"
         tools:targetApi="tiramisu">
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
 
         <activity
             android:name=".MainActivity"
@@ -26,6 +29,24 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ResolveDynamicLinksActivity"
+            android:exported="true"
+            android:noHistory="true"
+            android:taskAffinity="droidkaigi.affinities.dynamic_links">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+                <data android:host="confsched2023.page.link" />
+                <data android:host="droidkaigiapp.page.link" />
             </intent-filter>
         </activity>
 

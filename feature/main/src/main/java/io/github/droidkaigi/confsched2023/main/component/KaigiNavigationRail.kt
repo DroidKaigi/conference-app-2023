@@ -19,14 +19,14 @@ fun KaigiNavigationRail(
     mainScreenTabs: PersistentList<MainScreenTab>,
     onTabSelected: (MainScreenTab) -> Unit,
     currentTab: MainScreenTab,
-    isEnableStamps: Boolean,
+    isEnableAchievements: Boolean,
     modifier: Modifier = Modifier,
 ) {
     NavigationRail(
         modifier = modifier,
     ) {
         mainScreenTabs.forEach { tab ->
-            if (tab == MainScreenTab.Badges && isEnableStamps.not()) return@forEach
+            if (tab == MainScreenTab.Achievements && isEnableAchievements.not()) return@forEach
             val selected = currentTab == tab
             NavigationRailItem(
                 modifier = Modifier.testTag(tab.testTag),

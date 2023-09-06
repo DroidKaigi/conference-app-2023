@@ -25,8 +25,8 @@ android {
         buildConfig = true
     }
     defaultConfig {
-        versionCode = 1
-        versionName = "0.0.1"
+        versionCode = 3
+        versionName = "1.0.0"
     }
     signingConfigs {
         create("dev") {
@@ -101,7 +101,7 @@ dependencies {
     implementation(projects.feature.about)
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
-    implementation(projects.feature.stamps)
+    implementation(projects.feature.achievements)
     implementation(projects.feature.staff)
     implementation(projects.core.model)
     implementation(projects.core.data)
@@ -114,6 +114,7 @@ dependencies {
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
     implementation(libs.androidxSplashScreen)
+    implementation(libs.firebaseDynamicLinks)
     testImplementation(projects.core.testing)
 }
 
@@ -129,7 +130,7 @@ dependencies {
     kover(projects.feature.sessions)
     kover(projects.feature.sponsors)
     kover(projects.feature.staff)
-    kover(projects.feature.stamps)
+    kover(projects.feature.achievements)
 
     kover(projects.core.common)
     kover(projects.core.data)
