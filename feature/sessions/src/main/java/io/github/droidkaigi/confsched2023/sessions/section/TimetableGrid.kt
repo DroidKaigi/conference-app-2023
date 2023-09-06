@@ -235,7 +235,7 @@ fun TimetableGrid(
                 state = rememberTransformableState { zoomChange, panChange, _ ->
 
                     timetableState.screenScaleState.updateVerticalScale(
-                        timetableState.screenScaleState.verticalScale * zoomChange
+                        timetableState.screenScaleState.verticalScale * zoomChange,
                     )
 
                     coroutineScope.launch {
@@ -246,7 +246,7 @@ fun TimetableGrid(
                             nestedScrollDispatcher,
                         )
                     }
-                }
+                },
             )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
