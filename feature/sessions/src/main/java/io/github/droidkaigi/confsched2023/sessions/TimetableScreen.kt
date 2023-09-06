@@ -184,14 +184,7 @@ private fun TimetableScreen(
                     )
                 }
             },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState,
-                modifier = Modifier.padding(
-                    WindowInsets.safeContent.asPaddingValues(),
-                ),
-            )
-        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TimetableTopArea(
                 timetableUiType = uiState.timetableUiType,
