@@ -1,7 +1,8 @@
 package io.github.droidkaigi.confsched2023.model
 
 public sealed class AppError : RuntimeException {
-    private constructor(message: String? = null, cause: Throwable? = null) : super(message, cause)
+    private constructor(message: String?, cause: Throwable?) : super(message, cause)
+    private constructor(cause: Throwable?) : super(cause)
 
     public sealed class ApiException(cause: Throwable?) : AppError(cause = cause) {
         public class NetworkException(cause: Throwable?) : ApiException(cause = cause)
