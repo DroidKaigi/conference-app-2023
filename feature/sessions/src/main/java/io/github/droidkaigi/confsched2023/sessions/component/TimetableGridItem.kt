@@ -123,7 +123,7 @@ fun TimetableGridItem(
 
             Row(
                 modifier = Modifier
-                    .weight(1.5f, fill = false)
+                    .weight(2f, fill = false)
                     .padding(top = TimetableGridItemSizes.titleToSchedulePadding),
             ) {
                 Icon(
