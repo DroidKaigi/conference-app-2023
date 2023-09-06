@@ -1,4 +1,3 @@
-import Assets
 import Model
 import SwiftUI
 import Theme

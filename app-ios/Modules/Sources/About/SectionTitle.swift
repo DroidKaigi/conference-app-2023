@@ -1,5 +1,5 @@
-import Assets
 import SwiftUI
+import Theme
 
 struct SectionTitle: View {
     let title: String

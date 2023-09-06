@@ -1,6 +1,6 @@
-import Assets
 import Navigation
 import SwiftUI
+import Theme
 
 @main
 struct MainApp: App {

@@ -1,4 +1,3 @@
-import Assets
 import Component
 import Model
 import shared

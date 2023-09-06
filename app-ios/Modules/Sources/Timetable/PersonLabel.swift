@@ -1,4 +1,3 @@
-import Assets
 import Component
 import shared
 import SwiftUI

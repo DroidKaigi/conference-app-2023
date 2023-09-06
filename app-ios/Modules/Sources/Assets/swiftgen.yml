@@ -23,16 +23,6 @@ json:
       enumName: LottieAssets
       publicAccess: true
 
-fonts:
-  inputs:
-    - Font
-  outputs:
-    templateName: swift5
-    output: Fonts.swift
-    params:
-      enumName: FontAssets
-      publicAccess: true
-
 strings:
   inputs:
     - Strings/ja.lproj

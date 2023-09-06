@@ -1,4 +1,3 @@
-import Assets
 import SwiftUI
 import Theme
 
