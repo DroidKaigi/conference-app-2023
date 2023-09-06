@@ -53,7 +53,7 @@ fun TimetableItemDetailScreenTopAppBar(
     LargeTopAppBar(
         title = {
             Box(
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.CenterStart,
             ) {
                 // If default animation of top app bar is used and Text and ResizeableText are shown/hidden with a flag,
                 // the animation behaviour is little weird, so alpha value of composables are calculated independently for smoother animation.
