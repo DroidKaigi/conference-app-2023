@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2023.data
 
 import de.jensklingenberg.ktorfit.Ktorfit
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
+import io.github.droidkaigi.confsched2023.data.achievements.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
@@ -9,7 +11,6 @@ import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsA
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
-import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsRepository
 import io.github.droidkaigi.confsched2023.data.sessions.SessionCacheDataStore
@@ -91,6 +92,22 @@ public val dataModule: Module = module {
             },
         )
         SessionCacheDataStore(dataStore, get())
+    }
+    single {
+        val dataStore = createDataStore(
+            coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
+            producePath = {
+                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+                requireNotNull(documentDirectory).path + "/confsched2023.achievements.preferences_pb"
+            },
+        )
+        AchievementsDataStore(dataStore)
     }
 
     singleOf(::DefaultAuthApi) bind AuthApi::class

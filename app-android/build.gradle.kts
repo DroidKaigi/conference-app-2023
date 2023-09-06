@@ -113,6 +113,7 @@ dependencies {
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
+    implementation(libs.firebaseDynamicLinks)
     testImplementation(projects.core.testing)
 }
 

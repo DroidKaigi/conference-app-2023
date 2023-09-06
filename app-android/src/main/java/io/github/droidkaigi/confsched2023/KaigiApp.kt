@@ -174,7 +174,10 @@ private fun NavGraphBuilder.mainScreen(
                         Contributors -> navController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
-                        PrivacyPolicy -> { externalNavController.navigate(url = "$portalBaseUrl/about/privacy") }
+                        PrivacyPolicy -> {
+                            externalNavController.navigate(url = "$portalBaseUrl/about/privacy")
+                        }
+
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -189,9 +192,6 @@ private fun NavGraphBuilder.mainScreen(
                 contentPadding = contentPadding,
             )
             nestedAchievementsScreen(
-                onAchievementsClick = {
-                    // TODO
-                },
                 contentPadding = contentPadding,
             )
         },

@@ -31,9 +31,7 @@ class AchievementsScreenRobot @Inject constructor(
     fun setupScreenContent() {
         composeTestRule.setContent {
             KaigiTheme {
-                AchievementsScreen(
-                    onAchievementsClick = { },
-                )
+                AchievementsScreen()
             }
         }
         waitUntilIdle()
