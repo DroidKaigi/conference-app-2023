@@ -53,7 +53,7 @@ public struct AchievementsView: View {
                                 )
                                 // TODO: Find good render way
                                 AchievementImage(
-                                    target: Achievement.chipmunk,
+                                    target: Achievement.electriceel,
                                     savedAchievements: state.achievements,
                                     activeImage: Assets.Images.achievementElectricEelActive,
                                     inactiveImage: Assets.Images.achievementElectricEel
@@ -65,11 +65,14 @@ public struct AchievementsView: View {
                                     obtainedAchievement = result
                                 }
                             } label: {
-                                Text("Scan!")
+                                Text("Scan NFC Tag")
                             }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
                         }
                         .padding(16)
                         if let achievement = obtainedAchievement?.toLottie() {
+                            AssetColors.Custom.black.swiftUIColor.opacity(0.84)
                             achievement.swiftUIAnimation(loopMode: .playOnce) { _ in
                                 obtainedAchievement = nil
                             }
