@@ -20,9 +20,7 @@ class DefaultAchievementRepository(
 
     override fun getAchievementEnabledStream(): Flow<Boolean> {
         return isAchievementsEnabledStateFlow.onStart {
-            isAchievementsEnabledStateFlow.value = remoteConfigApi.getBoolean(
-                IS_ACHIEVEMENTS_ENABLED_KEY,
-            )
+            isAchievementsEnabledStateFlow.value = true
         }
     }
 
