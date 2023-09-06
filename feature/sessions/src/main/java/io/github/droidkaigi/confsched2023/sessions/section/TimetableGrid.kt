@@ -9,6 +9,7 @@ import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.awaitTouchSlopOrCancellation
 import androidx.compose.foundation.gestures.drag
 import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -230,10 +231,23 @@ fun TimetableGrid(
                     },
                 )
             }
-            // FIXME: This disables timetable scroll
-//            .transformable(
-//                rememberTransformableStateForScreenScale(timetableState.screenScaleState),
-//            )
+            .transformable(
+                state = rememberTransformableState { zoomChange, panChange, _ ->
+
+                    timetableState.screenScaleState.updateVerticalScale(
+                        timetableState.screenScaleState.verticalScale * zoomChange
+                    )
+
+                    coroutineScope.launch {
+                        timetableScreen.scroll(
+                            panChange,
+                            0,
+                            Offset.Zero,
+                            nestedScrollDispatcher,
+                        )
+                    }
+                }
+            )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
                     value = { -scrollState.scrollX },
@@ -554,12 +568,6 @@ fun rememberScreenScaleState(): ScreenScaleState = rememberSaveable(
 ) {
     ScreenScaleState()
 }
-
-@Composable
-fun rememberTransformableStateForScreenScale(screenScaleState: ScreenScaleState) =
-    rememberTransformableState { zoomChange, _, _ ->
-        screenScaleState.updateVerticalScale(screenScaleState.verticalScale * zoomChange)
-    }
 
 @Stable
 class ScreenScaleState(
