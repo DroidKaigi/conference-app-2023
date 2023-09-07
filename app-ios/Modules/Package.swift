@@ -5,8 +5,10 @@ import PackageDescription
 
 var package = Package(
     name: "Modules",
+    defaultLocalization: "ja",
     platforms: [
         .iOS(.v16),
+        .macOS(.v12),
     ],
     products: [
         .library(name: "Component", targets: ["Component"]),
@@ -84,6 +86,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
+                "shared",
                 "Model",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
@@ -92,6 +95,13 @@ var package = Package(
             name: "ContributorTests",
             dependencies: [
                 "Contributor",
+            ]
+        ),
+
+        .target(
+            name: "Event",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
 
@@ -132,6 +142,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
+                "Event",
                 "KMPContainer",
                 "Model",
             ]
@@ -180,7 +191,7 @@ var package = Package(
         ),
 
         .target(
-            name: "Stamps",
+            name: "Achievements",
             dependencies: [
                 "Assets",
                 "Theme",
@@ -189,9 +200,9 @@ var package = Package(
             ]
         ),
         .testTarget(
-            name: "StampsTests",
+            name: "AchievementsTests",
             dependencies: [
-                "Stamps"
+                "Achievements"
             ]
         ),
 
@@ -216,13 +227,13 @@ var package = Package(
             name: "Navigation",
             dependencies: [
                 "About",
+                "Achievements",
                 "Assets",
                 "Contributor",
                 "FloorMap",
                 "Session",
                 "Sponsor",
                 "Staff",
-                "Stamps",
                 "Theme",
                 "Timetable",
             ]
@@ -289,3 +300,27 @@ package.targets = package.targets.map { target in
 
     return target
 }
+
+#if canImport(Darwin)
+import Darwin
+
+// Disable plugins on Xcode Cloud CI
+package.targets = package.targets.map { target in
+    if let ciEnvPointer = getenv("CI") {
+        let ciEnv = String(cString: ciEnvPointer)
+        if ciEnv == "TRUE" {
+            if target.name == "About" {
+                target.resources = [
+                    .process("Resources")
+                ]
+            }
+
+            if target.type == .regular || target.type == .test {
+                target.plugins = []
+            }
+        }
+    }
+
+    return target
+}
+#endif

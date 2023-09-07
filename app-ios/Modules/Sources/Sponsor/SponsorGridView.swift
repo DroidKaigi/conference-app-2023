@@ -41,6 +41,7 @@ struct SponsorItemView: View {
                 CacheAsyncImage(url: URL(string: sponsor.logo)) { image in
                     image
                         .resizable()
+                        .scaledToFit()
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .frame(minHeight: 0, maxHeight: .infinity)
                 } placeholder: {

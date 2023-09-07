@@ -13,9 +13,11 @@ private let startDateFormatter: DateFormatter = {
 }()
 
 public struct SessionView: View {
-    let viewModel: SessionViewModel
+    @ObservedObject private(set) var viewModel: SessionViewModel
     @State private var isDescriptionExpanded: Bool = false
-    @State private var canBeExpanded = false
+    @State private var canBeExpanded: Bool = false
+    @State private var isAddingToCalendarConfirming: Bool = false
+    @State private var presentingURL: IdentifiableURL?
 
     public init(timetableItem: TimetableItem) {
         self.viewModel = .init(timetableItem: timetableItem)
@@ -65,7 +67,7 @@ public struct SessionView: View {
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text(session.description_.currentLangTitle)
+                        Text(.init(session.description_.currentLangTitle))
                             .textSelection(.enabled)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
                             .background {
@@ -173,7 +175,11 @@ public struct SessionView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button {
-                    // TODO: Add to Calendar
+                    Task {
+                        if await viewModel.requestEventAccessIfNeeded() {
+                            isAddingToCalendarConfirming.toggle()
+                        }
+                    }
                 } label: {
                     Assets.Icons.calendarAddOn.swiftUIImage
                 }
@@ -189,7 +195,25 @@ public struct SessionView: View {
                 }
             }
         }
+        .confirmationDialog("", isPresented: $isAddingToCalendarConfirming) {
+            Button("Add to your calendar") {
+                viewModel.addToCalendar()
+            }
 
+            Button("Cancel", role: .cancel) {
+                isAddingToCalendarConfirming = false
+            }
+        }
+        .sheet(item: $presentingURL) { url in
+            if let url = url.id {
+                SafariView(url: url)
+                    .ignoresSafeArea()
+            }
+        }
+        .environment(\.openURL, OpenURLAction { url in
+            presentingURL = IdentifiableURL(url)
+            return .handled
+        })
     }
 }
 

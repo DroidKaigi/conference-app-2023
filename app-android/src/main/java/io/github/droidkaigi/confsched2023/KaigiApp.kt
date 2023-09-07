@@ -32,6 +32,9 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
+import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
+import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
+import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
@@ -42,8 +45,7 @@ import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Badges
-import io.github.droidkaigi.confsched2023.main.MainScreenTab.Contributor
+import io.github.droidkaigi.confsched2023.main.MainScreenTab.Achievements
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.FloorMap
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.Timetable
 import io.github.droidkaigi.confsched2023.main.mainScreen
@@ -73,9 +75,6 @@ import io.github.droidkaigi.confsched2023.sponsors.navigateSponsorsScreen
 import io.github.droidkaigi.confsched2023.sponsors.sponsorsScreen
 import io.github.droidkaigi.confsched2023.staff.navigateStaffScreen
 import io.github.droidkaigi.confsched2023.staff.staffScreen
-import io.github.droidkaigi.confsched2023.stamps.navigateStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.nestedStampsScreen
-import io.github.droidkaigi.confsched2023.stamps.stampsScreenRoute
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
 import kotlinx.collections.immutable.PersistentList
 
@@ -127,6 +126,20 @@ private fun KaigiNavHost(
             onBackClick = navController::popBackStack,
             onStaffClick = externalNavController::navigate,
         )
+        // For KMP, we are not using navigation abstraction for contributors screen
+        composable(contributorsScreenRoute) {
+            val lifecycleOwner = LocalLifecycleOwner.current
+            ContributorsScreen(
+                viewModel = hiltViewModel<ContributorsViewModel>(),
+                onNavigationIconClick = {
+                    handleOnClickIfNotNavigating(
+                        lifecycleOwner,
+                        navController::popBackStack,
+                    )
+                },
+                onContributorItemClick = externalNavController::navigate,
+            )
+        }
     }
 }
 
@@ -150,27 +163,21 @@ private fun NavGraphBuilder.mainScreen(
             )
             nestedAboutScreen(
                 onAboutItemClick = { aboutItem ->
+                    val portalBaseUrl = if (defaultLang() == JAPANESE) {
+                        "https://portal.droidkaigi.jp"
+                    } else {
+                        "https://portal.droidkaigi.jp/en"
+                    }
                     when (aboutItem) {
                         Sponsors -> navController.navigateSponsorsScreen()
-                        CodeOfConduct -> {
-                            val url = if (defaultLang() == JAPANESE) {
-                                "https://portal.droidkaigi.jp/about/code-of-conduct"
-                            } else {
-                                "https://portal.droidkaigi.jp/en/about/code-of-conduct"
-                            }
-                            externalNavController.navigate(url = url)
-                        }
-                        Contributors -> mainNestedNavController.navigate(contributorsScreenRoute)
+                        CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
+                        Contributors -> navController.navigate(contributorsScreenRoute)
                         License -> externalNavController.navigateToLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> {
-                            val url = if (defaultLang() == JAPANESE) {
-                                "https://portal.droidkaigi.jp/about/privacy"
-                            } else {
-                                "https://portal.droidkaigi.jp/en/about/privacy"
-                            }
-                            externalNavController.navigate(url = url)
+                            externalNavController.navigate(url = "$portalBaseUrl/about/privacy")
                         }
+
                         Staff -> navController.navigateStaffScreen()
                         X -> externalNavController.navigate(url = "https://twitter.com/DroidKaigi")
                         YouTube -> externalNavController.navigate(url = "https://www.youtube.com/c/DroidKaigi")
@@ -184,27 +191,9 @@ private fun NavGraphBuilder.mainScreen(
                 onSideEventClick = externalNavController::navigate,
                 contentPadding = contentPadding,
             )
-            nestedStampsScreen(
-                onStampsClick = {
-                    // TODO
-                },
+            nestedAchievementsScreen(
                 contentPadding = contentPadding,
             )
-            // For KMP, we are not using navigation abstraction for contributors screen
-            composable(contributorsScreenRoute) {
-                val lifecycleOwner = LocalLifecycleOwner.current
-                ContributorsScreen(
-                    viewModel = hiltViewModel<ContributorsViewModel>(),
-                    onNavigationIconClick = {
-                        handleOnClickIfNotNavigating(
-                            lifecycleOwner,
-                            mainNestedNavController::popBackStack,
-                        )
-                    },
-                    onContributorItemClick = externalNavController::navigate,
-                    contentPadding = contentPadding,
-                )
-            }
         },
     )
 }
@@ -215,10 +204,9 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
     override fun routeToTab(route: String): MainScreenTab? {
         return when (route) {
             timetableScreenRoute -> Timetable
-            contributorsScreenRoute -> Contributor
             aboutScreenRoute -> About
             floorMapScreenRoute -> FloorMap
-            stampsScreenRoute -> Badges
+            achievementsScreenRoute -> Achievements
             else -> null
         }
     }
@@ -231,12 +219,7 @@ class KaigiAppMainNestedGraphStateHolder : MainNestedGraphStateHolder {
             Timetable -> mainNestedNavController.navigateTimetableScreen()
             About -> mainNestedNavController.navigateAboutScreen()
             FloorMap -> mainNestedNavController.navigateFloorMapScreen()
-            Contributor -> mainNestedNavController.navigate(contributorsScreenRoute) {
-                launchSingleTop = true
-                restoreState = true
-            }
-
-            Badges -> mainNestedNavController.navigateStampsScreen()
+            Achievements -> mainNestedNavController.navigateAchievementsScreen()
         }
     }
 }
@@ -304,7 +287,7 @@ private class ExternalNavController(
         shareNavigator.share(
             "[${timeTableItem.room.name.currentLangTitle}] ${timeTableItem.startsTimeString} - ${timeTableItem.endsTimeString}\n" +
                 "${timeTableItem.title.currentLangTitle}\n" +
-                "https://2023.droidkaigi.jp/timetable/${timeTableItem.id.value}",
+                timeTableItem.url,
         )
     }
 

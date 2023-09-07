@@ -52,16 +52,9 @@ class KaigiAppRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun goToStamps() {
+    fun goToAchievements() {
         composeTestRule
-            .onNode(hasTestTag(MainScreenTab.Badges.testTag))
-            .performClick()
-        waitUntilIdle()
-    }
-
-    fun goToContributor() {
-        composeTestRule
-            .onNode(hasTestTag(MainScreenTab.Contributor.testTag))
+            .onNode(hasTestTag(MainScreenTab.Achievements.testTag))
             .performClick()
         waitUntilIdle()
     }
