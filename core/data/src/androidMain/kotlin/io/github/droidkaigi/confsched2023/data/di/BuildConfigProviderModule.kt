@@ -23,9 +23,7 @@ class BuildConfigProviderModule {
     ): BuildConfigProvider = if (buildConfigOverride.isPresent) {
         buildConfigOverride.get()
     } else {
-        object : BuildConfigProvider {
-            override val versionName: String = ""
-        }
+        EmptyBuildConfigProvider
     }
 }
 
@@ -35,4 +33,8 @@ abstract class AppAndroidBuildConfigModule {
     @BindsOptionalOf
     @AppAndroidBuildConfig
     abstract fun bindBuildConfigProvider(): BuildConfigProvider
+}
+
+private object EmptyBuildConfigProvider : BuildConfigProvider {
+    override val versionName: String = ""
 }
