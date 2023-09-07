@@ -35,7 +35,6 @@ struct TimetableListItemView: View {
                 Text(addHighlightAttributes(title: timetableItem.title.currentLangTitle, searchWord: searchWord))
                     .multilineTextAlignment(.leading)
                     .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
-                    .fontWeight(.medium)
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 if let session = timetableItem as? TimetableItem.Session {
                     if let message = session.message {

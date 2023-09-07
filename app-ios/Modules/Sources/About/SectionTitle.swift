@@ -7,7 +7,6 @@ struct SectionTitle: View {
     var body: some View {
         Text(title)
             .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
-            .fontWeight(.medium)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 16)
     }

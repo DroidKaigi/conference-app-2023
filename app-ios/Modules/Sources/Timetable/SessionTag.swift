@@ -23,7 +23,6 @@ struct SessionTag: View {
     var body: some View {
         Text(label)
             .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
-            .fontWeight(.medium)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
             .foregroundColor(labelColor)

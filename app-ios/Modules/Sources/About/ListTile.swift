@@ -12,7 +12,6 @@ struct ListTile: View {
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
             Text(title)
                 .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                .fontWeight(.medium)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
         }
         .padding(.horizontal, 12)

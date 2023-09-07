@@ -127,12 +127,10 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     Spacer().frame(height: 8)
                     Text(Bundle.main.formattedVersion)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                        .fontWeight(.medium)
                     Spacer().frame(height: 8)
                     Text(L10n.About.androidRobotDescription)
                         .foregroundStyle(AssetColors.About.androidRobotDescription.swiftUIColor)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 11))
-                        .fontWeight(.medium)
                         .multilineTextAlignment(.center)
                 }
                 .padding(16)

@@ -23,7 +23,6 @@ struct FilterLabel: View {
                 }
                 Text(title)
                     .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                    .fontWeight(.medium)
                 if isSelection {
                     Assets.Icons.arrowDropDown.swiftUIImage
                 }

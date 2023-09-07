@@ -25,7 +25,6 @@ struct SideEventRow: View {
                     // Description
                     Text(sideEvent.description_.currentLangTitle)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                        .fontWeight(.medium)
                 }
                 // Date
                 HStack(alignment: .center, spacing: 4) {
@@ -34,7 +33,6 @@ struct SideEventRow: View {
 
                     Text(sideEvent.timeText.currentLangTitle)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
-                        .fontWeight(.medium)
                 }
             }
             .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)

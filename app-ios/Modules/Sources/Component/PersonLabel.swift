@@ -33,7 +33,6 @@ public struct PersonLabel: View {
                 Text(name)
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                     .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
-                    .fontWeight(.medium)
                     .lineLimit(2)
                 if let notes = notes {
                     Text(notes)

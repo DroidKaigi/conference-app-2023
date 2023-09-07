@@ -28,7 +28,6 @@ public struct SessionView: View {
             VStack(alignment: .leading) {
                 Text(viewModel.timetableItem.title.currentLangTitle)
                     .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
-                    .fontWeight(.medium)
                     .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
@@ -89,7 +88,6 @@ public struct SessionView: View {
                             } label: {
                                 Text("続きを読む")
                                     .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                                    .fontWeight(.medium)
                                     .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
                                     .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
                                     .overlay {

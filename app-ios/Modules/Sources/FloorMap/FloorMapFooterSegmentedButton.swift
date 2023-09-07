@@ -31,7 +31,6 @@ struct FloorMapFooterSegmentedButton: View {
                         }
                         Text("1F")
                             .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                            .fontWeight(.medium)
                     }
                     .foregroundStyle(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
                 }
@@ -51,7 +50,6 @@ struct FloorMapFooterSegmentedButton: View {
                         }
                         Text("B1F")
                             .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                            .fontWeight(.medium)
                     }
                     .foregroundStyle(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
                 }
