@@ -53,9 +53,7 @@ public struct TimetableView<SessionView: View>: View {
                                 Text("DroidKaigi\n2023")
                                     .font(Font.custom(FontAssets.Montserrat.medium, size: 36))
                                 Text("at Bellesalle Shibuya Garden")
-                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
-                                    .fontWeight(.semibold)
-
+                                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 12))
                             }
                             .padding(.horizontal, 16)
                             .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)

@@ -34,19 +34,16 @@ public struct InformationRow: View {
             icon
             HStack(spacing: 12) {
                 Text(title)
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                    .fontWeight(.semibold)
+                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                 HStack {
                     Text(content)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                        .fontWeight(.semibold)
+                        .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                     if let action = action {
                         Button {
                             action.action()
                         } label: {
                             Text(action.label)
-                                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                                .fontWeight(.semibold)
+                                .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                                 .underline()
                                 .foregroundStyle(
                                     AssetColors.Primary.primary.swiftUIColor

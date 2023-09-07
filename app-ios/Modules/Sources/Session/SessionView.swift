@@ -105,8 +105,7 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("対象者")
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                        .fontWeight(.semibold)
+                        .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     Text(viewModel.timetableItem.targetAudience)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
@@ -119,8 +118,7 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text("スピーカー")
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                        .fontWeight(.semibold)
+                        .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
                     VStack(alignment: .leading, spacing: 8) {
