@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.achievements
 
-import androidx.annotation.RawRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -22,17 +21,22 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
-import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val achievementsScreenRoute = "achievements"
+const val uri = "https://droidkaigi.jp/apps/achievements"
 fun NavGraphBuilder.nestedAchievementsScreen(
-    onAchievementsClick: () -> Unit,
     contentPadding: PaddingValues,
 ) {
-    composable(achievementsScreenRoute) {
+    composable(
+        achievementsScreenRoute,
+        deepLinks = listOf(
+            androidx.navigation.navDeepLink {
+                uriPattern = "$uri/*"
+            },
+        ),
+    ) {
         AchievementsScreen(
-            onAchievementsClick = onAchievementsClick,
             contentPadding = contentPadding,
         )
     }
@@ -49,7 +53,6 @@ const val AchievementsScreenTestTag = "AchievementsScreen"
 
 @Composable
 fun AchievementsScreen(
-    onAchievementsClick: () -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
     viewModel: AchievementsScreenViewModel = hiltViewModel(),
 ) {
@@ -64,17 +67,11 @@ fun AchievementsScreen(
         uiState = uiState,
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
-        achievementLottieRawId = uiState.lottieRawRes,
-        onAchievementsClick = { achievement ->
-            onAchievementsClick()
-            viewModel.onAchievementClick(achievement)
-        },
-        onReachAnimationEnd = viewModel::onReachAnimationEnd,
+        onReset = viewModel::onReset,
     )
 }
 
 data class AchievementsScreenUiState(
-    val lottieRawRes: Int?,
     val achievementListUiState: AchievementListUiState,
 )
 
@@ -82,11 +79,8 @@ data class AchievementsScreenUiState(
 private fun AchievementsScreen(
     uiState: AchievementsScreenUiState,
     snackbarHostState: SnackbarHostState,
-    @RawRes
-    achievementLottieRawId: Int?,
-    onAchievementsClick: (Achievement) -> Unit,
     contentPadding: PaddingValues,
-    onReachAnimationEnd: () -> Unit,
+    onReset: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -101,10 +95,8 @@ private fun AchievementsScreen(
         content = { innerPadding ->
             AchievementList(
                 uiState = uiState.achievementListUiState,
-                onAchievementsClick = onAchievementsClick,
                 contentPadding = innerPadding,
-                onReachAnimationEnd = onReachAnimationEnd,
-                achievementLottieRawId = achievementLottieRawId,
+                onReset = onReset,
                 modifier = Modifier.padding(
                     top = innerPadding.calculateTopPadding(),
                     start = innerPadding.calculateStartPadding(layoutDirection),

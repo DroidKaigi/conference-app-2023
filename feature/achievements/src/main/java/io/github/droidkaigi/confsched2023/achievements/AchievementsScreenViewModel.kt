@@ -8,20 +8,23 @@ import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepositor
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.feature.achievements.R
 import io.github.droidkaigi.confsched2023.model.Achievement
+import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
+import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.collections.immutable.persistentSetOf
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AchievementsScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    achievementRepository: AchievementRepository,
+    private val achievementRepository: AchievementRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
 
@@ -37,66 +40,89 @@ class AchievementsScreenViewModel @Inject constructor(
                 initialValue = "",
             )
 
-    private val achievementLottieRawResStateFlow: MutableStateFlow<Int?> =
-        MutableStateFlow(null)
+    private val achievementsStateFlow: StateFlow<PersistentSet<Achievement>> =
+        achievementRepository.getAchievementsStream()
+            .handleErrorAndRetry(
+                AppStrings.Retry,
+                userMessageStateHolder,
+            )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = persistentSetOf(),
+            )
 
-    private val achievementListState = buildUiState(
+    private val resetAchievementsEnabledStateFlow: StateFlow<Boolean> =
+        achievementRepository.getResetAchievementsEnabledStream()
+            .handleErrorAndRetry(
+                AppStrings.Retry,
+                userMessageStateHolder,
+            )
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = false,
+            )
+
+    private val achievementAnimationListState = buildUiState(
         achievementDetailDescriptionStateFlow,
-    ) { detailDescription ->
+        achievementsStateFlow,
+        resetAchievementsEnabledStateFlow,
+    ) { detailDescription, achievements, isResetAchievementsEnable ->
         AchievementListUiState(
             achievements = persistentListOf(
-                Achievement(
+                AchievementAnimation(
+                    achievement = Achievement.ArcticFox,
                     hasDrawableResId = R.drawable.img_achievement_a_on,
-                    lottieRawId = R.raw.achievement_a_lottie,
                     notHasDrawableResId = R.drawable.img_achievement_a_off,
+                    hasAchievement = achievements.contains(Achievement.ArcticFox),
                     contentDescription = "AchievementA image",
                 ),
-                Achievement(
+                AchievementAnimation(
+                    achievement = Achievement.Bumblebee,
                     hasDrawableResId = R.drawable.img_achievement_b_on,
-                    lottieRawId = R.raw.achievement_b_lottie,
                     notHasDrawableResId = R.drawable.img_achievement_b_off,
+                    hasAchievement = achievements.contains(Achievement.Bumblebee),
                     contentDescription = "AchievementB image",
                 ),
-                Achievement(
+                AchievementAnimation(
+                    achievement = Achievement.Chipmunk,
                     hasDrawableResId = R.drawable.img_achievement_c_on,
-                    lottieRawId = R.raw.achievement_c_lottie,
                     notHasDrawableResId = R.drawable.img_achievement_c_off,
+                    hasAchievement = achievements.contains(Achievement.Chipmunk),
                     contentDescription = "AchievementC image",
                 ),
-                Achievement(
+                AchievementAnimation(
+                    achievement = Achievement.Dolphin,
                     hasDrawableResId = R.drawable.img_achievement_d_on,
-                    lottieRawId = R.raw.achievement_d_lottie,
                     notHasDrawableResId = R.drawable.img_achievement_d_off,
+                    hasAchievement = achievements.contains(Achievement.Dolphin),
                     contentDescription = "AchievementD image",
                 ),
-                Achievement(
+                AchievementAnimation(
+                    achievement = Achievement.ElectricEel,
                     hasDrawableResId = R.drawable.img_achievement_e_on,
-                    lottieRawId = R.raw.achievement_e_lottie,
                     notHasDrawableResId = R.drawable.img_achievement_e_off,
+                    hasAchievement = achievements.contains(Achievement.ElectricEel),
                     contentDescription = "AchievementE image",
                 ),
             ),
             detailDescription = detailDescription,
+            isResetButtonEnabled = isResetAchievementsEnable,
         )
     }
 
     val uiState = buildUiState(
-        achievementLottieRawResStateFlow,
-        achievementListState,
-    ) { rawRes, achievementListUiState ->
+        achievementAnimationListState,
+    ) { achievementListUiState ->
         AchievementsScreenUiState(
-            lottieRawRes = rawRes,
             achievementListUiState = achievementListUiState,
         )
     }
 
-    fun onAchievementClick(
-        achievement: Achievement,
-    ) {
-        achievementLottieRawResStateFlow.value = achievement.lottieRawId
-    }
-
-    fun onReachAnimationEnd() {
-        achievementLottieRawResStateFlow.value = null
+    fun onReset() {
+        viewModelScope.launch {
+            achievementRepository.resetAchievements()
+        }
     }
 }

@@ -1,1 +1,17 @@
-
+"about.title" = "About";
+"about.description" = "DroidKaigiはAndroid技術情報の共有とコミュニケーションを目的に開催されるエンジニアが主役のAndroidカンファレンスです。";
+"about.date_title" = "日時";
+"about.date_description" = "2023.09.14(木) 〜 16(土) 3日間";
+"about.place_title" = "場所";
+"about.place_description" = "ベルサール渋谷ガーデン";
+"about.view_map" = "地図を見る";
+"about.credits_title" = "Credits";
+"about.staff" = "スタッフ";
+"about.contributors" = "コントリビューター";
+"about.sponsors" = "スポンサー";
+"about.others_title" = "Others";
+"about.code_of_conduct" = "行動規範";
+"about.licenses" = "ライセンス";
+"about.privacy_policy" = "プライバシーポリシー";
+"about.app_version" = "アプリバージョン";
+"about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";

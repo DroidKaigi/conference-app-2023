@@ -10,6 +10,7 @@ import io.github.droidkaigi.confsched2023.model.Lang
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableItemDetailSectionUiState
 import io.github.droidkaigi.confsched2023.sessions.strings.TimetableItemDetailStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageResult
@@ -73,6 +74,7 @@ class TimetableItemDetailViewModel @Inject constructor(
                 timetableItem = timetableItem,
                 timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(timetableItem),
                 isBookmarked = bookmarked,
+                isLangSelectable = timetableItem.sessionType == TimetableSessionType.NORMAL,
                 viewBookmarkListRequestState = viewBookmarkListRequestState,
                 currentLang = selectedLang,
             )

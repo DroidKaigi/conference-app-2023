@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.shared
 
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.User
@@ -47,6 +48,7 @@ class EntryPointTest {
         assertNotNull(kmpEntryPoint.get<AuthApi>())
         assertNotNull(kmpEntryPoint.get<SessionsApiClient>())
         assertNotNull(kmpEntryPoint.get<SessionCacheDataStore>())
+        assertNotNull(kmpEntryPoint.get<AchievementsDataStore>())
 
         assertNotNull(kmpEntryPoint.get<SessionsRepository>())
         assertNotNull(kmpEntryPoint.get<AchievementRepository>())
