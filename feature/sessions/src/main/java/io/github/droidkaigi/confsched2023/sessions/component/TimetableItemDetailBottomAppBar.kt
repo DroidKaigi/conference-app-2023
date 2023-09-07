@@ -103,7 +103,7 @@ fun AnimatedBookmarkIcon(
             R.drawable.animated_bookmark_icon_reverse
         } else {
             R.drawable.animated_bookmark_icon
-        }
+        },
     )
     Icon(
         painter = rememberAnimatedVectorPainter(animatedBookmarkIcon, atEnd),
