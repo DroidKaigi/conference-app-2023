@@ -45,15 +45,15 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    internal suspend fun save(
-        isDisplayed: Boolean,
+    internal suspend fun saveInitialDialogDisplayState(
+        isInitialDialogDisplay: Boolean,
     ) {
         dataStore.edit { preferences ->
-            preferences[KEY_ACHIEVEMENTS] = isDisplayed.toString()
+            preferences[KEY_ACHIEVEMENTS] = isInitialDialogDisplay.toString()
         }
     }
 
-    public fun isDisplayedStream(): Flow<Boolean> {
+    public fun isInitialDialogDisplayStateStream(): Flow<Boolean> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {

@@ -52,8 +52,8 @@ class AchievementsScreenViewModel @Inject constructor(
                 initialValue = persistentSetOf(),
             )
 
-    private val isDisplayedDialogFlow: StateFlow<Boolean?> =
-        achievementRepository.getIsDisplayedDialogStream()
+    private val isInitialDialogDisplayFlow: StateFlow<Boolean?> =
+        achievementRepository.getIsInitialDialogDisplayStateStream()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
@@ -122,11 +122,11 @@ class AchievementsScreenViewModel @Inject constructor(
 
     val uiState = buildUiState(
         achievementAnimationListState,
-        isDisplayedDialogFlow,
-    ) { achievementListUiState, isDisplayedDialog ->
+        isInitialDialogDisplayFlow,
+    ) { achievementListUiState, isDisplayedInitialDialog ->
         AchievementsScreenUiState(
             achievementListUiState = achievementListUiState,
-            isShowDialog = isDisplayedDialog?.not() ?: false,
+            isShowInitialDialog = isDisplayedInitialDialog?.not() ?: false,
         )
     }
 
@@ -136,9 +136,9 @@ class AchievementsScreenViewModel @Inject constructor(
         }
     }
 
-    fun onDisplayedDialog() {
+    fun onDisplayedInitialDialog() {
         viewModelScope.launch {
-            achievementRepository.displayedDialog()
+            achievementRepository.displayedInitialDialog()
         }
     }
 }

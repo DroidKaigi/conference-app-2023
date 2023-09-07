@@ -77,13 +77,13 @@ fun AchievementsScreen(
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
         onReset = viewModel::onReset,
-        onDisplayedDialog = viewModel::onDisplayedDialog,
+        onDisplayedInitialDialog = viewModel::onDisplayedInitialDialog,
     )
 }
 
 data class AchievementsScreenUiState(
     val achievementListUiState: AchievementListUiState,
-    val isShowDialog: Boolean,
+    val isShowInitialDialog: Boolean,
 )
 
 @Composable
@@ -92,7 +92,7 @@ private fun AchievementsScreen(
     snackbarHostState: SnackbarHostState,
     contentPadding: PaddingValues,
     onReset: () -> Unit,
-    onDisplayedDialog: () -> Unit,
+    onDisplayedInitialDialog: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
     Scaffold(
@@ -105,13 +105,9 @@ private fun AchievementsScreen(
             bottom = contentPadding.calculateBottomPadding(),
         ),
         content = { innerPadding ->
-            val onDismiss = {
-                onDisplayedDialog()
-            }
-
-            if (uiState.isShowDialog) {
+            if (uiState.isShowInitialDialog) {
                 AchievementScreenDialog(
-                    onDismissRequest = onDismiss,
+                    onDismissRequest = onDisplayedInitialDialog,
                 )
             }
             AchievementList(

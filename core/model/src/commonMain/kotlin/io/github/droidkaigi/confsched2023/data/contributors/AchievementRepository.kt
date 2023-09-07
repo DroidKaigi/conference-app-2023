@@ -9,8 +9,8 @@ interface AchievementRepository {
     fun getAchievementDetailDescriptionStream(): Flow<String>
     fun getResetAchievementsEnabledStream(): Flow<Boolean>
     fun getAchievementsStream(): Flow<PersistentSet<Achievement>>
-    fun getIsDisplayedDialogStream(): Flow<Boolean>
+    fun getIsInitialDialogDisplayStateStream(): Flow<Boolean>
     suspend fun saveAchievements(achievement: Achievement)
     suspend fun resetAchievements()
-    suspend fun displayedDialog()
+    suspend fun displayedInitialDialog()
 }

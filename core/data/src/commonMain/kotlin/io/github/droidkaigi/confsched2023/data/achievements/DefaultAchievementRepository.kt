@@ -52,12 +52,12 @@ class DefaultAchievementRepository(
         achievementsDataStore.resetAchievements()
     }
 
-    override fun getIsDisplayedDialogStream(): Flow<Boolean> {
-        return achievementsDataStore.isDisplayedStream()
+    override fun getIsInitialDialogDisplayStateStream(): Flow<Boolean> {
+        return achievementsDataStore.isInitialDialogDisplayStateStream()
     }
 
-    override suspend fun displayedDialog() {
-        achievementsDataStore.save(true)
+    override suspend fun displayedInitialDialog() {
+        achievementsDataStore.saveInitialDialogDisplayState(true)
     }
 
     companion object {
