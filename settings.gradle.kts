@@ -33,3 +33,4 @@ include(
     ":core:testing",
     ":core:common",
 )
+include(":baselineprofile")
