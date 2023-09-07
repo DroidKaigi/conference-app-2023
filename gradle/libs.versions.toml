@@ -125,7 +125,8 @@ firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 firebaseDynamicLinks = { module = "com.google.firebase:firebase-dynamic-links" }
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebase" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version.ref = "multiplatformFirebase" }
-firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.9.9" }
+firebaseCrashlyticsGradlePlugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.9.9" }
+firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "18.4.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
@@ -172,5 +173,5 @@ plugins = [
     "detektGradlePlugin",
     "ossLicensesPlugin",
     "koverPlugin",
-    "firebaseCrashlytics"
+    "firebaseCrashlyticsGradlePlugin"
 ]
