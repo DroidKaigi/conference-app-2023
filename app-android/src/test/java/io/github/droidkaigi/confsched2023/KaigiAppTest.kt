@@ -85,7 +85,7 @@ class KaigiAppTest {
     fun checkNavigateToAchievementsShot() {
         kaigiAppRobot {
             goToAchievements()
-            captureWhenAchievementScreen()
+            captureFirstRootScreen()
         }
     }
 
