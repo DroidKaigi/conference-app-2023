@@ -6,9 +6,13 @@
             android:name="vector"
             android:width="108dp"
             android:height="108dp"
-            android:viewportWidth="108"
-            android:viewportHeight="108">
-            <group android:name="group">
+            android:viewportWidth="216"
+            android:viewportHeight="216">
+            <group
+                android:name="group"
+                android:translateX="52"
+                android:translateY="52"
+                >
                 <path
                     android:name="path"
                     android:pathData="M 46.978 58.937 C 45.854 57.367 45.171 55.707 45.171 54.008 C 45.171 52.31 45.854 50.651 46.978 49.079 C 47.91 47.775 49.938 45.679 52.316 43.555 C 52.421 43.461 52.418 43.297 52.309 43.208 C 50.561 41.78 48.862 40.573 47.657 40.029 C 44.423 38.572 39.5 40.19 39.5 44.14 L 39.5 63.881 C 39.5 67.836 44.767 69.457 47.706 67.935 C 48.782 67.378 50.514 66.056 52.324 64.537 C 52.43 64.449 52.433 64.288 52.332 64.195 C 51.436 63.377 47.682 59.923 46.978 58.937 Z"
