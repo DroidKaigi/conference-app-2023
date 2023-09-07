@@ -64,7 +64,7 @@ const val AboutScreenTestTag = "AboutScreen"
 @Composable
 fun AboutScreen(
     onAboutItemClick: (AboutItem) -> Unit,
-    viewModel: AboutScreenViewModel = hiltViewModel<AboutScreenViewModel>(),
+    viewModel: AboutScreenViewModel = hiltViewModel(),
     contentPadding: PaddingValues = PaddingValues(),
     onLinkClick: (url: String) -> Unit,
 ) {
