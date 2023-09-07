@@ -1,15 +1,12 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.os.Build
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Share
-import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -25,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
@@ -71,19 +67,11 @@ fun TimetableItemDetailBottomAppBar(
                 containerColor = BottomAppBarDefaults.bottomAppBarFabColor,
                 elevation = FloatingActionButtonDefaults.bottomAppBarFabElevation(),
             ) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    AnimatedBookmarkIcon(
-                        isBookmarked = isBookmarked,
-                        timetableItem = timetableItem,
-                        onClick = onBookmarkClick,
-                    )
-                } else {
-                    BookmarkIcon(
-                        isBookmarked = isBookmarked,
-                        timetableItem = timetableItem,
-                        onClick = onBookmarkClick,
-                    )
-                }
+                AnimatedBookmarkIcon(
+                    isBookmarked = isBookmarked,
+                    timetableItem = timetableItem,
+                    onClick = onBookmarkClick,
+                )
             }
         },
     )
@@ -120,32 +108,8 @@ fun AnimatedBookmarkIcon(
     )
 }
 
-@Composable
-fun BookmarkIcon(
-    isBookmarked: Boolean,
-    timetableItem: TimetableItem,
-    onClick: (TimetableItem) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Icon(
-        imageVector = if (isBookmarked) {
-            Icons.Filled.Bookmark
-        } else {
-            Icons.Outlined.BookmarkBorder
-        },
-        contentDescription = if (isBookmarked) {
-            SessionsStrings.RemoveFromFavorites.asString()
-        } else {
-            SessionsStrings.AddToFavorites.asString()
-        },
-        modifier = modifier
-            .clickable { onClick(timetableItem) },
-    )
-}
-
 @MultiThemePreviews
 @MultiLanguagePreviews
-@Preview(apiLevel = 30)
 @Composable
 fun TimetableItemDetailBottomAppBarPreview() {
     KaigiTheme {
