@@ -85,7 +85,9 @@ fun AboutScreen(
     )
 }
 
-class AboutScreenUiState
+class AboutScreenUiState(
+    val versionName: String
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
