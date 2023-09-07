@@ -1,9 +1,5 @@
 package io.github.droidkaigi.confsched2023.about
 
-import android.content.Context
-import android.content.pm.PackageManager.PackageInfoFlags
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
@@ -85,7 +80,7 @@ fun AboutScreen(
 }
 
 class AboutScreenUiState(
-    val versionName: String
+    val versionName: String,
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
