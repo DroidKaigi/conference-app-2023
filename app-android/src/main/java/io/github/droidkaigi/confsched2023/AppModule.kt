@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.droidkaigi.confsched2023.data.di.AppAndroidBuildConfig
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
 import javax.inject.Singleton
 
@@ -12,6 +13,7 @@ import javax.inject.Singleton
 class AppModule {
     @Provides
     @Singleton
+    @AppAndroidBuildConfig
     fun provideBuildConfigProvider(): BuildConfigProvider = AppBuildConfigProvider()
 }
 
