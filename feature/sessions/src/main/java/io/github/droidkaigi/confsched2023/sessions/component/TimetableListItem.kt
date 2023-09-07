@@ -1,8 +1,14 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import android.graphics.drawable.AnimatedImageDrawable
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -27,6 +33,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,6 +52,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.feature.sessions.R
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -54,7 +65,7 @@ import java.lang.Integer.max
 const val TimetableListItemTestTag = "TimetableListItem"
 const val TimetableListItemBookmarkIconTestTag = "TimetableListItemBookmarkIconTestTag"
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun TimetableListItem(
     timetableItem: TimetableItem,
@@ -69,7 +80,9 @@ fun TimetableListItem(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             FlowRow(
-                modifier = Modifier.weight(1F).padding(top = 4.dp),
+                modifier = Modifier
+                    .weight(1F)
+                    .padding(top = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
@@ -83,18 +96,24 @@ fun TimetableListItem(
                     checkedContentColor = MaterialTheme.colorScheme.onSurface,
                 ),
             ) {
-                Icon(
-                    imageVector = if (isBookmarked) {
-                        Icons.Filled.Bookmark
+                var atEnd by remember { mutableStateOf(false) }
+                val animatedBookmarkIcon = AnimatedImageVector.animatedVectorResource(
+                    id = if (isBookmarked && atEnd) {
+                        R.drawable.animated_bookmark_icon_reverse
                     } else {
-                        Icons.Outlined.BookmarkBorder
-                    },
+                        R.drawable.animated_bookmark_icon
+                    }
+                )
+                Icon(
+                    painter = rememberAnimatedVectorPainter(animatedBookmarkIcon, atEnd),
                     contentDescription = if (isBookmarked) {
                         SessionsStrings.RemoveFromFavorites.asString()
                     } else {
                         SessionsStrings.AddToFavorites.asString()
                     },
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .clickable { atEnd = atEnd.not() },
                 )
             }
         }

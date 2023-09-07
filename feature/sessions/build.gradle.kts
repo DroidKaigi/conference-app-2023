@@ -8,6 +8,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
     implementation(projects.core.model)
+    implementation(libs.animation.graphics.android)
     testImplementation(projects.core.testing)
 
     implementation(libs.composeHiltNavigtation)
