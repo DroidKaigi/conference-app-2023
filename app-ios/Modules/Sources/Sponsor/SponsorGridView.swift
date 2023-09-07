@@ -14,7 +14,7 @@ struct SponsorGridView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(title)
-                .font(.system(size: 22, weight: .semibold, design: .default))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
             LazyVGrid(columns: Array(repeating: GridItem(spacing: 16), count: columns), spacing: 16) {
                 ForEach(sponsors) { sponsor in

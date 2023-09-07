@@ -10,14 +10,16 @@ struct SessionTimeView: View {
         VStack(spacing: 4) {
             Text(startsTimeString)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                .font(Font(UIFont.systemFont(ofSize: 16, weight: .bold)))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                .fontWeight(.bold)
                 .frame(height: 24)
             Rectangle()
                 .foregroundColor(AssetColors.Outline.outlineVariant.swiftUIColor)
                 .frame(width: 2, height: 8)
             Text(endsTimeString)
                 .foregroundStyle(AssetColors.Secondary.secondary.swiftUIColor)
-                .font(Font(UIFont.systemFont(ofSize: 16, weight: .bold)))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                .fontWeight(.bold)
                 .frame(height: 24)
         }
     }

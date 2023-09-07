@@ -30,7 +30,7 @@ struct FloorMapFooterSegmentedButton: View {
                             Assets.Icons.checkmark.swiftUIImage
                         }
                         Text("1F")
-                            .font(.system(size: 14, weight: .medium))
+                            .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                     }
                     .foregroundStyle(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
                 }
@@ -49,7 +49,7 @@ struct FloorMapFooterSegmentedButton: View {
                             Assets.Icons.checkmark.swiftUIImage
                         }
                         Text("B1F")
-                            .font(.system(size: 14, weight: .medium))
+                            .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                     }
                     .foregroundStyle(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
                 }

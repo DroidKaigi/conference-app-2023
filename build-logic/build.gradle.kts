@@ -94,9 +94,9 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.serialization"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KotlinSerializationPlugin"
         }
-        register("kover") {
-            id = "droidkaigi.primitive.kover"
-            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverPlugin"
+        register("koverEntryPoint") {
+            id = "droidkaigi.primitive.kover.entrypoint"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverEntryPointPlugin"
         }
         register("detekt") {
             id = "droidkaigi.primitive.detekt"
