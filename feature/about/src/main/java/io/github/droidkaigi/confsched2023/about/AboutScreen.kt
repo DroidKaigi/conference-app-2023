@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -66,20 +68,17 @@ fun AboutScreen(
     contentPadding: PaddingValues = PaddingValues(),
     onLinkClick: (url: String) -> Unit,
 ) {
-    // val uiState by viewModel.uiState.collectAsState()
-    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
-    val versionName = remember { versionName(context) }
 
     SnackbarMessageEffect(
         snackbarHostState = snackbarHostState,
         userMessageStateHolder = viewModel.userMessageStateHolder,
     )
     AboutScreen(
-        // uiState = uiState,
+        uiState = uiState,
         snackbarHostState = snackbarHostState,
         onAboutItemClick = onAboutItemClick,
-        versionName = versionName,
         onLinkClick = onLinkClick,
         contentPadding = contentPadding,
     )
@@ -92,10 +91,9 @@ class AboutScreenUiState(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AboutScreen(
-    // uiState: AboutScreenUiState,
+    uiState: AboutScreenUiState,
     snackbarHostState: SnackbarHostState,
     onAboutItemClick: (AboutItem) -> Unit,
-    versionName: String?,
     onLinkClick: (url: String) -> Unit,
     contentPadding: PaddingValues,
 ) {
@@ -165,7 +163,7 @@ private fun AboutScreen(
                 )
                 item {
                     AboutFooterLinks(
-                        versionName = versionName,
+                        versionName = uiState.versionName,
                         onYouTubeClick = {
                             onAboutItemClick(AboutItem.YouTube)
                         },
