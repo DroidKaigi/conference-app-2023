@@ -31,7 +31,7 @@ class BuildConfigProviderModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class ReleaseAppModule {
+abstract class AppAndroidBuildConfigModule {
     @BindsOptionalOf
     @AppAndroidBuildConfig
     abstract fun bindBuildConfigProvider(): BuildConfigProvider
