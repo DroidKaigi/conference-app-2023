@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
-import android.graphics.drawable.AnimatedImageDrawable
+import android.os.Build
 import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
@@ -96,25 +96,15 @@ fun TimetableListItem(
                     checkedContentColor = MaterialTheme.colorScheme.onSurface,
                 ),
             ) {
-                var atEnd by remember { mutableStateOf(false) }
-                val animatedBookmarkIcon = AnimatedImageVector.animatedVectorResource(
-                    id = if (isBookmarked && atEnd) {
-                        R.drawable.animated_bookmark_icon_reverse
-                    } else {
-                        R.drawable.animated_bookmark_icon
-                    }
-                )
-                Icon(
-                    painter = rememberAnimatedVectorPainter(animatedBookmarkIcon, atEnd),
-                    contentDescription = if (isBookmarked) {
-                        SessionsStrings.RemoveFromFavorites.asString()
-                    } else {
-                        SessionsStrings.AddToFavorites.asString()
-                    },
-                    modifier = Modifier
-                        .padding(top = 4.dp)
-                        .clickable { atEnd = atEnd.not() },
-                )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    AnimatedBookmarkIcon(
+                        isBookmarked = isBookmarked,
+                    )
+                } else {
+                    BookmarkIcon(
+                        isBookmarked = isBookmarked,
+                    )
+                }
             }
         }
         Spacer(modifier = Modifier.size(5.dp))
@@ -197,6 +187,53 @@ fun TimetableListItem(
         Spacer(modifier = Modifier.size(15.dp))
         Divider()
     }
+}
+
+@OptIn(ExperimentalAnimationGraphicsApi::class)
+@Composable
+fun AnimatedBookmarkIcon(
+    isBookmarked: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    var atEnd by remember { mutableStateOf(false) }
+    val animatedBookmarkIcon = AnimatedImageVector.animatedVectorResource(
+        id = if (isBookmarked && atEnd) {
+            R.drawable.animated_bookmark_icon_reverse
+        } else {
+            R.drawable.animated_bookmark_icon
+        }
+    )
+    Icon(
+        painter = rememberAnimatedVectorPainter(animatedBookmarkIcon, atEnd),
+        contentDescription = if (isBookmarked) {
+            SessionsStrings.RemoveFromFavorites.asString()
+        } else {
+            SessionsStrings.AddToFavorites.asString()
+        },
+        modifier = modifier
+            .padding(top = 4.dp)
+            .clickable { atEnd = atEnd.not() },
+    )
+}
+
+@Composable
+fun BookmarkIcon(
+    isBookmarked: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    Icon(
+        imageVector = if (isBookmarked) {
+            Icons.Filled.Bookmark
+        } else {
+            Icons.Outlined.BookmarkBorder
+        },
+        contentDescription = if (isBookmarked) {
+            SessionsStrings.RemoveFromFavorites.asString()
+        } else {
+            SessionsStrings.AddToFavorites.asString()
+        },
+        modifier = modifier.padding(top = 4.dp),
+    )
 }
 
 @MultiThemePreviews
