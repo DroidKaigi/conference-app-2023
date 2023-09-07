@@ -51,9 +51,9 @@ public struct TimetableView<SessionView: View>: View {
                         HStack(spacing: 0) {
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("DroidKaigi\n2023")
-                                    .font(Font.system(size: 36))
+                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 36))
                                 Text("at Bellesalle Shibuya Garden")
-                                    .font(Font.system(size: 12, weight: .semibold))
+                                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 12))
                             }
                             .padding(.horizontal, 16)
                             .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)

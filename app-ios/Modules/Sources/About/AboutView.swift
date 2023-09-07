@@ -37,7 +37,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     Assets.Images.aboutKeyVisual.swiftUIImage
                     Spacer().frame(height: 16)
                     Text(L10n.About.description)
-                        .font(Font.system(size: 16))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer().frame(height: 12)
                     VStack(alignment: .leading, spacing: 12) {
@@ -123,14 +123,14 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     .padding(.vertical, 24)
 
                     Text(L10n.About.appVersion)
-                        .font(Font.system(size: 14, weight: .medium))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                     Spacer().frame(height: 8)
                     Text(Bundle.main.formattedVersion)
-                        .font(Font.system(size: 14, weight: .medium))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                     Spacer().frame(height: 8)
                     Text(L10n.About.androidRobotDescription)
                         .foregroundStyle(AssetColors.About.androidRobotDescription.swiftUIColor)
-                        .font(Font.system(size: 11, weight: .medium))
+                        .font(Font.custom(FontAssets.Montserrat.medium, size: 11))
                         .multilineTextAlignment(.center)
                 }
                 .padding(16)
