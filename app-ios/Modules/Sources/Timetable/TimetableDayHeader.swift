@@ -1,4 +1,3 @@
-import Assets
 import Model
 import shared
 import SwiftUI
@@ -32,10 +31,10 @@ struct TimetableDayHeader: View {
                     } label: {
                         VStack(spacing: 0) {
                             Text(day.name)
-                                .font(Font.system(size: 12, weight: .semibold))
+                                .font(Font.custom(FontAssets.Montserrat.semiBold, size: 12))
                             if !shouldCollapse {
                                 Text("\(day.dayOfMonth)")
-                                    .font(Font.system(size: 24, weight: .semibold))
+                                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 24))
                                     .frame(height: 32)
                             }
                         }
