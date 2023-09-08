@@ -155,6 +155,12 @@ public fun Timetable.Companion.fake(): Timetable {
                         tagLine = "iOS Engineer",
                     ),
                 ),
+                description = MultiLangText(
+                    jaTitle = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                        "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                    enTitle = "This is a description\nThis is a description\nThis is a description\n" +
+                        "This is a description\nThis is a description\nThis is a description\n",
+                ),
             ),
         )
         for (day in -1..1) {
@@ -231,6 +237,12 @@ public fun Timetable.Companion.fake(): Timetable {
                         bio = "Likes iOS",
                         tagLine = "iOS Engineer",
                     ),
+                ),
+                description = MultiLangText(
+                    jaTitle = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                        "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                    enTitle = "This is a description\nThis is a description\nThis is a description\n" +
+                        "This is a description\nThis is a description\nThis is a description\n",
                 ),
             ),
         )

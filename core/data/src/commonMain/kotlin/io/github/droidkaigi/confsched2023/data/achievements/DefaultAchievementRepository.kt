@@ -52,6 +52,14 @@ class DefaultAchievementRepository(
         achievementsDataStore.resetAchievements()
     }
 
+    override fun getIsInitialDialogDisplayStateStream(): Flow<Boolean> {
+        return achievementsDataStore.isInitialDialogDisplayStateStream()
+    }
+
+    override suspend fun displayedInitialDialog() {
+        achievementsDataStore.saveInitialDialogDisplayState(true)
+    }
+
     companion object {
         const val IS_ACHIEVEMENTS_ENABLED_KEY = "is_achievements_enable"
         const val ACHIEVEMENT_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"

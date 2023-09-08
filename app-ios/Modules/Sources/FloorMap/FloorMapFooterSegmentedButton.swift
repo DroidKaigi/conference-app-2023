@@ -7,8 +7,6 @@ import Theme
 /// [Figma](https://www.figma.com/file/MbElhCEnjqnuodmvwabh9K/DroidKaigi-2023-App-UI?type=design&node-id=56145-70041&mode=dev)
 struct FloorMapFooterSegmentedButton: View {
     @Binding private var floor: FloorLevel
-    private let width: CGFloat = 104
-    private let height: CGFloat = 40
 
     init(floor: Binding<FloorLevel>) {
         _floor = floor
