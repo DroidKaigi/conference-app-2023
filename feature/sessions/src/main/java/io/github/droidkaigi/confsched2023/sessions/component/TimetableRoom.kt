@@ -7,6 +7,7 @@ import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomDE
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.TimetableRoom
 
@@ -20,6 +21,8 @@ internal val TimetableRoom.color: Color
             RoomC -> colors.hallC
             RoomD -> colors.hallD
             RoomE -> colors.hallE
+            // The color of D is set as workaround.
+            RoomDE -> colors.hallD
             else -> Color.White
         }
     }

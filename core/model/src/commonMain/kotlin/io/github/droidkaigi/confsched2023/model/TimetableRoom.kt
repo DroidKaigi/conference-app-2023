@@ -26,6 +26,8 @@ val TimetableRoom.nameAndFloor: String
             RoomType.RoomC -> basementFloorString.currentLangTitle
             RoomType.RoomD -> "1F"
             RoomType.RoomE -> "1F"
+            // Assume the room on the third day.
+            RoomType.RoomDE -> "1F"
         }
         return "${name.currentLangTitle} ($floor)"
     }
