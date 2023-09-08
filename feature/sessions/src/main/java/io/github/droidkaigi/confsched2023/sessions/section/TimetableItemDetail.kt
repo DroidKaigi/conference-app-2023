@@ -21,6 +21,7 @@ internal fun TimetableItemDetail(
     contentPadding: PaddingValues,
     selectedLanguage: Lang?,
     onLinkClick: (String) -> Unit,
+    onRoomClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -31,6 +32,7 @@ internal fun TimetableItemDetail(
             TimetableItemDetailSummaryCard(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
                 timetableItem = uiState.timetableItem,
+                onRoomClick = onRoomClick,
             )
         }
 

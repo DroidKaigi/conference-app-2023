@@ -111,6 +111,9 @@ private fun KaigiNavHost(
             onTimetableItemClick = navController::navigateToTimetableItemDetailScreen,
             onNavigateToBookmarkScreenRequested = navController::navigateToBookmarkScreen,
             onLinkClick = externalNavController::navigate,
+            onRoomClick = {
+                navController.popBackStack(navController.graph.startDestinationId, false)
+            },
             onCalendarRegistrationClick = externalNavController::navigateToCalendarRegistration,
             onShareClick = externalNavController::onShareClick,
         )

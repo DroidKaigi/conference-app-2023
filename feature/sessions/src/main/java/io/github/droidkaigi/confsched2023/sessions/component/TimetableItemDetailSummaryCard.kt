@@ -40,6 +40,7 @@ import java.util.Locale
 @Composable
 fun TimetableItemDetailSummaryCard(
     timetableItem: TimetableItem,
+    onRoomClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -88,6 +89,7 @@ fun TimetableItemDetailSummaryCard(
                     leadingIcon = Icons.Outlined.Place,
                     label = SessionsStrings.Place.asString(),
                     content = timetableItem.room.nameAndFloor,
+                    onContentClick = onRoomClick,
                 )
                 TimetableItemDetailSummaryCardRow(
                     leadingIcon = Icons.Outlined.Language,
@@ -110,7 +112,10 @@ fun TimetableItemDetailSummaryCard(
 fun TimetableItemDetailSummaryPreview() {
     KaigiTheme {
         Surface {
-            TimetableItemDetailSummaryCard(timetableItem = Session.fake())
+            TimetableItemDetailSummaryCard(
+                timetableItem = Session.fake(),
+                onRoomClick = {},
+            )
         }
     }
 }

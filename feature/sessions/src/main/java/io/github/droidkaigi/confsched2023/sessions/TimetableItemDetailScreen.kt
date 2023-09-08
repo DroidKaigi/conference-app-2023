@@ -49,6 +49,7 @@ fun NavGraphBuilder.sessionScreens(
     onTimetableItemClick: (TimetableItem) -> Unit,
     onNavigateToBookmarkScreenRequested: () -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onRoomClick: () -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
     onShareClick: (TimetableItem) -> Unit,
 ) {
@@ -56,6 +57,7 @@ fun NavGraphBuilder.sessionScreens(
         TimetableItemDetailScreen(
             onNavigationIconClick = onNavigationIconClick,
             onLinkClick = onLinkClick,
+            onRoomClick = onRoomClick,
             onCalendarRegistrationClick = onCalendarRegistrationClick,
             onNavigateToBookmarkScreenRequested = onNavigateToBookmarkScreenRequested,
             onShareClick = onShareClick,
@@ -84,6 +86,7 @@ fun NavController.navigateToTimetableItemDetailScreen(
 fun TimetableItemDetailScreen(
     onNavigationIconClick: () -> Unit,
     onLinkClick: (url: String) -> Unit,
+    onRoomClick: () -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
     onNavigateToBookmarkScreenRequested: () -> Unit,
     onShareClick: (TimetableItem) -> Unit,
@@ -109,6 +112,10 @@ fun TimetableItemDetailScreen(
         onNavigationIconClick = onNavigationIconClick,
         onBookmarkClick = viewModel::onBookmarkClick,
         onLinkClick = onLinkClick,
+        onRoomClick = {
+            viewModel.navigateTo("floorMap")
+            onRoomClick()
+        },
         onCalendarRegistrationClick = onCalendarRegistrationClick,
         onShareClick = onShareClick,
         onSelectedLanguage = viewModel::onSelectDescriptionLanguage,
@@ -145,6 +152,7 @@ private fun TimetableItemDetailScreen(
     onLinkClick: (url: String) -> Unit,
     onCalendarRegistrationClick: (TimetableItem) -> Unit,
     onShareClick: (TimetableItem) -> Unit,
+    onRoomClick: () -> Unit,
     onSelectedLanguage: (Lang) -> Unit,
     snackbarHostState: SnackbarHostState,
 ) {
@@ -194,6 +202,7 @@ private fun TimetableItemDetailScreen(
                         uiState = it.timetableItemDetailSectionUiState,
                         selectedLanguage = it.currentLang,
                         onLinkClick = onLinkClick,
+                        onRoomClick = onRoomClick,
                         contentPadding = innerPadding,
                     )
                 }
@@ -214,7 +223,9 @@ fun TimetableItemDetailScreenPreview() {
             TimetableItemDetailScreen(
                 uiState = Loaded(
                     timetableItem = fakeSession,
-                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
+                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(
+                        fakeSession
+                    ),
                     isBookmarked = isBookMarked,
                     isLangSelectable = true,
                     viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
@@ -225,6 +236,7 @@ fun TimetableItemDetailScreenPreview() {
                     isBookMarked = !isBookMarked
                 },
                 onLinkClick = {},
+                onRoomClick = {},
                 onCalendarRegistrationClick = {},
                 onShareClick = {},
                 onSelectedLanguage = {},

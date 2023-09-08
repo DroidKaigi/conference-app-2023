@@ -16,9 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.droidkaigi.confsched2023.designsystem.component.ClickableLinkText
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.fake
+import io.github.droidkaigi.confsched2023.model.nameAndFloor
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
 
 @Composable
@@ -28,6 +32,7 @@ fun TimetableItemDetailSummaryCardRow(
     content: String,
     modifier: Modifier = Modifier,
     leadingIconContentDescription: String? = null,
+    onContentClick: (() -> Unit)? = null,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -46,7 +51,16 @@ fun TimetableItemDetailSummaryCardRow(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
         Spacer(modifier = Modifier.width(12.dp))
-        Text(text = content, style = MaterialTheme.typography.bodyMedium)
+        if (onContentClick == null) {
+            Text(text = content, style = MaterialTheme.typography.bodyMedium)
+        } else {
+            ClickableLinkText(
+                style = MaterialTheme.typography.bodyMedium,
+                content = content,
+                onLinkClick = { _ -> onContentClick() },
+                regex = ".*".toRegex(),
+            )
+        }
     }
 }
 
@@ -60,6 +74,21 @@ fun TimetableItemDetailSummaryCardRowPreview() {
                 leadingIcon = Icons.Outlined.Schedule,
                 label = SessionsStrings.Date.asString(),
                 content = "content".repeat(5),
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun TimetableItemDetailSummaryCardRowRoomPreview() {
+    KaigiTheme {
+        Surface {
+            TimetableItemDetailSummaryCardRow(
+                leadingIcon = Icons.Outlined.Schedule,
+                label = SessionsStrings.Place.asString(),
+                content = Session.fake().room.nameAndFloor,
+                onContentClick = {},
             )
         }
     }
