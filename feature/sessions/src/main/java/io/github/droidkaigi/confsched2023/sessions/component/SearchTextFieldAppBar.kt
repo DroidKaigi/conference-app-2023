@@ -39,7 +39,6 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings.SearchPlaceHolder
 import io.github.droidkaigi.confsched2023.ui.handleOnClickIfNotNavigating
-import io.github.droidkaigi.confsched2023.ui.isTest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,10 +87,7 @@ private fun SearchTextField(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(Unit) {
-        // NOTE: Temporary workaround to pass unit tests
-        if (!isTest()) {
-            focusRequester.requestFocus()
-        }
+        focusRequester.requestFocus()
     }
 
     BasicTextField(
