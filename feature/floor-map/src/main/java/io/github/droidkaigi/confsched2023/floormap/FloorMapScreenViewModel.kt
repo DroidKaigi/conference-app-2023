@@ -25,7 +25,7 @@ class FloorMapScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
 ) : ViewModel(), UserMessageStateHolder by userMessageStateHolder {
     private val floorLevelStateFlow = MutableStateFlow(
-        if (Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).isTodayDay3()) {
+        if (isTodayDay3()) {
             FloorLevel.Ground
         } else {
             FloorLevel.Basement
@@ -69,8 +69,10 @@ class FloorMapScreenViewModel @Inject constructor(
         )
     }
 
-    private fun LocalDateTime.isTodayDay3(): Boolean {
-        val currentInTokyo = this.toInstant(TimeZone.currentSystemDefault()).toLocalDateTime(
+    private fun isTodayDay3(): Boolean {
+        val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+
+        val currentInTokyo = now.toInstant(TimeZone.currentSystemDefault()).toLocalDateTime(
             TimeZone.of("Asia/Tokyo"),
         )
         return currentInTokyo >= Day3.start.toLocalDateTime(TimeZone.of("Asia/Tokyo")) &&
