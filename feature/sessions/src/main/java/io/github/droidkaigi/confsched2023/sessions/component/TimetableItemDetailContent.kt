@@ -128,6 +128,7 @@ private fun DescriptionSection(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = if (isExpanded) Int.MAX_VALUE else 5,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                onOverflow = { isExpanded = it.not() }
             )
             if (!isExpanded) {
                 ReadMoreOutlinedButton(
