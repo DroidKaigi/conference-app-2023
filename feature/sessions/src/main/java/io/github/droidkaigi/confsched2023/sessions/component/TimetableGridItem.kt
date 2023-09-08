@@ -41,8 +41,16 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreview
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.designsystem.theme.hallColors
 import io.github.droidkaigi.confsched2023.designsystem.theme.md_theme_light_outline
+import io.github.droidkaigi.confsched2023.model.MultiLangText
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
+import io.github.droidkaigi.confsched2023.model.TimetableAsset
+import io.github.droidkaigi.confsched2023.model.TimetableCategory
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
+import io.github.droidkaigi.confsched2023.model.TimetableItemId
+import io.github.droidkaigi.confsched2023.model.TimetableLanguage
+import io.github.droidkaigi.confsched2023.model.TimetableRoom
+import io.github.droidkaigi.confsched2023.model.TimetableSessionType
 import io.github.droidkaigi.confsched2023.model.TimetableSpeaker
 import io.github.droidkaigi.confsched2023.model.fake
 import io.github.droidkaigi.confsched2023.sessions.SessionsStrings
@@ -54,7 +62,10 @@ import io.github.droidkaigi.confsched2023.ui.rememberAsyncImagePainter
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.minus
+import kotlinx.datetime.toInstant
 import kotlin.math.ceil
 import kotlin.math.roundToInt
 
@@ -115,7 +126,7 @@ fun TimetableGridItem(
             verticalArrangement = Arrangement.Top,
         ) {
             Text(
-                modifier = Modifier.weight(2f, fill = false),
+                modifier = Modifier.weight(1f, fill = false),
                 text = timetableItem.title.currentLangTitle,
                 style = titleTextStyle,
                 overflow = TextOverflow.Ellipsis,
@@ -123,7 +134,7 @@ fun TimetableGridItem(
 
             Row(
                 modifier = Modifier
-                    .weight(1.5f, fill = false)
+                    .weight(1f, fill = false)
                     .padding(top = TimetableGridItemSizes.titleToSchedulePadding),
             ) {
                 Icon(
@@ -457,6 +468,45 @@ internal fun PreviewTimetableGridItem(
                 timetableItem = timetableItem,
                 onTimetableItemClick = {},
                 gridItemHeightPx = 350,
+            )
+        }
+    }
+}
+
+@MultiThemePreviews
+@Composable
+fun PreviewTimetableGridItemWelcomeTalk() {
+    KaigiTheme {
+        Surface {
+            TimetableGridItem(
+                timetableItem = TimetableItem.Special(
+                    id = TimetableItemId("1"),
+                    title = MultiLangText("ウェルカムトーク", "Welcome Talk"),
+                    startsAt = LocalDateTime.parse("2023-09-15T10:30:00")
+                        .toInstant(TimeZone.of("UTC+9")),
+                    endsAt = LocalDateTime.parse("2023-09-15T10:45:00")
+                        .toInstant(TimeZone.of("UTC+9")),
+                    category = TimetableCategory(
+                        id = 28657,
+                        title = MultiLangText("その他", "Other"),
+                    ),
+                    sessionType = TimetableSessionType.WELCOME_TALK,
+                    room = TimetableRoom(3, MultiLangText("Chipmunk", "Chipmunk"), RoomC, 1),
+                    targetAudience = "TBW",
+                    language = TimetableLanguage(
+                        langOfSpeaker = "JAPANESE",
+                        isInterpretationTarget = true,
+                    ),
+                    asset = TimetableAsset(null, null),
+                    levels = persistentListOf(
+                        "BEGINNER",
+                        "INTERMEDIATE",
+                        "ADVANCED",
+                    ),
+                    speakers = persistentListOf(),
+                ),
+                onTimetableItemClick = {},
+                gridItemHeightPx = 154,
             )
         }
     }
