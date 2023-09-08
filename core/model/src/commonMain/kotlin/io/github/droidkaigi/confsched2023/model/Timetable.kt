@@ -160,7 +160,7 @@ public fun Timetable.Companion.fake(): Timetable {
                         "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
                     enTitle = "This is a description\nThis is a description\nThis is a description\n" +
                         "This is a description\nThis is a description\nThis is a description\n",
-                )
+                ),
             ),
         )
         for (day in -1..1) {
@@ -243,7 +243,7 @@ public fun Timetable.Companion.fake(): Timetable {
                         "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
                     enTitle = "This is a description\nThis is a description\nThis is a description\n" +
                         "This is a description\nThis is a description\nThis is a description\n",
-                )
+                ),
             ),
         )
     }
