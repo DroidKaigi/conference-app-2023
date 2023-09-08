@@ -93,6 +93,7 @@ composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
 composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.4" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
 lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+animation-graphics-android = { group = "androidx.compose.animation", name = "animation-graphics-android", version = "1.5.1" }
 
 androidxFragment = { module = "androidx.fragment:fragment", version.ref = "androidxFragment" }
 androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
@@ -120,8 +121,11 @@ okIo = { module = "com.squareup.okio:okio", version = "3.5.0" }
 firebaseBom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebaseCommon = { module = "com.google.firebase:firebase-common" }
 firebaseAuth = { module = "com.google.firebase:firebase-auth" }
+firebaseDynamicLinks = { module = "com.google.firebase:firebase-dynamic-links" }
 multiplatformFirebaseAuth = { module = "dev.gitlive:firebase-auth", version.ref = "multiplatformFirebase" }
 firebaseRemoteConfig = { module = "dev.gitlive:firebase-config", version.ref = "multiplatformFirebase" }
+firebaseCrashlyticsGradlePlugin = { module = "com.google.firebase:firebase-crashlytics-gradle", version = "2.9.9" }
+firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx", version = "18.4.1" }
 
 ktorfitLib = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
 ktorfitKsp = { module = "de.jensklingenberg.ktorfit:ktorfit-ksp", version.ref = "ktorfit" }
@@ -167,5 +171,6 @@ plugins = [
     "completeKotlinPlugin",
     "detektGradlePlugin",
     "ossLicensesPlugin",
-    "koverPlugin"
+    "koverPlugin",
+    "firebaseCrashlyticsGradlePlugin"
 ]

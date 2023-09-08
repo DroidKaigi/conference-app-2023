@@ -12,6 +12,7 @@ import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomDE
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomE
 import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableAsset
@@ -144,6 +145,17 @@ fun SessionsAllResponse.toTimetable(): Timetable {
                             .map { speakerIdToSpeaker[it]!! }
                             .toPersistentList(),
                         levels = apiSession.levels.toPersistentList(),
+                        description = if (
+                            apiSession.i18nDesc?.ja == null &&
+                            apiSession.i18nDesc?.en == null
+                        ) {
+                            MultiLangText(
+                                jaTitle = apiSession.description ?: "",
+                                enTitle = apiSession.description ?: "",
+                            )
+                        } else {
+                            apiSession.i18nDesc.toMultiLangText()
+                        },
                     )
                 }
             }
@@ -167,7 +179,8 @@ private fun LocaledResponse.toRoomType() = when (en?.lowercase()) {
     "chipmunk" -> RoomC
     "dolphin" -> RoomD
     "electric eel" -> RoomE
-    else -> RoomA
+    // Assume the room on the third day.
+    else -> RoomDE
 }
 
 internal fun String.toInstantAsJST(): Instant {

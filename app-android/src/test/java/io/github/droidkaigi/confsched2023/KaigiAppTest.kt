@@ -82,10 +82,10 @@ class KaigiAppTest {
     }
 
     @Test
-    fun checkNavigateToStampsShot() {
+    fun checkNavigateToAchievementsShot() {
         kaigiAppRobot {
-            goToStamps()
-            capture()
+            goToAchievements()
+            captureFirstRootScreen()
         }
     }
 

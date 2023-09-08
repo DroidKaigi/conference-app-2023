@@ -1,15 +1,14 @@
 package io.github.droidkaigi.confsched2023.data
 
 import de.jensklingenberg.ktorfit.Ktorfit
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
-import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
 import io.github.droidkaigi.confsched2023.data.core.defaultJson
 import io.github.droidkaigi.confsched2023.data.core.defaultKtorConfig
-import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultStampRepository
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.DefaultSessionsRepository
 import io.github.droidkaigi.confsched2023.data.sessions.SessionCacheDataStore
@@ -92,6 +91,22 @@ public val dataModule: Module = module {
         )
         SessionCacheDataStore(dataStore, get())
     }
+    single {
+        val dataStore = createDataStore(
+            coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
+            producePath = {
+                val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+                requireNotNull(documentDirectory).path + "/confsched2023.achievements.preferences_pb"
+            },
+        )
+        AchievementsDataStore(dataStore)
+    }
 
     singleOf(::DefaultAuthApi) bind AuthApi::class
     singleOf(::DefaultSessionsApiClient) bind SessionsApiClient::class
@@ -102,7 +117,6 @@ public val dataModule: Module = module {
     singleOf(::NetworkService)
     singleOf(::DefaultSessionsRepository) bind SessionsRepository::class
     singleOf(::DefaultContributorsRepository) bind ContributorsRepository::class
-    singleOf(::DefaultStampRepository) bind StampRepository::class
     singleOf(::DefaultStaffRepository) bind StaffRepository::class
     singleOf(::DefaultSponsorsRepository) bind SponsorsRepository::class
 }

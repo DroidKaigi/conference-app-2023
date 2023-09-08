@@ -3,7 +3,7 @@ package io.github.droidkaigi.confsched2023.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
+import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
@@ -16,10 +16,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
     val userMessageStateHolder: UserMessageStateHolder,
-    stampRepository: StampRepository,
+    achievementRepository: AchievementRepository,
 ) : ViewModel(),
     UserMessageStateHolder by userMessageStateHolder {
-    private val isStampsEnabledStateFlow: StateFlow<Boolean> = stampRepository.getStampEnabledStream()
+    private val isAchievementsEnabledStateFlow: StateFlow<Boolean> = achievementRepository.getAchievementEnabledStream()
         .handleErrorAndRetry(
             AppStrings.Retry,
             userMessageStateHolder,
@@ -31,10 +31,10 @@ class MainScreenViewModel @Inject constructor(
         )
 
     val uiState: StateFlow<MainScreenUiState> = buildUiState(
-        isStampsEnabledStateFlow,
-    ) { isStampsEnabled ->
+        isAchievementsEnabledStateFlow,
+    ) { isAchievementsEnabled ->
         MainScreenUiState(
-            isStampsEnabled = isStampsEnabled,
+            isAchievementsEnabled = isAchievementsEnabled,
         )
     }
 }
