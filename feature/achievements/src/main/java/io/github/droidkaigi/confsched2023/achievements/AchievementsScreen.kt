@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,6 +31,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
+import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val achievementsScreenRoute = "achievements"
@@ -190,16 +193,14 @@ fun OrderedListText(
     }
 }
 
-// FIXME The dialog preview test does not pass.
-// 　If you know how to fix it, I would appreciate it if you could respond.
-// @MultiLanguagePreviews
-// @Composable
-// fun StampsScreenDialogPreview() {
-//    KaigiTheme {
-//        Surface {
-//            StampsScreenDialog(
-//                onDismissRequest = {},
-//            )
-//        }
-//    }
-// }
+@MultiLanguagePreviews
+@Composable
+fun AchievementScreenDialogPreview() {
+    KaigiTheme {
+        Surface {
+            AchievementScreenDialog(
+                onDismissRequest = {},
+            )
+        }
+    }
+}
