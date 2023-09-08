@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
+import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,8 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
@@ -128,13 +131,19 @@ fun TimetableList(
                 Column {
                     timetableItems.forEach { timetableItem ->
                         val isBookmarked = uiState.timetable.bookmarks.contains(timetableItem.id)
+                        val haptic = LocalHapticFeedback.current
                         TimetableListItem(
                             timetableItem,
                             modifier = Modifier
                                 .clickable { onTimetableItemClick(timetableItem) }
                                 .padding(top = 10.dp),
                             isBookmarked = isBookmarked,
-                            onBookmarkClick = onBookmarkClick,
+                            onBookmarkClick = { timetableItem, isBookmarked ->
+                                haptic.performHapticFeedback(
+                                    HapticFeedbackType(HapticFeedbackConstants.LONG_PRESS)
+                                )
+                                onBookmarkClick(timetableItem, isBookmarked)
+                            },
                             chipContent = {
                                 // Chips
 
