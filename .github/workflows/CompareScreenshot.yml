@@ -9,6 +9,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
   cancel-in-progress: true
 
+run-name: "Compare screenshots on ${{ github.event_name}}#${{ github.event.pull_request.number }} by ${{ github.actor }}"
+
 permissions: { }
 
 jobs:

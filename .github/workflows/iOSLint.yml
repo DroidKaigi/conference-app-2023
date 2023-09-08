@@ -5,6 +5,8 @@ on:
     paths:
       - 'app-ios/**'
 
+run-name: "Run lint for iOS on ${{ github.event_name}}#${{ github.event.pull_request.number }} by ${{ github.actor }}"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,4 +20,5 @@ jobs:
           fetch-depth: 1
 
       - name: SwiftLint
-        run: cd app-ios && swiftlint lint --reporter github-actions-logging
+        run: swiftlint lint --reporter github-actions-logging
+        working-directory: app-ios

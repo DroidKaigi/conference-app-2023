@@ -1,0 +1,29 @@
+name: "Setup the build environment for iOS builds"
+description: "setup Xcode, Swift package manager, fastlane and gradle"
+
+inputs:
+  arch:
+    description: "The architecture to build for iOS framework." # behaves as a named variable
+    default: "x86_64"
+outputs:
+  working-directory:
+    description: "The working directory to build the iOS project." # behaves as a named variable
+    value: "app-ios"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@250fcd6a742febb1123a77a841497ccaa8b9e939 # v1.152.0
+      with:
+        bundler-cache: true
+
+    - uses: ./.github/actions/xcode-select
+
+    - uses: ./.github/actions/setup-java
+
+    - shell: bash
+      name: Set up XCFramework arch filter
+      run: echo "arch=${{ inputs.arch }}" >> local.properties
+
+    - uses: ./.github/actions/spm

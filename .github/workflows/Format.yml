@@ -5,7 +5,7 @@ on:
     paths-ignore:
       - 'app-ios/**'
 
-run-name: "Format by ${{ github.actor }}"
+run-name: "Format a project on ${{ github.event_name}}#${{ github.event.pull_request.number }} by ${{ github.actor }}"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}

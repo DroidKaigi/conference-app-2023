@@ -2,8 +2,16 @@ on:
   push:
     paths:
       - '.github/workflows/**'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - '.github/workflows/**'
 
-name: "Trigger: Push action"
+name: "Actionlint"
+
+run-name: "Run ActionLint by ${{ github.actor }}"
+
 permissions: {}
 
 jobs:
@@ -12,8 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - uses: jaxxstorm/action-install-gh-release@c5ead9a448b4660cf1e7866ee22e4dc56538031a #v1.10.0
+        with:
+          repo: rhysd/actionlint
+          tag: "v1.6.25"
+          cache: enable
+  
       - name: Run actionlint
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash) 1.6.25
-          ./actionlint -color
-        shell: bash
+        run: actionlint -color
