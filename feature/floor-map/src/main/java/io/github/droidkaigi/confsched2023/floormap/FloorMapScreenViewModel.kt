@@ -45,14 +45,6 @@ class FloorMapScreenViewModel @Inject constructor(
         FloorMapUiState.of(floorLevel)
     }
 
-    private fun LocalDateTime.isTodayDay3(): Boolean {
-        val currentInTokyo = this.toInstant(TimeZone.currentSystemDefault()).toLocalDateTime(
-            TimeZone.of("Asia/Tokyo"),
-        )
-        return currentInTokyo >= Day3.start.toLocalDateTime(TimeZone.of("Asia/Tokyo")) &&
-            currentInTokyo < Day3.end.toLocalDateTime(TimeZone.of("Asia/Tokyo"))
-    }
-
     val uiState = buildUiState(
         floorLevelStateFlow,
         floorMapUiStateFlow,
@@ -77,6 +69,13 @@ class FloorMapScreenViewModel @Inject constructor(
         )
     }
 
+    private fun LocalDateTime.isTodayDay3(): Boolean {
+        val currentInTokyo = this.toInstant(TimeZone.currentSystemDefault()).toLocalDateTime(
+            TimeZone.of("Asia/Tokyo"),
+        )
+        return currentInTokyo >= Day3.start.toLocalDateTime(TimeZone.of("Asia/Tokyo")) &&
+            currentInTokyo < Day3.end.toLocalDateTime(TimeZone.of("Asia/Tokyo"))
+    }
     fun onClickFloorLevelSwitcher(floorLevel: FloorLevel) {
         floorLevelStateFlow.value = floorLevel
     }
