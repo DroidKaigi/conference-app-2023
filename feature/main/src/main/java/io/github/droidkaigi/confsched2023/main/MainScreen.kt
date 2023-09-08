@@ -171,7 +171,7 @@ private fun MainScreen(
     val navBackStackEntry by mainNestedNavController.currentBackStackEntryAsState()
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
     LaunchedEffect(uiState.navigationRoute) {
-        if(uiState.navigationRoute.isNotBlank()) {
+        if (uiState.navigationRoute.isNotBlank()) {
             mainNestedNavController.navigate(uiState.navigationRoute)
             onNavigated()
         }

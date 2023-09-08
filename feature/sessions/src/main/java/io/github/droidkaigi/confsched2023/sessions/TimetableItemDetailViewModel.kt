@@ -112,7 +112,7 @@ class TimetableItemDetailViewModel @Inject constructor(
     }
 
     fun navigateTo(
-        route: String
+        route: String,
     ) {
         navigationRequester.navigateTo(route)
     }

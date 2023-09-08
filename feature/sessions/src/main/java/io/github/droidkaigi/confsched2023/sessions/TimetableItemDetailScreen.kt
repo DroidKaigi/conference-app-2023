@@ -224,7 +224,7 @@ fun TimetableItemDetailScreenPreview() {
                 uiState = Loaded(
                     timetableItem = fakeSession,
                     timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(
-                        fakeSession
+                        fakeSession,
                     ),
                     isBookmarked = isBookMarked,
                     isLangSelectable = true,
