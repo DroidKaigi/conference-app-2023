@@ -20,7 +20,3 @@ kotlin {
         }
     }
 }
-
-dependencies {
-    implementation(projects.core.ui)
-}
