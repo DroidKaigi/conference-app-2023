@@ -110,7 +110,7 @@ fun ClickableLinkText(
             val actualHeight = layoutResult.value?.size?.height?.toFloat() ?: 0f
             val expectedHeight = with(density) { style.fontSize.toPx() * maxLines }
             actualHeight > expectedHeight
-        } 
+        }
     }
 
     LaunchedEffect(isOverflowing) {
