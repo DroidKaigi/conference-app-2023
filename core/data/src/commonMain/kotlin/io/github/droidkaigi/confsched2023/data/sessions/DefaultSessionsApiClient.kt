@@ -144,6 +144,17 @@ fun SessionsAllResponse.toTimetable(): Timetable {
                             .map { speakerIdToSpeaker[it]!! }
                             .toPersistentList(),
                         levels = apiSession.levels.toPersistentList(),
+                        description = if (
+                            apiSession.i18nDesc?.ja == null &&
+                            apiSession.i18nDesc?.en == null
+                        ) {
+                            MultiLangText(
+                                jaTitle = apiSession.description ?: "",
+                                enTitle = apiSession.description ?: "",
+                            )
+                        } else {
+                            apiSession.i18nDesc.toMultiLangText()
+                        },
                     )
                 }
             }

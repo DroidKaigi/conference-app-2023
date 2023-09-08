@@ -93,7 +93,17 @@ fun TimetableItemDetailContent(
             }
 
             is Special -> {
-                // do nothing
+                val description = when (selectedLanguage) {
+                    Lang.JAPANESE -> uiState.description.jaTitle
+                    Lang.ENGLISH -> uiState.description.enTitle
+                    Lang.MIXED -> uiState.description.jaTitle
+                    null,
+                    -> ""
+                }
+                DescriptionSection(
+                    description = description,
+                    onLinkClick = onLinkClick,
+                )
             }
         }
     }
