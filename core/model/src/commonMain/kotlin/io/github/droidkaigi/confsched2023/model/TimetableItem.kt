@@ -61,6 +61,7 @@ public sealed class TimetableItem {
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
         override val speakers: PersistentList<TimetableSpeaker>,
+        val description: MultiLangText,
     ) : TimetableItem()
 
     private val startsDateString: String by lazy {

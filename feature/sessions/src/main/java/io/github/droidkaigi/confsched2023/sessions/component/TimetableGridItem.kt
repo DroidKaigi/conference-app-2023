@@ -504,6 +504,12 @@ fun PreviewTimetableGridItemWelcomeTalk() {
                         "ADVANCED",
                     ),
                     speakers = persistentListOf(),
+                    description = MultiLangText(
+                        jaTitle = "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n" +
+                            "これはディスクリプションです。\nこれはディスクリプションです。\nこれはディスクリプションです。\n",
+                        enTitle = "This is a description\nThis is a description\nThis is a description\n" +
+                            "This is a description\nThis is a description\nThis is a description\n",
+                    ),
                 ),
                 onTimetableItemClick = {},
                 gridItemHeightPx = 154,
