@@ -5,13 +5,6 @@ import shared
 import SwiftUI
 import Theme
 
-private let startDateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .medium
-    formatter.timeStyle = .short
-    return formatter
-}()
-
 public struct SessionView: View {
     @ObservedObject private(set) var viewModel: SessionViewModel
     @State private var isDescriptionExpanded: Bool = false
