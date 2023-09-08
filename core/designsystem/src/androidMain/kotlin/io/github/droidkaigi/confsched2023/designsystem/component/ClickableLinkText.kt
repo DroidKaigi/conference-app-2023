@@ -105,11 +105,13 @@ fun ClickableLinkText(
 
     val density = LocalDensity.current
 
-    val isOverflowing by remember { derivedStateOf {
-        val actualHeight = layoutResult.value?.size?.height?.toFloat() ?: 0f
-        val expectedHeight = with(density) { style.fontSize.toPx() * maxLines }
-        actualHeight > expectedHeight
-    }}
+    val isOverflowing by remember {
+        derivedStateOf {
+            val actualHeight = layoutResult.value?.size?.height?.toFloat() ?: 0f
+            val expectedHeight = with(density) { style.fontSize.toPx() * maxLines }
+            actualHeight > expectedHeight
+        } 
+    }
 
     LaunchedEffect(isOverflowing) {
         onOverflow(isOverflowing)
