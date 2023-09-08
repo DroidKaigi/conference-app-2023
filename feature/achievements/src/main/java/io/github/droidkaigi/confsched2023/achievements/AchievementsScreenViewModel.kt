@@ -52,6 +52,14 @@ class AchievementsScreenViewModel @Inject constructor(
                 initialValue = persistentSetOf(),
             )
 
+    private val isInitialDialogDisplayFlow: StateFlow<Boolean?> =
+        achievementRepository.getIsInitialDialogDisplayStateStream()
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5_000),
+                initialValue = null,
+            )
+
     private val resetAchievementsEnabledStateFlow: StateFlow<Boolean> =
         achievementRepository.getResetAchievementsEnabledStream()
             .handleErrorAndRetry(
@@ -114,15 +122,23 @@ class AchievementsScreenViewModel @Inject constructor(
 
     val uiState = buildUiState(
         achievementAnimationListState,
-    ) { achievementListUiState ->
+        isInitialDialogDisplayFlow,
+    ) { achievementListUiState, isDisplayedInitialDialog ->
         AchievementsScreenUiState(
             achievementListUiState = achievementListUiState,
+            isShowInitialDialog = isDisplayedInitialDialog?.not() ?: false,
         )
     }
 
     fun onReset() {
         viewModelScope.launch {
             achievementRepository.resetAchievements()
+        }
+    }
+
+    fun onDisplayedInitialDialog() {
+        viewModelScope.launch {
+            achievementRepository.displayedInitialDialog()
         }
     }
 }

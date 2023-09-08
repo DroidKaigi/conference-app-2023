@@ -2,7 +2,7 @@ package io.github.droidkaigi.confsched2023.testing.robot
 
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.swipeUp
 import com.github.takahirom.roborazzi.captureRoboImage
@@ -39,7 +39,8 @@ class AchievementsScreenRobot @Inject constructor(
 
     fun scroll() {
         composeTestRule
-            .onRoot()
+            .onAllNodes(isRoot())
+            .onFirst()
             .performTouchInput {
                 swipeUp(
                     startY = visibleSize.height * 3F / 4,
@@ -50,7 +51,8 @@ class AchievementsScreenRobot @Inject constructor(
 
     fun checkScreenCapture() {
         composeTestRule
-            .onNode(isRoot())
+            .onAllNodes(isRoot())
+            .onFirst()
             .captureRoboImage()
     }
 
