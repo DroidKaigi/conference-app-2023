@@ -88,9 +88,7 @@ private fun ContributorsScreen(
                     },
                     navigationIcon = {
                         IconButton(
-                            modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
                             onClick = onBackClick,
-                            enabled = scrollBehavior.state.collapsedFraction < 1f,
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
