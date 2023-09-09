@@ -49,7 +49,7 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
         isInitialDialogDisplay: Boolean,
     ) {
         dataStore.edit { preferences ->
-            preferences[KEY_ACHIEVEMENTS] = isInitialDialogDisplay.toString()
+            preferences[KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY] = isInitialDialogDisplay.toString()
         }
     }
 
@@ -63,11 +63,13 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
                 }
             }
             .map { preferences: Preferences ->
-                preferences[KEY_ACHIEVEMENTS]?.toBoolean() ?: false
+                preferences[KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY]?.toBoolean() ?: false
             }
     }
 
     companion object {
         private val KEY_ACHIEVEMENTS = stringPreferencesKey("KEY_ACHIEVEMENTS")
+        private val KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY =
+            stringPreferencesKey("KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY")
     }
 }
