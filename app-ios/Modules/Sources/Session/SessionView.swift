@@ -40,7 +40,7 @@ public struct SessionView: View {
                     InformationRow(
                         icon: Assets.Icons.language.swiftUIImage,
                         title: L10n.Session.supportedLanguages,
-                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: (Locale.current.language.languageCode?.identifier == "ja"))
+                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: LocaleKt.getDefaultLocale() == .japan)
                     )
                     InformationRow(
                         icon: Assets.Icons.category.swiftUIImage,
