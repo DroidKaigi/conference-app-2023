@@ -3,6 +3,7 @@ package io.github.droidkaigi.confsched2023.contributors
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
+import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.ContributorsRepository
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolderImpl
 import platform.UIKit.UIViewController
@@ -23,10 +24,12 @@ fun contributorViewController(
 //        viewModel.viewModelScope.cancel()
     }
 
-    ContributorsScreen(
-        viewModel = viewModel,
-        isTopAppBarHidden = true,
-        onNavigationIconClick = { /** no action for iOS side **/ },
-        onContributorItemClick = onContributorItemClick,
-    )
+    KaigiTheme {
+        ContributorsScreen(
+            viewModel = viewModel,
+            isTopAppBarHidden = true,
+            onNavigationIconClick = { /** no action for iOS side **/ },
+            onContributorItemClick = onContributorItemClick,
+        )
+    }
 }

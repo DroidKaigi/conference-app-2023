@@ -21,7 +21,7 @@ sealed class FloorMapStrings : Strings<FloorMapStrings>(Bindings) {
             when (item) {
                 Title -> bindings.defaultBinding(item, bindings)
                 FavoriteIcon -> "Favorite icon"
-                EventDetail -> "Event detail"
+                EventDetail -> "Event details"
             }
         },
         default = Lang.Japanese,

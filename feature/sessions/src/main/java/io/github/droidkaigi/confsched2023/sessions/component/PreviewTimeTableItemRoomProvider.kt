@@ -5,6 +5,7 @@ import io.github.droidkaigi.confsched2023.model.RoomType.RoomA
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomB
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomC
 import io.github.droidkaigi.confsched2023.model.RoomType.RoomD
+import io.github.droidkaigi.confsched2023.model.RoomType.RoomDE
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItem.Session
 import io.github.droidkaigi.confsched2023.model.fake
@@ -18,6 +19,7 @@ class PreviewTimeTableItemRoomProvider : PreviewParameterProvider<TimetableItem>
             Session.fake().copy(room = Session.fake().room.copy(type = RoomA)),
             Session.fake().copy(room = Session.fake().room.copy(type = RoomB)),
             Session.fake().copy(room = Session.fake().room.copy(type = RoomD)),
+            Session.fake().copy(room = Session.fake().room.copy(type = RoomDE)),
             Session.fake().copy(speakers = persistentListOf(Session.fake().speakers.first())),
             Session.fake().copy(speakers = persistentListOf()),
         )

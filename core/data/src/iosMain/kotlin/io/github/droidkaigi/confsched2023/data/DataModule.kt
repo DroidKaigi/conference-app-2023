@@ -2,10 +2,8 @@ package io.github.droidkaigi.confsched2023.data
 
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
-import io.github.droidkaigi.confsched2023.data.achievements.DefaultAchievementRepository
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.DefaultAuthApi
-import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.contributors.ContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsApiClient
 import io.github.droidkaigi.confsched2023.data.contributors.DefaultContributorsRepository
@@ -119,7 +117,6 @@ public val dataModule: Module = module {
     singleOf(::NetworkService)
     singleOf(::DefaultSessionsRepository) bind SessionsRepository::class
     singleOf(::DefaultContributorsRepository) bind ContributorsRepository::class
-    singleOf(::DefaultAchievementRepository) bind AchievementRepository::class
     singleOf(::DefaultStaffRepository) bind StaffRepository::class
     singleOf(::DefaultSponsorsRepository) bind SponsorsRepository::class
 }
