@@ -34,7 +34,6 @@ import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.toLocalTime
 import kotlin.math.roundToInt
 
 @Composable
@@ -279,7 +278,7 @@ private val hoursList by lazy {
     (10..19).map {
         val dateTime = LocalDateTime(
             date = now.date,
-            time = LocalTime(hour = it, minute = 0)
+            time = LocalTime(hour = it, minute = 0),
         ).toInstant(TimeZone.of("Asia/Tokyo"))
         val localDate = dateTime.toLocalDateTime(TimeZone.currentSystemDefault())
         "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
