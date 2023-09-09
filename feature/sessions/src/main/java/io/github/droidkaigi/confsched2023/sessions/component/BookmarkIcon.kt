@@ -17,7 +17,6 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCancellationBehavior
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
