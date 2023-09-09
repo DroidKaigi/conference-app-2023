@@ -9,7 +9,7 @@ enum SearchRouting: Hashable {
 }
 
 struct SearchView<SessionView: View>: View {
-    @ObservedObject var viewModel: SearchViewModel = .init()
+    @StateObject var viewModel: SearchViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
 
     public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {

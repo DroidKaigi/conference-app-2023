@@ -13,7 +13,7 @@ enum TimetableRouting: Hashable {
 
 public struct TimetableView<SessionView: View>: View {
     @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var viewModel: TimetableViewModel = .init()
+    @StateObject var viewModel: TimetableViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
     let gradient = Gradient(stops: [
         .init(color: AssetColors.Surface.surfaceGradientTOP.swiftUIColor, location: 0.0),

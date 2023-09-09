@@ -9,7 +9,7 @@ enum BookmarkRouting: Hashable {
 }
 
 struct BookmarkView<SessionView: View>: View {
-    @ObservedObject var viewModel: BookmarkViewModel = .init()
+    @StateObject var viewModel: BookmarkViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
 
     public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {

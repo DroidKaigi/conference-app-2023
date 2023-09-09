@@ -4,7 +4,7 @@ import SwiftUI
 import Theme
 
 public struct FloorMapView: View {
-    @ObservedObject var viewModel: FloorMapViewModel = .init()
+    @StateObject var viewModel: FloorMapViewModel = .init()
     @State private var floor: FloorLevel = .ground
 
     public init() {}
