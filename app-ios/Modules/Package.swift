@@ -100,6 +100,16 @@ var package = Package(
         ),
 
         .target(
+            name: "DeepLink",
+            dependencies: [
+                "KMPContainer",
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "FirebaseDynamicLinks", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
             name: "Event",
             dependencies: [
                 .product(name: "Dependencies", package: "swift-dependencies"),
@@ -195,6 +205,7 @@ var package = Package(
             name: "Achievements",
             dependencies: [
                 "Assets",
+                "DeepLink",
                 "Theme",
                 "KMPContainer",
                 "NFC",
@@ -233,12 +244,14 @@ var package = Package(
                 "Achievements",
                 "Assets",
                 "Contributor",
+                "DeepLink",
                 "FloorMap",
                 "Session",
                 "Sponsor",
                 "Staff",
                 "Theme",
                 "Timetable",
+                .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
             ]
         ),
 

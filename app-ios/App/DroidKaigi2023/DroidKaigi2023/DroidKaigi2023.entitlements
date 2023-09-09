@@ -5,14 +5,15 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:confsched2023.page.link</string>
+		<string>applinks:droidkaigiapp.page.link</string>
+	</array>
+	<key>com.apple.developer.nfc.readersession.formats</key>
+	<array>
+		<string>TAG</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 	<key>com.apple.security.files.user-selected.read-only</key>
 	<true/>
-	<key>com.apple.developer.nfc.readersession.formats</key>
-	<array>
-		<string>TAG</string>
-	</array>
 </dict>
 </plist>

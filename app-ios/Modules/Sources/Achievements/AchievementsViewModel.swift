@@ -1,5 +1,6 @@
 import AsyncAlgorithms
 import CryptoKit
+import DeepLink
 import Dependencies
 import Foundation
 import KMPContainer
@@ -20,6 +21,7 @@ struct AchievementsViewState: ViewModelState {
 class AchievementsViewModel: ObservableObject {
     @Dependency(\.achievementData) var achievementData
     @Published var state: AchievementsViewState = .init()
+    private let deepLink = DeepLink()
     private let nfcReader = NFCReader()
     private var loadTask: Task<Void, Error>?
 
@@ -51,40 +53,17 @@ class AchievementsViewModel: ObservableObject {
 
     func read() async -> Achievement? {
         do {
-            if let urlString = try await nfcReader.read(), let url = URL(string: urlString) {
-                let hashedString = idToSha256(id: url.lastPathComponent)
-
-                let target: Achievement? = switch hashedString {
-                case Achievement.arcticfox.sha256:
-                    Achievement.arcticfox
-                case Achievement.bumblebee.sha256:
-                    Achievement.bumblebee
-                case Achievement.chipmunk.sha256:
-                    Achievement.chipmunk
-                case Achievement.dolphin.sha256:
-                    Achievement.dolphin
-                case Achievement.electriceel.sha256:
-                    Achievement.electriceel
-                default:
-                    nil
-                }
-
-                if let achievement = target {
-                    try await achievementData.saveAchievement(achievement)
-                    return achievement
+            let readed = try await nfcReader.read()
+            if
+                let urlString = readed,
+                let url = URL(string: urlString) {
+                if let dynamicLink = try await deepLink.dynamicLink(shortLink: url) {
+                    return try await deepLink.handleDynamicLink(dynamicLink: dynamicLink)
                 }
             }
         } catch {
             print(error)
         }
         return nil
-    }
-
-    private func idToSha256(id: String) -> String? {
-        guard let data = id.data(using: .utf8) else {
-            return nil
-        }
-        let digest = SHA256.hash(data: data)
-        return digest.compactMap { String(format: "%02x", $0) }.joined()
     }
 }
