@@ -5,10 +5,17 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
-class KoverPlugin : Plugin<Project> {
+class KoverEntryPointPlugin : Plugin<Project> {
     override fun apply(target: Project) {
+        val koverPlugin = "org.jetbrains.kotlinx.kover"
         with(target) {
-            pluginManager.apply("org.jetbrains.kotlinx.kover")
+            pluginManager.apply(koverPlugin)
+
+            rootProject.subprojects {
+                if (this@subprojects.name == target.name) return@subprojects
+                this@subprojects.pluginManager.apply(koverPlugin)
+                target.dependencies.add("kover", this@subprojects)
+            }
 
             configure<KoverReportExtension> {
                 filters {

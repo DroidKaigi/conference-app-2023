@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.model
 
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
+import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkColor.Pink
 import io.github.droidkaigi.confsched2023.model.SideEvent.MarkShape.Favorite
 import kotlinx.collections.immutable.PersistentList
@@ -29,7 +30,28 @@ public data class SideEvent(
     public companion object
 }
 
-val SideEvents: PersistentList<SideEvent> = persistentListOf()
+val SideEvents: PersistentList<SideEvent> = persistentListOf(
+    SideEvent(
+        title = MultiLangText(
+            jaTitle = "Day.3 イベント",
+            enTitle = "Day.3 Activities",
+        ),
+        floorLevel = Ground,
+        description = MultiLangText(
+            jaTitle = "DroidKaigi 2023 Day.3のイベントテーブルのお知らせ",
+            enTitle = "DroidKaigi 2023 Day.3 Activities and Content",
+        ),
+        timeText = MultiLangText(
+            jaTitle = "Day.3",
+            enTitle = "Day.3",
+        ),
+        markColor = Pink,
+        markShape = Favorite,
+        link = "https://medium.com/droidkaigi/droidkaigi-2023-day-3%E3%81%AE%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E3%83%86%E3%83%BC%E3%83%96%E3%83%AB%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B-11bbf90f94fd",
+        imageLink = null,
+    ),
+)
+
 val FakeSideEvents
     get() = persistentListOf(
         SideEvent(

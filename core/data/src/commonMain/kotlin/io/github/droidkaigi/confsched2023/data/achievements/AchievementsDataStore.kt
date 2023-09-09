@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.data.achievements
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -44,7 +45,31 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    internal suspend fun saveInitialDialogDisplayState(
+        isInitialDialogDisplay: Boolean,
+    ) {
+        dataStore.edit { preferences ->
+            preferences[KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY] = isInitialDialogDisplay.toString()
+        }
+    }
+
+    public fun isInitialDialogDisplayStateStream(): Flow<Boolean> {
+        return dataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { preferences: Preferences ->
+                preferences[KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY]?.toBoolean() ?: false
+            }
+    }
+
     companion object {
         private val KEY_ACHIEVEMENTS = stringPreferencesKey("KEY_ACHIEVEMENTS")
+        private val KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY =
+            stringPreferencesKey("KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY")
     }
 }

@@ -48,7 +48,7 @@ public struct FloorMapView: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("1F")
-                    .font(Font.system(size: 24, weight: .medium))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
                 Assets.Images.floor1F.swiftUIImage
                     .resizable()
                     .scaledToFit()
@@ -64,7 +64,7 @@ public struct FloorMapView: View {
         VStack(alignment: .leading, spacing: 24) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("B1F")
-                    .font(Font.system(size: 24, weight: .medium))
+                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
                 Assets.Images.floorB1F.swiftUIImage
                     .resizable()
                     .scaledToFit()
