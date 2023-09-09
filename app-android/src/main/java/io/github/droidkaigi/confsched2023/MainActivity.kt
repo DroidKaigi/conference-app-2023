@@ -27,8 +27,8 @@ import kotlinx.collections.immutable.toPersistentList
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         installSplashScreen()
+        super.onCreate(savedInstanceState)
 
         // Navigation icon color can be changed since API 26(O)
         if (VERSION.SDK_INT < VERSION_CODES.O) {
