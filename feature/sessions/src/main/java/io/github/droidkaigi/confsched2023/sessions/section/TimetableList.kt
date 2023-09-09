@@ -84,14 +84,17 @@ fun TimetableList(
                 }
             }
             Row(
-                modifier = Modifier.padding(start = 16.dp).onGloballyPositioned {
-                    rowHeight = it.size.height
-                },
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .onGloballyPositioned {
+                        rowHeight = it.size.height
+                    },
             ) {
                 Column(
                     modifier = Modifier
                         .padding(top = 10.dp)
-                        .width(58.dp).onGloballyPositioned {
+                        .width(58.dp)
+                        .onGloballyPositioned {
                             timeTextHeight = it.size.height
                         }
                         .offset { IntOffset(0, timeTextOffset) },
@@ -140,7 +143,9 @@ fun TimetableList(
                             isBookmarked = isBookmarked,
                             onBookmarkClick = { timetableItem, isBookmarked ->
                                 haptic.performHapticFeedback(
-                                    HapticFeedbackType(HapticFeedbackConstants.LONG_PRESS)
+                                    HapticFeedbackType(
+                                        HapticFeedbackConstants.LONG_PRESS,
+                                    ),
                                 )
                                 onBookmarkClick(timetableItem, isBookmarked)
                             },
