@@ -68,7 +68,7 @@ public struct RootView: View {
                             }
                         }
                     }
-                if isAchivementEnabled {
+//                if isAchivementEnabled {
                     AchievementsView()
                         .tag(Tab.achievements)
                         .tabItem {
@@ -84,7 +84,7 @@ public struct RootView: View {
                                 }
                             }
                         }
-                }
+//                }
                 AboutView(
                     contributorViewProvider: { _ in
                         ContributorView()

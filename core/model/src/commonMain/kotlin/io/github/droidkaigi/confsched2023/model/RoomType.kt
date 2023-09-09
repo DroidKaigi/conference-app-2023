@@ -9,4 +9,5 @@ enum class RoomType {
     RoomC,
     RoomD,
     RoomE,
+    RoomDE,
 }
