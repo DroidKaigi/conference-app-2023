@@ -12,9 +12,6 @@ class DefaultRemoteConfigApi : RemoteConfigApi {
 
     private val firebaseRemoteConfig = Firebase.remoteConfig
 
-    /**
-     * If you want to change the interval time to fetch, please change it here
-     */
     init {
         CoroutineScope(Dispatchers.IO).launch {
             firebaseRemoteConfig.reset()
