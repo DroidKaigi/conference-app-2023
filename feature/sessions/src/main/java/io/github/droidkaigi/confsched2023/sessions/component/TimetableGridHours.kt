@@ -28,6 +28,13 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableState
 import io.github.droidkaigi.confsched2023.sessions.section.detectDragGestures
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.toLocalTime
 import kotlin.math.roundToInt
 
 @Composable
@@ -267,15 +274,14 @@ private val lineStrokeSize = 1.dp
 private val horizontalLineTopOffset = 48.dp
 private val hoursWidth = 75.dp
 private val hoursItemTopOffset = 11.dp
-private val hoursList = listOf(
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-)
+private val hoursList by lazy {
+    val now = Clock.System.now().toLocalDateTime(TimeZone.of("Asia/Tokyo"))
+    (10..19).map {
+        val dateTime = LocalDateTime(
+            date = now.date,
+            time = LocalTime(hour = it, minute = 0)
+        ).toInstant(TimeZone.of("Asia/Tokyo"))
+        val localDate = dateTime.toLocalDateTime(TimeZone.currentSystemDefault())
+        "${localDate.hour}".padStart(2, '0') + ":" + "${localDate.minute}".padStart(2, '0')
+    }
+}
