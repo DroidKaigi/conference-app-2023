@@ -17,6 +17,7 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCancellationBehavior
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -25,27 +26,26 @@ import io.github.droidkaigi.confsched2023.feature.sessions.R.raw
 @Composable
 fun BookmarkIcon(
     contentDescription: String,
-    onBookmarkClickStatus: Boolean?,
+    onBookmarkClickStatus: Boolean,
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lottieComposition by rememberLottieComposition(RawRes(raw.add_to_bookmark_lottie))
-    val animationRange = 0.1f..1f
     var isPlaying by remember { mutableStateOf(false) }
 
-    val progress by animateLottieCompositionAsState(
+    val state = animateLottieCompositionAsState(
         composition = lottieComposition,
         isPlaying = isPlaying,
         restartOnPlay = true,
     )
 
     LaunchedEffect(onBookmarkClickStatus) {
-        if (onBookmarkClickStatus != null) {
+        if (onBookmarkClickStatus) {
             isPlaying = true
         }
     }
 
-    if (progress == 1f) {
+    if (state.isPlaying && state.isAtEnd) {
         isPlaying = false
         onReachAnimationEnd()
     }
@@ -54,10 +54,10 @@ fun BookmarkIcon(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (progress in animationRange) {
+        if (state.isPlaying && !state.isAtEnd) {
             LottieAnimation(
                 composition = lottieComposition,
-                progress = { progress },
+                progress = { state.progress },
                 modifier = Modifier
                     .semantics {
                         onClick(label = contentDescription, action = null)
