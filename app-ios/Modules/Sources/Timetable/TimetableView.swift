@@ -78,6 +78,7 @@ public struct TimetableView<SessionView: View>: View {
                                     .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
+                                    // use .environmentObject to collapse or expand TimetableDayHeader smooth.
                                     TimeTableTopView(timetableTimeGroupItems: state.timeGroupTimetableItems)
                                         .environmentObject(viewModel)
                                 }

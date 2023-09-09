@@ -6,6 +6,7 @@ struct TimeTableTopView: View {
 
     let timetableTimeGroupItems: [TimetableTimeGroupItems]
 
+    // TimetableViewModel class carries out bridging via @EnvironmentObject.
     @EnvironmentObject var viewModel: TimetableViewModel
 
     var body: some View {
