@@ -15,3 +15,13 @@
 "about.privacy_policy" = "Privacy Policy";
 "about.app_version" = "App Version";
 "about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
+
+"session.date" = "Date";
+"session.place" = "Place";
+"session.supported_languages" = "Supported Languages";
+"session.category" = "Category";
+"session.read_more" = "Read More";
+"session.speakers" = "Speakers";
+"session.target_audience" = "Target Audience";
+"session.add_to_calendar" = "Add to your calendar";
+"session.cancel" = "Cancel";

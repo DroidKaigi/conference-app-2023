@@ -15,3 +15,13 @@
 "about.privacy_policy" = "プライバシーポリシー";
 "about.app_version" = "アプリバージョン";
 "about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
+
+"session.date" = "日時";
+"session.place" = "場所";
+"session.supported_languages" = "対応言語";
+"session.category" = "カテゴリー";
+"session.read_more" = "続きを読む";
+"session.speakers" = "スピーカー";
+"session.target_audience" = "対象者";
+"session.add_to_calendar" = "カレンダーに追加する";
+"session.cancel" = "キャンセル";
