@@ -209,7 +209,7 @@ private struct SearchEmptyView: View {
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }
-        .frame(minWidth: .infinity, minHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
