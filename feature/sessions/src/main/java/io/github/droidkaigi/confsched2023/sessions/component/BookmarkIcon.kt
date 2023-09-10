@@ -32,7 +32,7 @@ fun BookmarkIcon(
     val lottieComposition by rememberLottieComposition(RawRes(raw.add_to_bookmark_lottie))
     var isPlaying by remember { mutableStateOf(false) }
 
-    val state = animateLottieCompositionAsState(
+    val lottieState = animateLottieCompositionAsState(
         composition = lottieComposition,
         isPlaying = isPlaying,
         restartOnPlay = true,
@@ -44,7 +44,7 @@ fun BookmarkIcon(
         }
     }
 
-    if (state.isPlaying && state.isAtEnd) {
+    if (lottieState.isPlaying && lottieState.isAtEnd) {
         isPlaying = false
         onReachAnimationEnd()
     }
@@ -53,10 +53,10 @@ fun BookmarkIcon(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (state.isPlaying && !state.isAtEnd) {
+        if (lottieState.isPlaying && !lottieState.isAtEnd) {
             LottieAnimation(
                 composition = lottieComposition,
-                progress = { state.progress },
+                progress = { lottieState.progress },
                 modifier = Modifier
                     .semantics {
                         onClick(label = contentDescription, action = null)
