@@ -88,7 +88,7 @@ fun TimetableScreen(
     onBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
+    viewModel: TimetableScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
