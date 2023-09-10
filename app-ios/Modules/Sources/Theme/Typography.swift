@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Typography {
+public struct Typography {
     var displayLarge: TextStyle = TypographyTokens.displayLarge
     var displayMedium: TextStyle = TypographyTokens.displayMedium
     var displaySmall: TextStyle = TypographyTokens.displaySmall
@@ -18,13 +18,13 @@ struct Typography {
     var labelSmall: TextStyle = TypographyTokens.labelSmall
 }
 
-struct TextStyle {
+public struct TextStyle {
     var font: SwiftUI.Font
     var lineHeight: CGFloat
     var letterSpacing: CGFloat?
 }
 
-struct TypographyTokens {
+public struct TypographyTokens {
     static let displayLarge = TextStyle(font: SwiftUI.Font.custom("Montserrat-Regular", size: 57), lineHeight: 64)
     static let displayMedium = TextStyle(font: SwiftUI.Font.custom("Montserrat-Regular", size: 45), lineHeight: 52)
     static let displaySmall = TextStyle(font: SwiftUI.Font.custom("Montserrat-Regular", size: 36), lineHeight: 44)
