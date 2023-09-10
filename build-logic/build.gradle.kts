@@ -102,6 +102,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.detekt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.DetektPlugin"
         }
+        register("spotless") {
+            id = "droidkaigi.primitive.spotless"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.SpotlessPlugin"
+        }
         register("oss-licenses") {
             id = "droidkaigi.primitive.android.osslicenses"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.OssLicensesPlugin"

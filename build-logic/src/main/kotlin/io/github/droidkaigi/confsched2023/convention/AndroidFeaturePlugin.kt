@@ -15,6 +15,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
                 apply("droidkaigi.primitive.android.hilt")
                 apply("droidkaigi.primitive.android.roborazzi")
                 apply("droidkaigi.primitive.detekt")
+                apply("droidkaigi.primitive.spotless")
             }
 
             tasks.withType<KotlinCompile>().configureEach {
