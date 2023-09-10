@@ -25,9 +25,11 @@ class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
                         firebaseRemoteConfig.android.addOnConfigUpdateListener(object :
                             ConfigUpdateListener {
                             override fun onUpdate(configUpdate: ConfigUpdate) {
+                                // Do nothing
                             }
 
                             override fun onError(error: FirebaseRemoteConfigException) {
+                                // Do nothing
                             }
                         })
                 }
