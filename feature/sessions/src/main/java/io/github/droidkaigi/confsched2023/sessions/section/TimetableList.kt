@@ -142,11 +142,13 @@ fun TimetableList(
                                 .padding(top = 10.dp),
                             isBookmarked = isBookmarked,
                             onBookmarkClick = { timetableItem, isBookmarked ->
-                                haptic.performHapticFeedback(
-                                    HapticFeedbackType(
-                                        HapticFeedbackConstants.LONG_PRESS,
-                                    ),
-                                )
+                                if (isBookmarked) {
+                                    haptic.performHapticFeedback(
+                                        HapticFeedbackType(
+                                            HapticFeedbackConstants.LONG_PRESS,
+                                        ),
+                                    )
+                                }
                                 onBookmarkClick(timetableItem, isBookmarked)
                             },
                             chipContent = {
