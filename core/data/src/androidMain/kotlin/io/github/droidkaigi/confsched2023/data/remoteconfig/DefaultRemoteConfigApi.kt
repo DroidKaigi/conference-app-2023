@@ -16,9 +16,6 @@ class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
 
     private val firebaseRemoteConfig = Firebase.remoteConfig
 
-    /**
-     * If you want to change the interval time to fetch, please change it here
-     */
     init {
         lifecycle.addObserver(
             object : DefaultLifecycleObserver {
@@ -40,11 +37,6 @@ class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
                 }
             },
         )
-//        CoroutineScope(Dispatchers.IO).launch {
-//            firebaseRemoteConfig.settings {
-//                minimumFetchIntervalInSeconds = 1 * 60
-//            }
-//        }
     }
 
     override suspend fun getBoolean(key: String): Boolean {
