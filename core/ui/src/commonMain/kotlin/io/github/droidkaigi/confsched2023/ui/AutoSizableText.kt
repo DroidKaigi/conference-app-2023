@@ -24,11 +24,11 @@ private const val CONTRACTION_RATIO = 0.95f
 @Composable
 fun AutoSizableText(
     text: String,
-    modifier: Modifier = Modifier,
     minFontSize: TextUnit,
+    style: TextStyle,
+    modifier: Modifier = Modifier,
     maxLines: Int = Int.MAX_VALUE,
     fontWeight: FontWeight? = null,
-    style: TextStyle,
 ) {
     val density = LocalDensity.current
     var tempFontSize by remember(text, style) { mutableFloatStateOf(style.fontSize.value) }
@@ -53,13 +53,12 @@ fun AutoSizableText(
             tempFontSize *= CONTRACTION_RATIO
             paragraph = calculateParagraph()
         }
-    }
 
-    Text(
-        text = text,
-        modifier = modifier,
-        maxLines = maxLines,
-        fontWeight = fontWeight,
-        style = style.copy(fontSize = tempFontSize.sp),
-    )
+        Text(
+            text = text,
+            maxLines = maxLines,
+            fontWeight = fontWeight,
+            style = style.copy(fontSize = tempFontSize.sp),
+        )
+    }
 }
