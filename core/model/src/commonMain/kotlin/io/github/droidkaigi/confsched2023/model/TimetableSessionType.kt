@@ -36,7 +36,7 @@ enum class TimetableSessionType(
 
     companion object {
         fun ofOrNull(key: String): TimetableSessionType? {
-            return values().firstOrNull {
+            return entries.firstOrNull {
                 it.key == key
             }
         }
