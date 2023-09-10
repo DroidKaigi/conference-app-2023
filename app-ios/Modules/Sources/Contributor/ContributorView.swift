@@ -50,7 +50,7 @@ public struct ContributorView: View {
 }
 
 struct ContributorSwiftUIView: View {
-    @ObservedObject var viewModel: ContributorViewModel = .init()
+    @StateObject var viewModel: ContributorViewModel = .init()
     let onContributorItemClick: (String) -> Void
 
     var body: some View {

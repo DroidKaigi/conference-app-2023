@@ -35,6 +35,7 @@ kotlin {
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.firebaseRemoteConfig)
+                implementation(libs.androidxLifecycleProcess)
             }
         }
 
