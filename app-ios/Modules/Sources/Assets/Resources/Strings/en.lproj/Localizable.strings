@@ -16,6 +16,13 @@
 "about.app_version" = "App Version";
 "about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
 
+"search.day" = "Day";
+"search.category" = "Category";
+"search.session_type" = "Session type";
+"search.supported_languages" = "Supported languages";
+"search.search_placeholder" = "Enter some technology";
+"search.search_result_not_found" = "Nothing matched your search criteria \"%@\"";
+
 "session.date" = "Date";
 "session.place" = "Place";
 "session.supported_languages" = "Supported Languages";

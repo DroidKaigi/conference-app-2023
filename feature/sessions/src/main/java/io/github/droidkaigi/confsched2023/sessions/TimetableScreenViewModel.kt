@@ -44,8 +44,8 @@ class TimetableScreenViewModel @Inject constructor(
     private val timetableUiTypeStateFlow: MutableStateFlow<TimetableUiType> =
         MutableStateFlow(TimetableUiType.List)
 
-    private val bookmarkAnimationStartStateFlow: MutableStateFlow<Boolean?> =
-        MutableStateFlow(null)
+    private val bookmarkAnimationStartStateFlow: MutableStateFlow<Boolean> =
+        MutableStateFlow(false)
 
     private val timetableSheetUiState: StateFlow<TimetableSheetUiState> = buildUiState(
         sessionsStateFlow,

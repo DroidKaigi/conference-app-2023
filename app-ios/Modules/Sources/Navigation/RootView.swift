@@ -18,7 +18,7 @@ enum Tab {
 }
 
 public struct RootView: View {
-    @ObservedObject var viewModel: RootViewModel = .init()
+    @StateObject var viewModel: RootViewModel = .init()
     @State var selection = Tab.timeline
 
     public init() {}
