@@ -114,7 +114,7 @@ fun TimetableScreen(
 data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
     val timetableUiType: TimetableUiType,
-    val onBookmarkIconClickStatus: Boolean?,
+    val onBookmarkIconClickStatus: Boolean,
 )
 
 private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
@@ -247,8 +247,8 @@ private fun TimetableScreen(
 fun PreviewTimetableScreenDark() {
     KaigiTheme {
         TimetableScreen(
-            TimetableScreenUiState(
-                TimetableSheetUiState.ListTimetable(
+            uiState = TimetableScreenUiState(
+                contentUiState = TimetableSheetUiState.ListTimetable(
                     mapOf(
                         DroidKaigi2023Day.Day1 to TimetableListUiState(
                             mapOf<String, List<TimetableItem>>().toPersistentMap(),
@@ -256,17 +256,17 @@ fun PreviewTimetableScreenDark() {
                         ),
                     ),
                 ),
-                TimetableUiType.Grid,
-                null,
+                timetableUiType = TimetableUiType.Grid,
+                onBookmarkIconClickStatus = false,
             ),
-            SnackbarHostState(),
-            {},
-            { _, _ -> },
-            {},
-            {},
-            {},
-            {},
-            Modifier.statusBarsPadding(),
+            snackbarHostState = SnackbarHostState(),
+            onTimetableItemClick = {},
+            onBookmarkClick = { _, _ -> },
+            onBookmarkIconClick = {},
+            onSearchClick = {},
+            onTimetableUiChangeClick = {},
+            onReachAnimationEnd = {},
+            modifier = Modifier.statusBarsPadding(),
         )
     }
 }
