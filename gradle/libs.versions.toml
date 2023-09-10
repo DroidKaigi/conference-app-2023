@@ -39,6 +39,7 @@ detekt = "1.23.1"
 twitterComposeRule = "0.0.26"
 lottie = "6.1.0"
 kover = "0.7.3"
+androidxLifecycleProcess = "2.6.2"
 
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
@@ -64,6 +65,7 @@ androidDesugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs"
 daggerHiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 daggerHiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "dagger" }
 daggerHiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger" }
+androidxLifecycleProcess = { group = "androidx.lifecycle", name = "lifecycle-process", version.ref = "androidxLifecycleProcess" }
 
 # for iOS
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }

@@ -37,7 +37,7 @@ fun TimetableTopArea(
     onSearchClick: () -> Unit,
     onTopAreaBookmarkIconClick: () -> Unit,
     onReachAnimationEnd: () -> Unit,
-    onBookmarkClickStatus: Boolean?,
+    onBookmarkClickStatus: Boolean,
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -98,7 +98,7 @@ fun TimetableTopAreaPreview() {
                 onSearchClick = {},
                 onTopAreaBookmarkIconClick = {},
                 onReachAnimationEnd = {},
-                onBookmarkClickStatus = null,
+                onBookmarkClickStatus = false,
             )
         }
     }

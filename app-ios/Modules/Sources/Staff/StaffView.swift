@@ -5,7 +5,7 @@ import SwiftUI
 
 public struct StaffView: View {
     @State var presentingURL: IdentifiableURL?
-    @ObservedObject var viewModel: StaffViewModel = .init()
+    @StateObject var viewModel: StaffViewModel = .init()
 
     public init() {}
 
