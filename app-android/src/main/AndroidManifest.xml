@@ -15,7 +15,6 @@
         android:localeConfig="@xml/locales_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DroidKaigi.SplashTheme"
         tools:targetApi="tiramisu">
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
@@ -23,7 +22,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.DroidKaigi.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
