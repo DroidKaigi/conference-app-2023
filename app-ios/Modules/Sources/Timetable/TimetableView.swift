@@ -35,8 +35,8 @@ public struct TimetableView<SessionView: View>: View {
         switch viewModel.state.loadedState {
         case .initial, .loading:
             ProgressView()
-                .onAppear {
-                    viewModel.load()
+                .onAppear { [weak viewModel] in
+                    viewModel?.load()
                 }
         case .failed:
             EmptyView()
@@ -62,7 +62,7 @@ public struct TimetableView<SessionView: View>: View {
                     }
                     ScrollViewWithVerticalOffset(
                         onOffsetChange: { offset in
-                            shouldCollapse = (offset < verticalOffsetThreshold)
+                            shouldCollapse = offset < verticalOffsetThreshold
                         },
                         content: {
                             Spacer().frame(height: 130)
@@ -71,8 +71,8 @@ public struct TimetableView<SessionView: View>: View {
                                     header: TimetableDayHeader(
                                         selectedDay: viewModel.state.selectedDay,
                                         shouldCollapse: shouldCollapse,
-                                        onSelect: {
-                                            viewModel.selectDay(day: $0)
+                                        onSelect: { [weak viewModel] in
+                                            viewModel?.selectDay(day: $0)
                                         }
                                     )
                                     .frame(height: shouldCollapse ? 53 : 82)

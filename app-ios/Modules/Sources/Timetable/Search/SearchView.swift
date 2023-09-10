@@ -34,7 +34,7 @@ struct SearchView<SessionView: View>: View {
                         ScrollView(.horizontal) {
                             HStack {
                                 SearchFilterLabel(
-                                    title: "開催日",
+                                    title: L10n.Search.day,
                                     selections: state.days,
                                     selectedSelection: viewModel.state.filters.days.first,
                                     onSelect: { day in
@@ -63,7 +63,7 @@ struct SearchView<SessionView: View>: View {
                                     }
                                 )
                                 SearchFilterLabel(
-                                    title: "カテゴリ",
+                                    title: L10n.Search.category,
                                     selections: state.categories,
                                     selectedSelection: viewModel.state.filters.categories.first,
                                     onSelect: { category in
@@ -92,7 +92,7 @@ struct SearchView<SessionView: View>: View {
                                     }
                                 )
                                 SearchFilterLabel(
-                                    title: "セッション種別",
+                                    title: L10n.Search.sessionType,
                                     selections: state.sessionTypes,
                                     selectedSelection: viewModel.state.filters.sessionTypes.first,
                                     onSelect: { sessionType in
@@ -121,7 +121,7 @@ struct SearchView<SessionView: View>: View {
                                     }
                                 )
                                 SearchFilterLabel(
-                                    title: "対応言語",
+                                    title: L10n.Search.supportedLanguages,
                                     selections: state.languages,
                                     selectedSelection: viewModel.state.filters.languages.first?.timetable,
                                     onSelect: { language in
@@ -188,7 +188,7 @@ struct SearchView<SessionView: View>: View {
                 }
             ),
             placement: .navigationBarDrawer(displayMode: .always),
-            prompt: "気になる技術を入力"
+            prompt: L10n.Search.searchPlaceholder
         )
     }
 }
@@ -204,12 +204,12 @@ private struct SearchEmptyView: View {
                 .padding(24)
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
                 .clipShape(RoundedRectangle(cornerRadius: 24))
-            Text("「\(inputText)」と一致する検索結果がありません")
+            Text(L10n.Search.searchResultNotFound(inputText))
                 .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }
-        .frame(minWidth: .infinity, minHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
