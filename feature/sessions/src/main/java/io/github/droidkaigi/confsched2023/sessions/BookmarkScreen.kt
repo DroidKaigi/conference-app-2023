@@ -28,7 +28,7 @@ data class BookmarkScreenUiState(
 fun BookmarkScreen(
     onBackPressClick: () -> Unit,
     onTimetableItemClick: (TimetableItem) -> Unit,
-    viewModel: BookmarkScreenViewModel = hiltViewModel<BookmarkScreenViewModel>(),
+    viewModel: BookmarkScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     BookmarkScreen(
