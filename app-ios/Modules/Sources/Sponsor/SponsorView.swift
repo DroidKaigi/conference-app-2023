@@ -3,7 +3,7 @@ import SwiftUI
 import Theme
 
 public struct SponsorView: View {
-    @ObservedObject var viewModel: SponsorViewModel = .init()
+    @StateObject var viewModel: SponsorViewModel = .init()
 
     public init() {}
 
