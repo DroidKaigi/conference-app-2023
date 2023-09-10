@@ -35,8 +35,8 @@ public struct TimetableView<SessionView: View>: View {
         switch viewModel.state.loadedState {
         case .initial, .loading:
             ProgressView()
-                .onAppear {
-                    viewModel.load()
+                .onAppear { [weak viewModel] in
+                    viewModel?.load()
                 }
         case .failed:
             EmptyView()
@@ -71,7 +71,9 @@ public struct TimetableView<SessionView: View>: View {
                                     header: TimetableDayHeader(
                                         selectedDay: viewModel.state.selectedDay,
                                         shouldCollapse: shouldCollapse,
-                                        onSelect: viewModel.selectDay(day:)
+                                        onSelect: { [weak viewModel] in
+                                            viewModel?.selectDay(day: $0)
+                                        }
                                     )
                                     .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
@@ -79,7 +81,9 @@ public struct TimetableView<SessionView: View>: View {
                                     TimetableListView(
                                         timetableTimeGroupItems: state.timeGroupTimetableItems,
                                         searchWord: "",
-                                        onToggleBookmark: viewModel.toggleBookmark
+                                        onToggleBookmark: { [weak viewModel] in
+                                            viewModel?.toggleBookmark($0)
+                                        }
                                     )
                                 }
                             }
