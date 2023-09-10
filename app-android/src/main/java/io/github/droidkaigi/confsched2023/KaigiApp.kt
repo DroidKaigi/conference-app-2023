@@ -36,7 +36,6 @@ import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
 import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
 import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
 import io.github.droidkaigi.confsched2023.contributors.ContributorsScreen
-import io.github.droidkaigi.confsched2023.contributors.ContributorsViewModel
 import io.github.droidkaigi.confsched2023.contributors.contributorsScreenRoute
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.floorMapScreenRoute
@@ -133,7 +132,7 @@ private fun KaigiNavHost(
         composable(contributorsScreenRoute) {
             val lifecycleOwner = LocalLifecycleOwner.current
             ContributorsScreen(
-                viewModel = hiltViewModel<ContributorsViewModel>(),
+                viewModel = hiltViewModel(),
                 onNavigationIconClick = {
                     handleOnClickIfNotNavigating(
                         lifecycleOwner,
