@@ -38,7 +38,7 @@ class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
                 override fun onStop(owner: LifecycleOwner) {
                     addOnConfigUpdateListener?.remove()
                 }
-            }
+            },
         )
 //        CoroutineScope(Dispatchers.IO).launch {
 //            firebaseRemoteConfig.settings {
@@ -49,7 +49,6 @@ class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
 
     override suspend fun getBoolean(key: String): Boolean {
         fetchConfig()
-        firebaseRemoteConfig.reset()
         return firebaseRemoteConfig[key]
     }
 
