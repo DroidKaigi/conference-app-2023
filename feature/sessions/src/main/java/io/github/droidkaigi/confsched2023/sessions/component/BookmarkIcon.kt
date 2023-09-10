@@ -25,27 +25,26 @@ import io.github.droidkaigi.confsched2023.feature.sessions.R.raw
 @Composable
 fun BookmarkIcon(
     contentDescription: String,
-    onBookmarkClickStatus: Boolean?,
+    onBookmarkClickStatus: Boolean,
     onReachAnimationEnd: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lottieComposition by rememberLottieComposition(RawRes(raw.add_to_bookmark_lottie))
-    val animationRange = 0.1f..1f
     var isPlaying by remember { mutableStateOf(false) }
 
-    val progress by animateLottieCompositionAsState(
+    val lottieState = animateLottieCompositionAsState(
         composition = lottieComposition,
         isPlaying = isPlaying,
         restartOnPlay = true,
     )
 
     LaunchedEffect(onBookmarkClickStatus) {
-        if (onBookmarkClickStatus != null) {
+        if (onBookmarkClickStatus) {
             isPlaying = true
         }
     }
 
-    if (progress == 1f) {
+    if (lottieState.isPlaying && lottieState.isAtEnd) {
         isPlaying = false
         onReachAnimationEnd()
     }
@@ -54,10 +53,10 @@ fun BookmarkIcon(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (progress in animationRange) {
+        if (lottieState.isPlaying && !lottieState.isAtEnd) {
             LottieAnimation(
                 composition = lottieComposition,
-                progress = { progress },
+                progress = { lottieState.progress },
                 modifier = Modifier
                     .semantics {
                         onClick(label = contentDescription, action = null)
