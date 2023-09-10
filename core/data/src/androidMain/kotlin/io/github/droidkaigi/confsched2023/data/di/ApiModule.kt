@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.data.di
 
 import android.app.Application
+import androidx.lifecycle.ProcessLifecycleOwner
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -133,7 +134,7 @@ class RemoteConfigModule {
     @Provides
     @Singleton
     fun provideRemoteConfigApi(): RemoteConfigApi {
-        return DefaultRemoteConfigApi()
+        return DefaultRemoteConfigApi(ProcessLifecycleOwner.get().lifecycle)
     }
 }
 
