@@ -115,10 +115,13 @@ fun BookmarkList(
                                     labelColor = roomChipLabelColor,
                                     backgroundColor = roomChipBackgroundColor,
                                 )
-                                SessionTag(
-                                    label = timetableItem.day?.name.orEmpty(),
-                                    borderColor = MaterialTheme.colorScheme.outline,
-                                )
+                                timetableItem.day?.name?.let {
+                                    // In terms of the nature of the product, day should never be null, but I'll put in a null check.
+                                    SessionTag(
+                                        label = it,
+                                        borderColor = MaterialTheme.colorScheme.outline,
+                                    )
+                                }
                             },
                             onBookmarkClick = onBookmarkIconClick,
                         )
