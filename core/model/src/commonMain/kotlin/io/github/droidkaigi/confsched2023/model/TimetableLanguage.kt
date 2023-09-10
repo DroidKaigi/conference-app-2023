@@ -15,6 +15,6 @@ public data class TimetableLanguage(
     fun toLang() = if (isInterpretationTarget) {
         Lang.MIXED
     } else {
-        Lang.values().firstOrNull { it.tagName == langOfSpeaker.take(2) } ?: Lang.MIXED
+        Lang.entries.firstOrNull { it.tagName == langOfSpeaker.take(2) } ?: Lang.MIXED
     }
 }
