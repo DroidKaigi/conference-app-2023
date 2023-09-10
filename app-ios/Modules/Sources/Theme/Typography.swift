@@ -19,17 +19,14 @@ struct Typography {
 }
 
 struct TextStyle {
-    var fontSize: CGFloat
-    var fontFamily: String
-    var fontWeight: SwiftUI.Font.Weight
-    var fontStyle: SwiftUI.Font
+    var font: Font
     var lineHeight: CGFloat
     var letterSpacing: CGFloat?
 }
 
 struct TypographyTokens {
-    
-    static let DisplayLarge = TextStyle(fontSize: 57, fontFamily: "Montserrat-Regular", fontWeight: .regular, fontStyle: SwiftUI.Font.custom("Montserrat-Regular", size: 57), lineHeight: 64)
+    static let DisplayLarge = TextStyle(font: FontAssets.Montserrat.regular.font(size: 57), lineHeight: 64)
+
     static let DisplayMedium = TextStyle(fontSize: 45, fontFamily: "Montserrat-Regular", fontWeight: .regular, fontStyle: SwiftUI.Font.custom("Montserrat-Regular", size: 45), lineHeight: 52)
     static let DisplaySmall = TextStyle(fontSize: 36, fontFamily: "Montserrat-Regular", fontWeight: .regular, fontStyle: SwiftUI.Font.custom("Montserrat-Regular", size: 36), lineHeight: 44)
     static let HeadlineLarge = TextStyle(fontSize: 32, fontFamily: "Montserrat-Medium", fontWeight: .medium, fontStyle: SwiftUI.Font.custom("Montserrat-Medium", size: 32), lineHeight: 40)
