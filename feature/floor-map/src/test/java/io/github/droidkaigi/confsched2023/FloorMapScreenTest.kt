@@ -48,4 +48,34 @@ class FloorMapScreenTest {
             checkScreenCapture()
         }
     }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 0.5f)
+    fun smallFontScaleShot() {
+        floorMapScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 1.5f)
+    fun largeFontScaleShot() {
+        floorMapScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    @Config(fontScale = 2.0f)
+    fun hugeFontScaleShot() {
+        floorMapScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
 }
