@@ -1,9 +1,8 @@
 package io.github.droidkaigi.confsched2023.contributors
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -22,9 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.contributors.component.ContributorListItem
 import io.github.droidkaigi.confsched2023.model.Contributor
@@ -42,7 +39,6 @@ fun ContributorsScreen(
     isTopAppBarHidden: Boolean = false,
     onNavigationIconClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
-    contentPadding: PaddingValues = PaddingValues(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -57,7 +53,6 @@ fun ContributorsScreen(
         snackbarHostState = snackbarHostState,
         onBackClick = onNavigationIconClick,
         onContributorItemClick = onContributorItemClick,
-        contentPadding = contentPadding,
     )
 }
 
@@ -68,7 +63,6 @@ private fun ContributorsScreen(
     snackbarHostState: SnackbarHostState,
     onBackClick: () -> Unit,
     onContributorItemClick: (url: String) -> Unit,
-    contentPadding: PaddingValues,
     isTopAppBarHidden: Boolean,
 ) {
     val scrollBehavior =
@@ -77,7 +71,6 @@ private fun ContributorsScreen(
         } else {
             null
         }
-    val localLayoutDirection = LocalLayoutDirection.current
     Scaffold(
         modifier = Modifier.testTag(ContributorsScreenTestTag),
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -89,9 +82,7 @@ private fun ContributorsScreen(
                     },
                     navigationIcon = {
                         IconButton(
-                            modifier = Modifier.alpha(1f - scrollBehavior.state.collapsedFraction),
                             onClick = onBackClick,
-                            enabled = scrollBehavior.state.collapsedFraction < 1f,
                         ) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
@@ -103,18 +94,13 @@ private fun ContributorsScreen(
                 )
             }
         },
-        contentWindowInsets = WindowInsets(
-            left = contentPadding.calculateLeftPadding(localLayoutDirection),
-            top = contentPadding.calculateTopPadding(),
-            right = contentPadding.calculateRightPadding(localLayoutDirection),
-            bottom = contentPadding.calculateBottomPadding(),
-        ),
-    ) { innerContentPadding ->
+    ) { padding ->
         Contributors(
             contributors = uiState.contributors,
             onContributorItemClick = onContributorItemClick,
             modifier = Modifier
                 .fillMaxSize()
+                .padding(padding)
                 .let {
                     if (scrollBehavior != null) {
                         it.nestedScroll(scrollBehavior.nestedScrollConnection)
@@ -122,7 +108,6 @@ private fun ContributorsScreen(
                         it
                     }
                 },
-            contentPadding = innerContentPadding,
         )
     }
 }
@@ -132,11 +117,9 @@ private fun Contributors(
     contributors: PersistentList<Contributor>,
     onContributorItemClick: (url: String) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues,
 ) {
     LazyColumn(
         modifier = modifier,
-        contentPadding = contentPadding,
     ) {
         items(contributors) {
             ContributorListItem(

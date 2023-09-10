@@ -1,7 +1,10 @@
 package io.github.droidkaigi.confsched2023
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
@@ -10,6 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.window.layout.DisplayFeature
 import androidx.window.layout.WindowInfoTracker
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,9 +27,30 @@ import kotlinx.collections.immutable.toPersistentList
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
+        // Navigation icon color can be changed since API 26(O)
+        if (VERSION.SDK_INT < VERSION_CODES.O) {
+            enableEdgeToEdge()
+        } else {
+            enableEdgeToEdge(
+                statusBarStyle = SystemBarStyle.auto(
+                    lightScrim = Color.Transparent.toArgb(),
+                    darkScrim = Color.Transparent.toArgb(),
+                ),
+                navigationBarStyle = SystemBarStyle.auto(
+                    lightScrim = Color.Transparent.toArgb(),
+                    darkScrim = Color.Transparent.toArgb(),
+                ),
+            )
+
+            // For API29(Q) or higher and 3-button navigation,
+            // the following code must be written to make the navigation color completely transparent.
+            if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = false
+            }
+        }
 
         setContent {
             val windowSize = calculateWindowSizeClass(this)

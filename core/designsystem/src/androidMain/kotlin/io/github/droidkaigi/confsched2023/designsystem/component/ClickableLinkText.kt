@@ -3,8 +3,15 @@ package io.github.droidkaigi.confsched2023.designsystem.component
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -82,6 +89,7 @@ fun ClickableLinkText(
     overflow: TextOverflow = TextOverflow.Clip,
     maxLines: Int = Int.MAX_VALUE,
     url: String? = null,
+    onOverflow: (Boolean) -> Unit = {},
 ) {
     val findResults = findResults(
         content = content,
@@ -93,8 +101,26 @@ fun ClickableLinkText(
         findUrlResults = findResults,
     )
 
+    val layoutResult = remember { mutableStateOf<LayoutCoordinates?>(null) }
+
+    val density = LocalDensity.current
+
+    val isOverflowing by remember {
+        derivedStateOf {
+            val actualHeight = layoutResult.value?.size?.height?.toFloat() ?: 0f
+            val expectedHeight = with(density) { style.fontSize.toPx() * maxLines }
+            actualHeight > expectedHeight
+        }
+    }
+
+    LaunchedEffect(isOverflowing) {
+        onOverflow(isOverflowing)
+    }
+
     ClickableText(
-        modifier = modifier,
+        modifier = modifier.onGloballyPositioned { coordinates ->
+            layoutResult.value = coordinates
+        },
         text = annotatedString,
         style = style,
         overflow = overflow,

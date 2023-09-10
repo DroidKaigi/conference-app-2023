@@ -29,7 +29,7 @@ enum class FloorMapUiState(
     ;
 
     companion object {
-        fun of(floorLevel: FloorLevel) = values().find {
+        fun of(floorLevel: FloorLevel) = entries.find {
             it.floorLevel == floorLevel
         } ?: error("There's no such floorLevel $floorLevel")
     }

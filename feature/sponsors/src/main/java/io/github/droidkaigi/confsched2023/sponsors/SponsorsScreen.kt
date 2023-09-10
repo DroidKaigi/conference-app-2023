@@ -54,7 +54,7 @@ const val SponsorsScreenTestTag = "SponsorsScreen"
 fun SponsorsScreen(
     onNavigationIconClick: () -> Unit,
     onSponsorClick: (url: String) -> Unit,
-    viewModel: SponsorsScreenViewModel = hiltViewModel<SponsorsScreenViewModel>(),
+    viewModel: SponsorsScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }

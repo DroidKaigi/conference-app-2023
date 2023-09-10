@@ -7,7 +7,9 @@ import io.github.droidkaigi.confsched2023.model.Timetable
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
@@ -20,21 +22,30 @@ public class DefaultSessionsRepository(
     override fun getTimetableStream(): Flow<Timetable> = flow {
         var first = true
         combine(
-            sessionCacheDataStore.getTimetableStream(),
+            sessionCacheDataStore.getTimetableStream()
+                .catch { e ->
+                    Logger.d(
+                        "DefaultSessionsRepository sessionCacheDataStore.getTimetableStream catch",
+                        e,
+                    )
+                    sessionCacheDataStore.save(sessionsApi.sessionsAllResponse())
+                    emitAll(sessionCacheDataStore.getTimetableStream())
+                },
             userDataStore.getFavoriteSessionStream(),
         ) { timetable, favorites ->
             timetable.copy(bookmarks = favorites)
-        }.collect {
-            if (!it.isEmpty()) {
-                emit(it)
-            }
-            if (first) {
-                first = false
-                Logger.d("DefaultSessionsRepository onStart getTimetableStream()")
-                sessionCacheDataStore.save(sessionsApi.sessionsAllResponse())
-                Logger.d("DefaultSessionsRepository onStart fetched")
-            }
         }
+            .collect {
+                if (!it.isEmpty()) {
+                    emit(it)
+                }
+                if (first) {
+                    first = false
+                    Logger.d("DefaultSessionsRepository onStart getTimetableStream()")
+                    sessionCacheDataStore.save(sessionsApi.sessionsAllResponse())
+                    Logger.d("DefaultSessionsRepository onStart fetched")
+                }
+            }
     }
 
     override fun getTimetableItemWithBookmarkStream(id: TimetableItemId): Flow<Pair<TimetableItem, Boolean>> {

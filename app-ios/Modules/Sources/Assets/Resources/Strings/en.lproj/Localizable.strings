@@ -1,1 +1,34 @@
+"about.title" = "About";
+"about.description" = "DroidKaigi is a conference tailored for Android developers.";
+"about.date_title" = "Date";
+"about.date_description" = "2023.09.14(Thu) - 16(Sat) 3days";
+"about.place_title" = "Place";
+"about.place_description" = "Bellesalle Shibuya Garden";
+"about.view_map" = "View Map";
+"about.credits_title" = "Credits";
+"about.staff" = "Staff";
+"about.contributors" = "Contributors";
+"about.sponsors" = "Sponsors";
+"about.others_title" = "Others";
+"about.code_of_conduct" = "Code Of Conduct";
+"about.licenses" = "Licenses";
+"about.privacy_policy" = "Privacy Policy";
+"about.app_version" = "App Version";
+"about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
 
+"search.day" = "Day";
+"search.category" = "Category";
+"search.session_type" = "Session type";
+"search.supported_languages" = "Supported languages";
+"search.search_placeholder" = "Enter some technology";
+"search.search_result_not_found" = "Nothing matched your search criteria \"%@\"";
+
+"session.date" = "Date";
+"session.place" = "Place";
+"session.supported_languages" = "Supported Languages";
+"session.category" = "Category";
+"session.read_more" = "Read More";
+"session.speakers" = "Speakers";
+"session.target_audience" = "Target Audience";
+"session.add_to_calendar" = "Add to your calendar";
+"session.cancel" = "Cancel";

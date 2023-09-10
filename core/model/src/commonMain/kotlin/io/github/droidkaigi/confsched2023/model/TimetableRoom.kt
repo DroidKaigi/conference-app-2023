@@ -7,7 +7,15 @@ data class TimetableRoom(
     val id: Int,
     val name: MultiLangText,
     val type: RoomType,
-)
+    val sort: Int,
+) : Comparable<TimetableRoom> {
+    override fun compareTo(other: TimetableRoom): Int {
+        if (sort < 900 && other.sort < 900) {
+            return name.currentLangTitle.compareTo(other.name.currentLangTitle)
+        }
+        return sort.compareTo(other.sort)
+    }
+}
 
 val TimetableRoom.nameAndFloor: String
     get() {
@@ -18,6 +26,8 @@ val TimetableRoom.nameAndFloor: String
             RoomType.RoomC -> basementFloorString.currentLangTitle
             RoomType.RoomD -> "1F"
             RoomType.RoomE -> "1F"
+            // Assume the room on the third day.
+            RoomType.RoomDE -> "1F"
         }
         return "${name.currentLangTitle} ($floor)"
     }

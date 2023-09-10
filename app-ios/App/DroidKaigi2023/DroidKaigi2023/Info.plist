@@ -2,7 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Achievement の読み取りに使用します。</string>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://confsched2023.page.link</string>
+		<string>https://droidkaigiapp.page.link</string>
+	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>io.github.droidkaigi.DroidKaigi2023</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -3,6 +3,16 @@
     {
       "filename" : "leading-icon.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "leading-icon-dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
