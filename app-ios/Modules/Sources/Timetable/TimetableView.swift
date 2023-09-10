@@ -62,7 +62,7 @@ public struct TimetableView<SessionView: View>: View {
                     }
                     ScrollViewWithVerticalOffset(
                         onOffsetChange: { offset in
-                            shouldCollapse = (offset < verticalOffsetThreshold)
+                            shouldCollapse = offset < verticalOffsetThreshold
                         },
                         content: {
                             Spacer().frame(height: 130)
@@ -71,9 +71,7 @@ public struct TimetableView<SessionView: View>: View {
                                     header: TimetableDayHeader(
                                         selectedDay: viewModel.state.selectedDay,
                                         shouldCollapse: shouldCollapse,
-                                        onSelect: {
-                                            viewModel.selectDay(day: $0)
-                                        }
+                                        onSelect: viewModel.selectDay(day:)
                                     )
                                     .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
@@ -81,9 +79,7 @@ public struct TimetableView<SessionView: View>: View {
                                     TimetableListView(
                                         timetableTimeGroupItems: state.timeGroupTimetableItems,
                                         searchWord: "",
-                                        onToggleBookmark: { id in
-                                            viewModel.toggleBookmark(id)
-                                        }
+                                        onToggleBookmark: viewModel.toggleBookmark
                                     )
                                 }
                             }
