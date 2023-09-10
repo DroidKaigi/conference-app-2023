@@ -29,22 +29,22 @@ public struct SessionView: View {
                 VStack(alignment: .leading) {
                     InformationRow(
                         icon: Assets.Icons.schedule.swiftUIImage,
-                        title: "日付",
+                        title: L10n.Session.date,
                         content: viewModel.timetableItem.formattedDateTimeString
                     )
                     InformationRow(
                         icon: Assets.Icons.locationOn.swiftUIImage,
-                        title: "場所",
+                        title: L10n.Session.place,
                         content: viewModel.timetableItem.room.name.currentLangTitle
                     )
                     InformationRow(
                         icon: Assets.Icons.language.swiftUIImage,
-                        title: "対応言語",
-                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: (Locale.current.language.languageCode?.identifier == "ja"))
+                        title: L10n.Session.supportedLanguages,
+                        content: viewModel.timetableItem.getSupportedLangString(isJapaneseLocale: LocaleKt.getDefaultLocale() == .japan)
                     )
                     InformationRow(
                         icon: Assets.Icons.category.swiftUIImage,
-                        title: "カテゴリ",
+                        title: L10n.Session.category,
                         content: viewModel.timetableItem.category.title.currentLangTitle
                     )
                 }
@@ -79,7 +79,7 @@ public struct SessionView: View {
                                 isDescriptionExpanded = true
                                 canBeExpanded = false
                             } label: {
-                                Text("続きを読む")
+                                Text(L10n.Session.readMore)
                                     .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                                     .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
                                     .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
@@ -97,7 +97,7 @@ public struct SessionView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("対象者")
+                    Text(L10n.Session.targetAudience)
                         .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     Text(viewModel.timetableItem.targetAudience)
@@ -110,7 +110,7 @@ public struct SessionView: View {
                 Divider()
 
                 VStack(alignment: .leading, spacing: 16) {
-                    Text("スピーカー")
+                    Text(L10n.Session.speakers)
                         .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
@@ -161,7 +161,7 @@ public struct SessionView: View {
         )
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
-                if let url = URL(string: "https://2023.droidkaigi.jp/timetable/\(viewModel.timetableItem.id.value)/") {
+                if let url = URL(string: viewModel.timetableItem.url) {
                     ShareLink(item: url,
                               label: { Assets.Icons.share.swiftUIImage })
                 }
@@ -189,11 +189,11 @@ public struct SessionView: View {
             }
         }
         .confirmationDialog("", isPresented: $isAddingToCalendarConfirming) {
-            Button("Add to your calendar") {
+            Button(L10n.Session.addToCalendar) {
                 viewModel.addToCalendar()
             }
 
-            Button("Cancel", role: .cancel) {
+            Button(L10n.Session.cancel, role: .cancel) {
                 isAddingToCalendarConfirming = false
             }
         }

@@ -9,15 +9,15 @@ struct RootViewState: ViewModelState {
 
 @MainActor
 class RootViewModel: ObservableObject {
-    @Dependency(\.stampData) var stampData
+    @Dependency(\.achievementData) var achievementData
     @Published var state: RootViewState = .init()
 
     func load() async {
         state.isAchivementEnabled = .loading
 
         do {
-            for try await isStampEnabled in stampData.stampEnabled() {
-                state.isAchivementEnabled = .loaded(isStampEnabled)
+            for try await isAchievementEnabled in achievementData.achievementEnabled() {
+                state.isAchivementEnabled = .loaded(isAchievementEnabled)
             }
         } catch {
             state.isAchivementEnabled = .failed(error)

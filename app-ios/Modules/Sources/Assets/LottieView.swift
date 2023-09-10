@@ -1,6 +1,8 @@
 import Lottie
 import SwiftUI
 
+public typealias LottieAnimation = Lottie.LottieAnimation
+
 public struct LottieView: UIViewRepresentable {
     private let animation: LottieAnimation
     private let loopMode: LottieLoopMode
