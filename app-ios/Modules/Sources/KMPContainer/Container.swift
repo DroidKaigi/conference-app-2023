@@ -1,5 +1,4 @@
 import Auth
-import Firebase
 import RemoteConfig
 import shared
 
@@ -8,7 +7,6 @@ struct Container {
 
     private let entryPoint: KmpEntryPoint
     private init() {
-        FirebaseApp.configure()
         entryPoint = .init()
         entryPoint.doInit(
             remoteConfigApi: RemoteConfigApiImpl(),
