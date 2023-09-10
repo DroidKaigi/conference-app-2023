@@ -206,6 +206,23 @@ fun TimetableGrid(
                     )
                 }
             }
+            .transformable(
+                state = rememberTransformableState { zoomChange, panChange, _ ->
+
+                    timetableState.screenScaleState.updateVerticalScale(
+                        timetableState.screenScaleState.verticalScale * zoomChange,
+                    )
+
+                    coroutineScope.launch {
+                        timetableScreen.scroll(
+                            panChange,
+                            0,
+                            Offset.Zero,
+                            nestedScrollDispatcher,
+                        )
+                    }
+                },
+            )
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDrag = { change, dragAmount ->
@@ -231,23 +248,6 @@ fun TimetableGrid(
                     },
                 )
             }
-            .transformable(
-                state = rememberTransformableState { zoomChange, panChange, _ ->
-
-                    timetableState.screenScaleState.updateVerticalScale(
-                        timetableState.screenScaleState.verticalScale * zoomChange,
-                    )
-
-                    coroutineScope.launch {
-                        timetableScreen.scroll(
-                            panChange,
-                            0,
-                            Offset.Zero,
-                            nestedScrollDispatcher,
-                        )
-                    }
-                },
-            )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
                     value = { -scrollState.scrollX },
