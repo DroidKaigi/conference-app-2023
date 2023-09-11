@@ -57,7 +57,7 @@ public struct RootView: View {
                     .tag(Tab.floorMap)
                     .tabItem {
                         Label {
-                            Text("FloorMap")
+                            Text("Floor Map")
                         } icon: {
                             if selection == .floorMap {
                                 Assets.Icons.floorMap.swiftUIImage
