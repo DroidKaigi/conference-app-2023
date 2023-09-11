@@ -11,7 +11,6 @@ public extension Text {
 public struct LetterSpacingModifier: ViewModifier {
     var spacing: CGFloat
     public func body(content: Content) -> some View {
-        content.padding(.leading, spacing/2)
-            .padding(.trailing, spacing/2)
+        content.padding(.horizontal, spacing / 2)
     }
 }
