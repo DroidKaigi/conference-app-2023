@@ -4,8 +4,6 @@ plugins {
     id("droidkaigi.primitive.kmp.android.hilt")
     id("droidkaigi.primitive.kmp.ios")
     id("droidkaigi.primitive.kmp.compose")
-    id("droidkaigi.primitive.android.hilt")
-    id("droidkaigi.primitive.android.roborazzi")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.feature.contributors"
@@ -20,8 +18,4 @@ kotlin {
             }
         }
     }
-}
-
-dependencies {
-    testImplementation(projects.core.testing)
 }
