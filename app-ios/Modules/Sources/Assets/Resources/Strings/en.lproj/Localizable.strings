@@ -32,3 +32,8 @@
 "session.target_audience" = "Target Audience";
 "session.add_to_calendar" = "Add to your calendar";
 "session.cancel" = "Cancel";
+
+"sponsor.title" = "Sponsors";
+"sponsor.platinum_sponsors" = "PLATINUM SPONSORS";
+"sponsor.gold_sponsors" = "GOLD SPONSORS";
+"sponsor.supporters" = "SUPPORTERS";
