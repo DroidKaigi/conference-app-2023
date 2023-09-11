@@ -54,7 +54,7 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
                 modifier = Modifier.size(width = 185.dp, height = 169.dp),
                 painter = rememberAnimatedVectorPainter(
                     AnimatedImageVector.animatedVectorResource(
-                        R.drawable.avd_anim,
+                        R.drawable.anim_droid_kun_eye,
                     ),
                     atEnd,
                 ),
