@@ -103,7 +103,7 @@ androidxCoreKtx = { module = "androidx.core:core-ktx", version.ref = "androidxCo
 androidxAppCompat = { module = "androidx.appcompat:appcompat", version = "1.7.0-alpha03" }
 androidxLifecycleLifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidxActivityActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivity" }
-androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
+androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha05" }
 androidxBrowser = { module = "androidx.browser:browser", version = "1.6.0" }
 androidxWindow = { module = "androidx.window:window", version = "1.1.0" }
 androidxSplashScreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxSplashScreen" }
