@@ -74,7 +74,7 @@ kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-cor
 
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlinxCollectionsImmutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.5" }
-kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.0" }
+kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.4.1" }
 kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0" }
 
 # UI
