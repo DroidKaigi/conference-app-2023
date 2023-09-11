@@ -130,6 +130,7 @@ private fun AchievementsScreen(
 fun AchievementScreenDialog(
     onDismissRequest: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     AlertDialog(
         title = {
             Text(
@@ -140,7 +141,7 @@ fun AchievementScreenDialog(
             )
         },
         text = {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Column(modifier = Modifier.verticalScroll(scrollState)) {
                 OrderedListText(
                     order = 1,
                     text = AchievementsStrings.DialogDescription1.asString(),
