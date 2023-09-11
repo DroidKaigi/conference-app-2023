@@ -36,7 +36,6 @@ ktorfit = "1.6.0"
 ossLicensesPlugin = "0.10.6"
 ossLicenses = "17.0.1"
 detekt = "1.23.1"
-spotless = "6.20.0"
 twitterComposeRule = "0.0.26"
 lottie = "6.1.0"
 kover = "0.7.3"
@@ -55,7 +54,6 @@ kotlinxSerializationGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-seria
 completeKotlinPlugin = { module = "com.louiscad.complete-kotlin:plugin", version = "1.1.0" }
 detektGradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 detektFormatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-spotlessGradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 twitterComposeRule = { module = "com.twitter.compose.rules:detekt", version.ref = "twitterComposeRule" }
 ossLicensesPlugin = { group = "com.google.android.gms", name = "oss-licenses-plugin", version.ref = "ossLicensesPlugin" }
 koverPlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "kover" }
@@ -176,7 +174,6 @@ plugins = [
     "kotlinxSerializationGradlePlugin",
     "completeKotlinPlugin",
     "detektGradlePlugin",
-    "spotlessGradlePlugin",
     "ossLicensesPlugin",
     "koverPlugin",
     "firebaseCrashlyticsGradlePlugin"

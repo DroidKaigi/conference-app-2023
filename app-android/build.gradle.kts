@@ -9,7 +9,6 @@ plugins {
     id("droidkaigi.primitive.android.firebase")
     id("droidkaigi.primitive.android.crashlytics")
     id("droidkaigi.primitive.detekt")
-    id("droidkaigi.primitive.spotless")
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover.entrypoint")
     id("droidkaigi.primitive.android.osslicenses")
