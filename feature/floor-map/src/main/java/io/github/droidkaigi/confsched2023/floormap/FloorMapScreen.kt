@@ -95,7 +95,7 @@ fun FloorMapScreen(
     windowSize: WindowSizeClass,
     onSideEventClick: (url: String) -> Unit,
     contentPadding: PaddingValues = PaddingValues(),
-    viewModel: FloorMapScreenViewModel = hiltViewModel<FloorMapScreenViewModel>(),
+    viewModel: FloorMapScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }

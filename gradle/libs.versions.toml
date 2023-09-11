@@ -7,13 +7,14 @@ kotlin = "1.9.0"
 
 androidxCore = "1.10.1"
 androidDesugarJdkLibs = "2.0.3"
-compose = "1.5.0"
+compose = "1.5.1"
 compose-jb = "1.5.0"
 composeCompiler = "1.5.2"
 composeHiltNavigatiaon = "1.0.0"
-androidxLifecycle = "2.6.1"
-androidxActivity = "1.8.0-alpha07"
+androidxLifecycle = "2.6.2"
+androidxActivity = "1.8.0-beta01"
 androidxFragment = "1.6.1"
+androidxSplashScreen = "1.0.1"
 kotlinxCoroutines = "1.7.3"
 accompanist = "0.30.1"
 junit = "4.13.2"
@@ -23,7 +24,7 @@ dagger = "2.47"
 koin = "3.4.3"
 ktlint = "0.49.1"
 kotlinxSerialization = "1.6.0"
-ktor = "2.3.3"
+ktor = "2.3.4"
 roborazzi = "1.6.0-alpha-3"
 showkase = "1.0.0-beta18"
 ksp = "1.9.0-1.0.13"
@@ -80,11 +81,11 @@ kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0
 
 composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.1" }
+composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.2" }
 composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.1" }
 composeMaterialWindowSize = { module = "androidx.compose.material3:material3-window-size-class", version = "1.1.1" }
-composeMaterialIcon = { module = "androidx.compose.material:material-icons-extended", version = "1.5.0" }
+composeMaterialIcon = { module = "androidx.compose.material:material-icons-extended", version = "1.5.1" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -105,6 +106,7 @@ androidxActivityActivityCompose = { module = "androidx.activity:activity-compose
 androidxDatastoreDatastorePreferences = { module = "androidx.datastore:datastore-preferences-core", version = "1.1.0-alpha04" }
 androidxBrowser = { module = "androidx.browser:browser", version = "1.6.0" }
 androidxWindow = { module = "androidx.window:window", version = "1.1.0" }
+androidxSplashScreen = { module = "androidx.core:core-splashscreen", version.ref = "androidxSplashScreen" }
 javaPoet = { module = "com.squareup:javapoet", version = "1.13.0" }
 
 # Data
