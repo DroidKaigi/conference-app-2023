@@ -93,7 +93,7 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", versi
 composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigatiaon" }
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
-composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.5" }
+composeImageLoader = { module = "io.github.qdsfdhvh:image-loader", version = "1.6.7" }
 composeShimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version = "1.0.5" }
 lottieCompose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 animation-graphics-android = { group = "androidx.compose.animation", name = "animation-graphics-android", version = "1.5.1" }
