@@ -304,8 +304,8 @@ We use the [companion branch approach](https://github.com/DroidKaigi/conference-
 
 <img src="https://user-images.githubusercontent.com/1386930/236188326-ddd617ae-b216-476c-9d92-e36ad02a2670.png" width="600" />
 
-<p align="left">
-  <img src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ee9e2246-fbd7-483b-9028-0a75571fdd97" width="10%" alt="Image" />
+<p>
+  <img src="/mnt/data/thinking_droid.svg" width="25%" style="float: left; margin-right: 10px;" alt="Image" />
   <span>
 
 > [!NOTE]
@@ -313,6 +313,9 @@ We use the [companion branch approach](https://github.com/DroidKaigi/conference-
 
   </span>
 </p>
+
+<div style="clear:both"></div>
+
 
 While GitHub Actions Artifacts and Git LFS could be used for storing screenshots, they don't allow for direct image viewing in pull requests. Committing screenshots directly to the feature branch, on the other hand, can lead to an unnecessary increase in the repository size.
 
