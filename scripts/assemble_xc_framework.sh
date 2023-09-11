@@ -2,5 +2,6 @@
 
 cd ../
 ./gradlew :app-io-shared:assembleSharedReleaseXCFramework
-./gradlew :app-io-shared:assembleSharedDebugXCFramework 
+# Debug does not appear to be in use now.
+#./gradlew :app-io-shared:assembleSharedDebugXCFramework
 echo -e "\a"
