@@ -55,7 +55,9 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
                 painter = rememberAnimatedVectorPainter(
                     AnimatedImageVector.animatedVectorResource(
                         R.drawable.avd_anim,
-                    ), atEnd),
+                    ),
+                    atEnd,
+                ),
                 contentDescription = null,
             )
             LaunchedEffect(Unit) {
