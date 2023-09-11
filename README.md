@@ -12,7 +12,9 @@
 
 This is a video of an app in development, and it will be updated as needed.
 
-[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/32968ea9-6ef8-4707-b402-0fd009cc04fe)
+<video src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ec91d1b8-639d-4622-8371-1387be4c6bac" width="320" controls>
+  https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ec91d1b8-639d-4622-8371-1387be4c6bac
+</video>
 
 # Try it out!
 

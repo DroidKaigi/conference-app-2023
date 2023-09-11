@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -128,6 +130,7 @@ private fun AchievementsScreen(
 fun AchievementScreenDialog(
     onDismissRequest: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     AlertDialog(
         title = {
             Text(
@@ -138,7 +141,7 @@ fun AchievementScreenDialog(
             )
         },
         text = {
-            Column {
+            Column(modifier = Modifier.verticalScroll(scrollState)) {
                 OrderedListText(
                     order = 1,
                     text = AchievementsStrings.DialogDescription1.asString(),
