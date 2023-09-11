@@ -35,6 +35,8 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
             ScrollView {
                 VStack(spacing: 0) {
                     Assets.Images.aboutKeyVisual.swiftUIImage
+                        .resizable()
+                        .frame(maxWidth: .infinity)
                     Spacer().frame(height: 16)
                     Text(L10n.About.description)
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
