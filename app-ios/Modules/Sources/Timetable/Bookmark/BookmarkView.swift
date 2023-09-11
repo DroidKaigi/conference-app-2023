@@ -25,32 +25,32 @@ struct BookmarkView<SessionView: View>: View {
                         await viewModel.load()
                     }
             case .loaded(let timetableItems):
-                if timetableItems.isEmpty {
-                    BookmarkEmptyView()
-                } else {
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        FilterLabel(
+                            title: "全て",
+                            isSelection: false,
+                            isSelected: viewModel.state.selectedDay == nil,
+                            onSelect: {
+                                viewModel.selectDay(day: nil)
+                            },
+                            onDeselect: nil
+                        )
+                        ForEach([DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values())) { day in
                             FilterLabel(
-                                title: "全て",
+                                title: day.name,
                                 isSelection: false,
-                                isSelected: viewModel.state.selectedDay == nil,
+                                isSelected: viewModel.state.selectedDay == day,
                                 onSelect: {
-                                    viewModel.selectDay(day: nil)
+                                    viewModel.selectDay(day: day)
                                 },
                                 onDeselect: nil
                             )
-                            ForEach([DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values())) { day in
-                                FilterLabel(
-                                    title: day.name,
-                                    isSelection: false,
-                                    isSelected: viewModel.state.selectedDay == day,
-                                    onSelect: {
-                                        viewModel.selectDay(day: day)
-                                    },
-                                    onDeselect: nil
-                                )
-                            }
                         }
+                    }
+                    if timetableItems.map({ $0.items }).flatMap({ $0 }).isEmpty {
+                        BookmarkEmptyView()
+                    } else {
                         ScrollView {
                             TimetableListView(
                                 timetableTimeGroupItems: timetableItems,

@@ -10,27 +10,31 @@ struct TimetableListView: View {
     var body: some View {
         VStack(spacing: 0) {
             ForEach(timetableTimeGroupItems) { timetableTimeGroupItem in
-                HStack(alignment: .top, spacing: 16) {
-                    SessionTimeView(
-                        startsTimeString: timetableTimeGroupItem.startsTimeString,
-                        endsTimeString: timetableTimeGroupItem.endsTimeString
-                    )
-                    VStack(spacing: 0) {
-                        ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
-                            NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
-                                TimetableListItemView(
-                                    timetableItemWithFavorite: timetableItemWithFavorite,
-                                    searchWord: searchWord,
-                                    onToggleBookmark: {
-                                        onToggleBookmark(timetableItemWithFavorite.timetableItem.id)
-                                    }
-                                )
+                if timetableTimeGroupItem.items.isEmpty {
+                    EmptyView()
+                } else {
+                    HStack(alignment: .top, spacing: 16) {
+                        SessionTimeView(
+                            startsTimeString: timetableTimeGroupItem.startsTimeString,
+                            endsTimeString: timetableTimeGroupItem.endsTimeString
+                        )
+                        VStack(spacing: 0) {
+                            ForEach(timetableTimeGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
+                                NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
+                                    TimetableListItemView(
+                                        timetableItemWithFavorite: timetableItemWithFavorite,
+                                        searchWord: searchWord,
+                                        onToggleBookmark: {
+                                            onToggleBookmark(timetableItemWithFavorite.timetableItem.id)
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
+                    .padding(8)
+                    Divider()
                 }
-                .padding(8)
-                Divider()
             }
         }
         .padding(.vertical, 24)
