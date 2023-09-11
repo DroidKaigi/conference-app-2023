@@ -305,7 +305,7 @@ We use the [companion branch approach](https://github.com/DroidKaigi/conference-
 <img src="https://user-images.githubusercontent.com/1386930/236188326-ddd617ae-b216-476c-9d92-e36ad02a2670.png" width="600" />
 
 <p align="left">
-  <img src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ee9e2246-fbd7-483b-9028-0a75571fdd97" width="25%" alt="Image" />
+  <img src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ee9e2246-fbd7-483b-9028-0a75571fdd97" width="10%" alt="Image" />
   <span>
 
 > [!NOTE]
