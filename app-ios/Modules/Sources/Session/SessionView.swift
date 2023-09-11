@@ -20,7 +20,7 @@ public struct SessionView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 Text(viewModel.timetableItem.title.currentLangTitle)
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
+                    .textStyle(TypographyTokens.headlineMedium)
                     .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 24)
@@ -80,7 +80,7 @@ public struct SessionView: View {
                                 canBeExpanded = false
                             } label: {
                                 Text(L10n.Session.readMore)
-                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                                    .textStyle(TypographyTokens.labelLarge)
                                     .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
                                     .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
                                     .overlay {
@@ -98,10 +98,10 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text(L10n.Session.targetAudience)
-                        .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
+                        .textStyle(TypographyTokens.titleLarge)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                     Text(viewModel.timetableItem.targetAudience)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                        .textStyle(TypographyTokens.bodyLarge)
                         .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 }
                 .padding(.vertical, 24)
@@ -111,7 +111,7 @@ public struct SessionView: View {
 
                 VStack(alignment: .leading, spacing: 16) {
                     Text(L10n.Session.speakers)
-                        .font(Font.custom(FontAssets.Montserrat.semiBold, size: 14))
+                        .textStyle(TypographyTokens.titleLarge)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
                     VStack(alignment: .leading, spacing: 8) {
@@ -131,10 +131,10 @@ public struct SessionView: View {
                                 )
                                 VStack(alignment: .leading, spacing: 0) {
                                     Text(speaker.name)
-                                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                                        .textStyle(TypographyTokens.bodyLarge)
                                         .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                                     Text(speaker.tagLine)
-                                        .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
+                                        .textStyle(TypographyTokens.bodySmall)
                                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
                                 }
                             }
