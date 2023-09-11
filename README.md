@@ -304,18 +304,15 @@ We use the [companion branch approach](https://github.com/DroidKaigi/conference-
 
 <img src="https://user-images.githubusercontent.com/1386930/236188326-ddd617ae-b216-476c-9d92-e36ad02a2670.png" width="600" />
 
-<p>
-  <img src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ee9e2246-fbd7-483b-9028-0a75571fdd97" width="25%" style="float: left; margin-right: 10px;" alt="Image" />
-  <span>
-
-> [!NOTE]
-> Why not GitHub Actions Artifacts, Git LFS, or Feature Branch Commits?
-
-  </span>
-</p>
-
-<div style="clear:both"></div>
-
+<div style="display: flex; align-items: center;">
+    <img src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ee9e2246-fbd7-483b-9028-0a75571fdd97" width="25%" style="margin-right: 10px;" alt="Image" />
+    <div style="flex-grow: 1;">
+        <blockquote>
+            <strong>[!NOTE]</strong><br>
+            Why not GitHub Actions Artifacts, Git LFS, or Feature Branch Commits?
+        </blockquote>
+    </div>
+</div>
 
 While GitHub Actions Artifacts and Git LFS could be used for storing screenshots, they don't allow for direct image viewing in pull requests. Committing screenshots directly to the feature branch, on the other hand, can lead to an unnecessary increase in the repository size.
 
