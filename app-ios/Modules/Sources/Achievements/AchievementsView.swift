@@ -5,6 +5,7 @@ import Theme
 
 public struct AchievementsView: View {
     @ObservedObject var viewModel: AchievementsViewModel = .init()
+    @State private var isReadingNFCTag = false
     @State private var obtainedAchievement: Achievement?
 
     public init() {}
@@ -61,12 +62,18 @@ public struct AchievementsView: View {
                             }
                             Button {
                                 Task {
-                                    let result = await viewModel.read()
+                                    isReadingNFCTag = true
+                                    let result = await viewModel.read(
+                                        didInvalidateHandler: {
+                                            isReadingNFCTag = false
+                                        }
+                                    )
                                     obtainedAchievement = result
                                 }
                             } label: {
-                                Text("Scan NFC Tag")
+                                Text(isReadingNFCTag ? "Scanning..." : "Scan the NFC Tag")
                             }
+                            .disabled(isReadingNFCTag)
                             .buttonStyle(.bordered)
                             .controlSize(.large)
                         }
