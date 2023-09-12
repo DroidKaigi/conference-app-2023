@@ -63,7 +63,7 @@ fun TimetableHeader(modifier: Modifier = Modifier) {
             LaunchedEffect(Unit) {
                 atEnd = atEnd.not()
                 repeat(Int.MAX_VALUE) {
-                    delay(10000)
+                    delay(2500)
                     atEnd = atEnd.not()
                 }
             }
