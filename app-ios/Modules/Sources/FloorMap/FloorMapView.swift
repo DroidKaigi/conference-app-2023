@@ -45,8 +45,8 @@ public struct FloorMapView: View {
 
     /// first floor map
     private func groundMapView(sideEvents: [SideEvent]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: SpacingTokens.xl) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
                 Text("1F")
                     .textStyle(TypographyTokens.headlineSmall)
                 Assets.Images.floor1F.swiftUIImage
@@ -61,8 +61,8 @@ public struct FloorMapView: View {
 
     /// basement first floor map
     private func basementMapView(sideEvents: [SideEvent]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: SpacingTokens.xl) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
                 Text("B1F")
                     .textStyle(TypographyTokens.headlineSmall)
                 Assets.Images.floorB1F.swiftUIImage
@@ -77,7 +77,7 @@ public struct FloorMapView: View {
 
     /// Side Events List
     private func sideEventList(sideEvents: [SideEvent]) -> some View {
-        LazyVStack(spacing: 16) {
+        LazyVStack(spacing: SpacingTokens.m) {
             ForEach(0..<sideEvents.count, id: \.self) { index in
                 SideEventRow(sideEvent: sideEvents[index])
 

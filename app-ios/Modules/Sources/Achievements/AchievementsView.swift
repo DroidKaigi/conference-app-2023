@@ -23,7 +23,7 @@ public struct AchievementsView: View {
             NavigationStack {
                 ScrollView {
                     ZStack {
-                        VStack(spacing: 24) {
+                        VStack(spacing: SpacingTokens.xl) {
                             Text(state.description)
                                 .font(Font.system(size: 16))
                                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)

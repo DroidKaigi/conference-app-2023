@@ -59,7 +59,7 @@ public struct SessionView: View {
                 .padding(.horizontal, 16)
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
-                    VStack(alignment: .leading, spacing: 16) {
+                    VStack(alignment: .leading, spacing: SpacingTokens.m) {
                         Text(.init(session.description_.currentLangTitle))
                             .textSelection(.enabled)
                             .lineLimit(isDescriptionExpanded ? nil : 5)
@@ -96,7 +96,7 @@ public struct SessionView: View {
                     Divider()
                 }
 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: SpacingTokens.m) {
                     Text(L10n.Session.targetAudience)
                         .textStyle(TypographyTokens.titleLarge)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
@@ -109,14 +109,14 @@ public struct SessionView: View {
 
                 Divider()
 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: SpacingTokens.m) {
                     Text(L10n.Session.speakers)
                         .textStyle(TypographyTokens.titleLarge)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: SpacingTokens.xs) {
                         ForEach(viewModel.timetableItem.speakers, id: \.id) { speaker in
-                            HStack(spacing: 24) {
+                            HStack(spacing: SpacingTokens.xl) {
                                 CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
                                     image.resizable()
                                 } placeholder: {
