@@ -48,6 +48,7 @@ struct BookmarkView<SessionView: View>: View {
                             )
                         }
                     }
+                    .padding(.horizontal, 16)
                     if timetableItems.map({ $0.items }).flatMap({ $0 }).isEmpty {
                         BookmarkEmptyView()
                     } else {
