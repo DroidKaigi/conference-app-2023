@@ -89,13 +89,15 @@ final class SearchViewModel: ObservableObject {
                     items: items
                 )
             }
+        var seen: [TimetableTimeGroupItems: Bool] = [:]
+        let distinctedTimetableTimeGroupItems = timetableTimeGroupItems.filter { seen.updateValue(true, forKey: $0) == nil }
         state.loadingState = .loaded(
             .init(
                 categories: cachedTimetable.categories,
                 sessionTypes: cachedTimetable.sessionTypes,
                 rooms: cachedTimetable.rooms,
                 languages: uniqueLanguages,
-                timeGroupTimetableItems: timetableTimeGroupItems
+                timeGroupTimetableItems: distinctedTimetableTimeGroupItems
             )
         )
     }
