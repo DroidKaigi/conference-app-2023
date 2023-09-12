@@ -5,7 +5,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class License(
     val name: String,
-    val ossSet: Int,
+    val offset: Int,
     val length: Int,
     val detail: String = "",
 )

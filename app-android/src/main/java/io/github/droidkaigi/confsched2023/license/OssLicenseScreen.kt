@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.license
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,9 +36,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 const val ossLicenseScreenRoute = "osslicense"
-fun NavGraphBuilder.ossLicenseScreen() {
+fun NavGraphBuilder.nestedOssLicenseScreen(
+    onLicenseClick: (License) -> Unit,
+    onUpClick: () -> Unit,
+) {
     composable(ossLicenseScreenRoute) {
-        OssLicenseScreen()
+        OssLicenseScreen(onLicenseClick = onLicenseClick, onUpClick = onUpClick)
     }
 }
 
@@ -51,10 +53,12 @@ data class OssLicenseScreenUiState(
     val ossLicense: OssLicense = OssLicense(),
 )
 
-@SuppressLint("ComposeModifierMissing")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OssLicenseScreen(
+    onLicenseClick: (License) -> Unit,
+    onUpClick: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: OssLicenseViewModel = hiltViewModel<OssLicenseViewModel>(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -64,14 +68,14 @@ fun OssLicenseScreen(
     }
 
     Scaffold(
-        modifier = Modifier,
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "OSS ライセンス")
                 },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { onUpClick() }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "back button",
@@ -84,7 +88,8 @@ fun OssLicenseScreen(
         Box(modifier = Modifier.padding(paddingValues)) {
             OssLicenseScreen(
                 uiState = uiState,
-            ) {}
+                onLicenseClick = onLicenseClick,
+            )
         }
     }
 }
@@ -93,7 +98,7 @@ fun OssLicenseScreen(
 @Composable
 private fun OssLicenseScreen(
     uiState: OssLicenseScreenUiState,
-    onLibraryClick: (License) -> Unit,
+    onLicenseClick: (License) -> Unit,
 ) {
     LazyColumn(modifier = Modifier.padding(horizontal = 8.dp)) {
         items(items = uiState.ossLicense.groupList) { group ->
@@ -108,13 +113,17 @@ private fun OssLicenseScreen(
             ) {
                 Column {
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(modifier = Modifier.padding(start = 8.dp), text = group.title, style = MaterialTheme.typography.headlineMedium)
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = group.title,
+                        style = MaterialTheme.typography.headlineMedium,
+                    )
                     AnimatedContent(targetState = expand, label = "") { targetState ->
                         if (targetState) {
                             Column {
                                 group.licenses.forEach { license ->
                                     key(license.name) {
-                                        TextButton(onClick = { onLibraryClick(license) }) {
+                                        TextButton(onClick = { onLicenseClick(license) }) {
                                             Text(text = license.name)
                                         }
                                     }
