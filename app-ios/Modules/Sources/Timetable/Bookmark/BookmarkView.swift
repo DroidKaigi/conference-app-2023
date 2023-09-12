@@ -81,7 +81,7 @@ private struct BookmarkEmptyView: View {
                 .frame(width: 36, height: 36)
                 .padding(24)
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xl))
             Spacer().frame(height: 24)
             Text(L10n.Bookmark.bookmarksNotFound)
                 .font(Font.custom(FontAssets.Montserrat.medium, size: 22))

@@ -54,7 +54,7 @@ public struct SessionView: View {
                 .background(
                     AssetColors.Surface.surfaceContainerLow.swiftUIColor
                 )
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                 .padding(.vertical, 20)
                 .padding(.horizontal, 16)
 
@@ -124,9 +124,9 @@ public struct SessionView: View {
                                 }
                                 .frame(width: 40, height: 40)
                                 .scaledToFill()
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
+                                    RoundedRectangle(cornerRadius: RadiusTokens.s)
                                         .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                                 )
                                 VStack(alignment: .leading, spacing: 0) {

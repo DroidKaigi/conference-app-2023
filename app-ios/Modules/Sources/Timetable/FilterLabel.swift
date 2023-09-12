@@ -41,10 +41,10 @@ struct FilterLabel: View {
                 ? AssetColors.Secondary.onSecondaryContainer.swiftUIColor
                 : AssetColors.Surface.onSurface.swiftUIColor
             )
-            .clipShape(RoundedRectangle(cornerRadius: 4))
+            .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xxs))
             .overlay {
                 if !isSelected {
-                    RoundedRectangle(cornerRadius: 4)
+                    RoundedRectangle(cornerRadius: RadiusTokens.xxs)
                         .inset(by: 0.5)
                         .stroke(
                             AssetColors.Outline.outline.swiftUIColor,
