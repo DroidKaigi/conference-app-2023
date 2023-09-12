@@ -22,8 +22,8 @@ struct PersonLabel: View {
             )
 
             Text(speaker.name)
+                .textStyle(TypographyTokens.bodyMedium)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
