@@ -42,7 +42,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer().frame(height: 12)
-                    VStack(alignment: .leading, spacing: 12) {
+                    VStack(alignment: .leading, spacing: SpacingTokens.s) {
                         InformationRow(
                             icon: Assets.Icons.schedule.swiftUIImage,
                             title: L10n.About.dateTitle,
@@ -111,7 +111,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                         )
                     }
                     Divider()
-                    HStack(spacing: 12) {
+                    HStack(spacing: SpacingTokens.s) {
                         SafariLink(url: .youtube) {
                             Assets.Icons.youtube.swiftUIImage
                         }

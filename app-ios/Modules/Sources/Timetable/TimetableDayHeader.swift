@@ -21,7 +21,7 @@ struct TimetableDayHeader: View {
     var body: some View {
         ZStack {
             AssetColors.Surface.surface.swiftUIColor
-            HStack(spacing: 8) {
+            HStack(spacing: SpacingTokens.xs) {
                 ForEach(
                     [DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values()),
                     id: \.ordinal

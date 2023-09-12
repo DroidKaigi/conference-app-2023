@@ -23,7 +23,7 @@ struct FloorMapFooterSegmentedButton: View {
                 )
                 .rotationEffect(.degrees(180))
                 .overlay(alignment: .center) {
-                    HStack(spacing: 8) {
+                    HStack(spacing: SpacingTokens.xs) {
                         if floor == .ground {
                             Assets.Icons.checkmark.swiftUIImage
                         }
@@ -42,7 +42,7 @@ struct FloorMapFooterSegmentedButton: View {
                     foregroundColor: floor == .basement ? AssetColors.Secondary.secondaryContainer.swiftUIColor : AssetColors.floorButtonBg.swiftUIColor
                 )
                 .overlay(alignment: .center) {
-                    HStack(spacing: 8) {
+                    HStack(spacing: SpacingTokens.xs) {
                         if floor == .basement {
                             Assets.Icons.checkmark.swiftUIImage
                         }

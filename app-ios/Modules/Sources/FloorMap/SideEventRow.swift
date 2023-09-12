@@ -8,11 +8,11 @@ struct SideEventRow: View {
     var sideEvent: SideEvent
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .leading, spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
+        HStack(alignment: .top, spacing: SpacingTokens.s) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
+                VStack(alignment: .leading, spacing: SpacingTokens.xxs) {
                     // Icon & Title
-                    HStack(alignment: .top, spacing: 8) {
+                    HStack(alignment: .top, spacing: SpacingTokens.xs) {
                         sideEvent.icon
                             .renderingMode(.template)
                             .frame(width: 16, height: 16)
@@ -27,7 +27,7 @@ struct SideEventRow: View {
                         .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                 }
                 // Date
-                HStack(alignment: .center, spacing: 4) {
+                HStack(alignment: .center, spacing: SpacingTokens.xxs) {
                     Assets.Icons.accessTime.swiftUIImage
                         .frame(width: 16, height: 16)
 
