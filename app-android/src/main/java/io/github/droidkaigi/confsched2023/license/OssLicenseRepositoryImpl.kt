@@ -1,8 +1,9 @@
 package io.github.droidkaigi.confsched2023.license
 
 import android.content.Context
-import io.github.droidkaigi.confsched2023.R
+import io.github.droidkaigi.confsched2023.R.raw
 import io.github.droidkaigi.confsched2023.model.License
+import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
@@ -13,15 +14,7 @@ import okio.buffer
 import okio.source
 import javax.inject.Inject
 
-public interface OssLicenseRepository {
-    public fun licenseMetaData(): Flow<PersistentList<License>>
-
-    public fun licenseDetailData(): Flow<List<String>>
-
-    public fun refresh(): Unit
-}
-
-internal class OssLicenseRepositoryImpl @Inject constructor(
+class OssLicenseRepositoryImpl @Inject constructor(
     private val context: Context,
 ) : OssLicenseRepository {
 
@@ -51,13 +44,13 @@ internal class OssLicenseRepositoryImpl @Inject constructor(
     }
 
     private fun readLicensesMetaFile(): BufferedSource {
-        return context.resources.openRawResource(R.raw.third_party_license_metadata)
+        return context.resources.openRawResource(raw.third_party_license_metadata)
             .source()
             .buffer()
     }
 
     private fun readLicensesFile(): BufferedSource {
-        return context.resources.openRawResource(R.raw.third_party_licenses)
+        return context.resources.openRawResource(raw.third_party_licenses)
             .source()
             .buffer()
     }

@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.license
+package io.github.droidkaigi.confsched2023.about
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box

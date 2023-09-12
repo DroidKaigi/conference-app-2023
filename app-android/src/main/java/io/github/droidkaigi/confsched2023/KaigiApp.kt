@@ -31,7 +31,11 @@ import co.touchlab.kermit.Logger
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
+import io.github.droidkaigi.confsched2023.about.navigateOssLicenseDetailScreen
+import io.github.droidkaigi.confsched2023.about.navigateOssLicenseScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
+import io.github.droidkaigi.confsched2023.about.nestedOssLicenseDetailScreen
+import io.github.droidkaigi.confsched2023.about.nestedOssLicenseScreen
 import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
 import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
 import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
@@ -41,10 +45,6 @@ import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.floormap.floorMapScreenRoute
 import io.github.droidkaigi.confsched2023.floormap.navigateFloorMapScreen
 import io.github.droidkaigi.confsched2023.floormap.nestedFloorMapScreen
-import io.github.droidkaigi.confsched2023.license.navigateOssLicenseDetailScreen
-import io.github.droidkaigi.confsched2023.license.navigateOssLicenseScreen
-import io.github.droidkaigi.confsched2023.license.nestedOssLicenseDetailScreen
-import io.github.droidkaigi.confsched2023.license.nestedOssLicenseScreen
 import io.github.droidkaigi.confsched2023.main.MainNestedGraphStateHolder
 import io.github.droidkaigi.confsched2023.main.MainScreenTab
 import io.github.droidkaigi.confsched2023.main.MainScreenTab.About

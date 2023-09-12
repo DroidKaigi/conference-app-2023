@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import javax.inject.Singleton
 
 @Module

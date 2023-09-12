@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.license
+package io.github.droidkaigi.confsched2023.about
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.model.License
 import io.github.droidkaigi.confsched2023.model.OssLicense
 import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
+import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import io.github.droidkaigi.confsched2023.ui.buildUiState
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
