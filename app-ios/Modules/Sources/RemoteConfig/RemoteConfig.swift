@@ -6,12 +6,9 @@ public class RemoteConfigApiImpl: RemoteConfigApi {
 
     public init() {
         remoteConfig.addOnConfigUpdateListener { [weak remoteConfig] configUpdate, error in
-            guard let configUpdate, error == nil else {
-                print("Error listening for config updates: \(error)")
+            guard error == nil else {
                 return
             }
-
-            print("Updated keys: \(configUpdate.updatedKeys)")
 
             remoteConfig?.activate()
         }
