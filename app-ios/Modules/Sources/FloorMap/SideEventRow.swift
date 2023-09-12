@@ -8,11 +8,11 @@ struct SideEventRow: View {
     var sideEvent: SideEvent
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            VStack(alignment: .leading, spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
+        HStack(alignment: .top, spacing: SpacingTokens.s) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
+                VStack(alignment: .leading, spacing: SpacingTokens.xxs) {
                     // Icon & Title
-                    HStack(alignment: .top, spacing: 8) {
+                    HStack(alignment: .top, spacing: SpacingTokens.xs) {
                         sideEvent.icon
                             .renderingMode(.template)
                             .frame(width: 16, height: 16)
@@ -26,7 +26,7 @@ struct SideEventRow: View {
                         .textStyle(TypographyTokens.bodyMedium)
                 }
                 // Date
-                HStack(alignment: .center, spacing: 4) {
+                HStack(alignment: .center, spacing: SpacingTokens.xxs) {
                     Assets.Icons.accessTime.swiftUIImage
                         .frame(width: 16, height: 16)
 
@@ -39,24 +39,22 @@ struct SideEventRow: View {
             Spacer(minLength: 0)
 
             // Image
-            Group {
-                if let imageLink = sideEvent.imageLink, let imageUrl = URL(string: imageLink) {
+            if let imageLink = sideEvent.imageLink, let imageUrl = URL(string: imageLink) {
+                Group {
                     CacheAsyncImage(url: imageUrl) { image in
                         image.resizable()
                     } placeholder: {
                         Color.gray
                     }
-                } else {
-                    Color.gray
                 }
+                .frame(width: 88, height: 88)
+                .scaledToFill()
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
+                )
             }
-            .frame(width: 88, height: 88)
-            .scaledToFill()
-            .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
-            .overlay(
-                RoundedRectangle(cornerRadius: RadiusTokens.s)
-                    .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
-            )
         }
     }
 }

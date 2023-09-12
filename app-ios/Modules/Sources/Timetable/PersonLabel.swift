@@ -7,7 +7,7 @@ struct PersonLabel: View {
     let speaker: TimetableSpeaker
 
     var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(alignment: .center, spacing: SpacingTokens.xs) {
             CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
                 image.resizable()
             } placeholder: {

@@ -197,7 +197,7 @@ private struct SearchEmptyView: View {
     let inputText: String
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: SpacingTokens.l) {
             Assets.Images.onsenBucket.swiftUIImage
                 .resizable()
                 .frame(width: 36, height: 36)
