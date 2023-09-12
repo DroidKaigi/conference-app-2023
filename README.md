@@ -20,9 +20,11 @@ This is a video of an app in development, and it will be updated as needed.
 
 ## Android
 
-The app is currently in preparation for release on Google Play and the App Store. In the meantime, you can try the app on DeployGate. Stay tuned for updates!
+You can install the production app via Get it on Google Play.
 
-[<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
+[<img src="https://play.google.com/intl/ja/badges/static/images/badges/en_badge_web_generic.png" alt="You can install the production app via Get it on Google Play" width="155px">](https://play.google.com/store/apps/details?id=io.github.droidkaigi.confsched2023)
+
+The builds being distributed through mobile app distribution services.
 
 ## iOS
 
