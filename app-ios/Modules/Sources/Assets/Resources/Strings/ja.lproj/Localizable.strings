@@ -16,6 +16,11 @@
 "about.app_version" = "アプリバージョン";
 "about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
 
+"bookmark.title" = "Bookmarks";
+"bookmark.all_day" = "全て";
+"bookmark.bookmarks_not_found" = "登録されたセッションが\nありません";
+"bookmark.bookmarks_not_found_note" = "気になるセッションをブックマークに追加して\n集めてみましょう！";
+
 "search.day" = "開催日";
 "search.category" = "カテゴリー";
 "search.session_type" = "セッション種別";
