@@ -16,6 +16,11 @@
 "about.app_version" = "App Version";
 "about.android_robot_description" = "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License.";
 
+"bookmark.title" = "Bookmarks";
+"bookmark.all_day" = "All";
+"bookmark.bookmarks_not_found" = "No sessions registered";
+"bookmark.bookmarks_not_found_note" = "Add the sessions you are interested in to your bookmarks\nand collect them!";
+
 "search.day" = "Day";
 "search.category" = "Category";
 "search.session_type" = "Session type";
