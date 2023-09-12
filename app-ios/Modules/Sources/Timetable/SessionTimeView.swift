@@ -7,7 +7,7 @@ struct SessionTimeView: View {
     var endsTimeString: String
 
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: SpacingTokens.xxs) {
             Text(startsTimeString)
                 .textStyle(TypographyTokens.titleMedium)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)

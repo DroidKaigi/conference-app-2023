@@ -1,6 +1,7 @@
 import Model
 import shared
 import SwiftUI
+import Theme
 
 struct TimetableListView: View {
     let timetableTimeGroupItems: [TimetableTimeGroupItems]
@@ -13,7 +14,7 @@ struct TimetableListView: View {
                 if timetableTimeGroupItem.items.isEmpty {
                     EmptyView()
                 } else {
-                    HStack(alignment: .top, spacing: 16) {
+                    HStack(alignment: .top, spacing: SpacingTokens.m) {
                         SessionTimeView(
                             startsTimeString: timetableTimeGroupItem.startsTimeString,
                             endsTimeString: timetableTimeGroupItem.endsTimeString

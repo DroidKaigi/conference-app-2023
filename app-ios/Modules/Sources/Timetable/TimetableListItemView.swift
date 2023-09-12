@@ -17,7 +17,7 @@ struct TimetableListItemView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 16)
                 // TODO apply like flexbox layout
-                HStack(spacing: 4) {
+                HStack(spacing: SpacingTokens.xxs) {
                     SessionTag(
                         timetableItem.room.name.currentLangTitle,
                         labelColor: AssetColors.Custom.hallText.swiftUIColor,
@@ -39,7 +39,7 @@ struct TimetableListItemView: View {
                 if let session = timetableItem as? TimetableItem.Session {
                     if let message = session.message {
                         Spacer().frame(height: 8)
-                        HStack(spacing: 4) {
+                        HStack(spacing: SpacingTokens.xxs) {
                             Assets.Icons.error.swiftUIImage
                                 .renderingMode(.template)
                             Text(message.currentLangTitle)

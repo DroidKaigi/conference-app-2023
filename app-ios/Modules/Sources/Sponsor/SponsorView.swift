@@ -18,7 +18,7 @@ public struct SponsorView: View {
                     }
             case .loaded(let planGroupedSponsors):
                 ScrollView {
-                    LazyVStack(spacing: 24) {
+                    LazyVStack(spacing: SpacingTokens.xl) {
                         ForEach(planGroupedSponsors.keys.sorted(by: {
                             $0.ordinal < $1.ordinal
                         }), id: \.self) { plan in

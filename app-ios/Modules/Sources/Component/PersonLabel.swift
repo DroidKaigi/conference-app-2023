@@ -13,7 +13,7 @@ public struct PersonLabel: View {
     }
 
     public var body: some View {
-        HStack(alignment: .center, spacing: 24) {
+        HStack(alignment: .center, spacing: SpacingTokens.xl) {
             HStack(spacing: -8) {
                 CacheAsyncImage(url: URL(string: iconUrlString)) { image in
                     image.resizable()

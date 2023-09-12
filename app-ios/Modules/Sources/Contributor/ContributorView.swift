@@ -3,6 +3,7 @@ import Dependencies
 import Model
 import shared
 import SwiftUI
+import Theme
 
 public struct ContributorView: View {
     @State var presentingURL: IdentifiableURL?
@@ -65,7 +66,7 @@ struct ContributorSwiftUIView: View {
                 EmptyView()
             case .loaded(let contributors):
                 ScrollView {
-                    LazyVStack(spacing: 20) {
+                    LazyVStack(spacing: SpacingTokens.l) {
                         ForEach(contributors, id: \.id) { contributor in
                             Button {
                                 if let profileUrl = contributor.profileUrl {

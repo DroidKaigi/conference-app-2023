@@ -6,7 +6,7 @@ struct ListTile: View {
     let title: String
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: SpacingTokens.s) {
             icon
                 .renderingMode(.template)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)

@@ -32,7 +32,7 @@ public struct InformationRow: View {
     public var body: some View {
         HStack {
             icon
-            HStack(spacing: 12) {
+            HStack(spacing: SpacingTokens.s) {
                 Text(title)
                     .textStyle(TypographyTokens.labelLarge)
                 HStack {
