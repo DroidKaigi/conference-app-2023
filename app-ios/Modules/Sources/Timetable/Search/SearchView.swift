@@ -205,7 +205,7 @@ private struct SearchEmptyView: View {
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
                 .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xl))
             Text(L10n.Search.searchResultNotFound(inputText))
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                .textStyle(TypographyTokens.titleMedium)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }

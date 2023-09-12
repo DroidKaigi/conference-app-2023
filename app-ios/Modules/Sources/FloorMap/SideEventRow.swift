@@ -19,12 +19,11 @@ struct SideEventRow: View {
                             .foregroundStyle(sideEvent.iconColor)
 
                         Text(sideEvent.title.currentLangTitle)
-                            .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
-                            .fontWeight(.bold)
+                            .textStyle(TypographyTokens.labelLarge)
                     }
                     // Description
                     Text(sideEvent.description_.currentLangTitle)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .textStyle(TypographyTokens.bodyMedium)
                 }
                 // Date
                 HStack(alignment: .center, spacing: 4) {
@@ -32,7 +31,7 @@ struct SideEventRow: View {
                         .frame(width: 16, height: 16)
 
                     Text(sideEvent.timeText.currentLangTitle)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
+                        .textStyle(TypographyTokens.bodySmall)
                 }
             }
             .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
