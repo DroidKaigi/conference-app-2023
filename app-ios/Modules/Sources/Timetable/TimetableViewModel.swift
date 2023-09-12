@@ -68,14 +68,16 @@ final class TimetableViewModel: ObservableObject {
                         $0.timetableItem.room.name.currentLangTitle < $1.timetableItem.room.name.currentLangTitle
                     }
                 return TimetableTimeGroupItems(
-                    startsTimeString: item.startsTimeString,
-                    endsTimeString: item.endsTimeString,
+                    startsTimeString: items.first?.timetableItem.startsTimeString ?? "",
+                    endsTimeString: items.first?.timetableItem.endsTimeString ?? "",
                     items: items
                 )
             }
+        var seen: [TimetableTimeGroupItems: Bool] = [:]
+        let distinctedTimetableTimeGroupItems = timetableTimeGroupItems.filter { seen.updateValue(true, forKey: $0) == nil }
         state.loadedState = .loaded(
             .init(
-                timeGroupTimetableItems: timetableTimeGroupItems,
+                timeGroupTimetableItems: distinctedTimetableTimeGroupItems,
                 bookmarks: cachedTimetable.bookmarks
             )
         )

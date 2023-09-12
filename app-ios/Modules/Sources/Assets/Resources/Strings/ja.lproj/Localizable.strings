@@ -32,3 +32,8 @@
 "session.target_audience" = "対象者";
 "session.add_to_calendar" = "カレンダーに追加する";
 "session.cancel" = "キャンセル";
+
+"sponsor.title" = "Sponsors";
+"sponsor.platinum_sponsors" = "プラチナスポンサー";
+"sponsor.gold_sponsors" = "ゴールドスポンサー";
+"sponsor.supporters" = "サポーター";
