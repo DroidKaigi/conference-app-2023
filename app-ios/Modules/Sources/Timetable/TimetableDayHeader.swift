@@ -38,7 +38,7 @@ struct TimetableDayHeader: View {
                                     .frame(height: 32)
                             }
                         }
-                        .padding(4)
+                        .padding(shouldCollapse ? 6 : 4)
                         .frame(maxWidth: .infinity)
                         .foregroundStyle(
                             selectedDay == day
