@@ -2,6 +2,7 @@ import Navigation
 import SwiftUI
 import Theme
 
+// Test
 @main
 struct MainApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
