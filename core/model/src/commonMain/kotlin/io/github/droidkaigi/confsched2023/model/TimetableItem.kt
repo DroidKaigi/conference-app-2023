@@ -61,6 +61,7 @@ public sealed class TimetableItem {
         override val asset: TimetableAsset,
         override val levels: PersistentList<String>,
         override val speakers: PersistentList<TimetableSpeaker>,
+        val description: MultiLangText,
     ) : TimetableItem()
 
     private val startsDateString: String by lazy {
@@ -134,6 +135,7 @@ public fun Session.Companion.fake(): Session {
             id = 1,
             name = MultiLangText("Room1", "Room2"),
             type = RoomA,
+            sort = 1,
         ),
         targetAudience = "For App developer アプリ開発者向け",
         language = TimetableLanguage(

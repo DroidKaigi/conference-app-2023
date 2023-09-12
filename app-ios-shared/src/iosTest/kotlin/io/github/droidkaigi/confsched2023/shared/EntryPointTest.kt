@@ -1,9 +1,10 @@
 package io.github.droidkaigi.confsched2023.shared
 
+import io.github.droidkaigi.confsched2023.data.achievements.AchievementsDataStore
 import io.github.droidkaigi.confsched2023.data.auth.AuthApi
 import io.github.droidkaigi.confsched2023.data.auth.Authenticator
 import io.github.droidkaigi.confsched2023.data.auth.User
-import io.github.droidkaigi.confsched2023.data.contributors.StampRepository
+import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.sessions.SessionCacheDataStore
 import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
@@ -47,9 +48,10 @@ class EntryPointTest {
         assertNotNull(kmpEntryPoint.get<AuthApi>())
         assertNotNull(kmpEntryPoint.get<SessionsApiClient>())
         assertNotNull(kmpEntryPoint.get<SessionCacheDataStore>())
+        assertNotNull(kmpEntryPoint.get<AchievementsDataStore>())
 
         assertNotNull(kmpEntryPoint.get<SessionsRepository>())
-        assertNotNull(kmpEntryPoint.get<StampRepository>())
+        assertNotNull(kmpEntryPoint.get<AchievementRepository>())
         assertNotNull(kmpEntryPoint.get<ContributorsRepository>())
         assertNotNull(kmpEntryPoint.get<SponsorsRepository>())
         assertNotNull(kmpEntryPoint.get<StaffRepository>())

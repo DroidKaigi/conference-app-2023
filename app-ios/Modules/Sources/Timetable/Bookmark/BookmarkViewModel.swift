@@ -64,14 +64,18 @@ final class BookmarkViewModel: ObservableObject {
                     .sorted {
                         $0.timetableItem.room.name.currentLangTitle < $1.timetableItem.room.name.currentLangTitle
                     }
+                    .filter { $0.isFavorited }
                 return TimetableTimeGroupItems(
                     startsTimeString: content.timetableItem.startsTimeString,
                     endsTimeString: content.timetableItem.endsTimeString,
                     items: items
                 )
             }
+        var seen: [TimetableTimeGroupItems: Bool] = [:]
+        let distinctedTimetableTimeGroupItems = timetableTimeGroupItems.filter { seen.updateValue(true, forKey: $0) == nil }
+        
         state.timeGroupTimetableItems = .loaded(
-            timetableTimeGroupItems
+            distinctedTimetableTimeGroupItems
         )
     }
 }

@@ -6,13 +6,11 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -90,7 +88,7 @@ fun TimetableScreen(
     onBookmarkIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
-    viewModel: TimetableScreenViewModel = hiltViewModel<TimetableScreenViewModel>(),
+    viewModel: TimetableScreenViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -116,7 +114,7 @@ fun TimetableScreen(
 data class TimetableScreenUiState(
     val contentUiState: TimetableSheetUiState,
     val timetableUiType: TimetableUiType,
-    val onBookmarkIconClickStatus: Boolean?,
+    val onBookmarkIconClickStatus: Boolean,
 )
 
 private val timetableTopBackgroundLight = Color(0xFFF6FFD3)
@@ -184,14 +182,7 @@ private fun TimetableScreen(
                     )
                 }
             },
-        snackbarHost = {
-            SnackbarHost(
-                hostState = snackbarHostState,
-                modifier = Modifier.padding(
-                    WindowInsets.safeContent.asPaddingValues(),
-                ),
-            )
-        },
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             TimetableTopArea(
                 timetableUiType = uiState.timetableUiType,
@@ -256,8 +247,8 @@ private fun TimetableScreen(
 fun PreviewTimetableScreenDark() {
     KaigiTheme {
         TimetableScreen(
-            TimetableScreenUiState(
-                TimetableSheetUiState.ListTimetable(
+            uiState = TimetableScreenUiState(
+                contentUiState = TimetableSheetUiState.ListTimetable(
                     mapOf(
                         DroidKaigi2023Day.Day1 to TimetableListUiState(
                             mapOf<String, List<TimetableItem>>().toPersistentMap(),
@@ -265,17 +256,17 @@ fun PreviewTimetableScreenDark() {
                         ),
                     ),
                 ),
-                TimetableUiType.Grid,
-                null,
+                timetableUiType = TimetableUiType.Grid,
+                onBookmarkIconClickStatus = false,
             ),
-            SnackbarHostState(),
-            {},
-            { _, _ -> },
-            {},
-            {},
-            {},
-            {},
-            Modifier.statusBarsPadding(),
+            snackbarHostState = SnackbarHostState(),
+            onTimetableItemClick = {},
+            onBookmarkClick = { _, _ -> },
+            onBookmarkIconClick = {},
+            onSearchClick = {},
+            onTimetableUiChangeClick = {},
+            onReachAnimationEnd = {},
+            modifier = Modifier.statusBarsPadding(),
         )
     }
 }

@@ -6,7 +6,6 @@ plugins {
     id("droidkaigi.primitive.detekt")
     id("droidkaigi.primitive.kmp.ktorfit")
     id("droidkaigi.primitive.kmp.serialization")
-    id("droidkaigi.primitive.kover")
 }
 
 android.namespace = "io.github.droidkaigi.confsched2023.core.data"
@@ -36,6 +35,7 @@ kotlin {
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.okHttpLoggingInterceptor)
                 implementation(libs.firebaseRemoteConfig)
+                implementation(libs.androidxLifecycleProcess)
             }
         }
 

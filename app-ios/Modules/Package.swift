@@ -8,6 +8,7 @@ var package = Package(
     defaultLocalization: "ja",
     platforms: [
         .iOS(.v16),
+        .macOS(.v12),
     ],
     products: [
         .library(name: "Component", targets: ["Component"]),
@@ -24,6 +25,7 @@ var package = Package(
         .package(url: "https://github.com/cybozu/LicenseList", from: "0.2.1"),
         .package(url: "https://github.com/firebase/firebase-ios-sdk", from: "10.14.0"),
         .package(url: "https://github.com/airbnb/lottie-spm", from: "4.2.0"),
+        .package(url: "https://github.com/apple/swift-async-algorithms", from: "0.1.0"),
     ],
     targets: [
         .target(
@@ -85,6 +87,7 @@ var package = Package(
                 "Assets",
                 "Component",
                 "KMPContainer",
+                "shared",
                 "Model",
                 .product(name: "Dependencies", package: "swift-dependencies"),
             ]
@@ -93,6 +96,23 @@ var package = Package(
             name: "ContributorTests",
             dependencies: [
                 "Contributor",
+            ]
+        ),
+
+        .target(
+            name: "DeepLink",
+            dependencies: [
+                "KMPContainer",
+                "shared",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "FirebaseDynamicLinks", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
+            name: "Event",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
             ]
         ),
 
@@ -133,6 +153,7 @@ var package = Package(
             dependencies: [
                 "Assets",
                 "Component",
+                "Event",
                 "KMPContainer",
                 "Model",
             ]
@@ -181,18 +202,21 @@ var package = Package(
         ),
 
         .target(
-            name: "Stamps",
+            name: "Achievements",
             dependencies: [
                 "Assets",
+                "DeepLink",
                 "Theme",
                 "KMPContainer",
+                "NFC",
                 .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
             ]
         ),
         .testTarget(
-            name: "StampsTests",
+            name: "AchievementsTests",
             dependencies: [
-                "Stamps"
+                "Achievements"
             ]
         ),
 
@@ -217,15 +241,24 @@ var package = Package(
             name: "Navigation",
             dependencies: [
                 "About",
+                "Achievements",
                 "Assets",
                 "Contributor",
+                "DeepLink",
                 "FloorMap",
                 "Session",
                 "Sponsor",
                 "Staff",
-                "Stamps",
                 "Theme",
                 "Timetable",
+                .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
+            ]
+        ),
+
+        .target(
+            name: "NFC",
+            dependencies: [
+                "Model",
             ]
         ),
 
@@ -290,3 +323,27 @@ package.targets = package.targets.map { target in
 
     return target
 }
+
+#if canImport(Darwin)
+import Darwin
+
+// Disable plugins on Xcode Cloud CI
+package.targets = package.targets.map { target in
+    if let ciEnvPointer = getenv("CI") {
+        let ciEnv = String(cString: ciEnvPointer)
+        if ciEnv == "TRUE" {
+            if target.name == "About" {
+                target.resources = [
+                    .process("Resources")
+                ]
+            }
+
+            if target.type == .regular || target.type == .test {
+                target.plugins = []
+            }
+        }
+    }
+
+    return target
+}
+#endif

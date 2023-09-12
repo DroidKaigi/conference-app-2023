@@ -9,7 +9,7 @@ enum BookmarkRouting: Hashable {
 }
 
 struct BookmarkView<SessionView: View>: View {
-    @ObservedObject var viewModel: BookmarkViewModel = .init()
+    @StateObject var viewModel: BookmarkViewModel = .init()
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
 
     public init(sessionViewBuilder: @escaping ViewProvider<TimetableItem, SessionView>) {
@@ -25,32 +25,32 @@ struct BookmarkView<SessionView: View>: View {
                         await viewModel.load()
                     }
             case .loaded(let timetableItems):
-                if timetableItems.isEmpty {
-                    BookmarkEmptyView()
-                } else {
-                    VStack(alignment: .leading, spacing: 0) {
-                        HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    HStack {
+                        FilterLabel(
+                            title: "全て",
+                            isSelection: false,
+                            isSelected: viewModel.state.selectedDay == nil,
+                            onSelect: {
+                                viewModel.selectDay(day: nil)
+                            },
+                            onDeselect: nil
+                        )
+                        ForEach([DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values())) { day in
                             FilterLabel(
-                                title: "全て",
+                                title: day.name,
                                 isSelection: false,
-                                isSelected: viewModel.state.selectedDay == nil,
+                                isSelected: viewModel.state.selectedDay == day,
                                 onSelect: {
-                                    viewModel.selectDay(day: nil)
+                                    viewModel.selectDay(day: day)
                                 },
                                 onDeselect: nil
                             )
-                            ForEach([DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values())) { day in
-                                FilterLabel(
-                                    title: day.name,
-                                    isSelection: false,
-                                    isSelected: viewModel.state.selectedDay == day,
-                                    onSelect: {
-                                        viewModel.selectDay(day: day)
-                                    },
-                                    onDeselect: nil
-                                )
-                            }
                         }
+                    }
+                    if timetableItems.map({ $0.items }).flatMap({ $0 }).isEmpty {
+                        BookmarkEmptyView()
+                    } else {
                         ScrollView {
                             TimetableListView(
                                 timetableTimeGroupItems: timetableItems,
@@ -83,12 +83,12 @@ private struct BookmarkEmptyView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 24))
             Spacer().frame(height: 24)
             Text("登録されたセッションがありません")
-                .font(Font.system(size: 22))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
             Spacer().frame(height: 8)
             Text("気になるセッションをブックマークに追加して集めてみましょう！")
-                .font(Font.system(size: 14))
+                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }

@@ -50,6 +50,10 @@ gradlePlugin {
             id = "droidkaigi.primitive.android.hilt"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidHiltPlugin"
         }
+        register("androidCrashlytics") {
+            id = "droidkaigi.primitive.android.crashlytics"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidCrashlyticsPlugin"
+        }
         register("androidFirebase") {
             id = "droidkaigi.primitive.android.firebase"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.AndroidFirebasePlugin"
@@ -90,9 +94,9 @@ gradlePlugin {
             id = "droidkaigi.primitive.kmp.serialization"
             implementationClass = "io.github.droidkaigi.confsched2023.primitive.KotlinSerializationPlugin"
         }
-        register("kover") {
-            id = "droidkaigi.primitive.kover"
-            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverPlugin"
+        register("koverEntryPoint") {
+            id = "droidkaigi.primitive.kover.entrypoint"
+            implementationClass = "io.github.droidkaigi.confsched2023.primitive.KoverEntryPointPlugin"
         }
         register("detekt") {
             id = "droidkaigi.primitive.detekt"

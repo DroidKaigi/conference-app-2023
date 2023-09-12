@@ -35,7 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9EB9E9E92AA2BF3800A9CBA1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D77DAF6D29FAA148007195DB /* DroidKaigi2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DroidKaigi2023.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D77DAF7029FAA148007195DB /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		D77DAF7429FAA149007195DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +46,8 @@
 		D77DAF8C29FAA14A007195DB /* DroidKaigi2023UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITests.swift; sourceTree = "<group>"; };
 		D77DAF8E29FAA14A007195DB /* DroidKaigi2023UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroidKaigi2023UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E823229B2A93E4BA005C0DBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E869BBA32A9FBBCA00EF9FA2 /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
+		E8817A262AA03A6000A36300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E8BCCCE62A8011E8004010F7 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Modules; path = ../../Modules; sourceTree = "<group>"; };
 		E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,7 +111,7 @@
 		D77DAF6F29FAA148007195DB /* DroidKaigi2023 */ = {
 			isa = PBXGroup;
 			children = (
-				9EB9E9E92AA2BF3800A9CBA1 /* Info.plist */,
+				E8817A262AA03A6000A36300 /* Info.plist */,
 				D77DAF7029FAA148007195DB /* App.swift */,
 				D77DAF7429FAA149007195DB /* Assets.xcassets */,
 				D77DAF7629FAA149007195DB /* DroidKaigi2023.entitlements */,
@@ -149,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				E8BCCCEF2A80126D004010F7 /* ci_post_clone.sh */,
+				E869BBA32A9FBBCA00EF9FA2 /* ci_pre_xcodebuild.sh */,
 			);
 			path = ci_scripts;
 			sourceTree = "<group>";
@@ -446,6 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DroidKaigi2023/DroidKaigi2023.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DroidKaigi2023/Preview Content\"";
@@ -453,6 +456,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DroidKaigi2023/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Use for adding events to your calendar";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -487,6 +491,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DroidKaigi2023/DroidKaigi2023.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DroidKaigi2023/Preview Content\"";
@@ -494,6 +499,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DroidKaigi2023/Info.plist;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "Use for adding events to your calendar";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

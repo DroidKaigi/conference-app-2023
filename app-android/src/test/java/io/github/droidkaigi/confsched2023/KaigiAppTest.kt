@@ -82,10 +82,10 @@ class KaigiAppTest {
     }
 
     @Test
-    fun checkNavigateToStampsShot() {
+    fun checkNavigateToAchievementsShot() {
         kaigiAppRobot {
-            goToStamps()
-            capture()
+            goToAchievements()
+            captureFirstRootScreen()
         }
     }
 
@@ -96,14 +96,6 @@ class KaigiAppTest {
             aboutScreenRobot {
                 clickSponsors()
             }
-            capture()
-        }
-    }
-
-    @Test
-    fun checkNavigateToContributorShot() {
-        kaigiAppRobot {
-            goToContributor()
             capture()
         }
     }
