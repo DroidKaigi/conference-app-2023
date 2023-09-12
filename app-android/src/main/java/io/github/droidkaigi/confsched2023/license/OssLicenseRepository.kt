@@ -2,6 +2,7 @@ package io.github.droidkaigi.confsched2023.license
 
 import android.content.Context
 import io.github.droidkaigi.confsched2023.R
+import io.github.droidkaigi.confsched2023.model.License
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList

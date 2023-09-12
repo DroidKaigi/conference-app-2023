@@ -1,4 +1,4 @@
-package io.github.droidkaigi.confsched2023.license
+package io.github.droidkaigi.confsched2023.model
 
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf

@@ -34,6 +34,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.model.License
+import io.github.droidkaigi.confsched2023.model.OssLicense
 
 const val ossLicenseScreenRoute = "osslicense"
 fun NavGraphBuilder.nestedOssLicenseScreen(
