@@ -2,13 +2,27 @@ import FirebaseRemoteConfig
 import shared
 
 public class RemoteConfigApiImpl: RemoteConfigApi {
-    public init() {}
+    private let remoteConfig = RemoteConfig.remoteConfig()
+
+    public init() {
+        remoteConfig.addOnConfigUpdateListener { [weak remoteConfig] configUpdate, error in
+            guard let configUpdate, error == nil else {
+                print("Error listening for config updates: \(error)")
+                return
+            }
+
+            print("Updated keys: \(configUpdate.updatedKeys)")
+
+            remoteConfig?.activate()
+        }
+    }
+
     public func getBoolean(key: String) async throws -> KotlinBoolean {
         .init(
-            bool: RemoteConfig.remoteConfig().configValue(forKey: key).boolValue
+            bool: remoteConfig.configValue(forKey: key).boolValue
         )
     }
     public func getString(key: String) async throws -> String {
-        return RemoteConfig.remoteConfig().configValue(forKey: key).stringValue ?? ""
+        return remoteConfig.configValue(forKey: key).stringValue ?? ""
     }
 }
