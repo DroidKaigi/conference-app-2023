@@ -17,6 +17,15 @@ public class DeepLink {
         DynamicLinks.dynamicLinks().dynamicLink(fromCustomSchemeURL: url)
     }
 
+    public func canBeResolved(from shortLink: URL) async -> Bool {
+        do {
+            let resolvedLink = try await resolveShortLink(url: shortLink)
+            return dynamicLink(customURL: resolvedLink) != nil
+        } catch {
+            return false
+        }
+    }
+
     public func dynamicLink(shortLink: URL) async throws -> DynamicLink? {
         let resolvedLink = try await resolveShortLink(url: shortLink)
         return dynamicLink(customURL: resolvedLink)

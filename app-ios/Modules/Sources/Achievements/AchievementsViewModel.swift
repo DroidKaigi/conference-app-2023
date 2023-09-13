@@ -51,16 +51,18 @@ class AchievementsViewModel: ObservableObject {
         }
     }
 
-    func read() async -> Achievement? {
+    func read(
+        didInvalidateHandler: @escaping () -> Void
+    ) async -> Achievement? {
         do {
-            let readed = try await nfcReader.read()
-            if
-                let urlString = readed,
-                let url = URL(string: urlString) {
-                if let dynamicLink = try await deepLink.dynamicLink(shortLink: url) {
-                    return try await deepLink.handleDynamicLink(dynamicLink: dynamicLink)
+            let shortLink = try await nfcReader.read(
+                didInvalidateHandler: didInvalidateHandler,
+                urlResolver: { [weak deepLink] url in
+                    await deepLink?.canBeResolved(from: url) ?? false
                 }
-            }
+            )
+            let dynamicLink = try await deepLink.dynamicLink(shortLink: shortLink)!
+            return try await deepLink.handleDynamicLink(dynamicLink: dynamicLink)
         } catch {
             print(error)
         }
