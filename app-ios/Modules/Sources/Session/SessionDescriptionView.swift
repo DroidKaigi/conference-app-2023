@@ -15,11 +15,13 @@ struct SessionDescriptionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: SpacingTokens.m) {
             Text(.init(content))
+                .textStyle(TypographyTokens.bodyLarge)
                 .textSelection(.enabled)
                 .lineLimit(isDescriptionExpanded ? nil : 5)
                 .background {
                     ViewThatFits(in: .vertical) {
                         Text(content)
+                            .textStyle(TypographyTokens.bodyLarge)
                             .hidden()
                         // Just for receiving onAppear event if the description exceeds its line limit
                         Color.clear
