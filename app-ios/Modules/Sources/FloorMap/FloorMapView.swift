@@ -39,6 +39,7 @@ public struct FloorMapView: View {
                     }
                 }
             }
+            .background(AssetColors.Surface.surface.swiftUIColor)
             .navigationTitle("Floor Map")
         }
     }
