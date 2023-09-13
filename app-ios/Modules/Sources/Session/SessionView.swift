@@ -59,39 +59,9 @@ public struct SessionView: View {
                 .padding(.horizontal, 16)
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
-                    VStack(alignment: .leading, spacing: SpacingTokens.m) {
-                        Text(.init(session.description_.currentLangTitle))
-                            .textSelection(.enabled)
-                            .lineLimit(isDescriptionExpanded ? nil : 5)
-                            .background {
-                                ViewThatFits(in: .vertical) {
-                                    Text(session.description_.currentLangTitle)
-                                        .hidden()
-                                    // Just for receiving onAppear event if the description exceeds its line limit
-                                    Color.clear
-                                        .onAppear {
-                                            canBeExpanded = true
-                                        }
-                                }
-                            }
-                        if canBeExpanded {
-                            Button {
-                                isDescriptionExpanded = true
-                                canBeExpanded = false
-                            } label: {
-                                Text(L10n.Session.readMore)
-                                    .textStyle(TypographyTokens.labelLarge)
-                                    .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
-                                    .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
-                                    .overlay {
-                                        Capsule()
-                                            .stroke(AssetColors.Outline.outline.swiftUIColor)
-                                    }
-                            }
-                        }
-                    }
-                    .padding(.bottom, 24)
-                    .padding(.horizontal, 16)
+                    SessionDescriptionView(content: session.description_.currentLangTitle)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16)
 
                     Divider()
                 }
