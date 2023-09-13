@@ -59,90 +59,64 @@ public struct SessionView: View {
                 .padding(.horizontal, 16)
 
                 if let session = viewModel.timetableItem as? TimetableItem.Session {
+                    SessionDescriptionView(content: session.description_.currentLangTitle)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16)
+
+                    Divider()
+
                     VStack(alignment: .leading, spacing: SpacingTokens.m) {
-                        Text(.init(session.description_.currentLangTitle))
-                            .textSelection(.enabled)
-                            .lineLimit(isDescriptionExpanded ? nil : 5)
-                            .background {
-                                ViewThatFits(in: .vertical) {
-                                    Text(session.description_.currentLangTitle)
-                                        .hidden()
-                                    // Just for receiving onAppear event if the description exceeds its line limit
-                                    Color.clear
-                                        .onAppear {
-                                            canBeExpanded = true
-                                        }
-                                }
-                            }
-                        if canBeExpanded {
-                            Button {
-                                isDescriptionExpanded = true
-                                canBeExpanded = false
-                            } label: {
-                                Text(L10n.Session.readMore)
-                                    .textStyle(TypographyTokens.labelLarge)
-                                    .foregroundStyle(AssetColors.Primary.primary.swiftUIColor)
-                                    .frame(maxWidth: .infinity, minHeight: 40, maxHeight: 40, alignment: .center)
-                                    .overlay {
-                                        Capsule()
-                                            .stroke(AssetColors.Outline.outline.swiftUIColor)
-                                    }
-                            }
-                        }
+                        Text(L10n.Session.targetAudience)
+                            .textStyle(TypographyTokens.titleLarge)
+                            .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                        Text(viewModel.timetableItem.targetAudience)
+                            .textStyle(TypographyTokens.bodyLarge)
+                            .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                     }
-                    .padding(.bottom, 24)
+                    .padding(.vertical, 24)
                     .padding(.horizontal, 16)
 
                     Divider()
-                }
 
-                VStack(alignment: .leading, spacing: SpacingTokens.m) {
-                    Text(L10n.Session.targetAudience)
-                        .textStyle(TypographyTokens.titleLarge)
-                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-                    Text(viewModel.timetableItem.targetAudience)
-                        .textStyle(TypographyTokens.bodyLarge)
-                        .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                }
-                .padding(.vertical, 24)
-                .padding(.horizontal, 16)
+                    VStack(alignment: .leading, spacing: SpacingTokens.m) {
+                        Text(L10n.Session.speakers)
+                            .textStyle(TypographyTokens.titleLarge)
+                            .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
 
-                Divider()
-
-                VStack(alignment: .leading, spacing: SpacingTokens.m) {
-                    Text(L10n.Session.speakers)
-                        .textStyle(TypographyTokens.titleLarge)
-                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-
-                    VStack(alignment: .leading, spacing: SpacingTokens.xs) {
-                        ForEach(viewModel.timetableItem.speakers, id: \.id) { speaker in
-                            HStack(spacing: SpacingTokens.xl) {
-                                CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
-                                    image.resizable()
-                                } placeholder: {
-                                    Color.gray
-                                }
-                                .frame(width: 40, height: 40)
-                                .scaledToFill()
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
-                                )
-                                VStack(alignment: .leading, spacing: 0) {
-                                    Text(speaker.name)
-                                        .textStyle(TypographyTokens.bodyLarge)
-                                        .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                                    Text(speaker.tagLine)
-                                        .textStyle(TypographyTokens.bodySmall)
-                                        .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                        VStack(alignment: .leading, spacing: SpacingTokens.xs) {
+                            ForEach(viewModel.timetableItem.speakers, id: \.id) { speaker in
+                                HStack(spacing: SpacingTokens.xl) {
+                                    CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
+                                        image.resizable()
+                                    } placeholder: {
+                                        Color.gray
+                                    }
+                                    .frame(width: 40, height: 40)
+                                    .scaledToFill()
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
+                                    )
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        Text(speaker.name)
+                                            .textStyle(TypographyTokens.bodyLarge)
+                                            .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
+                                        Text(speaker.tagLine)
+                                            .textStyle(TypographyTokens.bodySmall)
+                                            .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
+                                    }
                                 }
                             }
                         }
                     }
+                    .padding(.vertical, 24)
+                    .padding(.horizontal, 16)
+                } else if let special = viewModel.timetableItem as? TimetableItem.Special {
+                    SessionDescriptionView(content: special.description_.currentLangTitle)
+                        .padding(.bottom, 24)
+                        .padding(.horizontal, 16)
                 }
-                .padding(.vertical, 24)
-                .padding(.horizontal, 16)
             }
             .background(AssetColors.Surface.surface.swiftUIColor)
 //            .toolbar {
