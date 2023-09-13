@@ -121,8 +121,8 @@ public struct TimetableView<SessionView: View>: View {
                                     Assets.Icons.bookmarks.swiftUIImage
                                     if shouldTickBookmark {
                                         (colorScheme == .light
-                                            ? LottieAssets.addToBookmarkLightJson
-                                            : LottieAssets.addToBookmarkDarkJson)
+                                         ? LottieAssets.addToBookmarkLightJson
+                                         : LottieAssets.addToBookmarkDarkJson)
                                         .swiftUIAnimation(loopMode: .playOnce) { _ in
                                             shouldTickBookmark = false
                                         }
@@ -131,9 +131,10 @@ public struct TimetableView<SessionView: View>: View {
                             }
                             .buttonStyle(.plain)
                         }
-                        ToolbarItem {
-                            Assets.Icons.gridView.swiftUIImage
-                        }
+                        // drop unimplemented feature
+                        //                        ToolbarItem {
+                        //                            Assets.Icons.gridView.swiftUIImage
+                        //                        }
                     }
                 }
                 .onChangeWithPrevious(of: state.bookmarks) { previous, newValue in
@@ -146,8 +147,8 @@ public struct TimetableView<SessionView: View>: View {
     }
 }
 
- #Preview {
-     TimetableView<EmptyView> { _ in
-         EmptyView()
-     }
- }
+#Preview {
+    TimetableView<EmptyView> { _ in
+        EmptyView()
+    }
+}

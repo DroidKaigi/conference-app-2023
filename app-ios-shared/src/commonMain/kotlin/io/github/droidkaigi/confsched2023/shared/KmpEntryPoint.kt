@@ -10,7 +10,7 @@ import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 class KmpEntryPoint {
-    private val defaultBaseUrl = "https://ssot-api-staging.an.r.appspot.com/"
+    private val defaultBaseUrl = "https://ssot-api.droidkaigi.jp/"
 
     // Please EntryPoint.get() instead of this property
     lateinit var koinApplication: KoinApplication

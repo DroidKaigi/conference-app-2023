@@ -18,7 +18,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
     private let staffViewProvider: ViewProvider<Void, StaffView>
     private let sponsorViewProvider: ViewProvider<Void, SponsorView>
 
-    @Environment(\.openURL) private var openURL
+    @Environment(\.openURL) private var openURL 
 
     public init(
         contributorViewProvider: @escaping ViewProvider<Void, ContributorView>,
@@ -36,6 +36,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                 VStack(spacing: 0) {
                     Assets.Images.aboutKeyVisual.swiftUIImage
                         .resizable()
+                        .scaledToFit()
                         .frame(maxWidth: .infinity)
                     Spacer().frame(height: 16)
                     Text(L10n.About.description)

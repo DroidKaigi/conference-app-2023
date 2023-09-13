@@ -21,3 +21,5 @@ mint run SwiftGen --config "$CI_WORKSPACE/app-ios/Modules/Sources/Assets/swiftge
 
 export DERIVED_SOURCES_DIR="$CI_WORKSPACE/app-ios/Modules/Sources/Theme/"
 mint run SwiftGen --config "$CI_WORKSPACE/app-ios/Modules/Sources/Theme/swiftgen.yml"
+
+echo $GOOGLE_INFO_PLIST | base64 -d > $CI_WORKSPACE/app-ios/App/DroidKaigi2023/DroidKaigi2023/GoogleService-Info.plist

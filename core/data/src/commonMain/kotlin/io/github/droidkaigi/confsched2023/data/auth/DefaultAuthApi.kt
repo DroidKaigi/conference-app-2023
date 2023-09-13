@@ -41,7 +41,7 @@ public class DefaultAuthApi(
             // Use httpClient for bypass auth process
             httpClient
 //                .post("${BuildKonfig.apiUrl}/accounts") {
-                .post("https://ssot-api-staging.an.r.appspot.com/accounts") {
+                .post("https://ssot-api.droidkaigi.jp/accounts") {
                     header(HttpHeaders.Authorization, "Bearer $createdIdToken")
                     contentType(ContentType.Application.Json)
                     setBody("{}")
