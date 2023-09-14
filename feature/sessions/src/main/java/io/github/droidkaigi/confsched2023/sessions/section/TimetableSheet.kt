@@ -141,7 +141,7 @@ fun TimetableSheet(
                         contentPadding = PaddingValues(
                             bottom = contentPadding.calculateBottomPadding(),
                             start = contentPadding.calculateStartPadding(layoutDirection),
-                        )
+                        ),
                     )
                 }
             }
