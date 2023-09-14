@@ -7,9 +7,10 @@ kotlin = "1.9.0"
 
 androidxCore = "1.10.1"
 androidDesugarJdkLibs = "2.0.3"
-compose = "1.5.1"
-compose-jb = "1.5.0"
+compose = "2023.06.01"
 composeCompiler = "1.5.2"
+composeJb = "1.5.0"
+composeMaterial3 = "1.2.0-alpha04"
 composeHiltNavigatiaon = "1.0.0"
 androidxLifecycle = "2.6.2"
 androidxActivity = "1.8.0-beta01"
@@ -44,7 +45,7 @@ androidxLifecycleProcess = "2.6.2"
 [libraries]
 androidGradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlinGradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
-composeJbGradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose-jb" }
+composeJbGradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "composeJb" }
 hiltGradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "dagger" }
 roborazziGradlePlugin = { group = "io.github.takahirom.roborazzi", name = "roborazzi-gradle-plugin", version.ref = "roborazzi" }
 kspGradlePlugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
@@ -79,17 +80,22 @@ kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0
 
 # UI
 
-composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
-composeUi = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+# Compose
+composeBom = { module = "androidx.compose:compose-bom", version.ref = "compose" }
+composeRuntime = { module = "androidx.compose.runtime:runtime" }
+composeUi = { module = "androidx.compose.ui:ui" }
+composeUiUtil = { module = "androidx.compose.ui:ui-util" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+composeAnimation = { module = "androidx.compose.animation:animation" }
+composeAnimationGraphics = { module = "androidx.compose.animation:animation-graphics" }
+composeMaterial = { module = "androidx.compose.material:material" }
+composeMaterial3 = { module = "androidx.compose.material3:material3", version.ref = "composeMaterial3" }
+composeMaterialWindowSize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "composeMaterial3" }
+composeMaterialIcon = { module = "androidx.compose.material:material-icons-extended" }
+composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
+composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 composeNavigation = { module = "androidx.navigation:navigation-compose", version = "2.7.2" }
-composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
-composeMaterial = { module = "androidx.compose.material3:material3", version = "1.1.1" }
-composeMaterialWindowSize = { module = "androidx.compose.material3:material3-window-size-class", version = "1.1.1" }
-composeMaterialIcon = { module = "androidx.compose.material:material-icons-extended", version = "1.5.1" }
-composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
 composeHiltNavigtation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "composeHiltNavigatiaon" }
 composeLintCheck = { module = "com.slack.lint.compose:compose-lint-checks", version = "1.2.0" }
 composeCoil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }

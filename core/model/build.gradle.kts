@@ -28,4 +28,5 @@ kotlin {
 }
 
 dependencies {
+    implementation(platform(libs.composeBom))
 }
