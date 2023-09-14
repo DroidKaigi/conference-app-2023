@@ -69,7 +69,7 @@ fun OssLicenseScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "OSS ライセンス")
+                    Text(text = AboutStrings.LicenseScreenTitle.asString())
                 },
                 navigationIcon = {
                     IconButton(onClick = { onUpClick() }) {

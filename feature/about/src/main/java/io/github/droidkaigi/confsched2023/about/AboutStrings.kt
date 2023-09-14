@@ -21,6 +21,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
     data object OthersTitle : AboutStrings()
     data object CodeOfConduct : AboutStrings()
     data object License : AboutStrings()
+    data object LicenseScreenTitle : AboutStrings()
     data object PrivacyPolicy : AboutStrings()
     data object AppVersion : AboutStrings()
     data object LicenceDescription : AboutStrings()
@@ -42,6 +43,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 OthersTitle -> "Others"
                 CodeOfConduct -> "行動規範"
                 License -> "ライセンス"
+                LicenseScreenTitle -> "ライセンス"
                 PrivacyPolicy -> "プライバシーポリシー"
                 AppVersion -> "アプリバージョン"
                 LicenceDescription -> "The Android robot is reproduced or modified from work created and shared by Google and used according to terms described in the Creative Commons 3.0 Attribution License."
@@ -63,6 +65,7 @@ sealed class AboutStrings : Strings<AboutStrings>(Bindings) {
                 OthersTitle -> bindings.defaultBinding(item, bindings)
                 CodeOfConduct -> "Code Of Conduct"
                 License -> "License"
+                LicenseScreenTitle -> "License"
                 PrivacyPolicy -> "Privacy Policy"
                 AppVersion -> "App Version"
                 LicenceDescription -> bindings.defaultBinding(item, bindings)
