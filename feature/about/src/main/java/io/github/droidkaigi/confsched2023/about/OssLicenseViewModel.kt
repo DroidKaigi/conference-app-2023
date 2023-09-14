@@ -62,7 +62,7 @@ class OssLicenseViewModel @Inject constructor(
             categoryList.firstOrNull {
                 license.name.startsWith(
                     prefix = it,
-                    ignoreCase = true
+                    ignoreCase = true,
                 )
             } ?: "etc"
         }
