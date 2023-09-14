@@ -65,7 +65,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     .padding(.vertical, 20)
                     .padding(.horizontal, 16)
                     .background(AssetColors.Surface.surfaceContainerLow.swiftUIColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                     Spacer().frame(height: 32)
                     SectionTitle(title: L10n.About.creditsTitle)
                     NavigationLink(value: AboutRouting.staffs) {

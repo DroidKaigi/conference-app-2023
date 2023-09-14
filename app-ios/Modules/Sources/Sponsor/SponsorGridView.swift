@@ -50,7 +50,7 @@ struct SponsorItemView: View {
             }
         }
         .frame(height: sponsor.plan.itemHeight)
-        .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xs, style: .continuous))
     }
 }
 
