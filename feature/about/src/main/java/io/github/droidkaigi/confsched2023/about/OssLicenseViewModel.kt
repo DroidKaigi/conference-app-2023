@@ -49,15 +49,21 @@ class OssLicenseViewModel @Inject constructor(
             "Compose UI",
             "Compose Material3",
             "Compose ",
-            "kotlinx",
-            "Kotlin",
-            "ktor",
             "AndroidX lifecycle",
             "AndroidX ",
+            "Kotlin",
+            "Dagger",
+            "Firebase",
+            "Ktorfit",
+            "okhttp",
+            "ktor",
         )
         return groupBy { license ->
             categoryList.firstOrNull {
-                license.name.startsWith(it)
+                license.name.startsWith(
+                    prefix = it,
+                    ignoreCase = true
+                )
             } ?: "etc"
         }
     }
