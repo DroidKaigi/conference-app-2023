@@ -7,6 +7,4 @@ public interface OssLicenseRepository {
     public fun licenseMetaData(): Flow<PersistentList<License>>
 
     public fun licenseDetailData(): Flow<List<String>>
-
-    public fun refresh(): Unit
 }

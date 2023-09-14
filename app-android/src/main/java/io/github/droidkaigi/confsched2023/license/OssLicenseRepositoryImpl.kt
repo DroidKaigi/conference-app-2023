@@ -24,23 +24,17 @@ class OssLicenseRepositoryImpl @Inject constructor(
     private val licenseDetailStateFlow = MutableStateFlow<List<String>>(emptyList())
 
     override fun licenseMetaData(): Flow<PersistentList<License>> {
-        refresh()
-        return licenseMetaStateFlow
-    }
-
-    override fun licenseDetailData(): Flow<List<String>> {
-        refresh()
-        return licenseDetailStateFlow
-    }
-
-    override fun refresh() {
         licenseMetaStateFlow.value = readLicensesMetaFile()
             .toRowList()
             .parseToLibraryItem()
             .toPersistentList()
+        return licenseMetaStateFlow
+    }
 
+    override fun licenseDetailData(): Flow<List<String>> {
         licenseDetailStateFlow.value = readLicensesFile()
             .toRowList()
+        return licenseDetailStateFlow
     }
 
     private fun readLicensesMetaFile(): BufferedSource {

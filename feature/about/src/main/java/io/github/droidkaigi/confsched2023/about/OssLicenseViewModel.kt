@@ -61,8 +61,4 @@ class OssLicenseViewModel @Inject constructor(
             } ?: "etc"
         }
     }
-
-    fun loadLicenseList() {
-        ossLicenseRepository.refresh()
-    }
 }

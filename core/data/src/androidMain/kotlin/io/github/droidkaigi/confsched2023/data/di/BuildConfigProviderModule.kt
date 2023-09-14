@@ -72,8 +72,4 @@ private object EmptyOssLicenseRepository : OssLicenseRepository {
     override fun licenseDetailData(): Flow<List<String>> {
         TODO("Not yet implemented")
     }
-
-    override fun refresh() {
-        TODO("Not yet implemented")
-    }
 }
