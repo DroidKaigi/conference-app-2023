@@ -215,9 +215,7 @@ fun TimetableItemDetailScreenPreview() {
             TimetableItemDetailScreen(
                 uiState = Loaded(
                     timetableItem = fakeSession,
-                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(
-                        fakeSession,
-                    ),
+                    timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(fakeSession),
                     isBookmarked = isBookMarked,
                     isLangSelectable = true,
                     viewBookmarkListRequestState = ViewBookmarkListRequestState.NotRequested,
