@@ -1,10 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -186,7 +184,7 @@ private fun TimetableItemDetailScreen(
                 uiState = uiState.timetableItemDetailSectionUiState,
                 selectedLanguage = uiState.currentLang,
                 onLinkClick = onLinkClick,
-                contentPadding = innerPadding
+                contentPadding = innerPadding,
             )
         }
 
@@ -199,7 +197,7 @@ private fun TimetableItemDetailScreen(
             LoadingText(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.background),
             )
         }
     }
@@ -218,7 +216,7 @@ fun TimetableItemDetailScreenPreview() {
                 uiState = Loaded(
                     timetableItem = fakeSession,
                     timetableItemDetailSectionUiState = TimetableItemDetailSectionUiState(
-                        fakeSession
+                        fakeSession,
                     ),
                     isBookmarked = isBookMarked,
                     isLangSelectable = true,
