@@ -9,7 +9,9 @@ import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
 import io.github.droidkaigi.confsched2023.model.License
 import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import java.util.Optional
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -65,11 +67,6 @@ private object EmptyBuildConfigProvider : BuildConfigProvider {
 }
 
 private object EmptyOssLicenseRepository : OssLicenseRepository {
-    override fun licenseMetaData(): Flow<PersistentList<License>> {
-        TODO("Not yet implemented")
-    }
-
-    override fun licenseDetailData(): Flow<List<String>> {
-        TODO("Not yet implemented")
-    }
+    override fun licenseMetaData(): Flow<PersistentList<License>> = flowOf(persistentListOf())
+    override fun licenseDetailData(): Flow<List<String>> = flowOf(emptyList())
 }
