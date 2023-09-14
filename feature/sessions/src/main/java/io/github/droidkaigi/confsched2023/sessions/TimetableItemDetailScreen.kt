@@ -150,7 +150,9 @@ private fun TimetableItemDetailScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             if (uiState is Loaded) {
                 TimetableItemDetailScreenTopAppBar(
@@ -176,10 +178,11 @@ private fun TimetableItemDetailScreen(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
         AnimatedContent(
+            modifier = Modifier.fillMaxSize(),
             targetState = uiState,
             transitionSpec = { fadeIn().togetherWith(fadeOut()) },
             contentKey = { uiState is Loaded },
-            label = "TimetableItemDetailScreen",
+            label = "TimetableItemDetailScreen"
         ) {
             when (it) {
                 Loading -> {
