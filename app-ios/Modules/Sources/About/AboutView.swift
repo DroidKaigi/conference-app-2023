@@ -137,6 +137,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                 }
                 .padding(16)
             }
+            .background(AssetColors.Surface.surface.swiftUIColor)
             .navigationTitle(L10n.About.title)
             .navigationDestination(for: AboutRouting.self) { routing in
                 switch routing {

@@ -36,6 +36,10 @@ Thumbs.db
 !/.idea/codeStyles/Project.xml
 !/.idea/codeStyles/codeStyleConfig.xml
 !/.idea/icon*.svg
+# Suppress typo
+!/.idea/dictionaries
+/.idea/dictionaries/*
+!/.idea/dictionaries/dictionary.xml
 
 # Gradle cache
 .gradle
