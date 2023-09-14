@@ -203,9 +203,7 @@ private fun FloorMapContent(
         end = contentPadding.calculateEndPadding(layoutDirection) + 16.dp,
         bottom = contentPadding.calculateBottomPadding(),
     )
-    BoxWithConstraints(
-        Modifier,
-    ) {
+    Box {
         if (widthSizeClass != WindowWidthSizeClass.Compact) {
             LargeScreenContent(
                 uiState = uiState.largeFloorMapContentUiState,
