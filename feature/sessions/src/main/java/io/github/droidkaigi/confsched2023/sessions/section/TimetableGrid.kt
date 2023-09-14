@@ -112,7 +112,6 @@ fun TimetableGrid(
             top = contentPadding.calculateTopPadding(),
             start = contentPadding.calculateStartPadding(layoutDirection),
             end = contentPadding.calculateEndPadding(layoutDirection),
-            bottom = contentPadding.calculateBottomPadding(),
         ),
     ) {
         TimetableGridHours(
@@ -136,7 +135,7 @@ fun TimetableGrid(
                 modifier = modifier,
                 contentPadding = PaddingValues(
                     top = 16.dp + contentPadding.calculateTopPadding(),
-                    bottom = 16.dp + contentPadding.calculateBottomPadding(),
+                    bottom = 16.dp + 80.dp + contentPadding.calculateBottomPadding(),
                     start = 16.dp + contentPadding.calculateStartPadding(layoutDirection),
                     end = 16.dp + contentPadding.calculateEndPadding(layoutDirection),
                 ),
