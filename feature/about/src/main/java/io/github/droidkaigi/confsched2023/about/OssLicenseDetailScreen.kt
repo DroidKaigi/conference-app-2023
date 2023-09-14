@@ -27,7 +27,7 @@ import io.github.droidkaigi.confsched2023.model.License
 
 const val ossLicenseDetailScreenRouteNameArgument = "name"
 const val ossLicenseDetailScreenRoute = "osslicense"
-fun NavGraphBuilder.nestedOssLicenseDetailScreen(onUpClick: () -> Unit) {
+fun NavGraphBuilder.ossLicenseDetailScreen(onUpClick: () -> Unit) {
     composable("$ossLicenseDetailScreenRoute/{$ossLicenseDetailScreenRouteNameArgument}") {
         OssLicenseDetailScreen(
             onUpClick = onUpClick,

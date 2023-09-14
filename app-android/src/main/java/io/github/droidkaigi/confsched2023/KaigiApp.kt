@@ -34,8 +34,8 @@ import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
 import io.github.droidkaigi.confsched2023.about.navigateOssLicenseDetailScreen
 import io.github.droidkaigi.confsched2023.about.navigateOssLicenseScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
-import io.github.droidkaigi.confsched2023.about.nestedOssLicenseDetailScreen
-import io.github.droidkaigi.confsched2023.about.nestedOssLicenseScreen
+import io.github.droidkaigi.confsched2023.about.ossLicenseDetailScreen
+import io.github.droidkaigi.confsched2023.about.ossLicenseScreen
 import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
 import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
 import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
@@ -129,7 +129,7 @@ private fun KaigiNavHost(
             onBackClick = navController::popBackStack,
             onStaffClick = externalNavController::navigate,
         )
-        nestedOssLicenseScreen(
+        ossLicenseScreen(
             onLicenseClick = { license ->
                 navController.navigateOssLicenseDetailScreen(license)
             },
@@ -137,7 +137,7 @@ private fun KaigiNavHost(
                 navController.navigateUp()
             },
         )
-        nestedOssLicenseDetailScreen(
+        ossLicenseDetailScreen(
             onUpClick = {
                 navController.navigateUp()
             },

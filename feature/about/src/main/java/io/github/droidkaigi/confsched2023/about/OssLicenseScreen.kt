@@ -38,7 +38,7 @@ import io.github.droidkaigi.confsched2023.model.License
 import io.github.droidkaigi.confsched2023.model.OssLicense
 
 const val ossLicenseScreenRoute = "osslicense"
-fun NavGraphBuilder.nestedOssLicenseScreen(
+fun NavGraphBuilder.ossLicenseScreen(
     onLicenseClick: (License) -> Unit,
     onUpClick: () -> Unit,
 ) {
