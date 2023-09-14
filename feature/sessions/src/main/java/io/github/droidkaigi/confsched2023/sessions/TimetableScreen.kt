@@ -254,6 +254,10 @@ fun PreviewTimetableScreenDark() {
                             mapOf<String, List<TimetableItem>>().toPersistentMap(),
                             Timetable(),
                         ),
+                        DroidKaigi2023Day.Day2 to TimetableListUiState(
+                            mapOf<String, List<TimetableItem>>().toPersistentMap(),
+                            Timetable(),
+                        ),
                     ),
                 ),
                 timetableUiType = TimetableUiType.Grid,
