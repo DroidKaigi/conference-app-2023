@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
@@ -83,6 +84,9 @@ fun NavGraphBuilder.nestedFloorMapScreen(
 
 fun NavController.navigateFloorMapScreen() {
     navigate(floorMapScreenRoute) {
+        popUpTo(id = graph.findStartDestination().id) {
+            saveState = true
+        }
         launchSingleTop = true
         restoreState = true
     }
