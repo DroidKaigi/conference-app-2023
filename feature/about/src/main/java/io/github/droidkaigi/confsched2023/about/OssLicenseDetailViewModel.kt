@@ -43,7 +43,7 @@ class OssLicenseDetailViewModel @Inject constructor(
 
     internal val uiState: StateFlow<OssLicenseDetailScreenUiState> =
         buildUiState(licenseStateFlow, licenseDetailStateFlow) { metadata, detail ->
-            val license = metadata.firstOrNull { it.name.replace(' ', '-') == licenseName.value }
+            val license = metadata.firstOrNull { it.id == licenseName.value }
                 ?.let { license ->
                     val detail = kotlin.runCatching {
                         val start = license.offset

@@ -4,6 +4,7 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 data class License(
+    val id: String,
     val name: String,
     val offset: Int,
     val length: Int,

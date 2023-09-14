@@ -53,7 +53,8 @@ class OssLicenseRepositoryImpl @Inject constructor(
         return map {
             val (position, name) = it.split(' ', limit = 2)
             val (offset, length) = position.split(':').map { it.toInt() }
-            License(name, offset, length)
+            val id = name.replace(' ', '-')
+            License(id = id, name = name, offset = offset, length = length)
         }
     }
 

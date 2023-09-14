@@ -38,8 +38,7 @@ fun NavGraphBuilder.ossLicenseDetailScreen(onUpClick: () -> Unit) {
 fun NavController.navigateOssLicenseDetailScreen(
     license: License,
 ) {
-    val licenseName = license.name.replace(' ', '-')
-    navigate("$ossLicenseDetailScreenRoute/$licenseName")
+    navigate("$ossLicenseDetailScreenRoute/${license.id}")
 }
 
 data class OssLicenseDetailScreenUiState(
