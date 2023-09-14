@@ -80,7 +80,6 @@ kotlinxAtomicfu = { module = "org.jetbrains.kotlinx:atomicfu", version = "0.22.0
 
 # UI
 
-# Compose
 composeBom = { module = "androidx.compose:compose-bom", version.ref = "compose" }
 composeRuntime = { module = "androidx.compose.runtime:runtime" }
 composeUi = { module = "androidx.compose.ui:ui" }
