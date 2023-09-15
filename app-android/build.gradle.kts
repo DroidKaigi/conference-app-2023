@@ -25,8 +25,8 @@ android {
         buildConfig = true
     }
     defaultConfig {
-        versionCode = 9
-        versionName = "1.4.0"
+        versionCode = 11
+        versionName = "1.6.0"
     }
     signingConfigs {
         create("dev") {
@@ -113,6 +113,7 @@ dependencies {
     implementation(libs.androidxBrowser)
     implementation(libs.androidxWindow)
     implementation(libs.kermit)
+    implementation(libs.androidxSplashScreen)
     implementation(libs.firebaseDynamicLinks)
     testImplementation(projects.core.testing)
 }

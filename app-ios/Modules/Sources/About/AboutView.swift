@@ -39,10 +39,10 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                         .frame(maxWidth: .infinity)
                     Spacer().frame(height: 16)
                     Text(L10n.About.description)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                        .textStyle(TypographyTokens.bodyLarge)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     Spacer().frame(height: 12)
-                    VStack(alignment: .leading, spacing: 12) {
+                    VStack(alignment: .leading, spacing: SpacingTokens.s) {
                         InformationRow(
                             icon: Assets.Icons.schedule.swiftUIImage,
                             title: L10n.About.dateTitle,
@@ -65,7 +65,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     .padding(.vertical, 20)
                     .padding(.horizontal, 16)
                     .background(AssetColors.Surface.surfaceContainerLow.swiftUIColor)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                     Spacer().frame(height: 32)
                     SectionTitle(title: L10n.About.creditsTitle)
                     NavigationLink(value: AboutRouting.staffs) {
@@ -111,7 +111,7 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                         )
                     }
                     Divider()
-                    HStack(spacing: 12) {
+                    HStack(spacing: SpacingTokens.s) {
                         SafariLink(url: .youtube) {
                             Assets.Icons.youtube.swiftUIImage
                         }
@@ -125,18 +125,19 @@ public struct AboutView<ContributorView: View, StaffView: View, SponsorView: Vie
                     .padding(.vertical, 24)
 
                     Text(L10n.About.appVersion)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .textStyle(TypographyTokens.labelLarge)
                     Spacer().frame(height: 8)
                     Text(Bundle.main.formattedVersion)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                        .textStyle(TypographyTokens.labelLarge)
                     Spacer().frame(height: 8)
                     Text(L10n.About.androidRobotDescription)
+                        .textStyle(TypographyTokens.labelSmall)
                         .foregroundStyle(AssetColors.About.androidRobotDescription.swiftUIColor)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 11))
                         .multilineTextAlignment(.center)
                 }
                 .padding(16)
             }
+            .background(AssetColors.Surface.surface.swiftUIColor)
             .navigationTitle(L10n.About.title)
             .navigationDestination(for: AboutRouting.self) { routing in
                 switch routing {

@@ -13,7 +13,7 @@ public struct PersonLabel: View {
     }
 
     public var body: some View {
-        HStack(alignment: .center, spacing: 24) {
+        HStack(alignment: .center, spacing: SpacingTokens.xl) {
             HStack(spacing: -8) {
                 CacheAsyncImage(url: URL(string: iconUrlString)) { image in
                     image.resizable()
@@ -22,22 +22,22 @@ public struct PersonLabel: View {
                 }
                 .frame(width: 60, height: 60)
                 .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: RadiusTokens.s)
                         .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                 )
             }
 
             VStack(alignment: .leading) {
                 Text(name)
+                    .textStyle(TypographyTokens.bodyLarge)
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
                     .lineLimit(2)
                 if let notes = notes {
                     Text(notes)
+                        .textStyle(TypographyTokens.bodySmall)
                         .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
-                        .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
                 }
             }
         }

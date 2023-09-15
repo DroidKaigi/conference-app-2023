@@ -28,7 +28,7 @@ struct BookmarkView<SessionView: View>: View {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack {
                         FilterLabel(
-                            title: "全て",
+                            title: L10n.Bookmark.allDay,
                             isSelection: false,
                             isSelected: viewModel.state.selectedDay == nil,
                             onSelect: {
@@ -48,6 +48,7 @@ struct BookmarkView<SessionView: View>: View {
                             )
                         }
                     }
+                    .padding(.horizontal, 16)
                     if timetableItems.map({ $0.items }).flatMap({ $0 }).isEmpty {
                         BookmarkEmptyView()
                     } else {
@@ -68,7 +69,7 @@ struct BookmarkView<SessionView: View>: View {
             }
         }
         .background(AssetColors.Surface.surface.swiftUIColor)
-        .navigationTitle("Bookmark")
+        .navigationTitle(L10n.Bookmark.title)
     }
 }
 
@@ -80,15 +81,15 @@ private struct BookmarkEmptyView: View {
                 .frame(width: 36, height: 36)
                 .padding(24)
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xl))
             Spacer().frame(height: 24)
-            Text("登録されたセッションがありません")
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
+            Text(L10n.Bookmark.bookmarksNotFound)
+                .textStyle(TypographyTokens.titleLarge)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
             Spacer().frame(height: 8)
-            Text("気になるセッションをブックマークに追加して集めてみましょう！")
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+            Text(L10n.Bookmark.bookmarksNotFoundNote)
+                .textStyle(TypographyTokens.bodyMedium)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }

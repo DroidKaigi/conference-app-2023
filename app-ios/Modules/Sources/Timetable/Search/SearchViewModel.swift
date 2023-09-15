@@ -70,6 +70,10 @@ final class SearchViewModel: ObservableObject {
             return
         }
         let timetableContents = cachedTimetable.filtered(filters: state.filters).contents
+        let uniqueLanguages = {
+            var set: Set<String> = []
+            return cachedTimetable.languages.filter { set.insert($0.langOfSpeaker).inserted }
+        }()
         let timetableTimeGroupItems = timetableContents
             .map { content in
                 let items = timetableContents
@@ -85,13 +89,15 @@ final class SearchViewModel: ObservableObject {
                     items: items
                 )
             }
+        var seen: [TimetableTimeGroupItems: Bool] = [:]
+        let distinctedTimetableTimeGroupItems = timetableTimeGroupItems.filter { seen.updateValue(true, forKey: $0) == nil }
         state.loadingState = .loaded(
             .init(
                 categories: cachedTimetable.categories,
                 sessionTypes: cachedTimetable.sessionTypes,
                 rooms: cachedTimetable.rooms,
-                languages: cachedTimetable.languages,
-                timeGroupTimetableItems: timetableTimeGroupItems
+                languages: uniqueLanguages,
+                timeGroupTimetableItems: distinctedTimetableTimeGroupItems
             )
         )
     }
