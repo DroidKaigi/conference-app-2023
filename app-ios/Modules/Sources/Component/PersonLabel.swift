@@ -22,9 +22,9 @@ public struct PersonLabel: View {
                 }
                 .frame(width: 60, height: 60)
                 .scaledToFill()
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: RadiusTokens.s)
                         .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
                 )
             }
