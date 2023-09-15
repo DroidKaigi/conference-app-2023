@@ -15,7 +15,6 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.data.sessions.FakeSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
-import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
