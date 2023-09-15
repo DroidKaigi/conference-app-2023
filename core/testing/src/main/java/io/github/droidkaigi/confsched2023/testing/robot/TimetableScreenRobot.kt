@@ -15,6 +15,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import io.github.droidkaigi.confsched2023.data.sessions.FakeSessionsApiClient
 import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreen
 import io.github.droidkaigi.confsched2023.sessions.TimetableScreenTestTag
 import io.github.droidkaigi.confsched2023.sessions.component.SearchButtonTestTag
@@ -58,6 +59,9 @@ class TimetableScreenRobot @Inject constructor(
                 )
             }
         }
+        // Timetable tab set initial tab with current date.
+        // To get the consistent test result, fix selected timetable tab to Day1 here.
+        clickTimetableTab(DroidKaigi2023Day.Day1.day)
         waitUntilIdle()
     }
 
