@@ -81,14 +81,11 @@ public enum class DroidKaigi2023Day(
         /**
          * @return appropriate initial day for now
          */
-        fun initialSelectedDay(isTest: Boolean = false): DroidKaigi2023Day {
-            // Timetable tab set initial tab with current date.
-            // To get the consistent test result, fix selected timetable tab to Day1 here.
-            if (isTest) return Day1
+        fun initialSelectedDay(clock: Clock): DroidKaigi2023Day {
             val reversedEntries = entries.sortedByDescending { it.day }
             var selectedDay = reversedEntries.last()
             for (entry in reversedEntries) {
-                if (Clock.System.now() <= entry.end) selectedDay = entry
+                if (clock.now() <= entry.end) selectedDay = entry
             }
             return selectedDay
         }

@@ -52,6 +52,8 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.toPersistentMap
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
@@ -253,7 +255,7 @@ fun PreviewTimetableScreenDark() {
         TimetableScreen(
             uiState = TimetableScreenUiState(
                 contentUiState = TimetableSheetUiState.ListTimetable(
-                    mapOf(
+                    timetableListUiStates = mapOf(
                         DroidKaigi2023Day.Day1 to TimetableListUiState(
                             mapOf<String, List<TimetableItem>>().toPersistentMap(),
                             Timetable(),
@@ -263,6 +265,9 @@ fun PreviewTimetableScreenDark() {
                             Timetable(),
                         ),
                     ),
+                    clock = object : Clock {
+                        override fun now(): Instant = Instant.parse("2023-09-14T00:00:00Z")
+                    },
                 ),
                 timetableUiType = TimetableUiType.Grid,
                 onBookmarkIconClickStatus = false,
