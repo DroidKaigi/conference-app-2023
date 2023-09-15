@@ -11,6 +11,7 @@ import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.SideEvents
 import io.github.droidkaigi.confsched2023.ui.UserMessageStateHolder
 import io.github.droidkaigi.confsched2023.ui.buildUiState
+import io.github.droidkaigi.confsched2023.ui.isTest
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.datetime.Clock
@@ -69,6 +70,8 @@ class FloorMapScreenViewModel @Inject constructor(
     }
 
     private fun isTodayDay3(): Boolean {
+        if (isTest()) return false
+
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
         val currentInTokyo = now.toInstant(TimeZone.currentSystemDefault()).toLocalDateTime(
