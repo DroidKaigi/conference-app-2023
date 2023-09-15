@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.about.component.AboutDroidKaigiDetail
@@ -49,6 +50,9 @@ fun NavGraphBuilder.nestedAboutScreen(
 
 fun NavController.navigateAboutScreen() {
     navigate(aboutScreenRoute) {
+        popUpTo(id = graph.findStartDestination().id) {
+            saveState = true
+        }
         launchSingleTop = true
         restoreState = true
     }
