@@ -59,9 +59,6 @@ class TimetableScreenRobot @Inject constructor(
                 )
             }
         }
-        // Timetable tab set initial tab with current date.
-        // For the consistent test result, fix selected timetable tab to Day1 here.
-        clickTimetableTab(DroidKaigi2023Day.Day1.day)
         waitUntilIdle()
     }
 
