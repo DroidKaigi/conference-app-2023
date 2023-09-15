@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
 import io.github.droidkaigi.confsched2023.model.Lang
+import io.github.droidkaigi.confsched2023.model.NavigationRequester
 import io.github.droidkaigi.confsched2023.model.SessionsRepository
 import io.github.droidkaigi.confsched2023.model.TimetableItem
 import io.github.droidkaigi.confsched2023.model.TimetableItemId
@@ -29,6 +30,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TimetableItemDetailViewModel @Inject constructor(
     private val sessionsRepository: SessionsRepository,
+    private val navigationRequester: NavigationRequester,
     val userMessageStateHolder: UserMessageStateHolder,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel(),
@@ -107,5 +109,11 @@ class TimetableItemDetailViewModel @Inject constructor(
         language: Lang,
     ) {
         selectedDescriptionLanguageStateFlow.value = language
+    }
+
+    fun navigateTo(
+        route: String,
+    ) {
+        navigationRequester.navigateTo(route)
     }
 }

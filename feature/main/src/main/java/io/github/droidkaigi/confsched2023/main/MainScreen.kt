@@ -27,6 +27,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -108,6 +109,7 @@ fun MainScreen(
         navigationType = navigationType,
         routeToTab = mainNestedGraphStateHolder::routeToTab,
         onTabSelected = mainNestedGraphStateHolder::onTabSelected,
+        onNavigated = viewModel::onNavigated,
         mainNestedNavGraph = mainNestedNavGraph,
     )
 }
@@ -152,6 +154,7 @@ enum class MainScreenTab(
 
 data class MainScreenUiState(
     val isAchievementsEnabled: Boolean = false,
+    val navigationRoute: String,
 )
 
 @Composable
@@ -161,11 +164,18 @@ private fun MainScreen(
     navigationType: NavigationType,
     routeToTab: String.() -> MainScreenTab?,
     onTabSelected: (NavController, MainScreenTab) -> Unit,
+    onNavigated: () -> Unit,
     mainNestedNavGraph: NavGraphBuilder.(NavController, PaddingValues) -> Unit,
 ) {
     val mainNestedNavController = rememberNavController()
     val navBackStackEntry by mainNestedNavController.currentBackStackEntryAsState()
     val currentTab = navBackStackEntry?.destination?.route?.routeToTab()
+    LaunchedEffect(uiState.navigationRoute) {
+        if (uiState.navigationRoute.isNotBlank()) {
+            mainNestedNavController.navigate(uiState.navigationRoute)
+            onNavigated()
+        }
+    }
     Row(modifier = Modifier.fillMaxSize()) {
         AnimatedVisibility(visible = navigationType == NAVIGATION_RAIL) {
             KaigiNavigationRail(
