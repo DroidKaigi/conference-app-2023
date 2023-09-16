@@ -24,11 +24,17 @@ fun AchievementImage(
         contentDescription = achievementAnimation.contentDescription,
         modifier = modifier
             .padding(horizontal = 21.dp)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-            ) {
-                showAnimation(achievementAnimation.achievement)
-            },
+            .then(
+                if (achievementAnimation.hasAchievement) {
+                    Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                    ) {
+                        showAnimation(achievementAnimation.achievement)
+                    }
+                } else {
+                    Modifier
+                },
+            ),
     )
 }
