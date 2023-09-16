@@ -2,10 +2,10 @@ package io.github.droidkaigi.confsched2023.data.remoteconfig
 
 import androidx.datastore.core.IOException
 
-class FakeRemoteConfigApi : RemoteConfigApi {
+public class FakeRemoteConfigApi : RemoteConfigApi {
 
-    sealed interface Status : RemoteConfigApi {
-        data object Default : Status {
+    public sealed interface Status : RemoteConfigApi {
+        public data object Default : Status {
             override suspend fun getBoolean(key: String): Boolean {
                 return true
             }
@@ -15,7 +15,7 @@ class FakeRemoteConfigApi : RemoteConfigApi {
             }
         }
 
-        data object ThrowException : Status {
+        public data object ThrowException : Status {
             override suspend fun getBoolean(key: String): Boolean {
                 throw IOException("FakeRemoteConfigApi throws exception")
             }
@@ -28,7 +28,7 @@ class FakeRemoteConfigApi : RemoteConfigApi {
 
     private var status: Status = Status.Default
 
-    fun setUp(status: Status) {
+    public fun setUp(status: Status) {
         this.status = status
     }
 

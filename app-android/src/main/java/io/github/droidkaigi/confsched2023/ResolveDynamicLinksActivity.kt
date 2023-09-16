@@ -6,8 +6,13 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import io.github.droidkaigi.confsched2023.model.Lang.ENGLISH
+import io.github.droidkaigi.confsched2023.model.Lang.JAPANESE
+import io.github.droidkaigi.confsched2023.model.Lang.MIXED
+import io.github.droidkaigi.confsched2023.model.defaultLang
 
 class ResolveDynamicLinksActivity : ComponentActivity() {
 
@@ -17,9 +22,18 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
             .addOnSuccessListener(this) { pendingDynamicLinkData ->
-                val deepLink = pendingDynamicLinkData.link
-
-                handleDeepLink(deepLink)
+                if (pendingDynamicLinkData != null) {
+                    val deepLink = pendingDynamicLinkData.link
+                    handleDeepLink(deepLink)
+                } else {
+                    val message = when (defaultLang()) {
+                        MIXED -> "Please connect to the network/ネットワークに接続してください"
+                        JAPANESE -> "ネットワークに接続してください"
+                        ENGLISH -> "Please connect to the network"
+                    }
+                    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                    finishAndRemoveTask()
+                }
             }
             .addOnFailureListener {
                 finishAndRemoveTask()

@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SessionsApiModule {
+public class SessionsApiModule {
     @Provides
     @Singleton
     internal fun provideSessionsApi(

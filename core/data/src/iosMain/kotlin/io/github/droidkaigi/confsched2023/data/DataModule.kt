@@ -41,7 +41,7 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-class BaseUrl(val baseUrl: String)
+public class BaseUrl(internal val baseUrl: String)
 
 @OptIn(ExperimentalForeignApi::class)
 public val dataModule: Module = module {

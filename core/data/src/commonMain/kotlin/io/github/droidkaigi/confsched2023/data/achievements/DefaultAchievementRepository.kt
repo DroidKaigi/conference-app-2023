@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
 
-class DefaultAchievementRepository(
+public class DefaultAchievementRepository(
     private val remoteConfigApi: RemoteConfigApi,
     private val achievementsDataStore: AchievementsDataStore,
 ) : AchievementRepository {
@@ -60,9 +60,9 @@ class DefaultAchievementRepository(
         achievementsDataStore.saveInitialDialogDisplayState(true)
     }
 
-    companion object {
-        const val IS_ACHIEVEMENTS_ENABLED_KEY = "is_achievements_enable"
-        const val ACHIEVEMENT_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"
-        const val IS_RESET_ACHIEVEMENTS_ENABLED_KEY = "is_reset_achievements_enable"
+    private companion object {
+        private const val IS_ACHIEVEMENTS_ENABLED_KEY = "is_achievements_enable"
+        private const val ACHIEVEMENT_DETAIL_DESCRIPTION_KEY = "achievements_detail_description"
+        private const val IS_RESET_ACHIEVEMENTS_ENABLED_KEY = "is_reset_achievements_enable"
     }
 }

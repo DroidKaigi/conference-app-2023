@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
+public class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
 
-    fun getAchievementsStream(): Flow<PersistentSet<Achievement>> {
+    public fun getAchievementsStream(): Flow<PersistentSet<Achievement>> {
         return dataStore.data
             .catch {
                 emit(emptyPreferences())
@@ -28,7 +28,7 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
             }
     }
 
-    suspend fun saveAchievements(achievement: Achievement) {
+    public suspend fun saveAchievements(achievement: Achievement) {
         val updatedAchievements = getAchievementsStream().first().toMutableSet()
 
         updatedAchievements.add(achievement)
@@ -39,7 +39,7 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    suspend fun resetAchievements() {
+    public suspend fun resetAchievements() {
         dataStore.edit { preferences ->
             preferences[KEY_ACHIEVEMENTS] = ""
         }
@@ -67,7 +67,7 @@ class AchievementsDataStore(private val dataStore: DataStore<Preferences>) {
             }
     }
 
-    companion object {
+    private companion object {
         private val KEY_ACHIEVEMENTS = stringPreferencesKey("KEY_ACHIEVEMENTS")
         private val KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY =
             stringPreferencesKey("KEY_ACHIEVEMENTS_INITIAL_DIALOG_DISPLAY")
