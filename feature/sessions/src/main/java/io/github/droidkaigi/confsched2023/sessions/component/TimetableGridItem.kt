@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -23,16 +24,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -104,6 +114,21 @@ fun TimetableGridItem(
         it.copy(fontSize = titleFontSize, lineHeight = titleLineHeight, color = textColor)
     }
 
+    var displayedPosition by remember { mutableFloatStateOf(0f) }
+    var itemHeight by remember { mutableIntStateOf(0) }
+    var titleHeight by remember { mutableIntStateOf(0) }
+    var timeHeight by remember { mutableIntStateOf(0) }
+    var speakerHeight by remember { mutableIntStateOf(0) }
+    val titleOffset by remember(localDensity) {
+        derivedStateOf {
+            // [available height] - [height already in use]
+            val maxOffset = with(localDensity) {
+                itemHeight - (titleHeight + timeHeight + speakerHeight + TimetableGridItemSizes.titleToSchedulePadding.roundToPx())
+            }.coerceAtLeast(0)
+            displayedPosition.unaryMinus().toInt().coerceIn(0, maxOffset)
+        }
+    }
+
     Column(
         modifier = modifier
             .background(
@@ -119,14 +144,22 @@ fun TimetableGridItem(
             .clickable {
                 onTimetableItemClick(timetableItem)
             }
-            .padding(TimetableGridItemSizes.padding),
+            .padding(TimetableGridItemSizes.padding)
+            .onGloballyPositioned {
+                displayedPosition = it.positionInParent().y
+                itemHeight = it.size.height
+            },
     ) {
         Column(
-            modifier = Modifier.weight(3f),
+            modifier = Modifier
+                .weight(3f)
+                .offset { IntOffset(0, titleOffset) },
             verticalArrangement = Arrangement.Top,
         ) {
             Text(
-                modifier = Modifier.weight(1f, fill = false),
+                modifier = Modifier
+                    .weight(1f, fill = false)
+                    .onGloballyPositioned { titleHeight = it.size.height },
                 text = timetableItem.title.currentLangTitle,
                 style = titleTextStyle,
                 overflow = TextOverflow.Ellipsis,
@@ -135,7 +168,8 @@ fun TimetableGridItem(
             Row(
                 modifier = Modifier
                     .weight(1f, fill = false)
-                    .padding(top = TimetableGridItemSizes.titleToSchedulePadding),
+                    .padding(top = TimetableGridItemSizes.titleToSchedulePadding)
+                    .onGloballyPositioned { timeHeight = it.size.height },
             ) {
                 Icon(
                     modifier = Modifier.height(TimetableGridItemSizes.scheduleHeight),
@@ -168,7 +202,10 @@ fun TimetableGridItem(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 if (speakers.isNotEmpty()) {
-                    val speakerModifier = Modifier.weight(1f)
+                    val speakerModifier =
+                        Modifier
+                            .weight(1f)
+                            .onGloballyPositioned { speakerHeight = it.size.height }
                     if (speakers.size == 1) {
                         var speakerTextStyle = MaterialTheme.typography.labelMedium
                         if (titleTextStyle.fontSize < speakerTextStyle.fontSize) {
