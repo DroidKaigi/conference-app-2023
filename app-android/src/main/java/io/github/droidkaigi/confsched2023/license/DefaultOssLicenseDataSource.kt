@@ -46,6 +46,7 @@ class DefaultOssLicenseDataSource @Inject constructor(
                     licensesText = licensesText,
                 )
             }
+            .distinctBy { it.id }
     }
 
     private fun List<License>.groupByCategory(): Map<String, List<License>> {
