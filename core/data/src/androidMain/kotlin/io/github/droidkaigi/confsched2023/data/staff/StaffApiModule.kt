@@ -9,10 +9,10 @@ import io.github.droidkaigi.confsched2023.data.NetworkService
 
 @Module
 @InstallIn(SingletonComponent::class)
-class StaffApiModule {
+public class StaffApiModule {
 
     @Provides
-    fun providesStaffApiClient(
+    public fun providesStaffApiClient(
         networkService: NetworkService,
         ktorfit: Ktorfit,
     ): StaffApiClient {

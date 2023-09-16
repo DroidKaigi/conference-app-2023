@@ -16,7 +16,7 @@ internal interface SponsorApi {
 }
 
 public class DefaultSponsorsApiClient(
-    val networkService: NetworkService,
+    private val networkService: NetworkService,
     ktorfit: Ktorfit,
 ) : SponsorsApiClient {
 
@@ -28,8 +28,8 @@ public class DefaultSponsorsApiClient(
     }
 }
 
-interface SponsorsApiClient {
-    suspend fun sponsors(): PersistentList<Sponsor>
+public interface SponsorsApiClient {
+    public suspend fun sponsors(): PersistentList<Sponsor>
 }
 
 private fun SponsorsResponse.toSponsorList(): PersistentList<Sponsor> {

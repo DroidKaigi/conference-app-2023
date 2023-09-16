@@ -16,22 +16,22 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Qualifier
-annotation class UserDataStoreQualifier
+public annotation class UserDataStoreQualifier
 
 @Qualifier
-annotation class SessionCacheDataStoreQualifier
+public annotation class SessionCacheDataStoreQualifier
 
 @Qualifier
-annotation class AchievementsDataStoreQualifier
+public annotation class AchievementsDataStoreQualifier
 
 @InstallIn(SingletonComponent::class)
 @Module
-class DataStoreModule {
+public class DataStoreModule {
 
     @UserDataStoreQualifier
     @Provides
     @Singleton
-    fun provideDataStore(
+    public fun provideDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> = createDataStore(
         coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
@@ -41,7 +41,7 @@ class DataStoreModule {
     @SessionCacheDataStoreQualifier
     @Provides
     @Singleton
-    fun provideSessionCacheDataStore(
+    public fun provideSessionCacheDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> = createDataStore(
         coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
@@ -51,14 +51,14 @@ class DataStoreModule {
     @AchievementsDataStoreQualifier
     @Provides
     @Singleton
-    fun provideAchievementsDataStore(
+    public fun provideAchievementsDataStore(
         @ApplicationContext context: Context,
     ): DataStore<Preferences> = createDataStore(
         coroutineScope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
         producePath = { context.filesDir.resolve(DATA_STORE_ACHIEVEMENTS_FILE_NAME).path },
     )
 
-    companion object {
+    public companion object {
         private const val DATA_STORE_PREFERENCE_FILE_NAME = "confsched2023.preferences_pb"
         private const val DATA_STORE_CACHE_PREFERENCE_FILE_NAME =
             "confsched2023.cache.preferences_pb"

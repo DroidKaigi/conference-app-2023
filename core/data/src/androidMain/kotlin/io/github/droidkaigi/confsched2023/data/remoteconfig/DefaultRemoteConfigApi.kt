@@ -12,7 +12,7 @@ import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.remoteconfig.get
 import dev.gitlive.firebase.remoteconfig.remoteConfig
 
-class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
+public class DefaultRemoteConfigApi(lifecycle: Lifecycle) : RemoteConfigApi {
 
     private val firebaseRemoteConfig = Firebase.remoteConfig
 

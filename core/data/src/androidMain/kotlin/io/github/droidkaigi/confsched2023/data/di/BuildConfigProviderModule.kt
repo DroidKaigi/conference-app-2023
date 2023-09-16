@@ -15,17 +15,17 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Qualifier
-annotation class AppAndroidBuildConfig
+public annotation class AppAndroidBuildConfig
 
 @Qualifier
 annotation class AppAndroidOssLicenseConfig
 
 @Module
 @InstallIn(SingletonComponent::class)
-class BuildConfigProviderModule {
+public class BuildConfigProviderModule {
     @Provides
     @Singleton
-    fun provideBuildConfigProvider(
+    public fun provideBuildConfigProvider(
         @AppAndroidBuildConfig buildConfigOverride: Optional<BuildConfigProvider>,
     ): BuildConfigProvider = if (buildConfigOverride.isPresent) {
         buildConfigOverride.get()
@@ -46,10 +46,10 @@ class BuildConfigProviderModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class AppAndroidBuildConfigModule {
+public abstract class AppAndroidBuildConfigModule {
     @BindsOptionalOf
     @AppAndroidBuildConfig
-    abstract fun bindBuildConfigProvider(): BuildConfigProvider
+    public abstract fun bindBuildConfigProvider(): BuildConfigProvider
 }
 
 @InstallIn(SingletonComponent::class)
@@ -62,6 +62,7 @@ abstract class AppAndroidOssLicenseModule {
 
 private object EmptyBuildConfigProvider : BuildConfigProvider {
     override val versionName: String = ""
+    override val debugBuild: Boolean = false
 }
 
 private object EmptyOssLicenseDataSource : OssLicenseDataSource {

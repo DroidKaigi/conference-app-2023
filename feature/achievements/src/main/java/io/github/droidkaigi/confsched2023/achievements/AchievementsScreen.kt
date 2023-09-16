@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
@@ -55,6 +56,9 @@ fun NavGraphBuilder.nestedAchievementsScreen(
 
 fun NavController.navigateAchievementsScreen() {
     navigate(achievementsScreenRoute) {
+        popUpTo(id = graph.findStartDestination().id) {
+            saveState = true
+        }
         launchSingleTop = true
         restoreState = true
     }

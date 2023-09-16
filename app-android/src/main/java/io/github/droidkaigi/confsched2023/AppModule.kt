@@ -31,4 +31,5 @@ class AppModule {
 
 class AppBuildConfigProvider(
     override val versionName: String = BuildConfig.VERSION_NAME,
+    override val debugBuild: Boolean = BuildConfig.DEBUG,
 ) : BuildConfigProvider

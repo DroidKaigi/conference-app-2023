@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.floormap
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -47,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePreviews
@@ -83,6 +83,9 @@ fun NavGraphBuilder.nestedFloorMapScreen(
 
 fun NavController.navigateFloorMapScreen() {
     navigate(floorMapScreenRoute) {
+        popUpTo(id = graph.findStartDestination().id) {
+            saveState = true
+        }
         launchSingleTop = true
         restoreState = true
     }
@@ -203,9 +206,7 @@ private fun FloorMapContent(
         end = contentPadding.calculateEndPadding(layoutDirection) + 16.dp,
         bottom = contentPadding.calculateBottomPadding(),
     )
-    BoxWithConstraints(
-        Modifier,
-    ) {
+    Box {
         if (widthSizeClass != WindowWidthSizeClass.Compact) {
             LargeScreenContent(
                 uiState = uiState.largeFloorMapContentUiState,

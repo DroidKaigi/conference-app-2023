@@ -22,8 +22,8 @@ fun DependencyHandlerScope.ksp(
     add("ksp", artifact)
 }
 
-fun DependencyHandlerScope.kaptTest(
+fun DependencyHandlerScope.kspTest(
     artifact: MinimalExternalModuleDependency,
 ) {
-    add("kaptTest", artifact)
+    add("kspTest", artifact)
 }
