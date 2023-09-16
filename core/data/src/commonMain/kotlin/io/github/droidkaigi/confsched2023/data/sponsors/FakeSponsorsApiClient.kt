@@ -5,16 +5,16 @@ import io.github.droidkaigi.confsched2023.model.fakes
 import kotlinx.collections.immutable.PersistentList
 import okio.IOException
 
-class FakeSponsorsApiClient : SponsorsApiClient {
+public class FakeSponsorsApiClient : SponsorsApiClient {
 
-    sealed class Status : SponsorsApiClient {
-        data object Operational : Status() {
+    public sealed class Status : SponsorsApiClient {
+        public data object Operational : Status() {
             override suspend fun sponsors(): PersistentList<Sponsor> {
                 return Sponsor.fakes()
             }
         }
 
-        data object Error : Status() {
+        public data object Error : Status() {
             override suspend fun sponsors(): PersistentList<Sponsor> {
                 throw IOException("Fake IO Exception")
             }
@@ -23,7 +23,7 @@ class FakeSponsorsApiClient : SponsorsApiClient {
 
     private var status: Status = Status.Operational
 
-    fun setup(status: Status) {
+    public fun setup(status: Status) {
         this.status = status
     }
 

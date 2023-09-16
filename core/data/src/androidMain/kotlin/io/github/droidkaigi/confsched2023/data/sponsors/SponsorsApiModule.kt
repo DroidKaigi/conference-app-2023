@@ -9,9 +9,9 @@ import io.github.droidkaigi.confsched2023.data.NetworkService
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SponsorsApiModule {
+public class SponsorsApiModule {
     @Provides
-    fun provideSponsorsApi(
+    public fun provideSponsorsApi(
         networkService: NetworkService,
         ktorfit: Ktorfit,
     ): SponsorsApiClient {

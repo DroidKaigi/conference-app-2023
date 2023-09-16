@@ -10,10 +10,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SessionsRepositoryModule {
+public class SessionsRepositoryModule {
     @Provides
     @Singleton
-    fun provideSessionsRepository(
+    public fun provideSessionsRepository(
         sessionsApi: SessionsApiClient,
         userDataStore: UserDataStore,
         sessionCacheDataStore: SessionCacheDataStore,

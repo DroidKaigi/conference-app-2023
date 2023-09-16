@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SessionCacheDatastoreModule {
+public class SessionCacheDatastoreModule {
     @Provides
     @Singleton
     internal fun provideSessionCacheDataStore(

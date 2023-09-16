@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.remoteconfig
 
-interface RemoteConfigApi {
-    suspend fun getBoolean(key: String): Boolean
-    suspend fun getString(key: String): String
+public interface RemoteConfigApi {
+    public suspend fun getBoolean(key: String): Boolean
+    public suspend fun getString(key: String): String
 }
