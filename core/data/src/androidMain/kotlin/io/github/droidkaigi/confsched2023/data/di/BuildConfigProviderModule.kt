@@ -18,7 +18,7 @@ import javax.inject.Singleton
 public annotation class AppAndroidBuildConfig
 
 @Qualifier
-annotation class AppAndroidOssLicenseConfig
+public annotation class AppAndroidOssLicenseConfig
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -35,7 +35,7 @@ public class BuildConfigProviderModule {
 
     @Provides
     @Singleton
-    fun provideOssLicenseRepositoryProvider(
+    public fun provideOssLicenseRepositoryProvider(
         @AppAndroidOssLicenseConfig ossLicenseDataSourceOptional: Optional<OssLicenseDataSource>,
     ): OssLicenseDataSource = if (ossLicenseDataSourceOptional.isPresent) {
         ossLicenseDataSourceOptional.get()
@@ -54,10 +54,10 @@ public abstract class AppAndroidBuildConfigModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class AppAndroidOssLicenseModule {
+public abstract class AppAndroidOssLicenseModule {
     @BindsOptionalOf
     @AppAndroidOssLicenseConfig
-    abstract fun bindOssLicenseDataStoreProvider(): OssLicenseDataSource
+    public abstract fun bindOssLicenseDataStoreProvider(): OssLicenseDataSource
 }
 
 private object EmptyBuildConfigProvider : BuildConfigProvider {

@@ -9,10 +9,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class OssLicenseRepositoryModule {
+public class OssLicenseRepositoryModule {
     @Provides
     @Singleton
-    fun provideOssLicenseRepository(
+    public fun provideOssLicenseRepository(
         ossLicenseDataSource: OssLicenseDataSource,
     ): OssLicenseRepository {
         return DefaultOssLicenseRepository(
