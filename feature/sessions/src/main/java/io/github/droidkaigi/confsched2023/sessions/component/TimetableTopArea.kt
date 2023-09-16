@@ -1,5 +1,6 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
