@@ -3,7 +3,6 @@ package io.github.droidkaigi.confsched2023.primitive
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
 
 @Suppress("unused")
@@ -31,12 +30,6 @@ class KmpAndroidHiltPlugin : Plugin<Project> {
                         // https://issuetracker.google.com/issues/237567009
                         implementation(libs.library("androidxFragment"))
                     }
-                }
-            }
-
-            dependencies {
-                (listOf("CommonMainMetadata", "Android")).forEach {
-                    add("ksp$it", libs.library("daggerHiltAndroid"))
                 }
             }
         }
