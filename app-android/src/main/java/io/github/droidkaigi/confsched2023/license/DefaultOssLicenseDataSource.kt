@@ -37,11 +37,14 @@ class DefaultOssLicenseDataSource @Inject constructor(
             .map {
                 val (position, name) = it.split(' ', limit = 2)
                 val (offset, length) = position.split(':').map { it.toInt() }
+
+                val id = name.replace(' ', '-')
                 val licensesText = kotlin.runCatching {
                     licenseData.subList(offset, offset + length).joinToString()
                 }.getOrNull() ?: ""
+
                 License(
-                    id = name.replace(' ', '-'),
+                    id = id,
                     name = name,
                     licensesText = licensesText,
                 )
