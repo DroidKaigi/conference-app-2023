@@ -1,11 +1,12 @@
 package io.github.droidkaigi.confsched2023.sessions
 
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -150,7 +151,9 @@ private fun TimetableItemDetailScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             if (uiState is Loaded) {
                 TimetableItemDetailScreenTopAppBar(
@@ -175,29 +178,27 @@ private fun TimetableItemDetailScreen(
         },
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { innerPadding ->
-        AnimatedContent(
-            targetState = uiState,
-            transitionSpec = { fadeIn().togetherWith(fadeOut()) },
-            contentKey = { uiState is Loaded },
-            label = "TimetableItemDetailScreen",
-        ) {
-            when (it) {
-                Loading -> {
-                    LoadingText(
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                }
+        if (uiState is Loaded) {
+            TimetableItemDetail(
+                modifier = Modifier.fillMaxSize(),
+                uiState = uiState.timetableItemDetailSectionUiState,
+                selectedLanguage = uiState.currentLang,
+                onLinkClick = onLinkClick,
+                contentPadding = innerPadding,
+            )
+        }
 
-                is Loaded -> {
-                    TimetableItemDetail(
-                        modifier = Modifier.fillMaxSize(),
-                        uiState = it.timetableItemDetailSectionUiState,
-                        selectedLanguage = it.currentLang,
-                        onLinkClick = onLinkClick,
-                        contentPadding = innerPadding,
-                    )
-                }
-            }
+        AnimatedVisibility(
+            modifier = Modifier.fillMaxSize(),
+            visible = (uiState is Loading),
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            LoadingText(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+            )
         }
     }
 }

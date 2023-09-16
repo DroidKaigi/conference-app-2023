@@ -21,7 +21,7 @@ struct TimetableDayHeader: View {
     var body: some View {
         ZStack {
             AssetColors.Surface.surface.swiftUIColor
-            HStack(spacing: 8) {
+            HStack(spacing: SpacingTokens.xs) {
                 ForEach(
                     [DroidKaigi2023Day].fromKotlinArray(DroidKaigi2023Day.values()),
                     id: \.ordinal
@@ -31,14 +31,14 @@ struct TimetableDayHeader: View {
                     } label: {
                         VStack(spacing: 0) {
                             Text(day.name)
-                                .font(Font.custom(FontAssets.Montserrat.semiBold, size: 12))
+                                .textStyle(TypographyTokens.labelSmall)
                             if !shouldCollapse {
                                 Text("\(day.dayOfMonth)")
-                                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 24))
+                                    .textStyle(TypographyTokens.headlineSmall)
                                     .frame(height: 32)
                             }
                         }
-                        .padding(4)
+                        .padding(shouldCollapse ? 6 : 4)
                         .frame(maxWidth: .infinity)
                         .foregroundStyle(
                             selectedDay == day

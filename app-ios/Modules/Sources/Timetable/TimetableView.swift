@@ -35,8 +35,8 @@ public struct TimetableView<SessionView: View>: View {
         switch viewModel.state.loadedState {
         case .initial, .loading:
             ProgressView()
-                .onAppear {
-                    viewModel.load()
+                .onAppear { [weak viewModel] in
+                    viewModel?.load()
                 }
         case .failed:
             EmptyView()
@@ -51,9 +51,9 @@ public struct TimetableView<SessionView: View>: View {
                         HStack(spacing: 0) {
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("DroidKaigi\n2023")
-                                    .font(Font.custom(FontAssets.Montserrat.medium, size: 36))
+                                    .textStyle(TypographyTokens.displaySmall)
                                 Text("at Bellesalle Shibuya Garden")
-                                    .font(Font.custom(FontAssets.Montserrat.semiBold, size: 12))
+                                    .textStyle(TypographyTokens.labelMedium)
                             }
                             .padding(.horizontal, 16)
                             .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
@@ -62,7 +62,7 @@ public struct TimetableView<SessionView: View>: View {
                     }
                     ScrollViewWithVerticalOffset(
                         onOffsetChange: { offset in
-                            shouldCollapse = (offset < verticalOffsetThreshold)
+                            shouldCollapse = offset < verticalOffsetThreshold
                         },
                         content: {
                             Spacer().frame(height: 130)
@@ -71,8 +71,8 @@ public struct TimetableView<SessionView: View>: View {
                                     header: TimetableDayHeader(
                                         selectedDay: viewModel.state.selectedDay,
                                         shouldCollapse: shouldCollapse,
-                                        onSelect: {
-                                            viewModel.selectDay(day: $0)
+                                        onSelect: { [weak viewModel] in
+                                            viewModel?.selectDay(day: $0)
                                         }
                                     )
                                     .frame(height: shouldCollapse ? 53 : 82)
@@ -81,8 +81,8 @@ public struct TimetableView<SessionView: View>: View {
                                     TimetableListView(
                                         timetableTimeGroupItems: state.timeGroupTimetableItems,
                                         searchWord: "",
-                                        onToggleBookmark: { id in
-                                            viewModel.toggleBookmark(id)
+                                        onToggleBookmark: { [weak viewModel] in
+                                            viewModel?.toggleBookmark($0)
                                         }
                                     )
                                 }

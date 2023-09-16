@@ -197,15 +197,15 @@ private struct SearchEmptyView: View {
     let inputText: String
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: SpacingTokens.l) {
             Assets.Images.onsenBucket.swiftUIImage
                 .resizable()
                 .frame(width: 36, height: 36)
                 .padding(24)
                 .background(AssetColors.Secondary.secondaryContainer.swiftUIColor)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.xl))
             Text(L10n.Search.searchResultNotFound(inputText))
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
+                .textStyle(TypographyTokens.titleMedium)
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
         }

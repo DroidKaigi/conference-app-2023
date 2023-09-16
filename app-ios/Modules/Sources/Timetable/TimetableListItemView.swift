@@ -17,7 +17,7 @@ struct TimetableListItemView: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: 16)
                 // TODO apply like flexbox layout
-                HStack(spacing: 4) {
+                HStack(spacing: SpacingTokens.xxs) {
                     SessionTag(
                         timetableItem.room.name.currentLangTitle,
                         labelColor: AssetColors.Custom.hallText.swiftUIColor,
@@ -33,19 +33,18 @@ struct TimetableListItemView: View {
                 }
                 Spacer().frame(height: 8)
                 Text(addHighlightAttributes(title: timetableItem.title.currentLangTitle, searchWord: searchWord))
+                    .textStyle(TypographyTokens.titleLarge)
                     .multilineTextAlignment(.leading)
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 22))
                     .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
                 if let session = timetableItem as? TimetableItem.Session {
                     if let message = session.message {
                         Spacer().frame(height: 8)
-                        HStack(spacing: 4) {
+                        HStack(spacing: SpacingTokens.xxs) {
                             Assets.Icons.error.swiftUIImage
                                 .renderingMode(.template)
                             Text(message.currentLangTitle)
+                                .textStyle(TypographyTokens.labelMedium)
                                 .multilineTextAlignment(.leading)
-                                .font(Font.custom(FontAssets.Montserrat.medium, size: 12))
-                                .fontWeight(.regular)
                         }
                         .foregroundStyle(AssetColors.Error.error.swiftUIColor)
                         Spacer().frame(height: 4)
@@ -95,6 +94,7 @@ private extension RoomType {
         case .roomc: AssetColors.Custom.hallC
         case .roomd: AssetColors.Custom.hallD
         case .roome: AssetColors.Custom.hallE
+        case .roomde: AssetColors.Custom.hallD
         default: AssetColors.Custom.white
         }
         return colorAsset.swiftUIColor

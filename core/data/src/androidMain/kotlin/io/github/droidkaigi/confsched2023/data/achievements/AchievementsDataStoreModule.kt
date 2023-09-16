@@ -11,11 +11,11 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AchievementsDataStoreModule {
+public class AchievementsDataStoreModule {
 
     @Provides
     @Singleton
-    fun provideAchievementsDataStore(
+    public fun provideAchievementsDataStore(
         @AchievementsDataStoreQualifier
         dataStore: DataStore<Preferences>,
     ): AchievementsDataStore {

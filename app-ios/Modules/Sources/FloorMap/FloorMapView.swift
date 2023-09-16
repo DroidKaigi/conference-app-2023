@@ -39,16 +39,17 @@ public struct FloorMapView: View {
                     }
                 }
             }
+            .background(AssetColors.Surface.surface.swiftUIColor)
             .navigationTitle("Floor Map")
         }
     }
 
     /// first floor map
     private func groundMapView(sideEvents: [SideEvent]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: SpacingTokens.xl) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
                 Text("1F")
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
+                    .textStyle(TypographyTokens.headlineSmall)
                 Assets.Images.floor1F.swiftUIImage
                     .resizable()
                     .scaledToFit()
@@ -61,10 +62,10 @@ public struct FloorMapView: View {
 
     /// basement first floor map
     private func basementMapView(sideEvents: [SideEvent]) -> some View {
-        VStack(alignment: .leading, spacing: 24) {
-            VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: SpacingTokens.xl) {
+            VStack(alignment: .leading, spacing: SpacingTokens.xs) {
                 Text("B1F")
-                    .font(Font.custom(FontAssets.Montserrat.medium, size: 24))
+                    .textStyle(TypographyTokens.headlineSmall)
                 Assets.Images.floorB1F.swiftUIImage
                     .resizable()
                     .scaledToFit()
@@ -77,7 +78,7 @@ public struct FloorMapView: View {
 
     /// Side Events List
     private func sideEventList(sideEvents: [SideEvent]) -> some View {
-        LazyVStack(spacing: 16) {
+        LazyVStack(spacing: SpacingTokens.m) {
             ForEach(0..<sideEvents.count, id: \.self) { index in
                 SideEventRow(sideEvent: sideEvents[index])
 

@@ -2,6 +2,7 @@ import Component
 import Model
 import shared
 import SwiftUI
+import Theme
 
 public struct StaffView: View {
     @State var presentingURL: IdentifiableURL?
@@ -21,7 +22,7 @@ public struct StaffView: View {
                 EmptyView()
             case .loaded(let staffs):
                 ScrollView {
-                    LazyVStack(spacing: 20) {
+                    LazyVStack(spacing: SpacingTokens.l) {
                         ForEach(staffs, id: \.id) { staff in
                             Button {
                                 presentingURL = IdentifiableURL(string: staff.profileUrl)

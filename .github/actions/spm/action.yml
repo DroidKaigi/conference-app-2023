@@ -3,7 +3,7 @@ description: "save and restore SPM cache"
 runs:
   using: "composite"
   steps:
-    - uses: actions/cache/restore@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+    - uses: actions/cache/restore@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
       id: cache-spm
       with:
         path: |
@@ -21,7 +21,7 @@ runs:
       run: bundle exec fastlane resolved_package
 
     - if: ${{ steps.cache-spm.outputs.cache-hit != 'true' }}
-      uses: actions/cache/save@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+      uses: actions/cache/save@704facf57e6136b1bc63b828d79edcd491f0ee84 # v3
       with:
         path: |
           ./app-ios/build/DerivedData/SourcePackages

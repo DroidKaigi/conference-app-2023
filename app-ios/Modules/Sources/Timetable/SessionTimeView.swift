@@ -7,19 +7,17 @@ struct SessionTimeView: View {
     var endsTimeString: String
 
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: SpacingTokens.xxs) {
             Text(startsTimeString)
+                .textStyle(TypographyTokens.titleMedium)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
-                .fontWeight(.bold)
                 .frame(height: 24)
             Rectangle()
                 .foregroundColor(AssetColors.Outline.outlineVariant.swiftUIColor)
                 .frame(width: 2, height: 8)
             Text(endsTimeString)
+                .textStyle(TypographyTokens.titleMedium)
                 .foregroundStyle(AssetColors.Secondary.secondary.swiftUIColor)
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 16))
-                .fontWeight(.bold)
                 .frame(height: 24)
         }
     }

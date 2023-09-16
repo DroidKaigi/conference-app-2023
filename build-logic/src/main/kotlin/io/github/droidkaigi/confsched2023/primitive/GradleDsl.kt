@@ -1,10 +1,18 @@
 package io.github.droidkaigi.confsched2023.primitive
 
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
+
+fun DependencyHandlerScope.implementation(
+    artifact: Dependency,
+) {
+    add("implementation", artifact)
+}
 
 fun DependencyHandlerScope.implementation(
     artifact: MinimalExternalModuleDependency,

@@ -7,7 +7,7 @@ struct PersonLabel: View {
     let speaker: TimetableSpeaker
 
     var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(alignment: .center, spacing: SpacingTokens.xs) {
             CacheAsyncImage(url: URL(string: speaker.iconUrl)) { image in
                 image.resizable()
             } placeholder: {
@@ -15,15 +15,15 @@ struct PersonLabel: View {
             }
             .frame(width: 40, height: 40)
             .scaledToFill()
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.s))
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                RoundedRectangle(cornerRadius: RadiusTokens.s)
                     .stroke(AssetColors.Outline.outline.swiftUIColor, lineWidth: 1)
             )
 
             Text(speaker.name)
+                .textStyle(TypographyTokens.bodyMedium)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
                 .lineLimit(2)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

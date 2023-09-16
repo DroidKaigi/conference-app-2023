@@ -1,3 +1,4 @@
+import Assets
 import shared
 import SwiftUI
 import Theme
@@ -17,12 +18,12 @@ public struct SponsorView: View {
                     }
             case .loaded(let planGroupedSponsors):
                 ScrollView {
-                    LazyVStack(spacing: 24) {
+                    LazyVStack(spacing: SpacingTokens.xl) {
                         ForEach(planGroupedSponsors.keys.sorted(by: {
                             $0.ordinal < $1.ordinal
                         }), id: \.self) { plan in
                             SponsorGridView(
-                                title: plan.name,
+                                title: plan.title,
                                 sponsors: planGroupedSponsors[plan] ?? [],
                                 columns: plan.column
                             ) { _ in }
@@ -34,7 +35,7 @@ public struct SponsorView: View {
                 EmptyView()
             }
         }
-        .navigationTitle("Sponsors")
+        .navigationTitle(L10n.Sponsor.title)
         .background(AssetColors.Surface.surface.swiftUIColor)
     }
 }
@@ -54,6 +55,19 @@ private extension Plan {
             return 3
         default:
             return 3
+        }
+    }
+
+    var title: String {
+        switch self {
+        case .platinum:
+            return L10n.Sponsor.platinumSponsors
+        case .gold:
+            return L10n.Sponsor.goldSponsors
+        case .supporter:
+            return L10n.Sponsor.supporters
+        default:
+            return ""
         }
     }
 }

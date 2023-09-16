@@ -6,12 +6,12 @@ struct ListTile: View {
     let title: String
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: SpacingTokens.s) {
             icon
                 .renderingMode(.template)
                 .foregroundStyle(AssetColors.Surface.onSurfaceVariant.swiftUIColor)
             Text(title)
-                .font(Font.custom(FontAssets.Montserrat.medium, size: 14))
+                .textStyle(TypographyTokens.labelLarge)
                 .foregroundStyle(AssetColors.Surface.onSurface.swiftUIColor)
         }
         .padding(.horizontal, 12)

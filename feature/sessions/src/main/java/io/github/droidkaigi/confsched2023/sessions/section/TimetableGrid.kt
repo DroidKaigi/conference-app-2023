@@ -87,12 +87,14 @@ fun TimetableGrid(
     nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     TimetableGrid(
         timetable = uiState.timetable,
         nestedScrollDispatcher = nestedScrollDispatcher,
         onTimetableItemClick = onTimetableItemClick,
         modifier = modifier,
+        contentPadding = contentPadding,
     )
 }
 
@@ -135,7 +137,7 @@ fun TimetableGrid(
                 modifier = modifier,
                 contentPadding = PaddingValues(
                     top = 16.dp + contentPadding.calculateTopPadding(),
-                    bottom = 16.dp + contentPadding.calculateBottomPadding(),
+                    bottom = 16.dp + 80.dp + contentPadding.calculateBottomPadding(),
                     start = 16.dp + contentPadding.calculateStartPadding(layoutDirection),
                     end = 16.dp + contentPadding.calculateEndPadding(layoutDirection),
                 ),
@@ -206,6 +208,23 @@ fun TimetableGrid(
                     )
                 }
             }
+            .transformable(
+                state = rememberTransformableState { zoomChange, panChange, _ ->
+
+                    timetableState.screenScaleState.updateVerticalScale(
+                        timetableState.screenScaleState.verticalScale * zoomChange,
+                    )
+
+                    coroutineScope.launch {
+                        timetableScreen.scroll(
+                            panChange,
+                            0,
+                            Offset.Zero,
+                            nestedScrollDispatcher,
+                        )
+                    }
+                },
+            )
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDrag = { change, dragAmount ->
@@ -231,23 +250,6 @@ fun TimetableGrid(
                     },
                 )
             }
-            .transformable(
-                state = rememberTransformableState { zoomChange, panChange, _ ->
-
-                    timetableState.screenScaleState.updateVerticalScale(
-                        timetableState.screenScaleState.verticalScale * zoomChange,
-                    )
-
-                    coroutineScope.launch {
-                        timetableScreen.scroll(
-                            panChange,
-                            0,
-                            Offset.Zero,
-                            nestedScrollDispatcher,
-                        )
-                    }
-                },
-            )
             .semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(
                     value = { -scrollState.scrollX },
@@ -349,7 +351,16 @@ private data class TimetableItemLayout(
     val minutePx: Float,
     val dayToStartTime: Map<DroidKaigi2023Day, Instant>,
 ) {
-    val dayStart = dayToStartTime[timetableItem.day] ?: dayStartTime
+    val dayStart = run {
+        val tz = TimeZone.of("Asia/Tokyo")
+        val startTime = dayToStartTime[timetableItem.day] ?: dayStartTime
+        val localDate = startTime.toLocalDateTime(tz).date
+        val dayStartLocalTime = LocalDateTime(
+            date = localDate,
+            time = LocalTime(10, 0),
+        )
+        dayStartLocalTime.toInstant(tz)
+    }
     private val displayEndsAt = timetableItem.endsAt.minus(1, DateTimeUnit.MINUTE)
     val height =
         ((displayEndsAt - timetableItem.startsAt).inWholeMinutes * minutePx).roundToInt()

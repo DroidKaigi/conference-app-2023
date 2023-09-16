@@ -12,13 +12,19 @@
 
 This is a video of an app in development, and it will be updated as needed.
 
-[Screen_recording_20230805_160952.webm](https://github.com/DroidKaigi/conference-app-2023-images/assets/1386930/32968ea9-6ef8-4707-b402-0fd009cc04fe)
+<video src="https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ec91d1b8-639d-4622-8371-1387be4c6bac" width="320" controls>
+  https://github.com/DroidKaigi/conference-app-2023/assets/13657682/ec91d1b8-639d-4622-8371-1387be4c6bac
+</video>
 
 # Try it out!
 
 ## Android
 
-The app is currently in preparation for release on Google Play and the App Store. In the meantime, you can try the app on DeployGate. Stay tuned for updates!
+<a href="https://play.google.com/store/apps/details?id=io.github.droidkaigi.confsched2023"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="70"></a>
+
+### Development version
+
+You can test the development app through DeployGate.
 
 [<img src="https://dply.me/fim4ik/button/large" alt="Try it on your device via DeployGate">](https://dply.me/fim4ik#install)
 

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -26,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
@@ -53,6 +56,9 @@ fun NavGraphBuilder.nestedAchievementsScreen(
 
 fun NavController.navigateAchievementsScreen() {
     navigate(achievementsScreenRoute) {
+        popUpTo(id = graph.findStartDestination().id) {
+            saveState = true
+        }
         launchSingleTop = true
         restoreState = true
     }
@@ -128,6 +134,7 @@ private fun AchievementsScreen(
 fun AchievementScreenDialog(
     onDismissRequest: () -> Unit,
 ) {
+    val scrollState = rememberScrollState()
     AlertDialog(
         title = {
             Text(
@@ -138,7 +145,7 @@ fun AchievementScreenDialog(
             )
         },
         text = {
-            Column {
+            Column(modifier = Modifier.verticalScroll(scrollState)) {
                 OrderedListText(
                     order = 1,
                     text = AchievementsStrings.DialogDescription1.asString(),
