@@ -1,6 +1,7 @@
 package io.github.droidkaigi.confsched2023.achievements.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,6 +21,6 @@ fun AchievementImage(
     Image(
         painter = painterResource(id = achievementAnimation.getDrawableResId()),
         contentDescription = achievementAnimation.contentDescription,
-        modifier = modifier.width(screenWidth / 3),
+        modifier = modifier.size(screenWidth / 3),
     )
 }
