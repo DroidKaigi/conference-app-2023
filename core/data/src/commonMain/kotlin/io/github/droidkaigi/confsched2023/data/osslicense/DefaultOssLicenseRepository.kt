@@ -5,6 +5,7 @@ import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import io.github.droidkaigi.confsched2023.ui.Inject
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
@@ -18,7 +19,8 @@ class DefaultOssLicenseRepository @Inject constructor(
 
     override fun licenseData(): Flow<PersistentList<OssLicenseGroup>> {
         return ossLicenseStateFlow.onStart {
-            ossLicenseDataSource.license()
+            val ossLicenseData = ossLicenseDataSource.license().toPersistentList()
+            ossLicenseStateFlow.emit(ossLicenseData)
         }
     }
 }
