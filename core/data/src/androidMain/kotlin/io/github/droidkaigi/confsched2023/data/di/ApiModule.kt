@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2023.data.di.ServerEnvironmentModule.Server
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
+import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.serialization.json.Json
@@ -44,6 +45,7 @@ public class ApiModule {
         okHttpClient: OkHttpClient,
         settingsDatastore: UserDataStore,
         ktorJsonSettings: Json,
+        buildConfigProvider: BuildConfigProvider,
     ): HttpClient {
         val httpClient = HttpClient(OkHttp) {
             engine {
@@ -51,8 +53,7 @@ public class ApiModule {
                     preconfigured = okHttpClient
                     addInterceptor(
                         HttpLoggingInterceptor().apply {
-                            // TODO use BuildConfig.DEBUG
-                            level = if (true) {
+                            level = if (buildConfigProvider.debugBuild) {
                                 HttpLoggingInterceptor.Level.BODY
                             } else {
                                 HttpLoggingInterceptor.Level.NONE
