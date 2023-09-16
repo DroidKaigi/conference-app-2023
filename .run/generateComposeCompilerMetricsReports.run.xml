@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="generateMetricsReport" type="GradleRunConfiguration" factoryName="Gradle">
+    <configuration default="false" name="generateComposeMetricsReport" type="GradleRunConfiguration" factoryName="Gradle">
         <ExternalSystemSettings>
             <option name="executionName" />
             <option name="externalProjectPath" value="$PROJECT_DIR$" />
