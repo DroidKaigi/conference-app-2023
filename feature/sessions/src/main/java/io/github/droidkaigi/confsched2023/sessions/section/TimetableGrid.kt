@@ -114,12 +114,12 @@ fun TimetableGrid(
             end = contentPadding.calculateEndPadding(layoutDirection),
         ),
     ) {
-        TimetableGridHours(
-            timetableState = timetableGridState,
-            coroutineScope = coroutineScope,
-        ) { hour ->
-            HoursItem(hour = hour)
-        }
+//        TimetableGridHours(
+//            timetableState = timetableGridState,
+//            coroutineScope = coroutineScope,
+//        ) { hour ->
+//            HoursItem(hour = hour)
+//        }
         Column {
             TimetableGridRooms(
                 timetableRooms = TimetableRooms(timetable.rooms),
