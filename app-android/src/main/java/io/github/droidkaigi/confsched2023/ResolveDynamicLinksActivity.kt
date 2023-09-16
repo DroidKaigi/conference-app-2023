@@ -6,11 +6,9 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import io.github.droidkaigi.confsched2023.designsystem.strings.Lang
 import io.github.droidkaigi.confsched2023.model.Lang.ENGLISH
 import io.github.droidkaigi.confsched2023.model.Lang.JAPANESE
 import io.github.droidkaigi.confsched2023.model.Lang.MIXED
@@ -28,7 +26,7 @@ class ResolveDynamicLinksActivity : ComponentActivity() {
                     val deepLink = pendingDynamicLinkData.link
                     handleDeepLink(deepLink)
                 } else {
-                    val message = when(defaultLang()) {
+                    val message = when (defaultLang()) {
                         MIXED -> "Please connect to the network/ネットワークに接続してください"
                         JAPANESE -> "ネットワークに接続してください"
                         ENGLISH -> "Please connect to the network"
