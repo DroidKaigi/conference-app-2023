@@ -21,6 +21,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -150,6 +151,11 @@ private fun AchievementsScreen(
             },
         )
         if (uiState.clickedAchievement is Clicked) {
+            DisposableEffect(uiState.clickedAchievement) {
+                onDispose {
+                    finishAnimation()
+                }
+            }
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background.copy(alpha = 0.6F),
