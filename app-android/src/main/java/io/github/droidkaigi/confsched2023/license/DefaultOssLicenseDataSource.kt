@@ -13,7 +13,7 @@ import okio.BufferedSource
 import okio.buffer
 import okio.source
 
-class DefaultOssLicenseDataSource @Inject constructor(
+public class DefaultOssLicenseDataSource @Inject constructor(
     private val context: Context,
 ) : OssLicenseDataSource {
 

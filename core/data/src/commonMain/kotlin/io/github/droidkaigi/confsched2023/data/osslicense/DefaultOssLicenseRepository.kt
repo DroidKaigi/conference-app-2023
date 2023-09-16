@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
 
-class DefaultOssLicenseRepository @Inject constructor(
+public class DefaultOssLicenseRepository @Inject constructor(
     private val ossLicenseDataSource: OssLicenseDataSource,
 ) : OssLicenseRepository {
 
