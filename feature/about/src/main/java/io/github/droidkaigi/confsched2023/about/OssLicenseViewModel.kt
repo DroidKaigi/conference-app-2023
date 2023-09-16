@@ -6,8 +6,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
 import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import io.github.droidkaigi.confsched2023.ui.buildUiState
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -18,7 +18,7 @@ class OssLicenseViewModel @Inject constructor(
     ossLicenseRepository: OssLicenseRepository,
 ) : ViewModel() {
 
-    private val licenseStateFlow: StateFlow<List<OssLicenseGroup>> =
+    private val licenseStateFlow: StateFlow<PersistentList<OssLicenseGroup>> =
         ossLicenseRepository.licenseData()
             .stateIn(
                 scope = viewModelScope,
@@ -28,6 +28,6 @@ class OssLicenseViewModel @Inject constructor(
 
     internal val uiState: StateFlow<OssLicenseScreenUiState> =
         buildUiState(licenseStateFlow) { licenses ->
-            OssLicenseScreenUiState(ossLicense = licenses.toPersistentList())
+            OssLicenseScreenUiState(ossLicense = licenses)
         }
 }

@@ -20,7 +20,7 @@ class OssLicenseDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val licenseName = savedStateHandle.getStateFlow<String>(
+    private val licenseName = savedStateHandle.getStateFlow(
         ossLicenseDetailScreenRouteNameArgument,
         "",
     )
