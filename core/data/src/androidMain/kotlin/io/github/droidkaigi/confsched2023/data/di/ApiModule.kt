@@ -69,7 +69,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    fun provideKtorJsonSettings(): Json {
+    public fun provideKtorJsonSettings(): Json {
         return defaultJson()
     }
 
@@ -106,10 +106,10 @@ public class KtorfitModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AuthApiModule {
+public class AuthApiModule {
     @Provides
     @Singleton
-    fun provideAuthApi(
+    public fun provideAuthApi(
         httpClient: HttpClient,
         userDataStore: UserDataStore,
         authenticator: Authenticator,
@@ -120,39 +120,39 @@ class AuthApiModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AuthenticatorModule {
+public class AuthenticatorModule {
     @Provides
     @Singleton
-    fun provideAuthenticator(): Authenticator {
+    public fun provideAuthenticator(): Authenticator {
         return AndroidAuthenticator()
     }
 }
 
 @InstallIn(SingletonComponent::class)
 @Module
-class RemoteConfigModule {
+public class RemoteConfigModule {
 
     @Provides
     @Singleton
-    fun provideRemoteConfigApi(): RemoteConfigApi {
+    public fun provideRemoteConfigApi(): RemoteConfigApi {
         return DefaultRemoteConfigApi(ProcessLifecycleOwner.get().lifecycle)
     }
 }
 
 @InstallIn(SingletonComponent::class)
 @Module
-class ServerEnvironmentModule {
-    class ServerEnvironment(
-        val baseUrl: String,
+public class ServerEnvironmentModule {
+    public class ServerEnvironment(
+        internal val baseUrl: String,
     )
 
-    interface HasServerEnvironment {
-        val serverEnvironment: ServerEnvironment
+    public interface HasServerEnvironment {
+        public val serverEnvironment: ServerEnvironment
     }
 
     @Provides
     @Singleton
-    fun provideServerEnvironment(application: Application): ServerEnvironment {
+    public fun provideServerEnvironment(application: Application): ServerEnvironment {
         return (application as HasServerEnvironment).serverEnvironment
     }
 }

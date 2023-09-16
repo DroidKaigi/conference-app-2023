@@ -10,11 +10,11 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class UserDataStoreModule {
+public class UserDataStoreModule {
 
     @Provides
     @Singleton
-    fun provideUserDataStore(
+    public fun provideUserDataStore(
         @UserDataStoreQualifier
         dataStore: DataStore<Preferences>,
     ): UserDataStore {

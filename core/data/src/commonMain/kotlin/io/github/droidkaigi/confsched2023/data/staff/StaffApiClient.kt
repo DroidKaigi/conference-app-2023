@@ -15,8 +15,8 @@ internal interface StaffApi {
 }
 
 public class DefaultStaffApiClient(
-    val networkService: NetworkService,
-    val ktorfit: Ktorfit,
+    private val networkService: NetworkService,
+    ktorfit: Ktorfit,
 ) : StaffApiClient {
 
     private val staffApi = ktorfit.create<StaffApi>()
@@ -28,8 +28,8 @@ public class DefaultStaffApiClient(
     }
 }
 
-interface StaffApiClient {
-    suspend fun getStaff(): PersistentList<Staff>
+public interface StaffApiClient {
+    public suspend fun getStaff(): PersistentList<Staff>
 }
 
 private fun StaffsResponse.toStaffList(): PersistentList<Staff> {
