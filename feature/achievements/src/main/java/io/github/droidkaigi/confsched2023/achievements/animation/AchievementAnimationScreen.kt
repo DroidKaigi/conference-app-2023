@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
@@ -57,6 +58,7 @@ fun AchievementAnimationScreen(
     Box(
         modifier = modifier
             .fillMaxSize(),
+        contentAlignment = Alignment.Center,
     ) {
         if (uiState.rawId != null) {
             val lottieComposition by rememberLottieComposition(RawRes(uiState.rawId))
