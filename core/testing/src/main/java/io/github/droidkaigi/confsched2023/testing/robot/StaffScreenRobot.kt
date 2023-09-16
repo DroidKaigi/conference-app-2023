@@ -45,6 +45,20 @@ class StaffScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
+    enum class ServerStatus {
+        Operational,
+        Error,
+    }
+
+    fun setupServer(serverStatus: ServerStatus) {
+        fakeSessionsApiClient.setup(
+            when (serverStatus) {
+                ServerStatus.Operational -> FakeSessionsApiClient.Status.Operational
+                ServerStatus.Error -> FakeSessionsApiClient.Status.Error
+            },
+        )
+    }
+
     fun checkScreenCapture() {
         composeTestRule
             .onNode(isRoot())
