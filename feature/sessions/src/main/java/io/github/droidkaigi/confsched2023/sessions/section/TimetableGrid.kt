@@ -351,7 +351,16 @@ private data class TimetableItemLayout(
     val minutePx: Float,
     val dayToStartTime: Map<DroidKaigi2023Day, Instant>,
 ) {
-    val dayStart = dayToStartTime[timetableItem.day] ?: dayStartTime
+    val dayStart = run {
+        val tz = TimeZone.of("Asia/Tokyo")
+        val startTime = dayToStartTime[timetableItem.day] ?: dayStartTime
+        val localDate = startTime.toLocalDateTime(tz).date
+        val dayStartLocalTime = LocalDateTime(
+            date = localDate,
+            time = LocalTime(10, 0),
+        )
+        dayStartLocalTime.toInstant(tz)
+    }
     private val displayEndsAt = timetableItem.endsAt.minus(1, DateTimeUnit.MINUTE)
     val height =
         ((displayEndsAt - timetableItem.startsAt).inWholeMinutes * minutePx).roundToInt()
