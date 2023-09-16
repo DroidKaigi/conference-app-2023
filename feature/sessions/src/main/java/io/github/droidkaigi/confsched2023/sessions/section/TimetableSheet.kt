@@ -36,26 +36,18 @@ import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableTa
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.GridTimetable
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.ListTimetable
-import kotlinx.datetime.Clock
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClockProvider
 
 const val TimetableTabTestTag = "TimetableTab"
 
 sealed interface TimetableSheetUiState {
-
-    val clock: Clock
-
-    data class Empty(
-        override val clock: Clock = Clock.System,
-    ) : TimetableSheetUiState
-
+    data object Empty : TimetableSheetUiState
     data class ListTimetable(
         val timetableListUiStates: Map<DroidKaigi2023Day, TimetableListUiState>,
-        override val clock: Clock = Clock.System,
     ) : TimetableSheetUiState
 
     data class GridTimetable(
         val timetableGridUiState: Map<DroidKaigi2023Day, TimetableGridUiState>,
-        override val clock: Clock = Clock.System,
     ) : TimetableSheetUiState
 }
 
@@ -68,7 +60,8 @@ fun TimetableSheet(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
-    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay(uiState.clock)) }
+    val clock = LocalClockProvider.current
+    var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay(clock)) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
         label = "Timetable corner state",

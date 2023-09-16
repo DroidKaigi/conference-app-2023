@@ -52,7 +52,7 @@ class TimetableScreenViewModel @Inject constructor(
         timetableUiTypeStateFlow,
     ) { sessionTimetable, uiType ->
         if (sessionTimetable.timetableItems.isEmpty()) {
-            return@buildUiState TimetableSheetUiState.Empty()
+            return@buildUiState TimetableSheetUiState.Empty
         }
         if (uiType == TimetableUiType.List) {
             TimetableSheetUiState.ListTimetable(

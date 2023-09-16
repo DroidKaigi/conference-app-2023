@@ -14,6 +14,9 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviewDefinition
 import io.github.droidkaigi.confsched2023.designsystem.preview.ShowkaseMultiplePreviewsWorkaround
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClockProvider
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
@@ -70,7 +73,10 @@ class PreviewTest(
 
         val newConfiguration = appliers.fold(LocalConfiguration.current) { c, a -> c.apply(a) }
 
-        CompositionLocalProvider(LocalConfiguration provides newConfiguration) {
+        CompositionLocalProvider(
+            LocalConfiguration provides newConfiguration,
+            LocalClockProvider provides FakeClock,
+        ) {
             // Notify locale changes to lang() through the following invocation.
             LocaleList.setDefault(LocalConfiguration.current.locales)
 
@@ -149,4 +155,8 @@ class PreviewTest(
             }
         }
     }
+}
+
+private object FakeClock : Clock {
+    override fun now(): Instant = Instant.parse("2023-09-14T10:00:00.000Z")
 }
