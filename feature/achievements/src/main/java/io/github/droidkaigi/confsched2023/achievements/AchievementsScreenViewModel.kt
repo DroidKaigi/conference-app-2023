@@ -15,6 +15,7 @@ import io.github.droidkaigi.confsched2023.ui.handleErrorAndRetry
 import kotlinx.collections.immutable.PersistentSet
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.persistentSetOf
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -120,13 +121,17 @@ class AchievementsScreenViewModel @Inject constructor(
         )
     }
 
+    private val clickedAchievement = MutableStateFlow<ClickedAchievementState>(ClickedAchievementState.NotClicked)
+
     val uiState = buildUiState(
         achievementAnimationListState,
         isInitialDialogDisplayFlow,
-    ) { achievementListUiState, isDisplayedInitialDialog ->
+        clickedAchievement,
+    ) { achievementListUiState, isDisplayedInitialDialog, clickedAchievement ->
         AchievementsScreenUiState(
             achievementListUiState = achievementListUiState,
             isShowInitialDialog = isDisplayedInitialDialog?.not() ?: false,
+            clickedAchievement = clickedAchievement,
         )
     }
 
@@ -140,5 +145,23 @@ class AchievementsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             achievementRepository.displayedInitialDialog()
         }
+    }
+
+    fun onClickAchievement(clickedAchievement: Achievement) {
+        val animationRawId: Int = when (clickedAchievement) {
+            Achievement.ArcticFox -> R.raw.achievement_a_lottie
+            Achievement.Bumblebee -> R.raw.achievement_b_lottie
+            Achievement.Chipmunk -> R.raw.achievement_c_lottie
+            Achievement.Dolphin -> R.raw.achievement_d_lottie
+            Achievement.ElectricEel -> R.raw.achievement_e_lottie
+        }
+        this.clickedAchievement.value = ClickedAchievementState.Clicked(
+            achievement = clickedAchievement,
+            animationRawId = animationRawId,
+        )
+    }
+
+    fun onFinishAnimation() {
+        this.clickedAchievement.value = ClickedAchievementState.NotClicked
     }
 }

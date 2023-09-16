@@ -10,10 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
+import io.github.droidkaigi.confsched2023.achievements.component.GetAchievementAnimation
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 data class AnimationScreenUiState(
@@ -59,19 +56,12 @@ fun AchievementAnimationScreen(
             .fillMaxSize(),
     ) {
         if (uiState.rawId != null) {
-            val lottieComposition by rememberLottieComposition(RawRes(uiState.rawId))
-            val progress by animateLottieCompositionAsState(
-                composition = lottieComposition,
-                isPlaying = true,
-                restartOnPlay = true,
-            )
-            if (progress == 1f) {
-                onReachAnimationEnd()
-                onFinished()
-            }
-            LottieAnimation(
-                composition = lottieComposition,
-                progress = { progress },
+            GetAchievementAnimation(
+                animationRawId = uiState.rawId,
+                onFinishAnimation = {
+                    onReachAnimationEnd()
+                    onFinished()
+                },
             )
         }
     }
