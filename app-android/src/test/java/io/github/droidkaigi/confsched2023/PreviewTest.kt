@@ -14,7 +14,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviewDefinition
 import io.github.droidkaigi.confsched2023.designsystem.preview.ShowkaseMultiplePreviewsWorkaround
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
-import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClockProvider
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import org.junit.Test
@@ -75,7 +75,7 @@ class PreviewTest(
 
         CompositionLocalProvider(
             LocalConfiguration provides newConfiguration,
-            LocalClockProvider provides FakeClock,
+            LocalClock provides FakeClock,
         ) {
             // Notify locale changes to lang() through the following invocation.
             LocaleList.setDefault(LocalConfiguration.current.locales)

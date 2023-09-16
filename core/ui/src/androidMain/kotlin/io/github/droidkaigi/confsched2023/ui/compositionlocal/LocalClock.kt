@@ -4,6 +4,6 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import kotlinx.datetime.Clock
 
 @Suppress("CompositionLocalAllowlist")
-val LocalClockProvider = staticCompositionLocalOf<Clock> {
+val LocalClock = staticCompositionLocalOf<Clock> {
     Clock.System
 }

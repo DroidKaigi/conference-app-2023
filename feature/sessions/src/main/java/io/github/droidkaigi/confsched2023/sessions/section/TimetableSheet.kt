@@ -36,7 +36,7 @@ import io.github.droidkaigi.confsched2023.sessions.component.rememberTimetableTa
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.Empty
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.GridTimetable
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState.ListTimetable
-import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClockProvider
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 
 const val TimetableTabTestTag = "TimetableTab"
 
@@ -60,7 +60,7 @@ fun TimetableSheet(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier,
 ) {
-    val clock = LocalClockProvider.current
+    val clock = LocalClock.current
     var selectedDay by rememberSaveable { mutableStateOf(DroidKaigi2023Day.initialSelectedDay(clock)) }
     val corner by animateIntAsState(
         if (timetableScreenScrollState.isScreenLayoutCalculating || timetableScreenScrollState.isSheetExpandable) 40 else 0,
