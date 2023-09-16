@@ -8,9 +8,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.data.di.AppAndroidBuildConfig
 import io.github.droidkaigi.confsched2023.data.di.AppAndroidOssLicenseConfig
-import io.github.droidkaigi.confsched2023.license.DefaultOssLicenseRepositoryImpl
+import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
+import io.github.droidkaigi.confsched2023.license.DefaultOssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
-import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -24,9 +24,9 @@ class AppModule {
     @Provides
     @Singleton
     @AppAndroidOssLicenseConfig
-    fun provideOssLicenseRepositoryProvider(
+    fun provideOssLicenseDataSourceProvider(
         @ApplicationContext context: Context,
-    ): OssLicenseRepository = DefaultOssLicenseRepositoryImpl(context)
+    ): OssLicenseDataSource = DefaultOssLicenseDataSource(context)
 }
 
 class AppBuildConfigProvider(

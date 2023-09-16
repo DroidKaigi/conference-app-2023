@@ -22,7 +22,7 @@ class OssLicenseViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val licenseStateFlow: StateFlow<PersistentList<License>> =
-        ossLicenseRepository.licenseMetaData()
+        ossLicenseRepository.licenseData()
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),

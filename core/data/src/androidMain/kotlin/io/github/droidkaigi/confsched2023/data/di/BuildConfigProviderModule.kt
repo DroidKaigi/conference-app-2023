@@ -5,13 +5,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
-import io.github.droidkaigi.confsched2023.model.License
-import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
-import kotlinx.collections.immutable.PersistentList
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import io.github.droidkaigi.confsched2023.model.OssLicense
 import java.util.Optional
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -38,11 +34,11 @@ class BuildConfigProviderModule {
     @Provides
     @Singleton
     fun provideOssLicenseRepositoryProvider(
-        @AppAndroidOssLicenseConfig ossLicenseRepository: Optional<OssLicenseRepository>,
-    ): OssLicenseRepository = if (ossLicenseRepository.isPresent) {
-        ossLicenseRepository.get()
+        @AppAndroidOssLicenseConfig ossLicenseDataSourceOptional: Optional<OssLicenseDataSource>,
+    ): OssLicenseDataSource = if (ossLicenseDataSourceOptional.isPresent) {
+        ossLicenseDataSourceOptional.get()
     } else {
-        EmptyOssLicenseRepository
+        EmptyOssLicenseDataSource
     }
 }
 
@@ -59,14 +55,15 @@ abstract class AppAndroidBuildConfigModule {
 abstract class AppAndroidOssLicenseModule {
     @BindsOptionalOf
     @AppAndroidOssLicenseConfig
-    abstract fun bindOssLicenseProvider(): OssLicenseRepository
+    abstract fun bindOssLicenseDataStoreProvider(): OssLicenseDataSource
 }
 
 private object EmptyBuildConfigProvider : BuildConfigProvider {
     override val versionName: String = ""
 }
 
-private object EmptyOssLicenseRepository : OssLicenseRepository {
-    override fun licenseMetaData(): Flow<PersistentList<License>> = flowOf(persistentListOf())
-    override fun licenseDetailData(): Flow<List<String>> = flowOf(emptyList())
+private object EmptyOssLicenseDataSource : OssLicenseDataSource {
+    override suspend fun licenseFlow(): OssLicense {
+        return OssLicense()
+    }
 }
