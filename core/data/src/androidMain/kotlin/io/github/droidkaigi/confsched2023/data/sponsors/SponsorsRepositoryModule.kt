@@ -9,10 +9,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SponsorsRepositoryModule {
+public class SponsorsRepositoryModule {
     @Provides
     @Singleton
-    fun provideSponsorsRepository(
+    public fun provideSponsorsRepository(
         sponsorsApi: SponsorsApiClient,
     ): SponsorsRepository {
         return DefaultSponsorsRepository(

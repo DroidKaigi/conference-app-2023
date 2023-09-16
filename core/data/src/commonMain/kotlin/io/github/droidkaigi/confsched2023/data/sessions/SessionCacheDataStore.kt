@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class SessionCacheDataStore(
+public class SessionCacheDataStore(
     private val dataStore: DataStore<Preferences>,
     private val json: Json,
 ) {
@@ -21,7 +21,7 @@ class SessionCacheDataStore(
         }
     }
 
-    fun getTimetableStream(): Flow<Timetable> {
+    public fun getTimetableStream(): Flow<Timetable> {
         return dataStore.data.map { preferences ->
             val cache = preferences[DATA_STORE_TIMETABLE_KEY] ?: return@map SessionsAllResponse()
             json.decodeFromString(SessionsAllResponse.serializer(), cache)
@@ -30,7 +30,7 @@ class SessionCacheDataStore(
         }
     }
 
-    companion object {
+    private companion object {
         private val DATA_STORE_TIMETABLE_KEY =
             stringPreferencesKey("DATA_STORE_TIMETABLE_KEY")
     }

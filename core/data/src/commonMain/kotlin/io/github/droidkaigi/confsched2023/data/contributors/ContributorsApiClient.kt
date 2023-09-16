@@ -14,7 +14,7 @@ internal interface ContributorApi {
 }
 
 public class DefaultContributorsApiClient(
-    val networkService: NetworkService,
+    private val networkService: NetworkService,
     ktorfit: Ktorfit,
 ) : ContributorsApiClient {
 
@@ -26,9 +26,9 @@ public class DefaultContributorsApiClient(
     }
 }
 
-interface ContributorsApiClient {
+public interface ContributorsApiClient {
 
-    suspend fun contributors(): PersistentList<Contributor>
+    public suspend fun contributors(): PersistentList<Contributor>
 }
 
 private fun ContributorsResponse.toContributorList(): PersistentList<Contributor> {

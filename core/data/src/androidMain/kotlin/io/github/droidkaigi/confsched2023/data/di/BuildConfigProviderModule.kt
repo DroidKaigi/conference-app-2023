@@ -11,14 +11,14 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Qualifier
-annotation class AppAndroidBuildConfig
+public annotation class AppAndroidBuildConfig
 
 @Module
 @InstallIn(SingletonComponent::class)
-class BuildConfigProviderModule {
+public class BuildConfigProviderModule {
     @Provides
     @Singleton
-    fun provideBuildConfigProvider(
+    public fun provideBuildConfigProvider(
         @AppAndroidBuildConfig buildConfigOverride: Optional<BuildConfigProvider>,
     ): BuildConfigProvider = if (buildConfigOverride.isPresent) {
         buildConfigOverride.get()
@@ -29,10 +29,10 @@ class BuildConfigProviderModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-abstract class AppAndroidBuildConfigModule {
+public abstract class AppAndroidBuildConfigModule {
     @BindsOptionalOf
     @AppAndroidBuildConfig
-    abstract fun bindBuildConfigProvider(): BuildConfigProvider
+    public abstract fun bindBuildConfigProvider(): BuildConfigProvider
 }
 
 private object EmptyBuildConfigProvider : BuildConfigProvider {
