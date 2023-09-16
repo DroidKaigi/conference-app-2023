@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.floormap
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -207,9 +206,7 @@ private fun FloorMapContent(
         end = contentPadding.calculateEndPadding(layoutDirection) + 16.dp,
         bottom = contentPadding.calculateBottomPadding(),
     )
-    BoxWithConstraints(
-        Modifier,
-    ) {
+    Box {
         if (widthSizeClass != WindowWidthSizeClass.Compact) {
             LargeScreenContent(
                 uiState = uiState.largeFloorMapContentUiState,
