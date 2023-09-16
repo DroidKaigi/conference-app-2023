@@ -3,6 +3,8 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import com.github.takahirom.roborazzi.captureRoboImage
+import io.github.droidkaigi.confsched2023.data.sessions.FakeSessionsApiClient
+import io.github.droidkaigi.confsched2023.data.sessions.SessionsApiClient
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.staff.StaffScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -16,6 +18,10 @@ class StaffScreenRobot @Inject constructor(
 ) {
 
     @Inject lateinit var robotTestRule: RobotTestRule
+
+    @Inject lateinit var sessionsApiClient: SessionsApiClient
+    val fakeSessionsApiClient: FakeSessionsApiClient
+        get() = sessionsApiClient as FakeSessionsApiClient
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
 
     operator fun invoke(
