@@ -80,7 +80,7 @@ fun OssLicenseDetailScreen(
             ) {
                 uiState.ossLicense?.run {
                     Text(
-                        text = this.detail,
+                        text = this.licensesText,
                         style = MaterialTheme.typography.bodyMedium,
                     )
                 }

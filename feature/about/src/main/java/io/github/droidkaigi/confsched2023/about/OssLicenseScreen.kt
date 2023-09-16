@@ -34,7 +34,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.model.License
-import io.github.droidkaigi.confsched2023.model.OssLicense
+import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
 const val ossLicenseScreenRoute = "osslicense"
 fun NavGraphBuilder.ossLicenseScreen(
@@ -51,7 +53,7 @@ fun NavController.navigateOssLicenseScreen() {
 }
 
 data class OssLicenseScreenUiState(
-    val ossLicense: OssLicense = OssLicense(),
+    val ossLicense: PersistentList<OssLicenseGroup> = persistentListOf(),
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,7 +100,7 @@ private fun OssLicenseScreen(
     onLicenseClick: (License) -> Unit,
 ) {
     LazyColumn(modifier = Modifier.padding(horizontal = 8.dp)) {
-        items(items = uiState.ossLicense.groupList) { group ->
+        items(items = uiState.ossLicense) { group ->
             var expand by remember {
                 mutableStateOf(false)
             }

@@ -4,5 +4,5 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.flow.Flow
 
 public interface OssLicenseRepository {
-    public fun licenseData(): Flow<PersistentList<License>>
+    public fun licenseData(): Flow<PersistentList<OssLicenseGroup>>
 }

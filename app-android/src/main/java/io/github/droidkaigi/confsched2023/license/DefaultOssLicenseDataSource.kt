@@ -4,7 +4,6 @@ import android.content.Context
 import io.github.droidkaigi.confsched2023.R
 import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.License
-import io.github.droidkaigi.confsched2023.model.OssLicense
 import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
 import io.github.droidkaigi.confsched2023.ui.Inject
 import kotlinx.collections.immutable.toPersistentList
@@ -18,21 +17,35 @@ class DefaultOssLicenseDataSource @Inject constructor(
     private val context: Context,
 ) : OssLicenseDataSource {
 
-    override suspend fun licenseFlow(): OssLicense {
+    override suspend fun license(): List<OssLicenseGroup> {
         return withContext(context = Dispatchers.IO) {
-            val details = readLicensesFile().toRowList()
-            val metadata = readLicensesMetaFile().toRowList().parseToLibraryItem(
-                details = details,
-            )
-            val groupList = metadata.distinctBy { it.name }.groupByCategory()
+            readLicenses()
+                .groupByCategory()
                 .map {
                     OssLicenseGroup(
                         title = it.key,
                         licenses = it.value,
                     )
-                }.toPersistentList()
-            OssLicense(groupList)
+                }
+                .toPersistentList()
         }
+    }
+
+    private fun readLicenses(): List<License> {
+        val licenseData = readLicensesFile().toRowList()
+        return readLicensesMetaFile().toRowList()
+            .map {
+                val (position, name) = it.split(' ', limit = 2)
+                val (offset, length) = position.split(':').map { it.toInt() }
+                val licensesText = kotlin.runCatching {
+                    licenseData.subList(offset, offset + length).joinToString()
+                }.getOrNull() ?: ""
+                License(
+                    id = name.replace(' ', '-'),
+                    name = name,
+                    licensesText = licensesText,
+                )
+            }
     }
 
     private fun List<License>.groupByCategory(): Map<String, List<License>> {
@@ -72,21 +85,6 @@ class DefaultOssLicenseDataSource @Inject constructor(
         return context.resources.openRawResource(R.raw.third_party_licenses)
             .source()
             .buffer()
-    }
-
-    private fun List<String>.parseToLibraryItem(details: List<String>): List<License> {
-        return mapIndexed { index, value ->
-            val (position, name) = value.split(' ', limit = 2)
-            val (offset, length) = position.split(':').map { it.toInt() }
-            val id = name.replace(' ', '-')
-            License(
-                name = name,
-                id = id,
-                offset = offset,
-                length = length,
-                detail = details[index],
-            )
-        }
     }
 
     private fun BufferedSource.toRowList(): List<String> {

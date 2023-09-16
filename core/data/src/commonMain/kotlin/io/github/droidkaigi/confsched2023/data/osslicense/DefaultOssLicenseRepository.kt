@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.data.osslicense
 
-import io.github.droidkaigi.confsched2023.model.License
+import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
 import io.github.droidkaigi.confsched2023.model.OssLicenseRepository
 import io.github.droidkaigi.confsched2023.ui.Inject
 import kotlinx.collections.immutable.PersistentList
@@ -13,14 +13,12 @@ class DefaultOssLicenseRepository @Inject constructor(
     private val ossLicenseDataSource: OssLicenseDataSource,
 ) : OssLicenseRepository {
 
-    private val contributorsStateFlow =
-        MutableStateFlow<PersistentList<License>>(persistentListOf())
+    private val ossLicenseStateFlow =
+        MutableStateFlow<PersistentList<OssLicenseGroup>>(persistentListOf())
 
-    override fun licenseData(): Flow<PersistentList<License>> {
-        return contributorsStateFlow.onStart {
-            if (contributorsStateFlow.value.isEmpty()) {
-                ossLicenseDataSource.licenseFlow()
-            }
+    override fun licenseData(): Flow<PersistentList<OssLicenseGroup>> {
+        return ossLicenseStateFlow.onStart {
+            ossLicenseDataSource.license()
         }
     }
 }

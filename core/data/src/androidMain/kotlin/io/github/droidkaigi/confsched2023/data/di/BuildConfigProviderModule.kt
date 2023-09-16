@@ -7,7 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
-import io.github.droidkaigi.confsched2023.model.OssLicense
+import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import java.util.Optional
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -63,7 +65,7 @@ private object EmptyBuildConfigProvider : BuildConfigProvider {
 }
 
 private object EmptyOssLicenseDataSource : OssLicenseDataSource {
-    override suspend fun licenseFlow(): OssLicense {
-        return OssLicense()
+    override suspend fun license(): PersistentList<OssLicenseGroup> {
+        return persistentListOf()
     }
 }
