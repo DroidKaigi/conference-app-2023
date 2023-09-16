@@ -37,4 +37,5 @@ abstract class AppAndroidBuildConfigModule {
 
 private object EmptyBuildConfigProvider : BuildConfigProvider {
     override val versionName: String = ""
+    override val debugBuild: Boolean = false
 }
