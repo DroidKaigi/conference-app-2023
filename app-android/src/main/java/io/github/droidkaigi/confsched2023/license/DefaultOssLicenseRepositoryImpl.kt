@@ -14,7 +14,7 @@ import okio.buffer
 import okio.source
 import javax.inject.Inject
 
-class OssLicenseRepositoryImpl @Inject constructor(
+class DefaultOssLicenseRepositoryImpl @Inject constructor(
     private val context: Context,
 ) : OssLicenseRepository {
 
