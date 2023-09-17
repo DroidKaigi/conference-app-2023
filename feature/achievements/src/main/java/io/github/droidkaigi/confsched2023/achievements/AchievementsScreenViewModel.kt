@@ -121,7 +121,7 @@ class AchievementsScreenViewModel @Inject constructor(
         )
     }
 
-    private val clickedAchievement = MutableStateFlow<ClickedAchievementState>(ClickedAchievementState.NotClicked)
+    private val clickedAchievement = MutableStateFlow<AchievementAnimationState>(AchievementAnimationState.NotAnimating)
 
     val uiState = buildUiState(
         achievementAnimationListState,
@@ -155,13 +155,13 @@ class AchievementsScreenViewModel @Inject constructor(
             Achievement.Dolphin -> R.raw.achievement_d_lottie
             Achievement.ElectricEel -> R.raw.achievement_e_lottie
         }
-        this.clickedAchievement.value = ClickedAchievementState.Clicked(
+        this.clickedAchievement.value = AchievementAnimationState.Animating(
             achievement = clickedAchievement,
             animationRawId = animationRawId,
         )
     }
 
     fun onFinishAnimation() {
-        this.clickedAchievement.value = ClickedAchievementState.NotClicked
+        this.clickedAchievement.value = AchievementAnimationState.NotAnimating
     }
 }

@@ -35,7 +35,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import io.github.droidkaigi.confsched2023.achievements.ClickedAchievementState.Clicked
+import io.github.droidkaigi.confsched2023.achievements.AchievementAnimationState.Animating
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementHighlightAnimation
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
@@ -99,15 +99,15 @@ fun AchievementsScreen(
 data class AchievementsScreenUiState(
     val achievementListUiState: AchievementListUiState,
     val isShowInitialDialog: Boolean,
-    val clickedAchievement: ClickedAchievementState,
+    val clickedAchievement: AchievementAnimationState,
 )
 
-sealed interface ClickedAchievementState {
-    data class Clicked(
+sealed interface AchievementAnimationState {
+    data class Animating(
         val achievement: Achievement,
         val animationRawId: Int,
-    ) : ClickedAchievementState
-    data object NotClicked : ClickedAchievementState
+    ) : AchievementAnimationState
+    data object NotAnimating : AchievementAnimationState
 }
 
 @Composable
@@ -150,7 +150,7 @@ private fun AchievementsScreen(
                 )
             },
         )
-        if (uiState.clickedAchievement is Clicked) {
+        if (uiState.clickedAchievement is Animating) {
             DisposableEffect(uiState.clickedAchievement) {
                 onDispose {
                     finishAnimation()
