@@ -53,6 +53,7 @@ fun SessionTag(
             text = label,
             fontWeight = FontWeight.Medium,
             fontSize = 12.sp,
+            style = MaterialTheme.typography.labelMedium,
             color = labelColor,
         )
     }
