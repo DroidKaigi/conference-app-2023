@@ -6,12 +6,6 @@ import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
-fun DependencyHandlerScope.kapt(
-    artifact: MinimalExternalModuleDependency,
-) {
-    add("kapt", artifact)
-}
-
 fun TestedExtension.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }
