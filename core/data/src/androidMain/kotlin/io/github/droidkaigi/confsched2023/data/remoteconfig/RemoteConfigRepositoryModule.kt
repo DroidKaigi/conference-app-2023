@@ -11,10 +11,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RemoteConfigRepositoryModule {
+public class RemoteConfigRepositoryModule {
     @Provides
     @Singleton
-    fun provideRemoteConfigRepository(
+    public fun provideRemoteConfigRepository(
         remoteConfigApi: RemoteConfigApi,
         achievementsDataStore: AchievementsDataStore,
     ): AchievementRepository {

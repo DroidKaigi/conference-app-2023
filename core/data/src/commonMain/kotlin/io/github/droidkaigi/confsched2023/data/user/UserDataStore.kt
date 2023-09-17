@@ -16,12 +16,12 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class UserDataStore(private val dataStore: DataStore<Preferences>) {
+public class UserDataStore(private val dataStore: DataStore<Preferences>) {
 
     private val mutableIdToken = MutableStateFlow<String?>(null)
     public val idToken: StateFlow<String?> = mutableIdToken
 
-    fun getFavoriteSessionStream(): Flow<PersistentSet<TimetableItemId>> {
+    public fun getFavoriteSessionStream(): Flow<PersistentSet<TimetableItemId>> {
         return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
@@ -37,7 +37,7 @@ class UserDataStore(private val dataStore: DataStore<Preferences>) {
             }
     }
 
-    suspend fun toggleFavorite(id: TimetableItemId) {
+    public suspend fun toggleFavorite(id: TimetableItemId) {
         val updatedFavorites = getFavoriteSessionStream().first().toMutableSet()
 
         if (updatedFavorites.contains(id)) {
@@ -93,7 +93,7 @@ class UserDataStore(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    companion object {
+    private companion object {
         private val KEY_FAVORITE_SESSION_IDS = stringPreferencesKey("KEY_FAVORITE_SESSION_IDS")
         private val KEY_DEVICE_ID = stringPreferencesKey("KEY_DEVICE_ID")
         private val KEY_AUTHENTICATED = stringPreferencesKey("KEY_AUTHENTICATED")

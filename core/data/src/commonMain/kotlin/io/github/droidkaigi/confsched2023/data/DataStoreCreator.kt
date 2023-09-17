@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import kotlinx.coroutines.CoroutineScope
 import okio.Path.Companion.toPath
 
-fun createDataStore(
+public fun createDataStore(
     coroutineScope: CoroutineScope,
     producePath: () -> String,
 ): DataStore<Preferences> = PreferenceDataStoreFactory.createWithPath(

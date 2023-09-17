@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.onStart
 
-class DefaultStaffRepository(
+public class DefaultStaffRepository(
     private val staffApi: StaffApiClient,
 ) : StaffRepository {
 

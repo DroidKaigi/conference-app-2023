@@ -15,16 +15,16 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import okio.IOException
 
-class FakeSessionsApiClient : SessionsApiClient {
+public class FakeSessionsApiClient : SessionsApiClient {
 
-    sealed class Status : SessionsApiClient {
-        data object Operational : Status() {
+    public sealed class Status : SessionsApiClient {
+        public data object Operational : Status() {
             override suspend fun sessionsAllResponse(): SessionsAllResponse {
                 return SessionsAllResponse.fake()
             }
         }
 
-        data object Error : Status() {
+        public data object Error : Status() {
             override suspend fun sessionsAllResponse(): SessionsAllResponse {
                 throw IOException("Fake IO Exception")
             }
@@ -33,7 +33,7 @@ class FakeSessionsApiClient : SessionsApiClient {
 
     private var status: Status = Status.Operational
 
-    fun setup(status: Status) {
+    public fun setup(status: Status) {
         this.status = status
     }
 
@@ -42,7 +42,7 @@ class FakeSessionsApiClient : SessionsApiClient {
     }
 }
 
-fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
+public fun SessionsAllResponse.Companion.fake(): SessionsAllResponse {
     val sessions = mutableListOf<SessionResponse>()
     val speakers = listOf(
         SpeakerResponse(fullName = "taka", id = "1", isTopSpeaker = true),

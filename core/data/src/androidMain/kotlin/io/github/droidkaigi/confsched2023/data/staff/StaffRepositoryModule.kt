@@ -9,11 +9,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class StaffRepositoryModule {
+public class StaffRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideStaffRepository(
+    public fun provideStaffRepository(
         staffApi: StaffApiClient,
     ): StaffRepository {
         return DefaultStaffRepository(

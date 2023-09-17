@@ -18,6 +18,7 @@ import io.github.droidkaigi.confsched2023.data.di.ServerEnvironmentModule.Server
 import io.github.droidkaigi.confsched2023.data.remoteconfig.DefaultRemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.remoteconfig.RemoteConfigApi
 import io.github.droidkaigi.confsched2023.data.user.UserDataStore
+import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import kotlinx.serialization.json.Json
@@ -44,6 +45,7 @@ public class ApiModule {
         okHttpClient: OkHttpClient,
         settingsDatastore: UserDataStore,
         ktorJsonSettings: Json,
+        buildConfigProvider: BuildConfigProvider,
     ): HttpClient {
         val httpClient = HttpClient(OkHttp) {
             engine {
@@ -51,8 +53,7 @@ public class ApiModule {
                     preconfigured = okHttpClient
                     addInterceptor(
                         HttpLoggingInterceptor().apply {
-                            // TODO use BuildConfig.DEBUG
-                            level = if (true) {
+                            level = if (buildConfigProvider.debugBuild) {
                                 HttpLoggingInterceptor.Level.BODY
                             } else {
                                 HttpLoggingInterceptor.Level.NONE
@@ -68,7 +69,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    fun provideKtorJsonSettings(): Json {
+    public fun provideKtorJsonSettings(): Json {
         return defaultJson()
     }
 
@@ -105,10 +106,10 @@ public class KtorfitModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AuthApiModule {
+public class AuthApiModule {
     @Provides
     @Singleton
-    fun provideAuthApi(
+    public fun provideAuthApi(
         httpClient: HttpClient,
         userDataStore: UserDataStore,
         authenticator: Authenticator,
@@ -119,39 +120,39 @@ class AuthApiModule {
 
 @InstallIn(SingletonComponent::class)
 @Module
-class AuthenticatorModule {
+public class AuthenticatorModule {
     @Provides
     @Singleton
-    fun provideAuthenticator(): Authenticator {
+    public fun provideAuthenticator(): Authenticator {
         return AndroidAuthenticator()
     }
 }
 
 @InstallIn(SingletonComponent::class)
 @Module
-class RemoteConfigModule {
+public class RemoteConfigModule {
 
     @Provides
     @Singleton
-    fun provideRemoteConfigApi(): RemoteConfigApi {
+    public fun provideRemoteConfigApi(): RemoteConfigApi {
         return DefaultRemoteConfigApi(ProcessLifecycleOwner.get().lifecycle)
     }
 }
 
 @InstallIn(SingletonComponent::class)
 @Module
-class ServerEnvironmentModule {
-    class ServerEnvironment(
-        val baseUrl: String,
+public class ServerEnvironmentModule {
+    public class ServerEnvironment(
+        internal val baseUrl: String,
     )
 
-    interface HasServerEnvironment {
-        val serverEnvironment: ServerEnvironment
+    public interface HasServerEnvironment {
+        public val serverEnvironment: ServerEnvironment
     }
 
     @Provides
     @Singleton
-    fun provideServerEnvironment(application: Application): ServerEnvironment {
+    public fun provideServerEnvironment(application: Application): ServerEnvironment {
         return (application as HasServerEnvironment).serverEnvironment
     }
 }

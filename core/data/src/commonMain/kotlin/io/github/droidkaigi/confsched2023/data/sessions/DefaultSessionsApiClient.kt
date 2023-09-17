@@ -38,7 +38,7 @@ internal interface SessionApi {
     suspend fun getTimetable(): SessionsAllResponse
 }
 
-class DefaultSessionsApiClient internal constructor(
+public class DefaultSessionsApiClient internal constructor(
     private val networkService: NetworkService,
     ktorfit: Ktorfit,
 ) : SessionsApiClient {
@@ -52,7 +52,7 @@ class DefaultSessionsApiClient internal constructor(
     }
 }
 
-fun SessionsAllResponse.toTimetable(): Timetable {
+public fun SessionsAllResponse.toTimetable(): Timetable {
     val timetableContents = this
     val speakerIdToSpeaker: Map<String, TimetableSpeaker> = timetableContents.speakers
         .groupBy { it.id }
