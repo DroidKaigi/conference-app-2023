@@ -55,8 +55,6 @@ import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import io.github.droidkaigi.confsched2023.ui.compositionlocal.FakeClock
 import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.collections.immutable.toPersistentMap
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlin.math.roundToInt
 
 const val timetableScreenRoute = "timetable"
