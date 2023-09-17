@@ -6,6 +6,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec.RawRes
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import io.github.droidkaigi.confsched2023.ui.isTest
 
 @Composable
 fun AchievementHighlightAnimation(
@@ -18,7 +19,7 @@ fun AchievementHighlightAnimation(
         isPlaying = true,
         restartOnPlay = true,
     )
-    if (progress == 1f) {
+    if (progress == 1f && !isTest()) {
         onAnimationFinish()
     }
     LottieAnimation(

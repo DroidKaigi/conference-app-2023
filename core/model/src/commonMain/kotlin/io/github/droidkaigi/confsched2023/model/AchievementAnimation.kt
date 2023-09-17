@@ -6,6 +6,7 @@ data class AchievementAnimation(
     val notHasDrawableResId: Int,
     val hasAchievement: Boolean = false,
     val contentDescription: String,
+    val testTag: String,
 ) {
     fun getDrawableResId() = if (hasAchievement) hasDrawableResId else notHasDrawableResId
 }

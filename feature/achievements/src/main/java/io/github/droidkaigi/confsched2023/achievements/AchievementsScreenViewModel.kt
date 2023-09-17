@@ -3,6 +3,11 @@ package io.github.droidkaigi.confsched2023.achievements
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImageATestTag
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImageBTestTag
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImageCTestTag
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImageDTestTag
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementImageETestTag
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.data.contributors.AchievementRepository
 import io.github.droidkaigi.confsched2023.designsystem.strings.AppStrings
@@ -86,6 +91,7 @@ class AchievementsScreenViewModel @Inject constructor(
                     notHasDrawableResId = R.drawable.img_achievement_a_off,
                     hasAchievement = achievements.contains(Achievement.ArcticFox),
                     contentDescription = "AchievementA image",
+                    testTag = AchievementImageATestTag,
                 ),
                 AchievementAnimation(
                     achievement = Achievement.Bumblebee,
@@ -93,6 +99,7 @@ class AchievementsScreenViewModel @Inject constructor(
                     notHasDrawableResId = R.drawable.img_achievement_b_off,
                     hasAchievement = achievements.contains(Achievement.Bumblebee),
                     contentDescription = "AchievementB image",
+                    testTag = AchievementImageBTestTag,
                 ),
                 AchievementAnimation(
                     achievement = Achievement.Chipmunk,
@@ -100,6 +107,7 @@ class AchievementsScreenViewModel @Inject constructor(
                     notHasDrawableResId = R.drawable.img_achievement_c_off,
                     hasAchievement = achievements.contains(Achievement.Chipmunk),
                     contentDescription = "AchievementC image",
+                    testTag = AchievementImageCTestTag,
                 ),
                 AchievementAnimation(
                     achievement = Achievement.Dolphin,
@@ -107,6 +115,7 @@ class AchievementsScreenViewModel @Inject constructor(
                     notHasDrawableResId = R.drawable.img_achievement_d_off,
                     hasAchievement = achievements.contains(Achievement.Dolphin),
                     contentDescription = "AchievementD image",
+                    testTag = AchievementImageDTestTag,
                 ),
                 AchievementAnimation(
                     achievement = Achievement.ElectricEel,
@@ -114,6 +123,7 @@ class AchievementsScreenViewModel @Inject constructor(
                     notHasDrawableResId = R.drawable.img_achievement_e_off,
                     hasAchievement = achievements.contains(Achievement.ElectricEel),
                     contentDescription = "AchievementE image",
+                    testTag = AchievementImageETestTag,
                 ),
             ),
             detailDescription = detailDescription,
