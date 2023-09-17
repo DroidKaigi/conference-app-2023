@@ -4,6 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
 import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
@@ -106,6 +107,19 @@ class TimetableScreenTest {
             setupTimetableScreenContent()
             clickTimetableUiTypeChangeButton()
             scrollTimetable()
+            checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkGridStickyTitleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            clickTimetableUiTypeChangeButton()
+            scrollTimetable(0.45F) // sticky title (without speaker icon)
+            checkTimetableListCapture()
+            scrollTimetable(0.15F) // sticky title (with speaker icon)
             checkTimetableListCapture()
         }
     }
