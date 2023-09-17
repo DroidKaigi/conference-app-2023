@@ -52,6 +52,7 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.FakeClock
 import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.collections.immutable.toPersistentMap
 import kotlinx.datetime.Clock
@@ -253,11 +254,7 @@ private fun TimetableScreen(
 @MultiThemePreviews
 @Composable
 fun PreviewTimetableScreenDark() {
-    CompositionLocalProvider(
-        LocalClock provides object : Clock {
-            override fun now(): Instant = Instant.parse("2023-09-14T00:00:00Z")
-        },
-    ) {
+    CompositionLocalProvider(LocalClock provides FakeClock) {
         KaigiTheme {
             TimetableScreen(
                 uiState = TimetableScreenUiState(

@@ -14,6 +14,7 @@ import io.github.droidkaigi.confsched2023.designsystem.preview.MultiLanguagePrev
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviewDefinition
 import io.github.droidkaigi.confsched2023.designsystem.preview.ShowkaseMultiplePreviewsWorkaround
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.FakeClock
 import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -155,8 +156,4 @@ class PreviewTest(
             }
         }
     }
-}
-
-private object FakeClock : Clock {
-    override fun now(): Instant = Instant.parse("2023-09-14T10:00:00.000Z")
 }
