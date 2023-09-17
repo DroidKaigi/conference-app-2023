@@ -10,7 +10,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 @Composable
 fun AchievementHighlightAnimation(
     animationRawId: Int,
-    onFinishAnimation: () -> Unit,
+    onAnimationFinish: () -> Unit,
 ) {
     val lottieComposition by rememberLottieComposition(RawRes(animationRawId))
     val progress by animateLottieCompositionAsState(
@@ -19,7 +19,7 @@ fun AchievementHighlightAnimation(
         restartOnPlay = true,
     )
     if (progress == 1f) {
-        onFinishAnimation()
+        onAnimationFinish()
     }
     LottieAnimation(
         composition = lottieComposition,

@@ -90,8 +90,8 @@ fun AchievementsScreen(
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
         onReset = viewModel::onReset,
-        showAnimation = { achievement -> viewModel.onClickAchievement(achievement) },
-        finishAnimation = viewModel::onFinishAnimation,
+        onAchievementClick = { achievement -> viewModel.onAchievementClick(achievement) },
+        onAnimationFinish = viewModel::onAnimationFinish,
         onDisplayedInitialDialog = viewModel::onDisplayedInitialDialog,
     )
 }
@@ -99,7 +99,7 @@ fun AchievementsScreen(
 data class AchievementsScreenUiState(
     val achievementListUiState: AchievementListUiState,
     val isShowInitialDialog: Boolean,
-    val clickedAchievement: AchievementAnimationState,
+    val achievementAnimationState: AchievementAnimationState,
 )
 
 sealed interface AchievementAnimationState {
@@ -116,8 +116,8 @@ private fun AchievementsScreen(
     snackbarHostState: SnackbarHostState,
     contentPadding: PaddingValues,
     onReset: () -> Unit,
-    showAnimation: (Achievement) -> Unit,
-    finishAnimation: () -> Unit,
+    onAchievementClick: (Achievement) -> Unit,
+    onAnimationFinish: () -> Unit,
     onDisplayedInitialDialog: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -141,7 +141,7 @@ private fun AchievementsScreen(
                     uiState = uiState.achievementListUiState,
                     contentPadding = innerPadding,
                     onReset = onReset,
-                    showAnimation = showAnimation,
+                    onAchievementClick = onAchievementClick,
                     modifier = Modifier.padding(
                         top = innerPadding.calculateTopPadding(),
                         start = innerPadding.calculateStartPadding(layoutDirection),
@@ -150,10 +150,10 @@ private fun AchievementsScreen(
                 )
             },
         )
-        if (uiState.clickedAchievement is Animating) {
-            DisposableEffect(uiState.clickedAchievement) {
+        if (uiState.achievementAnimationState is Animating) {
+            DisposableEffect(uiState.achievementAnimationState) {
                 onDispose {
-                    finishAnimation()
+                    onAnimationFinish()
                 }
             }
             Surface(
@@ -161,9 +161,9 @@ private fun AchievementsScreen(
                 color = MaterialTheme.colorScheme.background.copy(alpha = 0.6F),
             ) {
                 AchievementHighlightAnimation(
-                    animationRawId = uiState.clickedAchievement.animationRawId,
-                    onFinishAnimation = {
-                        finishAnimation()
+                    animationRawId = uiState.achievementAnimationState.animationRawId,
+                    onAnimationFinish = {
+                        onAnimationFinish()
                     },
                 )
             }

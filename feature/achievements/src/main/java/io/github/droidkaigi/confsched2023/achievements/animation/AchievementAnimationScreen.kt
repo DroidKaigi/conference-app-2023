@@ -58,7 +58,7 @@ fun AchievementAnimationScreen(
         if (uiState.rawId != null) {
             AchievementHighlightAnimation(
                 animationRawId = uiState.rawId,
-                onFinishAnimation = {
+                onAnimationFinish = {
                     onReachAnimationEnd()
                     onFinished()
                 },

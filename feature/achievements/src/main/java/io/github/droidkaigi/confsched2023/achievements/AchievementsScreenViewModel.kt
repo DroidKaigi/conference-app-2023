@@ -121,17 +121,18 @@ class AchievementsScreenViewModel @Inject constructor(
         )
     }
 
-    private val clickedAchievement = MutableStateFlow<AchievementAnimationState>(AchievementAnimationState.NotAnimating)
+    private val achievementAnimationState =
+        MutableStateFlow<AchievementAnimationState>(AchievementAnimationState.NotAnimating)
 
     val uiState = buildUiState(
         achievementAnimationListState,
         isInitialDialogDisplayFlow,
-        clickedAchievement,
-    ) { achievementListUiState, isDisplayedInitialDialog, clickedAchievement ->
+        achievementAnimationState,
+    ) { achievementListUiState, isDisplayedInitialDialog, achievementAnimationState ->
         AchievementsScreenUiState(
             achievementListUiState = achievementListUiState,
             isShowInitialDialog = isDisplayedInitialDialog?.not() ?: false,
-            clickedAchievement = clickedAchievement,
+            achievementAnimationState = achievementAnimationState,
         )
     }
 
@@ -147,7 +148,7 @@ class AchievementsScreenViewModel @Inject constructor(
         }
     }
 
-    fun onClickAchievement(clickedAchievement: Achievement) {
+    fun onAchievementClick(clickedAchievement: Achievement) {
         val animationRawId: Int = when (clickedAchievement) {
             Achievement.ArcticFox -> R.raw.achievement_a_lottie
             Achievement.Bumblebee -> R.raw.achievement_b_lottie
@@ -155,13 +156,13 @@ class AchievementsScreenViewModel @Inject constructor(
             Achievement.Dolphin -> R.raw.achievement_d_lottie
             Achievement.ElectricEel -> R.raw.achievement_e_lottie
         }
-        this.clickedAchievement.value = AchievementAnimationState.Animating(
+        this.achievementAnimationState.value = AchievementAnimationState.Animating(
             achievement = clickedAchievement,
             animationRawId = animationRawId,
         )
     }
 
-    fun onFinishAnimation() {
-        this.clickedAchievement.value = AchievementAnimationState.NotAnimating
+    fun onAnimationFinish() {
+        this.achievementAnimationState.value = AchievementAnimationState.NotAnimating
     }
 }

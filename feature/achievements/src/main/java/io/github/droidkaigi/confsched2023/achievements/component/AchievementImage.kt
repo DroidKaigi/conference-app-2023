@@ -16,7 +16,7 @@ import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 fun AchievementImage(
     achievementAnimation: AchievementAnimation,
     modifier: Modifier = Modifier,
-    showAnimation: (Achievement) -> Unit,
+    onAchievementClick: (Achievement) -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     Image(
@@ -30,7 +30,7 @@ fun AchievementImage(
                         interactionSource = interactionSource,
                         indication = null,
                     ) {
-                        showAnimation(achievementAnimation.achievement)
+                        onAchievementClick(achievementAnimation.achievement)
                     }
                 } else {
                     Modifier

@@ -38,7 +38,7 @@ fun AchievementList(
     uiState: AchievementListUiState,
     contentPadding: PaddingValues,
     onReset: () -> Unit,
-    showAnimation: (Achievement) -> Unit,
+    onAchievementClick: (Achievement) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -79,7 +79,7 @@ fun AchievementList(
             ) { achievementAnimation ->
                 AchievementImage(
                     achievementAnimation = achievementAnimation,
-                    showAnimation = showAnimation,
+                    onAchievementClick = onAchievementClick,
                 )
             }
             if (uiState.isResetButtonEnabled) {
