@@ -15,7 +15,7 @@ class KmpAndroidHiltPlugin : Plugin<Project> {
             }
             kotlin {
                 sourceSets.getByName("androidMain") {
-                    val kspConfiguration = configurations["ksp"]
+                    val kspConfiguration = configurations["kspAndroid"]
                     kspConfiguration.dependencies.add(
                         libs.library("daggerHiltAndroidCompiler").let {
                             DefaultExternalModuleDependency(
