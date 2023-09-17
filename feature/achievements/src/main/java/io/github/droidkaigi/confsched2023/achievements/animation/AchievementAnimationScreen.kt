@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import io.github.droidkaigi.confsched2023.achievements.component.GetAchievementAnimation
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementHighlightAnimation
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 data class AnimationScreenUiState(
@@ -56,7 +56,7 @@ fun AchievementAnimationScreen(
             .fillMaxSize(),
     ) {
         if (uiState.rawId != null) {
-            GetAchievementAnimation(
+            AchievementHighlightAnimation(
                 animationRawId = uiState.rawId,
                 onFinishAnimation = {
                     onReachAnimationEnd()

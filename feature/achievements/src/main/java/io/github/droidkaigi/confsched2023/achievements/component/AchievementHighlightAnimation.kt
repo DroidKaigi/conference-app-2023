@@ -8,7 +8,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun GetAchievementAnimation(
+fun AchievementHighlightAnimation(
     animationRawId: Int,
     onFinishAnimation: () -> Unit,
 ) {

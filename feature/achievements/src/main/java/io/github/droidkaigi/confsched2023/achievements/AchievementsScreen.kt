@@ -36,7 +36,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import io.github.droidkaigi.confsched2023.achievements.ClickedAchievementState.Clicked
-import io.github.droidkaigi.confsched2023.achievements.component.GetAchievementAnimation
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementHighlightAnimation
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
 import io.github.droidkaigi.confsched2023.model.Achievement
@@ -160,7 +160,7 @@ private fun AchievementsScreen(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background.copy(alpha = 0.6F),
             ) {
-                GetAchievementAnimation(
+                AchievementHighlightAnimation(
                     animationRawId = uiState.clickedAchievement.animationRawId,
                     onFinishAnimation = {
                         finishAnimation()
