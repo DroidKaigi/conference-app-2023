@@ -8,6 +8,7 @@ import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import io.github.droidkaigi.confsched2023.testing.robot.StaffScreenRobot
+import io.github.droidkaigi.confsched2023.testing.robot.StaffScreenRobot.ServerStatus.Error
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -34,6 +35,16 @@ class StaffScreenTest {
     @Category(ScreenshotTests::class)
     fun checkLaunchShot() {
         staffScreenRobot {
+            setupScreenContent()
+            checkScreenCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
+    fun checkLaunchServerErrorShot() {
+        staffScreenRobot {
+            setupServer(Error)
             setupScreenContent()
             checkScreenCapture()
         }
