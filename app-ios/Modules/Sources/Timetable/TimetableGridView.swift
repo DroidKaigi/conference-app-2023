@@ -69,6 +69,22 @@ struct TimetableGridView: View {
                                     Text(timetableRoomGroupItem.room.name.currentLangTitle)
                                         .textStyle(TypographyTokens.titleSmall)
                                         .frame(height: roomHeaderSize.height)
+
+                                    ZStack {
+                                        ForEach(timetableRoomGroupItem.items, id: \.timetableItem.id.value) { timetableItemWithFavorite in
+                                            let frame = itemFrame(
+                                                timetableItemWithFavorite: timetableItemWithFavorite,
+                                                startTime: hours[0],
+                                                gridSize: gridSize
+                                            )
+
+                                            TimetableGridItemView(
+                                                timetableItemWithFavorite: timetableItemWithFavorite
+                                            )
+                                            .frame(width: frame.width, height: frame.height)
+                                            .position(x: frame.origin.x, y: frame.origin.y)
+                                        }
+                                    }
                                 }
                                 .frame(width: gridSize.width)
 
@@ -79,6 +95,29 @@ struct TimetableGridView: View {
                 }
             }
         }
+    }
+
+    private func itemFrame(
+        timetableItemWithFavorite: TimetableItemWithFavorite,
+        startTime: Date,
+        gridSize: CGSize
+    ) -> CGRect {
+        let item = timetableItemWithFavorite.timetableItem
+
+        let heightPerSecond = gridSize.height / (60 * 60)
+        let itemSpacing = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
+
+        let itemSize = CGSize(
+            width: gridSize.width - itemSpacing.leading - itemSpacing.trailing,
+            height: CGFloat(item.endsAt.epochSeconds - item.startsAt.epochSeconds) * heightPerSecond
+                - itemSpacing.top - itemSpacing.bottom
+        )
+        let itemPosition = CGPoint(
+            x: itemSize.width / 2 + itemSpacing.leading,
+            y: (CGFloat(item.startsAt.epochSeconds) - startTime.timeIntervalSince1970) * heightPerSecond
+                + itemSize.height / 2 + itemSpacing.top
+        )
+        return CGRect(origin: itemPosition, size: itemSize)
     }
 }
 
