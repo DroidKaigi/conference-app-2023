@@ -33,12 +33,24 @@ public struct RootView: View {
         case .failed:
             EmptyView()
         case .loaded(let isAchivementEnabled):
+            let timetableView = TimetableView(
+                sessionViewBuilder: { timetableItem in
+                    SessionView(timetableItem: timetableItem)
+                }
+            )
+            let aboutView = AboutView(
+                contributorViewProvider: { _ in
+                    ContributorView()
+                },
+                staffViewProvider: { _ in
+                    StaffView()
+                },
+                sponsorViewProvider: { _ in
+                    SponsorView()
+                }
+            )
             TabView(selection: $selection) {
-                TimetableView(
-                    sessionViewBuilder: { timetableItem in
-                        SessionView(timetableItem: timetableItem)
-                    }
-                )
+                timetableView
                     .tag(Tab.timeline)
                     .tabItem {
                         Label {
@@ -85,17 +97,7 @@ public struct RootView: View {
                             }
                         }
 //                }
-                AboutView(
-                    contributorViewProvider: { _ in
-                        ContributorView()
-                    },
-                    staffViewProvider: { _ in
-                        StaffView()
-                    },
-                    sponsorViewProvider: { _ in
-                        SponsorView()
-                    }
-                )
+                aboutView
                     .tag(Tab.about)
                     .tabItem {
                         Label {
