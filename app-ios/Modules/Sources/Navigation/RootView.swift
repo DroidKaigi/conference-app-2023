@@ -10,7 +10,11 @@ import SwiftUI
 import Theme
 import Timetable
 
-enum Tab {
+enum Tab: Int, CaseIterable, Identifiable {
+    var id: Int {
+        rawValue
+    }
+    
     case timeline
     case floorMap
     case achievements
@@ -18,8 +22,11 @@ enum Tab {
 }
 
 public struct RootView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @StateObject var viewModel: RootViewModel = .init()
     @State var selection = Tab.timeline
+    @State var selectionForSidebar: Tab.ID? = Tab.timeline.id
 
     public init() {}
 
@@ -49,29 +56,65 @@ public struct RootView: View {
                     SponsorView()
                 }
             )
-            TabView(selection: $selection) {
-                timetableView
-                    .tag(Tab.timeline)
-                    .tabItem {
-                        TimetableViewLabel(selected: selection == .timeline)
-                    }
-                FloorMapView()
-                    .tag(Tab.floorMap)
-                    .tabItem {
-                        FloorMapViewLabel(selected: selection == .floorMap)
-                    }
-//                if isAchivementEnabled {
-                    AchievementsView()
-                        .tag(Tab.achievements)
-                        .tabItem {
-                            AchievementsViewLabel(selected: selection == .achievements)
+            Group {
+                if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+                    NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
+                        List(Tab.allCases, selection: $selectionForSidebar) {
+                            let selected = $0.id == selectionForSidebar
+                            switch $0 {
+                            case .timeline:
+                                TimetableViewLabel(selected: selected)
+                            case .floorMap:
+                                FloorMapViewLabel(selected: selected)
+                            case .achievements:
+                                AchievementsViewLabel(selected: selected)
+                            case .about:
+                                AboutViewLabel(selected: selected)
+                            }
                         }
-//                }
-                aboutView
-                    .tag(Tab.about)
-                    .tabItem {
-                        AboutViewLabel(selected: selection == .about)
+                    } detail: {
+                        if let selectionForSidebar, let tab = Tab(rawValue: selectionForSidebar) {
+                            switch tab {
+                            case .timeline:
+                                timetableView
+                            case .floorMap:
+                                FloorMapView()
+                            case .achievements:
+                                AchievementsView()
+                            case .about:
+                                aboutView
+                            }
+                        } else {
+                            fatalError()
+                        }
                     }
+                    .navigationSplitViewStyle(.balanced)
+                } else {
+                    TabView(selection: $selection) {
+                        timetableView
+                            .tag(Tab.timeline)
+                            .tabItem {
+                                TimetableViewLabel(selected: selection == .timeline)
+                            }
+                        FloorMapView()
+                            .tag(Tab.floorMap)
+                            .tabItem {
+                                FloorMapViewLabel(selected: selection == .floorMap)
+                            }
+        //                if isAchivementEnabled {
+                            AchievementsView()
+                                .tag(Tab.achievements)
+                                .tabItem {
+                                    AchievementsViewLabel(selected: selection == .achievements)
+                                }
+        //                }
+                        aboutView
+                            .tag(Tab.about)
+                            .tabItem {
+                                AboutViewLabel(selected: selection == .about)
+                            }
+                    }
+                }
             }
             .tint(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
         }
