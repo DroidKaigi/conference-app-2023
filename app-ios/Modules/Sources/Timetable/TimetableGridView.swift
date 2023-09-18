@@ -78,9 +78,11 @@ struct TimetableGridView: View {
                                                 gridSize: gridSize
                                             )
 
-                                            TimetableGridItemView(
-                                                timetableItemWithFavorite: timetableItemWithFavorite
-                                            )
+                                            NavigationLink(value: TimetableRouting.session(timetableItemWithFavorite.timetableItem)) {
+                                                TimetableGridItemView(
+                                                    timetableItemWithFavorite: timetableItemWithFavorite
+                                                )
+                                            }
                                             .frame(width: frame.width, height: frame.height)
                                             .position(x: frame.origin.x, y: frame.origin.y)
                                         }
