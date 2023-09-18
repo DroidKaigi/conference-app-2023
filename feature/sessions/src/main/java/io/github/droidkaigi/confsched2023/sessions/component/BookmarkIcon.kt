@@ -1,5 +1,9 @@
 package io.github.droidkaigi.confsched2023.sessions.component
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -53,7 +57,11 @@ fun BookmarkIcon(
         modifier = modifier,
         contentAlignment = Alignment.Center,
     ) {
-        if (lottieState.isPlaying && !lottieState.isAtEnd) {
+        AnimatedVisibility(
+            visible = lottieState.isPlaying,
+            enter = fadeIn(animationSpec = tween(0)),
+            exit = fadeOut(),
+        ) {
             LottieAnimation(
                 composition = lottieComposition,
                 progress = { lottieState.progress },
@@ -62,13 +70,13 @@ fun BookmarkIcon(
                         onClick(label = contentDescription, action = null)
                     },
             )
-        } else {
-            Icon(
-                modifier = Modifier
-                    .padding(12.dp),
-                imageVector = Icons.Outlined.Bookmarks,
-                contentDescription = contentDescription,
-            )
         }
+
+        Icon(
+            modifier = Modifier
+                .padding(12.dp),
+            imageVector = Icons.Outlined.Bookmarks,
+            contentDescription = contentDescription,
+        )
     }
 }
