@@ -1,6 +1,5 @@
 package io.github.droidkaigi.confsched2023.testing.robot
 
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.isRoot
@@ -26,8 +25,6 @@ import io.github.droidkaigi.confsched2023.sessions.component.TimetableUiTypeChan
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableTabTestTag
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.coroutines.runTestWithLogging
-import io.github.droidkaigi.confsched2023.ui.compositionlocal.FakeClock
-import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.coroutines.test.TestDispatcher
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -53,14 +50,12 @@ class TimetableScreenRobot @Inject constructor(
 
     fun setupTimetableScreenContent() {
         composeTestRule.setContent {
-            CompositionLocalProvider(LocalClock provides FakeClock) {
-                KaigiTheme {
-                    TimetableScreen(
-                        onSearchClick = { },
-                        onTimetableItemClick = { },
-                        onBookmarkIconClick = { },
-                    )
-                }
+            KaigiTheme {
+                TimetableScreen(
+                    onSearchClick = { },
+                    onTimetableItemClick = { },
+                    onBookmarkIconClick = { },
+                )
             }
         }
         waitUntilIdle()
