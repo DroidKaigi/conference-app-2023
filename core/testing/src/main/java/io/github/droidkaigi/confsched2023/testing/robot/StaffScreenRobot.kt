@@ -3,6 +3,8 @@ package io.github.droidkaigi.confsched2023.testing.robot
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import com.github.takahirom.roborazzi.captureRoboImage
+import io.github.droidkaigi.confsched2023.data.staff.FakeStaffApiClient
+import io.github.droidkaigi.confsched2023.data.staff.StaffApiClient
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.staff.StaffScreen
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
@@ -16,6 +18,10 @@ class StaffScreenRobot @Inject constructor(
 ) {
 
     @Inject lateinit var robotTestRule: RobotTestRule
+
+    @Inject lateinit var staffApiClient: StaffApiClient
+    val fakeStaffApiClient: FakeStaffApiClient
+        get() = staffApiClient as FakeStaffApiClient
     private lateinit var composeTestRule: AndroidComposeTestRule<*, *>
 
     operator fun invoke(
@@ -37,6 +43,20 @@ class StaffScreenRobot @Inject constructor(
             }
         }
         waitUntilIdle()
+    }
+
+    enum class ServerStatus {
+        Operational,
+        Error,
+    }
+
+    fun setupServer(serverStatus: ServerStatus) {
+        fakeStaffApiClient.setup(
+            when (serverStatus) {
+                ServerStatus.Operational -> FakeStaffApiClient.Status.Operational
+                ServerStatus.Error -> FakeStaffApiClient.Status.Error
+            },
+        )
     }
 
     fun checkScreenCapture() {
