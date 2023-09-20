@@ -35,8 +35,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
@@ -84,14 +86,12 @@ data class TimetableGridUiState(val timetable: Timetable)
 @Composable
 fun TimetableGrid(
     uiState: TimetableGridUiState,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
     TimetableGrid(
         timetable = uiState.timetable,
-        nestedScrollDispatcher = nestedScrollDispatcher,
         onTimetableItemClick = onTimetableItemClick,
         modifier = modifier,
         contentPadding = contentPadding,
@@ -101,7 +101,6 @@ fun TimetableGrid(
 @Composable
 fun TimetableGrid(
     timetable: Timetable,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -133,7 +132,6 @@ fun TimetableGrid(
             TimetableGrid(
                 timetable = timetable,
                 timetableState = timetableGridState,
-                nestedScrollDispatcher = nestedScrollDispatcher,
                 modifier = modifier,
                 contentPadding = PaddingValues(
                     top = 16.dp + contentPadding.calculateTopPadding(),
@@ -157,7 +155,6 @@ fun TimetableGrid(
 fun TimetableGrid(
     timetable: Timetable,
     timetableState: TimetableState,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     content: @Composable (TimetableItem, Int) -> Unit,
@@ -186,10 +183,14 @@ fun TimetableGrid(
         content(timetableItemWithFavorite.timetableItem, itemHeightPx)
     }
 
+    val nestedScrollConnection = remember { object : NestedScrollConnection {} }
+    val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
+
     LazyLayout(
         modifier = modifier
             .focusGroup()
             .clipToBounds()
+            .nestedScroll(nestedScrollConnection, nestedScrollDispatcher)
             .drawBehind {
                 timetableScreen.timeHorizontalLines.value.forEach {
                     drawLine(
@@ -322,7 +323,6 @@ fun TimetableGrid(
 fun TimetablePreview() {
     TimetableGrid(
         timetable = Timetable.fake(),
-        nestedScrollDispatcher = remember { NestedScrollDispatcher() },
         onTimetableItemClick = {},
         modifier = Modifier.fillMaxSize(),
     )
