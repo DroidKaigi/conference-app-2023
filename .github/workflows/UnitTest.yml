@@ -52,14 +52,13 @@ jobs:
             **/build/outputs/roborazzi
           retention-days: 30
 
-      - id: test-reports
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
         if: always()
-        uses: ./.github/actions/upload-distributed-files
         with:
-          copy-to: .test-reports
-          name: reports
-          name-type: directory
-          artifact-name: 'test-reports'
+          name: test-reports
+          path: |
+            **/reports
+            **/build/outputs/roborazzi
 
       - id: test-results
         if: always()
