@@ -526,7 +526,7 @@ class ScreenScrollState(
             initialValue = 0f,
             initialVelocity = velocity.y,
         ).animateDecay(
-            exponentialDecay()
+            exponentialDecay(),
         ) {
             launch {
                 val delta = Offset(0f, value - lastValue)
