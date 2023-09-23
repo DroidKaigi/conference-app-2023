@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
+import io.github.droidkaigi.confsched2023.model.License
 import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -67,6 +68,17 @@ private object EmptyBuildConfigProvider : BuildConfigProvider {
 
 private object EmptyOssLicenseDataSource : OssLicenseDataSource {
     override suspend fun license(): PersistentList<OssLicenseGroup> {
-        return persistentListOf()
+        return persistentListOf(
+            OssLicenseGroup(
+                "dummy",
+                listOf(
+                    License(
+                        "id",
+                        "name",
+                        "license text",
+                    ),
+                ),
+            ),
+        )
     }
 }
