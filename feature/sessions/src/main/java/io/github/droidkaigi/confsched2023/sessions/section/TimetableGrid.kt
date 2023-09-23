@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationState
+import androidx.compose.animation.core.animateDecay
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusGroup
@@ -246,7 +248,7 @@ fun TimetableGrid(
                     },
                     onDragEnd = {
                         coroutineScope.launch {
-                            scrollState.flingIfPossible()
+                            scrollState.flingIfPossible(nestedScrollDispatcher)
                         }
                     },
                 )
@@ -510,7 +512,7 @@ class ScreenScrollState(
         }
     }
 
-    suspend fun flingIfPossible() = coroutineScope {
+    suspend fun flingIfPossible(nestedScrollDispatcher: NestedScrollDispatcher) = coroutineScope {
         val velocity = velocityTracker.calculateVelocity()
         launch {
             _scrollX.animateDecay(
@@ -518,11 +520,33 @@ class ScreenScrollState(
                 exponentialDecay(),
             )
         }
-        launch {
-            _scrollY.animateDecay(
-                velocity.y / 2f,
-                exponentialDecay(),
-            )
+
+        var lastValue = 0f
+        AnimationState(
+            initialValue = 0f,
+            initialVelocity = velocity.y,
+        ).animateDecay(
+            exponentialDecay()
+        ) {
+            launch {
+                val delta = Offset(0f, value - lastValue)
+                lastValue = value
+                val preConsumed = nestedScrollDispatcher.dispatchPreScroll(
+                    available = delta,
+                    source = NestedScrollSource.Fling,
+                )
+
+                val weAvailable = delta - preConsumed
+                val previousY = _scrollY.value
+                _scrollY.snapTo(_scrollY.value + weAvailable.y)
+                val weConsumed = Offset(0f, _scrollY.value - previousY)
+
+                nestedScrollDispatcher.dispatchPostScroll(
+                    consumed = preConsumed + weConsumed,
+                    available = weAvailable - weConsumed,
+                    source = NestedScrollSource.Fling,
+                )
+            }
         }
     }
 
