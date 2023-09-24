@@ -10,7 +10,11 @@ import SwiftUI
 import Theme
 import Timetable
 
-enum Tab {
+enum Tab: Int, CaseIterable, Identifiable {
+    var id: Int {
+        rawValue
+    }
+    
     case timeline
     case floorMap
     case achievements
@@ -18,8 +22,11 @@ enum Tab {
 }
 
 public struct RootView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @StateObject var viewModel: RootViewModel = .init()
     @State var selection = Tab.timeline
+    @State var selectionForSidebar: Tab.ID? = Tab.timeline.id
 
     public init() {}
 
@@ -33,85 +40,151 @@ public struct RootView: View {
         case .failed:
             EmptyView()
         case .loaded(let isAchivementEnabled):
-            TabView(selection: $selection) {
-                TimetableView(
-                    sessionViewBuilder: { timetableItem in
-                        SessionView(timetableItem: timetableItem)
-                    }
-                )
-                    .tag(Tab.timeline)
-                    .tabItem {
-                        Label {
-                            Text("Timetable")
-                        } icon: {
-                            if selection == .timeline {
-                                Assets.Icons.timetable.swiftUIImage
-                                    .renderingMode(.template)
-                            } else {
-                                Assets.Icons.timetableFillOff.swiftUIImage
-                                    .renderingMode(.template)
+            let timetableView = TimetableView(
+                sessionViewBuilder: { timetableItem in
+                    SessionView(timetableItem: timetableItem)
+                }
+            )
+            let aboutView = AboutView(
+                contributorViewProvider: { _ in
+                    ContributorView()
+                },
+                staffViewProvider: { _ in
+                    StaffView()
+                },
+                sponsorViewProvider: { _ in
+                    SponsorView()
+                }
+            )
+            Group {
+                if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+                    NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
+                        List(Tab.allCases, selection: $selectionForSidebar) {
+                            let selected = $0.id == selectionForSidebar
+                            switch $0 {
+                            case .timeline:
+                                TimetableViewLabel(selected: selected)
+                            case .floorMap:
+                                FloorMapViewLabel(selected: selected)
+                            case .achievements:
+                                AchievementsViewLabel(selected: selected)
+                            case .about:
+                                AboutViewLabel(selected: selected)
                             }
                         }
-                    }
-                FloorMapView()
-                    .tag(Tab.floorMap)
-                    .tabItem {
-                        Label {
-                            Text("Floor Map")
-                        } icon: {
-                            if selection == .floorMap {
-                                Assets.Icons.floorMap.swiftUIImage
-                                    .renderingMode(.template)
-                            } else {
-                                Assets.Icons.floorMapFillOff.swiftUIImage
-                                    .renderingMode(.template)
+                    } detail: {
+                        if let selectionForSidebar, let tab = Tab(rawValue: selectionForSidebar) {
+                            switch tab {
+                            case .timeline:
+                                timetableView
+                            case .floorMap:
+                                FloorMapView()
+                            case .achievements:
+                                AchievementsView()
+                            case .about:
+                                aboutView
                             }
+                        } else {
+                            fatalError()
                         }
                     }
-//                if isAchivementEnabled {
-                    AchievementsView()
-                        .tag(Tab.achievements)
-                        .tabItem {
-                            Label {
-                                Text("Achievements")
-                            } icon: {
-                                if selection == .achievements {
-                                    Assets.Icons.achievements.swiftUIImage
-                                        .renderingMode(.template)
-                                } else {
-                                    Assets.Icons.achievementsFillOff.swiftUIImage
-                                        .renderingMode(.template)
+                    .navigationSplitViewStyle(.balanced)
+                } else {
+                    TabView(selection: $selection) {
+                        timetableView
+                            .tag(Tab.timeline)
+                            .tabItem {
+                                TimetableViewLabel(selected: selection == .timeline)
+                            }
+                        FloorMapView()
+                            .tag(Tab.floorMap)
+                            .tabItem {
+                                FloorMapViewLabel(selected: selection == .floorMap)
+                            }
+        //                if isAchivementEnabled {
+                            AchievementsView()
+                                .tag(Tab.achievements)
+                                .tabItem {
+                                    AchievementsViewLabel(selected: selection == .achievements)
                                 }
+        //                }
+                        aboutView
+                            .tag(Tab.about)
+                            .tabItem {
+                                AboutViewLabel(selected: selection == .about)
                             }
-                        }
-//                }
-                AboutView(
-                    contributorViewProvider: { _ in
-                        ContributorView()
-                    },
-                    staffViewProvider: { _ in
-                        StaffView()
-                    },
-                    sponsorViewProvider: { _ in
-                        SponsorView()
                     }
-                )
-                    .tag(Tab.about)
-                    .tabItem {
-                        Label {
-                            Text("About")
-                        } icon: {
-                            if selection == .about {
-                                Assets.Icons.info.swiftUIImage
-                                    .renderingMode(.template)
-                            } else {
-                                Assets.Icons.infoFillOff.swiftUIImage
-                                    .renderingMode(.template)
-                            }
-                        }
-                    }
+                }
             }
             .tint(AssetColors.Secondary.onSecondaryContainer.swiftUIColor)
+        }
+    }
+}
+
+private struct TimetableViewLabel: View {
+    let selected: Bool
+    var body: some View {
+        Label {
+            Text("Timetable")
+        } icon: {
+            if selected {
+                Assets.Icons.timetable.swiftUIImage
+                    .renderingMode(.template)
+            } else {
+                Assets.Icons.timetableFillOff.swiftUIImage
+                    .renderingMode(.template)
+            }
+        }
+    }
+}
+
+private struct FloorMapViewLabel: View {
+    let selected: Bool
+    var body: some View {
+        Label {
+            Text("Floor Map")
+        } icon: {
+            if selected {
+                Assets.Icons.floorMap.swiftUIImage
+                    .renderingMode(.template)
+            } else {
+                Assets.Icons.floorMapFillOff.swiftUIImage
+                    .renderingMode(.template)
+            }
+        }
+    }
+}
+
+private struct AchievementsViewLabel: View {
+    let selected: Bool
+    var body: some View {
+        Label {
+            Text("Achievements")
+        } icon: {
+            if selected {
+                Assets.Icons.achievements.swiftUIImage
+                    .renderingMode(.template)
+            } else {
+                Assets.Icons.achievementsFillOff.swiftUIImage
+                    .renderingMode(.template)
+            }
+        }
+    }
+}
+
+private struct AboutViewLabel: View {
+    let selected: Bool
+    var body: some View {
+        Label {
+            Text("About")
+        } icon: {
+            if selected {
+                Assets.Icons.info.swiftUIImage
+                    .renderingMode(.template)
+            } else {
+                Assets.Icons.infoFillOff.swiftUIImage
+                    .renderingMode(.template)
+            }
         }
     }
 }

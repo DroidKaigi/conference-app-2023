@@ -14,6 +14,7 @@ enum TimetableRouting: Hashable {
 public struct TimetableView<SessionView: View>: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: TimetableViewModel = .init()
+    @State private var isListPresented: Bool = true
     private let sessionViewBuilder: ViewProvider<TimetableItem, SessionView>
     let gradient = Gradient(stops: [
         .init(color: AssetColors.Surface.surfaceGradientTOP.swiftUIColor, location: 0.0),
@@ -78,13 +79,20 @@ public struct TimetableView<SessionView: View>: View {
                                     .frame(height: shouldCollapse ? 53 : 82)
                                     .animation(.easeInOut(duration: 0.08), value: shouldCollapse)
                                 ) {
-                                    TimetableListView(
-                                        timetableTimeGroupItems: state.timeGroupTimetableItems,
-                                        searchWord: "",
-                                        onToggleBookmark: { [weak viewModel] in
-                                            viewModel?.toggleBookmark($0)
-                                        }
-                                    )
+                                    if isListPresented {
+                                        TimetableListView(
+                                            timetableTimeGroupItems: state.timeGroupTimetableItems,
+                                            searchWord: "",
+                                            onToggleBookmark: { [weak viewModel] in
+                                                viewModel?.toggleBookmark($0)
+                                            }
+                                        )
+                                    } else {
+                                        TimetableGridView(
+                                            day: viewModel.state.selectedDay,
+                                            timetableRoomGroupItems: state.roomGroupTimetableItems
+                                        )
+                                    }
                                 }
                             }
                             .background(AssetColors.Surface.surface.swiftUIColor)
@@ -132,7 +140,16 @@ public struct TimetableView<SessionView: View>: View {
                             .buttonStyle(.plain)
                         }
                         ToolbarItem {
-                            Assets.Icons.gridView.swiftUIImage
+                            Button {
+                                isListPresented.toggle()
+                            } label: {
+                                if isListPresented {
+                                    Assets.Icons.gridView.swiftUIImage
+                                } else {
+                                    Assets.Icons.listView.swiftUIImage
+                                }
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
                 }
