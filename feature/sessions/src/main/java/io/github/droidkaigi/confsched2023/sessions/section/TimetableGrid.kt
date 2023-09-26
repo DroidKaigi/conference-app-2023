@@ -47,6 +47,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.ScrollAxisRange
@@ -228,8 +230,14 @@ fun TimetableGrid(
                     }
                 },
             )
+            .onGloballyPositioned { coordinates ->
+                timetableState.screenScrollState.componentPositionInRoot = coordinates.positionInRoot()
+            }
             .pointerInput(Unit) {
                 detectDragGestures(
+                    onDragStart = {
+                        scrollState.resetTracking()
+                    },
                     onDrag = { change, dragAmount ->
                         if (timetableScreen.enableHorizontalScroll(dragAmount.x)) {
                             if (change.positionChange() != Offset.Zero) change.consume()
@@ -482,6 +490,8 @@ class ScreenScrollState(
     private val velocityTracker = VelocityTracker()
     private val _scrollX = Animatable(initialScrollX)
     private val _scrollY = Animatable(initialScrollY)
+    var componentPositionInRoot = Offset.Zero
+    private var cancelFling = false
 
     val scrollX: Float
         get() = _scrollX.value
@@ -499,9 +509,11 @@ class ScreenScrollState(
         timeMillis: Long,
         position: Offset,
     ) {
+        cancelFling = true
         if (scrollX.isNaN().not() && scrollY.isNaN().not()) {
             coroutineScope {
-                velocityTracker.addPosition(timeMillis = timeMillis, position = position)
+                val positionInRoot = position + componentPositionInRoot
+                velocityTracker.addPosition(timeMillis = timeMillis, position = positionInRoot)
                 launch {
                     _scrollX.snapTo(scrollX)
                 }
@@ -513,6 +525,7 @@ class ScreenScrollState(
     }
 
     suspend fun flingIfPossible(nestedScrollDispatcher: NestedScrollDispatcher) = coroutineScope {
+        cancelFling = false
         val velocity = velocityTracker.calculateVelocity()
         launch {
             _scrollX.animateDecay(
@@ -546,6 +559,10 @@ class ScreenScrollState(
                     available = weAvailable - weConsumed,
                     source = NestedScrollSource.Fling,
                 )
+
+                if (cancelFling) {
+                    this@animateDecay.cancelAnimation()
+                }
             }
         }
     }
@@ -696,6 +713,9 @@ private class TimetableScreen(
         position: Offset,
         nestedScrollDispatcher: NestedScrollDispatcher,
     ) {
+        // If the position does not change, VelocityTracker malfunctions. Therefore return here.
+        if (dragAmount == Offset.Zero) return
+
         val parentConsumed = nestedScrollDispatcher.dispatchPreScroll(
             available = dragAmount,
             source = NestedScrollSource.Drag,
