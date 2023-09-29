@@ -31,7 +31,11 @@ import co.touchlab.kermit.Logger
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import io.github.droidkaigi.confsched2023.about.aboutScreenRoute
 import io.github.droidkaigi.confsched2023.about.navigateAboutScreen
+import io.github.droidkaigi.confsched2023.about.navigateOssLicenseDetailScreen
+import io.github.droidkaigi.confsched2023.about.navigateOssLicenseScreen
 import io.github.droidkaigi.confsched2023.about.nestedAboutScreen
+import io.github.droidkaigi.confsched2023.about.ossLicenseDetailScreen
+import io.github.droidkaigi.confsched2023.about.ossLicenseScreen
 import io.github.droidkaigi.confsched2023.achievements.achievementsScreenRoute
 import io.github.droidkaigi.confsched2023.achievements.navigateAchievementsScreen
 import io.github.droidkaigi.confsched2023.achievements.nestedAchievementsScreen
@@ -125,6 +129,19 @@ private fun KaigiNavHost(
             onBackClick = navController::popBackStack,
             onStaffClick = externalNavController::navigate,
         )
+        ossLicenseScreen(
+            onLicenseClick = { license ->
+                navController.navigateOssLicenseDetailScreen(license)
+            },
+            onUpClick = {
+                navController.navigateUp()
+            },
+        )
+        ossLicenseDetailScreen(
+            onUpClick = {
+                navController.navigateUp()
+            },
+        )
         // For KMP, we are not using navigation abstraction for contributors screen
         composable(contributorsScreenRoute) {
             val lifecycleOwner = LocalLifecycleOwner.current
@@ -171,7 +188,7 @@ private fun NavGraphBuilder.mainScreen(
                         Sponsors -> navController.navigateSponsorsScreen()
                         CodeOfConduct -> { externalNavController.navigate(url = "$portalBaseUrl/about/code-of-conduct") }
                         Contributors -> navController.navigate(contributorsScreenRoute)
-                        License -> externalNavController.navigateToLicenseScreen()
+                        License -> navController.navigateOssLicenseScreen()
                         Medium -> externalNavController.navigate(url = "https://medium.com/droidkaigi")
                         PrivacyPolicy -> {
                             externalNavController.navigate(url = "$portalBaseUrl/about/privacy")

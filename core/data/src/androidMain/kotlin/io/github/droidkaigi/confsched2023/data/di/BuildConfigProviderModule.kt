@@ -5,13 +5,21 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.droidkaigi.confsched2023.data.osslicense.OssLicenseDataSource
 import io.github.droidkaigi.confsched2023.model.BuildConfigProvider
+import io.github.droidkaigi.confsched2023.model.License
+import io.github.droidkaigi.confsched2023.model.OssLicenseGroup
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import java.util.Optional
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Qualifier
 public annotation class AppAndroidBuildConfig
+
+@Qualifier
+public annotation class AppAndroidOssLicenseConfig
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,6 +33,16 @@ public class BuildConfigProviderModule {
     } else {
         EmptyBuildConfigProvider
     }
+
+    @Provides
+    @Singleton
+    public fun provideOssLicenseRepositoryProvider(
+        @AppAndroidOssLicenseConfig ossLicenseDataSourceOptional: Optional<OssLicenseDataSource>,
+    ): OssLicenseDataSource = if (ossLicenseDataSourceOptional.isPresent) {
+        ossLicenseDataSourceOptional.get()
+    } else {
+        EmptyOssLicenseDataSource
+    }
 }
 
 @InstallIn(SingletonComponent::class)
@@ -35,7 +53,32 @@ public abstract class AppAndroidBuildConfigModule {
     public abstract fun bindBuildConfigProvider(): BuildConfigProvider
 }
 
+@InstallIn(SingletonComponent::class)
+@Module
+public abstract class AppAndroidOssLicenseModule {
+    @BindsOptionalOf
+    @AppAndroidOssLicenseConfig
+    public abstract fun bindOssLicenseDataStoreProvider(): OssLicenseDataSource
+}
+
 private object EmptyBuildConfigProvider : BuildConfigProvider {
     override val versionName: String = ""
     override val debugBuild: Boolean = false
+}
+
+private object EmptyOssLicenseDataSource : OssLicenseDataSource {
+    override suspend fun license(): PersistentList<OssLicenseGroup> {
+        return persistentListOf(
+            OssLicenseGroup(
+                "dummy",
+                listOf(
+                    License(
+                        "id",
+                        "name",
+                        "license text",
+                    ),
+                ),
+            ),
+        )
+    }
 }
