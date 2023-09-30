@@ -7,12 +7,13 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 class LottieTestRule : TestWatcher() {
+    private val defaultExecutor = Executors.newCachedThreadPool()
 
     override fun starting(description: Description) {
         LottieTask.EXECUTOR = Executor(Runnable::run)
     }
 
     override fun finished(description: Description) {
-        LottieTask.EXECUTOR = Executors.newCachedThreadPool()
+        LottieTask.EXECUTOR = defaultExecutor
     }
 }
