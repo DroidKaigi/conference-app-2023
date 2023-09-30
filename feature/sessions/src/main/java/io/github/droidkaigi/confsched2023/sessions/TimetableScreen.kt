@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -51,6 +52,8 @@ import io.github.droidkaigi.confsched2023.sessions.section.TimetableListUiState
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheet
 import io.github.droidkaigi.confsched2023.sessions.section.TimetableSheetUiState
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.FakeClock
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.collections.immutable.toPersistentMap
 import kotlin.math.roundToInt
 
@@ -249,32 +252,34 @@ private fun TimetableScreen(
 @MultiThemePreviews
 @Composable
 fun PreviewTimetableScreenDark() {
-    KaigiTheme {
-        TimetableScreen(
-            uiState = TimetableScreenUiState(
-                contentUiState = TimetableSheetUiState.ListTimetable(
-                    mapOf(
-                        DroidKaigi2023Day.Day1 to TimetableListUiState(
-                            mapOf<String, List<TimetableItem>>().toPersistentMap(),
-                            Timetable(),
-                        ),
-                        DroidKaigi2023Day.Day2 to TimetableListUiState(
-                            mapOf<String, List<TimetableItem>>().toPersistentMap(),
-                            Timetable(),
+    CompositionLocalProvider(LocalClock provides FakeClock) {
+        KaigiTheme {
+            TimetableScreen(
+                uiState = TimetableScreenUiState(
+                    contentUiState = TimetableSheetUiState.ListTimetable(
+                        mapOf(
+                            DroidKaigi2023Day.Day1 to TimetableListUiState(
+                                mapOf<String, List<TimetableItem>>().toPersistentMap(),
+                                Timetable(),
+                            ),
+                            DroidKaigi2023Day.Day2 to TimetableListUiState(
+                                mapOf<String, List<TimetableItem>>().toPersistentMap(),
+                                Timetable(),
+                            ),
                         ),
                     ),
+                    timetableUiType = TimetableUiType.Grid,
+                    onBookmarkIconClickStatus = false,
                 ),
-                timetableUiType = TimetableUiType.Grid,
-                onBookmarkIconClickStatus = false,
-            ),
-            snackbarHostState = SnackbarHostState(),
-            onTimetableItemClick = {},
-            onBookmarkClick = { _, _ -> },
-            onBookmarkIconClick = {},
-            onSearchClick = {},
-            onTimetableUiChangeClick = {},
-            onReachAnimationEnd = {},
-            modifier = Modifier.statusBarsPadding(),
-        )
+                snackbarHostState = SnackbarHostState(),
+                onTimetableItemClick = {},
+                onBookmarkClick = { _, _ -> },
+                onBookmarkIconClick = {},
+                onSearchClick = {},
+                onTimetableUiChangeClick = {},
+                onReachAnimationEnd = {},
+                modifier = Modifier.statusBarsPadding(),
+            )
+        }
     }
 }

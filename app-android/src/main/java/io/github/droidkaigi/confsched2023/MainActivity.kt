@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
@@ -19,12 +20,18 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.window.layout.DisplayFeature
 import androidx.window.layout.WindowInfoTracker
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.droidkaigi.confsched2023.ui.compositionlocal.LocalClock
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var clockProvider: ClockProvider
+
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -55,10 +62,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             val windowSize = calculateWindowSizeClass(this)
             val displayFeatures = calculateDisplayFeatures(this)
-            KaigiApp(
-                windowSize = windowSize,
-                displayFeatures = displayFeatures,
-            )
+            CompositionLocalProvider(LocalClock provides clockProvider.clock()) {
+                KaigiApp(
+                    windowSize = windowSize,
+                    displayFeatures = displayFeatures,
+                )
+            }
         }
     }
 }

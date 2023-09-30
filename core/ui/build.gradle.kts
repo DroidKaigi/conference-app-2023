@@ -18,6 +18,7 @@ kotlin {
                 implementation(libs.kermit)
                 api(projects.core.common)
                 api(libs.composeImageLoader)
+                api(libs.kotlinxDatetime)
             }
         }
     }

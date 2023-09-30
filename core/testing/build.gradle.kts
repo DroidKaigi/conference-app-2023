@@ -12,6 +12,7 @@ dependencies {
     implementation(projects.core.model)
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
+    implementation(projects.core.ui)
     implementation(projects.feature.main)
     implementation(projects.feature.sessions)
     implementation(projects.feature.about)
