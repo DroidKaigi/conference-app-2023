@@ -1,7 +1,6 @@
 package io.github.droidkaigi.confsched2023.achievements
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.airbnb.lottie.LottieTask
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -14,14 +13,12 @@ import io.github.droidkaigi.confsched2023.testing.HiltTestActivity
 import io.github.droidkaigi.confsched2023.testing.RobotTestRule
 import io.github.droidkaigi.confsched2023.testing.category.ScreenshotTests
 import io.github.droidkaigi.confsched2023.testing.robot.AchievementsScreenRobot
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import java.util.concurrent.Executor
 import javax.inject.Inject
 
 @RunWith(AndroidJUnit4::class)
@@ -37,11 +34,6 @@ class AchievementsScreenTest {
 
     @Inject
     lateinit var achievementsScreenRobot: AchievementsScreenRobot
-
-    @Before
-    fun setup() {
-        LottieTask.EXECUTOR = Executor(Runnable::run)
-    }
 
     @Test
     @Category(ScreenshotTests::class)

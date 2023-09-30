@@ -61,6 +61,7 @@ class RobotTestRule(
             .outerRule(HiltAndroidAutoInjectRule(testInstance))
             .around(CoroutinesTestRule())
             .around(TimeZoneTestRule())
+            .around(LottieTestRule())
             .around(object : TestWatcher() {
                 override fun starting(description: Description) {
                     // To see logs in the console
