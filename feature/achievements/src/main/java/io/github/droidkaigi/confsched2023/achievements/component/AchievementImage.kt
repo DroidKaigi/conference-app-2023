@@ -3,10 +3,11 @@ package io.github.droidkaigi.confsched2023.achievements.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -26,11 +27,14 @@ fun AchievementImage(
     onAchievementClick: (Achievement) -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val configuration = LocalConfiguration.current
+    val screenWidth = configuration.screenWidthDp.dp
+
     Image(
         painter = painterResource(id = achievementAnimation.getDrawableResId()),
         contentDescription = achievementAnimation.contentDescription,
         modifier = modifier
-            .padding(horizontal = 21.dp)
+            .size(screenWidth / 3)
             .testTag(achievementAnimation.testTag)
             .then(
                 if (achievementAnimation.hasAchievement) {

@@ -7,6 +7,7 @@ import shared
 struct TimetableState: ViewModelState {
     struct LoadedState: Equatable {
         var timeGroupTimetableItems: [TimetableTimeGroupItems]
+        var roomGroupTimetableItems: [TimetableRoomGroupItems]
         var bookmarks: Set<TimetableItemId>
     }
 
@@ -75,9 +76,22 @@ final class TimetableViewModel: ObservableObject {
             }
         var seen: [TimetableTimeGroupItems: Bool] = [:]
         let distinctedTimetableTimeGroupItems = timetableTimeGroupItems.filter { seen.updateValue(true, forKey: $0) == nil }
+        let roomGroupTimetableItems = cachedTimetable.dayTimetable(droidKaigi2023Day: state.selectedDay)
+            .rooms
+            .map { room in
+                let items = cachedTimetable.contents
+                    .filter { $0.timetableItem.room == room }
+                    .filter { $0.timetableItem.day == state.selectedDay }
+                    .sorted { $0.timetableItem.startsAt.epochSeconds < $1.timetableItem.startsAt.epochSeconds }
+                return TimetableRoomGroupItems(
+                    room: room,
+                    items: items
+                )
+            }
         state.loadedState = .loaded(
             .init(
                 timeGroupTimetableItems: distinctedTimetableTimeGroupItems,
+                roomGroupTimetableItems: roomGroupTimetableItems,
                 bookmarks: cachedTimetable.bookmarks
             )
         )
