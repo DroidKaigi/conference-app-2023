@@ -112,6 +112,19 @@ class TimetableScreenTest {
 
     @Test
     @Category(ScreenshotTests::class)
+    fun checkGridStickyTitleShot() {
+        timetableScreenRobot {
+            setupTimetableScreenContent()
+            clickTimetableUiTypeChangeButton()
+            scrollTimetable(0.45F) // sticky title (without speaker icon)
+            checkTimetableListCapture()
+            scrollTimetable(0.15F) // sticky title (with speaker icon)
+            checkTimetableListCapture()
+        }
+    }
+
+    @Test
+    @Category(ScreenshotTests::class)
     @Config(fontScale = 0.5f)
     fun checkSmallFontScaleShot() {
         timetableScreenRobot {

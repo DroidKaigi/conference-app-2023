@@ -123,13 +123,15 @@ class TimetableScreenRobot @Inject constructor(
         waitUntilIdle()
     }
 
-    fun scrollTimetable() {
+    fun scrollTimetable(amount: Float = 0.3F) {
+        val startRatio = 0.8F
+        assert(amount <= startRatio)
         composeTestRule
             .onNode(hasTestTag(TimetableScreenTestTag))
             .performTouchInput {
                 swipeUp(
-                    startY = visibleSize.height * 4F / 5,
-                    endY = visibleSize.height / 2F,
+                    startY = visibleSize.height * startRatio,
+                    endY = visibleSize.height * (startRatio - amount),
                 )
             }
     }
