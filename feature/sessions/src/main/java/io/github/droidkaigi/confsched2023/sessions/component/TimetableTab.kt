@@ -14,7 +14,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabPosition
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -33,6 +32,7 @@ import androidx.compose.ui.zIndex
 import io.github.droidkaigi.confsched2023.designsystem.preview.MultiThemePreviews
 import io.github.droidkaigi.confsched2023.designsystem.theme.KaigiTheme
 import io.github.droidkaigi.confsched2023.model.DroidKaigi2023Day
+import io.github.droidkaigi.confsched2023.sessions.tabIndicatorOffsetModifierNode
 import kotlin.math.roundToInt
 
 @Composable
@@ -105,7 +105,8 @@ fun TimetableTabRow(
     indicator: @Composable (tabPositions: List<TabPosition>) -> Unit = @Composable { tabPositions ->
         if (selectedTabIndex < tabPositions.size) {
             TimetableTabIndicator(
-                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+//                Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                Modifier.tabIndicatorOffsetModifierNode(tabPositions[selectedTabIndex]),
             )
         }
     },
