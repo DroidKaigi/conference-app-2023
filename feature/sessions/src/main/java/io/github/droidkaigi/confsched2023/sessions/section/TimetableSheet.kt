@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -129,17 +128,11 @@ fun TimetableSheet(
                 }
 
                 is GridTimetable -> {
-                    val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
                     TimetableGrid(
                         uiState = requireNotNull(uiState.timetableGridUiState[selectedDay]),
-                        nestedScrollDispatcher = nestedScrollDispatcher,
                         onTimetableItemClick = onTimetableItemClick,
                         modifier = Modifier
                             .fillMaxSize()
-                            .nestedScroll(
-                                timetableSheetContentScrollState.nestedScrollConnection,
-                                nestedScrollDispatcher,
-                            )
                             .weight(1f),
                         contentPadding = PaddingValues(
                             bottom = contentPadding.calculateBottomPadding(),

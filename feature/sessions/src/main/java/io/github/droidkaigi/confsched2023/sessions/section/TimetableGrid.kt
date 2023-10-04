@@ -1,6 +1,8 @@
 package io.github.droidkaigi.confsched2023.sessions.section
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationState
+import androidx.compose.animation.core.animateDecay
 import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.focusGroup
@@ -35,14 +37,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.input.pointer.PointerInputChange
 import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.input.pointer.util.VelocityTracker
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.semantics.ScrollAxisRange
@@ -84,14 +90,12 @@ data class TimetableGridUiState(val timetable: Timetable)
 @Composable
 fun TimetableGrid(
     uiState: TimetableGridUiState,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
 ) {
     TimetableGrid(
         timetable = uiState.timetable,
-        nestedScrollDispatcher = nestedScrollDispatcher,
         onTimetableItemClick = onTimetableItemClick,
         modifier = modifier,
         contentPadding = contentPadding,
@@ -101,7 +105,6 @@ fun TimetableGrid(
 @Composable
 fun TimetableGrid(
     timetable: Timetable,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     onTimetableItemClick: (TimetableItem) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -133,7 +136,6 @@ fun TimetableGrid(
             TimetableGrid(
                 timetable = timetable,
                 timetableState = timetableGridState,
-                nestedScrollDispatcher = nestedScrollDispatcher,
                 modifier = modifier,
                 contentPadding = PaddingValues(
                     top = 16.dp + contentPadding.calculateTopPadding(),
@@ -157,7 +159,6 @@ fun TimetableGrid(
 fun TimetableGrid(
     timetable: Timetable,
     timetableState: TimetableState,
-    nestedScrollDispatcher: NestedScrollDispatcher,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     content: @Composable (TimetableItem, Int) -> Unit,
@@ -186,10 +187,14 @@ fun TimetableGrid(
         content(timetableItemWithFavorite.timetableItem, itemHeightPx)
     }
 
+    val nestedScrollConnection = remember { object : NestedScrollConnection {} }
+    val nestedScrollDispatcher = remember { NestedScrollDispatcher() }
+
     LazyLayout(
         modifier = modifier
             .focusGroup()
             .clipToBounds()
+            .nestedScroll(nestedScrollConnection, nestedScrollDispatcher)
             .drawBehind {
                 timetableScreen.timeHorizontalLines.value.forEach {
                     drawLine(
@@ -225,8 +230,14 @@ fun TimetableGrid(
                     }
                 },
             )
+            .onGloballyPositioned { coordinates ->
+                timetableState.screenScrollState.componentPositionInRoot = coordinates.positionInRoot()
+            }
             .pointerInput(Unit) {
                 detectDragGestures(
+                    onDragStart = {
+                        scrollState.resetTracking()
+                    },
                     onDrag = { change, dragAmount ->
                         if (timetableScreen.enableHorizontalScroll(dragAmount.x)) {
                             if (change.positionChange() != Offset.Zero) change.consume()
@@ -245,7 +256,7 @@ fun TimetableGrid(
                     },
                     onDragEnd = {
                         coroutineScope.launch {
-                            scrollState.flingIfPossible()
+                            scrollState.flingIfPossible(nestedScrollDispatcher)
                         }
                     },
                 )
@@ -322,7 +333,6 @@ fun TimetableGrid(
 fun TimetablePreview() {
     TimetableGrid(
         timetable = Timetable.fake(),
-        nestedScrollDispatcher = remember { NestedScrollDispatcher() },
         onTimetableItemClick = {},
         modifier = Modifier.fillMaxSize(),
     )
@@ -480,6 +490,8 @@ class ScreenScrollState(
     private val velocityTracker = VelocityTracker()
     private val _scrollX = Animatable(initialScrollX)
     private val _scrollY = Animatable(initialScrollY)
+    var componentPositionInRoot = Offset.Zero
+    private var cancelFling = false
 
     val scrollX: Float
         get() = _scrollX.value
@@ -497,9 +509,11 @@ class ScreenScrollState(
         timeMillis: Long,
         position: Offset,
     ) {
+        cancelFling = true
         if (scrollX.isNaN().not() && scrollY.isNaN().not()) {
             coroutineScope {
-                velocityTracker.addPosition(timeMillis = timeMillis, position = position)
+                val positionInRoot = position + componentPositionInRoot
+                velocityTracker.addPosition(timeMillis = timeMillis, position = positionInRoot)
                 launch {
                     _scrollX.snapTo(scrollX)
                 }
@@ -510,7 +524,8 @@ class ScreenScrollState(
         }
     }
 
-    suspend fun flingIfPossible() = coroutineScope {
+    suspend fun flingIfPossible(nestedScrollDispatcher: NestedScrollDispatcher) = coroutineScope {
+        cancelFling = false
         val velocity = velocityTracker.calculateVelocity()
         launch {
             _scrollX.animateDecay(
@@ -518,11 +533,37 @@ class ScreenScrollState(
                 exponentialDecay(),
             )
         }
-        launch {
-            _scrollY.animateDecay(
-                velocity.y / 2f,
-                exponentialDecay(),
-            )
+
+        var lastValue = 0f
+        AnimationState(
+            initialValue = 0f,
+            initialVelocity = velocity.y,
+        ).animateDecay(
+            exponentialDecay(),
+        ) {
+            launch {
+                val delta = Offset(0f, value - lastValue)
+                lastValue = value
+                val preConsumed = nestedScrollDispatcher.dispatchPreScroll(
+                    available = delta,
+                    source = NestedScrollSource.Fling,
+                )
+
+                val weAvailable = delta - preConsumed
+                val previousY = _scrollY.value
+                _scrollY.snapTo(_scrollY.value + weAvailable.y)
+                val weConsumed = Offset(0f, _scrollY.value - previousY)
+
+                nestedScrollDispatcher.dispatchPostScroll(
+                    consumed = preConsumed + weConsumed,
+                    available = weAvailable - weConsumed,
+                    source = NestedScrollSource.Fling,
+                )
+
+                if (cancelFling) {
+                    this@animateDecay.cancelAnimation()
+                }
+            }
         }
     }
 
@@ -672,6 +713,9 @@ private class TimetableScreen(
         position: Offset,
         nestedScrollDispatcher: NestedScrollDispatcher,
     ) {
+        // If the position does not change, VelocityTracker malfunctions. Therefore return here.
+        if (dragAmount == Offset.Zero) return
+
         val parentConsumed = nestedScrollDispatcher.dispatchPreScroll(
             available = dragAmount,
             source = NestedScrollSource.Drag,
