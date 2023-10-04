@@ -1,12 +1,14 @@
 package io.github.droidkaigi.confsched2023.achievements
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -16,8 +18,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -31,8 +35,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import io.github.droidkaigi.confsched2023.achievements.AchievementAnimationState.Animating
+import io.github.droidkaigi.confsched2023.achievements.component.AchievementHighlightAnimation
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementList
 import io.github.droidkaigi.confsched2023.achievements.section.AchievementListUiState
+import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 
 const val achievementsScreenRoute = "achievements"
@@ -83,6 +90,8 @@ fun AchievementsScreen(
         snackbarHostState = snackbarHostState,
         contentPadding = contentPadding,
         onReset = viewModel::onReset,
+        onAchievementClick = { achievement -> viewModel.onAchievementClick(achievement) },
+        onAnimationFinish = viewModel::onAnimationFinish,
         onDisplayedInitialDialog = viewModel::onDisplayedInitialDialog,
     )
 }
@@ -90,7 +99,16 @@ fun AchievementsScreen(
 data class AchievementsScreenUiState(
     val achievementListUiState: AchievementListUiState,
     val isShowInitialDialog: Boolean,
+    val achievementAnimationState: AchievementAnimationState,
 )
+
+sealed interface AchievementAnimationState {
+    data class Animating(
+        val achievement: Achievement,
+        val animationRawId: Int,
+    ) : AchievementAnimationState
+    data object NotAnimating : AchievementAnimationState
+}
 
 @Composable
 private fun AchievementsScreen(
@@ -98,36 +116,59 @@ private fun AchievementsScreen(
     snackbarHostState: SnackbarHostState,
     contentPadding: PaddingValues,
     onReset: () -> Unit,
+    onAchievementClick: (Achievement) -> Unit,
+    onAnimationFinish: () -> Unit,
     onDisplayedInitialDialog: () -> Unit,
 ) {
     val layoutDirection = LocalLayoutDirection.current
-    Scaffold(
-        modifier = Modifier.testTag(AchievementsScreenTestTag),
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        contentWindowInsets = WindowInsets(
-            left = contentPadding.calculateLeftPadding(layoutDirection),
-            top = contentPadding.calculateTopPadding(),
-            right = contentPadding.calculateRightPadding(layoutDirection),
-            bottom = contentPadding.calculateBottomPadding(),
-        ),
-        content = { innerPadding ->
-            if (uiState.isShowInitialDialog) {
-                AchievementScreenDialog(
-                    onDismissRequest = onDisplayedInitialDialog,
+    Box {
+        Scaffold(
+            modifier = Modifier.testTag(AchievementsScreenTestTag),
+            snackbarHost = { SnackbarHost(snackbarHostState) },
+            contentWindowInsets = WindowInsets(
+                left = contentPadding.calculateLeftPadding(layoutDirection),
+                top = contentPadding.calculateTopPadding(),
+                right = contentPadding.calculateRightPadding(layoutDirection),
+                bottom = contentPadding.calculateBottomPadding(),
+            ),
+            content = { innerPadding ->
+                if (uiState.isShowInitialDialog) {
+                    AchievementScreenDialog(
+                        onDismissRequest = onDisplayedInitialDialog,
+                    )
+                }
+                AchievementList(
+                    uiState = uiState.achievementListUiState,
+                    contentPadding = innerPadding,
+                    onReset = onReset,
+                    onAchievementClick = onAchievementClick,
+                    modifier = Modifier.padding(
+                        top = innerPadding.calculateTopPadding(),
+                        start = innerPadding.calculateStartPadding(layoutDirection),
+                        end = innerPadding.calculateEndPadding(layoutDirection),
+                    ),
+                )
+            },
+        )
+        if (uiState.achievementAnimationState is Animating) {
+            DisposableEffect(uiState.achievementAnimationState) {
+                onDispose {
+                    onAnimationFinish()
+                }
+            }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.6F),
+            ) {
+                AchievementHighlightAnimation(
+                    animationRawId = uiState.achievementAnimationState.animationRawId,
+                    onAnimationFinish = {
+                        onAnimationFinish()
+                    },
                 )
             }
-            AchievementList(
-                uiState = uiState.achievementListUiState,
-                contentPadding = innerPadding,
-                onReset = onReset,
-                modifier = Modifier.padding(
-                    top = innerPadding.calculateTopPadding(),
-                    start = innerPadding.calculateStartPadding(layoutDirection),
-                    end = innerPadding.calculateEndPadding(layoutDirection),
-                ),
-            )
-        },
-    )
+        }
+    }
 }
 
 @Composable

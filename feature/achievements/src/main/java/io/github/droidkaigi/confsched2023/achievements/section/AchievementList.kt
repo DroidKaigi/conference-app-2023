@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementImage
 import io.github.droidkaigi.confsched2023.achievements.component.AchievementsDetail
+import io.github.droidkaigi.confsched2023.model.Achievement
 import io.github.droidkaigi.confsched2023.model.AchievementAnimation
 import kotlinx.collections.immutable.ImmutableList
 
@@ -37,6 +38,7 @@ fun AchievementList(
     uiState: AchievementListUiState,
     contentPadding: PaddingValues,
     onReset: () -> Unit,
+    onAchievementClick: (Achievement) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -77,6 +79,7 @@ fun AchievementList(
             ) { achievementAnimation ->
                 AchievementImage(
                     achievementAnimation = achievementAnimation,
+                    onAchievementClick = onAchievementClick,
                 )
             }
             if (uiState.isResetButtonEnabled) {
