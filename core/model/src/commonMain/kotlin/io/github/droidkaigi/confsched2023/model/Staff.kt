@@ -9,11 +9,11 @@ public data class Staff(
     val profileUrl: String,
     val iconUrl: String,
 ) {
-    companion object
+    public companion object
 }
 
 // create fakes
-fun Staff.Companion.fakes(): PersistentList<Staff> {
+public fun Staff.Companion.fakes(): PersistentList<Staff> {
     return (1..20).map {
         Staff(
             id = it.toLong(),

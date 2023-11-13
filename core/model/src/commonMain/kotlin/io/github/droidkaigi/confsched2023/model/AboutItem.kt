@@ -1,13 +1,13 @@
 package io.github.droidkaigi.confsched2023.model
 
-sealed class AboutItem {
-    data object Sponsors : AboutItem()
-    data object Contributors : AboutItem()
-    data object Staff : AboutItem()
-    data object CodeOfConduct : AboutItem()
-    data object License : AboutItem()
-    data object PrivacyPolicy : AboutItem()
-    data object YouTube : AboutItem()
-    data object X : AboutItem()
-    data object Medium : AboutItem()
+public sealed class AboutItem {
+    public data object Sponsors : AboutItem()
+    public data object Contributors : AboutItem()
+    public data object Staff : AboutItem()
+    public data object CodeOfConduct : AboutItem()
+    public data object License : AboutItem()
+    public data object PrivacyPolicy : AboutItem()
+    public data object YouTube : AboutItem()
+    public data object X : AboutItem()
+    public data object Medium : AboutItem()
 }

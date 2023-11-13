@@ -45,7 +45,7 @@ public enum class DroidKaigi2023Day(
     ),
     ;
 
-    fun getDropDownText(language: String): String {
+    public fun getDropDownText(language: String): String {
         val japanese = "ja"
 
         val date = this.start.toLocalDateTime(TimeZone.currentSystemDefault())
@@ -81,7 +81,7 @@ public enum class DroidKaigi2023Day(
         /**
          * @return appropriate initial day for now
          */
-        fun initialSelectedDay(clock: Clock): DroidKaigi2023Day {
+        public fun initialSelectedDay(clock: Clock): DroidKaigi2023Day {
             val reversedEntries = entries.sortedByDescending { it.day }
             var selectedDay = reversedEntries.last()
             for (entry in reversedEntries) {

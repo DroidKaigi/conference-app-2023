@@ -4,7 +4,7 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.coroutines.flow.Flow
 import kotlin.coroutines.cancellation.CancellationException
 
-interface StaffRepository {
+public interface StaffRepository {
 
     public fun staffs(): Flow<PersistentList<Staff>>
 

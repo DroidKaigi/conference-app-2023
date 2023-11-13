@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.model
 
-interface BuildConfigProvider {
-    val versionName: String
-    val debugBuild: Boolean
+public interface BuildConfigProvider {
+    public val versionName: String
+    public val debugBuild: Boolean
 }

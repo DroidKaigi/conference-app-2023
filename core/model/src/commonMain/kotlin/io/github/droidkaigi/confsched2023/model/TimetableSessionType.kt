@@ -1,8 +1,8 @@
 package io.github.droidkaigi.confsched2023.model
 
-enum class TimetableSessionType(
-    val key: String,
-    val label: MultiLangText,
+public enum class TimetableSessionType(
+    public val key: String,
+    public val label: MultiLangText,
 ) {
     WELCOME_TALK(
         key = "WELCOME_TALK",
@@ -34,8 +34,8 @@ enum class TimetableSessionType(
     ),
     ;
 
-    companion object {
-        fun ofOrNull(key: String): TimetableSessionType? {
+    public companion object {
+        public fun ofOrNull(key: String): TimetableSessionType? {
             return entries.firstOrNull {
                 it.key == key
             }

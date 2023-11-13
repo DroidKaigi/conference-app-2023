@@ -1,6 +1,6 @@
 package io.github.droidkaigi.confsched2023.model
 
-enum class Achievement(val id: String, val sha256: String) {
+public enum class Achievement(public val id: String, public val sha256: String) {
     ArcticFox(
         id = "Arctic Fox",
         sha256 = "8370e6e6326c36f24b22f92a47ded5c3f1897aad46dfd9527016d2f3034d5f6e",
@@ -22,8 +22,8 @@ enum class Achievement(val id: String, val sha256: String) {
         sha256 = "4e52d5a2f091279b365576319ee18384b3340e61f6c97a549ad8a7940c51d0bb",
     ),
     ;
-    companion object {
-        fun ofOrNull(id: String): Achievement? {
+    public companion object {
+        public fun ofOrNull(id: String): Achievement? {
             return entries.find { it.id == id }
         }
     }

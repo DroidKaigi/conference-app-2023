@@ -7,7 +7,7 @@ public data class TimetableCategory(
     public companion object
 }
 
-fun TimetableCategory.Companion.fakes(): List<TimetableCategory> {
+public fun TimetableCategory.Companion.fakes(): List<TimetableCategory> {
     return listOf(
         TimetableCategory(
             id = 1,

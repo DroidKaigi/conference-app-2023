@@ -17,20 +17,20 @@ public data class SideEvent(
     val link: String?,
     val imageLink: String?,
 ) {
-    enum class MarkShape {
+    public enum class MarkShape {
         Favorite,
         Circle,
         Square,
     }
 
-    enum class MarkColor {
+    public enum class MarkColor {
         Pink, Orange, Blue, Red, Purple
     }
 
     public companion object
 }
 
-val SideEvents: PersistentList<SideEvent> = persistentListOf(
+public val SideEvents: PersistentList<SideEvent> = persistentListOf(
     SideEvent(
         title = MultiLangText(
             jaTitle = "Day.3 イベント",
@@ -52,7 +52,7 @@ val SideEvents: PersistentList<SideEvent> = persistentListOf(
     ),
 )
 
-val FakeSideEvents
+public val FakeSideEvents: PersistentList<SideEvent>
     get() = persistentListOf(
         SideEvent(
             title = MultiLangText(

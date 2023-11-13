@@ -99,7 +99,7 @@ public sealed class TimetableItem {
         "https://2023.droidkaigi.jp/en/timetable/${id.value}"
     }
 
-    fun getSupportedLangString(isJapaneseLocale: Boolean): String {
+    public fun getSupportedLangString(isJapaneseLocale: Boolean): String {
         val japanese = if (isJapaneseLocale) "日本語" else "Japanese"
         val english = if (isJapaneseLocale) "英語" else "English"
         val japaneseWithInterpretation =
