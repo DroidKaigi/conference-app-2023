@@ -17,7 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -63,6 +62,7 @@ import io.github.droidkaigi.confsched2023.model.FloorLevel
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Basement
 import io.github.droidkaigi.confsched2023.model.FloorLevel.Ground
 import io.github.droidkaigi.confsched2023.model.SideEvents
+import io.github.droidkaigi.confsched2023.ui.AutoSizableText
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.toImmutableList
 
@@ -155,16 +155,20 @@ private fun FloorMapScreen(
             TopAppBar(
                 title = {
                     if (scrollBehavior.state.overlappedFraction == 0f) {
-                        Text(
+                        AutoSizableText(
                             text = FloorMapStrings.Title.asString(),
-                            style = MaterialTheme.typography.headlineLarge,
+                            minFontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            maxLines = 1,
                             fontWeight = FontWeight.Medium,
+                            style = MaterialTheme.typography.headlineLarge,
                         )
                     } else {
-                        Text(
+                        AutoSizableText(
                             text = FloorMapStrings.Title.asString(),
-                            style = MaterialTheme.typography.titleLarge,
                             modifier = Modifier.alpha(scrollBehavior.state.overlappedFraction),
+                            minFontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            maxLines = 1,
+                            style = MaterialTheme.typography.titleLarge,
                         )
                     }
                 },

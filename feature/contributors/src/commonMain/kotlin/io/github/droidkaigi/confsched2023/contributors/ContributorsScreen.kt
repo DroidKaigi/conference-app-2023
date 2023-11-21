@@ -11,10 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,6 +25,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.testTag
 import io.github.droidkaigi.confsched2023.contributors.component.ContributorListItem
 import io.github.droidkaigi.confsched2023.model.Contributor
+import io.github.droidkaigi.confsched2023.ui.AutoSizableText
 import io.github.droidkaigi.confsched2023.ui.SnackbarMessageEffect
 import kotlinx.collections.immutable.PersistentList
 
@@ -78,7 +79,12 @@ private fun ContributorsScreen(
             if (scrollBehavior != null) {
                 LargeTopAppBar(
                     title = {
-                        Text(text = "Contributor")
+                        AutoSizableText(
+                            text = "Contributor",
+                            minFontSize = MaterialTheme.typography.bodySmall.fontSize,
+                            style = MaterialTheme.typography.titleLarge,
+                            maxLines = 1,
+                        )
                     },
                     navigationIcon = {
                         IconButton(
