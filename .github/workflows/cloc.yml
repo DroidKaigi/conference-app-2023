@@ -1,0 +1,15 @@
+name: cloc
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cloc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: cloc
+        uses: maxfie1d/actions-cloc@v1
