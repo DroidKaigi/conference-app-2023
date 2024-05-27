@@ -12,6 +12,7 @@ plugins {
     id("droidkaigi.primitive.android.roborazzi")
     id("droidkaigi.primitive.kover.entrypoint")
     id("droidkaigi.primitive.android.osslicenses")
+    alias(libs.plugins.androidx.baselineprofile)
 }
 
 val keystorePropertiesFile = file("keystore.properties")
@@ -89,7 +90,8 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             matchingFallbacks += listOf("release")
             isDebuggable = false
-            proguardFiles("benchmark-rules.pro")
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 }
@@ -102,6 +104,8 @@ dependencies {
     implementation(projects.feature.sponsors)
     implementation(projects.feature.floorMap)
     implementation(projects.feature.achievements)
+    baselineProfile(projects.baselineprofile)
+    implementation(libs.profileinstaller)
     implementation(projects.feature.staff)
     implementation(projects.core.model)
     implementation(projects.core.data)

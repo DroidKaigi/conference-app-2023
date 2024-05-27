@@ -13,7 +13,7 @@ class KmpPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
             }
-            tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class.java) {
+            tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile::class) {
                 kotlinOptions.jvmTarget = "11"
             }
             tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink>().configureEach {

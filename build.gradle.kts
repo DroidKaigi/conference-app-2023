@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.androidGradleLibraryPlugin) apply false
     alias(libs.plugins.kotlinGradlePlugin) apply false
     alias(libs.plugins.kotlinxKover) apply false
+    alias(libs.plugins.androidTest) apply false
+    alias(libs.plugins.androidx.baselineprofile) apply false
 }
 
 tasks.register("clean", Delete::class) {
